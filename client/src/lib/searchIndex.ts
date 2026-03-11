@@ -506,8 +506,7 @@ export const searchIndex: Record<string, string[]> = {
   ],
 
   // ===== claude-mux-manual =====
-  '/claude-mux': ['Claude Code', 'AI駆動開発', 'tmux統合', 'ロードマップ', '学習項目'],
-  '/claude-mux/getting-started/welcome': ['対象となるエンジニア', '学習のロードマップ', 'ガイドの特徴', '準備はよろしいですか'],
+  '/claude-mux': ['対象となるエンジニア', '学習のロードマップ', 'ガイドの特徴', '準備はよろしいですか'],
   '/claude-mux/getting-started/why-claude-code': ['ターミナルファーストのAIエージェント', '他のAIコーディングツールとの違い', 'エージェンティック開発の実践', 'tmux', 'Copilot', 'Cursor'],
   '/claude-mux/claude-intro/claude-code-intro': ['設計コンセプト', '主要な機能カテゴリ', '信頼と安全性のモデル', 'IDE統合', '導入手順', 'キーボードショートカット', 'CLI'],
   '/claude-mux/claude-intro/install-setup': ['インストール', '認証の設定', 'プロジェクトの初期化', '基本的な起動オプション', 'npm', 'API キー'],
@@ -544,11 +543,11 @@ export const searchIndex: Record<string, string[]> = {
   '/claude-mux/best-practices/testing-debugging': ['テスト駆動の開発フロー', 'Writer/Reviewer パターン', 'エラーの根本原因を特定するプロンプティング', 'Subagents を使ったコードレビュー', 'スクリーンショットベースの UI デバッグ', 'ファンアウト: 大規模移行での並列処理'],
   '/claude-mux/hooks-advanced/hooks-guide': ['Hooks とは', 'Hook イベント一覧', '3つの Hook タイプ', 'Matcher によるフィルタリング', '入出力の仕様', '設定ファイルの配置スコープ', 'PreToolUse', 'PostToolUse', 'command', 'prompt', 'agent'],
   '/claude-mux/hooks-advanced/hooks-recipes': ['デスクトップ通知', 'ファイル編集後の自動フォーマット', '保護ファイルへの編集ブロック', 'コンパクション後のコンテキスト再注入', 'ツール使用の監査ログ', 'Prompt Hook: タスク完了チェック', 'Agent Hook: テスト実行による検証'],
-  '/claude-mux/cicd-headless/github-actions': ['claude-code-action の概要', 'セットアップ手順', 'トリガーイベント', '主要パラメータ', 'セキュリティと権限', '実践パターン', 'GitHub Actions'],
-  '/claude-mux/cicd-headless/headless-mode': ['パイプモード', '自動化スクリプト', '権限の自動承認', 'サンドボックス環境', 'SDK によるプログラム的な利用', 'ヘッドレス実行の主要オプション', '-p', '--dangerously-skip-permissions'],
+  '/claude-mux/ci-cd/github-actions': ['claude-code-action の概要', 'セットアップ手順', 'トリガーイベント', '主要パラメータ', 'セキュリティと権限', '実践パターン', 'GitHub Actions'],
+  '/claude-mux/ci-cd/headless-mode': ['パイプモード', '自動化スクリプト', '権限の自動承認', 'サンドボックス環境', 'SDK によるプログラム的な利用', 'ヘッドレス実行の主要オプション', '-p', '--dangerously-skip-permissions'],
   '/claude-mux/ide-agent-teams/ide-integration': ['VS Code 連携', 'JetBrains 連携', 'ターミナル統合のセットアップ', 'デスクトップアプリ', '実践的な使い分け', 'IDE 共通の操作ヒント'],
   '/claude-mux/ide-agent-teams/agent-orchestration': ['マルチエージェントの概要', 'tmux でのマルチエージェント構成', 'Git ワークツリーによる分離', 'Subagents とマルチインスタンスの違い', 'エージェント間の情報共有', 'マルチエージェントのベストプラクティス'],
   '/claude-mux/ide-agent-teams/plugins-ecosystem': ['プラグインの概要', 'プラグインの管理', 'プラグインの発見', 'カスタムスラッシュコマンド', 'MCP エコシステムとの連携', 'プラグイン開発の基本'],
-  '/claude-mux/multi-ai-architecture/multi-ai-coexistence': ['なぜマルチ AI 戦略が必要か', '主要 AI コーディングツールの比較', 'ハイブリッドアーキテクチャの設計', '機能分担パターン', 'スキルの共通化', '段階的導入ガイド'],
-  '/claude-mux/multi-ai-architecture/single-source-of-truth': ['なぜ SSOT が必要か', '階層的ルール管理', 'SSOT 運用のベストプラクティス', 'シングルソースオブトゥルース'],
+  '/claude-mux/multi-ai/multi-ai-coexistence': ['なぜマルチ AI 戦略が必要か', '主要 AI コーディングツールの比較', 'ハイブリッドアーキテクチャの設計', '機能分担パターン', 'スキルの共通化', '段階的導入ガイド'],
+  '/claude-mux/multi-ai/single-source-of-truth': ['なぜ SSOT が必要か', '階層的ルール管理', 'SSOT 運用のベストプラクティス', 'シングルソースオブトゥルース'],
 };

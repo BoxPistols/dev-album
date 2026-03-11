@@ -242,7 +242,7 @@ export const pages: PageInfo[] = [
   // ===========================
   // Claude+tmux マニュアル (44ページ)
   // ===========================
-  { step: 1, path: '/claude-mux/getting-started/welcome', title: 'このガイドの目的', sectionId: 'getting-started', manualId: 'claude-mux' },
+  { step: 1, path: '/claude-mux', title: 'このガイドの目的', sectionId: 'getting-started', manualId: 'claude-mux' },
   { step: 2, path: '/claude-mux/getting-started/why-claude-code', title: 'なぜClaude Codeなのか', sectionId: 'getting-started', manualId: 'claude-mux' },
   { step: 3, path: '/claude-mux/claude-intro/claude-code-intro', title: 'Claude Code CLI の概要', sectionId: 'claude-intro', manualId: 'claude-mux' },
   { step: 4, path: '/claude-mux/claude-intro/install-setup', title: 'インストールと初期設定', sectionId: 'claude-intro', manualId: 'claude-mux' },

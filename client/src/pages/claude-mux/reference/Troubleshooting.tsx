@@ -1,3 +1,4 @@
+import { useLocation } from 'wouter';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CodeBlock from '@/components/CodeBlock';
@@ -9,6 +10,7 @@ import SectionBadge from '@/components/SectionBadge';
 import CodingChallenge from '@/components/CodingChallenge';
 
 export default function Troubleshooting() {
+  const [, navigate] = useLocation();
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
@@ -99,7 +101,7 @@ $ tmux kill-server`}
               
               <div className="flex justify-center gap-4">
                 <Button
-                  onClick={() => window.location.href = '/claude-mux'}
+                  onClick={() => navigate('/claude-mux')}
                   className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-6 text-lg"
                 >
                   トップページに戻る

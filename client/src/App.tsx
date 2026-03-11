@@ -127,7 +127,7 @@ const ThreejsGameCamera = lazy(() => import("./pages/threejs/game-dev/camera"));
 const ThreejsHudGameloop = lazy(() => import("./pages/threejs/game-dev/hud-gameloop"));
 
 // ── Claude+tmux マニュアル (44ページ) ──
-const ClaudeMuxHome = lazy(() => import("./pages/claude-mux/Home"));
+// ClaudeMuxHome は /claude-mux が CmWelcome (step 1) に統合されたため削除
 const CmWelcome = lazy(() => import("./pages/claude-mux/getting-started/Welcome"));
 const CmWhyClaudeCode = lazy(() => import("./pages/claude-mux/getting-started/WhyClaudeCode"));
 const CmClaudeCodeIntro = lazy(() => import("./pages/claude-mux/claude-intro/ClaudeCodeIntro"));
@@ -317,8 +317,7 @@ function App() {
                 <Route path="/threejs/game-dev/hud-gameloop" component={ThreejsHudGameloop} />
 
                 {/* === Claude+tmux マニュアル === */}
-                <Route path="/claude-mux" component={ClaudeMuxHome} />
-                <Route path="/claude-mux/getting-started/welcome" component={CmWelcome} />
+                <Route path="/claude-mux" component={CmWelcome} />
                 <Route path="/claude-mux/getting-started/why-claude-code" component={CmWhyClaudeCode} />
                 <Route path="/claude-mux/claude-intro/claude-code-intro" component={CmClaudeCodeIntro} />
                 <Route path="/claude-mux/claude-intro/install-setup" component={CmInstallSetup} />
