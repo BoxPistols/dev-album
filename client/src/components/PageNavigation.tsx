@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Bookmark, BookmarkCheck } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
-import { getNextPage, getPreviousPage, getPageByPath, pages } from '@/lib/navigation';
+import { getNextPage, getPreviousPage, getPageByPath, getManualPages } from '@/lib/navigation';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import PageNotes from './PageNotes';
 
@@ -9,7 +9,7 @@ export default function PageNavigation() {
   const currentPage = getPageByPath(location);
   const prevPage = getPreviousPage(location);
   const nextPage = getNextPage(location);
-  const totalSteps = pages.length;
+  const totalSteps = currentPage ? getManualPages(currentPage.manualId).length : 0;
   const { isBookmarked, toggle } = useBookmarks();
   const bookmarked = isBookmarked(location);
 

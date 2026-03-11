@@ -117,7 +117,7 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
 <script>
 (function() {
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/three@0.183.0/build/three.min.js';
+  s.src = 'https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.min.js';
   s.onload = function() {
     try {
       ${safeCode}

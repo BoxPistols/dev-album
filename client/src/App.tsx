@@ -196,7 +196,7 @@ function App() {
     <ThemeProvider>
       <PlatformProvider>
         <OSProvider>
-        <LayoutProvider>
+          <LayoutProvider>
           <div className="flex min-h-screen bg-background text-foreground font-sans">
             <Navigation />
             <KeyboardNav />
@@ -370,7 +370,7 @@ function App() {
           <HelpModal />
           <SettingsPopup />
           <Toaster position="bottom-right" />
-        </LayoutProvider>
+          </LayoutProvider>
         </OSProvider>
       </PlatformProvider>
     </ThemeProvider>
