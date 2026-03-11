@@ -128,7 +128,9 @@ export default function CodingChallenge({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const blobUrl = useBlobUrl(previewHtml);
+  // Three.js は外部CDNが必要なため srcDoc を使用、それ以外は blob URL
+  const needsSrcDoc = resolvedType === 'threejs';
+  const blobUrl = useBlobUrl(needsSrcDoc ? '' : previewHtml);
 
   const handleCheck = () => {
     if (validator) {
@@ -194,12 +196,12 @@ export default function CodingChallenge({
             <div className="absolute top-2 right-2 text-xs text-muted-foreground z-10 bg-background/80 px-2 py-0.5 rounded">
               プレビュー
             </div>
-            {blobUrl && (
+            {(needsSrcDoc ? previewHtml : blobUrl) && (
               <iframe
-                src={blobUrl}
+                {...(needsSrcDoc ? { srcDoc: previewHtml } : { src: blobUrl })}
                 className="w-full h-full border-0"
                 style={{ minHeight: previewMinHeight }}
-                sandbox="allow-scripts"
+                sandbox={needsSrcDoc ? 'allow-scripts allow-same-origin' : 'allow-scripts'}
                 title="プレビュー"
               />
             )}
