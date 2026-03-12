@@ -19,9 +19,9 @@ export default function Integration() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 16 / 16
+            STEP 22 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             開発環境の統合確認
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -34,7 +34,7 @@ export default function Integration() {
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         {/* Verification */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             インストール確認
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -100,7 +100,7 @@ npm --version`}
 
         {/* First Project */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             初めてのプロジェクト作成
           </h2>
 
@@ -219,7 +219,7 @@ git commit -m "Initial commit: Add README"`}
 
         {/* Development Workflow */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             実践的な開発フロー
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -295,7 +295,7 @@ git commit -m "Initial commit: Add README"`}
 
         {/* Tools Comparison */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Cursor vs VSCode - 使い分け
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -366,7 +366,7 @@ git commit -m "Initial commit: Add README"`}
             <div className="flex items-start gap-4">
               <CheckCircle className="text-primary flex-shrink-0 mt-1" size={32} />
               <div>
-                <h2 className="text-3xl font-poppins font-bold text-foreground mb-4">
+                <h2 className="text-3xl font-sans font-bold text-foreground mb-4">
                   おめでとうございます！
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">

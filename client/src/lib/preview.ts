@@ -53,8 +53,8 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/react@18/umd/react.development.js"><\/script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"><\/script>
+<script src="https://unpkg.com/react@19/umd/react.development.js"><\/script>
+<script src="https://unpkg.com/react-dom@19/umd/react-dom.development.js"><\/script>
 ${needsThree ? '<script src="https://unpkg.com/three@0.183.2/build/three.min.js"><\\/script>' : ''}
 <style>
 :root{

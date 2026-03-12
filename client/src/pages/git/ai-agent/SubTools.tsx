@@ -17,9 +17,9 @@ export default function SubTools() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            AI AGENT 5 / 5
+            STEP 27 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             予備ツール：Gemini CLI / Warp / Antigravity
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -39,7 +39,7 @@ export default function SubTools() {
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <Terminal className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-poppins font-bold text-foreground">
+            <h2 className="text-3xl font-sans font-bold text-foreground">
               Gemini CLI
             </h2>
             <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">ターミナル型</span>
@@ -112,7 +112,7 @@ gemini`}
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <Terminal className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-poppins font-bold text-foreground">
+            <h2 className="text-3xl font-sans font-bold text-foreground">
               Warp
             </h2>
             <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">AI搭載ターミナル</span>
@@ -201,7 +201,7 @@ gemini`}
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <Globe className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-poppins font-bold text-foreground">
+            <h2 className="text-3xl font-sans font-bold text-foreground">
               Google Antigravity
             </h2>
             <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">クラウド IDE</span>
@@ -278,7 +278,7 @@ gemini`}
 
         {/* ===== ローテーション戦略まとめ ===== */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             <Sparkles className="w-8 h-8 inline text-primary mr-1" />
             トークン切れ時のローテーション戦略
           </h2>
@@ -334,7 +334,7 @@ gemini`}
 
         {/* まとめ */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             このページのまとめ
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">

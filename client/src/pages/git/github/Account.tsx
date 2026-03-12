@@ -19,9 +19,9 @@ export default function GitHubAccount() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 5 / 8
+            STEP 6 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             GitHub アカウントを作成しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -46,7 +46,7 @@ export default function GitHubAccount() {
 
         {/* Why GitHub Account */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             GitHub アカウントが必要な理由
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -108,7 +108,7 @@ export default function GitHubAccount() {
 
         {/* Account Creation Steps */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             アカウント作成手順
           </h2>
 

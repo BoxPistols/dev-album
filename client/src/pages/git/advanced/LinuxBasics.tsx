@@ -23,9 +23,9 @@ export default function LinuxBasics() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 14 / 16
+            STEP 20 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             Linux/Ubuntu 基礎を学ぼう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -38,7 +38,7 @@ export default function LinuxBasics() {
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         {/* Terminal Basics */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ターミナルの基本
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -58,7 +58,7 @@ export default function LinuxBasics() {
 
         {/* File System */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ファイルシステムの理解
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -81,7 +81,7 @@ export default function LinuxBasics() {
 
         {/* Essential Commands */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             よく使うコマンド
           </h2>
 
@@ -230,7 +230,7 @@ mv old_folder/ new_folder/      # フォルダを移動・名前変更`}
 
         {/* Permissions */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ユーザーと権限
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -268,7 +268,7 @@ chmod 755 file.txt      # 権限を数値で指定`}
 
         {/* Practice */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             実践練習
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -318,7 +318,7 @@ chmod 755 file.txt      # 権限を数値で指定`}
         {/* Next Steps */}
         <section className="mb-12">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-8">
-            <h2 className="text-2xl font-poppins font-bold text-foreground mb-4">
+            <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
               次のステップ
             </h2>
             <p className="text-lg text-muted-foreground mb-6">

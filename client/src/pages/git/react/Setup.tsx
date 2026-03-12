@@ -26,9 +26,9 @@ export default function ReactSetup() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 12 / 12
+            STEP 15 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             React 開発環境をセットアップしよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -46,7 +46,7 @@ export default function ReactSetup() {
 
         {/* What is React */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             React とは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -87,7 +87,7 @@ export default function ReactSetup() {
 
         {/* Create React Project */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             React プロジェクトを作成
           </h2>
 
@@ -175,7 +175,7 @@ export default function ReactSetup() {
 
         {/* Start Development Server */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             開発サーバーを起動
           </h2>
 
@@ -236,7 +236,7 @@ export default function ReactSetup() {
 
         {/* Project Structure */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             React プロジェクトの構造
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

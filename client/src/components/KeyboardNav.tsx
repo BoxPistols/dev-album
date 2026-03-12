@@ -6,7 +6,7 @@ import {
   getNextPage,
   getPreviousPage,
   getPageByPath,
-  pages,
+  getManualPages,
 } from '@/lib/navigation';
 
 export default function KeyboardNav() {
@@ -107,19 +107,22 @@ export default function KeyboardNav() {
         </button>
 
         {/* 現在位置 */}
-        {currentPage && (
-          <div className="flex items-center gap-2 px-3 py-1.5 text-xs">
-            <span className="text-primary font-bold">
-              {currentPage.step}/{pages.length}
-            </span>
-            <div className="w-24 h-1.5 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full transition-all duration-300"
-                style={{ width: `${(currentPage.step / pages.length) * 100}%` }}
-              />
+        {currentPage && (() => {
+          const totalSteps = getManualPages(currentPage.manualId).length;
+          return (
+            <div className="flex items-center gap-2 px-3 py-1.5 text-xs">
+              <span className="text-primary font-bold">
+                {currentPage.step}/{totalSteps}
+              </span>
+              <div className="w-24 h-1.5 bg-muted rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-primary rounded-full transition-all duration-300"
+                  style={{ width: `${(currentPage.step / totalSteps) * 100}%` }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* 次へ */}
         <button

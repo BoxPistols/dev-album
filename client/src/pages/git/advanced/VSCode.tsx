@@ -26,9 +26,9 @@ export default function VSCodeSetup() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 15 / 16
+            STEP 21 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             VSCode を導入しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -46,7 +46,7 @@ export default function VSCodeSetup() {
 
         {/* What is VSCode */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             VSCode とは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -86,7 +86,7 @@ export default function VSCodeSetup() {
 
         {/* Installation */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             インストール手順
           </h2>
 
@@ -236,7 +236,7 @@ export default function VSCodeSetup() {
 
         {/* Extensions */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             おすすめの拡張機能
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -280,7 +280,7 @@ export default function VSCodeSetup() {
         {/* WSL2 Integration */}
         {selectedOS === 'windows' && (
           <section className="mb-12">
-            <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+            <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
               WSL2 との統合（Windows ユーザー向け）
             </h2>
             <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -321,7 +321,7 @@ export default function VSCodeSetup() {
 
         {/* Terminal Integration */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ターミナル統合
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -369,7 +369,7 @@ node app.js`}
         {/* Next Steps */}
         <section className="mb-12">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-8">
-            <h2 className="text-2xl font-poppins font-bold text-foreground mb-4">
+            <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
               次のステップ
             </h2>
             <p className="text-lg text-muted-foreground mb-6">

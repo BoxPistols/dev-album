@@ -95,7 +95,7 @@ export default function Home() {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-poppins font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-sans font-bold text-foreground mb-6 leading-tight">
             Three.js
             <span className="block text-primary">入門マニュアル</span>
           </h1>
@@ -127,7 +127,7 @@ export default function Home() {
       {/* このガイドの使い方 */}
       <section className="py-16 px-4 md:px-8 bg-card">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-poppins font-bold text-center text-foreground mb-12">
+          <h2 className="text-3xl font-sans font-bold text-center text-foreground mb-12">
             このガイドの使い方
           </h2>
 
@@ -285,7 +285,7 @@ export default function Home() {
       <section className="py-16 px-4 md:px-8 bg-gradient-to-br from-violet-50/50 to-indigo-50/50 dark:from-violet-950/20 dark:to-indigo-950/20">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-poppins font-bold text-foreground mb-4">
+            <h2 className="text-3xl font-sans font-bold text-foreground mb-4">
               なぜ Three.js を学ぶのか
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -316,7 +316,7 @@ export default function Home() {
       {/* 学習フロー */}
       <section className="py-16 px-4 md:px-8">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-poppins font-bold text-center text-foreground mb-12">
+          <h2 className="text-3xl font-sans font-bold text-center text-foreground mb-12">
             学習フロー
           </h2>
 
@@ -326,7 +326,7 @@ export default function Home() {
                 <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-primary-foreground font-poppins font-bold text-lg">
+                      <span className="text-primary-foreground font-sans font-bold text-lg">
                         {step.number}
                       </span>
                     </div>
@@ -351,7 +351,7 @@ export default function Home() {
       {/* 特徴 */}
       <section className="py-16 px-4 md:px-8 bg-card">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-poppins font-bold text-center text-foreground mb-12">
+          <h2 className="text-3xl font-sans font-bold text-center text-foreground mb-12">
             このガイドの特徴
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -379,7 +379,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-8 justify-center">
             <Keyboard className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-poppins font-bold text-foreground">
+            <h2 className="text-2xl font-sans font-bold text-foreground">
               キーボードショートカット
             </h2>
           </div>
@@ -417,7 +417,7 @@ export default function Home() {
       {/* CTA */}
       <section className="py-16 px-4 md:px-8">
         <div className="max-w-3xl mx-auto bg-primary/5 border border-primary/10 rounded-2xl p-8 md:p-12 text-center">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-4">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-4">
             準備はいいですか？
           </h2>
           <p className="text-muted-foreground mb-8">

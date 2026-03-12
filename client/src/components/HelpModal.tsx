@@ -6,7 +6,7 @@ const mod = isMac ? '⌘' : 'Ctrl';
 
 const shortcuts = [
   { keys: `${mod}+←/→`, desc: '前後のページに移動' },
-  { keys: `Shift+${mod}+←/→`, desc: '前後のセクションに移動' },
+
   { keys: `${mod}+K`, desc: '検索にフォーカス' },
   { keys: `${mod}+Shift+D`, desc: 'ダーク/ライトモード切替' },
   { keys: `${mod}+,`, desc: '設定を開く' },

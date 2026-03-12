@@ -27,9 +27,9 @@ export default function PushPull() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 9 / 10
+            STEP 12 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             Push と Pull を実践しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -59,7 +59,7 @@ export default function PushPull() {
 
         {/* Local and Remote Concept */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ローカルとリモートの概念
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -107,7 +107,7 @@ export default function PushPull() {
 
         {/* Git Push */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Push：ローカルの変更を GitHub にアップロード
           </h2>
 
@@ -183,7 +183,7 @@ export default function PushPull() {
 
         {/* Git Pull */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Pull：GitHub の最新をローカルに取得
           </h2>
 
@@ -269,7 +269,7 @@ export default function PushPull() {
 
         {/* Push and Pull Workflow */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Push と Pull のワークフロー
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

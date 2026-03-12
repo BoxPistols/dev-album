@@ -15,14 +15,14 @@ export default function WSL2SSH() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 14 / 18</div>
+        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 18 / 27</div>
 
         <div className="mt-8 mb-12">
           <div className="inline-block px-4 py-2 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 rounded-full text-sm font-medium mb-6">
             Windows ユーザー向け
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-poppins font-bold text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-6">
             WSL2 で GitHub SSH キー接続
           </h1>
 
@@ -36,7 +36,7 @@ export default function WSL2SSH() {
         {selectedOS === 'windows' && (
           <div className="space-y-12 mt-8">
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 SSH キーの生成
               </h2>
 
@@ -78,7 +78,7 @@ Your public key has been saved in /home/username/.ssh/id_ed25519.pub`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 SSH キーの確認
               </h2>
 
@@ -108,7 +108,7 @@ Your public key has been saved in /home/username/.ssh/id_ed25519.pub`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub に公開キーを登録
               </h2>
 
@@ -204,7 +204,7 @@ Your public key has been saved in /home/username/.ssh/id_ed25519.pub`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 SSH 接続のテスト
               </h2>
 
@@ -234,7 +234,7 @@ Your public key has been saved in /home/username/.ssh/id_ed25519.pub`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 Git の SSH 設定確認
               </h2>
 
@@ -258,7 +258,7 @@ git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519"`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 リポジトリをクローン
               </h2>
 

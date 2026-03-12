@@ -24,7 +24,7 @@ export default function PromptEngineering() {
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
             STEP 10 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             プロンプトエンジニアリング入門
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -52,7 +52,7 @@ export default function PromptEngineering() {
 
         {/* Why Structure Matters */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             なぜ構造化された指示が効くのか
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -92,7 +92,7 @@ export default function PromptEngineering() {
 
         {/* Basic Structure */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             プロンプトの基本構造
           </h2>
           <p className="text-muted-foreground mb-6">
@@ -216,7 +216,7 @@ export default function PromptEngineering() {
 
         {/* Before / After */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Before / After：GitHub 関連の例
           </h2>
           <p className="text-muted-foreground mb-8">
@@ -309,7 +309,7 @@ export default function PromptEngineering() {
 
         {/* Tips */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             実践的なコツ
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

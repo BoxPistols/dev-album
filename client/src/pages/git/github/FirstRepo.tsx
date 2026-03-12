@@ -27,9 +27,9 @@ export default function FirstRepo() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 7 / 8
+            STEP 8 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             最初のリポジトリを作成しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -62,7 +62,7 @@ export default function FirstRepo() {
 
         {/* What is Repository */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             リポジトリとは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -97,7 +97,7 @@ export default function FirstRepo() {
 
         {/* Create Repository on GitHub */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             GitHub 上でリポジトリを作成
           </h2>
 
@@ -199,7 +199,7 @@ export default function FirstRepo() {
 
         {/* Clone Repository to Local */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             リポジトリをローカルにクローン
           </h2>
 
@@ -349,7 +349,7 @@ export default function FirstRepo() {
 
         {/* Repository Structure */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             リポジトリの構造
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -382,7 +382,7 @@ export default function FirstRepo() {
 
         {/* GitHub Pages Publishing */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             GitHub Pages を公開する設定
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

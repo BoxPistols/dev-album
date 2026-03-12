@@ -27,9 +27,9 @@ export default function ModifyReact() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            FINAL STEP
+            STEP 16 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             デザイン変更と Git 管理を実践しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -47,7 +47,7 @@ export default function ModifyReact() {
 
         {/* Purpose of This Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             このセクションの目的
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -115,7 +115,7 @@ export default function ModifyReact() {
 
         {/* Edit App Component */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             App.js を編集してデザイン変更
           </h2>
 
@@ -192,7 +192,7 @@ export default function ModifyReact() {
 
         {/* Git Management */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Git でバージョン管理
           </h2>
 
@@ -364,7 +364,7 @@ export default function ModifyReact() {
 
         {/* Learning Outcomes */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             学習成果
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

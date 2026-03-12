@@ -27,9 +27,9 @@ export default function HistoryWorkflow() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 10 / 10
+            STEP 13 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             差分・履歴を確認しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -59,7 +59,7 @@ export default function HistoryWorkflow() {
 
         {/* What is History and Diff */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             差分・履歴を確認する理由
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -121,7 +121,7 @@ export default function HistoryWorkflow() {
 
         {/* git log - View History */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             git log：変更履歴を確認
           </h2>
 
@@ -234,7 +234,7 @@ export default function HistoryWorkflow() {
 
         {/* git diff - View Changes */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             git diff：変更内容を確認
           </h2>
 
@@ -311,7 +311,7 @@ export default function HistoryWorkflow() {
 
         {/* GitHub Web UI */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             GitHub Web UI で確認
           </h2>
 
@@ -373,7 +373,7 @@ export default function HistoryWorkflow() {
 
         {/* Self-Review */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             セルフレビューの重要性
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

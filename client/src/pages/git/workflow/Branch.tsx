@@ -27,9 +27,9 @@ export default function BranchWorkflow() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 11 / 12
+            STEP 14 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             ブランチの基本を学ぼう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -59,7 +59,7 @@ export default function BranchWorkflow() {
 
         {/* What is Branch */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ブランチとは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -111,7 +111,7 @@ export default function BranchWorkflow() {
 
         {/* Create and Switch Branch */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ブランチを作成・切り替え
           </h2>
 
@@ -246,7 +246,7 @@ export default function BranchWorkflow() {
 
         {/* Make Changes on Branch */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ブランチで変更を加える
           </h2>
 
@@ -322,7 +322,7 @@ export default function BranchWorkflow() {
 
         {/* Merge Branch */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ブランチをマージ
           </h2>
 

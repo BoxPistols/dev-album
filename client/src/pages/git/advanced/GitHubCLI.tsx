@@ -14,14 +14,14 @@ export default function GitHubCLI() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 15 / 18</div>
+        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 19 / 27</div>
 
         <div className="mt-8 mb-12">
           <div className="inline-block px-4 py-2 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 rounded-full text-sm font-medium mb-6">
             生産性向上
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-poppins font-bold text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-6">
             GitHub CLI を導入しよう
           </h1>
 
@@ -35,7 +35,7 @@ export default function GitHubCLI() {
         {selectedOS === 'windows' && (
           <div className="space-y-12 mt-8">
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI のインストール
               </h2>
 
@@ -58,7 +58,7 @@ sudo apt install gh`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI で認証
               </h2>
 
@@ -98,7 +98,7 @@ Y
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI の基本コマンド
               </h2>
 
@@ -192,7 +192,7 @@ gh issue list --state=closed`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 実践例：GitHub CLI でのワークフロー
               </h2>
 
@@ -232,7 +232,7 @@ gh pr merge --merge`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 便利なエイリアス設定
               </h2>
 
@@ -266,7 +266,7 @@ source ~/.zshrc   # zsh の場合`}
         {selectedOS === 'mac' && (
           <div className="space-y-12 mt-8">
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI のインストール
               </h2>
 
@@ -288,7 +288,7 @@ source ~/.zshrc   # zsh の場合`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI で認証
               </h2>
 
@@ -328,7 +328,7 @@ Y
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 GitHub CLI の基本コマンド
               </h2>
 
@@ -416,7 +416,7 @@ gh issue list --state=closed`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 実践例：GitHub CLI でのワークフロー
               </h2>
 
@@ -456,7 +456,7 @@ gh pr merge --merge`}
             </section>
 
             <section>
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 便利なエイリアス設定
               </h2>
 

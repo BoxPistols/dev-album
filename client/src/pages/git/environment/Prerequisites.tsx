@@ -21,9 +21,9 @@ export default function Prerequisites() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 1 / 4
+            STEP 2 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             前提知識を理解しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -51,7 +51,7 @@ export default function Prerequisites() {
 
         {/* What is Git? */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Git とは何か
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -90,7 +90,7 @@ export default function Prerequisites() {
 
         {/* What is GitHub? */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             GitHub とは何か
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -122,7 +122,7 @@ export default function Prerequisites() {
 
         {/* Terminal Basics */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ターミナルの基本
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -172,7 +172,7 @@ export default function Prerequisites() {
 
         {/* Tools Overview */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             必要なツール一覧
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">

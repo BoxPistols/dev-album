@@ -17,9 +17,9 @@ export default function CursorCline() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            AI AGENT 4 / 5
+            STEP 26 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             Cursor + Cline 導入
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -37,7 +37,7 @@ export default function CursorCline() {
 
         {/* Cursor とは */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Cursor とは？
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -140,7 +140,7 @@ export default function CursorCline() {
 
         {/* Cline とは */}
         <section className="mb-8">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Cline とは？
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -268,7 +268,7 @@ index.html の内容を確認して`}
 
         {/* 使い分け */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Cursor と Cline、どっちを使う？
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">
@@ -322,7 +322,7 @@ index.html の内容を確認して`}
 
         {/* まとめ */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             このページのまとめ
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">

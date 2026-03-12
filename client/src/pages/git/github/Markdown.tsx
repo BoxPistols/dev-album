@@ -24,7 +24,7 @@ export default function MarkdownGuide() {
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
             STEP 9 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             Markdown を覚えよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -52,7 +52,7 @@ export default function MarkdownGuide() {
 
         {/* Why Markdown */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             なぜ Markdown を覚えるべきなのか
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -93,7 +93,7 @@ export default function MarkdownGuide() {
 
         {/* Where Markdown is Used */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Markdown が使われている場所
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">
@@ -150,7 +150,7 @@ export default function MarkdownGuide() {
 
         {/* Basic Syntax */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             基本の書き方
           </h2>
 
@@ -405,7 +405,7 @@ export default function MarkdownGuide() {
 
         {/* Advanced Syntax */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             よく使う応用記法
           </h2>
 
@@ -510,7 +510,7 @@ export default function MarkdownGuide() {
 
         {/* Platform Compatibility */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             プラットフォームごとの対応状況
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -609,7 +609,7 @@ export default function MarkdownGuide() {
 
         {/* Practice: Write a README */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             実践：README.md を書いてみよう
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -631,7 +631,7 @@ export default function MarkdownGuide() {
 
         {/* Cheat Sheet */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Markdown 早見表
           </h2>
           <div className="bg-card border border-border rounded-lg p-8">

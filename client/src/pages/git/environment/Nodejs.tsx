@@ -26,9 +26,9 @@ export default function NodejsInstall() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 4 / 4
+            STEP 5 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             Node.js をインストールしよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -46,7 +46,7 @@ export default function NodejsInstall() {
 
         {/* What is Node.js */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Node.js とは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -76,7 +76,7 @@ export default function NodejsInstall() {
 
         {/* Installation Steps */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             インストール手順
           </h2>
 
@@ -209,7 +209,7 @@ export default function NodejsInstall() {
 
         {/* npm について */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             npm について
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">

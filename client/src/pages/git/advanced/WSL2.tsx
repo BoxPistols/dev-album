@@ -25,9 +25,9 @@ export default function WSL2Setup() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 13 / 16
+            STEP 17 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             WSL2 を導入しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -47,7 +47,7 @@ export default function WSL2Setup() {
           <>
             {/* What is WSL2 */}
             <section className="mb-12">
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 WSL2 とは
               </h2>
               <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -80,7 +80,7 @@ export default function WSL2Setup() {
 
             {/* Prerequisites */}
             <section className="mb-12">
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 前提条件
               </h2>
               <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -106,7 +106,7 @@ export default function WSL2Setup() {
 
             {/* Installation Steps */}
             <section className="mb-12">
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 インストール手順
               </h2>
 
@@ -202,7 +202,7 @@ Retype new password:`}
 
             {/* Troubleshooting */}
             <section className="mb-12">
-              <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
                 トラブルシューティング
               </h2>
               <div className="space-y-6">
@@ -257,7 +257,7 @@ wsl --install -d Ubuntu`}
             {/* Next Steps */}
             <section className="mb-12">
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-8">
-                <h2 className="text-2xl font-poppins font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-sans font-bold text-foreground mb-4">
                   次のステップ
                 </h2>
                 <p className="text-lg text-muted-foreground mb-6">

@@ -27,9 +27,9 @@ export default function CommitWorkflow() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 8 / 8
+            STEP 11 / 27
           </div>
-          <h1 className="text-4xl font-poppins font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             ファイル作成と Commit を実践しよう
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -62,7 +62,7 @@ export default function CommitWorkflow() {
 
         {/* What is Commit */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Commit とは
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
@@ -101,7 +101,7 @@ export default function CommitWorkflow() {
 
         {/* Create a File */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             ファイルを作成
           </h2>
 
@@ -153,7 +153,7 @@ export default function CommitWorkflow() {
 
         {/* Git Workflow */}
         <section className="mb-12">
-          <h2 className="text-3xl font-poppins font-bold text-foreground mb-6">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
             Git ワークフロー：add → commit → push
           </h2>
 
