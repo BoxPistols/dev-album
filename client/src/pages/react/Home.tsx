@@ -1,6 +1,7 @@
 import { BookOpen, Code2, Layers, Palette, Rocket, Server, Layout, Sparkles, Zap, ArrowRight, Keyboard, Search, Settings, Eye, Copy, Maximize2, RotateCcw, GripVertical, CheckCircle2, Lightbulb } from 'lucide-react';
 import { Link } from 'wouter';
 import PageNavigation from '@/components/PageNavigation';
+import { modKey } from '@/lib/keyLabels';
 
 const curriculumPart1 = [
   {
@@ -334,7 +335,7 @@ export default function Home() {
                   <span>前後のセクション</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs font-mono border border-border shrink-0">Cmd/Ctrl+K</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs font-mono border border-border shrink-0">{modKey()}+K</kbd>
                   <span>検索にフォーカス</span>
                 </div>
                 <div className="flex items-center gap-2">

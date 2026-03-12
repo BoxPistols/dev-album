@@ -8,15 +8,16 @@ import {
   getPageByPath,
   getManualPages,
 } from '@/lib/navigation';
+import { getIsMac, modKey } from '@/lib/keyLabels';
 
 export default function KeyboardNav() {
   const [location, setLocation] = useLocation();
   const [showToast, setShowToast] = useState<string | null>(null);
-  const [isMac, setIsMac] = useState(true);
+  const [isMac, setIsMac] = useState(false);
   const { toggleTheme } = useTheme();
 
   useEffect(() => {
-    setIsMac(navigator.userAgent.includes('Mac'));
+    setIsMac(getIsMac());
   }, []);
 
   const currentPage = getPageByPath(location);
@@ -82,7 +83,7 @@ export default function KeyboardNav() {
     return () => document.removeEventListener('keydown', handler);
   }, [location, navigate, toggleTheme]);
 
-  const mod = isMac ? '⌘' : 'Ctrl';
+  const mod = modKey(isMac);
 
   return (
     <>

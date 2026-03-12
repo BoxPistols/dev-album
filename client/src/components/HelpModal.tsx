@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { X, Keyboard, Code2, Eye, Copy, Maximize2, RotateCcw, GripVertical, Lightbulb, CheckCircle2 } from 'lucide-react';
+import { getIsMac, modKey } from '@/lib/keyLabels';
 
-const isMac = typeof navigator !== 'undefined' && navigator.platform.includes('Mac');
-const mod = isMac ? '⌘' : 'Ctrl';
-
-const shortcuts = [
-  { keys: `${mod}+←/→`, desc: '前後のページに移動' },
-
-  { keys: `${mod}+K`, desc: '検索にフォーカス' },
-  { keys: `${mod}+Shift+D`, desc: 'ダーク/ライトモード切替' },
-  { keys: `${mod}+,`, desc: '設定を開く' },
-  { keys: '?', desc: 'このヘルプを表示' },
-  { keys: 'Home', desc: 'ページトップにスクロール' },
-];
+function buildShortcuts(mod: string) {
+  return [
+    { keys: `${mod}+←/→`, desc: '前後のページに移動' },
+    { keys: `${mod}+K`, desc: '検索にフォーカス' },
+    { keys: `${mod}+Shift+D`, desc: 'ダーク/ライトモード切替' },
+    { keys: `${mod}+,`, desc: '設定を開く' },
+    { keys: '?', desc: 'このヘルプを表示' },
+    { keys: 'Home', desc: 'ページトップにスクロール' },
+  ];
+}
 
 export default function HelpModal() {
   const [open, setOpen] = useState(false);
+  const mod = useMemo(() => modKey(getIsMac()), []);
+  const shortcuts = useMemo(() => buildShortcuts(mod), [mod]);
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {

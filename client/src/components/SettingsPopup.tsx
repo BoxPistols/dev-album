@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { X, Settings, Sun, Moon, Monitor, Columns2, Type } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
+import { getIsMac, modKey } from '@/lib/keyLabels';
 
 type FontSize = 'small' | 'medium' | 'large';
 
@@ -15,6 +16,7 @@ export default function SettingsPopup() {
   const [open, setOpen] = useState(false);
   const { mode, setMode } = useTheme();
   const { layoutMode, setLayoutMode } = useLayout();
+  const mod = useMemo(() => modKey(getIsMac()), []);
   const [fontSize, setFontSize] = useState<FontSize>(() => {
     return (localStorage.getItem('font-size') as FontSize) || 'medium';
   });
@@ -151,7 +153,7 @@ export default function SettingsPopup() {
         {/* フッター */}
         <div className="px-6 py-3 border-t border-border text-center">
           <p className="text-xs text-muted-foreground">
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">⌘/Ctrl+,</kbd> で設定を開く / <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">Esc</kbd> で閉じる
+            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">{mod}+,</kbd> で設定を開く / <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">Esc</kbd> で閉じる
           </p>
         </div>
       </div>
