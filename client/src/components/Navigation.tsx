@@ -191,16 +191,16 @@ export default function Navigation() {
                 ブックマーク
               </p>
               <div className="max-h-40 overflow-y-auto">
-              {bookmarks.map((bPath) => {
-                const p = getPageByPath(bPath);
-                if (!p) return null;
-                return (
-                  <Link key={bPath} href={bPath} onClick={() => setIsOpen(false)} className={`block px-4 py-1.5 text-sm transition-colors ${location === bPath ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'} rounded-lg`}>
-                    <span className={`text-[10px] mr-1 ${manualColors[p.manualId]}`}>{p.manualId.toUpperCase()}</span>
-                    {p.title}
-                  </Link>
-                );
-              })}
+                {bookmarks.map((bPath) => {
+                  const p = getPageByPath(bPath);
+                  if (!p) return null;
+                  return (
+                    <Link key={bPath} href={bPath} onClick={() => setIsOpen(false)} className={`block px-4 py-1.5 text-sm transition-colors ${location === bPath ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'} rounded-lg`}>
+                      <span className={`text-[10px] mr-1 ${manualColors[p.manualId]}`}>{p.manualId.toUpperCase()}</span>
+                      {p.title}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}

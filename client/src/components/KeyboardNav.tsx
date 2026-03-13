@@ -13,12 +13,8 @@ import { getIsMac, modKey } from '@/lib/keyLabels';
 export default function KeyboardNav() {
   const [location, setLocation] = useLocation();
   const [showToast, setShowToast] = useState<string | null>(null);
-  const [isMac, setIsMac] = useState(false);
+  const [isMac, setIsMac] = useState(() => getIsMac());
   const { toggleTheme } = useTheme();
-
-  useEffect(() => {
-    setIsMac(getIsMac());
-  }, []);
 
   const currentPage = getPageByPath(location);
   const prevPage = getPreviousPage(location);
