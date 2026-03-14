@@ -195,10 +195,19 @@ export default function Navigation() {
                   const p = getPageByPath(bPath);
                   if (!p) return null;
                   return (
-                    <Link key={bPath} href={bPath} onClick={() => setIsOpen(false)} className={`block px-4 py-1.5 text-sm transition-colors ${location === bPath ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'} rounded-lg`}>
-                      <span className={`text-[10px] mr-1 ${manualColors[p.manualId]}`}>{p.manualId.toUpperCase()}</span>
-                      {p.title}
-                    </Link>
+                    <div key={bPath} className="group flex items-center">
+                      <Link href={bPath} onClick={() => setIsOpen(false)} className={`flex-1 min-w-0 px-4 py-1.5 text-sm transition-colors ${location === bPath ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'} rounded-lg truncate`}>
+                        <span className={`text-[10px] mr-1 ${manualColors[p.manualId]}`}>{p.manualId.toUpperCase()}</span>
+                        {p.title}
+                      </Link>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleBookmark(bPath); }}
+                        className="flex-shrink-0 p-1 mr-2 rounded opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-all"
+                        title="ブックマーク解除"
+                      >
+                        <X size={12} />
+                      </button>
+                    </div>
                   );
                 })}
               </div>

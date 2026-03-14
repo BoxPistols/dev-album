@@ -30,14 +30,6 @@ export interface PageInfo {
 
 export const manuals: ManualInfo[] = [
   {
-    id: 'react',
-    title: 'React / TypeScript / Next.js 入門',
-    shortTitle: 'React',
-    description: 'React・TypeScript・Next.js の実践マニュアル',
-    icon: 'R',
-    color: '#6366F1',
-  },
-  {
     id: 'git',
     title: 'Git / GitHub 入門',
     shortTitle: 'Git',
@@ -46,12 +38,12 @@ export const manuals: ManualInfo[] = [
     color: '#F43F5E',
   },
   {
-    id: 'threejs',
-    title: 'Three.js / React Three Fiber 入門',
-    shortTitle: 'Three.js',
-    description: '3Dグラフィックスとインタラクティブ開発',
-    icon: '3',
-    color: '#14B8A6',
+    id: 'react',
+    title: 'React / TypeScript / Next.js 入門',
+    shortTitle: 'React',
+    description: 'React・TypeScript・Next.js の実践マニュアル',
+    icon: 'R',
+    color: '#6366F1',
   },
   {
     id: 'claude-mux',
@@ -60,6 +52,14 @@ export const manuals: ManualInfo[] = [
     description: 'AI駆動開発ワークフローの学習ガイド',
     icon: 'C',
     color: '#8B5CF6',
+  },
+  {
+    id: 'threejs',
+    title: 'Three.js / React Three Fiber 入門',
+    shortTitle: 'Three.js',
+    description: '3Dグラフィックスとインタラクティブ開発',
+    icon: '3',
+    color: '#14B8A6',
   },
 ];
 
