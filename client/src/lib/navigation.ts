@@ -84,6 +84,10 @@ export const sections: SectionInfo[] = [
   { id: 'deploy', title: 'デプロイと総まとめ', manualId: 'react', part: 'nextjs' },
   { id: 'storybook', title: 'Storybook', manualId: 'react', part: 'storybook' },
   { id: 'architecture', title: 'アーキテクチャとデザインシステム', manualId: 'react', part: 'architecture' },
+  { id: 'css-layout', title: 'CSS レイアウト実践', manualId: 'react', part: 'quality' },
+  { id: 'ui-patterns', title: 'UI コンポーネント設計', manualId: 'react', part: 'quality' },
+  { id: 'accessibility', title: 'アクセシビリティ実践', manualId: 'react', part: 'quality' },
+  { id: 'web-quality', title: 'Web 品質と技術倫理', manualId: 'react', part: 'quality' },
 
   // === Git マニュアル ===
   { id: 'git-intro', title: 'はじめに', manualId: 'git' },
@@ -125,7 +129,7 @@ export const sections: SectionInfo[] = [
 
 export const pages: PageInfo[] = [
   // ===========================
-  // React マニュアル (60ページ)
+  // React マニュアル (69ページ)
   // ===========================
   { step: 1, path: '/react', title: 'このマニュアルについて', sectionId: 'react-intro', manualId: 'react' },
   { step: 2, path: '/react/intro/setup', title: '環境構築', sectionId: 'react-intro', manualId: 'react' },
@@ -187,6 +191,15 @@ export const pages: PageInfo[] = [
   { step: 58, path: '/react/architecture/overview', title: 'React / Next.js アーキテクチャ総論', sectionId: 'architecture', manualId: 'react' },
   { step: 59, path: '/react/architecture/design-system', title: 'デザインシステムの設計と構築', sectionId: 'architecture', manualId: 'react' },
   { step: 60, path: '/react/architecture/maintenance', title: '長期運用とチーム開発', sectionId: 'architecture', manualId: 'react' },
+  { step: 61, path: '/react/css-layout/flexbox', title: 'Flexbox 完全ガイド', sectionId: 'css-layout', manualId: 'react' },
+  { step: 62, path: '/react/css-layout/grid', title: 'CSS Grid 完全ガイド', sectionId: 'css-layout', manualId: 'react' },
+  { step: 63, path: '/react/ui-patterns/dialog', title: 'Dialog の設計パターン', sectionId: 'ui-patterns', manualId: 'react' },
+  { step: 64, path: '/react/ui-patterns/snackbar', title: 'Snackbar / Toast の設計', sectionId: 'ui-patterns', manualId: 'react' },
+  { step: 65, path: '/react/ui-patterns/form-group', title: 'Form グループの構造と課題', sectionId: 'ui-patterns', manualId: 'react' },
+  { step: 66, path: '/react/accessibility/semantic-aria', title: 'セマンティック HTML と ARIA', sectionId: 'accessibility', manualId: 'react' },
+  { step: 67, path: '/react/accessibility/table-design', title: 'Table 設計の全課題', sectionId: 'accessibility', manualId: 'react' },
+  { step: 68, path: '/react/accessibility/form-a11y', title: 'Form のアクセシビリティ', sectionId: 'accessibility', manualId: 'react' },
+  { step: 69, path: '/react/web-quality/ethics', title: 'ダークパターン回避と技術倫理', sectionId: 'web-quality', manualId: 'react' },
 
   // ===========================
   // Git マニュアル (27ページ)

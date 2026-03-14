@@ -1,4 +1,4 @@
-import { BookOpen, Code2, Layers, Palette, Rocket, Server, Layout, Sparkles, Zap, ArrowRight, Keyboard, Search, Settings, Eye, Copy, Maximize2, RotateCcw, GripVertical, CheckCircle2, Lightbulb } from 'lucide-react';
+import { BookOpen, Code2, Layers, Palette, Rocket, Server, Layout, Sparkles, Zap, ArrowRight, Keyboard, Search, Settings, Eye, Copy, Maximize2, RotateCcw, GripVertical, CheckCircle2, Lightbulb, Shield } from 'lucide-react';
 import { Link } from 'wouter';
 import PageNavigation from '@/components/PageNavigation';
 import { modKey } from '@/lib/keyLabels';
@@ -134,6 +134,37 @@ const curriculumPart4 = [
   },
 ];
 
+const curriculumPart5 = [
+  {
+    icon: <Layout size={20} />,
+    title: 'CSS レイアウト実践',
+    steps: 'STEP 61-62',
+    description: 'Flexbox・CSS Grid の完全ガイド',
+    color: 'bg-amber-500',
+  },
+  {
+    icon: <Layers size={20} />,
+    title: 'UI コンポーネント設計',
+    steps: 'STEP 63-65',
+    description: 'Dialog・Snackbar・Form の設計パターン',
+    color: 'bg-amber-600',
+  },
+  {
+    icon: <Shield size={20} />,
+    title: 'アクセシビリティ実践',
+    steps: 'STEP 66-68',
+    description: 'ARIA・Table設計・Form a11y',
+    color: 'bg-orange-500',
+  },
+  {
+    icon: <BookOpen size={20} />,
+    title: 'Web 品質と技術倫理',
+    steps: 'STEP 69',
+    description: 'ダークパターン回避・公共性・倫理',
+    color: 'bg-orange-600',
+  },
+];
+
 const techTopics = [
   { name: 'React 19', color: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' },
   { name: 'TypeScript', color: 'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800' },
@@ -180,7 +211,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-20 md:py-28 relative z-10">
           <div className="mb-6 flex items-center gap-3 flex-wrap">
             <span className="text-xs font-semibold text-white/90 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-              全60ステップ
+              全69ステップ
             </span>
             <span className="text-xs font-semibold text-cyan-200/90 bg-cyan-400/10 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-300/10">
               React + Next.js + Storybook
@@ -466,7 +497,7 @@ export default function Home() {
         <section id="curriculum" className="mb-20">
           <h2 className="text-3xl font-bold text-foreground mb-2">カリキュラム</h2>
           <p className="text-muted-foreground mb-10 leading-relaxed">
-            全60ステップを4部構成で進めます。
+            全69ステップを5部構成で進めます。
           </p>
 
           {/* 第1部 */}
@@ -499,6 +530,14 @@ export default function Home() {
             partTitle="アーキテクチャ（STEP 58-60）"
             partColor="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
             items={curriculumPart4}
+          />
+
+          {/* 第5部 */}
+          <CurriculumPart
+            partLabel="第5部"
+            partTitle="実務品質とアクセシビリティ（STEP 61-69）"
+            partColor="bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
+            items={curriculumPart5}
           />
         </section>
 

@@ -15,7 +15,7 @@ import { Toaster } from "sonner";
 const Landing = lazy(() => import("./pages/Landing"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// ── React マニュアル (60ページ) ──
+// ── React マニュアル (69ページ) ──
 const ReactHome = lazy(() => import("./pages/react/Home"));
 const ReactSetup = lazy(() => import("./pages/react/intro/Setup"));
 const HelloReact = lazy(() => import("./pages/react/react-basics/HelloReact"));
@@ -76,6 +76,15 @@ const SbAdvanced = lazy(() => import("./pages/react/storybook/SbAdvanced"));
 const ArchOverview = lazy(() => import("./pages/react/architecture/ArchOverview"));
 const DesignSystem = lazy(() => import("./pages/react/architecture/DesignSystem"));
 const Maintenance = lazy(() => import("./pages/react/architecture/Maintenance"));
+const Flexbox = lazy(() => import("./pages/react/css-layout/Flexbox"));
+const CssGrid = lazy(() => import("./pages/react/css-layout/CssGrid"));
+const DialogPatterns = lazy(() => import("./pages/react/ui-patterns/DialogPatterns"));
+const SnackbarPatterns = lazy(() => import("./pages/react/ui-patterns/SnackbarPatterns"));
+const FormGroup = lazy(() => import("./pages/react/ui-patterns/FormGroup"));
+const SemanticAria = lazy(() => import("./pages/react/accessibility/SemanticAria"));
+const TableDesign = lazy(() => import("./pages/react/accessibility/TableDesign"));
+const FormA11y = lazy(() => import("./pages/react/accessibility/FormA11y"));
+const WebEthics = lazy(() => import("./pages/react/web-quality/WebEthics"));
 
 // ── Git マニュアル (27ページ) ──
 const GitHome = lazy(() => import("./pages/git/Home"));
@@ -271,6 +280,15 @@ function App() {
                 <Route path="/react/architecture/overview" component={ArchOverview} />
                 <Route path="/react/architecture/design-system" component={DesignSystem} />
                 <Route path="/react/architecture/maintenance" component={Maintenance} />
+                <Route path="/react/css-layout/flexbox" component={Flexbox} />
+                <Route path="/react/css-layout/grid" component={CssGrid} />
+                <Route path="/react/ui-patterns/dialog" component={DialogPatterns} />
+                <Route path="/react/ui-patterns/snackbar" component={SnackbarPatterns} />
+                <Route path="/react/ui-patterns/form-group" component={FormGroup} />
+                <Route path="/react/accessibility/semantic-aria" component={SemanticAria} />
+                <Route path="/react/accessibility/table-design" component={TableDesign} />
+                <Route path="/react/accessibility/form-a11y" component={FormA11y} />
+                <Route path="/react/web-quality/ethics" component={WebEthics} />
 
                 {/* === Git マニュアル === */}
                 <Route path="/git" component={GitHome} />
