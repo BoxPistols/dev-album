@@ -1479,6 +1479,7 @@ function AccessibleDialog({
           {/* CodingChallenge 1 */}
           <section>
             <CodingChallenge
+              preview={true}
               title="アクセシブルな確認ダイアログ"
               description="以下のコードに、アクセシビリティに必要な属性を追加してください。aria-labelledby, aria-describedby, onCancel ハンドラ、そして閉じるボタンの aria-label を設定してください。"
               initialCode={`function ConfirmDialog({ open, onClose, onConfirm }) {
@@ -1598,6 +1599,7 @@ function AccessibleDialog({
           {/* CodingChallenge 3 */}
           <section>
             <CodingChallenge
+              preview={true}
               title="backdrop クリックで閉じる安全な実装"
               description="backdrop クリックで Dialog を閉じる処理を実装してください。ただし、ユーザーが Dialog 内のテキストをドラッグ選択した際に誤って閉じないよう、mousedown の位置も考慮する実装にしてください。"
               initialCode={`function SafeBackdropDialog({ open, onClose, children }) {

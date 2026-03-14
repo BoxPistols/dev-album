@@ -1067,6 +1067,53 @@ export default function TableDesign() {
   );
 }`}
                 />
+
+                <CodePreview
+                  code={`function AccordionTableDemo() {
+  const [expandedId, setExpandedId] = React.useState(null);
+  const orders = [
+    { id: 'ORD-001', customer: '田中太郎', total: '14,000円', items: [{ name: '商品A', qty: 3, price: '9,000円' }, { name: '商品B', qty: 1, price: '5,000円' }] },
+    { id: 'ORD-002', customer: '鈴木花子', total: '23,500円', items: [{ name: '商品C', qty: 2, price: '12,000円' }, { name: '商品D', qty: 1, price: '8,500円' }, { name: '商品E', qty: 1, price: '3,000円' }] },
+    { id: 'ORD-003', customer: '佐藤次郎', total: '6,800円', items: [{ name: '商品F', qty: 1, price: '6,800円' }] },
+  ];
+  return (
+    <div style={{ padding: '16px' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+        <thead>
+          <tr style={{ borderBottom: '2px solid var(--border)' }}>
+            <th style={{ width: '36px', padding: '8px' }}></th>
+            <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--text)', fontWeight: 600 }}>注文ID</th>
+            <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', color: 'var(--text)', fontWeight: 600 }}>顧客名</th>
+            <th scope="col" style={{ textAlign: 'right', padding: '8px 12px', color: 'var(--text)', fontWeight: 600 }}>合計</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <React.Fragment key={order.id}>
+              <tr style={{ borderBottom: '1px solid var(--border)', cursor: 'pointer', background: expandedId === order.id ? 'var(--bg-muted, #f8fafc)' : 'transparent' }} onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}>
+                <td style={{ padding: '8px', textAlign: 'center', color: 'var(--text-muted, #64748b)', fontSize: '16px' }}>{expandedId === order.id ? '\u25BC' : '\u25B6'}</td>
+                <td style={{ padding: '8px 12px', color: 'var(--text-muted, #64748b)', fontFamily: 'monospace' }}>{order.id}</td>
+                <td style={{ padding: '8px 12px', color: 'var(--text)', fontWeight: 500 }}>{order.customer}</td>
+                <td style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text)', fontWeight: 600 }}>{order.total}</td>
+              </tr>
+              {expandedId === order.id && order.items.map((item, j) => (
+                <tr key={j} style={{ borderBottom: '1px solid var(--border-light, #f1f5f9)', background: 'var(--bg-muted, #f1f5f9)' }}>
+                  <td></td>
+                  <td style={{ padding: '6px 12px', color: 'var(--text-muted, #94a3b8)', fontSize: '12px' }}></td>
+                  <td style={{ padding: '6px 12px', color: 'var(--text-muted, #64748b)', fontSize: '12px' }}>{item.name} x {item.qty}</td>
+                  <td style={{ padding: '6px 12px', textAlign: 'right', color: 'var(--text-muted, #64748b)', fontSize: '12px' }}>{item.price}</td>
+                </tr>
+              ))}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}`}
+                  language="tsx"
+                  title="アコーディオン行: 入れ子テーブルの代替"
+                />
               </div>
 
               <div className="rounded-lg border border-border p-5">
@@ -1226,6 +1273,68 @@ function SortableHeader({
 // "descending" — 降順でソート中
 // "none"       — ソートされていない
 // "other"      — 上記以外のソート順`}
+            />
+
+            <CodePreview
+              code={`function SortableTableDemo() {
+  const [sortKey, setSortKey] = React.useState('name');
+  const [sortDir, setSortDir] = React.useState('asc');
+  const rawData = [
+    { name: '田中太郎', dept: '開発部', year: 2020, sales: 1560 },
+    { name: '鈴木花子', dept: 'デザイン部', year: 2019, sales: 1440 },
+    { name: '佐藤次郎', dept: '営業部', year: 2021, sales: 980 },
+    { name: '山田美咲', dept: '人事部', year: 2018, sales: 1820 },
+    { name: '高橋一郎', dept: '開発部', year: 2022, sales: 770 },
+  ];
+  const data = [...rawData].sort((a, b) => {
+    const av = a[sortKey], bv = b[sortKey];
+    if (av < bv) return sortDir === 'asc' ? -1 : 1;
+    if (av > bv) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+  const handleSort = (key) => {
+    if (sortKey === key) { setSortDir(sortDir === 'asc' ? 'desc' : 'asc'); }
+    else { setSortKey(key); setSortDir('asc'); }
+  };
+  const cols = [
+    { key: 'name', label: '名前', align: 'left' },
+    { key: 'dept', label: '部署', align: 'left' },
+    { key: 'year', label: '入社年', align: 'right' },
+    { key: 'sales', label: '年間売上(万)', align: 'right' },
+  ];
+  const arrow = (key) => sortKey === key ? (sortDir === 'asc' ? ' \\u25B2' : ' \\u25BC') : ' \\u25B2\\u25BC';
+  return (
+    <div style={{ padding: '16px' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+        <caption style={{ textAlign: 'left', fontWeight: 'bold', marginBottom: '8px', color: 'var(--text)', fontSize: '14px' }}>社員パフォーマンス（ヘッダーをクリックでソート）</caption>
+        <thead>
+          <tr style={{ borderBottom: '2px solid var(--border)' }}>
+            {cols.map((col) => (
+              <th key={col.key} scope="col" aria-sort={sortKey === col.key ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'} style={{ textAlign: col.align, padding: '8px 12px', color: 'var(--text)', fontWeight: 600 }}>
+                <button onClick={() => handleSort(col.key)} style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', color: sortKey === col.key ? 'var(--text-primary, #3b82f6)' : 'inherit', fontWeight: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '4px', padding: 0 }}>
+                  {col.label}
+                  <span aria-hidden="true" style={{ fontSize: '10px', opacity: sortKey === col.key ? 1 : 0.4 }}>{arrow(col.key)}</span>
+                </button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((d, i) => (
+            <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
+              <td style={{ padding: '8px 12px', color: 'var(--text)', fontWeight: 500 }}>{d.name}</td>
+              <td style={{ padding: '8px 12px', color: 'var(--text-muted, #64748b)' }}>{d.dept}</td>
+              <td style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text-muted, #64748b)' }}>{d.year}</td>
+              <td style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text)', fontWeight: 600 }}>{d.sales.toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}`}
+              language="tsx"
+              title="ソート可能なテーブル（aria-sort 付き）"
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">空セルの取り扱い</h3>
