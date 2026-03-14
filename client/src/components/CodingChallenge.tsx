@@ -66,7 +66,7 @@ function fuzzyCheck(code: string, answer: string, keywords?: string[]): boolean 
 }
 
 /** プレビュータイプを自動判定 */
-function resolvePreviewType(code: string, previewType?: string): string {
+export function resolvePreviewType(code: string, previewType?: string): string {
   if (previewType) return previewType;
   if (/\bTHREE\b/.test(code)) return 'threejs';
 
@@ -102,7 +102,7 @@ function buildPreviewForType(type: string, code: string, css: string, isDark: bo
 }
 
 /** コードの言語を推定 */
-function detectLanguage(code: string): 'tsx' | 'css' | 'bash' | 'markup' {
+export function detectLanguage(code: string): 'tsx' | 'css' | 'bash' | 'markup' {
   const trimmed = code.trim();
   if (/^\s*(git |npm |npx |curl |ssh |cd |mkdir |brew |sudo |#)/.test(trimmed)) return 'bash';
   if (/^\s*(\.|#|@media|@keyframes|:root|body|html)\s*\{/.test(trimmed)) return 'css';

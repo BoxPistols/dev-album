@@ -1,0 +1,72 @@
+name: バグ報告
+description: プレビューの表示問題やページのエラーを報告する
+title: "[バグ] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        バグ報告ありがとうございます。
+        以下のフォームに記入してください。スクリーンショットの添付が最も助かります。
+  - type: input
+    id: page-url
+    attributes:
+      label: ページURL
+      description: 問題が発生したページのURLを貼り付けてください
+      placeholder: "例: https://dev-album.vercel.app/react/storybook/structure"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: カテゴリ
+      options:
+        - プレビューが表示されない
+        - プレビューの表示がおかしい
+        - コードエディタの問題
+        - ページが表示されない
+        - レイアウト崩れ
+        - リンク切れ
+        - その他
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 何が起きましたか？
+      description: 期待した動作と実際の動作を教えてください
+      placeholder: |
+        期待: Badge コンポーネントが3色で表示される
+        実際: 緑の丸だけが表示される
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: スクリーンショット
+      description: 問題の画面をスクリーンショットで添付してください（ドラッグ&ドロップで貼り付け可能）
+    validations:
+      required: false
+  - type: dropdown
+    id: browser
+    attributes:
+      label: ブラウザ
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Edge
+        - その他
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: デバイス
+      options:
+        - PC (Mac)
+        - PC (Windows)
+        - タブレット
+        - スマートフォン
+    validations:
+      required: true

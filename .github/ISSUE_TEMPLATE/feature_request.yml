@@ -1,0 +1,23 @@
+name: 機能リクエスト / 改善提案
+description: 新機能や改善のアイデアを提案する
+title: "[提案] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        アイデアの共有ありがとうございます。
+  - type: textarea
+    id: description
+    attributes:
+      label: どんな機能・改善ですか？
+      placeholder: "例: ページの印刷機能がほしい"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: なぜ必要ですか？
+      placeholder: "例: オフラインでも学習したいため"
+    validations:
+      required: false

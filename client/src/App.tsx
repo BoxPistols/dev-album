@@ -13,6 +13,7 @@ import { Toaster } from "sonner";
 
 // ── ランディング ──
 const Landing = lazy(() => import("./pages/Landing"));
+const BugReport = lazy(() => import("./pages/BugReport"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ── React マニュアル (69ページ) ──
@@ -218,6 +219,7 @@ function App() {
               <Switch>
                 {/* ランディング */}
                 <Route path="/" component={Landing} />
+                <Route path="/bug-report" component={BugReport} />
 
                 {/* === React マニュアル === */}
                 <Route path="/react" component={ReactHome} />
