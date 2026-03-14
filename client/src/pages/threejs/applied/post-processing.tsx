@@ -6,7 +6,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -158,39 +158,6 @@ export default function PostProcessingPage() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4">Three.js での EffectComposer</h2>
-
-      <CodeBlock
-        language="javascript"
-        title="EffectComposer + Bloom の基本セットアップ"
-        showLineNumbers
-        code={`import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-
-// EffectComposer を作成
-const composer = new EffectComposer(renderer);
-
-// 1. レンダーパス（シーンを描画）
-const renderPass = new RenderPass(scene, camera);
-composer.addPass(renderPass);
-
-// 2. Bloom エフェクト
-const bloomPass = new UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
-  1.5,   // 強度 (intensity)
-  0.4,   // 半径 (radius)
-  0.85   // 閾値 (threshold)
-);
-composer.addPass(bloomPass);
-
-// アニメーションループでは renderer.render() の代わりに使用
-function animate() {
-  requestAnimationFrame(animate);
-  composer.render(); // renderer.render(scene, camera) ではなくこちら
-}`}
-      />
-
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-3">Bloom エフェクト</h2>
         <p className="text-sm text-muted-foreground mb-4">
@@ -218,16 +185,43 @@ function animate() {
           />
         </div>
 
-        <ThreePreview
+        <CodeWithPreview
+          language="javascript"
+          title="EffectComposer + Bloom の基本セットアップ"
           caption="Bloom エフェクトで発光する球体"
           cameraPosition={[4, 3, 4]}
+          code={`import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+// EffectComposer を作成
+const composer = new EffectComposer(renderer);
+
+// 1. レンダーパス（シーンを描画）
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+// 2. Bloom エフェクト
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  1.5,   // 強度 (intensity)
+  0.4,   // 半径 (radius)
+  0.85   // 閾値 (threshold)
+);
+composer.addPass(bloomPass);
+
+// アニメーションループでは renderer.render() の代わりに使用
+function animate() {
+  requestAnimationFrame(animate);
+  composer.render(); // renderer.render(scene, camera) ではなくこちら
+}`}
         >
           <BloomScene
             bloomIntensity={bloomIntensity}
             luminanceThreshold={luminanceThreshold}
             emissiveIntensity={2}
           />
-        </ThreePreview>
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

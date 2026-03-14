@@ -5,8 +5,7 @@ import * as THREE from "three";
 import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
-import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // メインのジオメトリ：浮遊する正二十面体
@@ -151,65 +150,21 @@ export default function PortfolioScenePage() {
         </p>
       </WhyNowBox>
 
-      <h2 className="text-2xl font-bold mb-4">完成シーンのプレビュー</h2>
+      <h2 className="text-2xl font-bold mb-4">完成シーンとソースコード</h2>
 
       <p className="text-muted-foreground mb-4 leading-relaxed">
         以下のシーンには、これまでのセクションで学んだ要素がすべて含まれています。
         マウスドラッグで視点を変更してみましょう。
       </p>
 
-      <ThreePreview
-        height="500px"
+      <CodeWithPreview
+        language="tsx"
+        title="PortfolioScene.tsx - 完全な R3F コンポーネント"
         caption="ポートフォリオ 3D シーン - 浮遊する正二十面体とパーティクル"
         cameraPosition={[5, 3, 5]}
         cameraFov={45}
-      >
-        <PortfolioScene />
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">シーンの構成要素</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="bg-card border border-border rounded-lg p-4">
-            <h4 className="font-semibold text-primary mb-2">FloatingIcosahedron</h4>
-            <p className="text-sm text-muted-foreground">
-              Float + MeshWobbleMaterial を使った正二十面体。
-              ゆらゆら揺れながら浮遊するメインオブジェクト。
-            </p>
-          </div>
-          <div className="bg-card border border-border rounded-lg p-4">
-            <h4 className="font-semibold text-primary mb-2">FloatingSpheres</h4>
-            <p className="text-sm text-muted-foreground">
-              複数の小さな球体を Float でそれぞれ独立して浮遊させます。
-              emissive で軽く発光させています。
-            </p>
-          </div>
-          <div className="bg-card border border-border rounded-lg p-4">
-            <h4 className="font-semibold text-primary mb-2">OrbitRing</h4>
-            <p className="text-sm text-muted-foreground">
-              useFrame で回転する細いリング。
-              emissive で光る軌道リングの表現です。
-            </p>
-          </div>
-          <div className="bg-card border border-border rounded-lg p-4">
-            <h4 className="font-semibold text-primary mb-2">GroundGrid</h4>
-            <p className="text-sm text-muted-foreground">
-              gridHelper と半透明の平面を組み合わせた床面。
-              SF 的な雰囲気を演出します。
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">完全なソースコード</h2>
-
-        <CodeBlock
-          language="tsx"
-          title="PortfolioScene.tsx - 完全な R3F コンポーネント"
-          showLineNumbers
-          code={`"use client";
+        previewHeight="500px"
+        code={`"use client";
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -324,7 +279,43 @@ export default function PortfolioScene() {
     </div>
   );
 }`}
-        />
+      >
+        <PortfolioScene />
+      </CodeWithPreview>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">シーンの構成要素</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-2">FloatingIcosahedron</h4>
+            <p className="text-sm text-muted-foreground">
+              Float + MeshWobbleMaterial を使った正二十面体。
+              ゆらゆら揺れながら浮遊するメインオブジェクト。
+            </p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-2">FloatingSpheres</h4>
+            <p className="text-sm text-muted-foreground">
+              複数の小さな球体を Float でそれぞれ独立して浮遊させます。
+              emissive で軽く発光させています。
+            </p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-2">OrbitRing</h4>
+            <p className="text-sm text-muted-foreground">
+              useFrame で回転する細いリング。
+              emissive で光る軌道リングの表現です。
+            </p>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-2">GroundGrid</h4>
+            <p className="text-sm text-muted-foreground">
+              gridHelper と半透明の平面を組み合わせた床面。
+              SF 的な雰囲気を演出します。
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-8">

@@ -6,7 +6,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -222,7 +222,7 @@ function FloatingCube() {
         />
       </div>
 
-      {/* MeshWobbleMaterial */}
+      {/* MeshWobbleMaterial + インタラクティブデモ */}
       <div className="mt-10">
         <h2 className="text-2xl font-bold mb-4">5. MeshWobbleMaterial</h2>
 
@@ -230,35 +230,6 @@ function FloatingCube() {
           メッシュの頂点をゆらゆらと変形させるマテリアルです。
           <code>factor</code>（変形量）と <code>speed</code>（速度）で
           ゼリーのような揺れの効果を調整できます。
-        </p>
-
-        <CodeBlock
-          language="tsx"
-          title="MeshWobbleMaterial でゆらゆら効果"
-          code={`import { MeshWobbleMaterial } from '@react-three/drei';
-
-function WobblyTorus() {
-  return (
-    <mesh>
-      <torusGeometry args={[1, 0.4, 32, 64]} />
-      <MeshWobbleMaterial
-        color="#8B5CF6"
-        factor={2}      // 変形量（0 = 変形なし）
-        speed={2}        // 揺れの速度
-        roughness={0.2}
-        metalness={0.8}
-      />
-    </mesh>
-  );
-}`}
-        />
-      </div>
-
-      {/* インタラクティブデモ */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-bold mb-3">Float + MeshWobbleMaterial デモ</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          Float の浮遊アニメーションと MeshWobbleMaterial のゆらゆら効果を組み合わせたデモです。
           スライダーで変形量と速度を調整してみましょう。
         </p>
 
@@ -281,16 +252,34 @@ function WobblyTorus() {
           />
         </div>
 
-        <ThreePreview
+        <CodeWithPreview
+          language="tsx"
+          title="MeshWobbleMaterial でゆらゆら効果"
           caption="Float + MeshWobbleMaterial を組み合わせたトーラス"
           cameraPosition={[4, 3, 4]}
+          code={`import { MeshWobbleMaterial } from '@react-three/drei';
+
+function WobblyTorus() {
+  return (
+    <mesh>
+      <torusGeometry args={[1, 0.4, 32, 64]} />
+      <MeshWobbleMaterial
+        color="#8B5CF6"
+        factor={2}      // 変形量（0 = 変形なし）
+        speed={2}        // 揺れの速度
+        roughness={0.2}
+        metalness={0.8}
+      />
+    </mesh>
+  );
+}`}
         >
           <WobblyTorus wobbleFactor={wobbleFactor} wobbleSpeed={wobbleSpeed} />
           <FloatingOrbs />
           <ambientLight intensity={0.4} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           <directionalLight position={[-3, 2, -3]} intensity={0.3} color="#93C5FD" />
-        </ThreePreview>
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

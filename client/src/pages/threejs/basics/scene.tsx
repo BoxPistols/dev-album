@@ -1,8 +1,7 @@
 import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
-import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 export default function ScenePage() {
@@ -55,10 +54,10 @@ export default function ScenePage() {
         緑色の立方体を表示しています。
       </p>
 
-      <CodeBlock
+      <CodeWithPreview
         language="javascript"
         title="最初の Three.js シーン"
-        showLineNumbers
+        caption="MeshBasicMaterial を使った立方体（ドラッグで回転、スクロールでズーム）"
         code={`// 1. シーンを作成
 const scene = new THREE.Scene();
 
@@ -83,20 +82,12 @@ camera.position.z = 3;
 
 // 6. レンダリング
 renderer.render(scene, camera);`}
-      />
-
-      <div className="mt-6 mb-8">
-        <h3 className="text-xl font-bold mb-3">プレビュー</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          上のコードを実行した結果です。ドラッグで回転、スクロールでズームできます。
-        </p>
-        <ThreePreview caption="MeshBasicMaterial を使った立方体（ライティング不要）">
-          <mesh>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshBasicMaterial color="#4F46E5" />
-          </mesh>
-        </ThreePreview>
-      </div>
+      >
+        <mesh>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial color="#4F46E5" />
+        </mesh>
+      </CodeWithPreview>
 
       <InfoBox type="info" title="Scene は「コンテナ」">
         <p>

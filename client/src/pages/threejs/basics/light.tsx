@@ -2,8 +2,7 @@ import { useState } from "react";
 import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
-import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -111,9 +110,34 @@ export default function LightPage() {
         />
       </div>
 
-      <ThreePreview
+      <CodeWithPreview
+        language="javascript"
+        title="3 種類のライトを追加"
         caption="スライダーでライトの強度と位置を調整できます"
         cameraPosition={[3, 3, 5]}
+        code={`// 環境光 - シーン全体を均一に照らす
+const ambientLight = new THREE.AmbientLight(
+  0xffffff,  // 色
+  ${ambientIntensity.toFixed(1)}         // 強度
+);
+scene.add(ambientLight);
+
+// 平行光 - 太陽光のような光
+const directionalLight = new THREE.DirectionalLight(
+  0xffffff,  // 色
+  ${directionalIntensity.toFixed(1)}         // 強度
+);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
+
+// 点光源 - 電球のような光
+const pointLight = new THREE.PointLight(
+  0xFFA500,  // 色（オレンジ）
+  ${pointIntensity.toFixed(1)},        // 強度
+  100        // 最大距離（0 = 無限）
+);
+pointLight.position.set(${pointPosX.toFixed(1)}, ${pointPosY.toFixed(1)}, 2);
+scene.add(pointLight);`}
       >
         {/* メインの球体 */}
         <mesh position={[0, 0.5, 0]}>
@@ -154,40 +178,7 @@ export default function LightPage() {
           <sphereGeometry args={[0.1, 16, 16]} />
           <meshBasicMaterial color="#FFA500" />
         </mesh>
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">ライトのコード</h2>
-
-        <CodeBlock
-          language="javascript"
-          title="3 種類のライトを追加"
-          showLineNumbers
-          code={`// 環境光 - シーン全体を均一に照らす
-const ambientLight = new THREE.AmbientLight(
-  0xffffff,  // 色
-  ${ambientIntensity.toFixed(1)}         // 強度
-);
-scene.add(ambientLight);
-
-// 平行光 - 太陽光のような光
-const directionalLight = new THREE.DirectionalLight(
-  0xffffff,  // 色
-  ${directionalIntensity.toFixed(1)}         // 強度
-);
-directionalLight.position.set(5, 5, 5);
-scene.add(directionalLight);
-
-// 点光源 - 電球のような光
-const pointLight = new THREE.PointLight(
-  0xFFA500,  // 色（オレンジ）
-  ${pointIntensity.toFixed(1)},        // 強度
-  100        // 最大距離（0 = 無限）
-);
-pointLight.position.set(${pointPosX.toFixed(1)}, ${pointPosY.toFixed(1)}, 2);
-scene.add(pointLight);`}
-        />
-      </div>
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">その他のライト</h2>

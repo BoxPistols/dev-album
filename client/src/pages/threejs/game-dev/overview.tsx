@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // スタイル付き飛行機（プリミティブで構成）
@@ -147,10 +147,11 @@ export default function OverviewPage() {
         入力の読み取り → 状態の更新 → 描画 というサイクルを繰り返します。
       </p>
 
-      <CodeBlock
+      <CodeWithPreview
         language="typescript"
         title="ゲームループの基本構造"
-        showLineNumbers
+        caption="プリミティブで構成した飛行機が円軌道を飛行するデモ"
+        cameraPosition={[5, 4, 5]}
         code={`// ゲームの状態
 const gameState = {
   aircraft: { position: new THREE.Vector3(), velocity: new THREE.Vector3() },
@@ -193,24 +194,9 @@ function gameLoop() {
 }
 
 gameLoop();`}
-      />
-
-      <div className="mt-8 mb-8">
-        <h2 className="text-2xl font-bold mb-4">飛行機プレビュー</h2>
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          完成イメージです。プリミティブ（円柱、箱、コーン）を組み合わせてスタイル化した飛行機が、
-          円軌道上を飛行しています。マウスドラッグで視点を変更できます。
-        </p>
-
-        <ThreePreview
-          height="400px"
-          caption="プリミティブで構成した飛行機が円軌道を飛行するデモ"
-          cameraPosition={[5, 4, 5]}
-          cameraFov={50}
-        >
-          <FlyingAirplaneScene />
-        </ThreePreview>
-      </div>
+      >
+        <FlyingAirplaneScene />
+      </CodeWithPreview>
 
       <h2 className="text-2xl font-bold mb-4">R3F でのゲームループ</h2>
 

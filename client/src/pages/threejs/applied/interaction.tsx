@@ -3,7 +3,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // インタラクティブなボックスコンポーネント
@@ -92,12 +92,17 @@ export default function InteractionPage() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4">Raycaster のコード</h2>
+      <h2 className="text-2xl font-bold mb-3">Raycaster のコード</h2>
+      <p className="text-sm text-muted-foreground mb-4">
+        ボックスにマウスを乗せると色が変わり、大きくなります。
+        クリックすると黄色に切り替わります。R3F の <code>onPointerOver</code> / <code>onPointerOut</code> / <code>onClick</code> イベントを使用しています。
+      </p>
 
-      <CodeBlock
+      <CodeWithPreview
         language="javascript"
         title="Three.js での Raycaster セットアップ"
-        showLineNumbers
+        caption="ボックスをホバー・クリックしてみてください"
+        cameraPosition={[4, 3, 4]}
         code={`const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -142,35 +147,22 @@ function animate() {
 
   renderer.render(scene, camera);
 }`}
-      />
+      >
+        <InteractiveBox position={[-1.5, 0.5, 0]} color="#4F46E5" hoverColor="#818CF8" />
+        <InteractiveBox position={[0, 0.5, 0]} color="#059669" hoverColor="#34D399" />
+        <InteractiveBox position={[1.5, 0.5, 0]} color="#DC2626" hoverColor="#F87171" />
+        <InteractiveBox position={[-0.75, 0.5, -1.5]} color="#7C3AED" hoverColor="#A78BFA" />
+        <InteractiveBox position={[0.75, 0.5, -1.5]} color="#EA580C" hoverColor="#FB923C" />
 
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-3">インタラクティブなボックス</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          ボックスにマウスを乗せると色が変わり、大きくなります。
-          クリックすると黄色に切り替わります。R3F の <code>onPointerOver</code> / <code>onPointerOut</code> / <code>onClick</code> イベントを使用しています。
-        </p>
+        {/* 床 */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+          <planeGeometry args={[8, 8]} />
+          <meshStandardMaterial color="#374151" roughness={0.9} />
+        </mesh>
 
-        <ThreePreview
-          caption="ボックスをホバー・クリックしてみてください"
-          cameraPosition={[4, 3, 4]}
-        >
-          <InteractiveBox position={[-1.5, 0.5, 0]} color="#4F46E5" hoverColor="#818CF8" />
-          <InteractiveBox position={[0, 0.5, 0]} color="#059669" hoverColor="#34D399" />
-          <InteractiveBox position={[1.5, 0.5, 0]} color="#DC2626" hoverColor="#F87171" />
-          <InteractiveBox position={[-0.75, 0.5, -1.5]} color="#7C3AED" hoverColor="#A78BFA" />
-          <InteractiveBox position={[0.75, 0.5, -1.5]} color="#EA580C" hoverColor="#FB923C" />
-
-          {/* 床 */}
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-            <planeGeometry args={[8, 8]} />
-            <meshStandardMaterial color="#374151" roughness={0.9} />
-          </mesh>
-
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        </ThreePreview>
-      </div>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">R3F でのインタラクション</h2>

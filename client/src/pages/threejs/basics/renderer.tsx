@@ -2,7 +2,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 export default function RendererPage() {
@@ -33,10 +33,10 @@ export default function RendererPage() {
 
       <h2 className="text-2xl font-bold mb-4">レンダラーの基本設定</h2>
 
-      <CodeBlock
+      <CodeWithPreview
         language="javascript"
         title="WebGLRenderer のセットアップ"
-        showLineNumbers
+        caption="アンチエイリアス有効の球体（WebGLRenderer の antialias: true に相当）"
         code={`// レンダラーを作成
 const renderer = new THREE.WebGLRenderer({
   antialias: true,  // アンチエイリアス（ギザギザを滑らかに）
@@ -53,7 +53,14 @@ document.body.appendChild(renderer.domElement);
 
 // 描画を実行
 renderer.render(scene, camera);`}
-      />
+      >
+        <mesh>
+          <sphereGeometry args={[1.5, 64, 64]} />
+          <meshStandardMaterial color="#4F46E5" roughness={0.3} metalness={0.2} />
+        </mesh>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
+      </CodeWithPreview>
 
       <div className="mt-8 mb-8">
         <h2 className="text-2xl font-bold mb-4">各設定の解説</h2>
@@ -109,22 +116,6 @@ renderer.render(scene, camera);`}
           </div>
         </div>
       </div>
-
-      <h2 className="text-2xl font-bold mb-4">アンチエイリアスの効果</h2>
-
-      <p className="text-sm text-muted-foreground mb-4">
-        下のプレビューは、滑らかな球体を表示しています。
-        アンチエイリアスにより、輪郭が滑らかに描画されます。
-      </p>
-
-      <ThreePreview caption="アンチエイリアス有効の球体（WebGLRenderer の antialias: true に相当）">
-        <mesh>
-          <sphereGeometry args={[1.5, 64, 64]} />
-          <meshStandardMaterial color="#4F46E5" roughness={0.3} metalness={0.2} />
-        </mesh>
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 5, 5]} intensity={0.8} />
-      </ThreePreview>
 
       <div className="mt-8">
         <InfoBox type="info" title="canvas 要素について">

@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // プリミティブで作った小さな家
@@ -146,17 +146,18 @@ loader.load(
       />
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">React Three Fiber での読み込み</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
+        <h2 className="text-2xl font-bold mb-3">React Three Fiber での読み込み</h2>
+        <p className="text-sm text-muted-foreground mb-4">
           R3F（React Three Fiber）では <code>@react-three/drei</code> の{" "}
           <code>useGLTF</code> フックを使うことで、より簡潔にモデルを読み込めます。
+          下のプレビューは基本ジオメトリを組み合わせた例です（実際のプロジェクトでは .glb ファイルを読み込みます）。
         </p>
 
-        <CodeBlock
+        <CodeWithPreview
           language="tsx"
           title="useGLTF を使った React Three Fiber でのモデル読み込み"
-          showLineNumbers
+          caption="プリミティブで構築した家（実際のプロジェクトでは .glb モデルを使用）"
+          cameraPosition={[4, 3, 4]}
           code={`import { useGLTF } from '@react-three/drei';
 
 function HouseModel() {
@@ -168,24 +169,11 @@ function HouseModel() {
 
 // プリロード（オプション）
 useGLTF.preload('/models/house.glb');`}
-        />
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-3">プリミティブによる構造物の例</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          実際のモデルファイルの代わりに、基本ジオメトリを組み合わせて小さな家を作成しています。
-          実際のプロジェクトでは、Blender などで作成した .glb ファイルを読み込みます。
-        </p>
-
-        <ThreePreview
-          caption="プリミティブで構築した家（実際のプロジェクトでは .glb モデルを使用）"
-          cameraPosition={[4, 3, 4]}
         >
           <SimpleHouse />
           <ambientLight intensity={0.4} />
           <directionalLight position={[5, 8, 5]} intensity={0.8} />
-        </ThreePreview>
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

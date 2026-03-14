@@ -6,7 +6,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // チェッカーボードテクスチャを生成するカスタムフック
@@ -135,21 +135,11 @@ scene.add(mesh);`}
           立方体に貼り付けています。外部画像ファイルを使わずにテクスチャを作成する方法です。
         </p>
 
-        <ThreePreview
-          caption="CanvasTexture で生成したチェッカーボードテクスチャ"
-          cameraPosition={[3, 3, 3]}
-        >
-          <TexturedBox />
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        </ThreePreview>
-      </div>
-
-      <div className="mt-8">
-        <CodeBlock
+        <CodeWithPreview
           language="javascript"
           title="CanvasTexture でプロシージャルテクスチャを生成"
-          showLineNumbers
+          caption="CanvasTexture で生成したチェッカーボードテクスチャ"
+          cameraPosition={[3, 3, 3]}
           code={`// Canvas でチェッカーボードを描画
 const canvas = document.createElement('canvas');
 canvas.width = 256;
@@ -170,7 +160,11 @@ texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 
 const material = new THREE.MeshStandardMaterial({ map: texture });`}
-        />
+        >
+          <TexturedBox />
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 5, 5]} intensity={0.8} />
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

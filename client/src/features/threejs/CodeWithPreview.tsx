@@ -10,6 +10,7 @@ interface CodeWithPreviewProps {
   children: ReactNode;
   caption?: string;
   cameraPosition?: [number, number, number];
+  cameraFov?: number;
 }
 
 export default function CodeWithPreview({
@@ -20,6 +21,7 @@ export default function CodeWithPreview({
   children,
   caption,
   cameraPosition,
+  cameraFov,
 }: CodeWithPreviewProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -28,6 +30,7 @@ export default function CodeWithPreview({
         height={previewHeight}
         caption={caption}
         cameraPosition={cameraPosition}
+        cameraFov={cameraFov}
       >
         {children}
       </ThreePreview>

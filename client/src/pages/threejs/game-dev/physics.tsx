@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -268,28 +268,12 @@ export default function PhysicsPage() {
         />
       </div>
 
-      <ThreePreview
-        height="400px"
+      <CodeWithPreview
+        language="tsx"
+        title="飛行物理の更新ロジック"
         caption={`推力: ${thrust} / 揚力係数: ${liftCoefficient.toFixed(2)} / 重力: ${gravity.toFixed(1)}m/s² - 画面右端でリセット`}
         cameraPosition={[0, 1, 10]}
-        cameraFov={50}
-        orbitControls={false}
-      >
-        <PhysicsPreviewScene
-          thrust={thrust}
-          liftCoefficient={liftCoefficient}
-          gravity={gravity}
-        />
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">物理更新関数の実装</h2>
-
-        <CodeBlock
-          language="tsx"
-          title="飛行物理の更新ロジック"
-          showLineNumbers
-          code={`interface FlightState {
+        code={`interface FlightState {
   position: THREE.Vector3;
   velocity: THREE.Vector3;
   rotation: THREE.Euler;
@@ -338,8 +322,13 @@ function updateFlightPhysics(state: FlightState, delta: number) {
     state.velocity.y = Math.max(0, state.velocity.y);
   }
 }`}
+      >
+        <PhysicsPreviewScene
+          thrust={thrust}
+          liftCoefficient={liftCoefficient}
+          gravity={gravity}
         />
-      </div>
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">useFrame での統合</h2>

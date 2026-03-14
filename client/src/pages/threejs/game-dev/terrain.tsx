@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -238,28 +238,12 @@ export default function TerrainPage() {
         />
       </div>
 
-      <ThreePreview
-        height="450px"
+      <CodeWithPreview
+        language="tsx"
+        title="地形生成のコア実装"
         caption={`地形スケール: ${terrainScale.toFixed(1)} - プロシージャルな丘陵地形と雲`}
         cameraPosition={[12, 8, 12]}
-        cameraFov={55}
-      >
-        <TerrainPreviewScene terrainScale={terrainScale} />
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">地形生成アルゴリズム</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          以下は地形生成の核となるコードです。複数オクターブのノイズ（fBm: Fractional Brownian Motion）を
-          使うことで、大きな丘と細かい凹凸を同時に表現しています。
-        </p>
-
-        <CodeBlock
-          language="tsx"
-          title="地形生成のコア実装"
-          showLineNumbers
-          code={`import { useRef, useEffect } from "react";
+        code={`import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 // 擬似ノイズ関数
@@ -332,8 +316,9 @@ function Terrain({ scale = 1.5 }: { scale?: number }) {
     </mesh>
   );
 }`}
-        />
-      </div>
+      >
+        <TerrainPreviewScene terrainScale={terrainScale} />
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">空と雲の実装</h2>

@@ -4,8 +4,7 @@ import * as THREE from "three";
 import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
-import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -185,28 +184,12 @@ export default function AircraftPage() {
         />
       </div>
 
-      <ThreePreview
-        height="400px"
+      <CodeWithPreview
+        language="tsx"
+        title="キーボード入力の管理パターン"
         caption={`ピッチ: ${pitchSpeed.toFixed(1)} / ロール: ${rollSpeed.toFixed(1)} / 速度: ${moveSpeed.toFixed(1)}m/s`}
         cameraPosition={[3, 2, 3]}
-        cameraFov={50}
-      >
-        <AircraftPreviewScene pitchAngle={pitchAngle} rollAngle={rollAngle} />
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">キーボード操作の実装</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          ゲームでの入力処理は「今どのキーが押されているか」を常に追跡するパターンが基本です。
-          <code>keydown</code> で押下状態を記録し、<code>keyup</code> で解除します。
-        </p>
-
-        <CodeBlock
-          language="tsx"
-          title="キーボード入力の管理パターン"
-          showLineNumbers
-          code={`import { useEffect, useRef } from "react";
+        code={`import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
 function AircraftController() {
@@ -256,8 +239,9 @@ function AircraftController() {
 
   return <AirplaneModel />;
 }`}
-        />
-      </div>
+      >
+        <AircraftPreviewScene pitchAngle={pitchAngle} rollAngle={rollAngle} />
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">キーマッピング</h2>

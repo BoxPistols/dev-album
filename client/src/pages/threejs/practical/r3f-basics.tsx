@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 // 回転するトーラスノット
@@ -156,23 +156,11 @@ function App() {
           フレームレートに依存しない滑らかなアニメーションが作れます。
         </p>
 
-        <ThreePreview
-          caption="useFrame で回転するトーラスノット（ドラッグで視点変更）"
-          cameraPosition={[3, 2, 4]}
-        >
-          <RotatingKnot />
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-        </ThreePreview>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">R3F コンポーネントの書き方</h2>
-
-        <CodeBlock
+        <CodeWithPreview
           language="tsx"
           title="RotatingKnot コンポーネント"
-          showLineNumbers
+          caption="useFrame で回転するトーラスノット（ドラッグで視点変更）"
+          cameraPosition={[3, 2, 4]}
           code={`import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -199,7 +187,11 @@ function RotatingKnot() {
     </mesh>
   );
 }`}
-        />
+        >
+          <RotatingKnot />
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

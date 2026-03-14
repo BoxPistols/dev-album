@@ -289,37 +289,8 @@ export default function HudGameloopPage() {
         HUD オーバーレイで速度・高度・スコアがリアルタイムに表示されます。
       </p>
 
-      {/* 3D プレビュー + HUD オーバーレイ */}
-      <div className="relative rounded-lg border border-border overflow-hidden bg-slate-900">
-        <div style={{ height: "500px" }}>
-          <ThreePreview
-            height="500px"
-            cameraPosition={[8, 6, 8]}
-            cameraFov={55}
-          >
-            <MiniGameScene onUpdateHud={setHudData} />
-          </ThreePreview>
-        </div>
-        {/* HUD を Canvas の上に重ねる */}
-        <HudOverlay
-          speed={hudData.speed}
-          altitude={hudData.altitude}
-          score={hudData.score}
-        />
-      </div>
-      <div className="px-4 py-2 text-xs text-slate-400 bg-slate-800 border-t border-slate-700 rounded-b-lg">
-        ミニゲームデモ - 飛行機が自動飛行しチェックポイントを通過。HUD がリアルタイム更新
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">ゲーム状態の管理</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          ゲームの状態は <code>useRef</code> と <code>useState</code> を使い分けて管理します。
-          毎フレーム更新される物理データは <code>useRef</code>、
-          UI に反映するデータは <code>useState</code> が適切です。
-        </p>
-
+      {/* 3D プレビュー + HUD オーバーレイ + コード（横並び） */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <CodeBlock
           language="tsx"
           title="ゲーム状態管理"
@@ -376,6 +347,25 @@ function useGameState() {
   };
 }`}
         />
+        <div>
+          <div className="relative rounded-lg border border-border overflow-hidden bg-slate-900">
+            <ThreePreview
+              height="500px"
+              cameraPosition={[8, 6, 8]}
+              cameraFov={55}
+            >
+              <MiniGameScene onUpdateHud={setHudData} />
+            </ThreePreview>
+            <HudOverlay
+              speed={hudData.speed}
+              altitude={hudData.altitude}
+              score={hudData.score}
+            />
+          </div>
+          <div className="px-4 py-2 text-xs text-slate-400 bg-slate-800 border-t border-slate-700 rounded-b-lg">
+            ミニゲームデモ - 飛行機が自動飛行しチェックポイントを通過。HUD がリアルタイム更新
+          </div>
+        </div>
       </div>
 
       <div className="mt-8">

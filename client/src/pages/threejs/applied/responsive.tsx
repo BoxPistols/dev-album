@@ -2,7 +2,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import CodingChallenge from "@/components/CodingChallenge";
 
 export default function ResponsivePage() {
@@ -133,9 +133,28 @@ updateSize();`}
           特別な設定は不要です。
         </p>
 
-        <ThreePreview
+        <CodeWithPreview
+          language="tsx"
+          title="R3F での Canvas 設定"
           caption="R3F では Canvas がリサイズに自動対応します"
           cameraPosition={[3, 3, 5]}
+          code={`import { Canvas } from '@react-three/fiber';
+
+function App() {
+  return (
+    <div style={{ width: '100%', height: '100vh' }}>
+      <Canvas
+        camera={{ position: [3, 3, 3], fov: 50 }}
+        dpr={[1, 2]}  // ピクセル比を 1〜2 に制限
+      >
+        <Scene />
+      </Canvas>
+    </div>
+  );
+}
+
+// Canvas は親の div に合わせて自動リサイズ
+// window.addEventListener('resize', ...) は不要！`}
         >
           {/* メインの球体 */}
           <mesh position={[0, 0.5, 0]}>
@@ -161,41 +180,7 @@ updateSize();`}
 
           <ambientLight intensity={0.4} />
           <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        </ThreePreview>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">R3F でのレスポンシブ対応</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          React Three Fiber の <code>Canvas</code> コンポーネントは
-          親要素のサイズに自動で追従するため、リサイズイベントの
-          手動設定は不要です。ただし、<code>dpr</code>（デバイスピクセル比）は
-          明示的に制限することを推奨します。
-        </p>
-
-        <CodeBlock
-          language="tsx"
-          title="R3F での Canvas 設定"
-          showLineNumbers
-          code={`import { Canvas } from '@react-three/fiber';
-
-function App() {
-  return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <Canvas
-        camera={{ position: [3, 3, 3], fov: 50 }}
-        dpr={[1, 2]}  // ピクセル比を 1〜2 に制限
-      >
-        <Scene />
-      </Canvas>
-    </div>
-  );
-}
-
-// Canvas は親の div に合わせて自動リサイズ
-// window.addEventListener('resize', ...) は不要！`}
-        />
+        </CodeWithPreview>
       </div>
 
       <div className="mt-8">

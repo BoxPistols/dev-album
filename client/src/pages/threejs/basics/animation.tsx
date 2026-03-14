@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -57,10 +57,21 @@ export default function AnimationPage() {
 
       <h2 className="text-2xl font-bold mb-4">基本のアニメーションループ</h2>
 
-      <CodeBlock
+      <div className="space-y-3 mb-4 p-4 bg-card border border-border rounded-lg">
+        <ParameterSlider
+          label="回転速度"
+          value={speed}
+          min={0}
+          max={5}
+          step={0.1}
+          onChange={setSpeed}
+        />
+      </div>
+
+      <CodeWithPreview
         language="javascript"
         title="requestAnimationFrame によるアニメーション"
-        showLineNumbers
+        caption={`回転速度: ${speed.toFixed(1)}x`}
         code={`// アニメーションループ
 function animate() {
   // 次のフレームで再度この関数を呼ぶ
@@ -76,7 +87,11 @@ function animate() {
 
 // アニメーション開始
 animate();`}
-      />
+      >
+        <RotatingCube speed={speed} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
+      </CodeWithPreview>
 
       <div className="mt-8 mb-4">
         <h2 className="text-2xl font-bold mb-4">コードの流れ</h2>
@@ -118,30 +133,6 @@ animate();`}
             </div>
           </li>
         </ol>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-3">回転する立方体</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          スライダーで回転速度を調整できます。速度を 0 にするとアニメーションが停止します。
-        </p>
-
-        <div className="space-y-3 mb-4 p-4 bg-card border border-border rounded-lg">
-          <ParameterSlider
-            label="回転速度"
-            value={speed}
-            min={0}
-            max={5}
-            step={0.1}
-            onChange={setSpeed}
-          />
-        </div>
-
-        <ThreePreview caption={`回転速度: ${speed.toFixed(1)}x`}>
-          <RotatingCube speed={speed} />
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        </ThreePreview>
       </div>
 
       <div className="mt-8">

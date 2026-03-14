@@ -5,7 +5,7 @@ import PageLayout from "@/features/threejs/PageLayout";
 import WhyNowBox from "@/components/WhyNowBox";
 import InfoBox from "@/components/InfoBox";
 import CodeBlock from "@/components/CodeBlock";
-import ThreePreview from "@/features/threejs/ThreePreview";
+import CodeWithPreview from "@/features/threejs/CodeWithPreview";
 import ParameterSlider from "@/features/threejs/ParameterSlider";
 import CodingChallenge from "@/components/CodingChallenge";
 
@@ -267,34 +267,12 @@ export default function CameraPage() {
         />
       </div>
 
-      <ThreePreview
-        height="450px"
+      <CodeWithPreview
+        language="tsx"
+        title="三人称カメラの追従ロジック"
         caption={`追従距離: ${followDistance.toFixed(1)}m / 高さ: ${followHeight.toFixed(1)}m / スムージング: ${smoothing.toFixed(2)}`}
         cameraPosition={[0, 5, 10]}
-        cameraFov={55}
-        orbitControls={false}
-      >
-        <CameraPreviewScene
-          followDistance={followDistance}
-          followHeight={followHeight}
-          smoothing={smoothing}
-        />
-      </ThreePreview>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">カメラ追従ロジック（lerp）</h2>
-
-        <p className="text-muted-foreground mb-4 leading-relaxed">
-          追従カメラの鍵は <code>lerp</code>（線形補間）です。
-          カメラを目標位置に直接移動するのではなく、毎フレーム少しずつ近づけることで、
-          自然で滑らかなカメラワークを実現します。
-        </p>
-
-        <CodeBlock
-          language="tsx"
-          title="三人称カメラの追従ロジック"
-          showLineNumbers
-          code={`import { useRef } from "react";
+        code={`import { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -336,8 +314,13 @@ function ThirdPersonCamera({
 
   return null; // カメラはシーンの子ではない
 }`}
+      >
+        <CameraPreviewScene
+          followDistance={followDistance}
+          followHeight={followHeight}
+          smoothing={smoothing}
         />
-      </div>
+      </CodeWithPreview>
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">視点切替の実装</h2>
