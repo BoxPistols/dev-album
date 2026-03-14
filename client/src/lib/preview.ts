@@ -53,8 +53,8 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/react@19/umd/react.development.js"><\/script>
-<script src="https://unpkg.com/react-dom@19/umd/react-dom.development.js"><\/script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"><\/script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"><\/script>
 ${needsThree ? '<script src="https://unpkg.com/three@0.183.2/build/three.min.js"><\\/script>' : ''}
 <style>
 :root{
@@ -338,40 +338,6 @@ try {
 <\/script>
 </body>
 </html>`;
-}
-
-/**
- * プレビュー HTML を blob URL で管理するフック
- * useMemo 内の副作用を排除し、useEffect で安全に管理する
- */
-export function useBlobUrl(html: string): string {
-  const [blobUrl, setBlobUrl] = useState('');
-  const blobUrlRef = useRef('');
-
-  useEffect(() => {
-    if (!html) {
-      if (blobUrlRef.current) {
-        URL.revokeObjectURL(blobUrlRef.current);
-        blobUrlRef.current = '';
-      }
-      setBlobUrl('');
-      return;
-    }
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    // 前の URL を revoke
-    if (blobUrlRef.current) {
-      URL.revokeObjectURL(blobUrlRef.current);
-    }
-    blobUrlRef.current = url;
-    setBlobUrl(url);
-
-    return () => {
-      URL.revokeObjectURL(url);
-      blobUrlRef.current = '';
-    };
-  }, [html]);
-
-  return blobUrl;
 }
 
 /**

@@ -84,39 +84,39 @@
 }
 
 .dark {
-  --primary: #60A5FA;
-  --primary-foreground: #1E3A5F;
-  --sidebar-primary: #60A5FA;
-  --sidebar-primary-foreground: #1E3A5F;
-  --chart-1: #10B981;
-  --chart-2: #3B82F6;
-  --chart-3: #A78BFA;
-  --chart-4: #60A5FA;
-  --chart-5: #8B5CF6;
-  --background: #0C1222;
-  --foreground: #F1F5F9;
-  --card: #1A2332;
-  --card-foreground: #F1F5F9;
-  --popover: #1A2332;
-  --popover-foreground: #F1F5F9;
-  --secondary: #10B981;
+  --primary: #7CB3E8;
+  --primary-foreground: #1A2D44;
+  --sidebar-primary: #7CB3E8;
+  --sidebar-primary-foreground: #1A2D44;
+  --chart-1: #34D399;
+  --chart-2: #60A5FA;
+  --chart-3: #C4B5FD;
+  --chart-4: #7CB3E8;
+  --chart-5: #A78BFA;
+  --background: #151D2B;
+  --foreground: #CDD5E0;
+  --card: #1C2737;
+  --card-foreground: #CDD5E0;
+  --popover: #1C2737;
+  --popover-foreground: #CDD5E0;
+  --secondary: #34D399;
   --secondary-foreground: #0F172A;
-  --muted: #2D3B4E;
-  --muted-foreground: #94A3B8;
-  --accent: #A78BFA;
+  --muted: #283545;
+  --muted-foreground: #8B99AD;
+  --accent: #C4B5FD;
   --accent-foreground: #1F2937;
-  --destructive: #EF4444;
+  --destructive: #F87171;
   --destructive-foreground: #FEE2E2;
-  --border: #2D3B4E;
-  --input: #1A2332;
-  --ring: #60A5FA;
-  --sidebar: rgba(26, 35, 50, 0.9);
-  --sidebar-foreground: #F1F5F9;
-  --sidebar-accent: #2D3B4E;
-  --sidebar-accent-foreground: #F1F5F9;
-  --sidebar-border: #2D3B4E;
-  --sidebar-ring: #60A5FA;
-  --cta: #FB923C;
+  --border: #283545;
+  --input: #1C2737;
+  --ring: #7CB3E8;
+  --sidebar: rgba(28, 39, 55, 0.92);
+  --sidebar-foreground: #CDD5E0;
+  --sidebar-accent: #283545;
+  --sidebar-accent-foreground: #CDD5E0;
+  --sidebar-border: #283545;
+  --sidebar-ring: #7CB3E8;
+  --cta: #F0A875;
 }
 
 @layer base {
@@ -263,8 +263,8 @@
   }
   .dark .card-hover:hover {
     box-shadow:
-      0 10px 25px -5px rgba(96, 165, 250, 0.1),
-      0 4px 6px -4px rgba(96, 165, 250, 0.06);
+      0 10px 25px -5px rgba(124, 179, 232, 0.1),
+      0 4px 6px -4px rgba(124, 179, 232, 0.06);
   }
 
   /* ガラスモーフィズムサイドバー */
@@ -284,7 +284,7 @@
     box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
   }
   .dark .progress-glow {
-    box-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+    box-shadow: 0 0 8px rgba(124, 179, 232, 0.4);
   }
 
   /* メッシュグラデーション */
@@ -298,11 +298,11 @@
   }
   .dark .mesh-gradient {
     background:
-      radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 60% 80%, rgba(6, 182, 212, 0.3) 0%, transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
-      linear-gradient(135deg, #0c1222 0%, #1a1033 100%);
+      radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(20, 184, 166, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+      linear-gradient(135deg, #151D2B 0%, #1C1830 100%);
   }
 
   /* Hero 用フローティング要素 */

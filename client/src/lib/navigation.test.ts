@@ -23,12 +23,12 @@ describe("navigation データ整合性", () => {
     expect(ids).toEqual(["react", "git", "threejs", "claude-mux"]);
   });
 
-  it("ページ数が149", () => {
-    expect(pages.length).toBe(149);
+  it("ページ数が154", () => {
+    expect(pages.length).toBe(154);
   });
 
   it("マニュアル別ページ数", () => {
-    expect(getManualPages("react").length).toBe(55);
+    expect(getManualPages("react").length).toBe(60);
     expect(getManualPages("git").length).toBe(27);
     expect(getManualPages("threejs").length).toBe(23);
     expect(getManualPages("claude-mux").length).toBe(44);

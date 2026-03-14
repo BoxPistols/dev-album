@@ -15,8 +15,8 @@ describe("buildPreviewHtml (JSX/TSX)", () => {
       false,
     );
     expect(html).toContain("<!DOCTYPE html>");
-    expect(html).toContain("react@19");
-    expect(html).toContain("react-dom@19");
+    expect(html).toContain("react@18");
+    expect(html).toContain("react-dom@18");
     expect(html).toContain("App");
   });
 
@@ -43,7 +43,7 @@ describe("buildPreviewHtml (JSX/TSX)", () => {
     const html = buildPreviewHtml("function {{{ broken", "", false);
     expect(html).toContain("<!DOCTYPE html>");
     // エラーメッセージが含まれる
-    expect(html).not.toContain("react@19");
+    expect(html).not.toContain("react@18");
   });
 
   it("THREE を含むコードでも Three.js CDN は含まない（buildPreviewHtml は JSX 専用）", () => {

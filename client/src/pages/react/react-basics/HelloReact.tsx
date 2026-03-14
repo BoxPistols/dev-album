@@ -538,7 +538,7 @@ export default App`}
                   JSX では <code className="bg-muted px-1 py-0.5 rounded text-xs">style={'{'}{'{'} textAlign: 'center' {'}'}{'}'}
                   </code> と書きます。
                   ケバブケース（text-align）ではなくキャメルケース（textAlign）を使い、オブジェクト形式で指定します。
-                  CSS スタイリングの詳細は STEP 17 以降で学びます。
+                  CSS スタイリングの詳細は STEP 20 以降で学びます。
                 </p>
               </InfoBox>
             </div>

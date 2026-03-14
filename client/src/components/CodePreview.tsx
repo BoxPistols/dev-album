@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
-import { useBlobUrl, useDebouncedPreview } from '@/lib/preview';
+import { useDebouncedPreview } from '@/lib/preview';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface CodePreviewProps {
@@ -51,7 +51,6 @@ export default function CodePreview({
   const isHorizontal = layout === 'horizontal';
 
   const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, theme === 'dark');
-  const blobUrl = useBlobUrl(previewHtml);
 
   const handleReset = () => setEditableCode(code);
 
@@ -144,12 +143,13 @@ export default function CodePreview({
                 style={{ tabSize: 2 }}
               >
                 {tokens.map((line, i) => {
-                  const lineProps = getLineProps({ line, key: i });
+                  const { key: _lk, ...lineProps } = getLineProps({ line });
                   return (
                     <div key={i} {...lineProps} className="whitespace-pre">
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token, key })} />
-                      ))}
+                      {line.map((token, j) => {
+                        const { key: _tk, ...tokenProps } = getTokenProps({ token });
+                        return <span key={j} {...tokenProps} />;
+                      })}
                     </div>
                   );
                 })}
@@ -198,12 +198,14 @@ export default function CodePreview({
         <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Result</span>
       </div>
       <div className="bg-white dark:bg-[#1e1e2e] flex-1 relative" style={{ height: editorHeight }}>
-        <iframe
-          src={blobUrl}
-          sandbox="allow-scripts"
-          title="プレビュー"
-          className="w-full h-full border-0"
-        />
+        {previewHtml && (
+          <iframe
+            srcDoc={previewHtml}
+            sandbox="allow-scripts allow-same-origin"
+            title="プレビュー"
+            className="w-full h-full border-0"
+          />
+        )}
         {/* ドラッグ中は iframe がマウスイベントを奪うのを防止 */}
         {isDragging && <div className="absolute inset-0" />}
       </div>

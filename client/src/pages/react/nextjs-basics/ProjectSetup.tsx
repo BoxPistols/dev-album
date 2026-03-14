@@ -9,7 +9,7 @@ export default function ProjectSetup() {
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 32</span>
+          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 35</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Next.js プロジェクト作成</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
@@ -80,9 +80,7 @@ npx create-next-app@latest my-next-app
 │   ├── next.svg
 │   └── vercel.svg
 ├── next.config.ts              # Next.js の設定ファイル
-├── tailwind.config.ts          # Tailwind CSS の設定
 ├── tsconfig.json               # TypeScript の設定
-├── postcss.config.mjs          # PostCSS の設定
 ├── eslint.config.mjs           # ESLint の設定
 ├── package.json
 └── package-lock.json`}

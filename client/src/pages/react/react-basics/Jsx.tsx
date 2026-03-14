@@ -795,7 +795,7 @@ function App() {
               <InfoBox type="info" title="インラインスタイルは推奨されない">
                 <p>
                   実際の開発では、インラインスタイルはあまり使いません。
-                  CSS Modules、Tailwind CSS、styled-components など、より良いスタイリング手法を STEP 17 以降で学びます。
+                  CSS Modules、Tailwind CSS、styled-components など、より良いスタイリング手法を STEP 20 以降で学びます。
                   今は「JSX ではこう書く」ということだけ知っておけば十分です。
                 </p>
               </InfoBox>

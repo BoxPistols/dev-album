@@ -9,7 +9,7 @@ export default function SbFigma() {
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 51</span>
+          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 56</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Figma 連携と Chromatic</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">

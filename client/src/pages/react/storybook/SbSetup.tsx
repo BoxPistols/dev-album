@@ -9,7 +9,7 @@ export default function SbSetup() {
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 48</span>
+          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 53</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Storybook 導入と初期画面</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
@@ -341,17 +341,21 @@ const preview: Preview = {
     ),
   ],
 
-  // グローバルの初期値
+  // ツールバーの切り替え項目を定義
   globalTypes: {
     locale: {
       description: '言語設定',
-      defaultValue: 'ja',
       toolbar: {
         title: '言語',
         icon: 'globe',
         items: ['ja', 'en'],
       },
     },
+  },
+
+  // グローバルの初期値（Storybook 8 推奨）
+  initialGlobals: {
+    locale: 'ja',
   },
 };
 
@@ -380,10 +384,12 @@ export default preview;`}
               </div>
 
               <div className="p-4 rounded-lg border border-border bg-card">
-                <h3 className="font-bold text-foreground mb-2">globalTypes</h3>
+                <h3 className="font-bold text-foreground mb-2">globalTypes + initialGlobals</h3>
                 <p className="text-sm text-muted-foreground">
-                  Storybook のツールバーに表示されるグローバルな切り替え項目です。
-                  言語切り替え、テーマ切り替えなど、全 Story に影響する設定をツールバーから操作できます。
+                  <code className="text-sm bg-muted px-1 py-0.5 rounded">globalTypes</code> でツールバーの切り替え項目を定義し、
+                  <code className="text-sm bg-muted px-1 py-0.5 rounded">initialGlobals</code> で初期値を設定します。
+                  Storybook 8 では <code className="text-sm bg-muted px-1 py-0.5 rounded">defaultValue</code> は非推奨となり、
+                  <code className="text-sm bg-muted px-1 py-0.5 rounded">initialGlobals</code> での指定が推奨されています。
                 </p>
               </div>
             </div>

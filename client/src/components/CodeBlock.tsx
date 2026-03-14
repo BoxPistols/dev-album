@@ -90,7 +90,7 @@ export default function CodeBlock({
           <div className="overflow-x-auto">
             <pre className="p-4 font-mono text-sm leading-relaxed m-0">
               {tokens.map((line, i) => {
-                const lineProps = getLineProps({ line, key: i });
+                const { key: _lk, ...lineProps } = getLineProps({ line });
                 return (
                   <div key={i} {...lineProps} className="flex">
                     {showLineNumbers && (
@@ -99,9 +99,10 @@ export default function CodeBlock({
                       </span>
                     )}
                     <span className="flex-1">
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token, key })} />
-                      ))}
+                      {line.map((token, j) => {
+                        const { key: _tk, ...tokenProps } = getTokenProps({ token });
+                        return <span key={j} {...tokenProps} />;
+                      })}
                     </span>
                   </div>
                 );

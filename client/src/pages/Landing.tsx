@@ -3,10 +3,10 @@ import { manuals, getManualPages, type ManualId } from '@/lib/navigation';
 import { ArrowRight, BookOpen } from 'lucide-react';
 
 const manualBgColors: Record<ManualId, string> = {
-  react: 'from-blue-600 to-blue-700',
-  git: 'from-orange-500 to-orange-600',
-  threejs: 'from-cyan-500 to-cyan-600',
-  'claude-mux': 'from-amber-500 to-amber-600',
+  react: 'from-indigo-500 to-indigo-600',
+  git: 'from-rose-500 to-rose-600',
+  threejs: 'from-teal-500 to-teal-600',
+  'claude-mux': 'from-violet-500 to-violet-600',
 };
 
 const manualDescriptions: Record<ManualId, string[]> = {
@@ -24,7 +24,7 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
           <div className="flex items-center gap-2 mb-4">
             <BookOpen size={24} />
-            <span className="text-sm font-medium tracking-wider uppercase opacity-80">統合学習マニュアル</span>
+            <span className="text-sm font-medium tracking-wider uppercase opacity-80">DevDeck</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-6 leading-tight">
             すべてのマニュアルを<br />

@@ -15,7 +15,7 @@ import { Toaster } from "sonner";
 const Landing = lazy(() => import("./pages/Landing"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// ── React マニュアル (55ページ) ──
+// ── React マニュアル (60ページ) ──
 const ReactHome = lazy(() => import("./pages/react/Home"));
 const ReactSetup = lazy(() => import("./pages/react/intro/Setup"));
 const HelloReact = lazy(() => import("./pages/react/react-basics/HelloReact"));
@@ -32,6 +32,9 @@ const UseContext = lazy(() => import("./pages/react/hooks-deep/UseContext"));
 const UseReducer = lazy(() => import("./pages/react/hooks-deep/UseReducer"));
 const MemoCallback = lazy(() => import("./pages/react/hooks-deep/MemoCallback"));
 const CustomHooks = lazy(() => import("./pages/react/hooks-deep/CustomHooks"));
+const React19Hooks = lazy(() => import("./pages/react/react19/React19Hooks"));
+const React19Features = lazy(() => import("./pages/react/react19/React19Features"));
+const React19Upgrade = lazy(() => import("./pages/react/react19/React19Upgrade"));
 const PlainCss = lazy(() => import("./pages/react/css-basics/PlainCss"));
 const CssInJs = lazy(() => import("./pages/react/css-basics/CssInJs"));
 const StyledComponents = lazy(() => import("./pages/react/css-basics/StyledComponents"));
@@ -58,6 +61,8 @@ const RouteHandlers = lazy(() => import("./pages/react/nextjs-practice/RouteHand
 const ServerActions = lazy(() => import("./pages/react/nextjs-practice/ServerActions"));
 const Middleware = lazy(() => import("./pages/react/nextjs-practice/Middleware"));
 const Optimization = lazy(() => import("./pages/react/nextjs-practice/Optimization"));
+const Next15Features = lazy(() => import("./pages/react/nextjs-advanced/Next15Features"));
+const Next15Ppr = lazy(() => import("./pages/react/nextjs-advanced/Next15Ppr"));
 const TailwindMui = lazy(() => import("./pages/react/nextjs-css/TailwindMui"));
 const CssModulesSc = lazy(() => import("./pages/react/nextjs-css/CssModulesSc"));
 const Vercel = lazy(() => import("./pages/react/deploy/Vercel"));
@@ -222,6 +227,9 @@ function App() {
                 <Route path="/react/hooks-deep/use-reducer" component={UseReducer} />
                 <Route path="/react/hooks-deep/memo-callback" component={MemoCallback} />
                 <Route path="/react/hooks-deep/custom-hooks" component={CustomHooks} />
+                <Route path="/react/react19/hooks" component={React19Hooks} />
+                <Route path="/react/react19/features" component={React19Features} />
+                <Route path="/react/react19/upgrade" component={React19Upgrade} />
                 <Route path="/react/css-basics/plain-css" component={PlainCss} />
                 <Route path="/react/css-basics/css-in-js" component={CssInJs} />
                 <Route path="/react/css-basics/styled-components" component={StyledComponents} />
@@ -248,6 +256,8 @@ function App() {
                 <Route path="/react/nextjs-practice/server-actions" component={ServerActions} />
                 <Route path="/react/nextjs-practice/middleware" component={Middleware} />
                 <Route path="/react/nextjs-practice/optimization" component={Optimization} />
+                <Route path="/react/nextjs-advanced/next15-features" component={Next15Features} />
+                <Route path="/react/nextjs-advanced/next15-ppr" component={Next15Ppr} />
                 <Route path="/react/nextjs-css/tailwind-mui" component={TailwindMui} />
                 <Route path="/react/nextjs-css/css-modules-sc" component={CssModulesSc} />
                 <Route path="/react/deploy/vercel" component={Vercel} />

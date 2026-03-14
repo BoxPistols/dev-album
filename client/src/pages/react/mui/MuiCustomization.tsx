@@ -10,7 +10,7 @@ export default function MuiCustomization() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 27</span>
+          <span className="step-badge">STEP 30</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">MUI カスタマイズ</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">

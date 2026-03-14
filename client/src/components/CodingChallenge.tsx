@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Code2, CheckCircle2, Lightbulb, RotateCcw, Eye, EyeOff } from 'lucide-react';
 import {
-  useBlobUrl,
   buildPreviewHtml,
   buildThreePreviewHtml,
   buildMarkdownPreviewHtml,
@@ -69,6 +68,19 @@ function fuzzyCheck(code: string, answer: string, keywords?: string[]): boolean 
 function resolvePreviewType(code: string, previewType?: string): string {
   if (previewType) return previewType;
   if (/\bTHREE\b/.test(code)) return 'threejs';
+
+  const trimmedLines = code.split('\n').filter(l => l.trim());
+
+  // 全行が # コメントのみ → シェルテンプレート
+  if (trimmedLines.length > 0 && trimmedLines.every(l => l.trim().startsWith('#'))) {
+    return 'terminal';
+  }
+
+  // シェルコマンドを検知（# コメント行は除外）
+  const codeLines = trimmedLines.filter(l => !l.trim().startsWith('#'));
+  const shellPattern = /^\s*(git |ssh |npm |npx |node |curl |wget |sudo |apt |brew |cd |ls |mkdir |touch |cat |echo |source |chmod |mv |cp |rm |docker |kubectl |tmux |code |xcode-|pip |python|wsl |gh )/;
+  if (codeLines.length > 0 && codeLines.some(l => shellPattern.test(l))) return 'terminal';
+
   return 'jsx';
 }
 
@@ -128,10 +140,6 @@ export default function CodingChallenge({
     if (preview) setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Three.js は外部CDNが必要なため srcDoc を使用、それ以外は blob URL
-  const needsSrcDoc = resolvedType === 'threejs';
-  const blobUrl = useBlobUrl(needsSrcDoc ? '' : previewHtml);
 
   const handleCheck = () => {
     if (validator) {
@@ -210,12 +218,12 @@ export default function CodingChallenge({
             <div className="absolute top-2 right-2 text-xs text-muted-foreground z-10 bg-background/80 px-2 py-0.5 rounded">
               プレビュー
             </div>
-            {(needsSrcDoc ? previewHtml : blobUrl) && (
+            {previewHtml && (
               <iframe
-                {...(needsSrcDoc ? { srcDoc: previewHtml } : { src: blobUrl })}
+                srcDoc={previewHtml}
                 className="w-full h-full border-0"
                 style={{ minHeight: previewMinHeight }}
-                sandbox={needsSrcDoc ? 'allow-scripts allow-same-origin' : 'allow-scripts'}
+                sandbox="allow-scripts allow-same-origin"
                 title="プレビュー"
               />
             )}

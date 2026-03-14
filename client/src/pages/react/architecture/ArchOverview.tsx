@@ -9,7 +9,7 @@ export default function ArchOverview() {
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 53</span>
+          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">STEP 58</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
           React / Next.js アーキテクチャ総論

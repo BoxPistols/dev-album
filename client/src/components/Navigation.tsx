@@ -13,31 +13,31 @@ import { useLayout } from '@/contexts/LayoutContext';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
 const manualColors: Record<ManualId, string> = {
-  react: 'text-blue-600 dark:text-blue-400',
-  git: 'text-orange-600 dark:text-orange-400',
-  threejs: 'text-cyan-600 dark:text-cyan-400',
-  'claude-mux': 'text-amber-600 dark:text-amber-400',
+  react: 'text-indigo-600 dark:text-indigo-300',
+  git: 'text-rose-600 dark:text-rose-300',
+  threejs: 'text-teal-600 dark:text-teal-300',
+  'claude-mux': 'text-violet-600 dark:text-violet-300',
 };
 
 const manualBgColors: Record<ManualId, string> = {
-  react: 'bg-blue-600',
-  git: 'bg-orange-600',
-  threejs: 'bg-cyan-600',
-  'claude-mux': 'bg-amber-600',
+  react: 'bg-indigo-500',
+  git: 'bg-rose-500',
+  threejs: 'bg-teal-500',
+  'claude-mux': 'bg-violet-500',
 };
 
 const manualBorderColors: Record<ManualId, string> = {
-  react: 'border-blue-500',
-  git: 'border-orange-500',
-  threejs: 'border-cyan-500',
-  'claude-mux': 'border-amber-500',
+  react: 'border-indigo-400',
+  git: 'border-rose-400',
+  threejs: 'border-teal-400',
+  'claude-mux': 'border-violet-400',
 };
 
 const manualActiveBg: Record<ManualId, string> = {
-  react: 'bg-blue-500/15',
-  git: 'bg-orange-500/15',
-  threejs: 'bg-cyan-500/15',
-  'claude-mux': 'bg-amber-500/15',
+  react: 'bg-indigo-400/15',
+  git: 'bg-rose-400/15',
+  threejs: 'bg-teal-400/15',
+  'claude-mux': 'bg-violet-400/15',
 };
 
 export default function Navigation() {
@@ -131,9 +131,9 @@ export default function Navigation() {
           {/* ロゴ & マニュアル切替 */}
           <Link href="/" className="flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-heading font-bold text-lg">M</span>
+              <span className="text-primary-foreground font-heading font-bold text-lg">D</span>
             </div>
-            <span className="font-heading font-bold text-lg text-foreground">統合マニュアル</span>
+            <span className="font-heading font-bold text-lg text-foreground">DevDeck</span>
           </Link>
 
           {/* マニュアルタブ */}

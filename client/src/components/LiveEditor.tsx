@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, RotateCcw, Maximize2, Minimize2, Eye, Code2 } from 'lucide-react';
-import { buildPreviewHtml, useBlobUrl } from '@/lib/preview';
+import { buildPreviewHtml } from '@/lib/preview';
 import { useTheme } from '@/contexts/ThemeContext';
 
 // --- 型定義 ---
@@ -69,9 +69,6 @@ export default function LiveEditor({
     runPreview();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // blob URL 管理（副作用を useEffect で安全に処理）
-  const blobUrl = useBlobUrl(previewHtml);
 
   const handleCodeChange = (value: string) => {
     setFiles((prev) =>
@@ -243,14 +240,16 @@ export default function LiveEditor({
 
             {/* iframe */}
             <div className="flex-1 bg-white dark:bg-[#1e1e2e]" style={!isFullscreen ? { height: previewHeight } : undefined}>
-              <iframe
-                ref={iframeRef}
-                src={blobUrl}
-                sandbox="allow-scripts"
-                title="プレビュー"
-                className="w-full h-full border-0"
-                style={{ minHeight: previewHeight }}
-              />
+              {previewHtml && (
+                <iframe
+                  ref={iframeRef}
+                  srcDoc={previewHtml}
+                  sandbox="allow-scripts allow-same-origin"
+                  title="プレビュー"
+                  className="w-full h-full border-0"
+                  style={{ minHeight: previewHeight }}
+                />
+              )}
             </div>
           </div>
         )}
