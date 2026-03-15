@@ -127,7 +127,7 @@ export default function Landing() {
             <span className="text-blue-200">実践チュートリアル</span>
           </h1>
           <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8">
-            React・Git・Three.js・Claude Code — 現場で使われる 4 つの技術を、
+            React・Git・Three.js・Claude Code — Web 開発の基本から応用まで、
             実際にコードを書きながら一通り体験できる学習サービスです。
           </p>
           <div className="flex flex-wrap gap-3">
