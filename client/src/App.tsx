@@ -14,6 +14,7 @@ import { Toaster } from "sonner";
 // ── ランディング ──
 const Landing = lazy(() => import("./pages/Landing"));
 const BugReport = lazy(() => import("./pages/BugReport"));
+const Training = lazy(() => import("./pages/Training"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ── React マニュアル (69ページ) ──
@@ -220,6 +221,7 @@ function App() {
                 {/* ランディング */}
                 <Route path="/" component={Landing} />
                 <Route path="/bug-report" component={BugReport} />
+                <Route path="/training" component={Training} />
 
                 {/* === React マニュアル === */}
                 <Route path="/react" component={ReactHome} />

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -192,6 +192,9 @@ export default function Navigation() {
             <button onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="設定">
               <Settings size={15} />
             </button>
+            <Link href="/training" onClick={() => setIsOpen(false)} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="UI トレーニング">
+              <Dumbbell size={15} />
+            </Link>
             <button onClick={() => document.dispatchEvent(new CustomEvent('open-help'))} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="ヘルプ">
               <HelpCircle size={15} />
             </button>

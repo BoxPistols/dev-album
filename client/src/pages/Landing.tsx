@@ -138,6 +138,12 @@ export default function Landing() {
               学習をはじめる
               <ArrowRight size={16} />
             </Link>
+            <Link
+              href="/training"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors backdrop-blur-sm"
+            >
+              UI トレーニング
+            </Link>
             <a
               href="#manuals"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors backdrop-blur-sm"
