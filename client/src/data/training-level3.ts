@@ -20,7 +20,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f4f8' }}>
-      {/* ここにホバーで拡大するカードを実装 */}
+      {// ここにホバーで拡大するカードを実装}
     </div>
   );
 }`,
@@ -75,7 +75,7 @@ export const level3Challenges: TrainingChallenge[] = [
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
-      {/* ここにアコーディオンを実装 */}
+      {// ここにアコーディオンを実装}
     </div>
   );
 }`,
@@ -147,7 +147,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f4f8' }}>
-      {/* ここにトースト通知を実装 */}
+      {// ここにトースト通知を実装}
     </div>
   );
 }`,
@@ -224,7 +224,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
-      {/* ここにローディングスピナーを実装 */}
+      {// ここにローディングスピナーを実装}
     </div>
   );
 }`,
@@ -270,7 +270,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f4f8' }}>
-      {/* ここにスケルトンスクリーンを実装 */}
+      {// ここにスケルトンスクリーンを実装}
     </div>
   );
 }`,
@@ -323,7 +323,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
-      {/* ここにカウンターを実装 */}
+      {// ここにカウンターを実装}
     </div>
   );
 }`,
@@ -399,7 +399,7 @@ export const level3Challenges: TrainingChallenge[] = [
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f4f8' }}>
-      {/* ここにカルーセルを実装 */}
+      {// ここにカルーセルを実装}
     </div>
   );
 }`,
@@ -489,7 +489,7 @@ export const level3Challenges: TrainingChallenge[] = [
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
-      {/* ここにリスト並び替えを実装 */}
+      {// ここにリスト並び替えを実装}
     </div>
   );
 }`,
@@ -577,7 +577,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f0f4f8' }}>
-      {/* ここに文字数カウンター付きテキストエリアを実装 */}
+      {// ここに文字数カウンター付きテキストエリアを実装}
     </div>
   );
 }`,
@@ -643,7 +643,7 @@ export const level3Challenges: TrainingChallenge[] = [
     initialCode: `function App() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
-      {/* ここにコピーボタンを実装 */}
+      {// ここにコピーボタンを実装}
     </div>
   );
 }`,

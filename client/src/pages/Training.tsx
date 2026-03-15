@@ -42,7 +42,7 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function CenterFlex() {
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       minHeight: '200px',
       background: 'var(--bg)',
       border: '2px dashed var(--border)',
@@ -83,7 +83,7 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function CenterGrid() {
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       minHeight: '200px',
       background: 'var(--bg)',
       border: '2px dashed var(--border)',
@@ -130,7 +130,7 @@ export const level1Challenges: Challenge[] = [
       borderRadius: '8px',
     }}>
       <span style={{
-        /* ここにスタイルを追加 */
+        // ここにスタイルを追加
         color: 'var(--text)',
         fontWeight: 600,
         background: 'var(--bg-accent)',
@@ -178,7 +178,7 @@ export const level1Challenges: Challenge[] = [
     difficulty: 'easy',
     initialCode: `function CardRow() {
   var cardStyle = {
-    /* ここにスタイルを追加 */
+    // ここにスタイルを追加
     background: 'var(--bg)',
     border: '1px solid var(--border)',
     borderRadius: '8px',
@@ -187,7 +187,7 @@ export const level1Challenges: Challenge[] = [
   };
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
     }}>
       <div style={cardStyle}>
         <p style={{ color: 'var(--text)', fontWeight: 600, margin: 0 }}>Card 1</p>
@@ -243,7 +243,7 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function Header() {
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       padding: '0 20px',
       height: '56px',
       background: 'var(--bg)',
@@ -298,7 +298,7 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function StickyFooter() {
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       background: 'var(--bg)',
       border: '1px solid var(--border)',
       borderRadius: '8px',
@@ -308,7 +308,7 @@ export const level1Challenges: Challenge[] = [
         <span style={{ color: 'var(--text)', fontWeight: 700 }}>Header</span>
       </header>
       <main style={{
-        /* ここにスタイルを追加 */
+        // ここにスタイルを追加
         padding: '20px',
       }}>
         <p style={{ color: 'var(--text)', margin: 0 }}>短いコンテンツ</p>
@@ -361,14 +361,14 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function TwoColumn() {
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       height: '200px',
       border: '1px solid var(--border)',
       borderRadius: '8px',
       overflow: 'hidden',
     }}>
       <aside style={{
-        /* ここにスタイルを追加 */
+        // ここにスタイルを追加
         background: 'var(--bg-muted)',
         padding: '16px',
         borderRight: '1px solid var(--border)',
@@ -377,7 +377,7 @@ export const level1Challenges: Challenge[] = [
         <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '8px 0 0' }}>width: 200px</p>
       </aside>
       <main style={{
-        /* ここにスタイルを追加 */
+        // ここにスタイルを追加
         background: 'var(--bg)',
         padding: '16px',
       }}>
@@ -434,7 +434,7 @@ export const level1Challenges: Challenge[] = [
   var cards = [1, 2, 3, 4, 5, 6];
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
     }}>
       {cards.map(function(n) {
         return (
@@ -501,7 +501,7 @@ export const level1Challenges: Challenge[] = [
       borderRadius: '8px',
     }}>
       <p style={{
-        /* ここにスタイルを追加 */
+        // ここにスタイルを追加
         color: 'var(--text)',
         fontSize: '14px',
         margin: 0,
@@ -559,7 +559,7 @@ export const level1Challenges: Challenge[] = [
   };
   return (
     <div style={{
-      /* ここにスタイルを追加 */
+      // ここにスタイルを追加
       padding: '16px',
       background: 'var(--bg)',
       border: '1px solid var(--border)',

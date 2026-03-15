@@ -21,7 +21,7 @@ export const level2Challenges: TrainingChallenge[] = [
   return (
     <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
       <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--bg-muted)' }}>
-        {/* ここにステータスバッジを追加 */}
+        {// ここにステータスバッジを追加}
       </div>
     </div>
   );
@@ -151,7 +151,7 @@ export const level2Challenges: TrainingChallenge[] = [
   return (
     <div style={{ padding: 40 }}>
       <button style={{ padding: '8px 16px' }}>メニュー ▼</button>
-      {/* ドロップダウンリストをここに追加 */}
+      {// ドロップダウンリストをここに追加}
     </div>
   );
 }`,
@@ -234,7 +234,7 @@ export const level2Challenges: TrainingChallenge[] = [
 
   return (
     <div style={{ padding: 24 }}>
-      {/* パンくずリストを実装 */}
+      {// パンくずリストを実装}
       {crumbs.map((c) => (
         <span key={c}>{c}</span>
       ))}
@@ -544,7 +544,7 @@ export const level2Challenges: TrainingChallenge[] = [
     <div style={{ padding: 40, display: 'flex', justifyContent: 'center' }}>
       <div style={{ fontSize: 32 }}>
         <span role="img" aria-label="bell">\\u{1F514}</span>
-        {/* 通知バッジをここに追加 */}
+        {// 通知バッジをここに追加}
       </div>
     </div>
   );
@@ -605,7 +605,7 @@ export const level2Challenges: TrainingChallenge[] = [
     <div style={{ padding: 40, maxWidth: 400, margin: '0 auto' }}>
       <div>進捗: {percent}%</div>
       <div style={{ height: 20, background: 'var(--bg-muted)', borderRadius: 10 }}>
-        {/* 塗りつぶし部分をここに追加 */}
+        {// 塗りつぶし部分をここに追加}
       </div>
     </div>
   );

@@ -47,9 +47,9 @@ export const manuals: ManualInfo[] = [
   },
   {
     id: 'claude-mux',
-    title: 'Claude Code & tmux ガイド',
-    shortTitle: 'Claude+tmux',
-    description: 'AI駆動開発ワークフローの学習ガイド',
+    title: 'Claude Code & 開発環境',
+    shortTitle: 'Claude Code',
+    description: 'AI ツール・tmux・CI/CD の実践ガイド',
     icon: 'C',
     color: '#8B5CF6',
   },

@@ -22,8 +22,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: useEffect で resize イベントを監視
   return (
     <nav>
-      {/* ハンバーガーボタン（モバイル時のみ表示） */}
-      {/* ナビリンク一覧 */}
+      {// ハンバーガーボタン（モバイル時のみ表示）}
+      {// ナビリンク一覧}
     </nav>
   );
 }`,
@@ -112,8 +112,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: useState でダークモードを管理
   return (
     <div>
-      {/* テーマ切り替えボタン */}
-      {/* コンテンツ */}
+      {// テーマ切り替えボタン}
+      {// コンテンツ}
     </div>
   );
 }`,
@@ -199,9 +199,9 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: バリデーション関数を作成
   return (
     <form>
-      {/* 名前、メール、パスワードの入力欄 */}
-      {/* エラーメッセージ */}
-      {/* 送信ボタン */}
+      {// 名前、メール、パスワードの入力欄}
+      {// エラーメッセージ}
+      {// 送信ボタン}
     </form>
   );
 }`,
@@ -317,8 +317,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: グラデーションシャドウを表示
   return (
     <div>
-      {/* テーブルラッパー */}
-      {/* テーブル */}
+      {// テーブルラッパー}
+      {// テーブル}
     </div>
   );
 }`,
@@ -447,8 +447,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: useState でモーダルの開閉を管理
   return (
     <div>
-      {/* モーダルを開くボタン */}
-      {/* モーダル + backdrop */}
+      {// モーダルを開くボタン}
+      {// モーダル + backdrop}
     </div>
   );
 }`,
@@ -570,9 +570,9 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: ステップ表示とナビゲーション
   return (
     <div>
-      {/* ステップインジケーター */}
-      {/* ステップ内容 */}
-      {/* Next / Back ボタン */}
+      {// ステップインジケーター}
+      {// ステップ内容}
+      {// Next / Back ボタン}
     </div>
   );
 }`,
@@ -712,8 +712,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: フィルタリングロジック
   return (
     <div>
-      {/* 検索入力欄 */}
-      {/* フィルタ済みリスト */}
+      {// 検索入力欄}
+      {// フィルタ済みリスト}
     </div>
   );
 }`,
@@ -820,8 +820,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: もっと見るボタンで追加読み込み
   return (
     <div>
-      {/* アイテムリスト */}
-      {/* もっと見るボタン */}
+      {// アイテムリスト}
+      {// もっと見るボタン}
     </div>
   );
 }`,
@@ -922,8 +922,8 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: onDragOver, onDragLeave, onDrop イベント
   return (
     <div>
-      {/* ドロップゾーン */}
-      {/* ファイル一覧 */}
+      {// ドロップゾーン}
+      {// ファイル一覧}
     </div>
   );
 }`,
@@ -1042,7 +1042,7 @@ export const level4Challenges: TrainingChallenge[] = [
   // TODO: CSS Grid で auto-fill + minmax を使ったカードグリッド
   return (
     <div>
-      {/* カードグリッド */}
+      {// カードグリッド}
     </div>
   );
 }`,
