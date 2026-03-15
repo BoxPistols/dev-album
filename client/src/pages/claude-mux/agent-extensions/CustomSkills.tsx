@@ -36,27 +36,81 @@ export default function CustomSkills() {
             <p className="leading-relaxed mb-6 text-muted-foreground">
               Skillsは <code>.claude/skills/*/SKILL.md</code> に配置する専門知識の定義です。スラッシュコマンドとして呼び出せ、段階的に知識を提供（Progressive Disclosure）します。
             </p>
+            <p className="leading-relaxed mb-4 text-muted-foreground">
+              SKILL.md は YAML frontmatter（<code>name</code>, <code>description</code>）と Markdown 本文で構成される。
+              <code>name</code> がそのまま <code>/スラッシュコマンド名</code> になり、<code>description</code> は Claude が自動判断で呼び出す際の判定基準になる。
+            </p>
             <CodeBlock code={`# .claude/skills/deploy/SKILL.md
 
 ---
-context: fork
+name: deploy
+description: バージョンアップ、CHANGELOG 生成、Git タグ作成、デプロイ確認を行う
 ---
-
-# デプロイ準備スキル
 
 ## 手順
 1. package.json のバージョンをインクリメント
 2. CHANGELOG.md を変更内容から自動生成
 3. Git タグを "v{version}" 形式で作成
 4. CI/CD パイプラインの状態を確認`} language="markdown" />
+
+            <h3 className="text-xl font-bold mt-8 mb-4">すぐに使える Skills パターン集</h3>
+
+            <div className="space-y-4">
+              <CodeBlock title="コードレビュー Skill" code={`# .claude/skills/review/SKILL.md
+---
+name: review
+description: 現在のブランチの PR をレビューする
+---
+
+1. \`gh pr view\` で PR の概要を取得
+2. \`gh pr diff\` で差分を取得
+3. コード品質・セキュリティ・パフォーマンスの観点で分析
+4. 改善提案をまとめて報告`} language="markdown" />
+
+              <CodeBlock title="コミットメッセージ Skill" code={`# .claude/skills/commit/SKILL.md
+---
+name: commit
+description: 変更内容を分析して適切なコミットメッセージで commit する
+---
+
+1. \`git diff --staged\` で変更内容を確認
+2. 変更の種類を判定（feature / fix / refactor / docs / test）
+3. 日本語で簡潔なコミットメッセージを生成
+4. \`git commit\` を実行（push はしない）`} language="markdown" />
+
+              <CodeBlock title="テスト実行 Skill" code={`# .claude/skills/test/SKILL.md
+---
+name: test
+description: テストを実行し、失敗があれば修正を試みる
+---
+
+1. \`npm test\` または \`npx vitest run\` を実行
+2. 失敗したテストがあれば原因を分析
+3. 修正案を提示し、ユーザーの確認後に修正を実行
+4. 再度テストを実行して成功を確認`} language="markdown" />
+
+              <CodeBlock title="HTML 可視化 Skill（スクリプト連携）" code={`# .claude/skills/visualize/SKILL.md
+---
+name: visualize
+description: データを HTML で可視化してブラウザで開く
+---
+
+以下のスクリプトを使って HTML レポートを生成し、ブラウザで開く:
+
+\`\`\`bash
+node .claude/skills/visualize/scripts/generate-report.js
+open /tmp/report.html
+\`\`\``} language="markdown" />
+            </div>
+
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-2">参照ドキュメント</h4>
-                <p className="text-xs text-muted-foreground"><code>references/</code> フォルダにサポートドキュメントを配置可能。Skillが必要に応じて参照します。</p>
+                <h4 className="font-bold text-sm mb-2">サポートファイル</h4>
+                <p className="text-xs text-muted-foreground"><code>scripts/</code>（実行スクリプト）、<code>examples/</code>（出力例）、<code>template.md</code>（テンプレート）を SKILL.md から参照できる。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-2">frontmatter設定</h4>
-                <p className="text-xs text-muted-foreground"><code>context: fork</code> でコンテキスト分離、<code>disable-model-invocation: true</code> でモデル呼び出し制限が可能。</p>
+                <h4 className="font-bold text-sm mb-2">frontmatter オプション</h4>
+                <p className="text-xs text-muted-foreground"><code>name</code>（/コマンド名）、<code>description</code>（自動呼び出し判定）が必須。Agent Skills 標準に準拠。</p>
               </div>
             </div>
           </section>

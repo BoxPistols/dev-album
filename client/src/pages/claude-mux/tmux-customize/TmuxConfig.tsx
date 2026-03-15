@@ -48,7 +48,7 @@ $ nano ~/.tmux.conf`}
               まず設定すべき3つの基本
             </h2>
             <p className="text-foreground mb-4 leading-relaxed">
-              まずは以下の3つの設定を追加することをお勧めします。これだけで使い勝手が劇的に向上します。
+              まずは以下の3つの設定を追加することをお勧めします。これだけで使い勝手が大幅に向上します。
             </p>
 
             <div className="space-y-6">

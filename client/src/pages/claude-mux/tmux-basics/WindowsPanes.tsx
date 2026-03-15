@@ -152,7 +152,7 @@ export default function WindowsPanes() {
               まとめ
             </h2>
             <p className="text-foreground mb-8 leading-relaxed">
-              これでtmuxの基本的な操作はマスターしました。ウィンドウで作業コンテキストを分け、ペインで情報を一覧化することで、作業効率は劇的に向上します。
+              これでtmuxの基本的な操作はマスターしました。ウィンドウで作業コンテキストを分け、ペインで情報を一覧化することで、作業効率は大幅に向上します。
             </p>
           </section>
         </div>

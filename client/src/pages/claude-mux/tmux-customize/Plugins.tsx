@@ -114,7 +114,7 @@ set -g @dracula-show-left-icon session`}
                 language="bash"
               />
               <p className="mt-4 text-sm text-purple-900">
-                追加後、再び <strong>Prefix + I</strong> を押してインストールすれば、ステータスバーが劇的に変化します。
+                追加後、再び <strong>Prefix + I</strong> を押してインストールすれば、ステータスバーが大幅に変化します。
               </p>
             </div>
           </section>

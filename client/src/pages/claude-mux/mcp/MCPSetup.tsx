@@ -85,9 +85,9 @@ $ claude mcp add-from-claude-desktop`}
             </p>
             <div className="space-y-4">
               {[
-                { scope: 'local（デフォルト）', path: '~/.claude.json', desc: '現在のプロジェクトのみで利用。個人用、非共有。' },
-                { scope: 'project', path: '.mcp.json', desc: 'プロジェクトルートに配置。Git管理でチーム共有可能。' },
-                { scope: 'user', path: '~/.claude.json', desc: '全プロジェクトで利用可能な個人設定。' },
+                { scope: 'local（デフォルト）', path: '.claude/settings.local.json', desc: '現在のプロジェクトのみ。個人用、Git 管理外。' },
+                { scope: 'project', path: '.mcp.json', desc: 'プロジェクトルートに配置。Git 管理でチーム共有可能。' },
+                { scope: 'user', path: '~/.claude/settings.json', desc: '全プロジェクトで利用可能な個人設定。' },
               ].map(item => (
                 <div key={item.scope} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                   <div className="flex items-baseline gap-3 mb-1">

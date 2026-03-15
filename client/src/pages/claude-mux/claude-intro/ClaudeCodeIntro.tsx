@@ -93,7 +93,7 @@ export default function ClaudeCodeIntro() {
                   </div>
                   <div className="p-3 bg-slate-900 rounded border border-slate-800">
                     <span className="text-emerald-400">$ claude --model sonnet</span>
-                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します（sonnet, opus, haiku）。</p>
+                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します。短縮名（sonnet, opus, haiku）または完全名（claude-sonnet-4-6 等）が使用可能。</p>
                   </div>
                 </div>
               </div>

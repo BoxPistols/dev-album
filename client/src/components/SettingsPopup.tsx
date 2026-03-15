@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
-import { X, Settings, Sun, Moon, Monitor, Columns2, Type } from 'lucide-react';
+import { X, Settings, Sun, Moon, Monitor, Columns2, Type, Trash2, Download, RefreshCcw } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import { getIsMac, modKey } from '@/lib/keyLabels';
+import { getAllNotes } from '@/hooks/usePageNotes';
 
 type FontSize = 'small' | 'medium' | 'large';
 
@@ -49,6 +50,41 @@ export default function SettingsPopup() {
     };
   }, [open]);
 
+  // データエクスポート
+  const handleExport = () => {
+    const data = {
+      bookmarks: JSON.parse(localStorage.getItem('bookmarked-pages') || '[]'),
+      completed: JSON.parse(localStorage.getItem('completed-pages') || '[]'),
+      notes: getAllNotes(),
+      settings: { fontSize, mode, layoutMode },
+      exportedAt: new Date().toISOString(),
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dev-album-data-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // データリセット
+  const handleReset = () => {
+    if (confirm('学習進捗、ブックマーク、メモをすべて削除しますか？この操作は取り消せません。')) {
+      localStorage.removeItem('bookmarked-pages');
+      localStorage.removeItem('completed-pages');
+      // メモを削除
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key?.startsWith('page-note:')) {
+          localStorage.removeItem(key);
+          i--; // 削除したのでインデックスを調整
+        }
+      }
+      window.location.reload();
+    }
+  };
+
   if (!open) return null;
 
   const themeOptions = [
@@ -61,7 +97,7 @@ export default function SettingsPopup() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setOpen(false)}>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
       <div
-        className="relative bg-card border border-border rounded-2xl shadow-2xl w-full max-w-md"
+        className="relative bg-card border border-border rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ヘッダー */}
@@ -78,7 +114,7 @@ export default function SettingsPopup() {
           </button>
         </div>
 
-        <div className="px-6 py-5 space-y-6">
+        <div className="px-6 py-5 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
           {/* テーマ */}
           <section>
             <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -148,12 +184,39 @@ export default function SettingsPopup() {
               ))}
             </div>
           </section>
+
+          {/* データ管理 */}
+          <section className="pt-2 border-t border-border">
+            <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+              <RefreshCcw size={14} />
+              データ管理
+            </h3>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={handleExport}
+                className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all text-xs font-medium"
+              >
+                <Download size={14} />
+                バックアップ
+              </button>
+              <button
+                onClick={handleReset}
+                className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all text-xs font-medium"
+              >
+                <Trash2 size={14} />
+                進捗をリセット
+              </button>
+            </div>
+            <p className="mt-3 text-[10px] text-muted-foreground leading-relaxed px-1">
+              ※ 進捗、ブックマーク、メモはブラウザの LocalStorage に保存されています。別のブラウザやシークレットモードでは共有されません。
+            </p>
+          </section>
         </div>
 
         {/* フッター */}
-        <div className="px-6 py-3 border-t border-border text-center">
+        <div className="px-6 py-4 bg-muted/30 border-t border-border text-center">
           <p className="text-xs text-muted-foreground">
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">{mod}+,</kbd> で設定を開く / <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">Esc</kbd> で閉じる
+            <kbd className="px-1.5 py-0.5 rounded bg-background border border-border text-[10px] font-mono shadow-sm">{mod}+,</kbd> で設定を開く / <kbd className="px-1.5 py-0.5 rounded bg-background border border-border text-[10px] font-mono shadow-sm">Esc</kbd> で閉じる
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle } from 'lucide-react';
+import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2 } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -11,6 +11,7 @@ import { toSlug } from '@/hooks/useAutoHeadingIds';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { useProgress } from '@/hooks/useProgress';
 
 const manualColors: Record<ManualId, string> = {
   react: 'text-indigo-600 dark:text-indigo-300',
@@ -48,6 +49,7 @@ export default function Navigation() {
   const { theme, toggleTheme } = useTheme();
   const { layoutMode, toggleLayout } = useLayout();
   const { bookmarks, toggle: toggleBookmark, isBookmarked } = useBookmarks();
+  const { isCompleted, getProgressStats } = useProgress();
   const [location] = useLocation();
 
   const currentPage = useMemo(() => getPageByPath(location), [location]);
@@ -89,7 +91,7 @@ export default function Navigation() {
     ...s,
     subsections: getSectionPages(s.id)
       .filter((p) => p.path !== `/${activeManualId}`)
-      .map((p) => ({ title: p.title, href: p.path })),
+      .map((p) => ({ title: p.title, href: p.path, isCompleted: isCompleted(p.path) })),
   }));
 
   // パートごとにグループ化
@@ -106,6 +108,7 @@ export default function Navigation() {
     nextjs: '第2部: Next.js',
     storybook: '第3部: Storybook',
     architecture: '第4部: アーキテクチャ',
+    quality: '第5部: 品質と倫理',
     // Claude-mux
     basic: '基礎編',
     advanced: '発展編',
@@ -116,7 +119,7 @@ export default function Navigation() {
       {/* モバイルメニューボタン */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border border-border hover:bg-muted"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border border-border hover:bg-muted shadow-sm"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -129,29 +132,40 @@ export default function Navigation() {
       >
         <div className="p-6">
           {/* ロゴ & マニュアル切替 */}
-          <Link href="/" className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-2 mb-4 group">
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
               <span className="text-primary-foreground font-heading font-bold text-sm">DA</span>
             </div>
             <span className="font-heading font-bold text-lg text-foreground">Dev Album</span>
           </Link>
 
-          {/* マニュアルタブ */}
+          {/* マニュアルタブ + プログレス */}
           <div className="grid grid-cols-2 gap-1.5 mb-4">
-            {manuals.map((m) => (
-              <Link
-                key={m.id}
-                href={`/${m.id}`}
-                onClick={() => setIsOpen(false)}
-                className={`px-2.5 py-1.5 rounded-full text-center text-[11px] font-semibold border transition-colors truncate ${
-                  activeManualId === m.id
-                    ? `${manualBorderColors[m.id]} ${manualActiveBg[m.id]} ${manualColors[m.id]}`
-                    : 'border-border text-muted-foreground hover:bg-muted/50'
-                }`}
-              >
-                {m.shortTitle}
-              </Link>
-            ))}
+            {manuals.map((m) => {
+              const { percentage } = getProgressStats(getManualPages(m.id).map(p => p.path));
+              const isActive = activeManualId === m.id;
+              return (
+                <Link
+                  key={m.id}
+                  href={`/${m.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`relative px-2.5 py-1.5 rounded-xl text-center text-[10.5px] font-bold border transition-all overflow-hidden truncate ${
+                    isActive
+                      ? `${manualBorderColors[m.id]} ${manualActiveBg[m.id]} ${manualColors[m.id]} ring-2 ring-primary/5`
+                      : 'border-border text-muted-foreground hover:bg-muted/50'
+                  }`}
+                >
+                  <span className="relative z-10">{m.shortTitle}</span>
+                  {/* 小さなプログレスバー */}
+                  <div className="absolute bottom-0 left-0 h-0.5 bg-muted w-full">
+                    <div 
+                      className={`h-full ${manualBgColors[m.id]} transition-all duration-500`}
+                      style={{ width: `${percentage}%` }}
+                    />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
 
           {/* 検索 */}
@@ -248,7 +262,10 @@ export default function Navigation() {
                   location === `/${activeManualId}` ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-sidebar-accent'
                 }`}
               >
-                {activeManual?.shortTitle} ホーム
+                <div className="flex items-center justify-between">
+                  <span>{activeManual?.shortTitle} ホーム</span>
+                  {isCompleted(`/${activeManualId}`) && <CheckCircle2 size={14} className="text-emerald-500" />}
+                </div>
               </Link>
 
               {Object.entries(partGroups).map(([part, secs]) => (
@@ -276,13 +293,18 @@ export default function Navigation() {
                                   key={sub.href}
                                   href={sub.href}
                                   onClick={() => setIsOpen(false)}
-                                  className={`block px-4 py-2 text-sm transition-colors ${
+                                  className={`block px-4 py-2 text-sm transition-all ${
                                     location === sub.href
                                       ? 'nav-active rounded-r-lg'
                                       : 'rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'
                                   }`}
                                 >
-                                  {sub.title}
+                                  <div className="flex items-center justify-between">
+                                    <span className="truncate">{sub.title}</span>
+                                    {sub.isCompleted && (
+                                      <CheckCircle2 size={12} className="text-emerald-500 flex-shrink-0 ml-2" />
+                                    )}
+                                  </div>
                                 </Link>
                               ))}
                             </div>
@@ -297,24 +319,37 @@ export default function Navigation() {
           ) : (
             /* ランディング: マニュアル一覧 */
             <div className="space-y-2">
-              {manuals.map((m) => (
-                <Link
-                  key={m.id}
-                  href={`/${m.id}`}
-                  onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 rounded-lg border border-border hover:bg-sidebar-accent transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className={`w-8 h-8 rounded-lg ${manualBgColors[m.id]} flex items-center justify-center`}>
-                      <span className="text-white font-bold text-sm">{m.icon}</span>
+              {manuals.map((m) => {
+                const { percentage } = getProgressStats(getManualPages(m.id).map(p => p.path));
+                return (
+                  <Link
+                    key={m.id}
+                    href={`/${m.id}`}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-4 py-3 rounded-lg border border-border hover:bg-sidebar-accent transition-all group"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`w-8 h-8 rounded-lg ${manualBgColors[m.id]} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                        <span className="text-white font-bold text-sm">{m.icon}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground">{m.shortTitle}</p>
+                        <div className="flex items-center justify-between mt-0.5">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{getManualPages(m.id).length}ステップ</p>
+                          <p className={`text-[10px] font-bold ${manualColors[m.id]}`}>{percentage}%</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{m.shortTitle}</p>
-                      <p className="text-xs text-muted-foreground">{getManualPages(m.id).length}ステップ</p>
+                    {/* 進捗バー */}
+                    <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full ${manualBgColors[m.id]} transition-all duration-700`}
+                        style={{ width: `${percentage}%` }}
+                      />
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>

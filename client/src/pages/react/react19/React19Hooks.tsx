@@ -18,7 +18,7 @@ export default function React19Hooks() {
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
           React 19 では、フォーム処理や非同期操作をよりシンプルに扱うための新しい Hooks が追加されました。
           useActionState、useOptimistic、useFormStatus を使うことで、
-          これまで手動で管理していた「送信中」「エラー」「楽観的更新」の状態管理が劇的に簡単になります。
+          これまで手動で管理していた「送信中」「エラー」「楽観的更新」の状態管理が大幅に簡単になります。
         </p>
 
         <WhyNowBox tags={['useActionState', 'useOptimistic', 'useFormStatus', 'useTransition']}>
@@ -26,7 +26,7 @@ export default function React19Hooks() {
             これまでの React では、フォーム送信時の loading 状態やエラーハンドリングを
             useState と useEffect を組み合わせて手動で管理する必要がありました。
             React 19 の新しい Hooks は、こうした<strong>「よくあるパターン」を公式にサポート</strong>します。
-            特に Server Actions と組み合わせたとき、その真価を発揮します。
+            特に Server Actions と組み合わせたとき、効果的です。
           </p>
         </WhyNowBox>
 

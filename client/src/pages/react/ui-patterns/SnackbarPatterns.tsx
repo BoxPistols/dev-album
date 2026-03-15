@@ -796,7 +796,7 @@ function SnackbarItem({ message, duration, onClose }: {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">アクション付き Snackbar（Undo パターン）</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              「削除しました -- 元に戻す」のような Undo パターンは、破壊的操作のユーザー体験を劇的に改善します。
+              「削除しました -- 元に戻す」のような Undo パターンは、破壊的操作のユーザー体験を大幅に改善します。
               確認ダイアログで操作を止めるのではなく、操作を即座に実行してから取り消しの選択肢を提供するアプローチです。
             </p>
 

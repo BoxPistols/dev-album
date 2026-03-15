@@ -791,7 +791,7 @@ onCLS(console.log);   // CLS の計測結果`}
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">OSS へのコントリビューション</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              OSS（オープンソースソフトウェア）への貢献は、技術力を飛躍的に伸ばす方法です。
+              OSS（オープンソースソフトウェア）への貢献は、技術力を大きく伸ばす方法です。
               最初は大きなコード変更ではなく、以下のような小さな貢献から始めましょう。
             </p>
 

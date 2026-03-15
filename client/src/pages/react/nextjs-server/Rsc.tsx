@@ -222,7 +222,7 @@ export default async function UserProfile() {
               title="Server Component のパターン（シンプル）"
             />
 
-            <InfoBox type="success" title="コードが劇的にシンプルに">
+            <InfoBox type="success" title="コードが大幅にシンプルに">
               <p>
                 Server Component では、useState、useEffect、ローディング状態、エラー状態の管理がすべて不要になります。
                 コンポーネントは「データがすでにある状態」で書けるため、デザイナーにとっても理解しやすいコードになります。

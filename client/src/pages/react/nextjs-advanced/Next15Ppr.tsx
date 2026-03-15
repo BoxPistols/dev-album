@@ -16,7 +16,7 @@ export default function Next15Ppr() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Partial Pre-rendering と最新レンダリング</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
           Next.js の Partial Pre-rendering（PPR）は、静的コンテンツと動的コンテンツを一つのページで最適に組み合わせる
-          革新的なレンダリング手法です。従来の SSR / SSG / ISR を超える、次世代のレンダリングモデルを学びましょう。
+          革新的なレンダリング手法です。従来の SSR / SSG / ISR を超える、新しいレンダリング手法を確認しましょう。
         </p>
 
         <WhyNowBox tags={['PPR', 'Partial Pre-rendering', 'Suspense', 'dynamicIO', 'Next.js 16', 'React Compiler']}>

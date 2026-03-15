@@ -26,7 +26,7 @@ export default function GitHubCLI() {
           </h1>
 
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            GitHub CLI（gh）は、ターミナルから GitHub を操作できる強力なツールです。リポジトリの作成、プルリクエストの作成・マージ、Issue の管理など、Web ブラウザを使わずにすべてを実行できます。開発効率が飛躍的に向上します。
+            GitHub CLI（gh）は、ターミナルから GitHub を操作できる強力なツールです。リポジトリの作成、プルリクエストの作成・マージ、Issue の管理など、Web ブラウザを使わずにすべてを実行できます。開発効率が大きく向上します。
           </p>
         </div>
 

@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, Bookmark, BookmarkCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, CheckCircle2 } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
 import { getNextPage, getPreviousPage, getPageByPath, getManualPages } from '@/lib/navigation';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { useProgress } from '@/hooks/useProgress';
 import PageNotes from './PageNotes';
 
 export default function PageNavigation() {
@@ -10,37 +11,58 @@ export default function PageNavigation() {
   const prevPage = getPreviousPage(location);
   const nextPage = getNextPage(location);
   const totalSteps = currentPage ? getManualPages(currentPage.manualId).length : 0;
-  const { isBookmarked, toggle } = useBookmarks();
+  const { isBookmarked, toggle: toggleBookmark } = useBookmarks();
+  const { isCompleted, toggleCompleted } = useProgress();
+  
   const bookmarked = isBookmarked(location);
+  const completed = isCompleted(location);
 
   return (
     <div className="mt-16 pt-8 border-t border-border">
-      {/* ブックマーク & メモ */}
-      <div className="mb-6 flex items-center gap-3">
+      {/* 完了 & ブックマーク */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
         <button
-          onClick={() => toggle(location)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-colors ${
-            bookmarked
-              ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-700'
-              : 'bg-muted/50 text-muted-foreground hover:bg-muted border border-border'
+          onClick={() => toggleCompleted(location)}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
+            completed
+              ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-2 border-emerald-500 shadow-sm shadow-emerald-500/20'
+              : 'bg-primary text-primary-foreground hover:opacity-90 border-2 border-transparent shadow-lg shadow-primary/10'
           }`}
         >
-          {bookmarked ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
-          {bookmarked ? 'ブックマーク済み' : 'ブックマークする'}
+          {completed ? <CheckCircle2 size={18} /> : <div className="w-[18px] h-[18px] rounded-full border-2 border-current/30" />}
+          {completed ? 'ステップ完了済' : 'このステップを完了にする'}
+        </button>
+
+        <button
+          onClick={() => toggleBookmark(location)}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm transition-all border ${
+            bookmarked
+              ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700'
+              : 'bg-muted/30 text-muted-foreground hover:bg-muted border-border'
+          }`}
+        >
+          {bookmarked ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+          {bookmarked ? 'ブックマーク中' : 'ブックマーク'}
         </button>
       </div>
 
       <PageNotes path={location} />
+      
       {/* プログレスバー */}
       {currentPage && (
-        <div className="mb-6">
-          <div className="flex justify-between text-sm text-muted-foreground mb-2">
-            <span>STEP {currentPage.step} / {totalSteps}</span>
-            <span>{Math.round((currentPage.step / totalSteps) * 100)}%</span>
+        <div className="mb-8 p-4 rounded-2xl bg-muted/30 border border-border">
+          <div className="flex justify-between items-end mb-3">
+            <div>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Progress</p>
+              <h4 className="text-sm font-bold text-foreground">
+                STEP {currentPage.step} <span className="text-muted-foreground font-normal">/ {totalSteps}</span>
+              </h4>
+            </div>
+            <p className="text-sm font-black text-primary">{Math.round((currentPage.step / totalSteps) * 100)}%</p>
           </div>
-          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+          <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
             <div
-              className="h-full bg-primary rounded-full transition-all duration-500"
+              className="h-full bg-primary rounded-full transition-all duration-700 ease-out shadow-[0_0_8px_rgba(var(--primary),0.3)]"
               style={{ width: `${(currentPage.step / totalSteps) * 100}%` }}
             />
           </div>
@@ -52,31 +74,35 @@ export default function PageNavigation() {
         {prevPage ? (
           <Link
             href={prevPage.path}
-            className="flex items-center gap-2 px-4 py-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group flex-1 max-w-[45%]"
+            className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group flex-1 max-w-[48%]"
           >
-            <ChevronLeft size={20} className="text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+            <ChevronLeft size={24} className="text-muted-foreground group-hover:text-primary group-hover:-translate-x-1 transition-all flex-shrink-0" />
             <div className="text-left min-w-0">
-              <p className="text-xs text-muted-foreground">前のステップ</p>
-              <p className="text-sm font-medium text-foreground truncate">{prevPage.title}</p>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold mb-0.5">PREVIOUS</p>
+              <p className="text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">{prevPage.title}</p>
             </div>
           </Link>
         ) : (
-          <div />
+          <div className="flex-1" />
         )}
 
         {nextPage ? (
           <Link
             href={nextPage.path}
-            className="flex items-center gap-2 px-4 py-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group flex-1 max-w-[45%] justify-end text-right"
+            className={`flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all group flex-1 max-w-[48%] justify-end text-right ${
+              completed 
+                ? 'border-primary/30 bg-primary/5 shadow-md shadow-primary/5' 
+                : 'border-border hover:border-primary/30 hover:bg-primary/5'
+            }`}
           >
             <div className="min-w-0">
-              <p className="text-xs text-muted-foreground">次のステップ</p>
-              <p className="text-sm font-medium text-foreground truncate">{nextPage.title}</p>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold mb-0.5">NEXT STEP</p>
+              <p className="text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">{nextPage.title}</p>
             </div>
-            <ChevronRight size={20} className="text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+            <ChevronRight size={24} className={`group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0 ${completed ? 'text-primary' : 'text-muted-foreground'}`} />
           </Link>
         ) : (
-          <div />
+          <div className="flex-1" />
         )}
       </div>
     </div>
