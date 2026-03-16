@@ -379,8 +379,12 @@ node server.js`;
     expect(resolvePreviewType(code)).toBe("jsx");
   });
 
-  it("HTML タグで始まるコード (<div>) は 'jsx'", () => {
-    expect(resolvePreviewType("<div>Hello World</div>")).toBe("jsx");
+  it("HTML タグで始まるコード (<div>) は function なしなら 'terminal'（HTML fragment）", () => {
+    expect(resolvePreviewType("<div>Hello World</div>")).toBe("terminal");
+  });
+
+  it("JSX コンポーネント内の HTML タグは 'jsx'", () => {
+    expect(resolvePreviewType("function App() { return <div>Hello</div>; }")).toBe("jsx");
   });
 
   it("THREE.Scene() を含むコードは 'threejs'", () => {

@@ -840,10 +840,10 @@ function ProductCatalog({ products }: { products: Product[] }) {
   const [query, setQuery] = useState('');
 
   // ここに useMemo でフィルタリングを実装
-  const filteredNumbers = // ...
+  const filteredNumbers = numbers; // TODO: useMemo で実装
 
   // ここに useMemo で合計を計算
-  const total = // ...
+  const total = 0; // TODO: useMemo で実装
 
   return (
     <div>

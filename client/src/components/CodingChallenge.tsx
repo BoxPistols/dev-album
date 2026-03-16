@@ -70,6 +70,7 @@ export function resolvePreviewType(code: string, previewType?: string): string {
   if (previewType) return previewType;
   if (/\bTHREE\b/.test(code)) return 'threejs';
 
+  const trimmed = code.trim();
   const trimmedLines = code.split('\n').filter(l => l.trim());
 
   // 全行が # コメントのみ → シェルテンプレート
@@ -81,6 +82,41 @@ export function resolvePreviewType(code: string, previewType?: string): string {
   const codeLines = trimmedLines.filter(l => !l.trim().startsWith('#'));
   const shellPattern = /^\s*(git |ssh |npm |npx |node |curl |wget |sudo |apt |brew |cd |ls |mkdir |touch |cat |echo |source |chmod |mv |cp |rm |docker |kubectl |tmux |code |xcode-|pip |python|wsl |gh )/;
   if (codeLines.length > 0 && codeLines.some(l => shellPattern.test(l))) return 'terminal';
+  // shebang
+  if (/^#!\//.test(trimmed)) return 'terminal';
+
+  // JSON → config
+  if (/^\s*[\[{]/.test(trimmed) && /[\]}]\s*$/.test(trimmed)) return 'config';
+
+  // YAML（--- で始まる or key: value パターンが支配的）
+  if (/^---\s*$/m.test(trimmed)) return 'config';
+  const yamlLines = codeLines.filter(l => /^\s*[\w-]+\s*:/.test(l));
+  if (yamlLines.length > 0 && yamlLines.length >= codeLines.length * 0.4) return 'config';
+
+  // HTML（< で始まり JSX コンポーネントではない、または HTML コメント <!-- -->）
+  if (/^\s*<!?(DOCTYPE|html|head|body|div|form|table|ul|ol|nav|header|main|footer|section|article|fieldset|input|label|select|textarea)\b/i.test(trimmed)) return 'terminal';
+  if (/^\s*<!--/.test(trimmed)) return 'terminal';
+
+  // コメントのみ（// で始まる行のみ）
+  if (codeLines.length > 0 && codeLines.every(l => l.trim().startsWith('//'))) return 'terminal';
+
+  // CSS（セレクタ + ブレース）
+  if (/^\s*(@media|@keyframes|@import|:root|body|html|\.|#[a-z]|\.[\w-]+\s*\{|\*\s*\{)/m.test(trimmed)) {
+    // JSX の style={{ }} と混同しないよう、function/return/=> がなければ CSS
+    if (!/\b(function|return|=>)\b/.test(trimmed)) return 'terminal';
+  }
+
+  // Markdown（# 見出し + 本文）
+  if (/^#{1,6}\s+\S/.test(trimmed) && !/\b(function|return|=>|const|let|var)\b/.test(trimmed)) return 'markdown';
+
+  // TypeScript 型定義のみ（interface/type のみで function/return がない）
+  if (/^\s*(interface|type)\s+\w+/.test(trimmed) && !/\b(function|return|=>)\b/.test(trimmed)) return 'terminal';
+
+  // tmux.conf / set-option パターン
+  if (/^\s*(set(-option)?|bind(-key)?|unbind)\s/.test(trimmed)) return 'terminal';
+
+  // JSX fragment（function 定義なし、<tag で始まる）
+  if (/^\s*<[a-z]/.test(trimmed) && !/\bfunction\b/.test(trimmed) && !/\bconst\b/.test(trimmed)) return 'terminal';
 
   return 'jsx';
 }
