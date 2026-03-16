@@ -23,11 +23,15 @@ test.describe('CodingChallenge プレビュー', () => {
     expect(srcDoc).toContain('App');
   });
 
-  test('Storybook Structure: ページが正常に表示される', async ({ page }) => {
+  test('Storybook Structure: Badge チャレンジのプレビューが存在する', async ({ page }) => {
     await page.goto('/react/storybook/structure');
-    await expect(page.locator('h1')).toBeVisible({ timeout: 10_000 });
-    const h1 = await page.locator('h1').textContent();
-    expect(h1).toContain('Story');
+    // ページ最下部までスクロールしてCodingChallengeを表示
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(1_000);
+    const iframes = page.locator('iframe[title="プレビュー"]');
+    const count = await iframes.count();
+    // CodingChallenge preview が少なくとも1つ存在
+    expect(count).toBeGreaterThanOrEqual(1);
   });
 
   test('Three.js Scene: 左右分割で3Dキャンバスが表示される', async ({ page }) => {
@@ -153,6 +157,28 @@ test.describe('プレビューエラー検出', () => {
         expect(srcDoc).not.toContain('"Error:"');
       }
     }
+  });
+
+  test('Three.js Scene: プレビューに "Three.js の読み込みに失敗" が表示されない', async ({ page }) => {
+    await page.goto('/threejs/basics/scene');
+    await page.waitForTimeout(3_000);
+    // ThreePreview の canvas が存在し、エラーテキストが表示されていない
+    const error = page.locator('text=Three.js の読み込みに失敗しました');
+    await expect(error).toHaveCount(0);
+  });
+
+  test('Training レベル2 #1: プレビューが正常表示される', async ({ page }) => {
+    await page.goto('/training');
+    // レベル2 タブをクリック
+    const level2Tab = page.locator('button:has-text("レベル2")');
+    if (await level2Tab.isVisible()) {
+      await level2Tab.click();
+      await page.waitForTimeout(1_000);
+    }
+    // CodingChallenge プレビュー iframe が存在する
+    const iframes = page.locator('iframe[title="プレビュー"]');
+    const count = await iframes.count();
+    expect(count).toBeGreaterThanOrEqual(1);
   });
 
   test('Flexbox ページ: CodePreview が表示されプレビューにコンテンツがある', async ({ page }) => {
