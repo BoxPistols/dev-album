@@ -42,7 +42,9 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function CenterFlex() {
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      alignItems: '___',        // ← ここを埋める
+      justifyContent: '___',    // ← ここを埋める
       minHeight: '200px',
       background: 'var(--bg)',
       border: '2px dashed var(--border)',
@@ -72,7 +74,7 @@ export const level1Challenges: Challenge[] = [
       'justifyContent: "center" で水平方向の中央寄せ',
       'alignItems: "center" で垂直方向の中央寄せ',
     ],
-    keywords: ['display', 'flex', 'alignItems', 'center', 'justifyContent', 'center'],
+    keywords: ['flex', 'center', 'center'],
   },
 
   // ── 2. 要素の中央寄せ（Grid）──
@@ -83,7 +85,8 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function CenterGrid() {
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      placeItems: '___',        // ← ここを埋める
       minHeight: '200px',
       background: 'var(--bg)',
       border: '2px dashed var(--border)',
@@ -112,7 +115,7 @@ export const level1Challenges: Challenge[] = [
       'placeItems は align-items と justify-items の一括指定です',
       'placeItems: "center" だけで縦横中央寄せが完成します',
     ],
-    keywords: ['display', 'grid', 'placeItems', 'center'],
+    keywords: ['grid', 'center'],
   },
 
   // ── 3. 要素の中央寄せ（absolute + transform）──
@@ -130,7 +133,10 @@ export const level1Challenges: Challenge[] = [
       borderRadius: '8px',
     }}>
       <span style={{
-        // ここにスタイルを追加
+        position: '___',        // ← ここを埋める
+        top: '50%',
+        left: '50%',
+        transform: '___',       // ← ここを埋める
         color: 'var(--text)',
         fontWeight: 600,
         background: 'var(--bg-accent)',
@@ -168,7 +174,7 @@ export const level1Challenges: Challenge[] = [
       'top: "50%", left: "50%" で親の中央に基準点を移動',
       'transform: "translate(-50%, -50%)" で自身のサイズ分ずらして完全な中央に',
     ],
-    keywords: ['position', 'absolute', 'top', '50%', 'left', '50%', 'transform', 'translate(-50%, -50%)'],
+    keywords: ['absolute', 'translate(-50%, -50%)'],
   },
 
   // ── 4. カードの横並び（均等配置）──
@@ -178,7 +184,7 @@ export const level1Challenges: Challenge[] = [
     difficulty: 'easy',
     initialCode: `function CardRow() {
   var cardStyle = {
-    // ここにスタイルを追加
+    flex: ___,                  // ← ここを埋める
     background: 'var(--bg)',
     border: '1px solid var(--border)',
     borderRadius: '8px',
@@ -187,7 +193,8 @@ export const level1Challenges: Challenge[] = [
   };
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      gap: '___',               // ← ここを埋める
     }}>
       <div style={cardStyle}>
         <p style={{ color: 'var(--text)', fontWeight: 600, margin: 0 }}>Card 1</p>
@@ -232,7 +239,7 @@ export const level1Challenges: Challenge[] = [
       'gap: "16px" でカード間のスペースを設定',
       '各カードに flex: 1 を指定すると均等幅になります',
     ],
-    keywords: ['display', 'flex', 'gap', 'flex: 1'],
+    keywords: ['1', 'flex', '16px'],
   },
 
   // ── 5. ヘッダーレイアウト（ロゴ + ナビ + ボタン）──
@@ -243,7 +250,9 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function Header() {
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      justifyContent: '___',    // ← ここを埋める
+      alignItems: '___',        // ← ここを埋める
       padding: '0 20px',
       height: '56px',
       background: 'var(--bg)',
@@ -287,7 +296,7 @@ export const level1Challenges: Challenge[] = [
       'justifyContent: "space-between" で左端・中央・右端に要素を配置',
       'alignItems: "center" で垂直方向の中央揃え',
     ],
-    keywords: ['display', 'flex', 'justifyContent', 'space-between', 'alignItems', 'center'],
+    keywords: ['flex', 'space-between', 'center'],
   },
 
   // ── 6. Sticky フッター ──
@@ -298,7 +307,9 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function StickyFooter() {
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: 'flex',
+      flexDirection: '___',     // ← ここを埋める
+      minHeight: '300px',
       background: 'var(--bg)',
       border: '1px solid var(--border)',
       borderRadius: '8px',
@@ -308,7 +319,7 @@ export const level1Challenges: Challenge[] = [
         <span style={{ color: 'var(--text)', fontWeight: 700 }}>Header</span>
       </header>
       <main style={{
-        // ここにスタイルを追加
+        flex: ___,               // ← ここを埋める
         padding: '20px',
       }}>
         <p style={{ color: 'var(--text)', margin: 0 }}>短いコンテンツ</p>
@@ -350,7 +361,7 @@ export const level1Challenges: Challenge[] = [
       'minHeight を指定して最低限の高さを確保（実務では "100vh"）',
       'main に flex: 1 を指定すると残りの空間を全て占有し、footer が下に押し出されます',
     ],
-    keywords: ['display', 'flex', 'flexDirection', 'column', 'minHeight', 'flex: 1'],
+    keywords: ['column', '1'],
   },
 
   // ── 7. 2カラムレイアウト（サイドバー + メイン）──
@@ -361,14 +372,15 @@ export const level1Challenges: Challenge[] = [
     initialCode: `function TwoColumn() {
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
       height: '200px',
       border: '1px solid var(--border)',
       borderRadius: '8px',
       overflow: 'hidden',
     }}>
       <aside style={{
-        // ここにスタイルを追加
+        width: '200px',
+        flexShrink: ___,         // ← ここを埋める
         background: 'var(--bg-muted)',
         padding: '16px',
         borderRight: '1px solid var(--border)',
@@ -377,7 +389,7 @@ export const level1Challenges: Challenge[] = [
         <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '8px 0 0' }}>width: 200px</p>
       </aside>
       <main style={{
-        // ここにスタイルを追加
+        flex: ___,               // ← ここを埋める
         background: 'var(--bg)',
         padding: '16px',
       }}>
@@ -422,7 +434,7 @@ export const level1Challenges: Challenge[] = [
       'sidebar に width: "200px" と flexShrink: 0 で固定幅に',
       'main に flex: 1 で残りの幅を全て使います',
     ],
-    keywords: ['display', 'flex', 'width', '200px', 'flex: 1'],
+    keywords: ['flex', '0', '1'],
   },
 
   // ── 8. カードグリッド（auto-fill）──
@@ -434,7 +446,9 @@ export const level1Challenges: Challenge[] = [
   var cards = [1, 2, 3, 4, 5, 6];
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      gridTemplateColumns: '___', // ← ここを埋める
+      gap: '12px',
     }}>
       {cards.map(function(n) {
         return (
@@ -483,7 +497,7 @@ export const level1Challenges: Challenge[] = [
       'gridTemplateColumns に repeat(auto-fill, minmax(150px, 1fr)) を使います',
       'gap: "12px" でカード間のスペースを設定',
     ],
-    keywords: ['display', 'grid', 'gridTemplateColumns', 'repeat', 'auto-fill', 'minmax', 'gap'],
+    keywords: ['grid', 'repeat(auto-fill, minmax(150px, 1fr))'],
   },
 
   // ── 9. テキストの折り返しと省略 ──
@@ -501,7 +515,9 @@ export const level1Challenges: Challenge[] = [
       borderRadius: '8px',
     }}>
       <p style={{
-        // ここにスタイルを追加
+        overflow: '___',         // ← ここを埋める
+        textOverflow: '___',     // ← ここを埋める
+        whiteSpace: '___',       // ← ここを埋める
         color: 'var(--text)',
         fontSize: '14px',
         margin: 0,
@@ -538,7 +554,7 @@ export const level1Challenges: Challenge[] = [
       'textOverflow: "ellipsis" で省略記号（...）を表示',
       'whiteSpace: "nowrap" で改行を防ぎ、1行に収めます',
     ],
-    keywords: ['overflow', 'hidden', 'textOverflow', 'ellipsis', 'whiteSpace', 'nowrap'],
+    keywords: ['hidden', 'ellipsis', 'nowrap'],
   },
 
   // ── 10. Flex の折り返し（タグ一覧）──
@@ -559,7 +575,9 @@ export const level1Challenges: Challenge[] = [
   };
   return (
     <div style={{
-      // ここにスタイルを追加
+      display: '___',           // ← ここを埋める
+      flexWrap: '___',          // ← ここを埋める
+      gap: '___',               // ← ここを埋める
       padding: '16px',
       background: 'var(--bg)',
       border: '1px solid var(--border)',
@@ -603,7 +621,7 @@ export const level1Challenges: Challenge[] = [
       'flexWrap: "wrap" で折り返しを有効に',
       'gap: "8px" でタグ間のスペースを設定',
     ],
-    keywords: ['display', 'flex', 'flexWrap', 'wrap', 'gap'],
+    keywords: ['flex', 'wrap', '8px'],
   },
 ];
 
