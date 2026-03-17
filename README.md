@@ -1,8 +1,8 @@
 # Dev Album
 
-正しい Web をつくれる開発者を育てる実践チュートリアル。
+Web 開発の実践リファレンス。
 
-プログラミングスキルだけでなく、Web 標準・アクセシビリティ・品質設計を重視し、セマンティック HTML、ARIA、ダークパターン回避、Table/Dialog/Form の正しい設計まで、手を動かしながら学べる。
+React・Git・Three.js・Claude Code の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
 
 https://dev-album.vercel.app
 

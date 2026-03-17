@@ -123,12 +123,12 @@ export default function Landing() {
             <span className="text-sm font-medium tracking-wider uppercase opacity-80">Dev Album</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-heading font-extrabold mb-6 leading-[1.15]">
-            正しい Web をつくれる人を、<br />
-            <span className="text-blue-200">ここから育てる</span>
+            Web 開発の<br />
+            <span className="text-blue-200">実践リファレンス</span>
           </h1>
           <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8">
-            コードが書けるだけでは足りない。Web 標準・アクセシビリティ・品質を理解し、
-            誰もが使える Web を設計・実装できる開発者を育てる実践チュートリアルです。
+            React・Git・Three.js・Claude Code の 4 領域を、
+            Web 標準とアクセシビリティの観点を含めて解説する技術マニュアルです。
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -159,12 +159,11 @@ export default function Landing() {
         <div className="max-w-3xl">
           <p className="text-sm font-semibold text-primary mb-3 tracking-wider uppercase">Why Dev Album?</p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-snug">
-            プログラミングだけでなく、<br className="hidden md:block" />Web の「つくり方」を学ぶ
+            コードと一緒に、<br className="hidden md:block" />Web 標準も扱う
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            セマンティック HTML、アクセシビリティ、レスポンシブ設計、パフォーマンス
-            — Web 標準に沿った正しいつくり方を、コードを書きながら身につけられます。
-            4 つの技術領域を横断することで、環境構築からデプロイ、チーム開発までの流れも一通り体験できます。
+            各トピックにセマンティック HTML、アクセシビリティ、レスポンシブ設計の観点を含めています。
+            4 つの技術領域を横断しているので、環境構築からデプロイ、チーム開発までの流れも一通り確認できます。
           </p>
         </div>
       </section>
