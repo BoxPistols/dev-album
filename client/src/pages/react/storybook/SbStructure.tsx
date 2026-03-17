@@ -22,7 +22,7 @@ export default function SbStructure() {
         <WhyNowBox tags={['CSF3', 'Meta', 'args', 'argTypes', 'play 関数', 'decorators']}>
           <p>
             前のステップで Storybook をセットアップし、サンプルの Story を確認しました。
-            ここからは「自分のコンポーネントに Story を書く」スキルを身につけます。
+            ここからは「自分のコンポーネントに Story を書く」方法を扱います。
             Story の書き方を覚えれば、コンポーネントの全バリエーションをカタログ化でき、
             チーム全体で UI の品質を維持する基盤が整います。
           </p>

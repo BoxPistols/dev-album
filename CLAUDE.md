@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-Web 開発の実践リファレンス。React・Git・Three.js・Claude Code の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。W3Schools の構成を参考にしつつ、品質設計・a11y をより深く扱う。
+Web 開発の実践リファレンス。Git・React・Claude Code・Three.js の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。W3Schools の構成を参考にしつつ、品質設計・a11y をより深く扱う。
 
 - URL: https://dev-album.vercel.app
 - リポジトリ: https://github.com/BoxPistols/unified-manual

@@ -21,7 +21,7 @@ export default function ConditionalList() {
           条件分岐とリスト表示
         </h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-          「ログイン中なら名前を表示、そうでなければログインボタンを表示」「商品一覧をカードで並べる」── 実際の UI で頻出する条件分岐とリスト表示のパターンをマスターしましょう。
+          「ログイン中なら名前を表示、そうでなければログインボタンを表示」「商品一覧をカードで並べる」── 実際の UI で頻出する条件分岐とリスト表示のパターンをのパターンを確認します。
         </p>
 
         <WhyNowBox tags={['条件分岐', 'リスト表示', '動的UI', 'key']}>

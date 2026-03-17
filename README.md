@@ -2,7 +2,7 @@
 
 Web 開発の実践リファレンス。
 
-React・Git・Three.js・Claude Code の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
+Git・React・Claude Code・Three.js の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
 
 https://dev-album.vercel.app
 

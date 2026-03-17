@@ -29,7 +29,7 @@ export default function HelloReact() {
           <p>
             React は Meta（旧 Facebook）が開発した UI ライブラリで、
             Instagram、Netflix、Airbnb、Notion など、世界中の主要なWebサービスで使われています。
-            求人サイトで「フロントエンドエンジニア」を検索すると、ほぼ全てで React のスキルが求められるほど、
+            求人サイトで「フロントエンドエンジニア」を検索すると、ほぼ全てで React のスキルが使われるほど、
             業界標準の技術です。デザイナーが React を学ぶことは、デザインと実装の橋渡し能力を手に入れることを意味します。
           </p>
         </WhyNowBox>
@@ -66,7 +66,7 @@ $('#notification-list').append('<li>' + message + '</li>');
             <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">
               Facebook のエンジニアである Jordan Walke は、この問題を解決するために
               2013年に React をオープンソースとして公開しました。
-              React の発想は画期的でした。「DOM を直接いじるのではなく、
+              React の発想は特徴的でした。「DOM を直接いじるのではなく、
               <strong>あるべき UI の状態を宣言すれば、差分は自動で計算して反映する</strong>」というものです。
             </p>
 

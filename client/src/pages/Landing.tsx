@@ -127,7 +127,7 @@ export default function Landing() {
             <span className="text-blue-200">実践リファレンス</span>
           </h1>
           <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-8">
-            React・Git・Three.js・Claude Code の 4 領域を、
+            Git・React・Claude Code・Three.js の 4 領域を、
             Web 標準とアクセシビリティの観点を含めて解説する技術マニュアルです。
           </p>
           <div className="flex flex-wrap gap-3">

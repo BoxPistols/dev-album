@@ -14,7 +14,7 @@ export default function Summary() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">総まとめと次のステップ</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
           ここまでの学習内容を振り返り、これから先の学習ロードマップを確認します。
-          React と Next.js の基礎を身につけたあなたが、次にどこへ進むべきかを一緒に考えましょう。
+          React と Next.js の基礎をを確認した段階で、次に進む方向を整理します。
         </p>
 
         <WhyNowBox tags={['振り返り', 'ロードマップ', 'ポートフォリオ', 'コミュニティ', '次のステップ']}>
@@ -92,7 +92,7 @@ export default function Summary() {
                   <h3 className="font-bold text-foreground">Next.js とデプロイ</h3>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed mb-2">
-                  プロダクション品質のアプリを構築・公開するためのスキルを身につけました。
+                  プロダクション品質のアプリを構築・公開するためのの流れを確認しました。
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded-full">App Router</span>
@@ -184,7 +184,7 @@ export default function Summary() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">次に学ぶべきこと</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              基礎を身につけた今、どの方向に深めていくかを選びましょう。
+              基礎を確認した段階で、どの方向に深めていくかを選びましょう。
               すべてを同時に学ぶ必要はありません。自分のやりたいことに近いものから始めてください。
             </p>
 
@@ -511,7 +511,7 @@ npm run dev
                 公式ドキュメントを読み、コミュニティで質問し、コードを書き続けてください。
               </p>
               <p className="text-lg font-bold text-foreground">
-                デザインの力とコードの力を組み合わせて、素晴らしいものを作りましょう。
+                デザインの力とコードの力を組み合わせて、よいプロダクトを作ってください。
               </p>
             </div>
 

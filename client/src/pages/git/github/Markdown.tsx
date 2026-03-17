@@ -28,7 +28,7 @@ export default function MarkdownGuide() {
             Markdown を覚えよう
           </h1>
           <p className="text-lg text-muted-foreground">
-            開発者・AI との共通言語「Markdown」を身につけましょう。覚えることは少ないのに、効果は絶大です。
+            開発者・AI との共通言語「Markdown」を身につけましょう。覚えることは少ないのに、活用範囲は広いです。
           </p>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function SbAdvanced() {
           <p>
             Storybook の基本的な使い方を覚えたら、次は開発体験とチーム運用を改善する「応用」の番です。
             アクセシビリティチェックの自動化、レスポンシブ対応の確認、
-            テストの統合、API モックの活用など、実務で差がつく機能を身につけましょう。
+            テストの統合、API モックの活用など、実務で使われる機能を扱います。
             これらを使いこなせば「Storybook を導入してよかった」とチーム全員が実感できるようになります。
           </p>
         </WhyNowBox>
@@ -1124,7 +1124,7 @@ const config: StorybookConfig = {
               </div>
             </div>
 
-            <InfoBox type="info" title="Storybook は「育てる」ツール">
+            <InfoBox type="info" title="Storybook は段階的に拡張できる">
               <p>
                 最初から完璧な設定を目指す必要はありません。
                 まずは基本の Addons でストーリーを書き、チームが使い慣れてきたら
