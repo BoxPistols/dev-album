@@ -200,7 +200,7 @@ export default function CodePreview({
         <Eye size={11} className="text-muted-foreground" />
         <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Result</span>
       </div>
-      <div className="bg-white dark:bg-[#1e1e2e] flex-1 relative" style={{ height: editorHeight }}>
+      <div className="bg-white dark:bg-[#1e1e2e] flex-1 relative" style={{ height: isExpanded ? Math.max(editorHeight, previewHeight) : previewHeight }}>
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}

@@ -370,6 +370,15 @@ export default function Navigation() {
               <Dumbbell size={14} />
               UI トレーニング
             </Link>
+            {location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? (
+              <Link
+                href="/dev/components"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+              >
+                UI カタログ (dev)
+              </Link>
+            ) : null}
           </div>
         </div>
       </nav>
