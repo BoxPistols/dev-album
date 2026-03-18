@@ -5,12 +5,12 @@ export default defineConfig({
   timeout: 30_000,
   retries: 0,
   use: {
-    baseURL: 'http://localhost:3333',
+    baseURL: `http://localhost:${process.env.PORT || 3000}`,
     screenshot: 'only-on-failure',
   },
   webServer: {
     command: 'npm run dev',
-    port: 3333,
+    port: Number(process.env.PORT) || 3000,
     reuseExistingServer: true,
   },
   projects: [

@@ -39,7 +39,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: Number(process.env.PORT) || 3333,
+    port: Number(process.env.PORT) || 3000,
     strictPort: false,
     host: true,
     allowedHosts: ["localhost", "127.0.0.1"],
