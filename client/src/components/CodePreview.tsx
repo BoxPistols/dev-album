@@ -125,9 +125,9 @@ export default function CodePreview({
   const showCode = viewMode !== 'preview';
   const showPreview = canPreview && viewMode !== 'code';
 
-  // プレビューパネルの高さ（プレビューのみ表示時は拡大で大きくする）
+  // プレビューパネルの高さ
   const previewPanelHeight = !showCode
-    ? (isExpanded ? Math.max(500, previewHeight) : previewHeight)
+    ? (isExpanded ? Math.max(600, previewHeight * 2) : Math.max(200, previewHeight))
     : editorHeight;
   const showSplit = showCode && showPreview && isHorizontal;
 
@@ -205,7 +205,7 @@ export default function CodePreview({
         <Eye size={11} className="text-muted-foreground" />
         <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Result</span>
       </div>
-      <div className="bg-white dark:bg-[#1e1e2e] flex-1 relative" style={{ height: previewPanelHeight }}>
+      <div className="bg-white dark:bg-[#1e1e2e] relative" style={{ height: previewPanelHeight }}>
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}
@@ -240,14 +240,14 @@ export default function CodePreview({
           <>
             <button
               onClick={() => setViewMode(viewMode === 'code' ? 'both' : 'code')}
-              className={`p-1.5 rounded hover:bg-[#313244] transition-colors ${viewMode === 'code' ? 'text-blue-400' : 'text-[#cdd6f4]/40'}`}
+              className={`p-1.5 rounded cursor-pointer hover:bg-[#313244] transition-colors ${viewMode === 'code' ? 'text-blue-400' : 'text-[#cdd6f4]/40'}`}
               title="コード"
             >
               <Code2 size={16} />
             </button>
             <button
               onClick={() => setViewMode(viewMode === 'preview' ? 'both' : 'preview')}
-              className={`p-1.5 rounded hover:bg-[#313244] transition-colors ${viewMode === 'preview' ? 'text-blue-400' : 'text-[#cdd6f4]/40'}`}
+              className={`p-1.5 rounded cursor-pointer hover:bg-[#313244] transition-colors ${viewMode === 'preview' ? 'text-blue-400' : 'text-[#cdd6f4]/40'}`}
               title="プレビュー"
             >
               <Eye size={16} />
@@ -259,7 +259,7 @@ export default function CodePreview({
             {isModified && (
               <button
                 onClick={handleReset}
-                className="p-1.5 rounded hover:bg-[#313244] text-[#f9e2af] hover:text-[#f9e2af] transition-colors"
+                className="p-1.5 rounded cursor-pointer hover:bg-[#313244] text-[#f9e2af] hover:text-[#f9e2af] transition-colors"
                 title="リセット"
               >
                 <RotateCcw size={16} />
@@ -267,7 +267,7 @@ export default function CodePreview({
             )}
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded hover:bg-[#313244] transition-colors"
+              className="p-1.5 rounded cursor-pointer hover:bg-[#313244] transition-colors"
               title="コピー"
             >
               {copied ? <Check size={16} className="text-[#a6e3a1]" /> : <Copy size={16} className="text-[#cdd6f4]/40" />}
@@ -275,7 +275,7 @@ export default function CodePreview({
             {canPreview && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="p-1.5 rounded hover:bg-[#313244] text-[#cdd6f4]/40 hover:text-[#cdd6f4] transition-colors"
+                className="p-1.5 rounded cursor-pointer hover:bg-[#313244] text-[#cdd6f4]/40 hover:text-[#cdd6f4] transition-colors"
                 title={isExpanded ? '縮小' : '拡大'}
               >
                 {isExpanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
