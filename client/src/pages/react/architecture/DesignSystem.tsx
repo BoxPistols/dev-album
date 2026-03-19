@@ -315,7 +315,7 @@ export const semantic = {
   light: {
     primary: colors.blue[600],
     primaryHover: colors.blue[700],
-    background: '#ffffff',
+    background: 'var(--bg)',
     foreground: colors.gray[900],
     muted: colors.gray[500],
     border: '#e2e8f0',

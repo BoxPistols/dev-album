@@ -519,7 +519,7 @@ function Sidebar() {
           </button>
         ))}
       </div>
-      <div style={{ padding: 24, fontSize: 14, color: '#333' }}>
+      <div style={{ padding: 24, fontSize: 14, color: 'var(--text)' }}>
         {contents[tab]}
       </div>
     </div>
@@ -598,7 +598,7 @@ function UserTable({ users }: { users: User[] }) {
               previewHeight={280}
               code={`function App() {
   return (
-    <div style={{ maxWidth: 345, borderRadius: 4, boxShadow: '0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)', overflow: 'hidden', background: '#fff', fontFamily: 'Roboto, sans-serif' }}>
+    <div style={{ maxWidth: 345, borderRadius: 4, boxShadow: '0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)', overflow: 'hidden', background: 'var(--bg)', fontFamily: 'Roboto, sans-serif' }}>
       <div style={{ height: 140, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 500 }}>
         画像エリア
       </div>

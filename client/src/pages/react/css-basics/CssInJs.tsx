@@ -292,7 +292,7 @@ const lightTheme = {
   colors: {
     primary: '#3b82f6',
     secondary: '#8b5cf6',
-    background: '#ffffff',
+    background: 'var(--bg)',
     text: '#1e293b',
     muted: '#64748b',
   },

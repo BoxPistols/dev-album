@@ -353,7 +353,7 @@ function DeleteConfirmDialog() {
     background: on ? '#18181b' : 'var(--border)', position: 'relative', transition: 'background 0.2s',
   });
   const dot = (on) => ({
-    width: 20, height: 20, borderRadius: '50%', background: '#fff',
+    width: 20, height: 20, borderRadius: '50%', background: 'var(--bg)',
     position: 'absolute', top: 2, left: on ? 22 : 2, transition: 'left 0.2s',
   });
 
