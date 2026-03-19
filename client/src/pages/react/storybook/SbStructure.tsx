@@ -96,35 +96,35 @@ export const Secondary: Story = {
   const base = { padding: '10px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', border: 'none', transition: 'all 0.2s', fontFamily: 'system-ui, sans-serif' };
   return (
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--bg-muted)', borderRadius: '12px', border: '1px solid var(--border)', overflow: 'hidden' }}>
         {/* Storybook ヘッダー風 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 16px', background: '#fff', borderBottom: '1px solid #e2e8f0' }}>
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Components / Button</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 16px', background: 'var(--bg)', borderBottom: '1px solid var(--border)' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Components / Button</span>
         </div>
         {/* Story 一覧 */}
         <div style={{ padding: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {/* Primary */}
             <div>
-              <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Primary</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Primary</div>
               <button style={{ ...base, background: '#6366f1', color: 'white' }}>ボタン</button>
             </div>
             {/* Secondary */}
             <div>
-              <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Secondary</div>
-              <button style={{ ...base, background: '#e2e8f0', color: '#334155' }}>ボタン</button>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Secondary</div>
+              <button style={{ ...base, background: '#e2e8f0', color: 'var(--text)' }}>ボタン</button>
             </div>
             {/* Danger */}
             <div>
-              <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Danger</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Danger</div>
               <button style={{ ...base, background: '#ef4444', color: 'white' }}>削除する</button>
             </div>
             {/* All Variants */}
             <div>
-              <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>All Variants</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>All Variants</div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button style={{ ...base, background: '#6366f1', color: 'white' }}>Primary</button>
-                <button style={{ ...base, background: '#e2e8f0', color: '#334155' }}>Secondary</button>
+                <button style={{ ...base, background: '#e2e8f0', color: 'var(--text)' }}>Secondary</button>
                 <button style={{ ...base, background: '#ef4444', color: 'white' }}>Danger</button>
                 <button style={{ ...base, background: 'transparent', color: '#6366f1', border: '1px solid #6366f1' }}>Ghost</button>
               </div>
@@ -406,7 +406,7 @@ export const Danger: Story = {
   const v = variants[activeTab];
   return (
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ fontSize: '13px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>args を切り替えてバリエーション確認</div>
+      <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>args を切り替えてバリエーション確認</div>
       {/* タブ */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
         {tabs.map((t, i) => (
@@ -414,16 +414,16 @@ export const Danger: Story = {
         ))}
       </div>
       {/* カード */}
-      <div style={{ width: '320px', borderRadius: '12px', border: '1px solid #e2e8f0', overflow: 'hidden', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+      <div style={{ width: '320px', borderRadius: '12px', border: '1px solid var(--border)', overflow: 'hidden', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
         {v.hasImage && <div style={{ height: '160px', background: v.imgColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '24px', fontWeight: 700 }}>Image</div>}
         <div style={{ padding: '16px' }}>
           <h3 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700, color: '#1e293b', lineHeight: 1.4 }}>{v.title}</h3>
-          <p style={{ margin: 0, fontSize: '14px', color: '#64748b', lineHeight: 1.5 }}>{v.description}</p>
+          <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)', lineHeight: 1.5 }}>{v.description}</p>
         </div>
       </div>
       {/* 現在の args 表示 */}
-      <div style={{ marginTop: '16px', padding: '12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '4px' }}>現在の args</div>
+      <div style={{ marginTop: '16px', padding: '12px', background: 'var(--bg-muted)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>現在の args</div>
         <code style={{ fontSize: '12px', color: '#6366f1' }}>{'{ title: "' + v.title.substring(0, 30) + (v.title.length > 30 ? '...' : '') + '", hasImage: ' + v.hasImage + ' }'}</code>
       </div>
     </div>
@@ -560,7 +560,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* フォーム */}
-        <div style={{ width: '280px', padding: '24px', background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+        <div style={{ width: '280px', padding: '24px', background: 'white', borderRadius: '12px', border: '1px solid var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
           <h3 style={{ margin: '0 0 16px', fontSize: '18px', fontWeight: 700, color: '#1e293b' }}>ログイン</h3>
           <div style={{ marginBottom: '12px' }}>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>メールアドレス</label>
@@ -575,7 +575,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
         </div>
         {/* ログパネル */}
         <div style={{ flex: 1, minWidth: '240px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Interactions ログ</div>
+          <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Interactions ログ</div>
           <div style={{ background: '#1e1e2e', borderRadius: '8px', padding: '12px', minHeight: '160px' }}>
             {log.length === 0 && <div style={{ color: '#585b70', fontSize: '13px', fontStyle: 'italic' }}>テスト実行を押すと、play 関数の動作を確認できます</div>}
             {log.map((l, i) => (
@@ -587,7 +587,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
           </div>
           <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
             <button onClick={runTest} disabled={running} style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', background: running ? '#94a3b8' : '#6366f1', color: 'white', fontSize: '13px', fontWeight: 600, cursor: running ? 'not-allowed' : 'pointer' }}>{running ? '実行中...' : 'テスト実行'}</button>
-            <button onClick={reset} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #e2e8f0', background: 'white', color: '#64748b', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>リセット</button>
+            <button onClick={reset} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--border)', background: 'white', color: 'var(--text-muted)', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>リセット</button>
           </div>
         </div>
       </div>
@@ -835,7 +835,7 @@ export const WithFooter: Story = {
   args: {
     footer: (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>2024年12月</span>
+        <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>2024年12月</span>
         <button style={{ color: '#3b82f6', fontSize: '0.875rem' }}>詳しく見る →</button>
       </div>
     ),
@@ -922,7 +922,7 @@ export const NoDescription: Story = {
   const toggle = (key) => setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
   const Folder = ({ name, open, onClick, children, depth = 0 }) => (
     <div>
-      <div onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', paddingLeft: 12 + depth * 16, cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: '#334155', borderRadius: '6px', background: 'transparent', transition: 'background 0.15s' }} onMouseEnter={e => e.currentTarget.style.background='#f1f5f9'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+      <div onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', paddingLeft: 12 + depth * 16, cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: 'var(--text)', borderRadius: '6px', background: 'transparent', transition: 'background 0.15s' }} onMouseEnter={e => e.currentTarget.style.background='#f1f5f9'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
         <span style={{ fontSize: '10px', transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         <span style={{ fontSize: '14px' }}>{open ? '📂' : '📁'}</span>
         {name}
@@ -931,7 +931,7 @@ export const NoDescription: Story = {
     </div>
   );
   const Story = ({ name, depth = 0, icon = '📄' }) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '5px 12px', paddingLeft: 12 + depth * 16, fontSize: '13px', color: '#64748b', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }} onMouseEnter={e => { e.currentTarget.style.background='#ede9fe'; e.currentTarget.style.color='#6366f1'; }} onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#64748b'; }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '5px 12px', paddingLeft: 12 + depth * 16, fontSize: '13px', color: 'var(--text-muted)', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }} onMouseEnter={e => { e.currentTarget.style.background='#ede9fe'; e.currentTarget.style.color='#6366f1'; }} onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#64748b'; }}>
       <span style={{ fontSize: '12px' }}>{icon}</span>
       {name}
     </div>
@@ -940,8 +940,8 @@ export const NoDescription: Story = {
     <div style={{ padding: '16px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* サイドバー風ツリー */}
-        <div style={{ width: '240px', background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '12px 8px', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '4px 12px', marginBottom: '4px' }}>Storybook Sidebar</div>
+        <div style={{ width: '240px', background: 'white', borderRadius: '12px', border: '1px solid var(--border)', padding: '12px 8px', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '4px 12px', marginBottom: '4px' }}>Storybook Sidebar</div>
           <Folder name="Components" open={expanded.Components} onClick={() => toggle('Components')} depth={0}>
             <Story name="Button" depth={1} />
             <Folder name="Form" open={expanded.Form} onClick={() => toggle('Form')} depth={1}>
@@ -964,13 +964,13 @@ export const NoDescription: Story = {
         </div>
         {/* title の対応表 */}
         <div style={{ flex: 1, minWidth: '200px' }}>
-          <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: '12px', letterSpacing: '0.05em' }}>title とサイドバーの対応</div>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '12px', letterSpacing: '0.05em' }}>title とサイドバーの対応</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[["'Components/Button'", 'Components > Button'], ["'Components/Form/Input'", 'Components > Form > Input'], ["'Layout/Header'", 'Layout > Header'], ["'Pages/Home'", 'Pages > Home']].map(([code, result], i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 12px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 12px', background: 'var(--bg-muted)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                 <code style={{ fontSize: '12px', color: '#6366f1', fontWeight: 600 }}>{code}</code>
-                <span style={{ color: '#94a3b8' }}>→</span>
-                <span style={{ fontSize: '13px', color: '#334155' }}>{result}</span>
+                <span style={{ color: 'var(--text-muted)' }}>→</span>
+                <span style={{ fontSize: '13px', color: 'var(--text)' }}>{result}</span>
               </div>
             ))}
           </div>

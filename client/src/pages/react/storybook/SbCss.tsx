@@ -261,12 +261,12 @@ export const Secondary: Story = {
      例: .card → .Card_card_x7k2a */
   const styles = {
     card: {
-      border: '1px solid #e2e8f0',
+      border: '1px solid var(--border)',
       borderRadius: '12px',
       overflow: 'hidden',
       maxWidth: '320px',
       fontFamily: '"Inter", system-ui, sans-serif',
-      background: '#ffffff',
+      background: 'var(--bg)',
       boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
     },
     image: {
@@ -304,7 +304,7 @@ export const Secondary: Story = {
     },
     desc: {
       fontSize: '13px',
-      color: '#64748b',
+      color: 'var(--text-muted)',
       margin: '0 0 12px 0',
       lineHeight: '1.5',
     },
@@ -323,20 +323,20 @@ export const Secondary: Story = {
     scopeInfo: {
       marginTop: '12px',
       padding: '8px 12px',
-      background: '#f8fafc',
+      background: 'var(--bg-muted)',
       borderRadius: '6px',
       border: '1px dashed #cbd5e1',
     },
     scopeText: {
       fontSize: '10px',
-      color: '#94a3b8',
+      color: 'var(--text-muted)',
       fontFamily: 'monospace',
       margin: 0,
     },
   };
 
   return (
-    <div style={{ padding: '24px', background: '#f8fafc', minHeight: '100%' }}>
+    <div style={{ padding: '24px', background: 'var(--bg-muted)', minHeight: '100%' }}>
       <div style={styles.card}>
         <div style={styles.image}>CSS Modules Card</div>
         <div style={styles.body}>
@@ -524,12 +524,12 @@ export default preview;`}
   /* Tailwind ではユーティリティクラスで直接スタイルを適用する
      ここでは inline style で Tailwind 的なアプローチを再現 */
   return (
-    <div style={{ padding: '24px', background: '#f8fafc', minHeight: '100%' }}>
+    <div style={{ padding: '24px', background: 'var(--bg-muted)', minHeight: '100%' }}>
       <div style={{
         maxWidth: '320px',
         borderRadius: '12px',
         overflow: 'hidden',
-        background: '#ffffff',
+        background: 'var(--bg)',
         boxShadow: '0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)',
         fontFamily: '"Inter", system-ui, sans-serif',
       }}>
@@ -567,7 +567,7 @@ export default preview;`}
           </h3>
 
           {/* text-sm text-slate-500 */}
-          <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 12px 0', lineHeight: '1.5' }}>
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '0 0 12px 0', lineHeight: '1.5' }}>
             Tailwind のユーティリティクラスだけで構築。className に直接スタイルを記述します。
           </p>
 
@@ -1010,7 +1010,7 @@ export default preview;`}
   };
 
   return (
-    <div style={{ padding: '24px', background: '#f8fafc', minHeight: '100%' }}>
+    <div style={{ padding: '24px', background: 'var(--bg-muted)', minHeight: '100%' }}>
       <div style={{
         maxWidth: '320px',
         borderRadius: theme.radius,

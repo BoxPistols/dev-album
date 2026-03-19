@@ -105,19 +105,19 @@ export default function ComponentDriven() {
   ];
   return (
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: '12px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '16px' }}>Atomic Design の階層</p>
+      <p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '16px' }}>Atomic Design の階層</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {levels.map((l, i) => (
           <div key={l.name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: 40 + i * 24, height: '36px', borderRadius: '6px', background: l.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '11px', fontWeight: 700, flexShrink: 0 }}>{l.name}</div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text)' }}>{l.desc}</span>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>{l.example}</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{l.example}</span>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ marginTop: '16px', padding: '10px 14px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+      <div style={{ marginTop: '16px', padding: '10px 14px', borderRadius: '6px', background: 'var(--bg-muted)', border: '1px solid var(--border)' }}>
         <span style={{ fontSize: '11px', color: '#475569' }}>CDD では下から上へ（Atom → Page）順番に構築する</span>
       </div>
     </div>
@@ -202,16 +202,16 @@ export default function ComponentDriven() {
               code={`function FigmaHierarchy() {
   return (
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
-      <p style={{ fontSize: '12px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '20px' }}>Figma → React: コンポーネント階層の実例</p>
+      <p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '20px' }}>Figma → React: コンポーネント階層の実例</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ padding: '12px 16px', borderRadius: '8px', border: '2px solid #6366F1', background: '#EEF2FF' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#6366F1', textTransform: 'uppercase' }}>Atom</span>
-            <span style={{ fontSize: '10px', color: '#94a3b8' }}>Figma: Component + Variant</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Figma: Component + Variant</span>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button style={{ padding: '6px 14px', borderRadius: '6px', background: '#6366F1', color: 'white', border: 'none', fontSize: '12px', fontWeight: 600 }}>Primary</button>
-            <button style={{ padding: '6px 14px', borderRadius: '6px', background: '#E2E8F0', color: '#334155', border: 'none', fontSize: '12px', fontWeight: 600 }}>Secondary</button>
+            <button style={{ padding: '6px 14px', borderRadius: '6px', background: '#E2E8F0', color: 'var(--text)', border: 'none', fontSize: '12px', fontWeight: 600 }}>Secondary</button>
             <button style={{ padding: '6px 14px', borderRadius: '6px', background: '#EF4444', color: 'white', border: 'none', fontSize: '12px', fontWeight: 600 }}>Danger</button>
           </div>
         </div>
@@ -221,10 +221,10 @@ export default function ComponentDriven() {
         <div style={{ padding: '12px 16px', borderRadius: '8px', border: '2px solid #8B5CF6', background: '#F5F3FF' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#8B5CF6', textTransform: 'uppercase' }}>Molecule</span>
-            <span style={{ fontSize: '10px', color: '#94a3b8' }}>Figma: Component (Instance x2)</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Figma: Component (Instance x2)</span>
           </div>
           <div style={{ display: 'flex', gap: '4px' }}>
-            <input placeholder="検索..." style={{ padding: '6px 12px', borderRadius: '6px 0 0 6px', border: '1px solid #CBD5E1', fontSize: '12px', flex: 1, background: 'white', color: '#334155' }} readOnly />
+            <input placeholder="検索..." style={{ padding: '6px 12px', borderRadius: '6px 0 0 6px', border: '1px solid #CBD5E1', fontSize: '12px', flex: 1, background: 'white', color: 'var(--text)' }} readOnly />
             <button style={{ padding: '6px 14px', borderRadius: '0 6px 6px 0', background: '#6366F1', color: 'white', border: 'none', fontSize: '12px', fontWeight: 600 }}>検索</button>
           </div>
         </div>
@@ -234,15 +234,15 @@ export default function ComponentDriven() {
         <div style={{ padding: '12px 16px', borderRadius: '8px', border: '2px solid #A855F7', background: '#FAF5FF' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#A855F7', textTransform: 'uppercase' }}>Organism</span>
-            <span style={{ fontSize: '10px', color: '#94a3b8' }}>Figma: Component (Molecule + Atom Instance)</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Figma: Component (Molecule + Atom Instance)</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'white', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
-            <span style={{ fontWeight: 700, fontSize: '14px', color: '#334155' }}>Logo</span>
+            <span style={{ fontWeight: 700, fontSize: '14px', color: 'var(--text)' }}>Logo</span>
             <div style={{ display: 'flex', gap: '4px', flex: 1, maxWidth: '200px', margin: '0 16px' }}>
-              <input placeholder="検索..." style={{ padding: '4px 8px', borderRadius: '4px 0 0 4px', border: '1px solid #CBD5E1', fontSize: '11px', flex: 1, background: 'white', color: '#334155' }} readOnly />
+              <input placeholder="検索..." style={{ padding: '4px 8px', borderRadius: '4px 0 0 4px', border: '1px solid #CBD5E1', fontSize: '11px', flex: 1, background: 'white', color: 'var(--text)' }} readOnly />
               <button style={{ padding: '4px 10px', borderRadius: '0 4px 4px 0', background: '#6366F1', color: 'white', border: 'none', fontSize: '11px', fontWeight: 600 }}>検索</button>
             </div>
-            <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#64748b', fontWeight: 600 }}>U</div>
+            <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>U</div>
           </div>
         </div>
       </div>

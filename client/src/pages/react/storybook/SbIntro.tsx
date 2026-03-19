@@ -110,7 +110,7 @@ export const Loading = {
       <h3 style={{ margin: 0, fontSize: '13px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Button Variants</h3>
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
         <button style={{ ...base, background: '#6366F1', color: 'white' }}>Primary</button>
-        <button style={{ ...base, background: '#E2E8F0', color: '#334155' }}>Secondary</button>
+        <button style={{ ...base, background: '#E2E8F0', color: 'var(--text)' }}>Secondary</button>
         <button style={{ ...base, background: 'transparent', color: '#6366F1', border: '1px solid #6366F1' }}>Outline</button>
         <button style={{ ...base, background: '#EF4444', color: 'white' }}>Danger</button>
         <button style={{ ...base, background: '#6366F1', color: 'white', opacity: 0.5, cursor: 'not-allowed' }}>Disabled</button>
@@ -631,7 +631,7 @@ export default meta;
   const [size, setSize] = useState('medium');
   const [label, setLabel] = useState('ボタン');
   const [disabled, setDisabled] = useState(false);
-  const variants = { primary: { bg: '#6366F1', color: 'white' }, secondary: { bg: '#E2E8F0', color: '#334155' }, danger: { bg: '#EF4444', color: 'white' } };
+  const variants = { primary: { bg: '#6366F1', color: 'white' }, secondary: { bg: '#E2E8F0', color: 'var(--text)' }, danger: { bg: '#EF4444', color: 'white' } };
   const sizes = { small: { padding: '4px 12px', fontSize: '12px' }, medium: { padding: '8px 20px', fontSize: '14px' }, large: { padding: '12px 28px', fontSize: '16px' } };
   const v = variants[variant] || variants.primary;
   const s = sizes[size] || sizes.medium;

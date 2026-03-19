@@ -456,8 +456,8 @@ export default create({
         <div style={{ fontSize: '11px', color: 'var(--text-muted, #888)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>デコレーターなし</div>
         <div style={{ ...cardStyle, background: 'var(--bg-accent, #fff)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <button style={{ ...btnBase, background: '#ddd', color: '#333' }}>Primary</button>
-            <button style={{ ...btnBase, background: 'transparent', color: '#333', border: '1px solid #ccc' }}>Secondary</button>
+            <button style={{ ...btnBase, background: '#ddd', color: 'var(--text)' }}>Primary</button>
+            <button style={{ ...btnBase, background: 'transparent', color: 'var(--text)', border: '1px solid #ccc' }}>Secondary</button>
             <p style={{ fontSize: '12px', color: 'var(--text-muted, #999)', margin: 0 }}>テーマ未適用: デフォルトのスタイル</p>
           </div>
         </div>
@@ -472,7 +472,7 @@ export default create({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <button style={{ ...btnBase, background: '#3b82f6', color: '#fff' }}>Primary</button>
             <button style={{ ...btnBase, background: 'transparent', color: '#e2e8f0', border: '1px solid #475569' }}>Secondary</button>
-            <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>テーマ適用済: ダークテーマのスタイル</p>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>テーマ適用済: ダークテーマのスタイル</p>
           </div>
         </div>
       </div>
