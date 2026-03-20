@@ -15,6 +15,43 @@ import {
   Users,
   Rocket,
 } from 'lucide-react';
+import CodePreview from '@/components/CodePreview';
+import CodingChallenge from '@/components/CodingChallenge';
+
+/* ── Hero 背景用コードスニペット（装飾のみ） ── */
+const heroCodeLines = `import { useState } from 'react';
+import { Button } from '@/components/ui';
+
+interface CardProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+function Card({ title, children }: CardProps) {
+  const [open, setOpen] = useState(false);
+  return (
+    <article className="rounded-xl border p-6">
+      <h2 className="text-lg font-bold">{title}</h2>
+      <div>{children}</div>
+      <Button onClick={() => setOpen(!open)}>
+        {open ? '閉じる' : '詳細を見る'}
+      </Button>
+    </article>
+  );
+}
+
+export default function App() {
+  return (
+    <main className="grid gap-4 p-8">
+      <Card title="React の基本">
+        <p>コンポーネントと Props を学ぶ</p>
+      </Card>
+      <Card title="スタイリング">
+        <p>Tailwind CSS でレイアウトを組む</p>
+      </Card>
+    </main>
+  );
+}`;
 
 /* ── マニュアル別カラー ── */
 const manualGradients: Record<ManualId, string> = {
@@ -76,13 +113,8 @@ const audiences = [
   },
 ];
 
-/* ── 学習体験の特徴 ── */
+/* ── 学習体験の特徴（テキスト版、ライブエディタは別途デモ） ── */
 const features = [
-  {
-    icon: <Code2 size={20} />,
-    title: 'ライブエディタ',
-    description: 'ブラウザ上でコードを書いて即座にプレビュー。環境構築なしで実験できます。',
-  },
   {
     icon: <CheckCircle2 size={20} />,
     title: 'コーディングチャレンジ',
@@ -100,6 +132,103 @@ const features = [
   },
 ];
 
+/* ── ライブエディタ デモ用コード ── */
+const liveEditorDemoCode = `function Greeting() {
+  return (
+    <div style={{
+      fontFamily: "system-ui, sans-serif",
+      padding: "2rem",
+      textAlign: "center",
+    }}>
+      <h1 style={{ color: "#2563eb", fontSize: "1.5rem" }}>
+        Hello World
+      </h1>
+      <p style={{ color: "#64748b" }}>
+        React コンポーネントのプレビュー
+      </p>
+    </div>
+  );
+}`;
+
+/* ── チャレンジ デモ用 ── */
+const challengeDemoCode = `function App() {
+  return (
+    <div style={{
+      display: "___",
+      gap: "1rem",
+      padding: "1.5rem",
+      fontFamily: "system-ui, sans-serif",
+    }}>
+      <div style={{
+        padding: "1rem",
+        background: "#eff6ff",
+        borderRadius: "0.5rem",
+        border: "1px solid #bfdbfe",
+        flex: 1,
+      }}>
+        <strong>Card A</strong>
+      </div>
+      <div style={{
+        padding: "1rem",
+        background: "#f0fdf4",
+        borderRadius: "0.5rem",
+        border: "1px solid #bbf7d0",
+        flex: 1,
+      }}>
+        <strong>Card B</strong>
+      </div>
+      <div style={{
+        padding: "1rem",
+        background: "#fef3c7",
+        borderRadius: "0.5rem",
+        border: "1px solid #fde68a",
+        flex: 1,
+      }}>
+        <strong>Card C</strong>
+      </div>
+    </div>
+  );
+}`;
+
+const challengeDemoAnswer = `function App() {
+  return (
+    <div style={{
+      display: "flex",
+      gap: "1rem",
+      padding: "1.5rem",
+      fontFamily: "system-ui, sans-serif",
+    }}>
+      <div style={{
+        padding: "1rem",
+        background: "#eff6ff",
+        borderRadius: "0.5rem",
+        border: "1px solid #bfdbfe",
+        flex: 1,
+      }}>
+        <strong>Card A</strong>
+      </div>
+      <div style={{
+        padding: "1rem",
+        background: "#f0fdf4",
+        borderRadius: "0.5rem",
+        border: "1px solid #bbf7d0",
+        flex: 1,
+      }}>
+        <strong>Card B</strong>
+      </div>
+      <div style={{
+        padding: "1rem",
+        background: "#fef3c7",
+        borderRadius: "0.5rem",
+        border: "1px solid #fde68a",
+        flex: 1,
+      }}>
+        <strong>Card C</strong>
+      </div>
+    </div>
+  );
+}`;
+
 /* ── 学習ロードマップ ── */
 const roadmap = [
   { phase: '基礎', label: 'React + TypeScript', color: 'bg-indigo-500', description: 'コンポーネント・状態管理・Hooks を手を動かして学ぶ' },
@@ -116,8 +245,12 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       {/* ═══ Hero ═══ */}
-      <section className="mesh-gradient text-white">
-        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+      <section className="mesh-gradient text-white relative overflow-hidden">
+        {/* 背景コードスクロール */}
+        <div className="hero-code-bg" aria-hidden="true">
+          <pre>{heroCodeLines + '\n' + heroCodeLines}</pre>
+        </div>
+        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28 relative z-10">
           <div className="flex items-center gap-2 mb-6">
             <BookOpen size={20} />
             <span className="text-sm font-medium tracking-wider uppercase opacity-80">Dev Album</span>
@@ -253,14 +386,48 @@ export default function Landing() {
               );
             })}
           </div>
+
+          {/* Coming Soon */}
+          <div className="mt-8 p-6 rounded-xl border border-dashed border-border">
+            <p className="text-sm text-muted-foreground mb-3">Coming Soon</p>
+            <div className="flex flex-wrap gap-3">
+              <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm">Vue.js / Nuxt.js</span>
+              <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm">デザイントークン</span>
+              <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm">Chromatic</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ═══ Features ═══ */}
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
         <p className="text-sm font-semibold text-primary mb-3 tracking-wider uppercase">Features</p>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">コードを書きながら学べる仕組み</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">コードを書きながら学べる仕組み</h2>
+        <p className="text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+          ブラウザ上でコードを書いて即座にプレビュー。環境構築なしで実験できます。
+        </p>
+
+        {/* ライブエディタ デモ */}
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+              <Code2 size={18} />
+            </div>
+            <h3 className="text-base font-bold text-foreground">ライブエディタ</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            コードを編集すると右側のプレビューがリアルタイムに更新されます。試しに文字やスタイルを変えてみてください。
+          </p>
+          <CodePreview
+            code={liveEditorDemoCode}
+            language="tsx"
+            title="Hello World"
+            previewHeight={200}
+          />
+        </div>
+
+        {/* その他の特徴 */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {features.map((f) => (
             <div key={f.title} className="flex gap-4">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
@@ -275,8 +442,31 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ What You Can Do ═══ */}
+      {/* ═══ 体験してみる ═══ */}
       <section className="bg-muted/30">
+        <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+          <p className="text-sm font-semibold text-primary mb-3 tracking-wider uppercase">Try It</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">体験してみる</h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+            実際のチャレンジを試してみましょう。空欄を埋めてカードを横並びにしてください。
+          </p>
+          <CodingChallenge
+            title="display を埋めてカードを横並びにする"
+            description={`display: "___" を埋めて、3 つのカードを横並びにしてください。`}
+            initialCode={challengeDemoCode}
+            answer={challengeDemoAnswer}
+            keywords={['flex']}
+            hints={[
+              'CSS の Flexbox を使います。display に指定する値を考えてみましょう。',
+              '答えは "flex" です。display: "flex" と書くと子要素が横並びになります。',
+            ]}
+            preview
+          />
+        </div>
+      </section>
+
+      {/* ═══ What You Can Do ═══ */}
+      <section>
         <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
           <p className="text-sm font-semibold text-primary mb-3 tracking-wider uppercase">Outcomes</p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">一通り体験できること</h2>

@@ -305,6 +305,37 @@
       linear-gradient(135deg, #151D2B 0%, #1C1830 100%);
   }
 
+  /* Hero 背景コードスクロール */
+  @keyframes hero-code-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  .hero-code-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.06) 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.06) 80%, transparent 100%);
+  }
+  .hero-code-bg pre {
+    animation: hero-code-scroll 40s linear infinite;
+    white-space: pre;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.12);
+    user-select: none;
+  }
+  .dark .hero-code-bg pre {
+    color: rgba(255, 255, 255, 0.08);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-code-bg pre {
+      animation: none;
+    }
+  }
+
   /* Hero 用フローティング要素 */
   .float-slow {
     animation: float 6s ease-in-out infinite;
