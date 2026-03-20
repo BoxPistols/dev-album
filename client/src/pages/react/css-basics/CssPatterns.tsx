@@ -856,7 +856,7 @@ function Layout() {
   return (
     <div>
       <h2 className="fluid-title">Fluid Typography</h2>
-      <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 16 }}>
+      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 16 }}>
         clamp() でフォントサイズが滑らかに変化します
       </p>
       <div className="auto-grid">
@@ -866,7 +866,7 @@ function Layout() {
             style: {
               background: 'white', borderRadius: 12, padding: 20,
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              textAlign: 'center', fontSize: '0.875rem', color: '#334155',
+              textAlign: 'center', fontSize: '0.875rem', color: 'var(--text)',
             }
           }, item);
         })}

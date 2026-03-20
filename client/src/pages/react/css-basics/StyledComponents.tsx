@@ -120,7 +120,7 @@ export default defineConfig({
       <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#1e293b', marginBottom: 16, lineHeight: 1.2 }}>
         React でスタイリングを学ぼう
       </h1>
-      <p style={{ fontSize: '1.125rem', color: '#64748b', lineHeight: 1.8, maxWidth: 640 }}>
+      <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)', lineHeight: 1.8, maxWidth: 640 }}>
         styled-components を使えば、CSS の知識をそのまま活かして
         コンポーネントにスタイルを適用できます。
       </p>
@@ -387,7 +387,7 @@ const Input = styled.input.attrs(() => ({
 
   return (
     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-      <button style={{ ...base, backgroundColor: '#e2e8f0', color: '#334155' }}>ベース</button>
+      <button style={{ ...base, backgroundColor: 'var(--bg-muted)', color: 'var(--text)' }}>ベース</button>
       <button style={{ ...base, backgroundColor: '#3b82f6', color: 'white' }}>プライマリ</button>
       <button style={{ ...base, backgroundColor: '#ef4444', color: 'white' }}>デンジャー</button>
       <button style={{ ...base, backgroundColor: '#3b82f6', color: 'white', borderRadius: 9999, padding: '10px 24px' }}>ラウンド</button>
@@ -902,11 +902,11 @@ function ProgressBar({ value }: { value: number }) {
   return (
     <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
       <div>
-        <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 8 }}>スピナー</p>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>スピナー</p>
         <div className="spinner" />
       </div>
       <div>
-        <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 8 }}>フェードインカード</p>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>フェードインカード</p>
         <div className="fade-card" style={{
           padding: 24, background: 'white', borderRadius: 12,
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxWidth: 200,
@@ -915,7 +915,7 @@ function ProgressBar({ value }: { value: number }) {
         </div>
       </div>
       <div style={{ flex: 1, minWidth: 200 }}>
-        <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 8 }}>スケルトン</p>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>スケルトン</p>
         <div className="skeleton" style={{ width: '100%', height: 20, borderRadius: 4, marginBottom: 8 }} />
         <div className="skeleton" style={{ width: '70%', height: 20, borderRadius: 4, marginBottom: 8 }} />
         <div className="skeleton" style={{ width: '50%', height: 20, borderRadius: 4 }} />
@@ -938,7 +938,7 @@ function ProgressBar({ value }: { value: number }) {
 }
 .spinner {
   width: 32px; height: 32px;
-  border: 3px solid #e2e8f0;
+  border: 3px solid var(--border);
   border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -947,7 +947,7 @@ function ProgressBar({ value }: { value: number }) {
   animation: fadeIn 0.6s ease-out;
 }
 .skeleton {
-  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background: linear-gradient(90deg, var(--border) 25%, var(--bg-muted) 50%, var(--border) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }

@@ -192,12 +192,12 @@ function App() {
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: 0 }}>
           プロフィール{' '}
-          <span style={{ padding: '2px 8px', borderRadius: 9999, fontSize: '0.75rem', background: '#eff6ff', color: '#3b82f6', verticalAlign: 'middle' }}>Pro</span>
+          <span style={{ padding: '2px 8px', borderRadius: 9999, fontSize: '0.75rem', background: 'var(--bg-accent)', color: '#3b82f6', verticalAlign: 'middle' }}>Pro</span>
         </h1>
         <button style={{ padding: '10px 20px', border: 'none', borderRadius: 8, fontWeight: 600, cursor: 'pointer', background: '#3b82f6', color: 'white' }}>編集</button>
       </header>
-      <div style={{ background: '#f8fafc', borderRadius: 12, padding: 24 }}>
-        <p style={{ color: '#64748b', lineHeight: 1.6 }}>styled API と css prop を1つのページで混在して使えます。</p>
+      <div style={{ background: 'var(--bg-muted)', borderRadius: 12, padding: 24 }}>
+        <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>styled API と css prop を1つのページで混在して使えます。</p>
       </div>
     </div>
   );
@@ -228,7 +228,7 @@ function App() {
       <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1e293b', marginBottom: 8 }}>
         カードタイトル
       </h3>
-      <p style={{ color: '#64748b', lineHeight: 1.6 }}>
+      <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>
         カードの説明文です。Emotion の css prop で直接スタイルを適用しています。
       </p>
     </div>
@@ -403,7 +403,7 @@ const Badge = styled.span({
   };
   var variants = {
     primary: { background: '#3b82f6', color: 'white' },
-    secondary: { background: '#f1f5f9', color: '#334155' },
+    secondary: { background: 'var(--bg-muted)', color: 'var(--text)' },
     outline: { background: 'transparent', color: '#3b82f6', border: '2px solid #3b82f6' },
   };
   var sizes = {

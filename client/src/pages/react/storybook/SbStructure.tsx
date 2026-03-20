@@ -112,7 +112,7 @@ export const Secondary: Story = {
             {/* Secondary */}
             <div>
               <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Secondary</div>
-              <button style={{ ...base, background: '#e2e8f0', color: 'var(--text)' }}>ボタン</button>
+              <button style={{ ...base, background: 'var(--bg-muted)', color: 'var(--text)' }}>ボタン</button>
             </div>
             {/* Danger */}
             <div>
@@ -124,7 +124,7 @@ export const Secondary: Story = {
               <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>All Variants</div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button style={{ ...base, background: '#6366f1', color: 'white' }}>Primary</button>
-                <button style={{ ...base, background: '#e2e8f0', color: 'var(--text)' }}>Secondary</button>
+                <button style={{ ...base, background: 'var(--bg-muted)', color: 'var(--text)' }}>Secondary</button>
                 <button style={{ ...base, background: '#ef4444', color: 'white' }}>Danger</button>
                 <button style={{ ...base, background: 'transparent', color: '#6366f1', border: '1px solid #6366f1' }}>Ghost</button>
               </div>
@@ -410,7 +410,7 @@ export const Danger: Story = {
       {/* タブ */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
         {tabs.map((t, i) => (
-          <button key={i} onClick={() => setActiveTab(i)} style={{ padding: '6px 16px', borderRadius: '20px', fontSize: '13px', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === i ? '#6366f1' : '#f1f5f9', color: activeTab === i ? 'white' : '#64748b', transition: 'all 0.2s' }}>{t}</button>
+          <button key={i} onClick={() => setActiveTab(i)} style={{ padding: '6px 16px', borderRadius: '20px', fontSize: '13px', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === i ? '#6366f1' : 'var(--bg-muted)', color: activeTab === i ? 'white' : 'var(--text-muted)', transition: 'all 0.2s' }}>{t}</button>
         ))}
       </div>
       {/* カード */}
@@ -571,7 +571,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
             <input type="password" value={password} readOnly style={{ ...inputStyle, borderColor: step === 2 ? '#6366f1' : '#d1d5db', boxShadow: step === 2 ? '0 0 0 2px rgba(99,102,241,0.2)' : 'none' }} />
           </div>
           <button style={{ width: '100%', padding: '10px', borderRadius: '8px', border: 'none', background: step === 3 ? '#4f46e5' : '#6366f1', color: 'white', fontSize: '14px', fontWeight: 600, cursor: 'pointer', transform: step === 3 ? 'scale(0.98)' : 'scale(1)', transition: 'all 0.15s' }}>ログイン</button>
-          {result && <div style={{ marginTop: '12px', padding: '8px 12px', borderRadius: '6px', background: result.includes('成功') ? '#f0fdf4' : '#f8fafc', color: result.includes('成功') ? '#16a34a' : '#64748b', fontSize: '13px', fontWeight: 600, textAlign: 'center' }}>{result}</div>}
+          {result && <div style={{ marginTop: '12px', padding: '8px 12px', borderRadius: '6px', background: result.includes('成功') ? '#f0fdf4' : 'var(--bg-muted)', color: result.includes('成功') ? '#16a34a' : 'var(--text-muted)', fontSize: '13px', fontWeight: 600, textAlign: 'center' }}>{result}</div>}
         </div>
         {/* ログパネル */}
         <div style={{ flex: 1, minWidth: '240px' }}>
@@ -922,7 +922,7 @@ export const NoDescription: Story = {
   const toggle = (key) => setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
   const Folder = ({ name, open, onClick, children, depth = 0 }) => (
     <div>
-      <div onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', paddingLeft: 12 + depth * 16, cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: 'var(--text)', borderRadius: '6px', background: 'transparent', transition: 'background 0.15s' }} onMouseEnter={e => e.currentTarget.style.background='#f1f5f9'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+      <div onClick={onClick} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', paddingLeft: 12 + depth * 16, cursor: 'pointer', fontSize: '13px', fontWeight: 600, color: 'var(--text)', borderRadius: '6px', background: 'transparent', transition: 'background 0.15s' }} onMouseEnter={e => e.currentTarget.style.background='var(--bg-muted)'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
         <span style={{ fontSize: '10px', transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         <span style={{ fontSize: '14px' }}>{open ? '📂' : '📁'}</span>
         {name}
@@ -931,7 +931,7 @@ export const NoDescription: Story = {
     </div>
   );
   const Story = ({ name, depth = 0, icon = '📄' }) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '5px 12px', paddingLeft: 12 + depth * 16, fontSize: '13px', color: 'var(--text-muted)', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }} onMouseEnter={e => { e.currentTarget.style.background='#ede9fe'; e.currentTarget.style.color='#6366f1'; }} onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#64748b'; }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '5px 12px', paddingLeft: 12 + depth * 16, fontSize: '13px', color: 'var(--text-muted)', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }} onMouseEnter={e => { e.currentTarget.style.background='#ede9fe'; e.currentTarget.style.color='#6366f1'; }} onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--text-muted)'; }}>
       <span style={{ fontSize: '12px' }}>{icon}</span>
       {name}
     </div>

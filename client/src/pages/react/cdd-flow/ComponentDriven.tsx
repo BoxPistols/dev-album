@@ -236,7 +236,7 @@ export default function ComponentDriven() {
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#A855F7', textTransform: 'uppercase' }}>Organism</span>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Figma: Component (Molecule + Atom Instance)</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'white', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'var(--bg)', borderRadius: '6px', border: '1px solid var(--border)' }}>
             <span style={{ fontWeight: 700, fontSize: '14px', color: 'var(--text)' }}>Logo</span>
             <div style={{ display: 'flex', gap: '4px', flex: 1, maxWidth: '200px', margin: '0 16px' }}>
               <input placeholder="検索..." style={{ padding: '4px 8px', borderRadius: '4px 0 0 4px', border: '1px solid #CBD5E1', fontSize: '11px', flex: 1, background: 'white', color: 'var(--text)' }} readOnly />

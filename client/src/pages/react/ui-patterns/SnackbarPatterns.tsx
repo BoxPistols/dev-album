@@ -290,9 +290,9 @@ export default function SnackbarPatterns() {
               justifyContent: 'space-between',
               alignItems: 'center',
               padding: '10px 16px',
-              background: '#f8fafc',
+              background: 'var(--bg-muted)',
               borderRadius: '8px',
-              border: '1px solid #e2e8f0',
+              border: '1px solid var(--border)',
               fontSize: '14px',
             }}
           >
@@ -314,7 +314,7 @@ export default function SnackbarPatterns() {
           </div>
         ))}
         {items.length === 0 && (
-          <p style={{ color: '#94a3b8', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
             すべて削除されました
           </p>
         )}

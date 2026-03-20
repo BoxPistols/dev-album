@@ -260,7 +260,7 @@ function App() { return <TextInputs /> }`}
   const selectStyle = {
     width: '100%', padding: '8px 12px',
     border: '1px solid var(--border)', borderRadius: '8px',
-    fontSize: '14px', backgroundColor: '#fff',
+    fontSize: '14px', backgroundColor: 'var(--bg)',
   };
 
   return (
@@ -365,7 +365,7 @@ function App() { return <SelectExample /> }`}
               padding: '12px', marginBottom: '6px',
               border: plan === p.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
               borderRadius: '8px', cursor: 'pointer',
-              backgroundColor: plan === p.value ? '#eff6ff' : '#fff',
+              backgroundColor: plan === p.value ? 'var(--bg-accent)' : 'var(--bg)',
             }}
           >
             <input

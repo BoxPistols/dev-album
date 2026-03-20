@@ -84,7 +84,7 @@ export default theme;`}
     React.createElement('div', { key: label, style: { display: 'flex', alignItems: 'center', gap: 8 } },
       React.createElement('div', { style: { width: 32, height: 32, borderRadius: 6, background: color, border: '1px solid rgba(0,0,0,0.08)' } }),
       React.createElement('span', { style: { fontSize: 13 } }, label),
-      React.createElement('code', { style: { fontSize: 11, color: '#64748b', marginLeft: 4 } }, color)
+      React.createElement('code', { style: { fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 } }, color)
     )
   );
   return (
@@ -317,20 +317,20 @@ export default theme;`}
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'sans-serif' }}>
       <div>
-        <span style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>1. styleOverrides（全ボタン共通）</span>
+        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>1. styleOverrides（全ボタン共通）</span>
         <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
           <button style={{ ...baseBtn, background: '#6366f1' }}>角丸 8px</button>
           <button style={{ ...baseBtn, background: '#6366f1' }}>統一スタイル</button>
         </div>
       </div>
       <div>
-        <span style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>2. sx prop（個別調整: mt, mb）</span>
+        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>2. sx prop（個別調整: mt, mb）</span>
         <div style={{ marginTop: 16, marginBottom: 8 }}>
           <button style={{ ...baseBtn, background: '#6366f1' }}>送信（mt:2, mb:1 相当）</button>
         </div>
       </div>
       <div>
-        <span style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>3. styled()（再利用コンポーネント）</span>
+        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>3. styled()（再利用コンポーネント）</span>
         <div style={{ marginTop: 4 }}>
           <button
             style={{ ...baseBtn, background: 'linear-gradient(45deg, #6366f1, #ec4899)', padding: '12px 32px', transition: 'all 0.2s' }}

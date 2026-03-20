@@ -237,10 +237,10 @@ createRoot(document.getElementById('root')!).render(
       <h6 style={{ fontSize: 16, fontWeight: 500, margin: 0 }}>h6 見出し</h6>
       <p style={{ fontSize: 16, margin: '8px 0 0' }}>body1 - 標準の本文テキスト（16px）</p>
       <p style={{ fontSize: 14, margin: 0 }}>body2 - 少し小さい本文（14px）</p>
-      <span style={{ fontSize: 12, color: '#666', display: 'block', marginTop: 8 }}>caption（小さいテキスト）</span>
-      <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: 1, color: '#666', display: 'block' }}>overline</span>
+      <span style={{ fontSize: 12, color: 'var(--text-muted)', display: 'block', marginTop: 8 }}>caption（小さいテキスト）</span>
+      <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--text-muted)', display: 'block' }}>overline</span>
       <p style={{ color: '#1976d2', margin: '8px 0 0' }}>プライマリカラー</p>
-      <p style={{ color: '#666', margin: 0 }}>セカンダリテキスト</p>
+      <p style={{ color: 'var(--text-muted)', margin: 0 }}>セカンダリテキスト</p>
       <p style={{ color: '#d32f2f', margin: 0 }}>エラーカラー</p>
     </div>
   );
@@ -434,7 +434,7 @@ function SxPropExamples() {
         </h1>
 
         {/* 説明文 */}
-        <p style={{ fontSize: 16, color: '#666', lineHeight: 1.8, margin: '0 auto 28px', maxWidth: 460 }}>
+        <p style={{ fontSize: 16, color: 'var(--text-muted)', lineHeight: 1.8, margin: '0 auto 28px', maxWidth: 460 }}>
           MUI を使って美しく機能的な UI を構築しましょう。Material Design のガイドラインに沿った、一貫性のあるデザインを簡単に実現できます。
         </p>
 

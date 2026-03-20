@@ -267,8 +267,8 @@ function Article() {
       maxWidth: 360,
     }}>
       <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>カードタイトル</h3>
-      <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.6 }}>カードの説明文です。CSS Modules により、クラス名がユニークに変換されます。</p>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16, paddingTop: 16, borderTop: '1px solid #e2e8f0' }}>
+      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>カードの説明文です。CSS Modules により、クラス名がユニークに変換されます。</p>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
         <button style={{ padding: '8px 16px', border: 'none', borderRadius: 6, backgroundColor: '#3b82f6', color: 'white', cursor: 'pointer', fontWeight: 500 }}>詳細</button>
       </div>
     </div>
@@ -1107,13 +1107,13 @@ export default ProfileCard;`}
       boxShadow: '0 4px 20px rgba(0,0,0,0.08)', maxWidth: 320, margin: '0 auto',
     }}>
       <div style={{
-        width: 80, height: 80, borderRadius: '50%', border: '3px solid #e2e8f0',
+        width: 80, height: 80, borderRadius: '50%', border: '3px solid var(--border)',
         marginBottom: 16, background: 'linear-gradient(135deg, #667eea, #764ba2)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         color: 'white', fontSize: '1.5rem', fontWeight: 700,
       }}>田</div>
       <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>田中 花子</h3>
-      <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: 16 }}>UI/UX デザイナー</p>
+      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: 16 }}>UI/UX デザイナー</p>
       <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, textAlign: 'center', marginBottom: 20 }}>
         ユーザー体験を大切にしたデザインを心がけています。
       </p>
@@ -1121,13 +1121,13 @@ export default ProfileCard;`}
         {tags.map(function(tag) {
           return React.createElement('span', {
             key: tag,
-            style: { padding: '4px 12px', borderRadius: 9999, fontSize: '0.75rem', fontWeight: 500, backgroundColor: '#eff6ff', color: '#3b82f6' }
+            style: { padding: '4px 12px', borderRadius: 9999, fontSize: '0.75rem', fontWeight: 500, backgroundColor: 'var(--bg-accent)', color: '#3b82f6' }
           }, tag);
         })}
       </div>
       <div style={{ display: 'flex', gap: 12, width: '100%' }}>
         <button style={{ flex: 1, padding: '10px 20px', border: 'none', borderRadius: 8, fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', backgroundColor: '#3b82f6', color: 'white' }}>フォロー</button>
-        <button style={{ flex: 1, padding: '10px 20px', border: '1px solid #e2e8f0', borderRadius: 8, fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', backgroundColor: 'white', color: '#334155' }}>メッセージ</button>
+        <button style={{ flex: 1, padding: '10px 20px', border: '1px solid var(--border)', borderRadius: 8, fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>メッセージ</button>
       </div>
     </div>
   );

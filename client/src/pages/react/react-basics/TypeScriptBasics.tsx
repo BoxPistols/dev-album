@@ -198,7 +198,7 @@ interface ButtonProps {
     filled: {
       boxShadow: 'none',
       border: 'none',
-      backgroundColor: '#f3f4f6',
+      backgroundColor: 'var(--bg-muted)',
     },
   };
   const v = variants[variant] || variants.elevated;
@@ -206,7 +206,7 @@ interface ButtonProps {
   return (
     <div style={{
       ...v, borderRadius: '12px', overflow: 'hidden',
-      backgroundColor: v.backgroundColor || '#fff', maxWidth: '280px',
+      backgroundColor: v.backgroundColor || 'var(--bg)', maxWidth: '280px',
     }}>
       {image && (
         <div style={{ height: '140px', background: image, backgroundSize: 'cover' }} />
@@ -220,7 +220,7 @@ interface ButtonProps {
         )}
         <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '8px 0 4px', color: '#111827' }}>{title}</h3>
         {description && (
-          <p style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.5, margin: 0 }}>{description}</p>
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>{description}</p>
         )}
       </div>
     </div>
@@ -464,9 +464,9 @@ type CreateInput = Omit<UserProfile, 'id'>;`}
               code={`function Button({ children, variant = 'primary', size = 'md', disabled = false, onClick }) {
   const variantStyles = {
     primary:   { backgroundColor: '#2563eb', color: '#fff', border: 'none' },
-    secondary: { backgroundColor: '#f3f4f6', color: '#374151', border: 'none' },
+    secondary: { backgroundColor: 'var(--bg-muted)', color: 'var(--text)', border: 'none' },
     outline:   { backgroundColor: 'transparent', color: '#2563eb', border: '1.5px solid #2563eb' },
-    ghost:     { backgroundColor: 'transparent', color: '#6b7280', border: 'none' },
+    ghost:     { backgroundColor: 'transparent', color: 'var(--text-muted)', border: 'none' },
     danger:    { backgroundColor: '#ef4444', color: '#fff', border: 'none' },
   };
   const sizeStyles = {

@@ -510,7 +510,7 @@ function Sidebar() {
             style={{
               background: 'transparent', border: 'none', padding: '12px 24px',
               fontSize: 14, fontWeight: 500, cursor: 'pointer',
-              color: tab === i ? '#1976d2' : '#666',
+              color: tab === i ? '#1976d2' : 'var(--text-muted)',
               borderBottom: tab === i ? '2px solid #1976d2' : '2px solid transparent',
               marginBottom: -2, transition: 'all 0.2s',
             }}
@@ -604,11 +604,11 @@ function UserTable({ users }: { users: User[] }) {
       </div>
       <div style={{ padding: 16 }}>
         <h6 style={{ fontSize: 16, fontWeight: 500, margin: '0 0 8px' }}>React 入門ガイド</h6>
-        <p style={{ fontSize: 14, color: '#666', margin: 0, lineHeight: 1.5 }}>React の基礎から実践までを解説する初心者向けのガイドです。</p>
+        <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>React の基礎から実践までを解説する初心者向けのガイドです。</p>
       </div>
       <div style={{ padding: '0 8px 8px', display: 'flex', gap: 8 }}>
         <button style={{ background: 'transparent', border: 'none', color: '#1976d2', fontSize: 13, fontWeight: 500, cursor: 'pointer', padding: '6px 8px' }}>もっと読む</button>
-        <button style={{ background: 'transparent', border: 'none', color: '#666', fontSize: 13, fontWeight: 500, cursor: 'pointer', padding: '6px 8px' }}>シェア</button>
+        <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: 13, fontWeight: 500, cursor: 'pointer', padding: '6px 8px' }}>シェア</button>
       </div>
     </div>
   );

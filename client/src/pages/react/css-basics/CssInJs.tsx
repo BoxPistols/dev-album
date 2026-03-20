@@ -219,11 +219,11 @@ export default function CssInJs() {
       <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={function() { setCount(count + 1); }}
-          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: '#e2e8f0', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: 'var(--bg-muted)', cursor: 'pointer', fontWeight: 600 }}
         >+1</button>
         <button
           onClick={function() { setCount(count - 1); }}
-          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: '#e2e8f0', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: 'var(--bg-muted)', cursor: 'pointer', fontWeight: 600 }}
         >-1</button>
       </div>
     </div>
@@ -243,7 +243,7 @@ export default function CssInJs() {
               title="props に基づく動的スタイル"
               code={`function ProgressBar({ value, color }) {
   return (
-    <div style={{ width: '100%', height: 8, background: '#e2e8f0', borderRadius: 4, overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: 8, background: 'var(--bg-muted)', borderRadius: 4, overflow: 'hidden' }}>
       <div style={{
         height: '100%',
         width: Math.min(100, Math.max(0, value)) + '%',
@@ -259,15 +259,15 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div>
-        <span style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 4, display: 'block' }}>75%</span>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>75%</span>
         <ProgressBar value={75} />
       </div>
       <div>
-        <span style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 4, display: 'block' }}>30%</span>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>30%</span>
         <ProgressBar value={30} color="#10b981" />
       </div>
       <div>
-        <span style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: 4, display: 'block' }}>90%</span>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>90%</span>
         <ProgressBar value={90} color="#f59e0b" />
       </div>
     </div>

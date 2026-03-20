@@ -237,7 +237,7 @@ export default function FormA11y() {
         </div>
         <div>
           <label htmlFor="company" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: 'var(--text)' }}>
-            会社名 <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: '400' }}>（任意）</span>
+            会社名 <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '400' }}>（任意）</span>
           </label>
           <input id="company" type="text" placeholder="株式会社サンプル"
             style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '6px', fontSize: '14px', background: 'var(--bg)', color: 'var(--text)', boxSizing: 'border-box' }} />

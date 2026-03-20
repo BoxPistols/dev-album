@@ -410,7 +410,7 @@ function App() {
               padding: '12px',
               borderRadius: '8px',
               border: notification.read ? '1px solid #E5E7EB' : '1px solid #BFDBFE',
-              backgroundColor: notification.read ? '#fff' : '#EFF6FF',
+              backgroundColor: notification.read ? 'var(--bg)' : '#EFF6FF',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',

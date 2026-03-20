@@ -479,7 +479,7 @@ export const BorderRadiusFull = '9999px';`}
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '120px 28px 1fr auto', alignItems: 'center', gap: '10px', padding: '6px 10px', borderRadius: '6px', background: 'var(--bg-muted)' }}>
               <span style={{ fontSize: '12px', color: '#475569', fontWeight: 500 }}>Figma: {t.figma}</span>
               <div style={{ width: 22, height: 22, borderRadius: 4, background: t.value, border: '1px solid var(--border)' }} />
-              <code style={{ fontSize: '11px', color: '#3b82f6', background: '#eff6ff', padding: '2px 6px', borderRadius: 3 }}>{t.css}</code>
+              <code style={{ fontSize: '11px', color: '#3b82f6', background: 'var(--bg-accent)', padding: '2px 6px', borderRadius: 3 }}>{t.css}</code>
               <code style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{t.value}</code>
             </div>
           ))}
@@ -828,7 +828,7 @@ jobs:
         <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginLeft: 'auto' }}>5 components</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-        <div style={{ border: '1px solid #f1f5f9', borderRadius: 10, padding: '14px', background: '#fafbfc' }}>
+        <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg-muted)' }}>
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase' }}>Avatar</div>
           <div style={{ display: 'flex', gap: '6px' }}>
             <Avatar name="Alice" color="#3b82f6" />
@@ -836,7 +836,7 @@ jobs:
             <Avatar name="Cat" color="#f59e0b" />
           </div>
         </div>
-        <div style={{ border: '1px solid #f1f5f9', borderRadius: 10, padding: '14px', background: '#fafbfc' }}>
+        <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg-muted)' }}>
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase' }}>Badge</div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             <Badge label="新着" color="#3b82f6" />
@@ -844,21 +844,21 @@ jobs:
             <Badge label="完了" color="#22c55e" />
           </div>
         </div>
-        <div style={{ border: '1px solid #f1f5f9', borderRadius: 10, padding: '14px', background: '#fafbfc' }}>
+        <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg-muted)' }}>
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase' }}>Button</div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             <BtnComp label="Primary" bg="#3b82f6" />
             <BtnComp label="Danger" bg="#ef4444" />
           </div>
         </div>
-        <div style={{ border: '1px solid #f1f5f9', borderRadius: 10, padding: '14px', background: '#fafbfc', gridColumn: 'span 2' }}>
+        <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg-muted)', gridColumn: 'span 2' }}>
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase' }}>Card</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
             <Card title="ダッシュボード" />
             <Card title="プロフィール" />
           </div>
         </div>
-        <div style={{ border: '1px solid #f1f5f9', borderRadius: 10, padding: '14px', background: '#fafbfc' }}>
+        <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg-muted)' }}>
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase' }}>Input</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <Input placeholder="メールアドレス" />

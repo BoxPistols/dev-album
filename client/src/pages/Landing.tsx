@@ -143,7 +143,7 @@ const liveEditorDemoCode = `function Greeting() {
       <h1 style={{ color: "#2563eb", fontSize: "1.5rem" }}>
         Hello World
       </h1>
-      <p style={{ color: "#64748b" }}>
+      <p style={{ color: "var(--text-muted)" }}>
         React コンポーネントのプレビュー
       </p>
     </div>

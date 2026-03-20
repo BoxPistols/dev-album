@@ -821,8 +821,8 @@ Dark                          .dark { ... }`}
     { name: 'radius-full', value: 9999 },
   ];
 
-  const label = { fontSize: 11, color: '#64748b', fontFamily: 'monospace', marginBottom: 4 };
-  const sectionTitle = { fontSize: 13, fontWeight: 700, marginBottom: 10, color: '#334155' };
+  const label = { fontSize: 11, color: 'var(--text-muted)', fontFamily: 'monospace', marginBottom: 4 };
+  const sectionTitle = { fontSize: 13, fontWeight: 700, marginBottom: 10, color: 'var(--text)' };
 
   return (
     <div style={{ padding: 20, fontFamily: 'sans-serif', display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -842,7 +842,7 @@ Dark                          .dark { ... }`}
         <div style={sectionTitle}>Shadow / Elevation</div>
         <div style={{ display: 'flex', gap: 16 }}>
           {shadows.map(s => (
-            <div key={s.name} style={{ width: 72, height: 48, background: '#fff', borderRadius: 8, boxShadow: s.value, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div key={s.name} style={{ width: 72, height: 48, background: 'var(--bg)', borderRadius: 8, boxShadow: s.value, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ ...label, marginBottom: 0 }}>{s.name.replace('shadow-', '')}</span>
             </div>
           ))}

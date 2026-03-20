@@ -1283,7 +1283,7 @@ export default preview;`}
       display: 'flex',
       gap: '16px',
       padding: '24px',
-      background: '#f1f5f9',
+      background: 'var(--bg-muted)',
       minHeight: '100%',
       flexWrap: 'wrap',
     }}>
