@@ -344,14 +344,14 @@ exit 2`}
             previewType="terminal"
             title="Hook 設定を書いてみよう"
             description="settings.json の hooks セクションに、Write ツール実行後に prettier で自動フォーマットし、かつ .env ファイルへの書き込みをブロックする Hook を設定してください。"
-            initialCode={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        // Write 後に prettier を実行\n      }\n    ],\n    "PreToolUse": [\n      {\n        // .env ファイルへの書き込みをブロック\n      }\n    ]\n  }\n}`}
+            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（実行後フック）\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "prettier --write $CLAUDE_FILE_PATH"\n          }\n        ]\n      }\n    ],\n    "___": [  // ← ここを埋める（実行前フック）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if echo $CLAUDE_FILE_PATH | grep -q '.env'; then echo '.env ファイルは保護されています'; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             answer={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "prettier --write $CLAUDE_FILE_PATH"\n          }\n        ]\n      }\n    ],\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if echo $CLAUDE_FILE_PATH | grep -q '.env'; then echo '.env ファイルは保護されています'; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             hints={[
               'PostToolUse の matcher に "Write" を指定して、ファイル書き込み後に発火させます',
               'prettier のパスは $CLAUDE_FILE_PATH 環境変数で取得できます',
               'PreToolUse で exit 2 を返すと操作をブロックできます',
             ]}
-            keywords={['PostToolUse', 'PreToolUse', 'matcher', 'Write', 'prettier', 'exit 2', '.env']}
+            keywords={['PostToolUse', 'PreToolUse', 'Write']}
           />
 
           {/* まとめ */}

@@ -501,14 +501,14 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
             previewType="config"
             title="保護ファイルへの編集ブロック Hook を書こう"
             description="PreToolUse Hook で特定のファイル（.env、ロックファイル、マイグレーション）への書き込みをブロックする設定を書いてください。"
-            initialCode={`{\n  "hooks": {\n    "PreToolUse": [\n      {\n        "matcher": "",\n        "hooks": [\n          {\n            "type": "",\n            "command": ""\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（イベント名）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\"; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             answer={`{\n  "hooks": {\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\"; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             hints={[
               'matcher に "Write" を指定してファイル書き込み操作にのみ反応させます',
               'exit 2 を返すとツール実行がブロックされます',
               'case 文で複数のパターンをまとめてマッチングできます',
             ]}
-            keywords={['PreToolUse', 'Write', 'exit 2', 'migrations']}
+            keywords={['PreToolUse', 'Write']}
           />
         </div>
         <PageNavigation />

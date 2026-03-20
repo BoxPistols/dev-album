@@ -217,14 +217,14 @@ open /tmp/report.html
             previewType="config"
             title="Hooks で自動フォーマットを設定しよう"
             description="settings.json に PostToolUse Hook を設定して、ファイル書き込み後に自動的に prettier を実行する設定を書いてください。"
-            initialCode={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "",\n        "hooks": [\n          {\n            "type": "",\n            "command": ""\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            initialCode={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "___",  // ← ここを埋める（Hook タイプ）\n            "command": "jq -r '.tool_input.file_path' | xargs prettier --write 2>/dev/null || true"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             answer={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "jq -r '.tool_input.file_path' | xargs prettier --write 2>/dev/null || true"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             hints={[
               'matcher には "Write" を指定してファイル書き込み時のみ発火させます',
               'type は "command" でシェルコマンドを実行します',
               '|| true でエラーを無視し、Hook 失敗によるセッション中断を防ぎます',
             ]}
-            keywords={['Write', 'command', 'prettier', 'tool_input.file_path']}
+            keywords={['Write', 'command']}
           />
         </div>
         <PageNavigation />

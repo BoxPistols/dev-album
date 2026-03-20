@@ -142,7 +142,7 @@ model: haiku
             previewType="markdown"
             title="カスタムサブエージェントを定義しよう"
             description=".claude/agents/ に配置するカスタムエージェントの Markdown ファイルを書いてください。リファクタリング提案を行うエージェントを定義しましょう。"
-            initialCode={`# refactor-advisor.md\n\n---\ntools:\n  # 使用可能なツールを指定\nmodel:\n  # コスト効率の良いモデルを指定\n---\n\n# ここにエージェントの役割と手順を書いてください`}
+            initialCode={`# refactor-advisor.md\n\n---\ntools:\n  - ___  # ← ここを埋める（ファイル読み取り）\n  - ___  # ← ここを埋める（ファイル検索）\n  - Grep\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
             answer={`# refactor-advisor.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
             hints={[
               'frontmatter で tools, model を指定します',
