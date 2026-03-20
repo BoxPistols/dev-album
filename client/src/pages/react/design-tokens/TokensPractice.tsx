@@ -985,6 +985,69 @@ Dark                          .dark { ... }`}
             />
           </section>
 
+          {/* アンチパターンと失敗事例 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              現場でよくある失敗パターン
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              デザイントークンの運用で頻繁に発生する問題と、その回避策を整理する。
+            </p>
+
+            <div className="overflow-x-auto mb-6">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="border-b-2 border-border">
+                    <th className="text-left py-2 px-3 text-foreground">失敗パターン</th>
+                    <th className="text-left py-2 px-3 text-foreground">なぜ起きるか</th>
+                    <th className="text-left py-2 px-3 text-foreground">回避策</th>
+                  </tr>
+                </thead>
+                <tbody className="text-muted-foreground">
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-3 font-medium text-foreground">トークン未定義のままビジュアルを先行</td>
+                    <td className="py-3 px-3">「見た目を決めてから色を整理しよう」という順序。結果、<code>#3B82F6</code> のような生の値がコード中に散在する</td>
+                    <td className="py-3 px-3">Figma Variables でトークンを先に定義 → ビジュアルはトークンを参照して組む</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-3 font-medium text-foreground">いきなりコード実装に入る</td>
+                    <td className="py-3 px-3">Storybook や Figma でのコンポーネント設計を省略し、ページ単位で実装。結果、再利用できないコンポーネントが量産される</td>
+                    <td className="py-3 px-3">Atom → Molecule → Organism のボトムアップ順で設計してから実装（CDD）</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-3 font-medium text-foreground">ライトモードだけ作ってダークを後付け</td>
+                    <td className="py-3 px-3">「ダークモードは後で対応」。結果、ハードコード色が大量に残り、移行コストが膨大</td>
+                    <td className="py-3 px-3">最初から CSS 変数（セマンティックトークン）で定義。Light/Dark を同時に設計</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-3 font-medium text-foreground">トークン名がデザイナーと開発者で違う</td>
+                    <td className="py-3 px-3">Figma 上では「Brand Blue」、CSS では <code>--color-primary</code>。名前が合わないとコミュニケーションコストが増大</td>
+                    <td className="py-3 px-3">ユビキタス言語として 1 つの命名体系に統一し、Figma / CSS / JS で同じ名前を使う</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-3 font-medium text-foreground">スペーシングやフォントを抽象化しない</td>
+                    <td className="py-3 px-3"><code>padding: 16px</code> <code>margin: 24px</code> をその場で決める。画面ごとにバラつく</td>
+                    <td className="py-3 px-3">4px grid の spacing scale を定義し、<code>var(--spacing-4)</code> で参照</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-3 font-medium text-foreground">Storybook を導入して満足する</td>
+                    <td className="py-3 px-3">Storybook はツールであり目的ではない。カタログを作っただけでデザインとコードが一致する保証はない</td>
+                    <td className="py-3 px-3">Chromatic で Visual Regression テストを自動化し、差分を検出する仕組みを CI に組み込む</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <InfoBox type="warning" title="暗黙知を形式知に変換する">
+              <p>
+                デザイントークンの本質は、チーム内の「暗黙の了解」を明文化すること。
+                「この青はブランドカラー」「余白は 8 の倍数」といった暗黙知を、
+                <code>--color-primary</code> <code>--spacing-2</code> という形式知に変換する。
+                これにより、人が入れ替わってもデザインの一貫性が維持される。
+              </p>
+            </InfoBox>
+          </section>
+
           {/* ReferenceLinks */}
           <section>
             <ReferenceLinks
