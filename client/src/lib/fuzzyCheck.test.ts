@@ -48,6 +48,35 @@ describe("fuzzyCheck: keywords ベース", () => {
 });
 
 // ============================================================
+// 差分ベース判定（initialCode 付き）
+// ============================================================
+describe("fuzzyCheck: 差分ベース判定", () => {
+  const initialCode = 'display: "___",\nflex: 1,';
+  const answer = 'display: "flex",\nflex: 1,';
+
+  it("プリフィル部分の keyword は無視される", () => {
+    // flex: 1 はプリフィル済み。ユーザーが display: "AAA" と入力
+    const userCode = 'display: "AAA",\nflex: 1,';
+    expect(fuzzyCheck(userCode, answer, ["flex"], initialCode)).toBe(false);
+  });
+
+  it("ユーザーが正しく display: flex と入力すれば正解", () => {
+    const userCode = 'display: "flex",\nflex: 1,';
+    expect(fuzzyCheck(userCode, answer, ["flex"], initialCode)).toBe(true);
+  });
+
+  it("initialCode から何も変更していなければ不正解", () => {
+    expect(fuzzyCheck(initialCode, answer, ["flex"], initialCode)).toBe(false);
+  });
+
+  it("initialCode なしの場合は従来の全文チェック（後方互換）", () => {
+    const code = 'display: "AAA",\nflex: 1,';
+    // initialCode なし → 全文に flex が含まれるので true（従来の動作）
+    expect(fuzzyCheck(code, answer, ["flex"])).toBe(true);
+  });
+});
+
+// ============================================================
 // 完全一致
 // ============================================================
 describe("fuzzyCheck: 完全一致", () => {

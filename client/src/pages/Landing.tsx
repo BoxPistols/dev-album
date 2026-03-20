@@ -457,7 +457,7 @@ export default function Landing() {
             description={`display: "___" を埋めて、3 つのカードを横並びにしてください。`}
             initialCode={challengeDemoCode}
             answer={challengeDemoAnswer}
-            keywords={['display: "flex"']}
+            keywords={['flex']}
             hints={[
               'CSS の Flexbox を使います。display に指定する値を考えてみましょう。',
               '答えは "flex" です。display: "flex" と書くと子要素が横並びになります。',

@@ -30,8 +30,9 @@ interface CodingChallengeProps {
 
 /**
  * キーワードベースの緩い判定
+ * initialCode が渡された場合、ユーザーが変更した部分のみを keyword チェック対象にする
  */
-export function fuzzyCheck(code: string, answer: string, keywords?: string[]): boolean {
+export function fuzzyCheck(code: string, answer: string, keywords?: string[], initialCode?: string): boolean {
   const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
   const normalizedCode = normalize(code);
   const normalizedAnswer = normalize(answer);
@@ -39,6 +40,23 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[]): b
   if (normalizedCode === normalizedAnswer) return true;
 
   if (keywords && keywords.length > 0) {
+    // initialCode がある場合: ユーザーが変更した部分（差分）のみで判定
+    // これにより、プリフィル済みコード内の keyword 誤マッチを防ぐ
+    if (initialCode) {
+      const normalizedInitial = normalize(initialCode);
+      // 差分: initialCode にはないが userCode にはある部分を抽出
+      // 行単位で比較し、変更された行のみを結合
+      const initialLines = initialCode.split('\n').map(l => l.trim());
+      const userLines = code.split('\n').map(l => l.trim());
+      const changedParts = userLines
+        .filter(line => line && !initialLines.includes(line))
+        .join(' ');
+      // 差分がない場合（何も変更していない）は不正解
+      if (!changedParts || normalizedCode === normalizedInitial) return false;
+      // keyword が差分部分に含まれているか確認（プリフィル部分は対象外）
+      return keywords.every((kw) => changedParts.includes(kw));
+    }
+    // initialCode がない場合: 従来の全文チェック
     return keywords.every((kw) => normalizedCode.includes(kw));
   }
 
@@ -292,12 +310,13 @@ export default function CodingChallenge({
       setIsCorrect(correct);
       setMatchInfo(null);
     } else {
-      correct = fuzzyCheck(code, answer, keywords);
+      correct = fuzzyCheck(code, answer, keywords, initialCode);
       setIsCorrect(correct);
       if (!correct && keywords && keywords.length > 0) {
-        const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
-        const normalizedCode = normalize(code);
-        const matched = keywords.filter((kw) => normalizedCode.includes(kw)).length;
+        const initialLines = initialCode.split('\n').map(l => l.trim());
+        const userLines = code.split('\n').map(l => l.trim());
+        const changedParts = userLines.filter(line => line && !initialLines.includes(line)).join(' ');
+        const matched = keywords.filter((kw) => changedParts.includes(kw)).length;
         setMatchInfo({ matched, total: keywords.length });
       } else {
         setMatchInfo(null);
