@@ -372,3 +372,101 @@ html.font-large {
   0% { background-color: oklch(0.4 0.12 85); border-radius: 4px; }
   100% { background-color: transparent; }
 }
+
+/* ── ゲーミフィケーション アニメーション ── */
+
+/* 実績解除パルス */
+@keyframes achievement-pulse-anim {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+.achievement-pulse {
+  animation: achievement-pulse-anim 1s ease-out;
+}
+
+/* 実績トースト: スライドイン */
+@keyframes achievement-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 実績トースト: フェードアウト */
+@keyframes achievement-toast-fade-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.achievement-toast {
+  animation: achievement-toast-slide-in 0.3s ease-out both;
+}
+
+.achievement-toast-exit {
+  animation: achievement-toast-fade-out 0.3s ease-in both;
+}
+
+/* ステップ完了チェックマーク */
+@keyframes completion-check {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes completion-text-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.completion-check {
+  animation: completion-check 0.4s ease-out both;
+}
+
+.completion-text {
+  animation: completion-text-fade 1.5s ease-out both;
+}
+
+/* ストリーク炎アイコン */
+@keyframes streak-glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.streak-glow {
+  animation: streak-glow 2s ease-in-out infinite;
+}

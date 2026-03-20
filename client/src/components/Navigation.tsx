@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell } from 'lucide-react';
+import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -12,6 +12,9 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { useProgress } from '@/hooks/useProgress';
+import { useStreak } from '@/hooks/useStreak';
+import { useAchievements } from '@/hooks/useAchievements';
+import AchievementBadge from './AchievementBadge';
 
 const manualColors: Record<ManualId, string> = {
   react: 'text-indigo-600 dark:text-indigo-300',
@@ -50,6 +53,9 @@ export default function Navigation() {
   const { layoutMode, toggleLayout } = useLayout();
   const { bookmarks, toggle: toggleBookmark, isBookmarked } = useBookmarks();
   const { isCompleted, getProgressStats } = useProgress();
+  const { currentStreak } = useStreak();
+  const { achievements, isUnlocked, getUnlockDate } = useAchievements();
+  const [showAchievements, setShowAchievements] = useState(false);
   const [location] = useLocation();
 
   const currentPage = useMemo(() => getPageByPath(location), [location]);
@@ -200,6 +206,42 @@ export default function Navigation() {
               <HelpCircle size={15} />
             </button>
           </div>
+
+          {/* ストリーク & 実績 */}
+          {!hasSearch && (currentStreak > 0 || achievements.some(a => isUnlocked(a.id))) && (
+            <div className="mb-3 pb-3 border-b border-sidebar-border">
+              {/* ストリーク */}
+              {currentStreak > 0 && (
+                <div className="flex items-center gap-1.5 px-4 py-1.5">
+                  <Flame size={14} className="text-orange-500 streak-glow" />
+                  <span className="text-xs font-bold text-orange-600 dark:text-orange-400">
+                    {currentStreak}日連続
+                  </span>
+                </div>
+              )}
+              {/* 実績ボタン */}
+              <button
+                onClick={() => setShowAchievements(!showAchievements)}
+                className="flex items-center gap-1.5 px-4 py-1.5 w-full text-left text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider hover:bg-sidebar-accent/50 rounded-lg transition-colors"
+              >
+                <Trophy size={12} />
+                実績 ({achievements.filter(a => isUnlocked(a.id)).length}/{achievements.length})
+                <ChevronDown size={12} className={`ml-auto transition-transform ${showAchievements ? 'rotate-180' : ''}`} />
+              </button>
+              {showAchievements && (
+                <div className="mt-1 px-2 space-y-1.5 max-h-60 overflow-y-auto">
+                  {achievements.map((a) => (
+                    <AchievementBadge
+                      key={a.id}
+                      achievement={a}
+                      unlocked={isUnlocked(a.id)}
+                      unlockDate={getUnlockDate(a.id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* ブックマーク */}
           {!hasSearch && bookmarks.length > 0 && (

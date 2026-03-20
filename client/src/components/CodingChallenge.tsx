@@ -9,6 +9,8 @@ import {
   buildConfigPreviewHtml,
 } from '@/lib/preview';
 import { useTheme } from '@/contexts/ThemeContext';
+import { incrementChallengePassCount, checkAchievements } from '@/hooks/useAchievements';
+import { showAchievementToast } from './AchievementToast';
 
 interface CodingChallengeProps {
   title: string;
@@ -284,12 +286,13 @@ export default function CodingChallenge({
   }, []);
 
   const handleCheck = () => {
+    let correct: boolean;
     if (validator) {
-      const correct = validator(code);
+      correct = validator(code);
       setIsCorrect(correct);
       setMatchInfo(null);
     } else {
-      const correct = fuzzyCheck(code, answer, keywords);
+      correct = fuzzyCheck(code, answer, keywords);
       setIsCorrect(correct);
       if (!correct && keywords && keywords.length > 0) {
         const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -299,6 +302,17 @@ export default function CodingChallenge({
       } else {
         setMatchInfo(null);
       }
+    }
+
+    // 正解時: チャレンジカウントを増加 + 実績チェック
+    if (correct) {
+      incrementChallengePassCount();
+      setTimeout(() => {
+        const newlyUnlocked = checkAchievements();
+        for (const achievement of newlyUnlocked) {
+          showAchievementToast(achievement);
+        }
+      }, 100);
     }
   };
 
