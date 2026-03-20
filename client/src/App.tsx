@@ -88,6 +88,9 @@ const SemanticAria = lazy(() => import("./pages/react/accessibility/SemanticAria
 const TableDesign = lazy(() => import("./pages/react/accessibility/TableDesign"));
 const FormA11y = lazy(() => import("./pages/react/accessibility/FormA11y"));
 const WebEthics = lazy(() => import("./pages/react/web-quality/WebEthics"));
+const WhyDarkMode = lazy(() => import("./pages/react/design-tokens/WhyDarkMode"));
+const TokensPractice = lazy(() => import("./pages/react/design-tokens/TokensPractice"));
+const DarkModeImpl = lazy(() => import("./pages/react/design-tokens/DarkModeImpl"));
 const ComponentDriven = lazy(() => import("./pages/react/cdd-flow/ComponentDriven"));
 const DesignCodeSync = lazy(() => import("./pages/react/cdd-flow/DesignCodeSync"));
 const DesignQA = lazy(() => import("./pages/react/cdd-flow/DesignQA"));
@@ -298,6 +301,9 @@ function App() {
                 <Route path="/react/accessibility/table-design" component={TableDesign} />
                 <Route path="/react/accessibility/form-a11y" component={FormA11y} />
                 <Route path="/react/web-quality/ethics" component={WebEthics} />
+                <Route path="/react/design-tokens/why-dark-mode" component={WhyDarkMode} />
+                <Route path="/react/design-tokens/tokens-practice" component={TokensPractice} />
+                <Route path="/react/design-tokens/dark-mode-impl" component={DarkModeImpl} />
                 <Route path="/react/cdd-flow/component-driven" component={ComponentDriven} />
                 <Route path="/react/cdd-flow/design-code-sync" component={DesignCodeSync} />
                 <Route path="/react/cdd-flow/design-qa" component={DesignQA} />

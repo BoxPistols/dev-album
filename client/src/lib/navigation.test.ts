@@ -24,11 +24,11 @@ describe("navigation データ整合性", () => {
   });
 
   it("ページ数が166", () => {
-    expect(pages.length).toBe(166);
+    expect(pages.length).toBe(169);
   });
 
   it("マニュアル別ページ数", () => {
-    expect(getManualPages("react").length).toBe(72);
+    expect(getManualPages("react").length).toBe(75);
     expect(getManualPages("git").length).toBe(27);
     expect(getManualPages("threejs").length).toBe(23);
     expect(getManualPages("claude-mux").length).toBe(44);
