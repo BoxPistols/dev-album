@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import KeyboardNav from "./components/KeyboardNav";
 import HelpModal from "./components/HelpModal";
 import SettingsPopup from "./components/SettingsPopup";
+import AchievementToastContainer from "./components/AchievementToast";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { Toaster } from "sonner";
 
@@ -415,6 +416,7 @@ function App() {
           </div>
           <HelpModal />
           <SettingsPopup />
+          <AchievementToastContainer />
           <Toaster position="bottom-right" />
           </LayoutProvider>
         </OSProvider>
