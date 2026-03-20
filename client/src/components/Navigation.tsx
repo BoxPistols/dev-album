@@ -137,6 +137,7 @@ export default function Navigation() {
               <span className="text-primary-foreground font-heading font-bold text-sm">DA</span>
             </div>
             <span className="font-heading font-bold text-lg text-foreground">Dev Album</span>
+            <span className="text-[9px] font-semibold text-muted-foreground bg-muted px-1.5 py-0.5 rounded ml-1 self-start mt-1">v0.9 beta</span>
           </Link>
 
           {/* マニュアルタブ + プログレス */}
