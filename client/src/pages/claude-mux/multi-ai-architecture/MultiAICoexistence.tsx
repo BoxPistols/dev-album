@@ -391,14 +391,14 @@ windows:
             previewType="terminal"
             title="マルチ AI ハイブリッド環境を構築しよう"
             description="Claude Code と他の AI ツールを共存させるディレクトリ構成と、tmuxp によるマルチ AI チーム構成を書いてください。"
-            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\n\n# 2. AGENTS.md を作成（全ツール共通）:\n# （プロジェクト概要とコーディング規約を書く）\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\n# （AGENTS.md 参照の指示を書く）\n\n# 4. tmuxp 設定（マルチAIチーム）:\n# ~/.tmuxp/multi-ai-team.yaml\n# （Claude Code と他ツールのペイン構成を書く）`}
+            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\nEOF`}
             answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. tmuxp 設定（マルチAIチーム）:\n# session_name: multi-ai\n# windows:\n#   - window_name: development\n#     panes:\n#       - claude\n#       - gemini`}
             hints={[
               'AGENTS.md は全 AI ツールが自動認識する共通コンテキストファイルです',
               'CLAUDE.md には Claude Code 固有の指示のみ記述します',
               '.agents/rules/ に共通ルールソースを集約する構成が推奨されます',
             ]}
-            keywords={['AGENTS.md', 'CLAUDE.md', '.agents/rules', 'mkdir', 'tmuxp']}
+            keywords={['AGENTS.md', 'CLAUDE.md']}
           />
 
         <PageNavigation />

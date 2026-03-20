@@ -172,16 +172,16 @@ const renderer = new THREE.WebGLRenderer({ canvas });`}
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 // レンダラーを作成（アンチエイリアスを有効に）
-const renderer = new THREE.WebGLRenderer({ ___: true });
+const renderer = new THREE.WebGLRenderer({ ___: true }); // ← ここを埋める
 
 // 描画サイズをウィンドウに合わせる
-renderer.___(window.innerWidth, window.innerHeight);
+renderer.___(window.innerWidth, window.innerHeight); // ← ここを埋める
 
 // ピクセル比を設定
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // canvas を DOM に追加
-document.body.appendChild(renderer.___);
+document.body.appendChild(renderer.___); // ← ここを埋める
 
 // 球体を作成
 const geometry = new THREE.SphereGeometry(1, 32, 32);

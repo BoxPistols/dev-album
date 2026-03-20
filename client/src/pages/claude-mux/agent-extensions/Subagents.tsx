@@ -149,7 +149,7 @@ model: haiku
               '読み取り専用のツール（Read, Glob, Grep）のみに制限すると安全です',
               '手順と出力形式を明確に定義するとエージェントの精度が向上します',
             ]}
-            keywords={['tools', 'model', 'Read', 'Glob', 'Grep']}
+            keywords={['Read', 'Glob']}
           />
         </div>
         <PageNavigation />

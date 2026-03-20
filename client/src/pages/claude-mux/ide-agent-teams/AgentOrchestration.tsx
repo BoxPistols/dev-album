@@ -353,7 +353,7 @@ git worktree remove ../project-dashboard`} />
             previewType="terminal"
             title="Agent Teams のワークフローを設計しよう"
             description="E コマースサイトに「商品レビュー機能」を追加する想定で、Agent Teams の構成と起動コマンドを記述してください。チームリードへの指示、チームメイトの役割分担、Git ワークツリーの準備を含めてください。"
-            initialCode={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\n\n# 2. Agent Teams を tmux split panes モードで起動:\n\n# 3. チームリードへの指示（チームメイトの役割分担を含む）:\n# "\n# "\n\n# 4. 作業完了後のマージ手順:`}
+            initialCode={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit ___ add ../project-review-api feature/review-api  # ← ここを埋める\ngit ___ add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を tmux split panes モードで起動:\ntmux new-session -s review-dev\nclaude ___ tmux  # ← ここを埋める\n\n# 3. チームリードへの指示:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
             answer={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit worktree add ../project-review-api feature/review-api\ngit worktree add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を tmux split panes モードで起動:\ntmux new-session -s review-dev\nclaude --teammate-mode tmux\n\n# 3. チームリードへの指示（チームメイトの役割分担を含む）:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:\n#  api-dev: ../project-review-api でレビューの CRUD API とバリデーションを実装\n#  ui-dev: ../project-review-ui でレビュー投稿フォームと一覧表示コンポーネントを実装\n#  api-dev が型定義を作成したら ui-dev に共有して。"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
             hints={[
               'git worktree add でAPI用とUI用の作業ディレクトリを分離する',
@@ -361,7 +361,7 @@ git worktree remove ../project-dashboard`} />
               'チームリードへの指示には各メイトの担当範囲とワークツリーのパスを明記する',
               '作業完了後は git merge で各ブランチを統合し、ワークツリーを削除する',
             ]}
-            keywords={['git worktree add', '--teammate-mode tmux', 'git merge', 'git worktree remove']}
+            keywords={['worktree', '--teammate-mode']}
           />
 
         <PageNavigation />

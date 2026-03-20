@@ -251,9 +251,9 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
           previewType="config"
           title="MCP サーバの設定 JSON を書いてみよう"
           description="プロジェクトの .mcp.json ファイルに GitHub と Figma の MCP サーバを設定する JSON を書いてください。"
-          initialCode={`{\n  "mcpServers": {\n    // GitHub MCP サーバ（stdio）を追加\n\n    // Figma MCP サーバ（stdio）を追加\n\n  }\n}`}
+          initialCode={`{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "type": "___",  // ← ここを埋める（通信方式）\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "___",\n      "command": "npx",\n      "args": ["-y", "@anthropic/mcp-server-figma"]\n    }\n  }\n}`}
           answer={`{\n  "mcpServers": {\n    "github": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@anthropic/mcp-server-figma"]\n    }\n  }\n}`}
-          keywords={['mcpServers', 'stdio', 'npx', 'github', 'figma']}
+          keywords={['mcpServers', 'stdio']}
           hints={[
             'MCPサーバは "type", "command", "args" の3プロパティで構成されます',
             'npx -y でパッケージを自動インストール・実行できます',

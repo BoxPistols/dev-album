@@ -431,14 +431,14 @@ CLAUDE.local.md
             previewType="terminal"
             title="SSOT ルール同期スクリプトを書こう"
             description=".agents/rules/ の共通ルールソースから各 AI ツールの設定ファイルを生成するシェルスクリプトを書いてください。"
-            initialCode={`#!/bin/bash\n# scripts/sync-ai-rules.sh\nset -euo pipefail\nRULES=".agents/rules"\n\n# 1. CLAUDE.md の生成（base.md + coding-standards.md を結合）:\n\n# 2. AGENTS.md の生成:\n\n# 3. Copilot instructions の生成:\n\n# 4. シンボリックリンクの作成:\n# .claude/commands/review.md → .agents/commands/review.md`}
+            initialCode={`#!/bin/bash\n# scripts/sync-ai-rules.sh\nset -euo pipefail\nRULES=".agents/rules"\n\n# 1. CLAUDE.md の生成（base.md + coding-standards.md を結合）:\n{\n  echo "# プロジェクトルール"; echo ""\n  cat "$RULES/base.md"; echo ""\n  echo "## コーディング規約"\n  cat "$RULES/coding-standards.md"\n} > ___  # ← ここを埋める\n\n# 2. AGENTS.md の生成:\ncp CLAUDE.md ___  # ← ここを埋める\n\n# 3. Copilot instructions の生成:\nmkdir -p .github\ncp CLAUDE.md .github/___  # ← ここを埋める\n\n# 4. シンボリックリンクの作成:\nmkdir -p .claude/commands\n___ "../../.agents/commands/review.md" .claude/commands/review.md  # ← ここを埋める`}
             answer={`#!/bin/bash\n# scripts/sync-ai-rules.sh\nset -euo pipefail\nRULES=".agents/rules"\n\n# 1. CLAUDE.md の生成（base.md + coding-standards.md を結合）:\n{\n  echo "# プロジェクトルール"; echo ""\n  cat "$RULES/base.md"; echo ""\n  echo "## コーディング規約"\n  cat "$RULES/coding-standards.md"\n} > CLAUDE.md\n\n# 2. AGENTS.md の生成:\ncp CLAUDE.md AGENTS.md\n\n# 3. Copilot instructions の生成:\nmkdir -p .github\ncp CLAUDE.md .github/copilot-instructions.md\n\n# 4. シンボリックリンクの作成:\nmkdir -p .claude/commands\nln -sf "../../.agents/commands/review.md" \\\n  .claude/commands/review.md`}
             hints={[
               'cat と echo でファイルを結合して CLAUDE.md を生成します',
               'cp で AGENTS.md や copilot-instructions.md に複製します',
               'ln -sf でシンボリックリンクを作成して共通コマンドを参照します',
             ]}
-            keywords={['CLAUDE.md', 'AGENTS.md', 'copilot-instructions', 'ln -sf', '.agents/rules']}
+            keywords={['CLAUDE.md', 'AGENTS.md', 'copilot-instructions.md', 'ln -sf']}
           />
 
         <PageNavigation />

@@ -294,14 +294,14 @@ claude mcp serve
             previewType="terminal"
             title="ヘッドレスモードの自動化スクリプトを書こう"
             description="Claude Code のパイプモード (-p) を使って、コミットメッセージの自動生成やバッチ処理を行うシェルスクリプトを書いてください。"
-            initialCode={`#!/bin/bash\n# Claude Code ヘッドレス自動化\n\n# 1. パイプモードで直接プロンプトを渡す:\n\n# 2. ファイル内容をパイプで渡す:\n\n# 3. JSON 出力フォーマットで実行:\n\n# 4. コミットメッセージの自動生成:\nDIFF=$(git diff --staged)\n\n# 5. CI/CD で全権限を自動承認:`}
+            initialCode={`#!/bin/bash\n# Claude Code ヘッドレス自動化\n\n# 1. パイプモードで直接プロンプトを渡す:\nclaude ___ "package.json の依存関係を分析して"  # ← ここを埋める\n\n# 2. ファイル内容をパイプで渡す:\ncat src/index.ts | claude -p "このコードのバグを見つけて"\n\n# 3. JSON 出力フォーマットで実行:\nclaude -p "Hello" ___ json  # ← ここを埋める\n\n# 4. コミットメッセージの自動生成:\nDIFF=$(git diff --staged)\nMSG=$(echo "$DIFF" | claude -p "この差分に対する簡潔なコミットメッセージを日本語で生成して")\ngit commit -m "$MSG"\n\n# 5. CI/CD で全権限を自動承認:\nclaude -p "コードを分析して" ___  # ← ここを埋める`}
             answer={`#!/bin/bash\n# Claude Code ヘッドレス自動化\n\n# 1. パイプモードで直接プロンプトを渡す:\nclaude -p "package.json の依存関係を分析して"\n\n# 2. ファイル内容をパイプで渡す:\ncat src/index.ts | claude -p "このコードのバグを見つけて"\n\n# 3. JSON 出力フォーマットで実行:\nclaude -p "Hello" --output-format json\n\n# 4. コミットメッセージの自動生成:\nDIFF=$(git diff --staged)\nMSG=$(echo "$DIFF" | claude -p "この差分に対する簡潔なコミットメッセージを日本語で生成して")\ngit commit -m "$MSG"\n\n# 5. CI/CD で全権限を自動承認:\nclaude -p "コードを分析して" --dangerously-skip-permissions`}
             hints={[
               'claude -p でパイプモード（非対話）を起動します',
               '--output-format json で構造化出力が得られます',
               '--dangerously-skip-permissions は CI/CD 専用フラグです',
             ]}
-            keywords={['claude -p', '--output-format', '--dangerously-skip-permissions', 'git diff']}
+            keywords={['-p', '--output-format', '--dangerously-skip-permissions']}
           />
 
         <PageNavigation />

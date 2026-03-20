@@ -312,14 +312,14 @@ $ MCP_TIMEOUT=15000 MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
             previewType="terminal"
             title="MCP サーバをセットアップしよう"
             description="プロジェクトで使用する MCP サーバの登録コマンドを書いてください。Context7（ドキュメント参照）と Playwright（ブラウザ自動化）の2つを登録しましょう。"
-            initialCode={`# MCP サーバの登録コマンド\n\n# 1. Context7（ドキュメント参照）をユーザースコープで登録\n\n# 2. Playwright（ブラウザ自動化）をプロジェクトスコープで登録`}
+            initialCode={`# MCP サーバの登録コマンド\n\n# 1. Context7（ドキュメント参照）をユーザースコープで登録\nclaude ___ ___ --scope user context7 -- npx -y @upstash/context7-mcp  # ← ここを埋める\n\n# 2. Playwright（ブラウザ自動化）をプロジェクトスコープで登録\nclaude ___ ___ -s project playwright -- npx @playwright/mcp@latest  # ← ここを埋める`}
             answer={`# MCP サーバの登録コマンド\n\n# 1. Context7（ドキュメント参照）をユーザースコープで登録\nclaude mcp add --scope user context7 -- npx -y @upstash/context7-mcp\n\n# 2. Playwright（ブラウザ自動化）をプロジェクトスコープで登録\nclaude mcp add -s project playwright -- npx @playwright/mcp@latest`}
             hints={[
               'claude mcp add コマンドでサーバを登録します',
               '--scope user はユーザースコープ（全プロジェクト共通）です',
               '-s project はプロジェクトスコープ（.mcp.json に保存）です',
             ]}
-            keywords={['mcp add', 'context7', 'playwright', 'npx']}
+            keywords={['mcp', 'add']}
           />
         </div>
         <PageNavigation />

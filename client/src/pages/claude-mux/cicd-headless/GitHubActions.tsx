@@ -312,14 +312,14 @@ jobs:
             previewType="terminal"
             title="GitHub Actions ワークフローを書こう"
             description="Claude Code の claude-code-action を使った GitHub Actions ワークフローファイルの基本構成を YAML で書いてください。PR レビューと Issue 対応の両方に対応するトリガー設定を含めましょう。"
-            initialCode={`# .github/workflows/claude.yml\nname: Claude Code\n\n# トリガーイベントを定義\non:\n  # PR コメントで @claude メンション:\n  # PR のオープン・更新:\n  # Issue のオープン・ラベル付与:\n\njobs:\n  claude:\n    # if 条件:\n    runs-on: ubuntu-latest\n    permissions:\n      # 必要な権限を設定:\n    steps:\n      # claude-code-action を使用:`}
+            initialCode={`# .github/workflows/claude.yml\nname: Claude Code\n\non:\n  ___:  # ← ここを埋める（PRコメント）\n    types: [created]\n  ___:  # ← ここを埋める（PRオープン・更新）\n    types: [opened, synchronize]\n  issues:\n    types: [opened, labeled]\n\njobs:\n  claude:\n    if: |\n      (github.event_name == 'issue_comment' &&\n       contains(github.event.comment.body, '@claude')) ||\n      github.event_name == 'pull_request_target' ||\n      github.event_name == 'issues'\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      pull-requests: write\n      issues: write\n    steps:\n      - uses: anthropics/___@v1  # ← ここを埋める\n        with:\n          anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}`}
             answer={`# .github/workflows/claude.yml\nname: Claude Code\n\non:\n  issue_comment:\n    types: [created]\n  pull_request_target:\n    types: [opened, synchronize]\n  issues:\n    types: [opened, labeled]\n\njobs:\n  claude:\n    if: |\n      (github.event_name == 'issue_comment' &&\n       contains(github.event.comment.body, '@claude')) ||\n      github.event_name == 'pull_request_target' ||\n      github.event_name == 'issues'\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      pull-requests: write\n      issues: write\n    steps:\n      - uses: anthropics/claude-code-action@v1\n        with:\n          anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}`}
             hints={[
               'トリガーは issue_comment, pull_request_target, issues の3種類',
               'permissions には contents: read, pull-requests: write, issues: write が必要',
               'アクションは anthropics/claude-code-action@v1 を使用',
             ]}
-            keywords={['issue_comment', 'pull_request_target', 'claude-code-action', 'ANTHROPIC_API_KEY', 'permissions']}
+            keywords={['issue_comment', 'pull_request_target', 'claude-code-action']}
           />
 
         <PageNavigation />

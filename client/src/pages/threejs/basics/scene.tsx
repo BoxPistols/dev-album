@@ -154,15 +154,15 @@ renderer.render(scene, camera);`}
           description="Scene、Camera、Renderer を作成し、立方体を表示するコードの空欄を埋めてください。"
           preview
           initialCode={`// 1. シーンを作成
-const scene = new THREE.___();
+const scene = new THREE.___(); // ← ここを埋める
 
 // 2. カメラを作成
-const camera = new THREE.___(
+const camera = new THREE.___( // ← ここを埋める
   75, window.innerWidth / window.innerHeight, 0.1, 1000
 );
 
 // 3. レンダラーを作成
-const renderer = new THREE.___();
+const renderer = new THREE.___(); // ← ここを埋める
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -170,13 +170,13 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x4F46E5 });
 const cube = new THREE.Mesh(geometry, material);
-scene.___(cube);
+scene.___(cube); // ← ここを埋める
 
 // 5. カメラ位置
 camera.position.z = 3;
 
 // 6. レンダリング
-renderer.___(scene, camera);`}
+renderer.___(scene, camera); // ← ここを埋める`}
           answer={`// 1. シーンを作成
 const scene = new THREE.Scene();
 

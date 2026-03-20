@@ -384,14 +384,14 @@ description: 現在のブランチの差分をレビューする
             previewType="config"
             title="プラグインのディレクトリ構成と MCP 設定を書こう"
             description="プラグインの PLUGIN.md とスキル定義の作成、および MCP サーバーの設定を書いてください。"
-            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   PLUGIN.md        - メタデータ\n//   skills/review/\n//     SKILL.md       - （スキル定義を書く）\n\n// MCP サーバーの設定\n// .claude/settings.json\n{\n  "mcpServers": {\n    // GitHub MCP サーバー:\n\n    // Filesystem MCP サーバー:\n  }\n}`}
+            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   ___.md        // ← ここを埋める（プラグイン定義ファイル）\n//   ___/review/   // ← ここを埋める（スキルフォルダ名）\n//     SKILL.md       - レビュースキル定義\n//   subagents/\n//     reviewer.md    - サブエージェント定義\n\n// MCP サーバーの設定\n// .claude/settings.json\n{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    }\n  }\n}`}
             answer={`// プラグインのディレクトリ構成\n// my-plugin/\n//   PLUGIN.md        - name, version, description\n//   skills/review/\n//     SKILL.md       - レビュースキル定義\n//   subagents/\n//     reviewer.md    - サブエージェント定義\n//   hooks/\n//     settings.json  - Hook 設定\n\n// MCP サーバーの設定\n// .claude/settings.json\n{\n  "mcpServers": {\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    },\n    "filesystem": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]\n    }\n  }\n}`}
             hints={[
               'PLUGIN.md にはプラグインの名前、バージョン、説明を記述します',
               'skills/ ディレクトリ内のサブディレクトリに SKILL.md を配置するとスラッシュコマンドになります',
               'MCP サーバーは mcpServers キーに command と args を指定します',
             ]}
-            keywords={['mcpServers', 'PLUGIN.md', 'SKILL.md', 'skills', 'subagents', 'hooks']}
+            keywords={['PLUGIN', 'skills', 'mcpServers']}
           />
 
         <PageNavigation />
