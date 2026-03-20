@@ -1036,15 +1036,28 @@ const Box = styled.div<{ $isActive: boolean }>\`
           <section>
             <CodingChallenge
               title="Props で動的スタイリングする Button を作成"
-              description="styled-components で $variant と $size を受け取る Button コンポーネントを作成してください。$variant は 'primary' | 'danger' の2種類、$size は 'sm' | 'lg' の2種類です。$variant に応じて背景色を変え、$size に応じてパディングとフォントサイズを変えてください。"
+              description="styled-components の動的スタイルの ___ を埋めてください。Props に応じて背景色とパディングを三項演算子で切り替えます。"
               initialCode={`import styled from 'styled-components';
 
-// ここに StyledButton を定義
 const StyledButton = styled.button<{
   $variant?: 'primary' | 'danger';
   $size?: 'sm' | 'lg';
 }>\`
-  /* ここにスタイルを書く */
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  background-color: \${(p) => p.$variant === '___' ? '#ef4444' : '#3b82f6'}; // ← ここを埋める
+  color: white;
+
+  padding: \${(p) => p.___ === 'lg' ? '14px 28px' : '6px 12px'}; // ← ここを埋める
+  font-size: \${(p) => p.$size === 'lg' ? '1rem' : '0.75rem'};
+
+  &:hover {
+    opacity: 0.9;
+  }
 \`;`}
               answer={`import styled from 'styled-components';
 
@@ -1068,11 +1081,10 @@ const StyledButton = styled.button<{
     opacity: 0.9;
   }
 \`;`}
-              keywords={['$variant', '$size', 'background-color:', 'padding:']}
+              keywords={["'danger'", '$size']}
               hints={[
-                '${(props) => ...} の中で三項演算子を使って props の値に応じた CSS 値を返します',
-                'props.$variant === "danger" で variant を判定し、背景色を切り替えます',
-                'props.$size === "lg" でサイズを判定し、padding と font-size を切り替えます',
+                '赤い背景色 #ef4444 に対応する variant 値は danger です',
+                'パディングを切り替える Props 名は $size です（$ プレフィックスが必要）',
               ]}
             />
           </section>

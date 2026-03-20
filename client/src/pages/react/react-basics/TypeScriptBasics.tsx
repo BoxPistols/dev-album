@@ -601,13 +601,14 @@ interface InputProps {
           <section>
             <CodingChallenge
               title="Figma のプロパティパネルを TypeScript で書こう"
-              description="以下の Figma 設計に基づいて、StatusBadge の interface を完成させてください。label は必須の string、status は 'active' | 'inactive' | 'pending'（必須）、size は 'sm' | 'lg'（省略可、デフォルト 'sm'）です。"
+              description="StatusBadge の interface を完成させてください。___ の部分を埋めて、label（必須 string）、status（必須ユニオン型）、size（省略可ユニオン型）を定義しましょう。"
               preview
               initialCode={`import { ReactNode } from 'react';
 
-// この interface を完成させてください
 interface StatusBadgeProps {
-  // Figma のプロパティパネルをコードで表現しよう
+  label: ___;  // ← ここを埋める（型名）
+  status: 'active' | 'inactive' | 'pending';
+  ___: 'sm' | 'lg';  // ← ここを埋める（省略可能にする）
 }
 
 function StatusBadge({ label, status, size = 'sm' }: StatusBadgeProps) {
@@ -666,10 +667,10 @@ function StatusBadge({ label, status, size = 'sm' }: StatusBadgeProps) {
     </span>
   );
 }`}
+              keywords={['label: string', 'size?:']}
               hints={[
-                'label は必須なので ? をつけません',
-                "status は 3つの選択肢なので 'active' | 'inactive' | 'pending' というユニオン型",
-                'size は省略可能（デフォルト値あり）なので ? をつけます',
+                'label にはテキストが入るので、型は string です',
+                'size はデフォルト値があり省略可能なので ? をつけます（size?: ...）',
               ]}
             />
           </section>

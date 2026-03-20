@@ -973,15 +973,27 @@ function TeamPage() {
           <section>
             <CodingChallenge
               title="Badge コンポーネントを Props で柔軟にしよう"
-              description="以下の Badge コンポーネントに、color（'blue' | 'green' | 'red'、デフォルト 'blue'）と size（'sm' | 'md'、デフォルト 'sm'）の Props を追加して、見た目を切り替えられるようにしてください。"
+              description="BadgeProps の interface を完成させてください。___ の部分を埋めて、color と size をオプショナルなユニオン型の Props として定義しましょう。"
               initialCode={`interface BadgeProps {
   label: string;
-  // ここに color と size の Props を追加
+  ___: 'blue' | 'green' | 'red'; // ← ここを埋める
+  ___: 'sm' | 'md'; // ← ここを埋める
 }
 
-function Badge({ label }: BadgeProps) {
+function Badge({ label, color = 'blue', size = 'sm' }: BadgeProps) {
+  const colorStyles = {
+    blue: 'bg-blue-100 text-blue-700',
+    green: 'bg-green-100 text-green-700',
+    red: 'bg-red-100 text-red-700',
+  };
+
+  const sizeStyles = {
+    sm: 'px-2 py-0.5 text-xs',
+    md: 'px-3 py-1 text-sm',
+  };
+
   return (
-    <span className="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded">
+    <span className={\`\${colorStyles[color]} \${sizeStyles[size]} rounded\`}>
       {label}
     </span>
   );
@@ -1010,12 +1022,10 @@ function Badge({ label, color = 'blue', size = 'sm' }: BadgeProps) {
     </span>
   );
 }`}
-              keywords={["color?:", "size?:", "'blue' | 'green' | 'red'", "'sm' | 'md'"]}
+              keywords={['color?:', 'size?:']}
               hints={[
-                'color と size にはそれぞれ ? をつけてオプショナルにしましょう',
-                'ユニオン型（"blue" | "green" | "red"）で値を制限します',
-                '分割代入のデフォルト値（color = "blue"）を設定しましょう',
-                'Record やオブジェクトで、色・サイズごとのクラス名をマッピングすると綺麗です',
+                'オプショナルな Props には ? をつけます（例: propName?: 型）',
+                'デフォルト値がある Props は省略可能なので ? が必要です',
               ]}
             />
           </section>

@@ -814,7 +814,7 @@ function TodoApp() {
           <section>
             <CodingChallenge
               title="useActionState でコメント投稿フォームを作成する"
-              description="useActionState を使って、コメント投稿フォームを実装してください。アクション関数は formData からコメントテキストを取得し、バリデーション（空文字チェック）を行い、成功時は { comments: [...prev, newComment], error: null } を、失敗時は { ...prev, error: 'エラーメッセージ' } を返してください。"
+              description="CommentForm の ___ を埋めてください。React 19 の useActionState でフォームアクションの状態管理を行います。"
               initialCode={`import { useActionState } from 'react';
 
 interface CommentState {
@@ -822,9 +822,45 @@ interface CommentState {
   error: string | null;
 }
 
-// ここにアクション関数と CommentForm コンポーネントを実装してください
-// 1. commentAction 関数: prevState と formData を受け取り、新しい CommentState を返す
-// 2. CommentForm コンポーネント: useActionState を使ってフォームを実装`}
+async function commentAction(
+  prevState: CommentState,
+  formData: FormData
+): Promise<CommentState> {
+  const text = formData.get('comment') as string;
+
+  if (!text.trim()) {
+    return { ...prevState, error: 'コメントを入力してください' };
+  }
+
+  return {
+    comments: [...prevState.comments, text],
+    error: null,
+  };
+}
+
+function CommentForm() {
+  const [state, formAction, ___] = ___(commentAction, { // ← ここを埋める（Hook名と3番目の戻り値）
+    comments: [],
+    error: null,
+  });
+
+  return (
+    <div>
+      <form action={formAction}>
+        <input name="comment" placeholder="コメントを入力..." />
+        <button type="submit" disabled={isPending}>
+          {isPending ? '送信中...' : '投稿'}
+        </button>
+      </form>
+      {state.error && <p className="text-red-500">{state.error}</p>}
+      <ul>
+        {state.comments.map((c, i) => (
+          <li key={i}>{c}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}`}
               answer={`import { useActionState } from 'react';
 
 interface CommentState {
@@ -872,11 +908,10 @@ function CommentForm() {
     </div>
   );
 }`}
-              keywords={['useActionState(', 'formData.get(', 'action={formAction}', 'isPending']}
+              keywords={['isPending', 'useActionState(']}
               hints={[
-                'useActionState の第1引数はアクション関数、第2引数は初期状態です。',
-                'アクション関数は (previousState, formData) => newState の形式です。',
-                'formData.get("comment") でフォームの値を取得できます。',
+                'React 19 のフォームアクション用 Hook は useActionState です',
+                '3番目の戻り値はアクションの実行中かどうかを示す isPending です',
               ]}
             />
           </section>

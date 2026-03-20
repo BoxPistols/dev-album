@@ -1054,12 +1054,13 @@ import * as ButtonStories from './Button.stories';
             {/* コーディングチャレンジ 1: Badge コンポーネント */}
             <CodingChallenge
               title="Badge コンポーネントを作ろう"
-              description="success / warning / error の3つのバリアントを持つ Badge コンポーネントを作成してください。各バリアントで背景色とテキスト色が変わるようにしましょう。"
+              description="Badge コンポーネントの ___ を埋めてください。styles オブジェクトにバリアントごとの色を定義し、スプレッド構文で適用します。"
               preview={true}
               initialCode={`function Badge({ variant = 'success', children }) {
-  // variant に応じてスタイルを変える
   const styles = {
-    // ここにバリアントごとのスタイルを定義
+    success: { background: '#dcfce7', color: '#16a34a' },
+    warning: { background: '#fef9c3', color: '#ca8a04' },
+    error: { background: '#fee2e2', color: '#dc2626' },
   };
 
   return (
@@ -1068,6 +1069,7 @@ import * as ButtonStories from './Button.stories';
       borderRadius: '9999px',
       fontSize: '12px',
       fontWeight: 600,
+      ...___[___], // ← ここを埋める（オブジェクト名とキー）
     }}>
       {children}
     </span>
@@ -1112,18 +1114,17 @@ function App() {
     </div>
   );
 }`}
-              keywords={['success', 'warning', 'error', 'background', 'color', '#dcfce7', '#fee2e2', '...styles']}
+              keywords={['styles[variant]']}
               hints={[
-                'styles オブジェクトに success / warning / error のキーを作り、それぞれ background と color を定義しましょう。',
-                'スプレッド構文 ...styles[variant] で、variant に応じたスタイルを span に適用します。',
-                'success は緑系（#dcfce7 / #16a34a）、warning は黄系（#fef9c3 / #ca8a04）、error は赤系（#fee2e2 / #dc2626）が定番です。',
+                'スプレッド構文 ...styles[variant] で variant に応じたスタイルを適用できます',
+                '変数 variant は Props から受け取った "success" / "warning" / "error" のいずれかです',
               ]}
             />
 
             {/* コーディングチャレンジ 2: Story ファイル構造 */}
             <CodingChallenge
               title="Alert の Story を CSF3 で書こう"
-              description="Alert コンポーネントの Story ファイルを CSF3 形式で完成させてください。Meta の定義と、info / success / error の3つの Story を追加しましょう。"
+              description="App 内の ___ を埋めて、Alert コンポーネントの3つのバリエーション（info / success / error）を表示してください。"
               preview={true}
               initialCode={`function Alert({ variant = 'info', title, children }) {
   const styles = {
@@ -1143,16 +1144,12 @@ function App() {
   );
 }
 
-// CSF3 形式で Story を書いてみよう
 function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px', maxWidth: '480px' }}>
-      {/* Info Story */}
-
-      {/* Success Story */}
-
-      {/* Error Story */}
-
+      <Alert variant="___" title="お知らせ">新機能が追加されました。</Alert>
+      <Alert variant="___" title="完了">データの保存が完了しました。</Alert>
+      <Alert variant="___" title="エラー">入力内容に問題があります。</Alert>
     </div>
   );
 }`}
@@ -1183,11 +1180,10 @@ function App() {
     </div>
   );
 }`}
-              keywords={['variant="info"', 'variant="success"', 'variant="error"', '<Alert', 'title=']}
+              keywords={['"info"', '"success"', '"error"']}
               hints={[
-                'Alert コンポーネントは variant, title, children の3つの props を受け取ります。',
-                '各 Story は <Alert variant="..." title="...">子テキスト</Alert> の形で書きます。',
-                'info / success / error の3バリアントをそれぞれ App 内に配置してください。',
+                'styles オブジェクトに定義されている3つのキーが variant の選択肢です',
+                '上から順に info, success, error を入れます',
               ]}
             />
 

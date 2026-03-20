@@ -953,12 +953,28 @@ const { data, loading } = useFetch('/api/users');
           <section>
             <CodingChallenge
               title="useMediaQuery カスタム Hook を作成する"
-              description="CSS メディアクエリの結果を返すカスタム Hook useMediaQuery を実装してください。引数にメディアクエリ文字列（例: '(max-width: 768px)'）を受け取り、マッチするかどうかの boolean を返します。window.matchMedia を使い、メディアクエリの変化を監視して結果をリアクティブに更新してください。"
+              description="useMediaQuery の ___ を埋めてください。window.matchMedia でメディアクエリを監視し、クリーンアップでリスナーを解除するのがポイントです。"
               initialCode={`function useMediaQuery(query: string): boolean {
-  // ここに実装してください
-  // 1. window.matchMedia で初期値を取得
-  // 2. useEffect でメディアクエリの変化を監視
-  // 3. クリーンアップでリスナーを解除
+  const [matches, setMatches] = useState(() => {
+    return window.matchMedia(query).matches;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.___(query); // ← ここを埋める
+
+    const handler = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
+    };
+
+    mediaQuery.addEventListener('___', handler); // ← ここを埋める（イベント名）
+    setMatches(mediaQuery.matches);
+
+    return () => {
+      mediaQuery.___('change', handler); // ← ここを埋める（リスナー解除メソッド）
+    };
+  }, [query]);
+
+  return matches;
 }`}
               answer={`function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(() => {
@@ -990,11 +1006,11 @@ const { data, loading } = useFetch('/api/users');
 // 使い方
 // const isMobile = useMediaQuery('(max-width: 768px)');
 // const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');`}
-              keywords={['matchMedia(', 'addEventListener', 'removeEventListener', 'useEffect(']}
+              keywords={['matchMedia(', "'change'", 'removeEventListener']}
               hints={[
-                'window.matchMedia(query) で MediaQueryList オブジェクトを取得できます。',
-                'MediaQueryList の addEventListener("change", handler) で変化を監視します。',
-                'handler の引数 event.matches がマッチ結果（boolean）です。',
+                'メディアクエリを取得する API は window.matchMedia() です',
+                'メディアクエリの変化を監視するイベント名は change です',
+                'クリーンアップではリスナーを解除する removeEventListener を使います',
               ]}
             />
           </section>

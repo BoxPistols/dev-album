@@ -835,15 +835,20 @@ function ProductCatalog({ products }: { products: Product[] }) {
           <section>
             <CodingChallenge
               title="重い計算のメモ化とフィルタリング"
-              description="10,000件の数値配列 numbers を受け取り、(1) query に一致する数値をフィルタリングし、(2) フィルタリング結果の合計を計算するコンポーネントを完成させてください。filteredNumbers と total の両方を useMemo でメモ化してください。query が変わらない限り再計算されないようにします。"
+              description="filteredNumbers と total の ___ を埋めてください。useMemo で計算結果をキャッシュし、依存値が変わらない限り再計算を防ぎます。"
               initialCode={`function NumberFilter({ numbers }: { numbers: number[] }) {
   const [query, setQuery] = useState('');
 
-  // ここに useMemo でフィルタリングを実装
-  const filteredNumbers = numbers; // TODO: useMemo で実装
+  const filteredNumbers = ___(() => { // ← ここを埋める（Hook 名）
+    if (!query) return numbers;
+    return numbers.filter((n) =>
+      String(n).includes(query)
+    );
+  }, [numbers, query]);
 
-  // ここに useMemo で合計を計算
-  const total = 0; // TODO: useMemo で実装
+  const total = ___(() => { // ← ここを埋める（Hook 名）
+    return filteredNumbers.___((_sum, n) => _sum + n, 0); // ← ここを埋める（配列メソッド名）
+  }, [filteredNumbers]);
 
   return (
     <div>
@@ -891,11 +896,10 @@ function ProductCatalog({ products }: { products: Product[] }) {
     </div>
   );
 }`}
-              keywords={['useMemo(', 'filteredNumbers', '.reduce(', '[numbers, query]']}
+              keywords={['useMemo(', '.reduce(']}
               hints={[
-                'useMemo(() => { ... }, [依存値]) の形で filteredNumbers を計算します。依存値は numbers と query です。',
-                'total は filteredNumbers に依存するので、filteredNumbers を依存配列に入れた別の useMemo で計算します。',
-                'reduce で合計を計算: filteredNumbers.reduce((sum, n) => sum + n, 0)',
+                '計算結果をキャッシュする Hook は useMemo です',
+                '配列の全要素を畳み込んで合計を出すメソッドは .reduce() です',
               ]}
             />
           </section>

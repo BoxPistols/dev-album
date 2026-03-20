@@ -460,10 +460,20 @@ export default function FormA11y() {
             <CodingChallenge
               preview={true}
               title="アクセシブルなフォームフィールドを作成"
-              description="メールアドレス入力フィールドを作成してください。要件: (1) label 要素で紐付け、(2) 必須フィールド（required と aria-required）、(3) aria-describedby でヒントテキストを紐付け、(4) エラー時に aria-invalid を設定。"
-              initialCode={`<!-- アクセシブルなメールアドレスフィールドを作成 -->
-<div>
-  <!-- ここにコードを書く -->
+              description="メールアドレスフィールドの ___ を埋めてください。label の紐付け、必須属性、エラー状態の ARIA 属性を設定します。"
+              initialCode={`<div>
+  <label ___="email">メールアドレス <span aria-hidden="true">*</span></label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    required
+    ___="true"
+    aria-invalid="true"
+    ___="email-hint email-error"
+  />
+  <p id="email-hint">確認メールを送信します</p>
+  <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
 </div>`}
               answer={`<div>
   <label for="email">メールアドレス <span aria-hidden="true">*</span></label>
@@ -479,18 +489,11 @@ export default function FormA11y() {
   <p id="email-hint">確認メールを送信します</p>
   <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
 </div>`}
-              keywords={[
-                'label',
-                'for="email"',
-                'required',
-                'aria-required',
-                'aria-describedby',
-                'aria-invalid',
-              ]}
+              keywords={['for=', 'aria-required', 'aria-describedby']}
               hints={[
-                'label の for 属性と input の id を一致させましょう',
-                'required でブラウザバリデーション、aria-required="true" でスクリーンリーダーに通知',
-                'aria-describedby にはスペース区切りで複数の id を指定できます',
+                'label と input を紐付ける属性は for です（React では htmlFor）',
+                '必須であることをスクリーンリーダーに伝える属性は aria-required です',
+                '説明テキストを紐付ける属性は aria-describedby です',
               ]}
             />
           </section>
@@ -746,9 +749,21 @@ export default function FormA11y() {
             <CodingChallenge
               preview={true}
               title="マルチステップフォームの進捗インジケーターを実装"
-              description="3 ステップ（個人情報 → お届け先 → 確認）の進捗インジケーターを HTML で作成してください。要件: (1) nav と ol/li で構造化、(2) aria-label でナビゲーションの目的を説明、(3) 現在のステップ（ステップ 2）に aria-current='step' を設定、(4) 完了済みステップ（ステップ 1）に sr-only で「完了」テキストを追加。"
-              initialCode={`<!-- マルチステップの進捗インジケーター -->
-<!-- 現在のステップ: 2（お届け先） -->`}
+              description="進捗インジケーターの ___ を埋めてください。現在のステップ（ステップ 2）に適切な ARIA 属性を設定します。"
+              initialCode={`<nav aria-label="フォームの進捗">
+  <ol>
+    <li>
+      ステップ 1: 個人情報
+      <span class="sr-only">（完了）</span>
+    </li>
+    <li ___="___">
+      ステップ 2: お届け先
+    </li>
+    <li>
+      ステップ 3: 確認
+    </li>
+  </ol>
+</nav>`}
               answer={`<nav aria-label="フォームの進捗">
   <ol>
     <li>
@@ -763,18 +778,9 @@ export default function FormA11y() {
     </li>
   </ol>
 </nav>`}
-              keywords={[
-                'nav',
-                'aria-label',
-                'ol',
-                'aria-current="step"',
-                'sr-only',
-              ]}
+              keywords={['aria-current="step"']}
               hints={[
-                'nav 要素の aria-label でナビゲーションの目的を説明します',
-                '順序のあるリストは ol 要素を使います',
-                'aria-current="step" は現在のステップ（ステップ 2）に付与します',
-                '完了済みステップには sr-only で「完了」を伝えます',
+                '現在のステップを示す ARIA 属性は aria-current で、値は "step" です',
               ]}
             />
           </section>

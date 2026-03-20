@@ -1481,7 +1481,7 @@ function AccessibleDialog({
             <CodingChallenge
               preview={true}
               title="アクセシブルな確認ダイアログ"
-              description="以下のコードに、アクセシビリティに必要な属性を追加してください。aria-labelledby, aria-describedby, onCancel ハンドラ、そして閉じるボタンの aria-label を設定してください。"
+              description="dialog 要素の ___ を埋めてください。ARIA 属性でタイトルと説明を紐付け、ESC キーのハンドラと閉じるボタンのラベルを追加します。"
               initialCode={`function ConfirmDialog({ open, onClose, onConfirm }) {
   const dialogRef = useRef(null);
 
@@ -1492,12 +1492,17 @@ function AccessibleDialog({
   }, [open]);
 
   return (
-    <dialog ref={dialogRef}>
+    <dialog
+      ref={dialogRef}
+      ___="title"
+      ___="desc"
+      onCancel={(e) => { e.preventDefault(); onClose(); }}
+    >
       <h2 id="title">削除の確認</h2>
       <p id="desc">本当に削除しますか？</p>
       <button onClick={onClose}>キャンセル</button>
       <button onClick={onConfirm}>削除</button>
-      <button onClick={onClose}>X</button>
+      <button onClick={onClose} aria-label="ダイアログを閉じる">X</button>
     </dialog>
   );
 }`}
@@ -1526,11 +1531,10 @@ function AccessibleDialog({
   );
 }`}
               hints={[
-                'dialog 要素に aria-labelledby と aria-describedby を追加します。値は対応する要素の id です。',
-                'onCancel は ESC キーが押されたときに発火します。e.preventDefault() でブラウザのデフォルト動作を防ぎ、onClose() で React の state を更新します。',
-                '「X」だけのボタンにはスクリーンリーダーが読める aria-label を追加しましょう。',
+                'タイトル要素の id を参照する ARIA 属性は aria-labelledby です',
+                '説明要素の id を参照する ARIA 属性は aria-describedby です',
               ]}
-              keywords={['aria-labelledby="title"', 'aria-describedby="desc"', 'onCancel', 'aria-label']}
+              keywords={['aria-labelledby', 'aria-describedby']}
             />
           </section>
 
@@ -1538,18 +1542,22 @@ function AccessibleDialog({
           <section>
             <CodingChallenge
               title="useDialog カスタム Hook の作成"
-              description="Dialog の開閉とフォーカス復帰を管理するカスタム Hook を完成させてください。open 関数でトリガー要素を記憶し、close 関数でフォーカスを戻す処理を実装してください。"
+              description="open と close 関数の ___ を埋めてください。open でトリガー要素を記憶し、close でフォーカスを戻します。"
               initialCode={`function useDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const dialogRef = useRef(null);
   const triggerRef = useRef(null);
 
   const open = useCallback(() => {
-    // TODO: トリガー要素を記憶して state を更新
+    triggerRef.current = document.___; // ← ここを埋める（現在フォーカス中の要素）
+    setIsOpen(true);
   }, []);
 
   const close = useCallback(() => {
-    // TODO: state を更新してフォーカスを戻す
+    setIsOpen(false);
+    requestAnimationFrame(() => {
+      triggerRef.current?.___(); // ← ここを埋める（フォーカスを戻すメソッド）
+    });
   }, []);
 
   useEffect(() => {
@@ -1588,11 +1596,10 @@ function AccessibleDialog({
   return { isOpen, open, close, dialogRef };
 }`}
               hints={[
-                'open 関数では document.activeElement で現在フォーカスされている要素（= Dialog を開くボタン）を記憶します。',
-                'close 関数では setIsOpen(false) の後に requestAnimationFrame を使ってフォーカスを戻します。',
-                'requestAnimationFrame は dialog.close() の完了後にフォーカスを移すために必要です。',
+                '現在フォーカスされている要素を取得するプロパティは document.activeElement です',
+                '要素にフォーカスを移動するメソッドは focus() です',
               ]}
-              keywords={['document.activeElement', 'triggerRef.current', 'setIsOpen(true)', 'setIsOpen(false)', 'requestAnimationFrame', '.focus()']}
+              keywords={['activeElement', '.focus()']}
             />
           </section>
 
@@ -1601,18 +1608,30 @@ function AccessibleDialog({
             <CodingChallenge
               preview={true}
               title="backdrop クリックで閉じる安全な実装"
-              description="backdrop クリックで Dialog を閉じる処理を実装してください。ただし、ユーザーが Dialog 内のテキストをドラッグ選択した際に誤って閉じないよう、mousedown の位置も考慮する実装にしてください。"
+              description="handleMouseDown と handleClick の ___ を埋めてください。mousedown と click の両方が backdrop 上であることを確認して閉じる安全な実装です。"
               initialCode={`function SafeBackdropDialog({ open, onClose, children }) {
   const dialogRef = useRef(null);
   const mouseDownTarget = useRef(null);
 
-  // TODO: mousedown でクリック開始位置を記憶
+  const handleMouseDown = (e) => {
+    mouseDownTarget.current = e.___; // ← ここを埋める（クリック開始位置の要素）
+  };
 
-  // TODO: click で mousedown と click の両方が
-  //       dialog 要素自体であることを確認して閉じる
+  const handleClick = (e) => {
+    if (
+      e.target === dialogRef.current &&
+      mouseDownTarget.current === ___.___ // ← ここを埋める（backdrop の参照）
+    ) {
+      onClose();
+    }
+  };
 
   return (
-    <dialog ref={dialogRef}>
+    <dialog
+      ref={dialogRef}
+      onMouseDown={handleMouseDown}
+      onClick={handleClick}
+    >
       <div className="dialog-content">
         {children}
       </div>
@@ -1649,11 +1668,10 @@ function AccessibleDialog({
   );
 }`}
               hints={[
-                'onMouseDown イベントで e.target を mouseDownTarget.current に保存します。',
-                'onClick イベントで、e.target と mouseDownTarget.current の両方が dialogRef.current（= backdrop 領域）であることを確認します。',
-                'これにより、Dialog 内でドラッグ操作を開始して backdrop 上でリリースした場合は閉じなくなります。',
+                'イベントが発生した要素は e.target で取得できます',
+                'backdrop は dialog 要素自体なので dialogRef.current と比較します',
               ]}
-              keywords={['onMouseDown', 'mouseDownTarget.current = e.target', 'mouseDownTarget.current === dialogRef.current', 'e.target === dialogRef.current']}
+              keywords={['e.target', 'dialogRef.current']}
             />
           </section>
 

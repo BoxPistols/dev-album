@@ -896,7 +896,7 @@ function App() {
 
             <CodingChallenge
               title="条件分岐とリストを含む JSX を書こう"
-              description="メンバーリストを表示するコンポーネントを作成してください。members 配列を map で表示し、members が空の場合は「メンバーがいません」と表示するようにしましょう。"
+              description="メンバーリストを表示するコンポーネントを完成させてください。___ の部分を埋めて、(1) showTitle が true のときだけタイトルを表示、(2) members を map でリスト表示してください。"
               preview
               initialCode={`function MemberList() {
   const members = ["田中", "鈴木", "佐藤"]
@@ -904,11 +904,17 @@ function App() {
 
   return (
     <div>
-      {/* showTitle が true のときだけ h2 を表示 */}
+      {___ && <h2>メンバー一覧</h2>}
 
-      {/* members が空なら「メンバーがいません」を表示 */}
-      {/* members があれば ul > li でリスト表示 */}
-
+      {members.length === 0 ? (
+        <p>メンバーがいません</p>
+      ) : (
+        <ul>
+          {members.___((___, index) => (
+            <li key={index}>{member}</li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -936,11 +942,11 @@ export default MemberList`}
 }
 
 export default MemberList`}
-              keywords={['showTitle &&', 'members.length', 'members.map']}
+              keywords={['showTitle &&', 'members.map', '(member,']}
               hints={[
-                '&& 演算子で showTitle が true のときだけ <h2> を表示しましょう',
-                '三項演算子で members.length === 0 の場合と、そうでない場合を分岐させましょう',
-                'members.map((member, index) => ...) でリストを表示し、key={index} を忘れずに',
+                '&& 演算子の左辺には条件となる変数を入れます',
+                '配列をリスト表示するには .map() メソッドを使います',
+                'map のコールバック引数には各要素を受け取る変数名を書きます',
               ]}
             />
           </section>

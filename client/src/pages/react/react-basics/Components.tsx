@@ -769,12 +769,12 @@ export default App`}
 
             <CodingChallenge
               title="ProfileCard コンポーネントを作ろう"
-              description="名前、役職、スキルリストを表示する ProfileCard コンポーネントを作成してください。変数を使ってデータを定義し、JSX の中で表示しましょう。スキルは配列の map で表示します。"
+              description="ProfileCard コンポーネントを完成させてください。___ の部分を埋めて、変数の値を JSX に埋め込み、スキルをリスト表示しましょう。"
               preview
               initialCode={`function ProfileCard() {
-  const name = ""
-  const role = ""
-  const skills = []
+  const name = "田中太郎"
+  const role = "UI デザイナー"
+  const skills = ["Figma", "React", "TypeScript"]
 
   return (
     <div style={{
@@ -783,8 +783,14 @@ export default App`}
       border: '1px solid #E5E7EB',
       maxWidth: '320px',
     }}>
-      {/* ここにプロフィール情報を表示 */}
-
+      <h2 style={{ margin: '0 0 4px 0' }}>{___}</h2>
+      <p style={{ color: '#6B7280', margin: '0 0 16px 0' }}>{___}</p>
+      <h4 style={{ margin: '0 0 8px 0' }}>スキル</h4>
+      <ul>
+        {skills.___((___, index) => (
+          <li key={index}>{skill}</li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -815,11 +821,11 @@ export default ProfileCard`}
 }
 
 export default ProfileCard`}
-              keywords={['{name}', '{role}', 'skills.map']}
+              keywords={['{name}', '{role}', 'skills.map', '(skill,']}
               hints={[
-                'name、role、skills に値を入れましょう（例: skills = ["Figma", "React"]）',
-                '{name} や {role} で変数の値をJSXの中に埋め込みます',
-                'skills.map((skill, index) => <li key={index}>{skill}</li>) でリストを表示できます',
+                '波括弧 {変数名} で変数の値を JSX に埋め込めます',
+                '配列をリスト表示するには .map() メソッドを使います',
+                'map のコールバック引数には各要素を受け取る変数名（skill）を書きます',
               ]}
             />
           </section>

@@ -758,7 +758,7 @@ export default meta;
 
             <CodingChallenge
               title="コンポーネントショーケースを作ってみよう"
-              description="Storybook では、1つのコンポーネントのさまざまなバリエーションを並べて表示します。下のコードを編集して、Alert コンポーネントに「warning」バリエーション（黄色背景 #FEF3C7、ボーダー #F59E0B、テキスト #92400E）を追加してください。"
+              description="Warning バリエーションの ___ を埋めてください。既存の Info/Success/Error と同じパターンで、黄色系のカラーを適用します。"
               preview={true}
               initialCode={`function AlertShowcase() {
   const base = {
@@ -787,7 +787,9 @@ export default meta;
         Error: エラーが発生しました
       </div>
 
-      {/* ここに Warning バリエーションを追加 */}
+      <div style={{ ...base, background: '___', borderColor: '___', color: '___' }}>
+        Warning: 入力内容を確認してください
+      </div>
     </div>
   );
 }`}
@@ -825,11 +827,10 @@ export default meta;
   );
 }`}
               hints={[
-                '既存の Alert（Info, Success, Error）のパターンを参考にしてください',
-                'background: "#FEF3C7", borderColor: "#F59E0B", color: "#92400E" を使います',
-                '<div style={{ ...base, background: "#FEF3C7", borderColor: "#F59E0B", color: "#92400E" }}>Warning: ...</div>',
+                'Warning の背景色は黄色系の #FEF3C7 です',
+                'ボーダー色は #F59E0B、テキスト色は #92400E です',
               ]}
-              keywords={['#FEF3C7', '#F59E0B', '#92400E', 'Warning']}
+              keywords={['#FEF3C7', '#F59E0B', '#92400E']}
             />
 
             <InfoBox type="success" title="このステップのまとめ">

@@ -993,7 +993,7 @@ echo "storybook-static" >> .gitignore`}
           <section>
             <CodingChallenge
               title="preview.ts にグローバルデコレーターを追加しよう"
-              description="すべての Story に padding: 24px の余白と、1px solid の枠線を適用するグローバルデコレーターを完成させてください。Story コンポーネントを div でラップし、インラインスタイルで余白と枠線を設定します。"
+              description="デコレーター関数の ___ を埋めてください。Story を div でラップし、padding と border のスタイルを追加します。"
               preview={true}
               initialCode={`function Story() {
   return <button style={{ padding: '8px 20px', background: '#ff4785', color: '#fff', border: 'none', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}>Click me</button>;
@@ -1003,7 +1003,9 @@ echo "storybook-static" >> .gitignore`}
 function withPaddingAndBorder(StoryFn) {
   return (
     <div style={{
-      /* ここにスタイルを追加してください */
+      padding: '___', // ← ここを埋める（余白サイズ）
+      border: '___', // ← ここを埋める（枠線スタイル）
+      borderRadius: '8px',
     }}>
       <StoryFn />
     </div>
@@ -1033,11 +1035,10 @@ function withPaddingAndBorder(StoryFn) {
 function DecoratedResult() {
   return withPaddingAndBorder(Story);
 }`}
-              keywords={['padding', '24px', 'border', '1px solid', '<StoryFn']}
+              keywords={["'24px'", '1px solid']}
               hints={[
-                'padding: "24px" で上下左右に24pxの余白を設定します',
-                'border: "1px solid var(--border, #e0e0e0)" で枠線を追加します',
-                'デコレーターは Story をラップするだけなので、StoryFn の呼び出しはそのままにしてスタイルだけ追加します',
+                'padding の値は 24px です',
+                'border は "1px solid" で始まるCSS短縮形です',
               ]}
             />
           </section>

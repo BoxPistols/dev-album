@@ -1143,7 +1143,7 @@ function App() {
           <section>
             <CodingChallenge
               title="カテゴリフィルター付き商品リスト"
-              description="商品データの配列から、選択されたカテゴリの商品だけを表示するフィルタリングロジックを完成させてください。'all' の場合は全商品を返します。"
+              description="フィルタリングロジックの ___ を埋めてください。'all' なら全商品、それ以外はカテゴリで絞り込みます。"
               initialCode={`const products = [
   { id: 1, name: 'ノートPC', category: 'electronics', price: 89000 },
   { id: 2, name: 'デスクチェア', category: 'furniture', price: 45000 },
@@ -1152,10 +1152,11 @@ function App() {
   { id: 5, name: 'キーボード', category: 'electronics', price: 12000 },
 ];
 
-const selectedCategory = 'electronics'; // 'all' | 'electronics' | 'furniture'
+const selectedCategory = 'electronics';
 
-// ここにフィルタリングのコードを書いてください
-const filteredProducts = products;`}
+const filteredProducts = selectedCategory === '___' // ← ここを埋める
+  ? products
+  : products.___((_product) => _product.category === selectedCategory); // ← ここを埋める（配列メソッド名）`}
               answer={`const products = [
   { id: 1, name: 'ノートPC', category: 'electronics', price: 89000 },
   { id: 2, name: 'デスクチェア', category: 'furniture', price: 45000 },
@@ -1169,11 +1170,10 @@ const selectedCategory = 'electronics'; // 'all' | 'electronics' | 'furniture'
 const filteredProducts = selectedCategory === 'all'
   ? products
   : products.filter((product) => product.category === selectedCategory);`}
-              keywords={['filteredProducts', '.filter(', 'selectedCategory']}
+              keywords={["'all'", 'products.filter(']}
               hints={[
-                'selectedCategory が "all" のときは products をそのまま返します。',
-                '.filter() メソッドを使って、product.category が selectedCategory と一致するものだけを抽出します。',
-                '三項演算子を使うとスッキリ書けます: selectedCategory === "all" ? products : products.filter(...)',
+                '全商品を表示する条件は selectedCategory が "all" の場合です',
+                '条件に合う要素だけを残す配列メソッドは .filter() です',
               ]}
             />
           </section>

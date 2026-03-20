@@ -1022,9 +1022,19 @@ function Layout() {
           <section>
             <CodingChallenge
               title="デザイントークンの CSS 変数定義"
-              description="以下の要件を満たす CSS カスタムプロパティ（変数）を :root で定義してください。色は primary (#3b82f6), success (#10b981), danger (#ef4444)。スペーシングは sm (8px), md (16px), lg (24px)。角丸は sm (4px), md (8px), lg (12px)。"
+              description=":root の CSS カスタムプロパティの ___ を埋めてください。--カテゴリ-名前 の命名規則で、色・スペーシング・角丸のトークンを定義します。"
               initialCode={`:root {
-  /* ここにデザイントークンを定義 */
+  --color-___: #3b82f6; // ← ここを埋める（トークン名）
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+
+  --___-sm: 8px; // ← ここを埋める（カテゴリ名）
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }`}
               answer={`:root {
   --color-primary: #3b82f6;
@@ -1039,11 +1049,10 @@ function Layout() {
   --radius-md: 8px;
   --radius-lg: 12px;
 }`}
-              keywords={['--color-primary', '--spacing-sm', '--radius-sm', '#3b82f6', '#10b981']}
+              keywords={['--color-primary', '--spacing-sm']}
               hints={[
-                'CSS カスタムプロパティは -- で始まります（例: --color-primary: #3b82f6;）',
-                'カテゴリごとにプレフィックスを揃えると管理しやすくなります（--color-*, --spacing-*, --radius-*）',
-                'var(--color-primary) のように使用するため、名前は分かりやすく付けましょう',
+                '#3b82f6 はブランドの主要な青色なので、トークン名は primary です',
+                '8px, 16px, 24px はスペーシング（余白）の値なので、カテゴリ名は spacing です',
               ]}
             />
           </section>

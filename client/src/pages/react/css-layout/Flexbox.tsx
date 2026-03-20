@@ -668,12 +668,17 @@ export default function Flexbox() {
           <section>
             <CodingChallenge
               title="ヘッダーレイアウトを Flexbox で作る"
-              description="以下の要件を満たすヘッダーを Flexbox で作ってください。(1) 子要素を横並びにする (2) 交差軸方向は中央揃え (3) 両端に要素を配置（space-between）(4) 高さ 64px (5) 左右のパディング 24px (6) 要素間の隙間 16px"
+              description="ヘッダーの ___ を埋めてください。Flexbox で横並び・中央揃え・両端配置のレイアウトを作ります。"
               preview={true}
               initialCode={`function Header() {
   return (
     <div style={{
-      /* ここにスタイルを書いてください */
+      display: '___', // ← ここを埋める（レイアウトモード）
+      alignItems: '___', // ← ここを埋める（交差軸の配置）
+      justifyContent: '___', // ← ここを埋める（主軸の配置）
+      height: '64px',
+      padding: '0 24px',
+      gap: '16px',
       background: 'var(--bg)',
       border: '1px solid var(--border)',
       borderRadius: '8px',
@@ -709,12 +714,11 @@ export default function Flexbox() {
     </div>
   );
 }`}
-              keywords={['display', 'flex', 'alignItems', 'center', 'justifyContent', 'space-between', 'height', 'gap']}
+              keywords={["'flex'", "'center'", "'space-between'"]}
               hints={[
-                'display: "flex" で子要素を横並びにします',
-                'alignItems: "center" は交差軸（縦方向）の配置を制御します',
-                'justifyContent: "space-between" で両端揃えにします',
-                'gap で要素間のスペースを統一的に指定できます',
+                '子要素を横並びにするレイアウトモードは flex です',
+                '交差軸の中央揃えは center です',
+                '両端に配置する値は space-between です',
               ]}
             />
           </section>
@@ -723,19 +727,19 @@ export default function Flexbox() {
           <section>
             <CodingChallenge
               title="サイドバー + メインの2カラムレイアウト"
-              description="Flexbox で2カラムレイアウトを作成してください。要件: (1) 親要素を Flex Container にする (2) sidebar は幅 150px で固定（伸びない・縮まない）(3) main は残りの幅をすべて使う (4) 全体の高さは 180px (5) 長いテキストがはみ出さないように minWidth: 0 を設定"
+              description="2カラムレイアウトの ___ を埋めてください。sidebar は固定幅、main は残りの幅を使います。"
               preview={true}
               initialCode={`function TwoColumn() {
   return (
     <div style={{
-      /* ここに Flex Container のスタイルを書いてください */
+      display: 'flex',
       height: '180px',
       border: '1px solid var(--border)',
       borderRadius: '8px',
       overflow: 'hidden',
     }}>
       <aside style={{
-        /* ここにサイドバーのスタイルを書いてください */
+        flex: '___', // ← ここを埋める（伸びない・縮まない・150px固定）
         background: 'var(--bg-accent)',
         padding: '16px',
         borderRight: '1px solid var(--border)',
@@ -743,7 +747,8 @@ export default function Flexbox() {
         <p style={{ color: 'var(--text)', fontWeight: 700, fontSize: '14px' }}>Sidebar</p>
       </aside>
       <main style={{
-        /* ここにメインコンテンツのスタイルを書いてください */
+        flex: ___, // ← ここを埋める（残りの幅をすべて使う）
+        minWidth: 0,
         background: 'var(--bg)',
         padding: '16px',
       }}>
@@ -782,12 +787,10 @@ export default function Flexbox() {
     </div>
   );
 }`}
-              keywords={['display', 'flex', '0 0 150px', 'flex: 1', 'minWidth', '0']}
+              keywords={["'0 0 150px'", 'flex: 1']}
               hints={[
-                '親の div に display: "flex" を指定して子要素を横並びにします',
-                'flex: "0 0 150px" は「伸びない(0)・縮まない(0)・150px固定」という意味です',
-                'flex: 1 は残りの余白をすべて吸収して埋めます',
-                'minWidth: 0 を忘れると、長いテキストがあるとき main がはみ出します',
+                'flex: "0 0 150px" は grow(0) shrink(0) basis(150px) の短縮形です',
+                'flex: 1 で残りの余白をすべて使います',
               ]}
             />
           </section>

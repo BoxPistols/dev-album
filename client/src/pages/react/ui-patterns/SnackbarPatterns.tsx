@@ -1561,10 +1561,12 @@ async function uploadFiles(files: File[]) {
             <CodingChallenge
               preview={true}
               title="Toast の型定義と Reducer を実装しよう"
-              description="通知システムの核となる型定義と Reducer を完成させてください。Toast 型には id (string), message (string), type ('success' | 'error' | 'info'), duration (number | null) を定義します。Reducer は ADD アクションで通知を配列の末尾に追加し、REMOVE アクションで指定 id の通知を除外してください。"
-              initialCode={`// Toast の型を定義してください
-interface Toast {
-  // ここに型を定義
+              description="toastReducer の ___ を埋めてください。ADD で配列末尾に追加し、REMOVE で指定 id を除外します。"
+              initialCode={`interface Toast {
+  id: string;
+  message: string;
+  type: 'success' | 'error' | 'info';
+  duration: number | null;
 }
 
 type Action =
@@ -1572,7 +1574,14 @@ type Action =
   | { type: 'REMOVE'; id: string };
 
 function toastReducer(state: Toast[], action: Action): Toast[] {
-  // ここに Reducer のロジックを実装
+  switch (action.type) {
+    case 'ADD':
+      return [...state, action.___]; // ← ここを埋める（追加する要素）
+    case 'REMOVE':
+      return state.___((_t) => _t.id !== action.id); // ← ここを埋める（配列メソッド名）
+    default:
+      return state;
+  }
 }`}
               answer={`interface Toast {
   id: string;
@@ -1595,22 +1604,10 @@ function toastReducer(state: Toast[], action: Action): Toast[] {
       return state;
   }
 }`}
-              keywords={[
-                'id: string',
-                'message: string',
-                "| 'error'",
-                'duration:',
-                'case \'ADD\'',
-                'case \'REMOVE\'',
-                '...state',
-                'action.toast',
-                'filter',
-              ]}
+              keywords={['action.toast', 'state.filter(']}
               hints={[
-                'Toast の type フィールドはユニオン型（リテラル型の OR）で定義します',
-                'duration が null の場合は「自動消去しない」を意味します',
-                'ADD では スプレッド構文で既存の配列に新しい要素を追加します',
-                'REMOVE では filter メソッドで該当 id 以外の要素を残します',
+                'ADD アクションで追加する要素は action オブジェクトの toast プロパティです',
+                '条件に合わない要素を除外する配列メソッドは filter です',
               ]}
             />
           </section>

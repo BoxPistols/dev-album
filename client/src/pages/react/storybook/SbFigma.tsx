@@ -1019,24 +1019,26 @@ jobs:
 
             <CodingChallenge
               title="デザイントークン ショーケースを作ろう"
-              description="カラーパレットとタイポグラフィスケールを表示するデザイントークン ショーケースを完成させてください。colors 配列にブランドカラーを追加し、typography 配列にフォントサイズのバリエーションを追加しましょう。"
+              description="colors と typography 配列の ___ を埋めてください。Success（緑）と Body（本文サイズ）のデザイントークンを追加します。"
               preview={true}
               initialCode={`function TokenShowcase() {
-  // カラーパレットを定義してください（name, value のオブジェクト配列）
   const colors = [
     { name: 'Primary', value: '#3b82f6' },
-    // ここにカラーを追加...
+    { name: 'Secondary', value: '#8b5cf6' },
+    { name: '___', value: '#22c55e' }, // ← ここを埋める（トークン名）
+    { name: 'Warning', value: '#f59e0b' },
+    { name: 'Danger', value: '#ef4444' },
   ];
 
-  // タイポグラフィスケールを定義してください（name, size, weight のオブジェクト配列）
   const typography = [
     { name: 'Heading', size: '28px', weight: '700' },
-    // ここにタイポグラフィを追加...
+    { name: 'Subheading', size: '20px', weight: '600' },
+    { name: '___', size: '16px', weight: '400' }, // ← ここを埋める（トークン名）
+    { name: 'Caption', size: '12px', weight: '400' },
   ];
 
   return (
     <div style={{ padding: '24px', fontFamily: 'system-ui, sans-serif' }}>
-      {/* カラーパレットセクション */}
       <h3 style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '12px' }}>
         Color Palette
       </h3>
@@ -1050,7 +1052,6 @@ jobs:
         ))}
       </div>
 
-      {/* タイポグラフィセクション */}
       <h3 style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: '12px' }}>
         Typography Scale
       </h3>
@@ -1111,11 +1112,10 @@ jobs:
   );
 }`}
               hints={[
-                'colors 配列に Secondary (#8b5cf6), Success (#22c55e), Warning (#f59e0b), Danger (#ef4444) を追加しましょう。',
-                'typography 配列に Subheading (20px/600), Body (16px/400), Caption (12px/400) を追加しましょう。',
-                'プレビューでカラースウォッチとフォントサイズのバリエーションが表示されれば成功です。',
+                '緑色 #22c55e に対応するトークン名は Success です',
+                '16px/400 の本文サイズに対応するトークン名は Body です',
               ]}
-              keywords={['Secondary', 'Success', 'Warning', 'Danger', '#8b5cf6', '#22c55e', '#f59e0b', '#ef4444', 'Subheading', 'Body', 'Caption']}
+              keywords={["'Success'", "'Body'"]}
             />
           </section>
 

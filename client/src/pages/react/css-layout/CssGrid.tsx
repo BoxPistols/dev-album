@@ -668,7 +668,7 @@ export default function CssGrid() {
               ================================================================ */}
           <CodingChallenge
             title="レスポンシブカードグリッドを作成しよう"
-            description="auto-fill と minmax を使って、メディアクエリなしで画面幅に応じてカード数が変わるグリッドを作成してください。gridTemplateColumns に repeat(auto-fill, minmax(100px, 1fr)) を、gap に '16px' を設定してください。"
+            description="カードグリッドの ___ を埋めてください。auto-fill と minmax で画面幅に応じて自動的にカード数が変わるレスポンシブグリッドを作ります。"
             preview={true}
             initialCode={`function CardGrid() {
   var items = [1, 2, 3, 4, 5, 6];
@@ -676,8 +676,8 @@ export default function CssGrid() {
   return (
     <div style={{
       display: 'grid',
-      /* gridTemplateColumns をここに追加 */
-      /* gap をここに追加 */
+      gridTemplateColumns: 'repeat(___, minmax(100px, ___))', // ← ここを埋める
+      gap: '16px',
       padding: '16px'
     }}>
       {items.map(function(n) {
@@ -702,11 +702,10 @@ export default function CssGrid() {
     </div>
   );
 }`}
-            keywords={['gridTemplateColumns', 'repeat(auto-fill', 'minmax(', '1fr)', 'gap']}
+            keywords={['auto-fill', '1fr']}
             hints={[
-              'gridTemplateColumns プロパティに文字列として CSS の値を設定します',
-              'repeat(auto-fill, minmax(100px, 1fr)) でコンテナに収まるだけ列が自動生成されます',
-              'gap: \'16px\' でアイテム間の間隔を設定します',
+              'コンテナに収まるだけ列を自動生成するキーワードは auto-fill です',
+              '残りの幅をすべて使う単位は 1fr です',
             ]}
           />
 
@@ -956,7 +955,7 @@ export default function CssGrid() {
               ================================================================ */}
           <CodingChallenge
             title="grid-template-areas でダッシュボードを作ろう"
-            description="3列構成のダッシュボードを作成してください。1行目はヘッダーが全幅、2行目は nav(1列) + main(2列)、3行目はフッターが全幅を占める構成にしてください。gridTemplateAreas を設定し、各子要素の gridArea を適切に指定してください。"
+            description="ダッシュボードの ___ を埋めてください。gridTemplateAreas でエリア名を定義し、各要素の gridArea で配置先を指定します。"
             preview={true}
             initialCode={`function Dashboard() {
   var area = function(label, bg) {
@@ -967,14 +966,14 @@ export default function CssGrid() {
       display: 'grid',
       gridTemplateColumns: '100px 1fr 1fr',
       gridTemplateRows: '40px 100px 40px',
-      /* gridTemplateAreas をここに追加 */
+      gridTemplateAreas: '"header header header" "nav ___ ___" "footer footer footer"', // ← ここを埋める
       gap: '6px',
       padding: '12px'
     }}>
-      <div style={Object.assign({/* gridArea をここに追加 */}, area('Header', 'var(--bg-accent)'))}>Header</div>
-      <div style={Object.assign({/* gridArea をここに追加 */}, area('Nav', 'var(--bg-muted)'))}>Nav</div>
-      <div style={Object.assign({/* gridArea をここに追加 */}, area('Main', 'var(--bg-accent)'))}>Main</div>
-      <div style={Object.assign({/* gridArea をここに追加 */}, area('Footer', 'var(--bg-muted)'))}>Footer</div>
+      <div style={Object.assign({ gridArea: '___' }, area('Header', 'var(--bg-accent)'))}>Header</div>
+      <div style={Object.assign({ gridArea: 'nav' }, area('Nav', 'var(--bg-muted)'))}>Nav</div>
+      <div style={Object.assign({ gridArea: 'main' }, area('Main', 'var(--bg-accent)'))}>Main</div>
+      <div style={Object.assign({ gridArea: '___' }, area('Footer', 'var(--bg-muted)'))}>Footer</div>
     </div>
   );
 }`}
@@ -998,21 +997,10 @@ export default function CssGrid() {
     </div>
   );
 }`}
-            keywords={[
-              'gridTemplateAreas',
-              'header header header',
-              'nav main main',
-              'footer footer footer',
-              "gridArea: 'header'",
-              "gridArea: 'nav'",
-              "gridArea: 'main'",
-              "gridArea: 'footer'",
-            ]}
+            keywords={['nav main main', "gridArea: 'header'", "gridArea: 'footer'"]}
             hints={[
-              'gridTemplateAreas は文字列で指定します。例: \'"a a b" "c d d"\'',
-              'ヘッダーとフッターは3列すべてに同じ名前を書きます: "header header header"',
-              '2行目は "nav main main" で nav が1列、main が2列になります',
-              '各子要素に gridArea: \'エリア名\' を Object.assign の中に設定します',
+              '2行目は nav が1列、main が2列を占めるので "nav main main" です',
+              '各要素の gridArea はテンプレートで定義したエリア名と一致させます',
             ]}
           />
 

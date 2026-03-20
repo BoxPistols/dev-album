@@ -1220,16 +1220,16 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
           <section>
             <CodingChallenge
               title="アクセシブルなナビゲーションを作成"
-              description="以下のコードをアクセシブルに修正してください。div を適切なセマンティック要素に置き換え、必要な ARIA 属性を追加し、現在のページ（/products）には aria-current を設定してください。"
+              description="ナビゲーションの ___ を埋めてください。セマンティックな要素と ARIA 属性で、スクリーンリーダーに情報を伝えます。"
               preview={true}
-              initialCode={`<div className="nav-wrapper">
-  <div className="nav-list">
-    <a href="/">ホーム</a>
-    <a href="/products">商品一覧</a>
-    <a href="/about">会社概要</a>
-    <a href="/contact">お問い合わせ</a>
-  </div>
-</div>`}
+              initialCode={`<___ aria-label="メインナビゲーション">
+  <ul>
+    <li><a href="/">ホーム</a></li>
+    <li><a href="/products" ___="page">商品一覧</a></li>
+    <li><a href="/about">会社概要</a></li>
+    <li><a href="/contact">お問い合わせ</a></li>
+  </ul>
+</nav>`}
               answer={`<nav aria-label="メインナビゲーション">
   <ul>
     <li><a href="/">ホーム</a></li>
@@ -1238,12 +1238,10 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
     <li><a href="/contact">お問い合わせ</a></li>
   </ul>
 </nav>`}
-              keywords={['<nav', 'aria-label', '<ul>', '<li>', 'aria-current="page"']}
+              keywords={['<nav', 'aria-current']}
               hints={[
-                'ナビゲーションのリンク群は nav 要素で囲みます',
-                'nav が複数存在する可能性を考え、aria-label で名前を付けましょう',
-                'リンクのリストは意味的に ul > li でマークアップします',
-                '現在のページ（/products）には aria-current="page" を付けます',
+                'ナビゲーションを表すセマンティック要素は nav です',
+                '現在のページを示す ARIA 属性は aria-current です',
               ]}
             />
           </section>
@@ -1252,15 +1250,19 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
           <section>
             <CodingChallenge
               title="アクセシブルなアコーディオンボタンを実装"
-              description={'以下のアコーディオンのトリガーボタンに、適切な ARIA 属性を追加してください。ボタンは現在「閉じている」状態です。制御対象のパネルの id は "faq-panel-1" です。'}
+              description={'ボタンの ___ を埋めてください。ARIA 属性で開閉状態と制御対象のパネルを伝えます。閉じている状態です。'}
               preview={true}
               initialCode={`<h3>
-  <button onClick={toggle}>
+  <button
+    ___="false"
+    ___="faq-panel-1"
+    onClick={toggle}
+  >
     よくある質問
-    <ChevronIcon />
+    <ChevronIcon aria-hidden="true" />
   </button>
 </h3>
-<div id="faq-panel-1" hidden>
+<div id="faq-panel-1" role="region" hidden>
   <p>回答の内容がここに表示されます...</p>
 </div>`}
               answer={`<h3>
@@ -1276,11 +1278,10 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
 <div id="faq-panel-1" role="region" aria-labelledby="faq-button-1" hidden>
   <p>回答の内容がここに表示されます...</p>
 </div>`}
-              keywords={['aria-expanded', 'aria-controls="faq-panel-1"', 'aria-hidden="true"']}
+              keywords={['aria-expanded', 'aria-controls']}
               hints={[
-                'button に aria-expanded を追加して開閉状態を伝えます。閉じているので "false" です',
-                'aria-controls でボタンが制御するパネルの id を指定します',
-                'ChevronIcon は装飾なので aria-hidden="true" で隠します',
+                '開閉状態を伝える ARIA 属性は aria-expanded です',
+                'ボタンが制御する要素の id を指定する属性は aria-controls です',
               ]}
             />
           </section>
@@ -1289,13 +1290,20 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
           <section>
             <CodingChallenge
               title="フォームのアクセシビリティ改善"
-              description="以下のフォームにアクセシビリティの問題があります。label の関連付け、エラーメッセージの紐付け、aria-invalid の追加を行ってください。emailError には 'メールアドレスの形式が正しくありません' が入っています。"
+              description="フォームの ___ を埋めてください。label と input の関連付け、エラーメッセージの紐付けを行います。"
               preview={true}
               initialCode={`<div>
-  <span>メールアドレス</span>
-  <input type="email" />
+  <___ htmlFor="email">メールアドレス</___>
+  <input
+    id="email"
+    type="email"
+    ___={!!emailError}
+    aria-describedby={emailError ? "email-error" : undefined}
+  />
   {emailError && (
-    <span style={{ color: 'red' }}>{emailError}</span>
+    <p id="email-error" role="alert">
+      {emailError}
+    </p>
   )}
 </div>`}
               answer={`<div>
@@ -1312,13 +1320,10 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
     </p>
   )}
 </div>`}
-              keywords={['<label', 'htmlFor', 'aria-invalid', 'aria-describedby', 'id="email-error"', 'role="alert"']}
+              keywords={['<label', 'aria-invalid']}
               hints={[
-                'span をlabel 要素に変更し、htmlFor で input の id と紐付けます',
-                'input に id を追加して label と関連付けます',
-                'エラーがある場合は aria-invalid={true} を設定します',
-                'エラーメッセージに id を付け、input の aria-describedby で参照します',
-                'エラーメッセージには role="alert" を追加するとスクリーンリーダーが即座に読み上げます',
+                'フォーム要素にラベルを関連付けるセマンティック要素は label です',
+                'エラー状態を伝える ARIA 属性は aria-invalid です',
               ]}
             />
           </section>
