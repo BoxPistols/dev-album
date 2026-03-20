@@ -891,12 +891,17 @@ function App() {
           <section>
             <CodingChallenge
               title="クリックカウンター + キーボードショートカット"
-              description="ボタンのクリックでカウントアップし、キーボードショートカット（r キーでリセット、上矢印キーでカウントアップ、下矢印キーでカウントダウン）に対応するコンポーネントを完成させてください。onKeyDown ハンドラの中身を書いてください。"
+              description="handleKeyDown の ___ を埋めてください。e.key でキーを判定し、r でリセット、上矢印でカウントアップ、下矢印でカウントダウンします。"
               initialCode={`const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-  // ここにコードを書いてください
-  // 'r' キーでカウントを0にリセット
-  // 'ArrowUp' キーでカウントアップ
-  // 'ArrowDown' キーでカウントを0以上の範囲でダウン
+  if (e.key === '___') { // ← ここを埋める（リセットキー）
+    setCount(0);
+  }
+  if (e.key === '___') { // ← ここを埋める（カウントアップキー）
+    setCount((prev) => prev + 1);
+  }
+  if (e.key === '___') { // ← ここを埋める（カウントダウンキー）
+    setCount((prev) => Math.max(0, prev - 1));
+  }
 };`}
               answer={`const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
   if (e.key === 'r') {
@@ -909,11 +914,11 @@ function App() {
     setCount((prev) => Math.max(0, prev - 1));
   }
 };`}
-              keywords={["e.key === 'r'", "e.key === 'ArrowUp'", "e.key === 'ArrowDown'", 'setCount']}
+              keywords={["'r'", "'ArrowUp'", "'ArrowDown'"]}
               hints={[
-                'e.key でどのキーが押されたかを判別できます。',
-                'リセットには setCount(0) を使います。',
-                '0未満にならないようにするには Math.max(0, prev - 1) を使うと便利です。',
+                'リセットキーは小文字の r です',
+                '上矢印キーの e.key 値は ArrowUp です',
+                '下矢印キーの e.key 値は ArrowDown です',
               ]}
             />
           </section>

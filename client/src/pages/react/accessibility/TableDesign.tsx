@@ -1853,10 +1853,28 @@ function UserTable({ users }: { users: User[] }) {
             <CodingChallenge
               preview={true}
               title="アクセシブルなテーブルを作る"
-              description="以下の要件を満たすセマンティックな HTML テーブルを作成してください。(1) caption で「月別売上レポート」と表示、(2) thead のヘッダーに scope='col' を付与、(3) 各行の最初のセルを th にして scope='row' を付与、(4) カラムは「月」「売上」「目標」の3列。データは1月と2月の2行。"
-              initialCode={`<!-- ここにテーブルを記述 -->
-<table>
-
+              description="テーブルの ___ を埋めてください。caption でテーブルの説明を追加し、scope 属性でヘッダーの方向を明示します。"
+              initialCode={`<table>
+  <___>月別売上レポート</___>
+  <thead>
+    <tr>
+      <th scope="___">月</th>
+      <th scope="col">売上</th>
+      <th scope="col">目標</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="___">1月</th>
+      <td>500万円</td>
+      <td>480万円</td>
+    </tr>
+    <tr>
+      <th scope="row">2月</th>
+      <td>520万円</td>
+      <td>500万円</td>
+    </tr>
+  </tbody>
 </table>`}
               answer={`<table>
   <caption>月別売上レポート</caption>
@@ -1880,11 +1898,10 @@ function UserTable({ users }: { users: User[] }) {
     </tr>
   </tbody>
 </table>`}
-              keywords={['caption', 'scope="col"', 'scope="row"', 'thead', 'tbody', '<th']}
+              keywords={['caption', 'scope="col"', 'scope="row"']}
               hints={[
-                'caption 要素は table の直下、thead の前に配置します',
-                '列ヘッダーには scope="col"、行ヘッダーには scope="row" を使います',
-                '行ヘッダー（月の名前）は td ではなく th 要素にします',
+                'テーブルの説明を提供する要素は caption です',
+                '列ヘッダーには scope="col"、行ヘッダーには scope="row" を指定します',
               ]}
             />
           </section>
@@ -1896,18 +1913,24 @@ function UserTable({ users }: { users: User[] }) {
             <CodingChallenge
               preview={true}
               title="横スクロール + 固定カラムの CSS"
-              description="以下の要件を満たす CSS を記述してください。(1) .table-wrapper に横スクロールを設定、(2) table に最小幅 900px を設定、(3) 最初のカラム（th:first-child, td:first-child）を position: sticky で左端に固定、(4) 固定カラムに背景色 white を設定（下のセルが透けないように）。border-collapse は separate、border-spacing は 0 にしてください。"
+              description="各セレクタの ___ を埋めてください。横スクロール可能なラッパーと、最初のカラムを sticky で固定する CSS を作成します。"
               initialCode={`.table-wrapper {
-  /* 横スクロールの設定 */
+  overflow-x: ___; // ← ここを埋める
 }
 
 .table-wrapper table {
-  /* テーブルの基本設定 */
+  min-width: 900px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .table-wrapper th:first-child,
 .table-wrapper td:first-child {
-  /* 固定カラムの設定 */
+  position: ___; // ← ここを埋める
+  left: 0;
+  z-index: 1;
+  background: white;
 }`}
               answer={`.table-wrapper {
   overflow-x: auto;
@@ -1927,12 +1950,10 @@ function UserTable({ users }: { users: User[] }) {
   z-index: 1;
   background: white;
 }`}
-              keywords={['overflow-x: auto', 'min-width: 900px', 'position: sticky', 'left: 0', 'background: white', 'border-collapse: separate']}
+              keywords={['overflow-x: auto', 'position: sticky']}
               hints={[
-                '横スクロールは overflow-x: auto をラッパーに設定します',
-                'sticky カラムには left: 0 で左端に固定する位置を指定します',
-                '背景色がないと、スクロール時に下のセルが透けて見えます',
-                'sticky と border-collapse: collapse は相性が悪いので、separate を使います',
+                '必要に応じてスクロールバーを表示する値は auto です',
+                'スクロールしても固定位置に留まるポジション値は sticky です',
               ]}
             />
           </section>
@@ -1944,9 +1965,30 @@ function UserTable({ users }: { users: User[] }) {
             <CodingChallenge
               preview={true}
               title="レスポンシブテーブルのカード化 CSS"
-              description="モバイル幅（max-width: 768px）でテーブルをカード形式に変換する CSS を記述してください。(1) thead を非表示にする、(2) 各 tr を display: block にして margin-bottom, border, border-radius, padding を設定、(3) 各 td を display: flex, justify-content: space-between にする、(4) td::before で content: attr(data-label) を使いカラム名を表示する。"
+              description="カード化 CSS の ___ を埋めてください。モバイル幅で thead を非表示にし、各行をカード形式に変換します。"
               initialCode={`@media (max-width: 768px) {
-  /* ここにカード化の CSS を記述 */
+  .responsive-table thead {
+    display: ___; // ← ここを埋める（非表示）
+  }
+
+  .responsive-table tbody tr {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .responsive-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .responsive-table tbody td::before {
+    content: ___(data-label); // ← ここを埋める（CSS関数名）
+    font-weight: 600;
+  }
 }`}
               answer={`@media (max-width: 768px) {
   .responsive-table thead {
@@ -1972,12 +2014,10 @@ function UserTable({ users }: { users: User[] }) {
     font-weight: 600;
   }
 }`}
-              keywords={['display: none', 'display: block', 'display: flex', 'justify-content: space-between', 'attr(data-label)']}
+              keywords={['display: none', 'attr(data-label)']}
               hints={[
-                'thead を display: none で非表示にします',
-                'tr を display: block にすることでテーブルの行レイアウトを解除します',
-                'td を display: flex にして、ラベルとデータを横並びにします',
-                'CSS の attr() 関数で HTML の data-label 属性の値を取得できます',
+                '要素を完全に非表示にする display 値は none です',
+                'HTML 属性の値を CSS で取得する関数は attr() です',
               ]}
             />
           </section>

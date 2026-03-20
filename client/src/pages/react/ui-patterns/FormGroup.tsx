@@ -761,10 +761,38 @@ function DynamicSkills() {
             <CodingChallenge
               preview={true}
               title="アクセシブルなお問い合わせフォーム"
-              description="以下の要件を満たすお問い合わせフォームの HTML を完成させてください。(1) fieldset + legend で「お問い合わせ内容」としてグループ化。(2) ラジオボタン群（一般/技術サポート/その他）を内側の fieldset + legend でグループ化。(3) 氏名・メールに label を for/id で紐付け。(4) メッセージ欄は textarea で required。"
+              description="フォームの ___ を埋めてください。fieldset + legend でグループ化し、label の for と input の id を紐付けます。"
               initialCode={`<form>
-  <!-- ここにフォーム構造を書いてください -->
+  <___>
+    <___>お問い合わせ内容</___>
 
+    <fieldset>
+      <legend>お問い合わせ種別</legend>
+      <label>
+        <input type="radio" name="type" value="general" />
+        一般
+      </label>
+      <label>
+        <input type="radio" name="type" value="support" />
+        技術サポート
+      </label>
+      <label>
+        <input type="radio" name="type" value="other" />
+        その他
+      </label>
+    </fieldset>
+
+    <label for="contact-name">氏名</label>
+    <input type="text" id="contact-name" name="name" required />
+
+    <label for="contact-email">メール</label>
+    <input type="email" id="contact-email" name="email" required />
+
+    <label for="contact-message">メッセージ</label>
+    <textarea id="contact-message" name="message" required></textarea>
+  </fieldset>
+
+  <button type="submit">送信</button>
 </form>`}
               answer={`<form>
   <fieldset>
@@ -799,11 +827,10 @@ function DynamicSkills() {
   <button type="submit">送信</button>
 </form>`}
               hints={[
-                'fieldset は入れ子にできます。ラジオボタン群は内側の fieldset でグループ化しましょう。',
-                'label の for 属性と input の id 属性を一致させます。',
-                'ラジオボタンの label は暗黙的ラベル（input を label で囲む）が簡潔です。',
+                'フォーム要素をグループ化する要素は fieldset です',
+                'グループのタイトルを定義する要素は legend です',
               ]}
-              keywords={['<fieldset>', '<legend>', 'for=', 'id=', '<textarea', 'required', 'type="radio"']}
+              keywords={['<fieldset>', '<legend>']}
             />
           </section>
 
@@ -812,13 +839,26 @@ function DynamicSkills() {
             <CodingChallenge
               preview={true}
               title="インラインエラー表示付き FormField コンポーネント"
-              description="React コンポーネント FormField を完成させてください。(1) label と input を for/id で紐付け（id は name から生成）。(2) error がある場合 aria-invalid を true に設定。(3) error がある場合エラーメッセージを p 要素で表示し、aria-describedby で紐付け。(4) エラーの p には role='alert' を付ける。"
+              description="FormField の ___ を埋めてください。label と input を紐付け、エラー時の ARIA 属性を設定します。"
               initialCode={`function FormField({ label, name, type = 'text', error }) {
   const id = \`field-\${name}\`;
+  const errorId = \`\${id}-error\`;
 
   return (
     <div>
-      {/* ここを実装してください */}
+      <label ___={id}>{label}</label>
+      <input
+        type={type}
+        id={id}
+        name={name}
+        ___={!!error}
+        aria-describedby={error ? errorId : undefined}
+      />
+      {error && (
+        <p id={errorId} role="___">
+          {error}
+        </p>
+      )}
     </div>
   );
 }`}
@@ -845,11 +885,11 @@ function DynamicSkills() {
   );
 }`}
               hints={[
-                'htmlFor は React での for 属性の書き方です。',
-                'aria-describedby の値はエラーメッセージ要素の id と一致させます。',
-                'error が存在しないときは aria-describedby を undefined にして属性を出力しないようにします。',
+                'React で label の for 属性を書くには htmlFor を使います',
+                'エラー状態を伝える ARIA 属性は aria-invalid です',
+                'スクリーンリーダーに即座に読み上げさせるロールは alert です',
               ]}
-              keywords={['htmlFor={id}', 'id={id}', 'aria-invalid', 'aria-describedby', 'role="alert"']}
+              keywords={['htmlFor', 'aria-invalid', 'role="alert"']}
             />
           </section>
 

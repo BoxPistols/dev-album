@@ -914,13 +914,19 @@ function Portfolio() {
           <section>
             <CodingChallenge
               title="Emotion でレスポンシブカードを作成"
-              description="Emotion の css prop を使って、モバイルでは padding: 16px、768px 以上では padding: 24px になるカードスタイルを定義してください。オブジェクト記法で書いてください。"
+              description="レスポンシブカードの ___ を埋めてください。メディアクエリをオブジェクト記法の文字列キーで指定し、768px 以上で padding を変更します。"
               initialCode={`/** @jsxImportSource @emotion/react */
 
 function ResponsiveCard({ children }) {
   return (
     <div css={{
-      // ここにスタイルを書く
+      background: 'white',
+      borderRadius: 12,
+      padding: 16,
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+      '___': { // ← ここを埋める（メディアクエリ）
+        padding: 24,
+      },
     }}>
       {children}
     </div>
@@ -943,11 +949,10 @@ function ResponsiveCard({ children }) {
     </div>
   );
 }`}
-              keywords={['@media (min-width: 768px)', 'padding:', 'borderRadius']}
+              keywords={['@media (min-width: 768px)']}
               hints={[
-                'オブジェクト記法では数値は自動的に px になります（例: padding: 16 → padding: 16px）',
-                'メディアクエリは文字列キーで指定します: \'@media (min-width: 768px)\': { ... }',
-                'オブジェクト記法では CSS プロパティをキャメルケースで書きます（例: border-radius → borderRadius）',
+                'メディアクエリは @media で始まる文字列キーで指定します',
+                '768px 以上を表すメディアクエリは @media (min-width: 768px) です',
               ]}
             />
           </section>

@@ -884,7 +884,7 @@ function goodReducer(state: State, action: Action) {
           <section>
             <CodingChallenge
               title="ショッピングカートの useReducer 実装"
-              description="useReducer を使ってショッピングカートを実装してください。State は items（配列）を持ち、Action は 'add'（商品追加）、'remove'（商品削除）、'updateQuantity'（数量変更）の 3 種類です。add では同じ商品が既にあれば数量を +1、なければ新規追加してください。"
+              description="cartReducer の remove と updateQuantity の ___ を埋めてください。配列のイミュータブルな更新がポイントです。"
               initialCode={`interface CartItem {
   id: number;
   name: string;
@@ -903,12 +903,37 @@ type CartAction =
 
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
-    case 'add':
-      // ここに実装
+    case 'add': {
+      const existing = state.items.find((item) => item.id === action.payload.id);
+      if (existing) {
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        };
+      }
+      return {
+        ...state,
+        items: [...state.items, { ...action.payload, quantity: 1 }],
+      };
+    }
     case 'remove':
-      // ここに実装
+      return {
+        ...state,
+        items: state.items.___((_item) => _item.id !== action.payload), // ← ここを埋める（配列メソッド名）
+      };
     case 'updateQuantity':
-      // ここに実装
+      return {
+        ...state,
+        items: state.items.___((_item) => // ← ここを埋める（配列メソッド名）
+          _item.id === action.payload.id
+            ? { ..._item, quantity: action.payload.quantity }
+            : _item
+        ),
+      };
     default:
       return state;
   }
@@ -966,11 +991,10 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       return state;
   }
 }`}
-              keywords={["case 'add'", "case 'remove'", "case 'updateQuantity'", '.filter(', '.map(']}
+              keywords={['items.filter(', 'items.map(']}
               hints={[
-                'add の場合、まず find で既存アイテムを探し、見つかれば map で quantity を +1、見つからなければ配列に追加します。',
-                'remove は filter でアイテムを除外します。',
-                'updateQuantity は map で該当アイテムの quantity を更新します。',
+                'remove: 条件に合わない要素を除外するメソッドは .filter() です',
+                'updateQuantity: 全要素を変換して新しい配列を作るメソッドは .map() です',
               ]}
             />
           </section>

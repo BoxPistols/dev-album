@@ -1075,13 +1075,19 @@ function Card({ children }) {
           <section>
             <CodingChallenge
               title="CSS-in-JS の概念理解"
-              description="以下のランタイム CSS-in-JS（styled-components）のコードを読んで、vanilla-extract（ゼロランタイム）で同等のスタイルを書いてください。style() 関数を使い、TypeScript オブジェクト記法で card スタイルを定義してください。"
-              initialCode={`// vanilla-extract で書き直してください
-// import { style } from '@vanilla-extract/css';
+              description="vanilla-extract の card スタイルの ___ を埋めてください。CSS プロパティをキャメルケースで書き、擬似セレクタを文字列キーで指定します。"
+              initialCode={`import { style } from '@vanilla-extract/css';
 
-// export const card = style({
-//   ここにスタイルを書く
-// });`}
+export const card = style({
+  padding: 24,
+  ___: 12, // ← ここを埋める（角丸のプロパティ名）
+  background: 'white',
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+  transition: 'box-shadow 0.2s ease',
+  '___': { // ← ここを埋める（擬似セレクタ）
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+  },
+});`}
               answer={`import { style } from '@vanilla-extract/css';
 
 export const card = style({
@@ -1094,11 +1100,10 @@ export const card = style({
     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
   },
 });`}
-              keywords={['style({', 'borderRadius', "':hover'"]}
+              keywords={['borderRadius', "':hover'"]}
               hints={[
-                'vanilla-extract では CSS プロパティをキャメルケースで書きます（例: border-radius → borderRadius）',
-                '数値はそのまま書くと px として解釈されます（例: padding: 24 → padding: 24px）',
-                '擬似セレクタは文字列キーで書きます（例: \':hover\': { ... }）',
+                'CSS の border-radius はキャメルケースで borderRadius になります',
+                '擬似セレクタは文字列キーで :hover のように指定します',
               ]}
             />
           </section>

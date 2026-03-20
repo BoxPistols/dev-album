@@ -1138,11 +1138,11 @@ const config: StorybookConfig = {
           <section>
             <CodingChallenge
               title="MSW で API モックのストーリーを作ろう"
-              description="ユーザープロフィールを表示するコンポーネントの Story を完成させてください。parameters.msw.handlers に GET /api/user のモックハンドラーを追加し、name と email を返すようにしましょう。"
+              description="user オブジェクトの ___ を埋めてください。MSW のモックで返すユーザーデータとして、name と email を設定します。"
               preview={true}
               initialCode={`function UserProfile() {
   // 本来は fetch で取得するデータをモックで再現
-  const user = { name: '/* ここに名前 */', email: '/* ここにメール */' };
+  const user = { name: '___', email: '___' }; // ← ここを埋める
   return (
     <div style={{
       padding: '24px',
@@ -1191,11 +1191,10 @@ const config: StorybookConfig = {
     </div>
   );
 }`}
-              keywords={['name', 'email', '田中', 'tanaka', 'user.name', 'user.email']}
+              keywords={['田中', '@']}
               hints={[
-                'user オブジェクトの name に日本語の名前を入れましょう（例: "田中太郎"）',
-                'email にはメールアドレスを入れましょう（例: "tanaka@example.com"）',
-                'MSW の実際のコードでは http.get で URL をマッチさせ HttpResponse.json でレスポンスを返します',
+                'name には日本語の名前を入れましょう（例: "田中太郎"）',
+                'email にはメールアドレス形式の文字列を入れましょう',
               ]}
             />
           </section>

@@ -1265,7 +1265,7 @@ export default ProfileCard;`}
           <section>
             <CodingChallenge
               title="CSS Modules でカードコンポーネントをスタイリング"
-              description="以下の CSS Modules ファイルを完成させてください。.card にホバー効果（translateY と shadow の変化）を追加し、.tag クラスを composes を使って .badge の基本スタイルを継承するように書いてください。"
+              description=".card:hover と .tag の ___ を埋めてください。ホバーで要素を上に移動し、composes で .badge を継承します。"
               initialCode={`.badge {
   display: inline-block;
   padding: 4px 12px;
@@ -1282,10 +1282,15 @@ export default ProfileCard;`}
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ここに .card:hover を追加 */
+.card:hover {
+  transform: ___(-4px); // ← ここを埋める（CSS関数名）
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
 
 .tag {
-  /* composes を使って .badge を継承し、色を追加 */
+  ___: badge; // ← ここを埋める（CSS Modules の継承キーワード）
+  background-color: #eff6ff;
+  color: #3b82f6;
 }`}
               answer={`.badge {
   display: inline-block;
@@ -1313,11 +1318,10 @@ export default ProfileCard;`}
   background-color: #eff6ff;
   color: #3b82f6;
 }`}
-              keywords={['.card:hover', 'translateY', 'composes: badge']}
+              keywords={['translateY', 'composes']}
               hints={[
-                'card:hover では transform: translateY(-4px) で要素を上に移動させ、box-shadow を大きくします',
-                'composes: badge; と書くことで .badge クラスのスタイルを .tag に継承できます',
-                'composes は必ず他のプロパティより前に書くことが推奨されています',
+                'Y軸方向に移動させる CSS 関数は translateY です',
+                'CSS Modules で他クラスのスタイルを継承するキーワードは composes です',
               ]}
             />
           </section>

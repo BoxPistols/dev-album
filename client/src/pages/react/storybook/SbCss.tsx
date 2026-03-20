@@ -1299,7 +1299,7 @@ export default preview;`}
           <section>
             <CodingChallenge
               title="Storybook の decorator でテーマ切替を実装"
-              description="以下のコードに decorator を完成させてください。globals.theme の値（'light' または 'dark'）に応じて、背景色とテキスト色を切り替える decorator を書いてください。ライトモードでは白背景＋黒文字、ダークモードではダーク背景＋白文字にします。"
+              description="テーマ切替の ___ を埋めてください。ボタンの onClick でモードを切り替え、themes オブジェクトから現在のテーマを取得してスタイルに適用します。"
               preview={true}
               initialCode={`function ThemeDecorator() {
   const [mode, setMode] = React.useState('light');
@@ -1321,7 +1321,7 @@ export default preview;`}
     },
   };
 
-  const t = themes[mode];
+  const t = themes[___]; // ← ここを埋める（現在のテーマを取得）
 
   return (
     <div style={{
@@ -1331,10 +1331,9 @@ export default preview;`}
       fontFamily: '"Inter", system-ui, sans-serif',
       transition: 'all 0.3s ease',
     }}>
-      {/* テーマ切替ボタン */}
       <div style={{ marginBottom: '16px' }}>
         <button
-          onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+          onClick={() => ___(mode === 'light' ? 'dark' : 'light')} // ← ここを埋める（state更新関数）
           style={{
             padding: '6px 14px',
             background: t.primary,
@@ -1350,7 +1349,6 @@ export default preview;`}
         </button>
       </div>
 
-      {/* ここに decorator でラップされるコンポーネントを表示 */}
       <div style={{
         padding: '16px',
         border: '1px solid ' + t.border,
@@ -1431,11 +1429,10 @@ export default preview;`}
     </div>
   );
 }`}
-              keywords={['themes', 'light', 'dark', 'bg:', 'text:', 'setMode', 'onClick']}
+              keywords={['themes[mode]', 'setMode(']}
               hints={[
-                'テーマオブジェクトに light と dark の 2 つの設定を定義して、mode に応じて切り替えます',
-                'const t = themes[mode] で現在のテーマを取得し、スタイルに適用します',
-                'ボタンの onClick で setMode を呼び、light/dark を切り替えます',
+                'themes オブジェクトのキーは mode 変数（"light" または "dark"）で取得します',
+                'state を更新する関数名は useState の慣例で setMode です',
               ]}
             />
           </section>

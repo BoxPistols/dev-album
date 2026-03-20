@@ -861,23 +861,30 @@ const [items, setItems] = useState(['A', 'B', 'C']);"
           <section>
             <CodingChallenge
               title="Todo リストの基本実装: 追加・削除・完了切替"
-              description="addTodo, toggleTodo, deleteTodo の3つの関数を実装してください。配列の state をイミュータブルに更新することがポイントです。todos は { id: number, text: string, done: boolean }[] の形です。"
+              description="3つの関数の ___ を埋めてください。配列の state をイミュータブル（不変）に更新するのがポイントです。"
               initialCode={`const [todos, setTodos] = useState<Todo[]>([]);
 const [input, setInput] = useState('');
 
-// 追加: input の内容で新しい Todo を作り、配列に追加する
+// 追加: スプレッド構文で新しい配列を作る
 const addTodo = () => {
-  // ここを実装
+  if (!input.trim()) return;
+  const newTodo: Todo = { id: Date.now(), text: input, done: false };
+  setTodos((prev) => [...prev, ___]); // ← ここを埋める
+  setInput('');
 };
 
-// 完了切替: 指定した id の Todo の done を反転する
+// 完了切替: map で done を反転する
 const toggleTodo = (id: number) => {
-  // ここを実装
+  setTodos((prev) =>
+    prev.___((_todo) => // ← ここを埋める（配列メソッド名）
+      _todo.id === id ? { ..._todo, done: !_todo.done } : _todo
+    )
+  );
 };
 
-// 削除: 指定した id の Todo を配列から除外する
+// 削除: 指定 id を除外する
 const deleteTodo = (id: number) => {
-  // ここを実装
+  setTodos((prev) => prev.___((todo) => todo.id !== id)); // ← ここを埋める（配列メソッド名）
 };`}
               answer={`const [todos, setTodos] = useState<Todo[]>([]);
 const [input, setInput] = useState('');
@@ -904,12 +911,11 @@ const toggleTodo = (id: number) => {
 const deleteTodo = (id: number) => {
   setTodos((prev) => prev.filter((todo) => todo.id !== id));
 };`}
-              keywords={['setTodos', '...prev', '.map(', '.filter(']}
+              keywords={['newTodo]', 'prev.map(', 'prev.filter(']}
               hints={[
-                'addTodo: スプレッド構文 [...prev, newTodo] で新しい配列を作りましょう',
-                'toggleTodo: map() で全要素をループし、id が一致するものだけ done を反転',
-                'deleteTodo: filter() で id が一致しない要素だけ残す新しい配列を作りましょう',
-                'すべてコールバック形式 setTodos((prev) => ...) を使うと安全です',
+                'addTodo: スプレッド構文の末尾に追加する変数名を入れましょう',
+                'toggleTodo: 全要素をループして変換するメソッドは .map() です',
+                'deleteTodo: 条件に合わない要素を除外するメソッドは .filter() です',
               ]}
             />
           </section>

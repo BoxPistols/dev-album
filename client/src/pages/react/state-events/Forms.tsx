@@ -1022,7 +1022,7 @@ function PracticalForm() {
           <section>
             <CodingChallenge
               title="バリデーション付きサインアップフォーム"
-              description="サインアップフォームのバリデーション関数を完成させてください。条件: (1) name は必須かつ2文字以上、(2) email は必須かつメール形式、(3) password は必須かつ8文字以上。エラーがあればオブジェクトにメッセージを設定し、なければ空のオブジェクトを返してください。"
+              description="バリデーション関数の ___ を埋めてください。name は2文字以上、email はメール形式、password は8文字以上を検証します。"
               initialCode={`interface Errors {
   name?: string;
   email?: string;
@@ -1032,7 +1032,23 @@ function PracticalForm() {
 function validate(name: string, email: string, password: string): Errors {
   const errors: Errors = {};
 
-  // ここにバリデーションロジックを書いてください
+  if (!name.trim()) {
+    errors.___ = 'お名前は必須です'; // ← ここを埋める
+  } else if (name.length < 2) {
+    errors.name = '2文字以上で入力してください';
+  }
+
+  if (!email.trim()) {
+    errors.___ = 'メールアドレスは必須です'; // ← ここを埋める
+  } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+    errors.email = '正しいメールアドレスの形式で入力してください';
+  }
+
+  if (!password.trim()) {
+    errors.___ = 'パスワードは必須です'; // ← ここを埋める
+  } else if (password.length < 8) {
+    errors.password = '8文字以上で入力してください';
+  }
 
   return errors;
 }`}
@@ -1065,11 +1081,10 @@ function validate(name: string, email: string, password: string): Errors {
 
   return errors;
 }`}
-              keywords={['errors.name', 'errors.email', 'errors.password', 'return errors']}
+              keywords={['errors.name', 'errors.email', 'errors.password']}
               hints={[
-                'まず各フィールドが空でないかを .trim() で確認し、空なら「必須です」のエラーを設定します。',
-                'メール形式のチェックには正規表現 /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ を使えます。',
-                'if-else if の形で、「空チェック」→「形式・長さチェック」の順に書くとスッキリします。',
+                'errors オブジェクトのキー名は、検証対象のフィールド名と一致させます',
+                'Errors interface のプロパティ名を参照しましょう',
               ]}
             />
           </section>

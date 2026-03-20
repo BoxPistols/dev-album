@@ -811,14 +811,35 @@ const filteredItems = items.filter((item) => item.active);
           <section>
             <CodingChallenge
               title="API からユーザーリストを取得して表示する"
-              description="useEffect と AbortController を使って、https://jsonplaceholder.typicode.com/users からユーザーリストを取得し、名前の一覧を表示するコンポーネントを完成させてください。loading 状態と AbortController によるクリーンアップも実装してください。"
+              description="useEffect 内の ___ を埋めてください。AbortController で fetch をキャンセル可能にし、クリーンアップで abort するのがポイントです。"
               initialCode={`function UserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ここにデータ取得処理を実装してください
-    // AbortController によるクリーンアップも忘れずに
+    const controller = new ___(); // ← ここを埋める
+
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch(
+          'https://jsonplaceholder.typicode.com/users',
+          { signal: controller.___ } // ← ここを埋める
+        );
+        const data = await res.json();
+        setUsers(data);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return;
+        }
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+
+    return () => controller.___(); // ← ここを埋める（クリーンアップ）
   }, []);
 
   if (loading) return <p>読み込み中...</p>;
@@ -871,11 +892,11 @@ const filteredItems = items.filter((item) => item.active);
     </ul>
   );
 }`}
-              keywords={['AbortController', 'fetch(', 'signal:', 'controller.abort()']}
+              keywords={['AbortController', 'controller.signal', 'controller.abort()']}
               hints={[
-                'AbortController のインスタンスを作成し、fetch の第2引数に { signal: controller.signal } を渡します。',
-                'クリーンアップ関数で controller.abort() を呼びます。',
-                'catch ブロックで AbortError を判定して、キャンセルの場合は何もせず return します。',
+                'fetch をキャンセル可能にするクラスは AbortController です',
+                'fetch の第2引数に渡すプロパティは signal です',
+                'クリーンアップで呼ぶメソッドは abort() です',
               ]}
             />
           </section>

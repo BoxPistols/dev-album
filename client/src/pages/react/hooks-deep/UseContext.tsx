@@ -991,27 +991,32 @@ function AddButton() {
           <section>
             <CodingChallenge
               title="テーマ + 言語の 2 つの Context を作る"
-              description="ThemeContext（light/dark の切り替え）と LanguageContext（ja/en の切り替え）の 2 つの Context を作成し、それぞれの Provider とカスタム Hook（useTheme, useLanguage）を実装してください。useTheme は { theme, toggleTheme } を、useLanguage は { language, setLanguage } を返すようにします。"
-              initialCode={`// ThemeContext を作成してください
-const ThemeContext = createContext(/* ... */);
+              description="ThemeProvider と useTheme の ___ を埋めてください。Context の Provider で値を渡し、カスタム Hook で useContext を使って値を取り出すパターンです。"
+              initialCode={`import { createContext, useContext, useState, ReactNode } from 'react';
 
-export function ThemeProvider({ children }) {
-  // ここに実装
+type Theme = 'light' | 'dark';
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>('light');
+  const toggleTheme = () => setTheme((p) => (p === 'light' ? 'dark' : 'light'));
+
+  return (
+    <___.___ value={{ theme, toggleTheme }}> // ← ここを埋める（Context の Provider）
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {
-  // ここに実装
-}
-
-// LanguageContext を作成してください
-const LanguageContext = createContext(/* ... */);
-
-export function LanguageProvider({ children }) {
-  // ここに実装
-}
-
-export function useLanguage() {
-  // ここに実装
+  const context = ___(ThemeContext); // ← ここを埋める（Hook 名）
+  if (!context) throw new Error('useTheme は ThemeProvider の中で使ってください');
+  return context;
 }`}
               answer={`import { createContext, useContext, useState, ReactNode } from 'react';
 
@@ -1065,11 +1070,10 @@ export function useLanguage() {
   if (!context) throw new Error('useLanguage は LanguageProvider の中で使ってください');
   return context;
 }`}
-              keywords={['createContext', 'useContext(', 'ThemeContext.Provider', 'LanguageContext.Provider', 'toggleTheme']}
+              keywords={['ThemeContext.Provider', 'useContext(']}
               hints={[
-                'createContext のデフォルト値は undefined にして、カスタム Hook で undefined チェックを行うパターンが安全です。',
-                'Provider の value には、state と更新関数をオブジェクトにまとめて渡します。',
-                'カスタム Hook では useContext の結果が undefined なら Error を throw します。',
+                'Context の値を子コンポーネントに渡すには Context.Provider を使います',
+                'Context から値を取り出す Hook は useContext です',
               ]}
             />
           </section>
