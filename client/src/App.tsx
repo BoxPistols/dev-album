@@ -16,6 +16,7 @@ import { Toaster } from "sonner";
 const Landing = lazy(() => import("./pages/Landing"));
 const BugReport = lazy(() => import("./pages/BugReport"));
 const DevComponents = lazy(() => import("./pages/DevComponents"));
+const DevTestResults = lazy(() => import("./pages/DevTestResults"));
 const Training = lazy(() => import("./pages/Training"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -230,6 +231,7 @@ function App() {
                 <Route path="/" component={Landing} />
                 <Route path="/bug-report" component={BugReport} />
                 {import.meta.env.DEV && <Route path="/dev/components" component={DevComponents} />}
+                {import.meta.env.DEV && <Route path="/dev/test-results" component={DevTestResults} />}
                 <Route path="/training" component={Training} />
 
                 {/* === React マニュアル === */}
