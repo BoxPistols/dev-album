@@ -180,7 +180,7 @@ export default function ModifyReact() {
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                ブラウザで http://localhost:3000 を確認して、変更が反映されているか確認してください。
+                ブラウザで http://localhost:5173 を確認して、変更が反映されているか確認してください。
               </p>
 
               <InfoBox type="success">

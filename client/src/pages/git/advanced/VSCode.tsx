@@ -337,7 +337,7 @@ export default function VSCodeSetup() {
               <CodeBlock
                 code={`# ターミナルが開いたら、以下のコマンドが使えます
 git status
-npm start
+npm run dev
 node app.js`}
                 language="bash"
                 title="VSCode 統合ターミナルでのコマンド実行"
@@ -355,11 +355,11 @@ node app.js`}
             title="VSCode の統合ターミナルでコマンドを実行してみよう"
             description="VSCode のターミナルで Git の状態確認と開発サーバーの起動コマンドを書いてください。"
             initialCode={`# 1. Git の状態を確認\n\n# 2. 開発サーバーを起動\n\n# 3. VSCode でプロジェクトを開く\n`}
-            answer={`# 1. Git の状態を確認\ngit status\n\n# 2. 開発サーバーを起動\nnpm start\n\n# 3. VSCode でプロジェクトを開く\ncode .`}
-            keywords={['git status', 'npm start', 'code .']}
+            answer={`# 1. Git の状態を確認\ngit status\n\n# 2. 開発サーバーを起動\nnpm run dev\n\n# 3. VSCode でプロジェクトを開く\ncode .`}
+            keywords={['git status', 'npm run dev', 'code .']}
             hints={[
               'git status で変更ファイルの状態を確認します',
-              'npm start で開発サーバーを起動します',
+              'npm run dev で開発サーバーを起動します',
               'code . で現在のフォルダを VSCode で開きます',
             ]}
             preview

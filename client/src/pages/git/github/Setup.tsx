@@ -249,7 +249,7 @@ export default function GitSetup() {
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-1">
                 <li>公開鍵が GitHub に登録されているか</li>
-                <li>コピーした公開鍵が完全か（最後の改行を含む）</li>
+                <li>コピーした公開鍵が途中で切れていないか（全体が選択されているか）</li>
                 <li>秘密鍵が ~/.ssh/id_ed25519 に存在するか</li>
               </ul>
             </div>

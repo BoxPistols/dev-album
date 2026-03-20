@@ -199,7 +199,7 @@ export default function GitHubAccount() {
                 GitHub 上で使用するユーザー名を設定してください。このユーザー名は公開されます。
               </p>
               <InfoBox type="info">
-                ユーザー名は英数字とハイフン、アンダースコアのみ使用可能です。URL に表示されるので、本名またはブランド名に近いものを推奨します（例: yamada-taro, design-studio-x）。後から変更もできますが、URL が変わるため早めに決めた方が良いです。
+                ユーザー名は英数字とハイフンのみ使用可能です（アンダースコアは不可）。URL に表示されるので、本名またはブランド名に近いものを推奨します（例: yamada-taro, design-studio-x）。後から変更もできますが、URL が変わるため早めに決めた方が良いです。
               </InfoBox>
             </div>
 

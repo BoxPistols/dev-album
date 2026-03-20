@@ -108,15 +108,15 @@ export default function ReactSetup() {
 
               {selectedOS === 'mac' ? (
                 <CodeBlock
-                  code={`cd ~/Documents\nnpx create-react-app my-react-app`}
+                  code={`cd ~/Documents\nnpm create vite@latest my-react-app -- --template react`}
                   language="bash"
-                  title="React プロジェクトを作成"
+                  title="React プロジェクトを作成（Vite）"
                 />
               ) : (
                 <CodeBlock
-                  code={`cd $env:USERPROFILE\\Documents\nnpx create-react-app my-react-app`}
+                  code={`cd $env:USERPROFILE\\Documents\nnpm create vite@latest my-react-app -- --template react`}
                   language="powershell"
-                  title="React プロジェクトを作成"
+                  title="React プロジェクトを作成（Vite）"
                 />
               )}
 
@@ -125,7 +125,7 @@ export default function ReactSetup() {
               </p>
 
               <InfoBox type="info">
-                「create-react-app」は、React 公式が提供するプロジェクト作成ツールです。
+                Vite は高速なビルドツールで、React プロジェクトのテンプレートを提供しています。
               </InfoBox>
             </div>
 
@@ -195,7 +195,7 @@ export default function ReactSetup() {
               </p>
 
               <CodeBlock
-                code={`npm start`}
+                code={`npm run dev`}
                 language={selectedOS === 'mac' ? 'bash' : 'powershell'}
                 title="開発サーバーを起動"
               />
@@ -220,7 +220,7 @@ export default function ReactSetup() {
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                ブラウザで http://localhost:3000 にアクセスして、React アプリが表示されているか確認してください。
+                ブラウザで http://localhost:5173 にアクセスして、React アプリが表示されているか確認してください。
               </p>
 
               <p className="text-muted-foreground">
@@ -241,7 +241,7 @@ export default function ReactSetup() {
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              create-react-app で作成されたプロジェクトの主要なファイル・フォルダは以下の通りです：
+              Vite で作成されたプロジェクトの主要なファイル・フォルダは以下の通りです：
             </p>
 
             <CodeBlock
@@ -279,11 +279,11 @@ export default function ReactSetup() {
             title="React プロジェクトの作成と起動コマンドを書いてみよう"
             description="React プロジェクトを作成し、フォルダに移動して開発サーバーを起動するまでのコマンドを書いてください。"
             initialCode={`# 1. React プロジェクトを作成\n\n# 2. プロジェクトフォルダに移動\n\n# 3. 開発サーバーを起動\n`}
-            answer={`# 1. React プロジェクトを作成\nnpx create-react-app my-react-app\n\n# 2. プロジェクトフォルダに移動\ncd my-react-app\n\n# 3. 開発サーバーを起動\nnpm start`}
-            keywords={['npx', 'create-react-app', 'cd', 'npm start']}
+            answer={`# 1. React プロジェクトを作成\nnpm create vite@latest my-react-app -- --template react\n\n# 2. プロジェクトフォルダに移動\ncd my-react-app\n\n# 3. 開発サーバーを起動\nnpm run dev`}
+            keywords={['create vite@latest', '--template react', 'cd', 'npm run dev']}
             hints={[
-              'npx create-react-app でプロジェクトを作成します',
-              'cd でフォルダに移動してから npm start で起動します',
+              'npm create vite@latest でプロジェクトを作成します',
+              'cd でフォルダに移動してから npm run dev で起動します',
             ]}
             preview
           />

@@ -427,7 +427,7 @@ export default function HistoryWorkflow() {
         {/* Completion */}
         <section className="mb-12">
           <InfoBox type="success" title="基本的な Git ワークフロー完了！">
-            Commit、Push、Pull、差分・履歴確認ができるようになりました。これで、Git の基本的な操作はを一通り確認しました。次は、ブランチの概念を学び、実際の開発に近い体験をします。
+            Commit、Push、Pull、差分・履歴確認ができるようになりました。これで、Git の基本的な操作を一通り確認しました。次は、ブランチの概念を学び、実際の開発に近い体験をします。
           </InfoBox>
         </section>
 

@@ -67,7 +67,7 @@ export default function NodejsInstall() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-secondary font-bold">✓</span>
-                  <span>pnpm - 別のパッケージマネージャー（オプション）</span>
+                  <span>npx - パッケージの一時実行ツール</span>
                 </li>
               </ul>
             </div>

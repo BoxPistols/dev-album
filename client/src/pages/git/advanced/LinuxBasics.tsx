@@ -322,7 +322,7 @@ chmod 755 file.txt      # 権限を数値で指定`}
               次のステップ
             </h2>
             <p className="text-lg text-muted-foreground mb-6">
-              Linux の基本コマンドをを確認しました。次は VSCode をセットアップして、より実践的な開発環境を構築しましょう。
+              Linux の基本コマンドを確認しました。次は VSCode をセットアップして、より実践的な開発環境を構築しましょう。
             </p>
             <Button
               onClick={() => navigate('/git/advanced/vscode')}
