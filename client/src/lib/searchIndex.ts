@@ -534,6 +534,8 @@ export const searchIndex: Record<string, string[]> = {
   '/claude-mux/integration/tmux-integration': ['tmux を利用する技術的な利点', 'MCP連携', '推奨ペインレイアウト', '運用の基本サイクル', 'AI Cockpit'],
   '/claude-mux/integration/tmuxp-automation': ['宣言的な環境管理', 'MCPサーバとの組み合わせ', '自動化のメリット', 'tmuxp', 'YAML'],
   '/claude-mux/integration/practical-workflow': ['統合アーキテクチャの全体像', 'シナリオ 1: 新機能の実装', 'シナリオ 2: 本番バグの調査・修正', 'シナリオ 3: スペック駆動開発', '再現可能な環境の構築', 'ワークフローの要点'],
+  '/claude-mux/cmux/cmux-intro': ['cmux', 'Ghostty', 'macOS', 'ネイティブアプリ', 'GUI', '通知リング', '垂直タブ', 'ビルトインブラウザ', 'tmux との比較', 'ソケット API', 'ワークスペース'],
+  '/claude-mux/cmux/cmux-setup': ['cmux インストール', 'brew', 'Homebrew', 'CLI シンボリックリンク', 'Claude Code Hooks', 'stop hook', '通知設定', 'マルチエージェント', 'ワークスペース', 'manaflow-ai', 'ペイン分割'],
   '/claude-mux/reference/session-management': ['tmuxの弱点：再起動', 'tmux-resurrect の導入', '使い方：保存と復元', 'tmux-continuum による完全自動化', '永続化'],
   '/claude-mux/reference/troubleshooting': ['よくある問題', 'FAQ', 'トラブルシューティング'],
   '/claude-mux/reference/claude-cheatsheet': ['スラッシュコマンド', 'コア操作', 'セッション管理', '設定・ワークフロー', 'CLI 起動オプション', 'キーボードショートカット', 'CLAUDE.md の構成', 'パーミッションモード'],

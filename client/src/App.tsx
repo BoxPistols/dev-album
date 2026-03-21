@@ -9,6 +9,7 @@ import KeyboardNav from "./components/KeyboardNav";
 import HelpModal from "./components/HelpModal";
 import SettingsPopup from "./components/SettingsPopup";
 import AchievementToastContainer from "./components/AchievementToast";
+import ChatWidget from "./components/ChatWidget";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { Toaster } from "sonner";
 
@@ -181,6 +182,8 @@ const CmPlugins = lazy(() => import("./pages/claude-mux/tmux-customize/Plugins")
 const CmTmuxIntegration = lazy(() => import("./pages/claude-mux/integration/TmuxIntegration"));
 const CmTmuxpAutomation = lazy(() => import("./pages/claude-mux/integration/TmuxpAutomation"));
 const CmPracticalWorkflow = lazy(() => import("./pages/claude-mux/integration/PracticalWorkflow"));
+const CmCmuxIntro = lazy(() => import("./pages/claude-mux/cmux/CmuxIntro"));
+const CmCmuxSetup = lazy(() => import("./pages/claude-mux/cmux/CmuxSetup"));
 const CmSessionMgmt = lazy(() => import("./pages/claude-mux/reference/SessionManagement"));
 const CmTroubleshooting = lazy(() => import("./pages/claude-mux/reference/Troubleshooting"));
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-mux/reference/ClaudeCheatsheet"));
@@ -394,6 +397,8 @@ function App() {
                 <Route path="/claude-mux/integration/tmux-integration" component={CmTmuxIntegration} />
                 <Route path="/claude-mux/integration/tmuxp-automation" component={CmTmuxpAutomation} />
                 <Route path="/claude-mux/integration/practical-workflow" component={CmPracticalWorkflow} />
+                <Route path="/claude-mux/cmux/cmux-intro" component={CmCmuxIntro} />
+                <Route path="/claude-mux/cmux/cmux-setup" component={CmCmuxSetup} />
                 <Route path="/claude-mux/reference/session-management" component={CmSessionMgmt} />
                 <Route path="/claude-mux/reference/troubleshooting" component={CmTroubleshooting} />
                 <Route path="/claude-mux/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
@@ -418,6 +423,7 @@ function App() {
           </div>
           <HelpModal />
           <SettingsPopup />
+          <ChatWidget />
           <AchievementToastContainer />
           <Toaster position="bottom-right" />
           </LayoutProvider>
