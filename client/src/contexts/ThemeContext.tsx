@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-type ThemeMode = "system" | "light" | "dark";
-type ResolvedTheme = "light" | "dark";
+type ThemeMode = "system" | "light" | "dark" | "dark-soft";
+type ResolvedTheme = "light" | "dark" | "dark-soft";
 
 interface ThemeContextType {
   mode: ThemeMode;
@@ -13,11 +13,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function getSystemTheme(): ResolvedTheme {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 function resolveTheme(mode: ThemeMode): ResolvedTheme {
-  return mode === "system" ? getSystemTheme() : mode;
+  if (mode === "system") return getSystemTheme();
+  return mode;
+}
+
+function applyThemeClasses(resolved: ResolvedTheme) {
+  const root = document.documentElement;
+  root.classList.remove("dark", "dark-soft");
+  if (resolved === "dark") {
+    root.classList.add("dark");
+  } else if (resolved === "dark-soft") {
+    // dark クラスも付与して dark: ユーティリティを有効化
+    root.classList.add("dark", "dark-soft");
+  }
 }
 
 interface ThemeProviderProps {
@@ -31,7 +45,13 @@ export function ThemeProvider({
 }: ThemeProviderProps) {
   const [mode, setMode] = useState<ThemeMode>(() => {
     const stored = localStorage.getItem("theme-mode") as ThemeMode | null;
-    if (stored === "light" || stored === "dark" || stored === "system") return stored;
+    if (
+      stored === "light" ||
+      stored === "dark" ||
+      stored === "dark-soft" ||
+      stored === "system"
+    )
+      return stored;
     // 旧キーからのマイグレーション
     const legacy = localStorage.getItem("theme");
     if (legacy === "light" || legacy === "dark") return legacy;
@@ -44,8 +64,7 @@ export function ThemeProvider({
   useEffect(() => {
     const resolved = resolveTheme(mode);
     setTheme(resolved);
-    const root = document.documentElement;
-    root.classList.toggle("dark", resolved === "dark");
+    applyThemeClasses(resolved);
     localStorage.setItem("theme-mode", mode);
   }, [mode]);
 
@@ -56,7 +75,7 @@ export function ThemeProvider({
     const handler = () => {
       const resolved = getSystemTheme();
       setTheme(resolved);
-      document.documentElement.classList.toggle("dark", resolved === "dark");
+      applyThemeClasses(resolved);
     };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
@@ -65,7 +84,9 @@ export function ThemeProvider({
   const toggleTheme = () => {
     setMode((prev) => {
       const resolved = resolveTheme(prev);
-      return resolved === "light" ? "dark" : "light";
+      if (resolved === "light") return "dark";
+      if (resolved === "dark") return "dark-soft";
+      return "light";
     });
   };
 

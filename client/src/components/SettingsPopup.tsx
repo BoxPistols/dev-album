@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { X, Settings, Sun, Moon, Monitor, Columns2, Type, Trash2, Download, RefreshCcw } from 'lucide-react';
+import { X, Settings, Sun, Moon, MoonStar, Monitor, Columns2, Type, Trash2, Download, RefreshCcw } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import { getIsMac, modKey } from '@/lib/keyLabels';
@@ -91,6 +91,7 @@ export default function SettingsPopup() {
     { value: 'system' as const, icon: <Monitor size={16} />, label: 'システム' },
     { value: 'light' as const, icon: <Sun size={16} />, label: 'ライト' },
     { value: 'dark' as const, icon: <Moon size={16} />, label: 'ダーク' },
+    { value: 'dark-soft' as const, icon: <MoonStar size={16} />, label: 'Dracula' },
   ];
 
   return (
@@ -121,7 +122,7 @@ export default function SettingsPopup() {
               <Sun size={14} />
               テーマ
             </h3>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {themeOptions.map((opt) => (
                 <button
                   key={opt.value}

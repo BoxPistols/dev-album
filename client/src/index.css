@@ -58,13 +58,13 @@
   --chart-5: #BFDBFE;
   --radius: 0.5rem;
   --background: #FAFAFA;
-  --foreground: #18181B;
+  --foreground: #3F3F46;
   --card: #FFFFFF;
-  --card-foreground: #18181B;
+  --card-foreground: #3F3F46;
   --popover: #FFFFFF;
-  --popover-foreground: #18181B;
+  --popover-foreground: #3F3F46;
   --secondary: #F4F4F5;
-  --secondary-foreground: #18181B;
+  --secondary-foreground: #3F3F46;
   --muted: #F4F4F5;
   --muted-foreground: #71717A;
   --accent: #2563EB;
@@ -75,9 +75,9 @@
   --input: #F4F4F5;
   --ring: #2563EB;
   --sidebar: rgba(255, 255, 255, 0.95);
-  --sidebar-foreground: #18181B;
+  --sidebar-foreground: #3F3F46;
   --sidebar-accent: #F4F4F5;
-  --sidebar-accent-foreground: #18181B;
+  --sidebar-accent-foreground: #3F3F46;
   --sidebar-border: #E4E4E7;
   --sidebar-ring: #2563EB;
 }
@@ -115,6 +115,42 @@
   --sidebar-accent-foreground: #E4E4E7;
   --sidebar-border: #27272A;
   --sidebar-ring: #93C5FD;
+}
+
+/* Dracula ベースのソフトダークテーマ */
+.dark-soft {
+  --primary: #BD93F9;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #BD93F9;
+  --sidebar-primary-foreground: #282A36;
+  --chart-1: #BD93F9;
+  --chart-2: #8BE9FD;
+  --chart-3: #50FA7B;
+  --chart-4: #FF79C6;
+  --chart-5: #FFB86C;
+  --background: #282A36;
+  --foreground: #F8F8F2;
+  --card: #313545;
+  --card-foreground: #F8F8F2;
+  --popover: #313545;
+  --popover-foreground: #F8F8F2;
+  --secondary: #44475A;
+  --secondary-foreground: #F8F8F2;
+  --muted: #44475A;
+  --muted-foreground: #6272A4;
+  --accent: #BD93F9;
+  --accent-foreground: #282A36;
+  --destructive: #FF5555;
+  --destructive-foreground: #FEE2E2;
+  --border: #44475A;
+  --input: #313545;
+  --ring: #BD93F9;
+  --sidebar: rgba(40, 42, 54, 0.95);
+  --sidebar-foreground: #F8F8F2;
+  --sidebar-accent: #44475A;
+  --sidebar-accent-foreground: #F8F8F2;
+  --sidebar-border: #44475A;
+  --sidebar-ring: #BD93F9;
 }
 
 @layer base {
@@ -264,12 +300,15 @@
     box-shadow: 0 0 4px rgba(147, 197, 253, 0.2);
   }
 
-  /* ヒーロー背景 — ミニマル */
+  /* ヒーロー背景 — ミニマル（常にダーク） */
   .mesh-gradient {
     background: #18181B;
   }
   .dark .mesh-gradient {
     background: #09090B;
+  }
+  .dark-soft .mesh-gradient {
+    background: #282A36;
   }
 
   /* Hero 背景コードスクロール（無効化） */
