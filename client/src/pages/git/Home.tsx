@@ -69,7 +69,7 @@ export default function Home() {
 
   const aiContextCards = [
     {
-      icon: <BrainCircuit className="w-6 h-6 text-violet-600" aria-hidden="true" />,
+      icon: <BrainCircuit className="w-6 h-6 text-primary" aria-hidden="true" />,
       title: 'AI が書いたコードの置き場所',
       body: 'AI にコードを生成してもらっても、それをどこに保存して誰と共有するかは別の話です。Git はファイルの変更履歴を記録する仕組みで、「変更履歴付きのフォルダ」と考えるとイメージしやすいです。',
     },
@@ -155,7 +155,7 @@ export default function Home() {
           {/* コーディングチャレンジ（インタラクティブエディタ）の使い方 — 全幅カード */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8 hover:shadow-md transition-shadow mb-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
+              <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
                 <Code2 className="w-5 h-5" />
               </div>
               <h3 className="font-semibold text-foreground text-lg">コーディングチャレンジ（インタラクティブエディタ）の使い方</h3>
@@ -174,7 +174,7 @@ export default function Home() {
               <h4 className="font-semibold text-foreground text-sm mb-3">プレビューの種類</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-start gap-3">
-                  <Terminal className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                  <Terminal className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                   <div>
                     <span className="font-medium text-foreground">Git コマンドシミュレーター</span>
                     <span className="mx-1">—</span>
@@ -182,7 +182,7 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Code2 className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                  <Code2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                   <div>
                     <span className="font-medium text-foreground">Markdown プレビュー</span>
                     <span className="mx-1">—</span>
@@ -190,7 +190,7 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Terminal className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                  <Terminal className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                   <div>
                     <span className="font-medium text-foreground">ターミナルプレビュー</span>
                     <span className="mx-1">—</span>
@@ -332,12 +332,12 @@ export default function Home() {
       </section>
 
       {/* AI Context Section */}
-      <section className="py-16 px-4 md:px-8 bg-gradient-to-br from-violet-50/50 to-indigo-50/50 dark:from-violet-950/20 dark:to-indigo-950/20">
+      <section className="py-16 px-4 md:px-8 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/5 dark:to-primary/10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-violet-100 dark:bg-violet-900/40 border border-violet-200 dark:border-violet-700">
-              <BrainCircuit className="w-4 h-4 text-violet-600 dark:text-violet-400" aria-hidden="true" />
-              <span className="text-violet-700 dark:text-violet-300 font-medium text-sm">このガイドについて</span>
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+              <BrainCircuit className="w-4 h-4 text-primary" aria-hidden="true" />
+              <span className="text-primary font-medium text-sm">このガイドについて</span>
             </div>
             <h2 className="text-3xl font-sans font-bold text-foreground mb-4">
               なぜこれを学ぶのか

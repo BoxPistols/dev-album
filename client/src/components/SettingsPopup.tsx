@@ -201,7 +201,7 @@ export default function SettingsPopup() {
               </button>
               <button
                 onClick={handleReset}
-                className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all text-xs font-medium"
+                className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-destructive/30 text-destructive hover:bg-destructive/5 transition-all text-xs font-medium"
               >
                 <Trash2 size={14} />
                 進捗をリセット

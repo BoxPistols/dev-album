@@ -62,7 +62,7 @@ export default function Home() {
 
   const whyThreeJs = [
     {
-      icon: <Lightbulb className="w-6 h-6 text-violet-600" />,
+      icon: <Lightbulb className="w-6 h-6 text-primary" />,
       title: "Web でそのまま動く 3D",
       body: "Three.js はブラウザ上で動作する 3D ライブラリです。プラグインやアプリのインストールなしで、誰でもすぐに 3D コンテンツを体験できます。",
     },
@@ -133,7 +133,7 @@ export default function Home() {
           {/* コーディングチャレンジ（フル幅カード） */}
           <div className="bg-background border border-border rounded-xl p-6 md:p-8 hover:shadow-md transition-shadow mb-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400">
+              <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
                 <Code className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">
@@ -281,7 +281,7 @@ export default function Home() {
       </section>
 
       {/* なぜ Three.js を学ぶのか */}
-      <section className="py-16 px-4 md:px-8 bg-gradient-to-br from-violet-50/50 to-indigo-50/50 dark:from-violet-950/20 dark:to-indigo-950/20">
+      <section className="py-16 px-4 md:px-8 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/5 dark:to-primary/10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-sans font-bold text-foreground mb-4">

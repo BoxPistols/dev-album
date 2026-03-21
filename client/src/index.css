@@ -51,72 +51,70 @@
   --primary-foreground: #F9FAFB;
   --sidebar-primary: #2563EB;
   --sidebar-primary-foreground: #F9FAFB;
-  --chart-1: #10B981;
-  --chart-2: #2563EB;
-  --chart-3: #7C3AED;
-  --chart-4: #3B82F6;
-  --chart-5: #8B5CF6;
-  --radius: 0.75rem;
-  --background: #FAFBFC;
-  --foreground: #1E293B;
+  --chart-1: #2563EB;
+  --chart-2: #3B82F6;
+  --chart-3: #60A5FA;
+  --chart-4: #93C5FD;
+  --chart-5: #BFDBFE;
+  --radius: 0.5rem;
+  --background: #FAFAFA;
+  --foreground: #18181B;
   --card: #FFFFFF;
-  --card-foreground: #1E293B;
+  --card-foreground: #18181B;
   --popover: #FFFFFF;
-  --popover-foreground: #1E293B;
-  --secondary: #10B981;
-  --secondary-foreground: #F0FDF4;
-  --muted: #E5E7EB;
-  --muted-foreground: #475569;
-  --accent: #7C3AED;
-  --accent-foreground: #F5F3FF;
-  --destructive: #EF4444;
+  --popover-foreground: #18181B;
+  --secondary: #F4F4F5;
+  --secondary-foreground: #18181B;
+  --muted: #F4F4F5;
+  --muted-foreground: #71717A;
+  --accent: #2563EB;
+  --accent-foreground: #F9FAFB;
+  --destructive: #DC2626;
   --destructive-foreground: #FEE2E2;
-  --border: #E2E8F0;
-  --input: #F3F4F6;
+  --border: #E4E4E7;
+  --input: #F4F4F5;
   --ring: #2563EB;
-  --sidebar: rgba(255, 255, 255, 0.85);
-  --sidebar-foreground: #1E293B;
-  --sidebar-accent: #F1F5F9;
-  --sidebar-accent-foreground: #1E293B;
-  --sidebar-border: #E2E8F0;
+  --sidebar: rgba(255, 255, 255, 0.95);
+  --sidebar-foreground: #18181B;
+  --sidebar-accent: #F4F4F5;
+  --sidebar-accent-foreground: #18181B;
+  --sidebar-border: #E4E4E7;
   --sidebar-ring: #2563EB;
-  --cta: #F97316;
 }
 
 .dark {
-  --primary: #7CB3E8;
-  --primary-foreground: #1A2D44;
-  --sidebar-primary: #7CB3E8;
-  --sidebar-primary-foreground: #1A2D44;
-  --chart-1: #34D399;
+  --primary: #93C5FD;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #93C5FD;
+  --sidebar-primary-foreground: #0C1425;
+  --chart-1: #93C5FD;
   --chart-2: #60A5FA;
-  --chart-3: #C4B5FD;
-  --chart-4: #7CB3E8;
-  --chart-5: #A78BFA;
-  --background: #151D2B;
-  --foreground: #CDD5E0;
-  --card: #1C2737;
-  --card-foreground: #CDD5E0;
-  --popover: #1C2737;
-  --popover-foreground: #CDD5E0;
-  --secondary: #34D399;
-  --secondary-foreground: #0F172A;
-  --muted: #283545;
-  --muted-foreground: #8B99AD;
-  --accent: #C4B5FD;
-  --accent-foreground: #1F2937;
+  --chart-3: #3B82F6;
+  --chart-4: #2563EB;
+  --chart-5: #1D4ED8;
+  --background: #09090B;
+  --foreground: #E4E4E7;
+  --card: #18181B;
+  --card-foreground: #E4E4E7;
+  --popover: #18181B;
+  --popover-foreground: #E4E4E7;
+  --secondary: #27272A;
+  --secondary-foreground: #E4E4E7;
+  --muted: #27272A;
+  --muted-foreground: #A1A1AA;
+  --accent: #93C5FD;
+  --accent-foreground: #0C1425;
   --destructive: #F87171;
   --destructive-foreground: #FEE2E2;
-  --border: #283545;
-  --input: #1C2737;
-  --ring: #7CB3E8;
-  --sidebar: rgba(28, 39, 55, 0.92);
-  --sidebar-foreground: #CDD5E0;
-  --sidebar-accent: #283545;
-  --sidebar-accent-foreground: #CDD5E0;
-  --sidebar-border: #283545;
-  --sidebar-ring: #7CB3E8;
-  --cta: #F0A875;
+  --border: #27272A;
+  --input: #18181B;
+  --ring: #93C5FD;
+  --sidebar: rgba(9, 9, 11, 0.95);
+  --sidebar-foreground: #E4E4E7;
+  --sidebar-accent: #27272A;
+  --sidebar-accent-foreground: #E4E4E7;
+  --sidebar-border: #27272A;
+  --sidebar-ring: #93C5FD;
 }
 
 @layer base {
@@ -233,22 +231,9 @@
     animation: page-enter 0.4s ease-out both;
   }
 
-  /* グレインテクスチャ */
+  /* グレインテクスチャ（無効化 — ミニマリスト方針） */
   .grain::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-    animation: grain-shift 8s steps(10) infinite;
-  }
-
-  .dark .grain::before {
-    opacity: 0.04;
+    display: none;
   }
 
   /* カード共通ホバー */
@@ -256,15 +241,7 @@
     @apply transition-all duration-200 ease-out;
   }
   .card-hover:hover {
-    @apply shadow-lg -translate-y-0.5;
-    box-shadow:
-      0 10px 25px -5px rgba(37, 99, 235, 0.08),
-      0 4px 6px -4px rgba(37, 99, 235, 0.04);
-  }
-  .dark .card-hover:hover {
-    box-shadow:
-      0 10px 25px -5px rgba(124, 179, 232, 0.1),
-      0 4px 6px -4px rgba(124, 179, 232, 0.06);
+    @apply border-primary/40;
   }
 
   /* ガラスモーフィズムサイドバー */
@@ -279,69 +256,30 @@
     box-shadow: inset 3px 0 0 var(--primary);
   }
 
-  /* プログレスバーグロー */
+  /* プログレスバーグロー（控えめに） */
   .progress-glow {
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 0 4px rgba(37, 99, 235, 0.2);
   }
   .dark .progress-glow {
-    box-shadow: 0 0 8px rgba(124, 179, 232, 0.4);
+    box-shadow: 0 0 4px rgba(147, 197, 253, 0.2);
   }
 
-  /* メッシュグラデーション */
+  /* ヒーロー背景 — ミニマル */
   .mesh-gradient {
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.9) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.7) 0%, transparent 50%),
-      radial-gradient(ellipse at 60% 80%, rgba(6, 182, 212, 0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(16, 185, 129, 0.4) 0%, transparent 50%),
-      linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+    background: #18181B;
   }
   .dark .mesh-gradient {
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-      radial-gradient(ellipse at 60% 80%, rgba(20, 184, 166, 0.25) 0%, transparent 50%),
-      radial-gradient(ellipse at 10% 90%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
-      linear-gradient(135deg, #151D2B 0%, #1C1830 100%);
+    background: #09090B;
   }
 
-  /* Hero 背景コードスクロール */
-  @keyframes hero-code-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
+  /* Hero 背景コードスクロール（無効化） */
   .hero-code-bg {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.06) 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.06) 80%, transparent 100%);
-  }
-  .hero-code-bg pre {
-    animation: hero-code-scroll 40s linear infinite;
-    white-space: pre;
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-    font-size: 13px;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.12);
-    user-select: none;
-  }
-  .dark .hero-code-bg pre {
-    color: rgba(255, 255, 255, 0.08);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-code-bg pre {
-      animation: none;
-    }
+    display: none;
   }
 
-  /* Hero 用フローティング要素 */
-  .float-slow {
-    animation: float 6s ease-in-out infinite;
-  }
-  .float-reverse {
-    animation: float-reverse 8s ease-in-out infinite;
+  /* Hero 用フローティング要素（無効化） */
+  .float-slow, .float-reverse {
+    animation: none;
   }
 
   /* STEP バッジ */

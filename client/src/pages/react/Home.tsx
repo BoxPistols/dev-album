@@ -9,49 +9,49 @@ const curriculumPart1 = [
     title: 'はじめに',
     steps: 'STEP 1-2',
     description: 'マニュアルの概要と開発環境の構築',
-    color: 'bg-indigo-400',
+    color: 'bg-primary',
   },
   {
     icon: <Code2 size={20} />,
     title: 'React の基本',
     steps: 'STEP 3-7',
     description: 'JSX、コンポーネント、Props、TypeScript',
-    color: 'bg-indigo-500',
+    color: 'bg-primary',
   },
   {
     icon: <Sparkles size={20} />,
     title: '状態管理とイベント',
     steps: 'STEP 8-11',
     description: 'useState、イベント処理、フォーム',
-    color: 'bg-indigo-500',
+    color: 'bg-primary',
   },
   {
     icon: <Layers size={20} />,
     title: 'Hooks 深掘り',
     steps: 'STEP 12-16',
     description: 'useEffect、useContext、カスタム Hooks',
-    color: 'bg-indigo-600',
+    color: 'bg-primary',
   },
   {
     icon: <Zap size={20} />,
     title: 'React 19 新機能',
     steps: 'STEP 17-19',
     description: 'useOptimistic、React Compiler、移行ガイド',
-    color: 'bg-rose-500',
+    color: 'bg-primary',
   },
   {
     icon: <Palette size={20} />,
     title: 'CSS スタイリング',
     steps: 'STEP 20-24',
     description: 'CSS Modules、styled-components、Emotion',
-    color: 'bg-violet-500',
+    color: 'bg-primary',
   },
   {
     icon: <Palette size={20} />,
     title: 'Tailwind CSS',
     steps: 'STEP 25-27',
     description: 'ユーティリティCSS、shadcn/ui',
-    color: 'bg-violet-600',
+    color: 'bg-primary',
   },
   {
     icon: <Layout size={20} />,
@@ -89,14 +89,14 @@ const curriculumPart2 = [
     title: 'Next.js 実践',
     steps: 'STEP 42-45',
     description: 'Server Actions、ミドルウェア、最適化',
-    color: 'bg-teal-500',
+    color: 'bg-primary',
   },
   {
     icon: <Zap size={20} />,
     title: 'Next.js 15 新機能',
     steps: 'STEP 46-47',
     description: 'Turbopack、PPR、非同期API',
-    color: 'bg-teal-600',
+    color: 'bg-primary',
   },
   {
     icon: <Palette size={20} />,
@@ -170,11 +170,11 @@ const techTopics = [
   { name: 'TypeScript', color: 'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800' },
   { name: 'CSS Modules', color: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' },
   { name: 'styled-components', color: 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800' },
-  { name: 'Emotion', color: 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800' },
+  { name: 'Emotion', color: 'bg-primary/10 text-primary border-primary/20' },
   { name: 'Tailwind CSS', color: 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800' },
   { name: 'shadcn/ui', color: 'bg-slate-100 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700' },
-  { name: 'MUI 7', color: 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800' },
-  { name: 'Next.js 15', color: 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-800' },
+  { name: 'MUI 7', color: 'bg-primary/10 text-primary border-primary/20' },
+  { name: 'Next.js 15', color: 'bg-primary/10 text-primary border-primary/20' },
   { name: 'Storybook', color: 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800' },
   { name: 'Vite', color: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' },
 ];
@@ -259,8 +259,8 @@ export default function Home() {
           {/* ライブエディタの使い方（フル幅） */}
           <div className="rounded-xl border border-border bg-card p-6 card-hover mb-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center">
-                <Code2 size={20} className="text-indigo-600 dark:text-indigo-300" />
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Code2 size={20} className="text-primary" />
               </div>
               <h3 className="text-lg font-bold text-foreground">ライブエディタの使い方</h3>
             </div>
@@ -365,8 +365,8 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* キーボードショートカット */}
             <div className="rounded-xl border border-border bg-card p-6 card-hover">
-              <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center mb-4">
-                <Keyboard size={20} className="text-violet-600 dark:text-violet-400" />
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                <Keyboard size={20} className="text-primary" />
               </div>
               <h3 className="text-base font-bold text-foreground mb-3">ページナビゲーション</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
@@ -425,8 +425,8 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-foreground mb-8">このマニュアルについて</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="rounded-xl border border-border bg-card p-6 card-hover">
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center mb-4">
-                <Palette size={20} className="text-indigo-600 dark:text-indigo-300" />
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                <Palette size={20} className="text-primary" />
               </div>
               <h3 className="text-lg font-bold text-foreground mb-3">こんな方に</h3>
               <ul className="text-sm text-muted-foreground space-y-2.5 leading-relaxed">

@@ -17,31 +17,31 @@ import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
 
 const manualColors: Record<ManualId, string> = {
-  react: 'text-indigo-600 dark:text-indigo-300',
-  git: 'text-rose-600 dark:text-rose-300',
-  threejs: 'text-teal-600 dark:text-teal-300',
-  'claude-mux': 'text-violet-600 dark:text-violet-300',
+  react: 'text-primary',
+  git: 'text-primary',
+  threejs: 'text-primary',
+  'claude-mux': 'text-primary',
 };
 
 const manualBgColors: Record<ManualId, string> = {
-  react: 'bg-indigo-500',
-  git: 'bg-rose-500',
-  threejs: 'bg-teal-500',
-  'claude-mux': 'bg-violet-500',
+  react: 'bg-primary',
+  git: 'bg-primary',
+  threejs: 'bg-primary',
+  'claude-mux': 'bg-primary',
 };
 
 const manualBorderColors: Record<ManualId, string> = {
-  react: 'border-indigo-400',
-  git: 'border-rose-400',
-  threejs: 'border-teal-400',
-  'claude-mux': 'border-violet-400',
+  react: 'border-primary',
+  git: 'border-primary',
+  threejs: 'border-primary',
+  'claude-mux': 'border-primary',
 };
 
 const manualActiveBg: Record<ManualId, string> = {
-  react: 'bg-indigo-400/15',
-  git: 'bg-rose-400/15',
-  threejs: 'bg-teal-400/15',
-  'claude-mux': 'bg-violet-400/15',
+  react: 'bg-primary/10',
+  git: 'bg-primary/10',
+  threejs: 'bg-primary/10',
+  'claude-mux': 'bg-primary/10',
 };
 
 export default function Navigation() {

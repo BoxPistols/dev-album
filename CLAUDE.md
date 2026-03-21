@@ -49,40 +49,38 @@ client/src/
 
 ## カラートークン
 
+### 設計方針（バウハウス・ミニマル）
+- モノクロベース（zinc系）+ 単一プライマリ（ブルー）の抑制されたパレット
+- マニュアル別の色分けを廃止し、統一プライマリカラーで表現
+- accent / cta / secondary は primary に統合
+
 ### ライトモード
 
 | トークン | 値 | 用途 |
 |---------|-----|------|
 | --primary | #2563EB | アクション、リンク、フォーカスリング |
-| --foreground | #0F172A | 見出し、本文テキスト |
-| --muted-foreground | #64748B | 補助テキスト、プレースホルダー |
-| --background | #FFFFFF | ページ背景 |
+| --foreground | #18181B | 見出し、本文テキスト |
+| --muted-foreground | #71717A | 補助テキスト、プレースホルダー |
+| --background | #FAFAFA | ページ背景 |
 | --card | #FFFFFF | カード背景 |
-| --muted | #F1F5F9 | セクション背景、無効状態 |
-| --border | #E2E8F0 | ボーダー、セパレーター |
-| --accent | #7C3AED | バッジ、アクセント |
-| --cta | #F97316 | CTA ボタン |
+| --muted | #F4F4F5 | セクション背景、無効状態 |
+| --border | #E4E4E7 | ボーダー、セパレーター |
 
 ### ダークモード
 
 | トークン | 値 | 用途 |
 |---------|-----|------|
-| --primary | #7CB3E8 | アクション、リンク |
-| --foreground | #CDD5E0 | 本文テキスト |
-| --muted-foreground | #8B99AD | 補助テキスト |
-| --background | #151D2B | ページ背景 |
-| --card | #1C2737 | カード背景 |
-| --muted | #283545 | セクション背景 |
-| --border | #283545 | ボーダー |
+| --primary | #93C5FD | アクション、リンク |
+| --foreground | #E4E4E7 | 本文テキスト |
+| --muted-foreground | #A1A1AA | 補助テキスト |
+| --background | #09090B | ページ背景 |
+| --card | #18181B | カード背景 |
+| --muted | #27272A | セクション背景 |
+| --border | #27272A | ボーダー |
 
-### マニュアル別アクセントカラー
+### マニュアル別カラー（統一）
 
-| マニュアル | テキスト | 背景 | 用途 |
-|-----------|---------|------|------|
-| Git | rose-600 / rose-300 | bg-rose-500 | Git セクション |
-| React | indigo-600 / indigo-300 | bg-indigo-500 | React セクション |
-| Claude Code | violet-600 / violet-300 | bg-violet-500 | Claude Code セクション |
-| Three.js | teal-600 / teal-300 | bg-teal-500 | Three.js セクション |
+全マニュアル共通で `text-primary` / `bg-primary` を使用。色ではなく番号・アイコン・テキストで区別する。
 
 ## コンポーネント命名規則
 
