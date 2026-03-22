@@ -1481,53 +1481,85 @@ function AccessibleDialog({
             <CodingChallenge
               preview={true}
               title="アクセシブルな確認ダイアログ"
-              description="dialog 要素の ___ を埋めてください。ARIA 属性でタイトルと説明を紐付け、ESC キーのハンドラと閉じるボタンのラベルを追加します。"
-              initialCode={`function ConfirmDialog({ open, onClose, onConfirm }) {
+              description="dialog 要素の ___ を埋めてください。ARIA 属性でタイトルと説明を紐付けます。"
+              initialCode={`function App() {
+  const [open, setOpen] = useState(false);
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
+    const d = dialogRef.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    else if (!open && d.open) d.close();
   }, [open]);
 
   return (
-    <dialog
-      ref={dialogRef}
-      ___="title"
-      ___="desc"
-      onCancel={(e) => { e.preventDefault(); onClose(); }}
-    >
-      <h2 id="title">削除の確認</h2>
-      <p id="desc">本当に削除しますか？</p>
-      <button onClick={onClose}>キャンセル</button>
-      <button onClick={onConfirm}>削除</button>
-      <button onClick={onClose} aria-label="ダイアログを閉じる">X</button>
-    </dialog>
+    <div style={{ padding: 24 }}>
+      <button onClick={() => setOpen(true)}>
+        ダイアログを開く
+      </button>
+      <dialog
+        ref={dialogRef}
+        ___="title"
+        ___="desc"
+        onCancel={(e) => { e.preventDefault(); setOpen(false); }}
+        style={{ padding: 24, borderRadius: 8, border: "1px solid #ccc" }}
+      >
+        <h2 id="title" style={{ margin: "0 0 8px" }}>削除の確認</h2>
+        <p id="desc" style={{ margin: "0 0 16px", color: "#666" }}>
+          本当に削除しますか？この操作は取り消せません。
+        </p>
+        <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+          <button onClick={() => setOpen(false)}>キャンセル</button>
+          <button
+            onClick={() => { alert("削除しました"); setOpen(false); }}
+            style={{ background: "#ef4444", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 4 }}
+          >
+            削除
+          </button>
+        </div>
+      </dialog>
+    </div>
   );
 }`}
-              answer={`function ConfirmDialog({ open, onClose, onConfirm }) {
+              answer={`function App() {
+  const [open, setOpen] = useState(false);
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
+    const d = dialogRef.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    else if (!open && d.open) d.close();
   }, [open]);
 
   return (
-    <dialog
-      ref={dialogRef}
-      aria-labelledby="title"
-      aria-describedby="desc"
-      onCancel={(e) => { e.preventDefault(); onClose(); }}
-    >
-      <h2 id="title">削除の確認</h2>
-      <p id="desc">本当に削除しますか？</p>
-      <button onClick={onClose}>キャンセル</button>
-      <button onClick={onConfirm}>削除</button>
-      <button onClick={onClose} aria-label="ダイアログを閉じる">X</button>
-    </dialog>
+    <div style={{ padding: 24 }}>
+      <button onClick={() => setOpen(true)}>
+        ダイアログを開く
+      </button>
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="title"
+        aria-describedby="desc"
+        onCancel={(e) => { e.preventDefault(); setOpen(false); }}
+        style={{ padding: 24, borderRadius: 8, border: "1px solid #ccc" }}
+      >
+        <h2 id="title" style={{ margin: "0 0 8px" }}>削除の確認</h2>
+        <p id="desc" style={{ margin: "0 0 16px", color: "#666" }}>
+          本当に削除しますか？この操作は取り消せません。
+        </p>
+        <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+          <button onClick={() => setOpen(false)}>キャンセル</button>
+          <button
+            onClick={() => { alert("削除しました"); setOpen(false); }}
+            style={{ background: "#ef4444", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 4 }}
+          >
+            削除
+          </button>
+        </div>
+      </dialog>
+    </div>
   );
 }`}
               hints={[
@@ -1541,6 +1573,7 @@ function AccessibleDialog({
           {/* CodingChallenge 2 */}
           <section>
             <CodingChallenge
+              preview={true}
               title="useDialog カスタム Hook の作成"
               description="open と close 関数の ___ を埋めてください。open でトリガー要素を記憶し、close でフォーカスを戻します。"
               initialCode={`function useDialog() {
@@ -1549,25 +1582,43 @@ function AccessibleDialog({
   const triggerRef = useRef(null);
 
   const open = useCallback(() => {
-    triggerRef.current = document.___; // ← ここを埋める（現在フォーカス中の要素）
+    triggerRef.current = document.___; // ← 現在フォーカス中の要素
     setIsOpen(true);
   }, []);
 
   const close = useCallback(() => {
     setIsOpen(false);
     requestAnimationFrame(() => {
-      triggerRef.current?.___(); // ← ここを埋める（フォーカスを戻すメソッド）
+      triggerRef.current?.___(); // ← フォーカスを戻すメソッド
     });
   }, []);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (isOpen && !dialog.open) dialog.showModal();
-    else if (!isOpen && dialog.open) dialog.close();
+    const d = dialogRef.current;
+    if (!d) return;
+    if (isOpen && !d.open) d.showModal();
+    else if (!isOpen && d.open) d.close();
   }, [isOpen]);
 
   return { isOpen, open, close, dialogRef };
+}
+
+function App() {
+  const { isOpen, open, close, dialogRef } = useDialog();
+
+  return (
+    <div style={{ padding: 24 }}>
+      <button onClick={open}>ダイアログを開く</button>
+      <dialog ref={dialogRef} style={{ padding: 24, borderRadius: 8, border: "1px solid #ccc" }}>
+        <h2 style={{ margin: "0 0 12px" }}>Dialog</h2>
+        <p style={{ margin: "0 0 16px", color: "#666" }}>
+          useDialog Hook で管理されています。
+          閉じるとフォーカスがボタンに戻ります。
+        </p>
+        <button onClick={close}>閉じる</button>
+      </dialog>
+    </div>
+  );
 }`}
               answer={`function useDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -1587,13 +1638,31 @@ function AccessibleDialog({
   }, []);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (isOpen && !dialog.open) dialog.showModal();
-    else if (!isOpen && dialog.open) dialog.close();
+    const d = dialogRef.current;
+    if (!d) return;
+    if (isOpen && !d.open) d.showModal();
+    else if (!isOpen && d.open) d.close();
   }, [isOpen]);
 
   return { isOpen, open, close, dialogRef };
+}
+
+function App() {
+  const { isOpen, open, close, dialogRef } = useDialog();
+
+  return (
+    <div style={{ padding: 24 }}>
+      <button onClick={open}>ダイアログを開く</button>
+      <dialog ref={dialogRef} style={{ padding: 24, borderRadius: 8, border: "1px solid #ccc" }}>
+        <h2 style={{ margin: "0 0 12px" }}>Dialog</h2>
+        <p style={{ margin: "0 0 16px", color: "#666" }}>
+          useDialog Hook で管理されています。
+          閉じるとフォーカスがボタンに戻ります。
+        </p>
+        <button onClick={close}>閉じる</button>
+      </dialog>
+    </div>
+  );
 }`}
               hints={[
                 '現在フォーカスされている要素を取得するプロパティは document.activeElement です',
@@ -1609,38 +1678,63 @@ function AccessibleDialog({
               preview={true}
               title="backdrop クリックで閉じる安全な実装"
               description="handleMouseDown と handleClick の ___ を埋めてください。mousedown と click の両方が backdrop 上であることを確認して閉じる安全な実装です。"
-              initialCode={`function SafeBackdropDialog({ open, onClose, children }) {
+              initialCode={`function App() {
+  const [open, setOpen] = useState(false);
   const dialogRef = useRef(null);
   const mouseDownTarget = useRef(null);
 
+  useEffect(() => {
+    const d = dialogRef.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    else if (!open && d.open) d.close();
+  }, [open]);
+
   const handleMouseDown = (e) => {
-    mouseDownTarget.current = e.___; // ← ここを埋める（クリック開始位置の要素）
+    mouseDownTarget.current = e.___; // ← クリック開始位置の要素
   };
 
   const handleClick = (e) => {
     if (
       e.target === dialogRef.current &&
-      mouseDownTarget.current === ___.___ // ← ここを埋める（backdrop の参照）
+      mouseDownTarget.current === ___.___ // ← backdrop の参照
     ) {
-      onClose();
+      setOpen(false);
     }
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      onMouseDown={handleMouseDown}
-      onClick={handleClick}
-    >
-      <div className="dialog-content">
-        {children}
-      </div>
-    </dialog>
+    <div style={{ padding: 24 }}>
+      <button onClick={() => setOpen(true)}>ダイアログを開く</button>
+      <dialog
+        ref={dialogRef}
+        onMouseDown={handleMouseDown}
+        onClick={handleClick}
+        style={{ padding: 0, borderRadius: 8, border: "1px solid #ccc" }}
+      >
+        <div style={{ padding: 24 }}>
+          <h2 style={{ margin: "0 0 12px" }}>backdrop で閉じるダイアログ</h2>
+          <p style={{ margin: "0 0 16px", color: "#666" }}>
+            backdrop（外側の暗い部分）をクリックすると閉じます。
+            コンテンツ内でドラッグしても誤閉じしません。
+          </p>
+          <button onClick={() => setOpen(false)}>閉じる</button>
+        </div>
+      </dialog>
+    </div>
   );
 }`}
-              answer={`function SafeBackdropDialog({ open, onClose, children }) {
+              answer={`function App() {
+  const [open, setOpen] = useState(false);
   const dialogRef = useRef(null);
   const mouseDownTarget = useRef(null);
+
+  useEffect(() => {
+    const d = dialogRef.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    else if (!open && d.open) d.close();
+  }, [open]);
 
   const handleMouseDown = (e) => {
     mouseDownTarget.current = e.target;
@@ -1651,20 +1745,29 @@ function AccessibleDialog({
       e.target === dialogRef.current &&
       mouseDownTarget.current === dialogRef.current
     ) {
-      onClose();
+      setOpen(false);
     }
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      onMouseDown={handleMouseDown}
-      onClick={handleClick}
-    >
-      <div className="dialog-content">
-        {children}
-      </div>
-    </dialog>
+    <div style={{ padding: 24 }}>
+      <button onClick={() => setOpen(true)}>ダイアログを開く</button>
+      <dialog
+        ref={dialogRef}
+        onMouseDown={handleMouseDown}
+        onClick={handleClick}
+        style={{ padding: 0, borderRadius: 8, border: "1px solid #ccc" }}
+      >
+        <div style={{ padding: 24 }}>
+          <h2 style={{ margin: "0 0 12px" }}>backdrop で閉じるダイアログ</h2>
+          <p style={{ margin: "0 0 16px", color: "#666" }}>
+            backdrop（外側の暗い部分）をクリックすると閉じます。
+            コンテンツ内でドラッグしても誤閉じしません。
+          </p>
+          <button onClick={() => setOpen(false)}>閉じる</button>
+        </div>
+      </dialog>
+    </div>
   );
 }`}
               hints={[
