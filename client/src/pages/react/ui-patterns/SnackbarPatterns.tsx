@@ -1559,7 +1559,7 @@ async function uploadFiles(files: File[]) {
           {/* コーディングチャレンジ */}
           <section>
             <CodingChallenge
-              preview={true}
+              preview={false}
               title="Toast の型定義と Reducer を実装しよう"
               description="toastReducer の ___ を埋めてください。ADD で配列末尾に追加し、REMOVE で指定 id を除外します。"
               initialCode={`interface Toast {

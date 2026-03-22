@@ -1015,6 +1015,10 @@ function withPaddingAndBorder(StoryFn) {
 // デコレーター適用後の結果
 function DecoratedResult() {
   return withPaddingAndBorder(Story);
+}
+
+function App() {
+  return <DecoratedResult />;
 }`}
               answer={`function Story() {
   return <button style={{ padding: '8px 20px', background: '#ff4785', color: '#fff', border: 'none', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}>Click me</button>;
@@ -1034,6 +1038,10 @@ function withPaddingAndBorder(StoryFn) {
 
 function DecoratedResult() {
   return withPaddingAndBorder(Story);
+}
+
+function App() {
+  return <DecoratedResult />;
 }`}
               keywords={["'24px'", '1px solid']}
               hints={[

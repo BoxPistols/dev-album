@@ -670,7 +670,7 @@ export default function CssGrid() {
             title="レスポンシブカードグリッドを作成しよう"
             description="カードグリッドの ___ を埋めてください。auto-fill と minmax で画面幅に応じて自動的にカード数が変わるレスポンシブグリッドを作ります。"
             preview={true}
-            initialCode={`function CardGrid() {
+            initialCode={`function App() {
   var items = [1, 2, 3, 4, 5, 6];
   var cardStyle = { background: 'var(--bg-accent)', padding: '20px', borderRadius: '8px', textAlign: 'center', color: 'var(--text)', fontWeight: 600 };
   return (
@@ -686,7 +686,7 @@ export default function CssGrid() {
     </div>
   );
 }`}
-            answer={`function CardGrid() {
+            answer={`function App() {
   var items = [1, 2, 3, 4, 5, 6];
   var cardStyle = { background: 'var(--bg-accent)', padding: '20px', borderRadius: '8px', textAlign: 'center', color: 'var(--text)', fontWeight: 600 };
   return (
@@ -957,7 +957,7 @@ export default function CssGrid() {
             title="grid-template-areas でダッシュボードを作ろう"
             description="ダッシュボードの ___ を埋めてください。gridTemplateAreas でエリア名を定義し、各要素の gridArea で配置先を指定します。"
             preview={true}
-            initialCode={`function Dashboard() {
+            initialCode={`function App() {
   var area = function(label, bg) {
     return { background: bg, padding: '12px', borderRadius: '6px', color: 'var(--text)', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' };
   };
@@ -977,7 +977,7 @@ export default function CssGrid() {
     </div>
   );
 }`}
-            answer={`function Dashboard() {
+            answer={`function App() {
   var area = function(label, bg) {
     return { background: bg, padding: '12px', borderRadius: '6px', color: 'var(--text)', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' };
   };

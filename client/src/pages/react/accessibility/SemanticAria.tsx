@@ -1222,22 +1222,30 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
               title="アクセシブルなナビゲーションを作成"
               description="ナビゲーションの ___ を埋めてください。セマンティックな要素と ARIA 属性で、スクリーンリーダーに情報を伝えます。"
               preview={true}
-              initialCode={`<___ aria-label="メインナビゲーション">
-  <ul>
-    <li><a href="/">ホーム</a></li>
-    <li><a href="/products" ___="page">商品一覧</a></li>
-    <li><a href="/about">会社概要</a></li>
-    <li><a href="/contact">お問い合わせ</a></li>
-  </ul>
-</nav>`}
-              answer={`<nav aria-label="メインナビゲーション">
-  <ul>
-    <li><a href="/">ホーム</a></li>
-    <li><a href="/products" aria-current="page">商品一覧</a></li>
-    <li><a href="/about">会社概要</a></li>
-    <li><a href="/contact">お問い合わせ</a></li>
-  </ul>
-</nav>`}
+              initialCode={`function App() {
+  return (
+    <nav aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/products" ___="page">商品一覧</a></li>
+        <li><a href="/about">会社概要</a></li>
+        <li><a href="/contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <nav aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/products" aria-current="page">商品一覧</a></li>
+        <li><a href="/about">会社概要</a></li>
+        <li><a href="/contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  );
+}`}
               keywords={['<nav', 'aria-current']}
               hints={[
                 'ナビゲーションを表すセマンティック要素は nav です',
@@ -1252,32 +1260,42 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
               title="アクセシブルなアコーディオンボタンを実装"
               description={'ボタンの ___ を埋めてください。ARIA 属性で開閉状態と制御対象のパネルを伝えます。閉じている状態です。'}
               preview={true}
-              initialCode={`<h3>
-  <button
-    ___="false"
-    ___="faq-panel-1"
-    onClick={toggle}
-  >
-    よくある質問
-    <ChevronIcon aria-hidden="true" />
-  </button>
-</h3>
-<div id="faq-panel-1" role="region" hidden>
-  <p>回答の内容がここに表示されます...</p>
-</div>`}
-              answer={`<h3>
-  <button
-    aria-expanded="false"
-    aria-controls="faq-panel-1"
-    onClick={toggle}
-  >
-    よくある質問
-    <ChevronIcon aria-hidden="true" />
-  </button>
-</h3>
-<div id="faq-panel-1" role="region" aria-labelledby="faq-button-1" hidden>
-  <p>回答の内容がここに表示されます...</p>
-</div>`}
+              initialCode={`function App() {
+  return (
+    <div>
+      <h3>
+        <button
+          ___="false"
+          ___="faq-panel-1"
+          onClick={toggle}
+        >
+          よくある質問
+        </button>
+      </h3>
+      <div id="faq-panel-1" role="region" hidden>
+        <p>回答の内容がここに表示されます...</p>
+      </div>
+    </div>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <div>
+      <h3>
+        <button
+          aria-expanded="false"
+          aria-controls="faq-panel-1"
+          onClick={toggle}
+        >
+          よくある質問
+        </button>
+      </h3>
+      <div id="faq-panel-1" role="region" aria-labelledby="faq-button-1" hidden>
+        <p>回答の内容がここに表示されます...</p>
+      </div>
+    </div>
+  );
+}`}
               keywords={['aria-expanded', 'aria-controls']}
               hints={[
                 '開閉状態を伝える ARIA 属性は aria-expanded です',
@@ -1292,34 +1310,44 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
               title="フォームのアクセシビリティ改善"
               description="フォームの ___ を埋めてください。label と input の関連付け、エラーメッセージの紐付けを行います。"
               preview={true}
-              initialCode={`<div>
-  <___ htmlFor="email">メールアドレス</___>
-  <input
-    id="email"
-    type="email"
-    ___={!!emailError}
-    aria-describedby={emailError ? "email-error" : undefined}
-  />
-  {emailError && (
-    <p id="email-error" role="alert">
-      {emailError}
-    </p>
-  )}
-</div>`}
-              answer={`<div>
-  <label htmlFor="email">メールアドレス</label>
-  <input
-    id="email"
-    type="email"
-    aria-invalid={!!emailError}
-    aria-describedby={emailError ? "email-error" : undefined}
-  />
-  {emailError && (
-    <p id="email-error" role="alert">
-      {emailError}
-    </p>
-  )}
-</div>`}
+              initialCode={`function App() {
+  const emailError = "有効なメールアドレスを入力してください";
+  return (
+    <div>
+      <___ htmlFor="email">メールアドレス</___>
+      <input
+        id="email"
+        type="email"
+        ___={!!emailError}
+        aria-describedby={emailError ? "email-error" : undefined}
+      />
+      {emailError && (
+        <p id="email-error" role="alert">
+          {emailError}
+        </p>
+      )}
+    </div>
+  );
+}`}
+              answer={`function App() {
+  const emailError = "有効なメールアドレスを入力してください";
+  return (
+    <div>
+      <label htmlFor="email">メールアドレス</label>
+      <input
+        id="email"
+        type="email"
+        aria-invalid={!!emailError}
+        aria-describedby={emailError ? "email-error" : undefined}
+      />
+      {emailError && (
+        <p id="email-error" role="alert">
+          {emailError}
+        </p>
+      )}
+    </div>
+  );
+}`}
               keywords={['<label', 'aria-invalid']}
               hints={[
                 'フォーム要素にラベルを関連付けるセマンティック要素は label です',

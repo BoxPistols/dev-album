@@ -1301,7 +1301,7 @@ export default preview;`}
               title="Storybook の decorator でテーマ切替を実装"
               description="テーマ切替の ___ を埋めてください。ボタンの onClick でモードを切り替え、themes オブジェクトから現在のテーマを取得してスタイルに適用します。"
               preview={true}
-              initialCode={`function ThemeDecorator() {
+              initialCode={`function App() {
   const [mode, setMode] = React.useState('light');
 
   const themes = {
@@ -1365,7 +1365,7 @@ export default preview;`}
     </div>
   );
 }`}
-              answer={`function ThemeDecorator() {
+              answer={`function App() {
   const [mode, setMode] = React.useState('light');
 
   const themes = {

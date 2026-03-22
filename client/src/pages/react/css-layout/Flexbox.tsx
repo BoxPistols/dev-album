@@ -670,7 +670,7 @@ export default function Flexbox() {
               title="ヘッダーレイアウトを Flexbox で作る"
               description="ヘッダーの ___ を埋めてください。Flexbox で横並び・中央揃え・両端配置のレイアウトを作ります。"
               preview={true}
-              initialCode={`function Header() {
+              initialCode={`function App() {
   return (
     <div style={{
       display: '___', // ← ここを埋める（レイアウトモード）
@@ -692,7 +692,7 @@ export default function Flexbox() {
     </div>
   );
 }`}
-              answer={`function Header() {
+              answer={`function App() {
   return (
     <div style={{
       display: 'flex',
@@ -729,7 +729,7 @@ export default function Flexbox() {
               title="サイドバー + メインの2カラムレイアウト"
               description="2カラムレイアウトの ___ を埋めてください。sidebar は固定幅、main は残りの幅を使います。"
               preview={true}
-              initialCode={`function TwoColumn() {
+              initialCode={`function App() {
   return (
     <div style={{
       display: 'flex',
@@ -758,7 +758,7 @@ export default function Flexbox() {
     </div>
   );
 }`}
-              answer={`function TwoColumn() {
+              answer={`function App() {
   return (
     <div style={{
       display: 'flex',

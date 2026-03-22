@@ -461,34 +461,42 @@ export default function FormA11y() {
               preview={true}
               title="アクセシブルなフォームフィールドを作成"
               description="メールアドレスフィールドの ___ を埋めてください。label の紐付け、必須属性、エラー状態の ARIA 属性を設定します。"
-              initialCode={`<div>
-  <label ___="email">メールアドレス <span aria-hidden="true">*</span></label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    required
-    ___="true"
-    aria-invalid="true"
-    ___="email-hint email-error"
-  />
-  <p id="email-hint">確認メールを送信します</p>
-  <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
-</div>`}
-              answer={`<div>
-  <label for="email">メールアドレス <span aria-hidden="true">*</span></label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    required
-    aria-required="true"
-    aria-invalid="true"
-    aria-describedby="email-hint email-error"
-  />
-  <p id="email-hint">確認メールを送信します</p>
-  <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
-</div>`}
+              initialCode={`function App() {
+  return (
+    <div>
+      <label ___="email">メールアドレス <span aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        ___="true"
+        aria-invalid="true"
+        ___="email-hint email-error"
+      />
+      <p id="email-hint">確認メールを送信します</p>
+      <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
+    </div>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <div>
+      <label for="email">メールアドレス <span aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        aria-required="true"
+        aria-invalid="true"
+        aria-describedby="email-hint email-error"
+      />
+      <p id="email-hint">確認メールを送信します</p>
+      <p id="email-error" role="alert">有効なメールアドレスを入力してください</p>
+    </div>
+  );
+}`}
               keywords={['for=', 'aria-required', 'aria-describedby']}
               hints={[
                 'label と input を紐付ける属性は for です（React では htmlFor）',
@@ -750,34 +758,42 @@ export default function FormA11y() {
               preview={true}
               title="マルチステップフォームの進捗インジケーターを実装"
               description="進捗インジケーターの ___ を埋めてください。現在のステップ（ステップ 2）に適切な ARIA 属性を設定します。"
-              initialCode={`<nav aria-label="フォームの進捗">
-  <ol>
-    <li>
-      ステップ 1: 個人情報
-      <span class="sr-only">（完了）</span>
-    </li>
-    <li ___="___">
-      ステップ 2: お届け先
-    </li>
-    <li>
-      ステップ 3: 確認
-    </li>
-  </ol>
-</nav>`}
-              answer={`<nav aria-label="フォームの進捗">
-  <ol>
-    <li>
-      ステップ 1: 個人情報
-      <span class="sr-only">（完了）</span>
-    </li>
-    <li aria-current="step">
-      ステップ 2: お届け先
-    </li>
-    <li>
-      ステップ 3: 確認
-    </li>
-  </ol>
-</nav>`}
+              initialCode={`function App() {
+  return (
+    <nav aria-label="フォームの進捗">
+      <ol>
+        <li>
+          ステップ 1: 個人情報
+          <span class="sr-only">（完了）</span>
+        </li>
+        <li ___="___">
+          ステップ 2: お届け先
+        </li>
+        <li>
+          ステップ 3: 確認
+        </li>
+      </ol>
+    </nav>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <nav aria-label="フォームの進捗">
+      <ol>
+        <li>
+          ステップ 1: 個人情報
+          <span class="sr-only">（完了）</span>
+        </li>
+        <li aria-current="step">
+          ステップ 2: お届け先
+        </li>
+        <li>
+          ステップ 3: 確認
+        </li>
+      </ol>
+    </nav>
+  );
+}`}
               keywords={['aria-current="step"']}
               hints={[
                 '現在のステップを示す ARIA 属性は aria-current で、値は "step" です',

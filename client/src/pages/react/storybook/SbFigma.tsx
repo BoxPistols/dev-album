@@ -1021,7 +1021,7 @@ jobs:
               title="デザイントークン ショーケースを作ろう"
               description="colors と typography 配列の ___ を埋めてください。Success（緑）と Body（本文サイズ）のデザイントークンを追加します。"
               preview={true}
-              initialCode={`function TokenShowcase() {
+              initialCode={`function App() {
   const colors = [
     { name: 'Primary', value: '#3b82f6' },
     { name: 'Secondary', value: '#8b5cf6' },
@@ -1066,7 +1066,7 @@ jobs:
     </div>
   );
 }`}
-              answer={`function TokenShowcase() {
+              answer={`function App() {
   const colors = [
     { name: 'Primary', value: '#3b82f6' },
     { name: 'Secondary', value: '#8b5cf6' },

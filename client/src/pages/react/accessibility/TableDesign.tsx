@@ -1854,50 +1854,58 @@ function UserTable({ users }: { users: User[] }) {
               preview={true}
               title="アクセシブルなテーブルを作る"
               description="テーブルの ___ を埋めてください。caption でテーブルの説明を追加し、scope 属性でヘッダーの方向を明示します。"
-              initialCode={`<table>
-  <___>月別売上レポート</___>
-  <thead>
-    <tr>
-      <th scope="___">月</th>
-      <th scope="col">売上</th>
-      <th scope="col">目標</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="___">1月</th>
-      <td>500万円</td>
-      <td>480万円</td>
-    </tr>
-    <tr>
-      <th scope="row">2月</th>
-      <td>520万円</td>
-      <td>500万円</td>
-    </tr>
-  </tbody>
-</table>`}
-              answer={`<table>
-  <caption>月別売上レポート</caption>
-  <thead>
-    <tr>
-      <th scope="col">月</th>
-      <th scope="col">売上</th>
-      <th scope="col">目標</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1月</th>
-      <td>500万円</td>
-      <td>480万円</td>
-    </tr>
-    <tr>
-      <th scope="row">2月</th>
-      <td>520万円</td>
-      <td>500万円</td>
-    </tr>
-  </tbody>
-</table>`}
+              initialCode={`function App() {
+  return (
+    <table>
+      <___>月別売上レポート</___>
+      <thead>
+        <tr>
+          <th scope="___">月</th>
+          <th scope="col">売上</th>
+          <th scope="col">目標</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="___">1月</th>
+          <td>500万円</td>
+          <td>480万円</td>
+        </tr>
+        <tr>
+          <th scope="row">2月</th>
+          <td>520万円</td>
+          <td>500万円</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <table>
+      <caption>月別売上レポート</caption>
+      <thead>
+        <tr>
+          <th scope="col">月</th>
+          <th scope="col">売上</th>
+          <th scope="col">目標</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1月</th>
+          <td>500万円</td>
+          <td>480万円</td>
+        </tr>
+        <tr>
+          <th scope="row">2月</th>
+          <td>520万円</td>
+          <td>500万円</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}`}
               keywords={['caption', 'scope="col"', 'scope="row"']}
               hints={[
                 'テーブルの説明を提供する要素は caption です',
@@ -1911,7 +1919,7 @@ function UserTable({ users }: { users: User[] }) {
           {/* ======================================== */}
           <section>
             <CodingChallenge
-              preview={true}
+              preview={false}
               title="横スクロール + 固定カラムの CSS"
               description="各セレクタの ___ を埋めてください。横スクロール可能なラッパーと、最初のカラムを sticky で固定する CSS を作成します。"
               initialCode={`.table-wrapper {
@@ -1963,7 +1971,7 @@ function UserTable({ users }: { users: User[] }) {
           {/* ======================================== */}
           <section>
             <CodingChallenge
-              preview={true}
+              preview={false}
               title="レスポンシブテーブルのカード化 CSS"
               description="カード化 CSS の ___ を埋めてください。モバイル幅で thead を非表示にし、各行をカード形式に変換します。"
               initialCode={`@media (max-width: 768px) {

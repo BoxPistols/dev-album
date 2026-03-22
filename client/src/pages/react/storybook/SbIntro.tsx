@@ -760,7 +760,7 @@ export default meta;
               title="コンポーネントショーケースを作ってみよう"
               description="Warning バリエーションの ___ を埋めてください。既存の Info/Success/Error と同じパターンで、黄色系のカラーを適用します。"
               preview={true}
-              initialCode={`function AlertShowcase() {
+              initialCode={`function App() {
   const base = {
     padding: '12px 16px',
     borderRadius: '8px',
@@ -793,7 +793,7 @@ export default meta;
     </div>
   );
 }`}
-              answer={`function AlertShowcase() {
+              answer={`function App() {
   const base = {
     padding: '12px 16px',
     borderRadius: '8px',

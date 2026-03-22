@@ -762,70 +762,78 @@ function DynamicSkills() {
               preview={true}
               title="アクセシブルなお問い合わせフォーム"
               description="フォームの ___ を埋めてください。fieldset + legend でグループ化し、label の for と input の id を紐付けます。"
-              initialCode={`<form>
-  <___>
-    <___>お問い合わせ内容</___>
+              initialCode={`function App() {
+  return (
+    <form>
+      <___>
+        <___>お問い合わせ内容</___>
 
-    <fieldset>
-      <legend>お問い合わせ種別</legend>
-      <label>
-        <input type="radio" name="type" value="general" />
-        一般
-      </label>
-      <label>
-        <input type="radio" name="type" value="support" />
-        技術サポート
-      </label>
-      <label>
-        <input type="radio" name="type" value="other" />
-        その他
-      </label>
-    </fieldset>
+        <fieldset>
+          <legend>お問い合わせ種別</legend>
+          <label>
+            <input type="radio" name="type" value="general" />
+            一般
+          </label>
+          <label>
+            <input type="radio" name="type" value="support" />
+            技術サポート
+          </label>
+          <label>
+            <input type="radio" name="type" value="other" />
+            その他
+          </label>
+        </fieldset>
 
-    <label for="contact-name">氏名</label>
-    <input type="text" id="contact-name" name="name" required />
+        <label htmlFor="contact-name">氏名</label>
+        <input type="text" id="contact-name" name="name" required />
 
-    <label for="contact-email">メール</label>
-    <input type="email" id="contact-email" name="email" required />
+        <label htmlFor="contact-email">メール</label>
+        <input type="email" id="contact-email" name="email" required />
 
-    <label for="contact-message">メッセージ</label>
-    <textarea id="contact-message" name="message" required></textarea>
-  </fieldset>
+        <label htmlFor="contact-message">メッセージ</label>
+        <textarea id="contact-message" name="message" required></textarea>
+      </fieldset>
 
-  <button type="submit">送信</button>
-</form>`}
-              answer={`<form>
-  <fieldset>
-    <legend>お問い合わせ内容</legend>
+      <button type="submit">送信</button>
+    </form>
+  );
+}`}
+              answer={`function App() {
+  return (
+    <form>
+      <fieldset>
+        <legend>お問い合わせ内容</legend>
 
-    <fieldset>
-      <legend>お問い合わせ種別</legend>
-      <label>
-        <input type="radio" name="type" value="general" />
-        一般
-      </label>
-      <label>
-        <input type="radio" name="type" value="support" />
-        技術サポート
-      </label>
-      <label>
-        <input type="radio" name="type" value="other" />
-        その他
-      </label>
-    </fieldset>
+        <fieldset>
+          <legend>お問い合わせ種別</legend>
+          <label>
+            <input type="radio" name="type" value="general" />
+            一般
+          </label>
+          <label>
+            <input type="radio" name="type" value="support" />
+            技術サポート
+          </label>
+          <label>
+            <input type="radio" name="type" value="other" />
+            その他
+          </label>
+        </fieldset>
 
-    <label for="contact-name">氏名</label>
-    <input type="text" id="contact-name" name="name" required />
+        <label htmlFor="contact-name">氏名</label>
+        <input type="text" id="contact-name" name="name" required />
 
-    <label for="contact-email">メール</label>
-    <input type="email" id="contact-email" name="email" required />
+        <label htmlFor="contact-email">メール</label>
+        <input type="email" id="contact-email" name="email" required />
 
-    <label for="contact-message">メッセージ</label>
-    <textarea id="contact-message" name="message" required></textarea>
-  </fieldset>
+        <label htmlFor="contact-message">メッセージ</label>
+        <textarea id="contact-message" name="message" required></textarea>
+      </fieldset>
 
-  <button type="submit">送信</button>
-</form>`}
+      <button type="submit">送信</button>
+    </form>
+  );
+}`}
               hints={[
                 'フォーム要素をグループ化する要素は fieldset です',
                 'グループのタイトルを定義する要素は legend です',

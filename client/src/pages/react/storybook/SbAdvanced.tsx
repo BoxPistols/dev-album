@@ -1140,7 +1140,7 @@ const config: StorybookConfig = {
               title="MSW で API モックのストーリーを作ろう"
               description="user オブジェクトの ___ を埋めてください。MSW のモックで返すユーザーデータとして、name と email を設定します。"
               preview={true}
-              initialCode={`function UserProfile() {
+              initialCode={`function App() {
   // 本来は fetch で取得するデータをモックで再現
   const user = { name: '___', email: '___' }; // ← ここを埋める
   return (
@@ -1166,7 +1166,7 @@ const config: StorybookConfig = {
     </div>
   );
 }`}
-              answer={`function UserProfile() {
+              answer={`function App() {
   const user = { name: '田中太郎', email: 'tanaka@example.com' };
   return (
     <div style={{
