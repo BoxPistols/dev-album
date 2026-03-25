@@ -1,6 +1,26 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Suspense, ReactNode } from "react";
+import { Suspense, ReactNode, useEffect } from "react";
+import { PerspectiveCamera } from "three";
+
+/** Canvas 内部でカメラの position / fov を動的に更新する */
+function CameraController({
+  position,
+  fov,
+}: {
+  position: [number, number, number];
+  fov: number;
+}) {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.position.set(...position);
+    if (camera instanceof PerspectiveCamera) {
+      camera.fov = fov;
+      camera.updateProjectionMatrix();
+    }
+  }, [camera, position[0], position[1], position[2], fov]);
+  return null;
+}
 
 interface ThreePreviewProps {
   children: ReactNode;
@@ -26,6 +46,7 @@ export default function ThreePreview({
           camera={{ position: cameraPosition, fov: cameraFov }}
           dpr={[1, 1.5]}
         >
+          <CameraController position={cameraPosition} fov={cameraFov} />
           <Suspense fallback={null}>
             {children}
             {orbitControls && <OrbitControls enableDamping />}
