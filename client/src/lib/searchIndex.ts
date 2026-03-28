@@ -563,4 +563,47 @@ export const searchIndex: Record<string, string[]> = {
   '/claude-mux/ide-agent-teams/plugins-ecosystem': ['プラグインの概要', 'プラグインの管理', 'プラグインの発見', 'カスタムスラッシュコマンド', 'MCP エコシステムとの連携', 'プラグイン開発の基本'],
   '/claude-mux/multi-ai/multi-ai-coexistence': ['なぜマルチ AI 戦略が必要か', '主要 AI コーディングツールの比較', 'ハイブリッドアーキテクチャの設計', '機能分担パターン', 'スキルの共通化', '段階的導入ガイド'],
   '/claude-mux/multi-ai/single-source-of-truth': ['なぜ SSOT が必要か', '階層的ルール管理', 'SSOT 運用のベストプラクティス', 'シングルソースオブトゥルース'],
+
+  // ===== ai-ml-manual =====
+  '/ai-ml': [
+    'AI', 'Python', '機械学習', 'ディープラーニング', 'LLM', 'LMOps',
+  ],
+  '/ai-ml/ai-overview/landscape': [
+    'AI', 'ML', 'DL', 'LLM', '全体像', 'Transformer', 'ChatGPT', 'Claude',
+    'ニューラルネットワーク', 'RAG', 'ベクトル検索', '画像生成',
+  ],
+  '/ai-ml/ai-overview/ml-concepts': [
+    '教師あり学習', '教師なし学習', '強化学習', '分類', '回帰',
+    '特徴量', 'ラベル', '過学習', '汎化', 'クラスタリング',
+  ],
+  '/ai-ml/python-ml/python-setup': [
+    'Python', 'pyenv', 'venv', 'pip', 'Jupyter', 'Google Colab',
+    'Miniconda', '環境構築', 'VS Code',
+  ],
+  '/ai-ml/python-ml/python-basics': [
+    'Python', '基本文法', 'リスト内包表記', '関数', 'クラス',
+    'JavaScript 比較', '型ヒント', 'f-string', 'スライシング',
+  ],
+  '/ai-ml/python-ml/data-libraries': [
+    'NumPy', 'Pandas', 'Matplotlib', 'ndarray', 'DataFrame',
+    'CSV', 'グラフ', '散布図', 'ヒストグラム', 'データ前処理',
+  ],
+  '/ai-ml/ml-fundamentals/supervised': [
+    '教師あり学習', 'scikit-learn', '分類', '回帰', '決定木',
+    'ランダムフォレスト', 'SVM', '過学習', 'train_test_split', 'Iris',
+  ],
+  '/ai-ml/ml-fundamentals/deep-learning': [
+    'ディープラーニング', 'ニューラルネットワーク', 'CNN', 'RNN',
+    'Transformer', 'PyTorch', 'TensorFlow', 'GPU', '転移学習', 'Google Colab',
+  ],
+  '/ai-ml/lmops/llm-basics': [
+    'LLM', '大規模言語モデル', 'Transformer', 'トークン', 'Embedding',
+    'Anthropic API', 'プロンプトエンジニアリング', 'RAG', 'ベクトル検索',
+    'Few-shot', 'Chain-of-Thought', 'Pinecone', 'Chroma', 'pgvector',
+  ],
+  '/ai-ml/lmops/lmops-workflow': [
+    'LMOps', 'MLOps', 'RAG パイプライン', 'LangChain', 'Chroma',
+    'ファインチューニング', 'トークン', 'コスト最適化', 'ガードレール',
+    '評価', 'Langfuse', 'ハルシネーション', 'AI 倫理',
+  ],
 };

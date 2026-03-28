@@ -1,4 +1,4 @@
-export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux';
+export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml';
 
 export interface ManualInfo {
   id: ManualId;
@@ -60,6 +60,14 @@ export const manuals: ManualInfo[] = [
     description: '3Dグラフィックスとインタラクティブ開発',
     icon: '3',
     color: '#14B8A6',
+  },
+  {
+    id: 'ai-ml',
+    title: 'AI / Python / 機械学習',
+    shortTitle: 'AI・ML',
+    description: 'Python・機械学習・LLM・LMOps の基礎',
+    icon: 'A',
+    color: '#F59E0B',
   },
 ];
 
@@ -127,6 +135,13 @@ export const sections: SectionInfo[] = [
   { id: 'cicd-headless', title: 'CI/CD とヘッドレス運用', manualId: 'claude-mux', part: 'advanced', colorScheme: 'claude', description: 'ヘッドレスモード・GitHub Actions 連携' },
   { id: 'ide-agent-teams', title: 'IDE連携とエージェント協調', manualId: 'claude-mux', part: 'advanced', colorScheme: 'claude', description: 'VS Code・JetBrains・マルチエージェント' },
   { id: 'multi-ai-architecture', title: 'マルチAIアーキテクチャ', manualId: 'claude-mux', part: 'advanced', colorScheme: 'claude', description: '複数AIの協調と統合設計' },
+
+  // === AI / Python / 機械学習マニュアル ===
+  { id: 'ai-ml-intro', title: 'はじめに', manualId: 'ai-ml' },
+  { id: 'ai-overview', title: 'AI 概論', manualId: 'ai-ml' },
+  { id: 'python-ml', title: 'Python for ML', manualId: 'ai-ml' },
+  { id: 'ml-fundamentals', title: '機械学習の基礎', manualId: 'ai-ml' },
+  { id: 'lmops', title: 'LMOps', manualId: 'ai-ml' },
 ];
 
 // ── ページ定義 ──
@@ -320,6 +335,20 @@ export const pages: PageInfo[] = [
   { step: 44, path: '/claude-mux/ide-agent-teams/plugins-ecosystem', title: 'プラグインとエコシステム', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
   { step: 45, path: '/claude-mux/multi-ai/multi-ai-coexistence', title: 'マルチAIツールの共存戦略', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
   { step: 46, path: '/claude-mux/multi-ai/single-source-of-truth', title: 'シングルソースオブトゥルース設計', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+
+  // ===========================
+  // AI / Python / 機械学習マニュアル (8ページ)
+  // ===========================
+  { step: 1, path: '/ai-ml', title: 'このマニュアルについて', sectionId: 'ai-ml-intro', manualId: 'ai-ml' },
+  { step: 2, path: '/ai-ml/ai-overview/landscape', title: 'AI・ML・DL・LLM の全体像', sectionId: 'ai-overview', manualId: 'ai-ml' },
+  { step: 3, path: '/ai-ml/ai-overview/ml-concepts', title: '機械学習の基礎概念', sectionId: 'ai-overview', manualId: 'ai-ml' },
+  { step: 4, path: '/ai-ml/python-ml/python-setup', title: 'Python 環境構築', sectionId: 'python-ml', manualId: 'ai-ml' },
+  { step: 5, path: '/ai-ml/python-ml/python-basics', title: 'Python 基本文法', sectionId: 'python-ml', manualId: 'ai-ml' },
+  { step: 6, path: '/ai-ml/python-ml/data-libraries', title: 'NumPy・Pandas・Matplotlib', sectionId: 'python-ml', manualId: 'ai-ml' },
+  { step: 7, path: '/ai-ml/ml-fundamentals/supervised', title: '教師あり学習の実践', sectionId: 'ml-fundamentals', manualId: 'ai-ml' },
+  { step: 8, path: '/ai-ml/ml-fundamentals/deep-learning', title: 'ディープラーニング入門', sectionId: 'ml-fundamentals', manualId: 'ai-ml' },
+  { step: 9, path: '/ai-ml/lmops/llm-basics', title: 'LLM の仕組みと活用', sectionId: 'lmops', manualId: 'ai-ml' },
+  { step: 10, path: '/ai-ml/lmops/lmops-workflow', title: 'LMOps ワークフロー', sectionId: 'lmops', manualId: 'ai-ml' },
 ];
 
 // ── ヘルパー関数 ──
@@ -361,7 +390,7 @@ export function getSectionPages(sectionId: string): PageInfo[] {
 }
 
 export function getManualIdFromPath(path: string): ManualId | undefined {
-  const match = path.match(/^\/(react|git|threejs|claude-mux)/);
+  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml)/);
   return match ? (match[1] as ManualId) : undefined;
 }
 

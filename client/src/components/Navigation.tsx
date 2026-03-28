@@ -21,6 +21,7 @@ const manualColors: Record<ManualId, string> = {
   git: 'text-primary',
   threejs: 'text-primary',
   'claude-mux': 'text-primary',
+  'ai-ml': 'text-primary',
 };
 
 const manualBgColors: Record<ManualId, string> = {
@@ -28,6 +29,7 @@ const manualBgColors: Record<ManualId, string> = {
   git: 'bg-primary',
   threejs: 'bg-primary',
   'claude-mux': 'bg-primary',
+  'ai-ml': 'bg-primary',
 };
 
 const manualBorderColors: Record<ManualId, string> = {
@@ -35,6 +37,7 @@ const manualBorderColors: Record<ManualId, string> = {
   git: 'border-primary',
   threejs: 'border-primary',
   'claude-mux': 'border-primary',
+  'ai-ml': 'border-primary',
 };
 
 const manualActiveBg: Record<ManualId, string> = {
@@ -42,6 +45,7 @@ const manualActiveBg: Record<ManualId, string> = {
   git: 'bg-primary/10',
   threejs: 'bg-primary/10',
   'claude-mux': 'bg-primary/10',
+  'ai-ml': 'bg-primary/10',
 };
 
 export default function Navigation() {

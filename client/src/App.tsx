@@ -203,6 +203,18 @@ const CmPluginsEco = lazy(() => import("./pages/claude-mux/ide-agent-teams/Plugi
 const CmMultiAI = lazy(() => import("./pages/claude-mux/multi-ai-architecture/MultiAICoexistence"));
 const CmSingleSource = lazy(() => import("./pages/claude-mux/multi-ai-architecture/SingleSourceOfTruth"));
 
+// ── AI / Python / 機械学習マニュアル (10ページ) ──
+const AiMlHome = lazy(() => import("./pages/ai-ml/Home"));
+const AiLandscape = lazy(() => import("./pages/ai-ml/ai-overview/Landscape"));
+const AiMlConcepts = lazy(() => import("./pages/ai-ml/ai-overview/MlConcepts"));
+const AiPythonSetup = lazy(() => import("./pages/ai-ml/python-ml/PythonSetup"));
+const AiPythonBasics = lazy(() => import("./pages/ai-ml/python-ml/PythonBasics"));
+const AiDataLibraries = lazy(() => import("./pages/ai-ml/python-ml/DataLibraries"));
+const AiSupervised = lazy(() => import("./pages/ai-ml/ml-fundamentals/Supervised"));
+const AiDeepLearning = lazy(() => import("./pages/ai-ml/ml-fundamentals/DeepLearning"));
+const AiLlmBasics = lazy(() => import("./pages/ai-ml/lmops/LlmBasics"));
+const AiLmopsWorkflow = lazy(() => import("./pages/ai-ml/lmops/LmopsWorkflow"));
+
 function Loading() {
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
@@ -419,6 +431,18 @@ function App() {
                 <Route path="/claude-mux/ide-agent-teams/plugins-ecosystem" component={CmPluginsEco} />
                 <Route path="/claude-mux/multi-ai/multi-ai-coexistence" component={CmMultiAI} />
                 <Route path="/claude-mux/multi-ai/single-source-of-truth" component={CmSingleSource} />
+
+                {/* === AI / Python / 機械学習マニュアル === */}
+                <Route path="/ai-ml" component={AiMlHome} />
+                <Route path="/ai-ml/ai-overview/landscape" component={AiLandscape} />
+                <Route path="/ai-ml/ai-overview/ml-concepts" component={AiMlConcepts} />
+                <Route path="/ai-ml/python-ml/python-setup" component={AiPythonSetup} />
+                <Route path="/ai-ml/python-ml/python-basics" component={AiPythonBasics} />
+                <Route path="/ai-ml/python-ml/data-libraries" component={AiDataLibraries} />
+                <Route path="/ai-ml/ml-fundamentals/supervised" component={AiSupervised} />
+                <Route path="/ai-ml/ml-fundamentals/deep-learning" component={AiDeepLearning} />
+                <Route path="/ai-ml/lmops/llm-basics" component={AiLlmBasics} />
+                <Route path="/ai-ml/lmops/lmops-workflow" component={AiLmopsWorkflow} />
 
                 {/* 404 */}
                 <Route component={NotFound} />
