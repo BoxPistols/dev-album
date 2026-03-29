@@ -247,7 +247,7 @@ export default function UserResearch() {
                   </div>
                   <div className="p-5">
                     <p className="text-sm text-foreground mb-3">{method.desc}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                       {method.detail}
                     </p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -371,7 +371,7 @@ export default function UserResearch() {
                     <p className="text-sm font-bold text-foreground mb-1">
                       課題がまだ不明確な場合
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       定性リサーチ（インタビュー・行動観察）から始める。何が問題かを明らかにする。
                     </p>
                   </div>
@@ -384,7 +384,7 @@ export default function UserResearch() {
                     <p className="text-sm font-bold text-foreground mb-1">
                       仮説の検証・優先度判断をしたい場合
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       定量リサーチ（アンケート・A/Bテスト・アナリティクス）で規模を測定する。
                     </p>
                   </div>
@@ -397,7 +397,7 @@ export default function UserResearch() {
                     <p className="text-sm font-bold text-foreground mb-1">
                       デザイン案を比較したい場合
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       A/B テストやユーザビリティテストで実際のユーザー行動をもとに判断する。
                     </p>
                   </div>

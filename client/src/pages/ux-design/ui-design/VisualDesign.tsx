@@ -46,7 +46,7 @@ export default function VisualDesign() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">近接</h3>
-                    <p className="text-xs text-muted-foreground">Proximity</p>
+                    <p className="text-sm text-muted-foreground">Proximity</p>
                   </div>
                 </div>
                 <p className="text-sm text-foreground/80 mb-4 leading-relaxed">
@@ -86,7 +86,7 @@ export default function VisualDesign() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">整列</h3>
-                    <p className="text-xs text-muted-foreground">Alignment</p>
+                    <p className="text-sm text-muted-foreground">Alignment</p>
                   </div>
                 </div>
                 <p className="text-sm text-foreground/80 mb-4 leading-relaxed">
@@ -122,7 +122,7 @@ export default function VisualDesign() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">反復</h3>
-                    <p className="text-xs text-muted-foreground">Repetition</p>
+                    <p className="text-sm text-muted-foreground">Repetition</p>
                   </div>
                 </div>
                 <p className="text-sm text-foreground/80 mb-4 leading-relaxed">
@@ -158,7 +158,7 @@ export default function VisualDesign() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">コントラスト</h3>
-                    <p className="text-xs text-muted-foreground">Contrast</p>
+                    <p className="text-sm text-muted-foreground">Contrast</p>
                   </div>
                 </div>
                 <p className="text-sm text-foreground/80 mb-4 leading-relaxed">
@@ -330,17 +330,17 @@ export default function VisualDesign() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">4.5 : 1</p>
-                  <p className="text-xs text-muted-foreground">通常テキスト（AA）</p>
+                  <p className="text-sm text-muted-foreground">通常テキスト（AA）</p>
                   <p className="text-[12px] text-muted-foreground mt-1">18px 未満のテキスト</p>
                 </div>
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">3 : 1</p>
-                  <p className="text-xs text-muted-foreground">大きなテキスト（AA）</p>
+                  <p className="text-sm text-muted-foreground">大きなテキスト（AA）</p>
                   <p className="text-[12px] text-muted-foreground mt-1">18px 以上 or 14px 太字</p>
                 </div>
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">7 : 1</p>
-                  <p className="text-xs text-muted-foreground">通常テキスト（AAA）</p>
+                  <p className="text-sm text-muted-foreground">通常テキスト（AAA）</p>
                   <p className="text-[12px] text-muted-foreground mt-1">最も厳格な基準</p>
                 </div>
               </div>
@@ -368,31 +368,31 @@ export default function VisualDesign() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="rounded-lg bg-muted/30 p-4 border border-border">
                   <p className="text-lg font-serif text-foreground mb-2">Serif</p>
-                  <p className="text-xs text-muted-foreground mb-2">セリフ体</p>
+                  <p className="text-sm text-muted-foreground mb-2">セリフ体</p>
                   <p className="text-sm text-foreground/80 leading-relaxed">
                     文字の端に「ひげ飾り」がある書体。権威・伝統的な印象。長文の可読性が高い。
                   </p>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-sm text-muted-foreground mt-2">
                     例: Times New Roman, Georgia, Noto Serif JP
                   </p>
                 </div>
                 <div className="rounded-lg bg-muted/30 p-4 border border-border">
                   <p className="text-lg font-sans text-foreground mb-2">Sans-serif</p>
-                  <p className="text-xs text-muted-foreground mb-2">サンセリフ体</p>
+                  <p className="text-sm text-muted-foreground mb-2">サンセリフ体</p>
                   <p className="text-sm text-foreground/80 leading-relaxed">
                     ひげ飾りのないシンプルな書体。モダン・クリーンな印象。UI に最適。
                   </p>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-sm text-muted-foreground mt-2">
                     例: Helvetica, Inter, Noto Sans JP
                   </p>
                 </div>
                 <div className="rounded-lg bg-muted/30 p-4 border border-border">
                   <p className="text-lg font-mono text-foreground mb-2">Monospace</p>
-                  <p className="text-xs text-muted-foreground mb-2">等幅書体</p>
+                  <p className="text-sm text-muted-foreground mb-2">等幅書体</p>
                   <p className="text-sm text-foreground/80 leading-relaxed">
                     全文字が同じ幅の書体。コードエディタやターミナルで使われる。
                   </p>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-sm text-muted-foreground mt-2">
                     例: Fira Code, JetBrains Mono, Source Code Pro
                   </p>
                 </div>
@@ -537,7 +537,7 @@ export default function VisualDesign() {
               {/* 近接の法則 */}
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-bold text-foreground mb-2">近接の法則</h3>
-                <p className="text-xs text-muted-foreground mb-3">Law of Proximity</p>
+                <p className="text-sm text-muted-foreground mb-3">Law of Proximity</p>
                 <div className="flex justify-center gap-8 py-4 mb-3 bg-muted/30 rounded-lg">
                   <div className="flex gap-1">
                     <div className="w-3 h-3 rounded-full bg-primary" />
@@ -558,7 +558,7 @@ export default function VisualDesign() {
               {/* 類似の法則 */}
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-bold text-foreground mb-2">類似の法則</h3>
-                <p className="text-xs text-muted-foreground mb-3">Law of Similarity</p>
+                <p className="text-sm text-muted-foreground mb-3">Law of Similarity</p>
                 <div className="flex justify-center gap-2 py-4 mb-3 bg-muted/30 rounded-lg">
                   <div className="w-3 h-3 rounded-full bg-primary" />
                   <div className="w-3 h-3 rounded bg-primary" />
@@ -575,7 +575,7 @@ export default function VisualDesign() {
               {/* 閉合の法則 */}
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-bold text-foreground mb-2">閉合の法則</h3>
-                <p className="text-xs text-muted-foreground mb-3">Law of Closure</p>
+                <p className="text-sm text-muted-foreground mb-3">Law of Closure</p>
                 <div className="flex justify-center py-4 mb-3 bg-muted/30 rounded-lg">
                   <svg width="80" height="50" viewBox="0 0 80 50" className="text-primary">
                     <path d="M 10 25 A 20 20 0 0 1 40 5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 6" />
@@ -592,7 +592,7 @@ export default function VisualDesign() {
               {/* 連続の法則 */}
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-bold text-foreground mb-2">連続の法則</h3>
-                <p className="text-xs text-muted-foreground mb-3">Law of Continuity</p>
+                <p className="text-sm text-muted-foreground mb-3">Law of Continuity</p>
                 <div className="flex justify-center py-4 mb-3 bg-muted/30 rounded-lg">
                   <svg width="120" height="50" viewBox="0 0 120 50" className="text-primary">
                     <path d="M 10 40 Q 40 5 60 25 Q 80 45 110 10" fill="none" stroke="currentColor" strokeWidth="2.5" />

@@ -153,7 +153,7 @@ export default function LlmBasics() {
                     <div className="h-4 bg-primary/40 rounded-l-sm rounded-r-full" style={{ width: '40%' }} />
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Claude は最大 200K トークンのコンテキストウィンドウに対応しており、長い文書全体を入力に含めることが可能です。
                 </p>
               </div>
@@ -406,7 +406,7 @@ print(message.content[0].text)`}
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold text-foreground text-sm">{item.label}</p>
-                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
                     </div>
                     {i < 4 && (
                       <ArrowRight size={14} className="text-muted-foreground flex-shrink-0 mt-2 hidden md:block rotate-90 md:rotate-0" />
@@ -488,18 +488,18 @@ print(message.content[0].text)`}
               <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-lg border border-border bg-muted p-4 text-center">
                   <p className="text-2xl font-bold text-primary mb-1">1.0</p>
-                  <p className="text-xs text-muted-foreground">完全に同じ方向</p>
-                  <p className="text-xs text-muted-foreground">（意味が同じ）</p>
+                  <p className="text-sm text-muted-foreground">完全に同じ方向</p>
+                  <p className="text-sm text-muted-foreground">（意味が同じ）</p>
                 </div>
                 <div className="rounded-lg border border-border bg-muted p-4 text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">0.0</p>
-                  <p className="text-xs text-muted-foreground">直交</p>
-                  <p className="text-xs text-muted-foreground">（無関係）</p>
+                  <p className="text-sm text-muted-foreground">直交</p>
+                  <p className="text-sm text-muted-foreground">（無関係）</p>
                 </div>
                 <div className="rounded-lg border border-border bg-muted p-4 text-center">
                   <p className="text-2xl font-bold text-muted-foreground mb-1">-1.0</p>
-                  <p className="text-xs text-muted-foreground">正反対の方向</p>
-                  <p className="text-xs text-muted-foreground">（意味が逆）</p>
+                  <p className="text-sm text-muted-foreground">正反対の方向</p>
+                  <p className="text-sm text-muted-foreground">（意味が逆）</p>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mt-4 leading-relaxed">

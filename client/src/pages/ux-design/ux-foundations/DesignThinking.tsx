@@ -287,7 +287,7 @@ export default function DesignThinking() {
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground text-sm mb-1">{rule.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{rule.desc}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{rule.desc}</p>
                   </div>
                 </div>
               ))}

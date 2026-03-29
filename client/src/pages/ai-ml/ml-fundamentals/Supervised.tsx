@@ -52,7 +52,7 @@ export default function Supervised() {
                     <span className="text-primary font-bold text-sm">{step.num}</span>
                   </div>
                   <h4 className="font-bold text-foreground text-sm mb-1">{step.title}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -375,19 +375,19 @@ print(f"R2:   {r2:.4f}")    # 決定係数（1 に近いほど良い）`}
             <div className="grid md:grid-cols-3 gap-3 mb-6">
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">データ増量</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   訓練データを増やすことで、モデルがより一般的なパターンを学習しやすくなる
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">正則化</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   モデルの複雑度にペナルティを与えて、過度なフィッティングを抑制する
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">交差検証</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   データを複数パターンで分割・評価し、モデルの安定性を確認する
                 </p>
               </div>

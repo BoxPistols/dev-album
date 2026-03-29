@@ -56,7 +56,7 @@ export default function WhatIsUx() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">UX（User Experience）</h3>
-                    <p className="text-xs text-muted-foreground">体験全体の設計</p>
+                    <p className="text-sm text-muted-foreground">体験全体の設計</p>
                   </div>
                 </div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -87,7 +87,7 @@ export default function WhatIsUx() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">UI（User Interface）</h3>
-                    <p className="text-xs text-muted-foreground">見た目・操作の設計</p>
+                    <p className="text-sm text-muted-foreground">見た目・操作の設計</p>
                   </div>
                 </div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export default function WhatIsUx() {
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-bold text-foreground">{layer.label}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {layer.desc}
                       </p>
                     </div>

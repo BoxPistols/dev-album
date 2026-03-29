@@ -134,14 +134,14 @@ export default function MlConcepts() {
                     </div>
                     <div className="min-w-0">
                       <p className="font-bold text-foreground text-sm">{step.title}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{step.desc}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed mt-0.5">{step.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="mt-4 pt-4 border-t border-border">
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   実務ではステップ 5 の評価結果に応じて、ステップ 2 や 3 に戻ることが一般的です。
                   この反復プロセスを通じてモデルの精度を改善していきます。
                 </p>

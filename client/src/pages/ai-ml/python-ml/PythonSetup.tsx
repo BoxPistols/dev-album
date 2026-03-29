@@ -202,7 +202,7 @@ pip install -r requirements.txt`}
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">Python 拡張機能をインストール</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     VS Code の拡張機能パネルで「Python」を検索し、Microsoft 公式の拡張機能をインストール。
                     Pylance（型チェック・補完）も自動で含まれる。
                   </p>
@@ -214,7 +214,7 @@ pip install -r requirements.txt`}
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">Python インタープリタを選択</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     コマンドパレット（Cmd+Shift+P）で「Python: Select Interpreter」を実行し、
                     .venv 内の Python を選択する。これにより補完やリントが仮想環境のパッケージを参照する。
                   </p>
@@ -226,7 +226,7 @@ pip install -r requirements.txt`}
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">動作確認</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     .py ファイルを作成し、右上の実行ボタンまたはターミナルから <code className="bg-muted px-1 py-0.5 rounded text-xs">python ファイル名.py</code> で実行できることを確認する。
                   </p>
                 </div>

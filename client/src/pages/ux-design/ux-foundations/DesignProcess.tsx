@@ -66,7 +66,7 @@ export default function DesignProcess() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-foreground">Discover（発見）</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed mt-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1">
                           ユーザーの行動観察やインタビューで課題を広く探索する。先入観を排除し、発散的に情報を集める。
                         </p>
                         <span className="inline-block mt-2 px-2 py-0.5 rounded text-xs bg-muted text-muted-foreground">
@@ -83,7 +83,7 @@ export default function DesignProcess() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-foreground">Define（定義）</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed mt-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1">
                           集めた情報を分析し、解くべき問題を特定する。問題文（Problem Statement）を明確にする。
                         </p>
                         <span className="inline-block mt-2 px-2 py-0.5 rounded text-xs bg-muted text-muted-foreground">
@@ -106,7 +106,7 @@ export default function DesignProcess() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-foreground">Develop（展開）</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed mt-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1">
                           アイデア出し、スケッチ、プロトタイプ作成を通じて解決策の候補を広げる。
                         </p>
                         <span className="inline-block mt-2 px-2 py-0.5 rounded text-xs bg-muted text-muted-foreground">
@@ -123,7 +123,7 @@ export default function DesignProcess() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-foreground">Deliver（提供）</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed mt-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1">
                           テストとフィードバックを経て解決策を絞り込み、最終的なプロダクトとして仕上げる。
                         </p>
                         <span className="inline-block mt-2 px-2 py-0.5 rounded text-xs bg-muted text-muted-foreground">
@@ -238,7 +238,7 @@ export default function DesignProcess() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">ウォーターフォール型</h3>
-                    <p className="text-xs text-muted-foreground">直線的プロセス</p>
+                    <p className="text-sm text-muted-foreground">直線的プロセス</p>
                   </div>
                 </div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -269,7 +269,7 @@ export default function DesignProcess() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground">アジャイル UX</h3>
-                    <p className="text-xs text-muted-foreground">反復的プロセス</p>
+                    <p className="text-sm text-muted-foreground">反復的プロセス</p>
                   </div>
                 </div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -350,7 +350,7 @@ export default function DesignProcess() {
                       </span>
                     </div>
                     <p className="text-sm font-bold text-foreground mb-2">{item.label}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {item.desc}
                     </p>
                   </div>

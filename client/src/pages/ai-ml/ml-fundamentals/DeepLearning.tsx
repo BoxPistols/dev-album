@@ -47,7 +47,7 @@ export default function DeepLearning() {
                   <span className="text-primary font-bold text-xs">IN</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">入力層</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">データを受け取る</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">データを受け取る</p>
               </div>
 
               <span className="text-muted-foreground text-lg">→</span>
@@ -57,7 +57,7 @@ export default function DeepLearning() {
                   <span className="text-primary font-bold text-xs">x N</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">隠れ層</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">特徴を抽出・変換</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">特徴を抽出・変換</p>
               </div>
 
               <span className="text-muted-foreground text-lg">→</span>
@@ -67,7 +67,7 @@ export default function DeepLearning() {
                   <span className="text-primary font-bold text-xs">OUT</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">出力層</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">予測を出力</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">予測を出力</p>
               </div>
             </div>
 
@@ -80,28 +80,28 @@ export default function DeepLearning() {
             <div className="grid md:grid-cols-2 gap-3 mb-6">
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">重み（Weight）</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   各ニューロン間の接続の強さ。学習によって自動的に調整される。
                   重要な入力ほど大きい重みが割り当てられる。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">バイアス（Bias）</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   各ニューロンの「基準値」を調整するパラメータ。
                   重みとセットで学習される。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">活性化関数（ReLU）</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   ニューロンの出力に非線形性を加える関数。
                   ReLU は負の値を 0 にし、正の値はそのまま通す。現在最も広く使われている。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <h4 className="font-bold text-foreground text-sm mb-1">損失関数と勾配降下法</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   損失関数は「予測と正解のずれ」を数値化する。
                   勾配降下法は、損失を最小化するように重みを繰り返し更新するアルゴリズム。
                 </p>

@@ -303,7 +303,7 @@ export default function InformationArchitecture() {
                           <p className="text-xs font-bold text-green-600 dark:text-green-400 mb-0.5">
                             Merit
                           </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {pattern.pros}
                           </p>
                         </div>
@@ -311,7 +311,7 @@ export default function InformationArchitecture() {
                           <p className="text-xs font-bold text-red-600 dark:text-red-400 mb-0.5">
                             Demerit
                           </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {pattern.cons}
                           </p>
                         </div>
@@ -319,7 +319,7 @@ export default function InformationArchitecture() {
                           <p className="text-xs font-bold text-muted-foreground mb-0.5">
                             Example
                           </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {pattern.example}
                           </p>
                         </div>

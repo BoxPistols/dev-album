@@ -363,7 +363,7 @@ export default function Wireframe() {
                   <h3 className="font-bold text-foreground text-sm mb-2">
                     {pattern.name}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                     {pattern.description}
                   </p>
                   <div className="text-xs bg-muted rounded-lg px-3 py-1.5 text-muted-foreground">
@@ -398,7 +398,7 @@ export default function Wireframe() {
                   <h3 className="font-bold text-foreground text-sm mb-1">
                     {bp.device}
                   </h3>
-                  <p className="text-xs text-muted-foreground mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     {bp.width}
                   </p>
                   <span className="inline-block px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-bold">
