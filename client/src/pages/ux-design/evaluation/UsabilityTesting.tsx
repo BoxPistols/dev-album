@@ -473,9 +473,9 @@ export default function UsabilityTesting() {
                 description: '5人テストの根拠となる研究',
               },
               {
-                title: 'System Usability Scale (SUS)',
-                url: 'https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html',
-                description: 'SUS の公式ガイドと計算方法',
+                title: 'NNGroup: Measuring Usability with SUS',
+                url: 'https://www.nngroup.com/articles/measuring-perceived-usability/',
+                description: 'SUS（System Usability Scale）の実施方法と結果の解釈',
               },
               {
                 title: 'Usability Testing 101',

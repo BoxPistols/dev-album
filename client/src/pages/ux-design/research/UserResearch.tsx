@@ -443,9 +443,9 @@ export default function UserResearch() {
                   description: '20以上のリサーチ手法を「態度 vs 行動」「定性 vs 定量」の2軸で分類した解説。',
                 },
                 {
-                  title: 'Google: UX Research Methods',
-                  url: 'https://research.google/pubs/pub43939/',
-                  description: 'Google のリサーチチームによるリサーチ手法の選定ガイド。',
+                  title: 'Google Design Library',
+                  url: 'https://design.google/library',
+                  description: 'Google のデザインチームのリソースとガイド',
                 },
                 {
                   title: 'Steve Portigal: Interviewing Users',

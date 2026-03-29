@@ -419,9 +419,9 @@ export default function FigmaPrototype() {
                 description: '変数と条件分岐の設定方法',
               },
               {
-                title: 'Figma MCP Server',
-                url: 'https://github.com/anthropics/anthropic-cookbook/tree/main/misc/model_context_protocol',
-                description: 'Claude から Figma にアクセスする MCP サーバー',
+                title: 'Model Context Protocol',
+                url: 'https://modelcontextprotocol.io/',
+                description: 'MCP の公式ドキュメント',
               },
             ]}
           />

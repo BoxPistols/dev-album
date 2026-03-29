@@ -568,7 +568,7 @@ print(f"合計トークン: {message.usage.input_tokens + message.usage.output_t
               links={[
                 {
                   title: 'Anthropic API Documentation',
-                  url: 'https://docs.anthropic.com/',
+                  url: 'https://docs.anthropic.com/en/docs/welcome',
                   description: 'Claude API の公式ドキュメント。料金体系、モデル仕様の詳細。',
                 },
                 {

@@ -544,10 +544,10 @@ export default function PersonaJourney() {
                     "エンパシーマップの作成方法とワークショップでの活用方法",
                 },
                 {
-                  title: "Lean UX - Jeff Gothelf",
-                  url: "https://www.jeffgothelf.com/lean-ux-book/",
+                  title: "Lean UX（O'Reilly）",
+                  url: "https://www.oreilly.com/library/view/lean-ux-3rd/9781098116293/",
                   description:
-                    "仮説ペルソナからスタートし、検証を重ねるリーンなアプローチ",
+                    "Jeff Gothelf による Lean UX の実践ガイド",
                 },
               ]}
             />

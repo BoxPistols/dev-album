@@ -469,10 +469,10 @@ export default function InformationArchitecture() {
             <ReferenceLinks
               links={[
                 {
-                  title: "Information Architecture - Usability.gov",
-                  url: "https://www.usability.gov/what-and-why/information-architecture.html",
+                  title: "NNGroup: IA vs Navigation",
+                  url: "https://www.nngroup.com/articles/ia-vs-navigation/",
                   description:
-                    "米国政府が提供する IA の基礎解説。定義と実践方法がまとまっている",
+                    "情報アーキテクチャとナビゲーションの違いと関係性",
                 },
                 {
                   title:
@@ -483,10 +483,10 @@ export default function InformationArchitecture() {
                 },
                 {
                   title:
-                    "Information Architecture for the World Wide Web",
-                  url: "https://www.oreilly.com/library/view/information-architecture-4th/9781491911679/",
+                    "NNGroup: Information Architecture",
+                  url: "https://www.nngroup.com/articles/information-architecture/",
                   description:
-                    "IA の定番書籍（通称シロクマ本）。体系的に学びたい場合に推奨",
+                    "IA の定義と基本原則を解説した NNGroup の記事",
                 },
                 {
                   title: "Optimal Workshop",

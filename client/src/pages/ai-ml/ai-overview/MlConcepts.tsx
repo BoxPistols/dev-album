@@ -322,9 +322,9 @@ print(f"テストデータ: {len(X_test)} 件")`}
                   description: 'scikit-learn の公式ドキュメント。アルゴリズムの使い方と理論',
                 },
                 {
-                  title: 'Coursera: Machine Learning（Andrew Ng）',
+                  title: 'Coursera: Machine Learning Specialization',
                   url: 'https://www.coursera.org/learn/machine-learning',
-                  description: 'スタンフォード大学 Andrew Ng 教授による定番の ML コース',
+                  description: 'DeepLearning.AI + Stanford Online による ML 入門コース',
                 },
               ]}
             />

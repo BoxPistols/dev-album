@@ -594,7 +594,7 @@ print(message.content[0].text)`}
               links={[
                 {
                   title: 'Anthropic API Documentation',
-                  url: 'https://docs.anthropic.com/',
+                  url: 'https://docs.anthropic.com/en/docs/welcome',
                   description: 'Claude API の公式ドキュメント。認証、エンドポイント、パラメータの詳細。',
                 },
                 {

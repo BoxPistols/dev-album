@@ -817,7 +817,7 @@ function UserList() {
               {
                 title: 'Apollo Client (React)',
                 url: 'https://www.apollographql.com/docs/react/',
-                description: 'useQuery / useMutation の詳細リファレンス',
+                description: 'Apollo Client の React 向け公式ドキュメント',
               },
               {
                 title: 'GraphQL Code Generator',

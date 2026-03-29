@@ -408,7 +408,7 @@ y_tensor = y_tensor.to(device)
               links={[
                 {
                   title: 'PyTorch 公式チュートリアル',
-                  url: 'https://pytorch.org/tutorials/',
+                  url: 'https://docs.pytorch.org/tutorials/',
                   description: 'PyTorch の公式チュートリアル。初歩から応用まで',
                 },
                 {

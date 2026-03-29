@@ -459,9 +459,9 @@ export default function DesignProcess() {
                 description: 'リーン UX の定番書籍（第 3 版）',
               },
               {
-                title: 'Nielsen Norman Group - Dual-Track Agile',
-                url: 'https://www.nngroup.com/articles/dual-track-agile/',
-                description: 'アジャイル開発における UX の統合方法',
+                title: 'NNGroup: Discovery in Agile',
+                url: 'https://www.nngroup.com/articles/discovery-in-agile/',
+                description: 'アジャイル開発におけるディスカバリーの進め方',
               },
             ]}
           />

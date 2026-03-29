@@ -624,9 +624,9 @@ export default function DesignSystem() {
                   description: 'Atomic Design の提唱者による無料の解説書',
                 },
                 {
-                  title: 'Figma: Design Systems',
-                  url: 'https://www.figma.com/best-practices/design-systems/',
-                  description: 'Figma 公式のデザインシステム構築ベストプラクティス',
+                  title: 'Figma: デザインシステムガイド',
+                  url: 'https://help.figma.com/hc/en-us/articles/14552950499351-Guide-to-design-systems-in-Figma',
+                  description: 'Figma でデザインシステムを構築するための公式ガイド',
                 },
               ]}
             />

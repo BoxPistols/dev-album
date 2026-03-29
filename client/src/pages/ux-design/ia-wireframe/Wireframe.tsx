@@ -488,10 +488,10 @@ export default function Wireframe() {
                     "モバイルファーストの提唱者による原点記事",
                 },
                 {
-                  title: "Layout Patterns - web.dev",
-                  url: "https://web.dev/patterns/layout/",
+                  title: "web.dev: Learn CSS Layout",
+                  url: "https://web.dev/learn/css/layout",
                   description:
-                    "CSS で実装するレイアウトパターンのリファレンス",
+                    "CSS レイアウトの基本パターンを学ぶ web.dev のガイド",
                 },
                 {
                   title: "Figma - Design Tool",
