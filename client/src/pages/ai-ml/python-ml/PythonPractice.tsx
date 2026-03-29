@@ -15,10 +15,10 @@ export default function PythonPractice() {
           <span className="step-badge">STEP 7</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           Python 実践ユースケース
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           基本文法とライブラリの知識を使って、実務で役立つ Python スクリプトを書いてみましょう。
         </p>
 

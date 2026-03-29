@@ -29,10 +29,10 @@ export default function LmopsWorkflow() {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           LMOps ワークフロー
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           LLM をプロダクション環境で安定的に運用するための実践知識を学びます。
           プロンプト管理、評価、コスト最適化、RAG パイプラインの実装まで扱います。
         </p>

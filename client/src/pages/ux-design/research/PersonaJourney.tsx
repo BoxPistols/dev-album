@@ -182,10 +182,10 @@ export default function PersonaJourney() {
         {/* Header */}
         <div className="mt-8 mb-12">
           <SectionBadge />
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">
             ペルソナとジャーニーマップ
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             リサーチで得たユーザー情報を「ペルソナ」と「ジャーニーマップ」に整理し、チーム全体で共有できる形にします。
           </p>
         </div>

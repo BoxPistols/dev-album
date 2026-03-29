@@ -128,10 +128,10 @@ export default function UserResearch() {
           <span className="step-badge">STEP 5</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           ユーザーリサーチ手法
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           仮説ではなくデータに基づいた設計判断を行うための、
           主要なリサーチ手法とその使い分けを学ぶ。
         </p>

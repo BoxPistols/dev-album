@@ -14,10 +14,10 @@ export default function Supervised() {
           <span className="step-badge">STEP 8</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           教師あり学習の実践
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           scikit-learn を使って、データの読み込みからモデルの評価まで、機械学習の基本ワークフローを一通り体験します。
         </p>
 

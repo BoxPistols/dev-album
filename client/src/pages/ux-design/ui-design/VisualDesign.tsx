@@ -11,10 +11,10 @@ export default function VisualDesign() {
         <div className="mb-4">
           <span className="step-badge">STEP 9</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           ビジュアルデザインの原則
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           色、文字、余白、レイアウト。ビジュアルデザインには再現可能な法則があります。
           デザインの 4 原則からゲシュタルトの法則まで、根拠のある判断基準を身につけます。
         </p>

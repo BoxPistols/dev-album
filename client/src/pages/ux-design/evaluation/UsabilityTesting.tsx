@@ -11,10 +11,10 @@ export default function UsabilityTesting() {
         <div className="mb-4">
           <span className="step-badge">STEP 12</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           ユーザビリティテストと改善
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           作ったプロダクトが実際に使えるかを検証し、改善につなげる方法を学びます。
           テスト計画の立て方から、ヒューリスティック評価、定量指標の活用、改善サイクルの回し方までを整理します。
         </p>

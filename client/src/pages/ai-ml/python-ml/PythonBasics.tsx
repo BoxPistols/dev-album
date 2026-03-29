@@ -14,10 +14,10 @@ export default function PythonBasics() {
           <span className="step-badge">STEP 5</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           Python 基本文法
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           JavaScript との違いを意識しながら、ML に必要な Python の基礎を最短で押さえます。
         </p>
 

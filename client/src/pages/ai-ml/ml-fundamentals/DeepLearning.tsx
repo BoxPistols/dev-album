@@ -14,10 +14,10 @@ export default function DeepLearning() {
           <span className="step-badge">STEP 9</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           ディープラーニング入門
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ニューラルネットワークの基本構造から CNN・RNN・Transformer の進化、
           PyTorch での実装まで、ディープラーニングの全体像を把握します。
         </p>

@@ -14,10 +14,10 @@ export default function MlConcepts() {
           <span className="step-badge">STEP 3</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           機械学習の基礎概念
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           機械学習の3つの学習方法、ワークフロー、基本用語を押さえて、
           後続ステップの土台を固めましょう。
         </p>

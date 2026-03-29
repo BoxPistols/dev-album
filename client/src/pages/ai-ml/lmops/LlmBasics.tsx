@@ -28,10 +28,10 @@ export default function LlmBasics() {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           LLM の仕組みと活用
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           大規模言語モデル（LLM）がどのように動作し、API を通じてどう活用するかを理解します。
           RAG やベクトル検索を使って、LLM の能力を拡張する方法も扱います。
         </p>

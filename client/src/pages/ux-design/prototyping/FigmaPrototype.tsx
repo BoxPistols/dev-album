@@ -11,10 +11,10 @@ export default function FigmaPrototype() {
         <div className="mb-4">
           <span className="step-badge">STEP 11</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           Figma プロトタイピング
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Figma のプロトタイピング機能を使って、実装前にインタラクションを検証する方法を学びます。
           エンジニア視点で押さえておくべき機能と、デザインからコードへの変換ワークフローを整理します。
         </p>

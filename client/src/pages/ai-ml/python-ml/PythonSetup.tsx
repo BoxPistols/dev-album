@@ -14,10 +14,10 @@ export default function PythonSetup() {
           <span className="step-badge">STEP 4</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           Python 環境構築
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ML のライブラリを使うために、Python の開発環境を整えましょう。
           pyenv と venv による管理方法を中心に解説します。
         </p>

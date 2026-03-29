@@ -11,10 +11,10 @@ export default function DesignSystem() {
         <div className="mb-4">
           <span className="step-badge">STEP 10</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           デザインシステム構築
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           デザインシステムは、一貫した UI を効率的に作るための仕組みです。
           デザイントークン、Atomic Design、運用フローまでを体系的に学びます。
         </p>

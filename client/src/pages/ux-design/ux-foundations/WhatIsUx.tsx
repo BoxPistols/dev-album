@@ -19,10 +19,10 @@ export default function WhatIsUx() {
 
         <div className="mt-8 mb-12">
           <SectionBadge />
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">
             UX デザインとは
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             「ユーザー体験」の設計がなぜ必要なのか、UI との違いや基本モデルを整理する。
           </p>
         </div>

@@ -115,10 +115,10 @@ export default function DesignThinking() {
           <span className="step-badge">STEP 4</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
           デザイン思考
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ユーザーの課題を起点に、共感・定義・創造・試作・検証の5ステップで
           解決策を導くフレームワークを理解する。
         </p>

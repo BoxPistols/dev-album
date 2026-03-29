@@ -79,10 +79,10 @@ export default function Landscape() {
         {/* Header */}
         <div className="mt-8 mb-12">
           <SectionBadge />
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">
             AI・ML・DL・LLM の全体像
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             AI 関連の用語は多いですが、それぞれの関係はシンプルな入れ子構造で整理できます。
             まずは全体の見取り図を把握し、各領域の役割を確認します。
           </p>
