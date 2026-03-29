@@ -436,7 +436,7 @@ export default function Wireframe() {
                     key={item.step}
                     className="flex items-center gap-3"
                   >
-                    <span className="flex-shrink-0 text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                    <span className="flex-shrink-0 text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                       {item.step}
                     </span>
                     <p className="text-sm text-foreground/80 leading-relaxed">

@@ -225,7 +225,7 @@ export default function DesignSystem() {
               <div className="flex flex-col gap-4">
                 {/* Atoms */}
                 <div className="flex items-start gap-4">
-                  <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     1
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -247,20 +247,9 @@ export default function DesignSystem() {
                     </div>
                   </div>
                 </div>
-
-                {/* 矢印 */}
-                <div className="flex items-center gap-4">
-                  <div className="w-10 flex-shrink-0 flex justify-center">
-                    <svg width="16" height="24" viewBox="0 0 16 24" className="text-primary/40" aria-hidden="true">
-                      <path d="M8 0v20M3 16l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="flex-1" />
-                </div>
-
                 {/* Molecules */}
                 <div className="flex items-start gap-4">
-                  <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     2
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -278,20 +267,9 @@ export default function DesignSystem() {
                     <p className="text-[12px] text-muted-foreground mt-2">例: 検索フォーム = 入力欄 + ボタン</p>
                   </div>
                 </div>
-
-                {/* 矢印 */}
-                <div className="flex items-center gap-4">
-                  <div className="w-10 flex-shrink-0 flex justify-center">
-                    <svg width="16" height="24" viewBox="0 0 16 24" className="text-primary/40" aria-hidden="true">
-                      <path d="M8 0v20M3 16l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="flex-1" />
-                </div>
-
                 {/* Organisms */}
                 <div className="flex items-start gap-4">
-                  <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     3
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -319,20 +297,9 @@ export default function DesignSystem() {
                     <p className="text-[12px] text-muted-foreground mt-2">例: ヘッダー = ロゴ + ナビゲーション + 検索フォーム + ボタン</p>
                   </div>
                 </div>
-
-                {/* 矢印 */}
-                <div className="flex items-center gap-4">
-                  <div className="w-10 flex-shrink-0 flex justify-center">
-                    <svg width="16" height="24" viewBox="0 0 16 24" className="text-primary/40" aria-hidden="true">
-                      <path d="M8 0v20M3 16l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="flex-1" />
-                </div>
-
                 {/* Templates */}
                 <div className="flex items-start gap-4">
-                  <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     4
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -346,20 +313,9 @@ export default function DesignSystem() {
                     </p>
                   </div>
                 </div>
-
-                {/* 矢印 */}
-                <div className="flex items-center gap-4">
-                  <div className="w-10 flex-shrink-0 flex justify-center">
-                    <svg width="16" height="24" viewBox="0 0 16 24" className="text-primary/40" aria-hidden="true">
-                      <path d="M8 0v20M3 16l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="flex-1" />
-                </div>
-
                 {/* Pages */}
                 <div className="flex items-start gap-4">
-                  <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     5
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">

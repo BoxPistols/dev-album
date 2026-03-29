@@ -129,7 +129,7 @@ export default function MlConcepts() {
                   { num: 6, title: 'デプロイ', desc: 'API やバッチ処理として本番環境へ展開' },
                 ].map((step) => (
                   <div key={step.num} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                    <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                    <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                       <span className="text-primary text-sm font-bold">{step.num}</span>
                     </div>
                     <div className="min-w-0">

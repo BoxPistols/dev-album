@@ -197,7 +197,7 @@ pip install -r requirements.txt`}
 
             <div className="space-y-4">
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
-                <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                   <span className="text-primary text-xs font-bold">1</span>
                 </div>
                 <div>
@@ -209,7 +209,7 @@ pip install -r requirements.txt`}
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
-                <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                   <span className="text-primary text-xs font-bold">2</span>
                 </div>
                 <div>
@@ -221,7 +221,7 @@ pip install -r requirements.txt`}
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
-                <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                   <span className="text-primary text-xs font-bold">3</span>
                 </div>
                 <div>

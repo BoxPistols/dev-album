@@ -435,7 +435,7 @@ export default function PersonaJourney() {
                   key={item.step}
                   className="flex gap-4 items-start rounded-xl border border-border bg-card p-4"
                 >
-                  <span className="flex-shrink-0 text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                  <span className="flex-shrink-0 text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                     {item.step}
                   </span>
                   <div>

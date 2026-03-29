@@ -305,7 +305,7 @@ export default function Landscape() {
                   className="flex gap-4 items-start rounded-xl border border-border bg-card p-4"
                 >
                   <div className="flex-shrink-0 flex flex-col items-center gap-1">
-                    <span className="text-2xl font-light text-primary/40 w-8 text-center">
+                    <span className="text-xl font-medium text-primary/50 w-8 text-center">
                       {index + 1}
                     </span>
                     <span className="text-sm font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">

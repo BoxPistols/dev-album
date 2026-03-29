@@ -120,7 +120,7 @@ export default function UsabilityTesting() {
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 text-2xl font-light text-primary/40 w-8 text-center shrink-0 mt-0.5">
+                  <div className="flex-shrink-0 text-xl font-medium text-primary/50 w-8 text-center shrink-0 mt-0.5">
                     {item.step}
                   </div>
                   <div className="flex-1 bg-card border border-border rounded-lg px-4 py-3">
@@ -366,7 +366,7 @@ export default function UsabilityTesting() {
                 ].map((item, i) => (
                   <div key={item.icon} className="flex items-center gap-3">
                     <div className="flex flex-col items-center">
-                      <div className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                      <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                         {item.icon}
                       </div>
                       <span className="text-xs text-foreground font-medium mt-1.5 text-center max-w-[80px]">

@@ -48,7 +48,7 @@ export default function Supervised() {
                 { num: 6, title: '評価', desc: '精度を計算し汎化性能を確認' },
               ].map((step) => (
                 <div key={step.num} className="rounded-xl border border-border bg-card p-4 text-center">
-                  <div className="text-2xl font-light text-primary/40 mx-auto mb-2">
+                  <div className="text-xl font-medium text-primary/50 mx-auto mb-2">
                     <span className="text-primary font-bold text-sm">{step.num}</span>
                   </div>
                   <h4 className="font-bold text-foreground text-sm mb-1">{step.title}</h4>

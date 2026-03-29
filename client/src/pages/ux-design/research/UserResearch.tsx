@@ -364,7 +364,7 @@ export default function UserResearch() {
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="space-y-4">
                 <div className="flex items-start gap-4 p-4 rounded-lg bg-muted/50">
-                  <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                  <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                     <Users className="w-4 h-4" />
                   </div>
                   <div>
@@ -377,7 +377,7 @@ export default function UserResearch() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 rounded-lg bg-muted/50">
-                  <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                  <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                     <BarChart3 className="w-4 h-4" />
                   </div>
                   <div>
@@ -390,7 +390,7 @@ export default function UserResearch() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 rounded-lg bg-muted/50">
-                  <div className="text-xl font-light text-primary/40 w-6 text-center shrink-0">
+                  <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
                     <FlaskConical className="w-4 h-4" />
                   </div>
                   <div>

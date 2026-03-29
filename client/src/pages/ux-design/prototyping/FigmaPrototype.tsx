@@ -270,7 +270,7 @@ export default function FigmaPrototype() {
                 ].map((item, i) => (
                   <div key={item.step} className="flex items-center gap-3">
                     <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2.5">
-                      <span className="text-2xl font-light text-primary/40 w-8 text-center shrink-0">
+                      <span className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
                         {item.step}
                       </span>
                       <span className="text-foreground font-medium">{item.label}</span>
@@ -312,7 +312,7 @@ export default function FigmaPrototype() {
                   },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4 items-start">
-                    <div className="flex-shrink-0 text-2xl font-light text-primary/40 w-8 text-center shrink-0 mt-0.5">
+                    <div className="flex-shrink-0 text-xl font-medium text-primary/50 w-8 text-center shrink-0 mt-0.5">
                       {i + 1}
                     </div>
                     <div className="flex-1 bg-card border border-border rounded-lg px-4 py-3">

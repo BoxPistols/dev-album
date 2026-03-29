@@ -43,7 +43,7 @@ export default function DeepLearning() {
             {/* 層構造の図解 */}
             <div className="flex items-center justify-center gap-3 md:gap-6 mb-8">
               <div className="rounded-xl border border-border bg-card p-4 text-center min-w-[90px]">
-                <div className="text-2xl font-light text-primary/40 mx-auto mb-2">
+                <div className="text-xl font-medium text-primary/50 mx-auto mb-2">
                   <span className="text-primary font-bold text-xs">IN</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">入力層</h4>
@@ -53,7 +53,7 @@ export default function DeepLearning() {
               <span className="text-muted-foreground text-lg">→</span>
 
               <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 text-center min-w-[90px]">
-                <div className="text-2xl font-light text-primary/40 mx-auto mb-2">
+                <div className="text-xl font-medium text-primary/50 mx-auto mb-2">
                   <span className="text-primary font-bold text-xs">x N</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">隠れ層</h4>
@@ -63,7 +63,7 @@ export default function DeepLearning() {
               <span className="text-muted-foreground text-lg">→</span>
 
               <div className="rounded-xl border border-border bg-card p-4 text-center min-w-[90px]">
-                <div className="text-2xl font-light text-primary/40 mx-auto mb-2">
+                <div className="text-xl font-medium text-primary/50 mx-auto mb-2">
                   <span className="text-primary font-bold text-xs">OUT</span>
                 </div>
                 <h4 className="font-bold text-foreground text-xs mb-1">出力層</h4>
