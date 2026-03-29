@@ -131,52 +131,57 @@ export default function WhatIsUx() {
               下のレイヤーが固まっていないまま上位を作ると、後から大きな手戻りが発生する。
             </p>
 
-            {/* 5 要素ビジュアル */}
-            <div className="space-y-3 mb-8">
+            {/* 5 要素ピラミッド: 1(戦略)=土台が最も広い → 5(表層)=頂点が最も狭い */}
+            <div className="space-y-2 mb-8">
               {[
                 {
                   number: 5,
                   label: '表層（Surface）',
                   desc: 'ビジュアルデザイン: 色、タイポグラフィ、画像の選定',
-                  width: 'w-full',
-                  bg: 'bg-primary/10 border-primary/20',
+                  width: 'max-w-[55%]',
+                  badgeBg: 'bg-pink-500',
+                  bg: 'bg-pink-50 dark:bg-pink-950/20 border-pink-200 dark:border-pink-800',
                 },
                 {
                   number: 4,
                   label: '骨格（Skeleton）',
                   desc: 'レイアウト、ナビゲーション配置、ボタン位置の設計',
-                  width: 'w-[92%]',
-                  bg: 'bg-primary/8 border-primary/15',
+                  width: 'max-w-[68%]',
+                  badgeBg: 'bg-violet-500',
+                  bg: 'bg-violet-50 dark:bg-violet-950/20 border-violet-200 dark:border-violet-800',
                 },
                 {
                   number: 3,
                   label: '構造（Structure）',
                   desc: '情報アーキテクチャ: 情報の分類と階層関係の定義',
-                  width: 'w-[84%]',
-                  bg: 'bg-primary/6 border-primary/12',
+                  width: 'max-w-[80%]',
+                  badgeBg: 'bg-blue-500',
+                  bg: 'bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800',
                 },
                 {
                   number: 2,
                   label: '要件（Scope）',
                   desc: '機能要件とコンテンツ要件の定義',
-                  width: 'w-[76%]',
-                  bg: 'bg-primary/5 border-primary/10',
+                  width: 'max-w-[90%]',
+                  badgeBg: 'bg-teal-500',
+                  bg: 'bg-teal-50 dark:bg-teal-950/20 border-teal-200 dark:border-teal-800',
                 },
                 {
                   number: 1,
                   label: '戦略（Strategy）',
                   desc: 'ユーザーニーズとビジネス目標の明確化',
-                  width: 'w-[68%]',
-                  bg: 'bg-primary/4 border-primary/8',
+                  width: 'max-w-full',
+                  badgeBg: 'bg-amber-500',
+                  bg: 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800',
                 },
               ].map((layer) => (
-                <div key={layer.number} className={`${layer.width} mx-auto`}>
+                <div key={layer.number} className={`${layer.width} w-full mx-auto`}>
                   <div
                     className={`rounded-lg border ${layer.bg} px-4 py-3 flex items-center gap-3`}
                   >
                     <span
-                      className="flex-shrink-0 w-7 h-7 rounded-full bg-primary flex items-center justify-center text-xs font-bold"
-                      style={{ color: 'var(--background)', minWidth: '1.75rem' }}
+                      className={`flex-shrink-0 w-7 h-7 rounded-full ${layer.badgeBg} flex items-center justify-center text-xs font-bold text-white`}
+                      style={{ minWidth: '1.75rem' }}
                     >
                       {layer.number}
                     </span>
@@ -192,9 +197,11 @@ export default function WhatIsUx() {
             </div>
 
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-4">
-              <span>抽象（下）</span>
-              <ArrowRight size={14} />
               <span>具体（上）</span>
+              <span>&#8592;</span>
+              <span>ピラミッド</span>
+              <span>&#8594;</span>
+              <span>抽象（下 = 土台）</span>
             </div>
 
             <InfoBox type="warning" title="よくある失敗">
