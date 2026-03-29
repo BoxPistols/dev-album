@@ -145,39 +145,31 @@ export default function Navigation() {
         }`}
       >
         <div className="p-6">
-          {/* ロゴ & マニュアル切替 */}
-          <Link href="/" className="flex items-center gap-2 mb-4 group">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+          {/* ロゴ */}
+          <Link href="/" className="flex items-center gap-2.5 mb-1 group">
+            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <span className="text-primary-foreground font-heading font-bold text-sm">DA</span>
             </div>
-            <span className="font-heading font-bold text-lg text-foreground">Dev Album</span>
-            <span className="text-[12px] font-semibold text-muted-foreground bg-muted px-1.5 py-0.5 rounded ml-1 self-start mt-1">v0.9 beta</span>
+            <span className="font-heading font-bold text-lg text-foreground whitespace-nowrap">Dev Album</span>
           </Link>
+          <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
 
-          {/* マニュアルタブ + プログレス */}
+          {/* マニュアルタブ */}
           <div className="grid grid-cols-2 gap-1.5 mb-4">
             {manuals.map((m) => {
-              const { percentage } = getProgressStats(getManualPages(m.id).map(p => p.path));
               const isActive = activeManualId === m.id;
               return (
                 <Link
                   key={m.id}
                   href={`/${m.id}`}
                   onClick={() => setIsOpen(false)}
-                  className={`relative px-2.5 py-1.5 rounded-xl text-center text-[10.5px] font-bold border transition-all overflow-hidden truncate ${
+                  className={`px-3 py-1.5 rounded-lg text-center text-xs font-medium border transition-colors truncate ${
                     isActive
-                      ? `${manualBorderColors[m.id]} ${manualActiveBg[m.id]} ${manualColors[m.id]} ring-2 ring-primary/5`
-                      : 'border-border text-muted-foreground hover:bg-muted/50'
+                      ? `${manualBorderColors[m.id]} ${manualActiveBg[m.id]} ${manualColors[m.id]}`
+                      : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                   }`}
                 >
-                  <span className="relative z-10">{m.shortTitle}</span>
-                  {/* 小さなプログレスバー */}
-                  <div className="absolute bottom-0 left-0 h-0.5 bg-muted w-full">
-                    <div 
-                      className={`h-full ${manualBgColors[m.id]} transition-all duration-500`}
-                      style={{ width: `${percentage}%` }}
-                    />
-                  </div>
+                  {m.shortTitle}
                 </Link>
               );
             })}
