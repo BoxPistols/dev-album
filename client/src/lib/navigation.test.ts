@@ -31,7 +31,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("react").length).toBe(75);
     expect(getManualPages("git").length).toBe(27);
     expect(getManualPages("threejs").length).toBe(23);
-    expect(getManualPages("claude-mux").length).toBe(46);
+    expect(getManualPages("claude-mux").length).toBe(49);
   });
 
   it("全ページのパスがマニュアルプレフィックスで始まる", () => {

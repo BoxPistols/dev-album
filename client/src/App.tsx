@@ -186,6 +186,9 @@ const CmTmuxpAutomation = lazy(() => import("./pages/claude-mux/integration/Tmux
 const CmPracticalWorkflow = lazy(() => import("./pages/claude-mux/integration/PracticalWorkflow"));
 const CmCmuxIntro = lazy(() => import("./pages/claude-mux/cmux/CmuxIntro"));
 const CmCmuxSetup = lazy(() => import("./pages/claude-mux/cmux/CmuxSetup"));
+const CmCmuxAgentTeams = lazy(() => import("./pages/claude-mux/cmux/CmuxAgentTeams"));
+const CmCmuxBrowserAPI = lazy(() => import("./pages/claude-mux/cmux/CmuxBrowserAPI"));
+const CmCmuxWorktrees = lazy(() => import("./pages/claude-mux/cmux/CmuxWorktrees"));
 const CmSessionMgmt = lazy(() => import("./pages/claude-mux/reference/SessionManagement"));
 const CmTroubleshooting = lazy(() => import("./pages/claude-mux/reference/Troubleshooting"));
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-mux/reference/ClaudeCheatsheet"));
@@ -430,6 +433,9 @@ function App() {
                 <Route path="/claude-mux/integration/practical-workflow" component={CmPracticalWorkflow} />
                 <Route path="/claude-mux/cmux/cmux-intro" component={CmCmuxIntro} />
                 <Route path="/claude-mux/cmux/cmux-setup" component={CmCmuxSetup} />
+                <Route path="/claude-mux/cmux/agent-teams" component={CmCmuxAgentTeams} />
+                <Route path="/claude-mux/cmux/browser-api" component={CmCmuxBrowserAPI} />
+                <Route path="/claude-mux/cmux/worktrees" component={CmCmuxWorktrees} />
                 <Route path="/claude-mux/reference/session-management" component={CmSessionMgmt} />
                 <Route path="/claude-mux/reference/troubleshooting" component={CmTroubleshooting} />
                 <Route path="/claude-mux/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
