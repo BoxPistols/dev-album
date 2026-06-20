@@ -5,6 +5,7 @@ import WhyNowBox from '@/components/WhyNowBox';
 import PageNavigation from '@/components/PageNavigation';
 import Quiz from '@/components/Quiz';
 import ReferenceLinks from '@/components/ReferenceLinks';
+import { Link } from 'wouter';
 
 export default function GraphQL() {
   return (
@@ -805,6 +806,28 @@ function UserList() {
             REST API の仕様を定義し、型やモックサーバーを自動生成する方法を学びます。
           </p>
         </InfoBox>
+
+        <section className="mt-8">
+          <InfoBox type="info" title="API 設計を体系的に学ぶ">
+            GraphQL は REST 以外の選択肢のひとつです。REST との使い分けや gRPC
+            を含めた比較、そして API
+            設計全般（リソース設計・エラー設計・認証認可・検証）をゼロから学びたい場合は、{" "}
+            <Link
+              href="/api"
+              className="text-primary font-medium hover:underline"
+            >
+              API 設計 / OpenAPI 入門マニュアル
+            </Link>{" "}
+            を参照してください。REST 以外の選択肢の比較は{" "}
+            <Link
+              href="/api/advanced/beyond-rest"
+              className="text-primary font-medium hover:underline"
+            >
+              GraphQL / gRPC
+            </Link>{" "}
+            のページで扱っています。
+          </InfoBox>
+        </section>
 
         <section>
           <ReferenceLinks

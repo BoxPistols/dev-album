@@ -5,6 +5,7 @@ import WhyNowBox from '@/components/WhyNowBox';
 import PageNavigation from '@/components/PageNavigation';
 import Quiz from '@/components/Quiz';
 import ReferenceLinks from '@/components/ReferenceLinks';
+import { Link } from 'wouter';
 
 export default function OpenApiSwagger() {
   return (
@@ -759,6 +760,28 @@ if (import.meta.env.DEV) {
                 複雑なデータ関係を持つ顧客向けアプリや、モバイル/Web で取得データを変えたい場合は
                 GraphQL が適しています。両者を組み合わせるハイブリッド構成も実務では見られます。
               </p>
+            </InfoBox>
+          </section>
+
+          <section>
+            <InfoBox type="info" title="API 設計を体系的に学ぶ">
+              このページは React 開発の文脈で OpenAPI / Swagger を扱いました。
+              REST の設計原則・リソース設計・ステータスコード・エラー設計・認証認可・
+              契約テスト・セキュリティまで、API 設計そのものをゼロから体系的に学びたい場合は、{" "}
+              <Link
+                href="/api"
+                className="text-primary font-medium hover:underline"
+              >
+                API 設計 / OpenAPI 入門マニュアル
+              </Link>{" "}
+              を参照してください。OpenAPI の書き方は{" "}
+              <Link
+                href="/api/openapi/what-is-openapi"
+                className="text-primary font-medium hover:underline"
+              >
+                OpenAPI 仕様とは
+              </Link>{" "}
+              から詳しく扱っています。
             </InfoBox>
           </section>
         </div>

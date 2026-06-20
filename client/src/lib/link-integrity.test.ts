@@ -155,7 +155,8 @@ describe("navigate/href パスのプレフィックス検証", () => {
           const lineEnd = content.indexOf("\n", match.index!);
           const line = content.slice(lineStart, lineEnd === -1 ? undefined : lineEnd);
           if (line.includes("&lt;") || line.includes("&gt;")) continue;
-          if (!path.startsWith(`/${manualId}`)) {
+          // 他マニュアルへの横断リンク（navigation に登録済みの有効パス）は許可
+          if (!path.startsWith(`/${manualId}`) && !validPaths.has(path)) {
             violations.push(`${file}: href="${path}" にプレフィックスなし`);
           }
         }
