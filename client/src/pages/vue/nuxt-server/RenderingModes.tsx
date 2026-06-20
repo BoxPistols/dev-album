@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const modeTable = [
   {
@@ -72,6 +73,25 @@ export default function RenderingModes() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              レンダリングモードの分岐
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              routeRules を使うと、route 単位で SSR / SSG / ISR / SPA
+              を切り替えられます。リクエストがどのモードに振り分けられるかを図にします。
+            </p>
+            <MermaidDiagram
+              title="レンダリングモードの分岐（図）"
+              chart={`flowchart TD
+  R["リクエスト"] --> M{"routeRules"}
+  M -->|"SSR (既定)"| S["毎回サーバで生成"]
+  M -->|"SSG prerender"| G["ビルド時の静的HTML"]
+  M -->|"ISR"| I["キャッシュ + 定期再生成"]
+  M -->|"ssr:false"| P["クライアントで生成 (SPA)"]`}
+            />
+          </section>
+
           {/* SSR */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

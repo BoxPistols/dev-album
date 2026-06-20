@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const apiComparison = [
   {
@@ -70,6 +71,27 @@ export default function DataFetching() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              useFetch の SSR データフロー
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              useFetch は ssr:true ではサーバーで取得し、その結果を payload に載せてクライアントへ渡します。ハイドレーション後に再取得しない（重複排除）流れを図で確認します。
+            </p>
+            <MermaidDiagram
+              title="useFetch の SSR データフロー（図）"
+              chart={`sequenceDiagram
+  participant B as ブラウザ
+  participant N as Nuxt サーバー
+  participant A as API
+  B->>N: ページ要求
+  N->>A: useFetch でサーバ取得
+  A-->>N: データ
+  N-->>B: HTML と payload
+  Note over B: ハイドレーション 再取得しない`}
+            />
+          </section>
+
           {/* 3 つの API */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -8,6 +8,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const h3Utils = [
   {
@@ -92,6 +93,23 @@ export default function ServerApi() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              server/api を BFF にした CORS 回避
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ブラウザは同一オリジンの Nuxt（server/api）だけを叩き、Nuxt が外部 API をサーバ間で呼びます。サーバ間通信は CORS の対象外なので、ブラウザに CORS が出ません。
+            </p>
+            <MermaidDiagram
+              title="server/api を BFF にした CORS 回避（図）"
+              chart={`flowchart LR
+  B["ブラウザ :3000"] -->|"同一オリジン"| N["Nuxt server/api (Nitro)"]
+  N -->|"サーバ間 (CORS無関係)"| A["外部API :8000"]
+  A -->|"データ"| N
+  N -->|"レスポンス"| B`}
+            />
+          </section>
+
           {/* Nitro と server ディレクトリ */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -97,6 +97,13 @@ const MERMAID_ROUTES = [
   "/api/data-modeling/normalization",
   "/api/data-modeling/design-flow",
   "/api/data-modeling/worked-example",
+  // Vue/Nuxt の概念図
+  "/vue/basics/reactivity",
+  "/vue/composition/lifecycle",
+  "/vue/nuxt-basics/data-fetching",
+  "/vue/nuxt-server/rendering-modes",
+  "/vue/nuxt-server/server-api",
+  "/vue/state-routing/pinia",
 ];
 
 test("mermaid ER図が実際の SVG として可視化される", async ({ page }) => {

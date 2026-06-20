@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const storeParts = [
   {
@@ -73,6 +74,24 @@ export default function Pinia() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Pinia の単方向データフロー
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              コンポーネントは action を呼んで state を更新し、state と getters がコンポーネントに反映されます。単方向の流れを図にします。
+            </p>
+            <MermaidDiagram
+              title="Pinia の単方向データフロー（図）"
+              chart={`flowchart LR
+  C["コンポーネント"] -->|"action 呼び出し"| AC["actions"]
+  AC -->|"更新"| ST["state"]
+  ST --> G["getters"]
+  G --> C
+  ST --> C`}
+            />
+          </section>
+
           {/* セットアップ */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

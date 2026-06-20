@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const compareRows = [
   {
@@ -77,6 +78,23 @@ export default function Reactivity() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              リアクティビティの伝播
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              state が変わると、依存している計算・監視・描画が連鎖して更新されます。この依存の流れを図にすると次のようになります。
+            </p>
+            <MermaidDiagram
+              title="リアクティビティの伝播（図）"
+              chart={`flowchart LR
+  A["ref / reactive (state)"] -->|変更| B["依存を検知"]
+  B --> C["computed 再計算"]
+  B --> D["watch 発火"]
+  C --> E["テンプレート再描画"]
+  D --> F["副作用を実行"]`}
+            />
+          </section>
           {/* ref */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const hooks = [
   {
@@ -107,6 +108,24 @@ export default function Lifecycle() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              コンポーネントのライフサイクル
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              コンポーネントは生成から破棄まで決まった順序でフックが呼ばれます。全体の流れを図で押さえます。
+            </p>
+            <MermaidDiagram
+              title="コンポーネントのライフサイクル（図）"
+              chart={`flowchart TD
+  A["setup 実行"] --> B["onBeforeMount"]
+  B --> C["DOM マウント"]
+  C --> D["onMounted (取得・登録)"]
+  D --> E["状態変化で onUpdated"]
+  E --> F["onBeforeUnmount"]
+  F --> G["onUnmounted (クリーンアップ)"]`}
+            />
+          </section>
           {/* ライフサイクルの流れ */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
