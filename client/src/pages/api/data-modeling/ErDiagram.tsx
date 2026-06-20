@@ -635,10 +635,201 @@ CREATE TABLE "order" (
             </p>
           </section>
 
+          {/* ER図の作成ツール */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ER図はどう描く？ — 作成ツールの選び方
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ER図は紙でも描けますが、実務では専用ツールを使います。選択肢は多いですが、
+              <strong>「テキスト（コード）で書くか、GUI でドラッグして描くか」</strong>
+              の 2 系統に大きく分かれます。最初に意識すべきは
+              <strong>「図の変更が Git で差分として追えるか」</strong>です。
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
+                <p className="font-bold text-primary mb-1">
+                  コードベース（テキスト → 図を生成）
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Mermaid・PlantUML・dbdiagram.io（DBML）。テキストなので Git
+                  で差分レビューでき、PR で図の変更を確認できる。設計を資産として残すのに向く。
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card p-5">
+                <p className="font-bold text-foreground mb-1">
+                  GUI（ドラッグして描く）
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Draw.io・Lucidchart・Figma/FigJam・Excalidraw。手早く自由に描け、
+                  非エンジニアとの共同編集や発散に向く。差分管理は弱い。
+                </p>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto mb-6">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 pr-4 font-bold text-foreground bg-muted">
+                      ツール
+                    </th>
+                    <th className="text-left py-2 px-4 font-bold text-foreground bg-muted">
+                      種別
+                    </th>
+                    <th className="text-left py-2 px-4 font-bold text-foreground bg-muted">
+                      特徴・向いている用途
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-muted-foreground">
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      Draw.io（diagrams.net）
+                    </td>
+                    <td className="py-2 px-4 align-top">GUI・無料</td>
+                    <td className="py-2 px-4">
+                      ブラウザ/デスクトップ/VS Code 拡張。ER テンプレ豊富。
+                      <code>.drawio</code>（XML）を Git
+                      管理でき、GitHub/GitLab 連携も可能。迷ったらこれ。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      dbdiagram.io
+                    </td>
+                    <td className="py-2 px-4 align-top">コード・無料枠</td>
+                    <td className="py-2 px-4">
+                      DBML という DSL で DB スキーマ/ER図を記述。SQL
+                      や画像にエクスポート。DB 設計に特化。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      Mermaid
+                    </td>
+                    <td className="py-2 px-4 align-top">コード・無料</td>
+                    <td className="py-2 px-4">
+                      <code>erDiagram</code> 記法。Markdown/GitHub/Notion
+                      に埋め込める。バージョン管理に最適（本ページでも使用）。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      PlantUML
+                    </td>
+                    <td className="py-2 px-4 align-top">コード・無料</td>
+                    <td className="py-2 px-4">
+                      テキストで UML 全般＋ER を記述。CI で画像生成し、ドキュメント自動化に向く。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      Lucidchart
+                    </td>
+                    <td className="py-2 px-4 align-top">GUI・商用</td>
+                    <td className="py-2 px-4">
+                      高機能・リアルタイム共同編集。チーム/エンタープライズ向け。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      Figma / FigJam
+                    </td>
+                    <td className="py-2 px-4 align-top">GUI・無料枠</td>
+                    <td className="py-2 px-4">
+                      デザイン/ホワイトボード。要件整理〜概念モデルの発散・共同作業に。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      Excalidraw
+                    </td>
+                    <td className="py-2 px-4 align-top">GUI・無料</td>
+                    <td className="py-2 px-4">
+                      手描き風・軽量。ブレストや初期スケッチに。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-medium text-foreground align-top">
+                      DBeaver / pgAdmin / MySQL Workbench
+                    </td>
+                    <td className="py-2 px-4 align-top">DB ツール</td>
+                    <td className="py-2 px-4">
+                      稼働中の DB から ER図を自動生成（リバースエンジニアリング）。現状把握に有効。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              dbdiagram.io のような「コードで DB を書く」ツールは、次のように記述します（DBML）。
+            </p>
+
+            <CodeBlock
+              language="sql"
+              title="dbdiagram.io（DBML）— テーブルと関連をコードで定義"
+              code={`Table users {
+  id int [pk]
+  name varchar
+  email varchar
+}
+
+Table orders {
+  id int [pk]
+  user_id int [ref: > users.id]  // 多対1（order が user を参照）
+  total int
+}`}
+            />
+
+            <InfoBox type="info" title="選び方の第一基準は「差分が Git で追えるか」">
+              正解は 1 つではありません。設計を資産として残し、変更をレビューしたいなら
+              <strong>コードベース</strong>（Mermaid / dbdiagram.io /
+              PlantUML）。手早く描いて非エンジニアと合意形成したいなら
+              <strong>GUI</strong>（Draw.io / Lucidchart / FigJam）。
+              既存の DB があるなら <strong>リバースエンジニアリング</strong>
+              （DBeaver 等）で現状を図に起こすのが速いです。
+              実務では「FigJam でラフ → Draw.io か Mermaid で清書 → DB
+              実装後は DB ツールで逆生成して同期」という流れもよく使われます。
+            </InfoBox>
+          </section>
+
+          {/* Quiz: ツール選択 */}
+          <section>
+            <Quiz
+              question="ER図の作成ツールを「コードベース（Mermaid / dbdiagram.io 等）」にする最大の利点は？"
+              options={[
+                { label: "図が必ず美しく自動整列される" },
+                {
+                  label:
+                    "テキストなので Git で差分管理でき、変更を PR でレビューできる",
+                  correct: true,
+                },
+                { label: "非エンジニアでもドラッグで直感的に編集できる" },
+                { label: "DB に直接接続して自動で図が更新される" },
+              ]}
+              explanation="コードベースのツールは図の定義がテキストなので、Git で差分が追え、PR でレビューできます。設計を資産として残すのに向きます。ドラッグでの直感的編集は GUI（Draw.io 等）の利点、DB からの自動生成はリバースエンジニアリング（DBeaver 等）の利点で、別軸の話です。"
+            />
+          </section>
+
           {/* Reference Links */}
           <section>
             <ReferenceLinks
               links={[
+                {
+                  title: "Draw.io（diagrams.net）",
+                  url: "https://www.drawio.com/",
+                  description:
+                    "無料の GUI 作図ツール。ER図テンプレートがあり .drawio を Git 管理できる",
+                },
+                {
+                  title: "dbdiagram.io（DBML）",
+                  url: "https://dbdiagram.io/home",
+                  description:
+                    "DBML という DSL で DB スキーマ / ER図をコードで書く。SQL にエクスポート可能",
+                },
                 {
                   title: "Mermaid - Entity Relationship Diagrams",
                   url: "https://mermaid.js.org/syntax/entityRelationshipDiagram.html",
