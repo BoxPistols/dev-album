@@ -833,4 +833,93 @@ export const searchIndex: Record<string, string[]> = {
     'まとめ', 'チェックリスト', 'API 設計レビュー', 'ベストプラクティス', '設計原則',
     '一貫性', '次のステップ', '振り返り',
   ],
+
+  // ===== vue-manual =====
+  '/vue': [
+    'このマニュアルについて', 'Vue', 'Nuxt', 'Composition API', 'Pinia', 'カリキュラム', '学習の進め方',
+  ],
+  '/vue/basics/setup': [
+    '環境構築', 'create-vue', 'Vite', 'プロジェクト作成', 'pnpm', 'npm', 'ディレクトリ構成',
+    'main.ts', 'App.vue', 'vue-tsc', 'TypeScript', 'SFC',
+  ],
+  '/vue/basics/template-syntax': [
+    'テンプレート構文', 'ディレクティブ', 'v-if', 'v-for', 'v-bind', 'v-on', 'v-model',
+    'マスタッシュ', '補間', 'イベント', '条件分岐', 'リスト', 'key',
+  ],
+  '/vue/basics/reactivity': [
+    'リアクティビティ', 'ref', 'reactive', 'computed', '.value', 'リアクティブ', 'toRefs',
+    'shallowRef', 'リアクティブの罠', '分割代入', 'watch',
+  ],
+  '/vue/basics/components': [
+    'コンポーネント', 'SFC', 'template', 'script setup', 'style', '登録', 'slot', 'スロット',
+    '親子', 'コンポーネント設計', '再利用',
+  ],
+  '/vue/basics/props-emits': [
+    'Props', 'Emits', 'defineProps', 'defineEmits', 'defineModel', '親子通信', 'v-model',
+    '型定義', 'デフォルト値', 'reactive props destructure', '双方向バインディング',
+  ],
+  '/vue/composition/script-setup': [
+    'script setup', 'Composition API', 'TypeScript', 'defineProps', 'defineEmits',
+    'lang ts', 'コンパイラマクロ', 'Options API との違い', 'setup',
+  ],
+  '/vue/composition/computed-watch': [
+    'computed', 'watch', 'watchEffect', '算出プロパティ', '依存', 'キャッシュ',
+    'watchEffect', 'onWatcherCleanup', '副作用', 'immediate', 'deep',
+  ],
+  '/vue/composition/lifecycle': [
+    'ライフサイクル', 'onMounted', 'onUnmounted', 'onUpdated', 'onBeforeMount',
+    'マウント', 'アンマウント', 'クリーンアップ', 'フック', 'SSR',
+  ],
+  '/vue/composition/composables': [
+    'Composables', '再利用ロジック', 'use プレフィックス', 'カスタムフック', 'useMouse',
+    'VueUse', 'ロジック分離', 'リアクティブ', '共通化',
+  ],
+  '/vue/composition/provide-inject': [
+    'provide', 'inject', '依存性注入', 'Props ドリリング', '深いネスト', 'InjectionKey',
+    '型安全', 'テーマ', 'グローバル状態', 'リアクティブ',
+  ],
+  '/vue/state-routing/router': [
+    'Vue Router', 'ルーティング', 'router-link', 'router-view', 'useRoute', 'useRouter',
+    '動的ルート', 'ネストルート', 'ナビゲーションガード', 'パラメータ', '遅延読み込み',
+  ],
+  '/vue/state-routing/pinia': [
+    'Pinia', '状態管理', 'defineStore', 'store', 'state', 'getters', 'actions',
+    'useStore', 'Vuex', 'グローバル状態', 'storeToRefs', '永続化',
+  ],
+  '/vue/styling/sfc-styling': [
+    'SFC', 'scoped', 'style scoped', 'CSS Modules', 'Tailwind', ':deep', 'v-bind in css',
+    'スタイリング', 'スコープ', 'UI ライブラリ', 'Vuetify', 'Nuxt UI',
+  ],
+  '/vue/nuxt-basics/what-is-nuxt': [
+    'Nuxt', 'メタフレームワーク', 'SSR', 'create nuxt-app', 'nuxt.config', 'app ディレクトリ',
+    'Nuxt 4', 'srcDir', 'auto import', '規約', 'Nitro',
+  ],
+  '/vue/nuxt-basics/routing-layouts': [
+    'ファイルベースルーティング', 'pages', 'layouts', 'NuxtPage', 'NuxtLayout', '動的ルート',
+    '[id]', 'definePageMeta', 'ネストレイアウト', 'navigateTo', 'NuxtLink',
+  ],
+  '/vue/nuxt-basics/data-fetching': [
+    'useFetch', 'useAsyncData', '$fetch', 'ofetch', 'データ取得', 'SSR', '重複排除',
+    'pending', 'error', 'refresh', 'lazy', 'getCachedData', 'ssr true',
+  ],
+  '/vue/nuxt-server/server-api': [
+    'server/api', 'Nitro', 'defineEventHandler', 'BFF', 'API ルート', 'プロキシ', 'CORS 回避',
+    'useRuntimeConfig', 'getQuery', 'readBody', 'h3', 'サーバールート',
+  ],
+  '/vue/nuxt-server/rendering-modes': [
+    'レンダリングモード', 'SSR', 'SSG', 'ISR', 'CSR', 'SPA', 'プリレンダリング',
+    'nuxt generate', 'routeRules', 'ハイブリッド', 'ssr false', 'hydration',
+  ],
+  '/vue/nuxt-server/middleware-plugins': [
+    'ミドルウェア', 'プラグイン', 'モジュール', 'defineNuxtRouteMiddleware', 'defineNuxtPlugin',
+    'ルートミドルウェア', '認証ガード', 'Nuxt モジュール', 'auto import', 'フック',
+  ],
+  '/vue/nuxt-server/deploy': [
+    'デプロイ', 'Vercel', 'Netlify', 'Nitro プリセット', 'nuxt build', 'node-server',
+    'static', 'エッジ', '環境変数', 'runtimeConfig', 'CI',
+  ],
+  '/vue/advanced/latest-features': [
+    'Vue 3.5', 'Nuxt 4', '最新機能', 'reactive props destructure', 'defineModel', 'useId',
+    'useTemplateRef', 'compatibilityVersion', 'まとめ', '次のステップ',
+  ],
 };

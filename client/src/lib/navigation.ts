@@ -1,4 +1,4 @@
-export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design' | 'api';
+export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design' | 'api' | 'vue';
 
 export interface ManualInfo {
   id: ManualId;
@@ -84,6 +84,14 @@ export const manuals: ManualInfo[] = [
     description: 'REST API 設計・OpenAPI/Swagger・API 検証をゼロから学ぶ',
     icon: '{}',
     color: '#10B981',
+  },
+  {
+    id: 'vue',
+    title: 'Vue 3 / Nuxt 入門',
+    shortTitle: 'Vue / Nuxt',
+    description: 'Vue 3・Composition API・Pinia・Nuxt を実践的に学ぶ',
+    icon: 'V',
+    color: '#42B883',
   },
 ];
 
@@ -179,6 +187,16 @@ export const sections: SectionInfo[] = [
   { id: 'api-collaboration', title: '設計と協業', manualId: 'api' },
   { id: 'api-practice', title: 'フロントエンド実践', manualId: 'api' },
   { id: 'api-advanced', title: '発展', manualId: 'api' },
+
+  // === Vue / Nuxt マニュアル ===
+  { id: 'vue-intro', title: 'はじめに', manualId: 'vue' },
+  { id: 'vue-basics', title: 'Vue の基礎', manualId: 'vue' },
+  { id: 'composition', title: 'Composition API', manualId: 'vue' },
+  { id: 'state-routing', title: '状態管理とルーティング', manualId: 'vue' },
+  { id: 'vue-styling', title: 'スタイリングと UI', manualId: 'vue' },
+  { id: 'nuxt-basics', title: 'Nuxt 基礎', manualId: 'vue' },
+  { id: 'nuxt-server', title: 'Nuxt サーバーと実践', manualId: 'vue' },
+  { id: 'vue-advanced', title: '最新と総まとめ', manualId: 'vue' },
 ];
 
 // ── ページ定義 ──
@@ -454,6 +472,32 @@ export const pages: PageInfo[] = [
   { step: 39, path: '/api/practice/nuxt', title: 'Nuxt での API 連携', sectionId: 'api-practice', manualId: 'api' },
   { step: 40, path: '/api/advanced/beyond-rest', title: 'REST 以外の選択肢（GraphQL / gRPC）', sectionId: 'api-advanced', manualId: 'api' },
   { step: 41, path: '/api/advanced/summary', title: '設計まとめとチェックリスト', sectionId: 'api-advanced', manualId: 'api' },
+
+  // ===========================
+  // Vue / Nuxt マニュアル (22ページ)
+  // ===========================
+  { step: 1, path: '/vue', title: 'このマニュアルについて', sectionId: 'vue-intro', manualId: 'vue' },
+  { step: 2, path: '/vue/basics/setup', title: '環境構築とプロジェクト作成', sectionId: 'vue-basics', manualId: 'vue' },
+  { step: 3, path: '/vue/basics/template-syntax', title: 'テンプレート構文とディレクティブ', sectionId: 'vue-basics', manualId: 'vue' },
+  { step: 4, path: '/vue/basics/reactivity', title: 'リアクティビティ（ref / reactive）', sectionId: 'vue-basics', manualId: 'vue' },
+  { step: 5, path: '/vue/basics/components', title: 'コンポーネントの基本', sectionId: 'vue-basics', manualId: 'vue' },
+  { step: 6, path: '/vue/basics/props-emits', title: 'Props と Emits', sectionId: 'vue-basics', manualId: 'vue' },
+  { step: 7, path: '/vue/composition/script-setup', title: 'script setup と TypeScript', sectionId: 'composition', manualId: 'vue' },
+  { step: 8, path: '/vue/composition/computed-watch', title: 'computed と watch', sectionId: 'composition', manualId: 'vue' },
+  { step: 9, path: '/vue/composition/lifecycle', title: 'ライフサイクルフック', sectionId: 'composition', manualId: 'vue' },
+  { step: 10, path: '/vue/composition/composables', title: 'Composables（再利用ロジック）', sectionId: 'composition', manualId: 'vue' },
+  { step: 11, path: '/vue/composition/provide-inject', title: 'provide / inject', sectionId: 'composition', manualId: 'vue' },
+  { step: 12, path: '/vue/state-routing/router', title: 'Vue Router', sectionId: 'state-routing', manualId: 'vue' },
+  { step: 13, path: '/vue/state-routing/pinia', title: 'Pinia による状態管理', sectionId: 'state-routing', manualId: 'vue' },
+  { step: 14, path: '/vue/styling/sfc-styling', title: 'SFC とスタイリング', sectionId: 'vue-styling', manualId: 'vue' },
+  { step: 15, path: '/vue/nuxt-basics/what-is-nuxt', title: 'Nuxt とは / プロジェクト作成', sectionId: 'nuxt-basics', manualId: 'vue' },
+  { step: 16, path: '/vue/nuxt-basics/routing-layouts', title: 'ファイルベースルーティングとレイアウト', sectionId: 'nuxt-basics', manualId: 'vue' },
+  { step: 17, path: '/vue/nuxt-basics/data-fetching', title: 'データ取得（useFetch / useAsyncData / $fetch）', sectionId: 'nuxt-basics', manualId: 'vue' },
+  { step: 18, path: '/vue/nuxt-server/server-api', title: 'server/api と Nitro', sectionId: 'nuxt-server', manualId: 'vue' },
+  { step: 19, path: '/vue/nuxt-server/rendering-modes', title: 'レンダリングモード（SSR / SSG / ISR）', sectionId: 'nuxt-server', manualId: 'vue' },
+  { step: 20, path: '/vue/nuxt-server/middleware-plugins', title: 'ミドルウェア・プラグイン・モジュール', sectionId: 'nuxt-server', manualId: 'vue' },
+  { step: 21, path: '/vue/nuxt-server/deploy', title: 'Nuxt のデプロイ', sectionId: 'nuxt-server', manualId: 'vue' },
+  { step: 22, path: '/vue/advanced/latest-features', title: 'Vue 3.5 / Nuxt 4 の最新機能と総まとめ', sectionId: 'vue-advanced', manualId: 'vue' },
 ];
 
 // ── ヘルパー関数 ──
@@ -495,7 +539,7 @@ export function getSectionPages(sectionId: string): PageInfo[] {
 }
 
 export function getManualIdFromPath(path: string): ManualId | undefined {
-  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design|api)/);
+  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design|api|vue)/);
   return match ? (match[1] as ManualId) : undefined;
 }
 

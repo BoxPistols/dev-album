@@ -28,11 +28,12 @@ describe("navigation データ整合性", () => {
       "ai-ml",
       "ux-design",
       "api",
+      "vue",
     ]);
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(243);
+    expect(pages.length).toBe(265);
   });
 
   it("マニュアル別ページ数", () => {
@@ -43,6 +44,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("ai-ml").length).toBe(11);
     expect(getManualPages("ux-design").length).toBe(12);
     expect(getManualPages("api").length).toBe(41);
+    expect(getManualPages("vue").length).toBe(22);
   });
 
   it("全ページのパスがマニュアルプレフィックスで始まる", () => {
@@ -75,6 +77,7 @@ describe("navigation データ整合性", () => {
       "ai-ml",
       "ux-design",
       "api",
+      "vue",
     ];
     for (const section of sections) {
       expect(validIds).toContain(section.manualId);

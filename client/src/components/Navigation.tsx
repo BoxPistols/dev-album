@@ -24,6 +24,7 @@ const manualColors: Record<ManualId, string> = {
   'ai-ml': 'text-primary',
   'ux-design': 'text-primary',
   api: 'text-primary',
+  vue: 'text-primary',
 };
 
 const manualBgColors: Record<ManualId, string> = {
@@ -34,6 +35,7 @@ const manualBgColors: Record<ManualId, string> = {
   'ai-ml': 'bg-primary',
   'ux-design': 'bg-primary',
   api: 'bg-primary',
+  vue: 'bg-primary',
 };
 
 const manualBorderColors: Record<ManualId, string> = {
@@ -44,6 +46,7 @@ const manualBorderColors: Record<ManualId, string> = {
   'ai-ml': 'border-primary',
   'ux-design': 'border-primary',
   api: 'border-primary',
+  vue: 'border-primary',
 };
 
 const manualActiveBg: Record<ManualId, string> = {
@@ -54,6 +57,7 @@ const manualActiveBg: Record<ManualId, string> = {
   'ai-ml': 'bg-primary/10',
   'ux-design': 'bg-primary/10',
   api: 'bg-primary/10',
+  vue: 'bg-primary/10',
 };
 
 export default function Navigation() {

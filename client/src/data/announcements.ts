@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-21-vue-nuxt-manual",
+    date: "2026-06-21",
+    title: "Vue 3 / Nuxt マニュアルを新設",
+    description:
+      "React マニュアルと並ぶ独立マニュアルとして Vue 3 / Nuxt 入門（8 セクション / 22 ページ）を追加。Vue の基礎・Composition API・Pinia・Vue Router・Nuxt 4・server/api・SSR/SSG/ISR・デプロイ・Vue 3.5 の最新機能まで実践的に学べる。",
+    category: "feature",
+    link: "/vue",
+  },
+  {
     id: "2026-06-20-api-data-modeling",
     date: "2026-06-20",
     title: "API マニュアルにデータモデリング・設計フロー編を追加",

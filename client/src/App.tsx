@@ -249,6 +249,30 @@ const ApiErDiagram = lazy(() => import("./pages/api/data-modeling/ErDiagram"));
 const ApiNormalization = lazy(() => import("./pages/api/data-modeling/Normalization"));
 const ApiDesignFlow = lazy(() => import("./pages/api/data-modeling/DesignFlow"));
 const ApiWorkedExample = lazy(() => import("./pages/api/data-modeling/WorkedExample"));
+
+// ── Vue / Nuxt マニュアル (22ページ) ──
+const VueHome = lazy(() => import("./pages/vue/Home"));
+const VueSetup = lazy(() => import("./pages/vue/basics/Setup"));
+const VueTemplateSyntax = lazy(() => import("./pages/vue/basics/TemplateSyntax"));
+const VueReactivity = lazy(() => import("./pages/vue/basics/Reactivity"));
+const VueComponents = lazy(() => import("./pages/vue/basics/Components"));
+const VuePropsEmits = lazy(() => import("./pages/vue/basics/PropsEmits"));
+const VueScriptSetup = lazy(() => import("./pages/vue/composition/ScriptSetup"));
+const VueComputedWatch = lazy(() => import("./pages/vue/composition/ComputedWatch"));
+const VueLifecycle = lazy(() => import("./pages/vue/composition/Lifecycle"));
+const VueComposables = lazy(() => import("./pages/vue/composition/Composables"));
+const VueProvideInject = lazy(() => import("./pages/vue/composition/ProvideInject"));
+const VueRouter = lazy(() => import("./pages/vue/state-routing/Router"));
+const VuePinia = lazy(() => import("./pages/vue/state-routing/Pinia"));
+const VueSfcStyling = lazy(() => import("./pages/vue/styling/SfcStyling"));
+const VueWhatIsNuxt = lazy(() => import("./pages/vue/nuxt-basics/WhatIsNuxt"));
+const VueRoutingLayouts = lazy(() => import("./pages/vue/nuxt-basics/RoutingLayouts"));
+const VueDataFetching = lazy(() => import("./pages/vue/nuxt-basics/DataFetching"));
+const VueServerApi = lazy(() => import("./pages/vue/nuxt-server/ServerApi"));
+const VueRenderingModes = lazy(() => import("./pages/vue/nuxt-server/RenderingModes"));
+const VueMiddlewarePlugins = lazy(() => import("./pages/vue/nuxt-server/MiddlewarePlugins"));
+const VueDeploy = lazy(() => import("./pages/vue/nuxt-server/Deploy"));
+const VueLatestFeatures = lazy(() => import("./pages/vue/advanced/LatestFeatures"));
 const ApiHttpMethods = lazy(() => import("./pages/api/rest-design/HttpMethods"));
 const ApiStatusCodes = lazy(() => import("./pages/api/rest-design/StatusCodes"));
 const ApiReqRes = lazy(() => import("./pages/api/rest-design/RequestResponse"));
@@ -575,6 +599,30 @@ function App() {
                 <Route path="/api/practice/nuxt" component={ApiPracticeNuxt} />
                 <Route path="/api/advanced/beyond-rest" component={ApiBeyondRest} />
                 <Route path="/api/advanced/summary" component={ApiSummary} />
+
+                {/* === Vue / Nuxt マニュアル === */}
+                <Route path="/vue" component={VueHome} />
+                <Route path="/vue/basics/setup" component={VueSetup} />
+                <Route path="/vue/basics/template-syntax" component={VueTemplateSyntax} />
+                <Route path="/vue/basics/reactivity" component={VueReactivity} />
+                <Route path="/vue/basics/components" component={VueComponents} />
+                <Route path="/vue/basics/props-emits" component={VuePropsEmits} />
+                <Route path="/vue/composition/script-setup" component={VueScriptSetup} />
+                <Route path="/vue/composition/computed-watch" component={VueComputedWatch} />
+                <Route path="/vue/composition/lifecycle" component={VueLifecycle} />
+                <Route path="/vue/composition/composables" component={VueComposables} />
+                <Route path="/vue/composition/provide-inject" component={VueProvideInject} />
+                <Route path="/vue/state-routing/router" component={VueRouter} />
+                <Route path="/vue/state-routing/pinia" component={VuePinia} />
+                <Route path="/vue/styling/sfc-styling" component={VueSfcStyling} />
+                <Route path="/vue/nuxt-basics/what-is-nuxt" component={VueWhatIsNuxt} />
+                <Route path="/vue/nuxt-basics/routing-layouts" component={VueRoutingLayouts} />
+                <Route path="/vue/nuxt-basics/data-fetching" component={VueDataFetching} />
+                <Route path="/vue/nuxt-server/server-api" component={VueServerApi} />
+                <Route path="/vue/nuxt-server/rendering-modes" component={VueRenderingModes} />
+                <Route path="/vue/nuxt-server/middleware-plugins" component={VueMiddlewarePlugins} />
+                <Route path="/vue/nuxt-server/deploy" component={VueDeploy} />
+                <Route path="/vue/advanced/latest-features" component={VueLatestFeatures} />
 
                 {/* 404 */}
                 <Route component={NotFound} />

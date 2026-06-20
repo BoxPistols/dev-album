@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Sparkles, Wrench, Bug, Tag } from "lucide-react";
+import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
@@ -28,6 +28,7 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
   "ai-ml": <Brain size={20} />,
   "ux-design": <Palette size={20} />,
   api: <Network size={20} />,
+  vue: <Triangle size={20} />,
 };
 
 const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
@@ -93,6 +94,15 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "OpenAPI / Swagger UI",
       "バリデーション / 認証認可",
       "契約テスト / Spectral Lint",
+    ],
+  },
+  vue: {
+    tagline: "Vue 3 の基礎から Composition API・Pinia・Nuxt まで実践的に学べる",
+    topics: [
+      "Vue 3 + Composition API",
+      "Pinia / Vue Router",
+      "Nuxt 4 / SSR・SSG・ISR",
+      "server/api / デプロイ",
     ],
   },
 };
