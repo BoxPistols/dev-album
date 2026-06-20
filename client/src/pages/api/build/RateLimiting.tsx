@@ -499,7 +499,7 @@ async function fetchWithRetry(
                   title: "RFC 6585 - Additional HTTP Status Codes",
                   url: "https://www.rfc-editor.org/rfc/rfc6585",
                   description:
-                    "429 Too Many Requests を定義した一次仕様（4.4 節）",
+                    "429 Too Many Requests を定義した一次仕様（4 節）",
                 },
                 {
                   title: "IETF - RateLimit header fields for HTTP (draft)",

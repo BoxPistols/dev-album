@@ -64,6 +64,36 @@ const checklist = [
     detail:
       "認可不備（BOLA）、認証の弱さ、過剰なデータ露出など、OWASP API Security Top 10 の典型的な穴を設計段階でチェックする。",
   },
+  {
+    title: "キャッシュを設計する",
+    detail:
+      "あまり変わらない GET には Cache-Control と ETag を付け、条件付きリクエスト（304）で転送量を減らす。個人データは private / no-store を明示する。",
+  },
+  {
+    title: "安全なリトライを保証する",
+    detail:
+      "ネットワーク再送で二重作成が起きうる POST には Idempotency-Key を受け付け、同じキーの再送には保存済みの結果を返す。",
+  },
+  {
+    title: "レート制限を設ける",
+    detail:
+      "濫用と過負荷に備え、429 Too Many Requests と Retry-After を返す。残量は X-RateLimit-* などで伝える。",
+  },
+  {
+    title: "非同期通知は Webhooks + 署名",
+    detail:
+      "イベント通知は Webhooks で配信し、HMAC 署名で正当性を検証する。配信は at-least-once 前提で、受信側は event id でべき等に処理する。",
+  },
+  {
+    title: "可観測性を組み込む",
+    detail:
+      "構造化ログ・メトリクス・分散トレースと相関 ID（Correlation ID）で、本番の挙動を後から追えるようにする。",
+  },
+  {
+    title: "フロントエンドと契約で協業する",
+    detail:
+      "OpenAPI を正本に、モック先行（Prism）と型生成（openapi-typescript）で BE/FE が並行開発する。UI の loading / empty / error 状態を API が表現できるように設計する。",
+  },
 ];
 
 const reviewPoints = [
@@ -259,7 +289,21 @@ versioning:
 contract:
   OpenAPI が契約の正本: todo
   Spectral で Lint 通過: todo
-  契約テストで実装と一致を検証: todo`}
+  契約テストで実装と一致を検証: todo
+caching:
+  GET に Cache-Control/ETag: todo   # 条件付きリクエスト(304)で転送量削減
+  個人データは private/no-store: todo
+reliability:
+  POST に Idempotency-Key: todo     # 再送で二重作成しない
+  レート制限(429/Retry-After): todo
+  Webhooks は HMAC 署名 + べき等受信: todo
+observability:
+  構造化ログ + 相関ID: todo
+  メトリクス/分散トレース: todo
+collaboration:
+  モック先行(Prism)で並行開発: todo
+  型生成(openapi-typescript): todo
+  UI状態(loading/empty/error)を表現できる設計: todo`}
             />
           </section>
 

@@ -364,8 +364,8 @@ export default function DebuggingTools() {
 * using HTTP/2
 > GET /v1/articles/42 HTTP/2
 > Host: api.example.com
-> user-agent: curl/8.7.1
-> accept: */*
+> User-Agent: curl/8.7.1
+> Accept: */*
 >
 < HTTP/2 200
 < content-type: application/json

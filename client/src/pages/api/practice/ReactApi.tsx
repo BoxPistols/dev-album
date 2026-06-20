@@ -375,8 +375,10 @@ function CreateUserButton() {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               <code>fetch</code> の戻り値は既定で <code>any</code>{" "}
               寄りになりがちで、
-              <code>res.json()</code> は <code>Promise&lt;unknown&gt;</code>{" "}
-              です。 手で型注釈を書くと、サーバの定義とズレても気づけません。
+              <code>res.json()</code> は標準の型定義で{" "}
+              <code>Promise&lt;any&gt;</code>{" "}
+              です（だからこそ放置すると危険）。
+              手で型注釈を書くと、サーバの定義とズレても気づけません。
               そこで OpenAPI 定義から型を生成する{" "}
               <strong>openapi-typescript</strong>{" "}
               と、その型を使う薄いクライアント

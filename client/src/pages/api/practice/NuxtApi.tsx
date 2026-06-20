@@ -181,8 +181,8 @@ const { data: users, pending, error, refresh } = await useFetch('/api/users', {
             </InfoBox>
 
             <InfoBox type="warning" title="仕様 vs 実測: ssr:false だと useFetch の意味が変わる">
-              ここで説明した「SSR で取得 → payload で渡す → 重複排除」は{" "}
-              <code>ssr: true</code>（既定）が前提です。アプリを{" "}
+              Nuxt は<strong>既定で SSR が有効</strong>（<code>ssr: true</code>）です。
+              ここで説明した「SSR で取得 → payload で渡す → 重複排除」はその前提で活きます。アプリを{" "}
               <code>ssr: false</code>（SPA モード）で動かすと、サーバ側レンダリングが
               無いため <code>useFetch</code> の取得はクライアントで走り、SSR
               由来の重複排除という利点は実質的に消えます。この構成では{" "}
