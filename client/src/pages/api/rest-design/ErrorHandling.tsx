@@ -344,6 +344,60 @@ export default function ErrorHandling() {
             </InfoBox>
           </section>
 
+          {/* 実装例: FastAPI で problem+json */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              実装例: FastAPI で problem+json を返す（実測）
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              既定の <code>{'{ "detail": ... }'}</code> ではなく RFC 9457
+              に寄せるには、例外ハンドラでレスポンスの{" "}
+              <strong>media_type</strong> を{" "}
+              <code>application/problem+json</code> にし、type / title / status /
+              detail / instance を返します。下は実機で動かした実装と実レスポンスです。
+            </p>
+
+            <CodeBlock
+              language="python"
+              title="FastAPI — Problem 例外ハンドラ（media_type が肝）"
+              code={`class ProblemException(Exception):
+    def __init__(self, *, status, title, detail, type_="about:blank", instance=None):
+        ...
+
+@app.exception_handler(ProblemException)
+def problem_handler(_, exc: ProblemException):
+    body = {"type": exc.type_, "title": exc.title, "status": exc.status, "detail": exc.detail}
+    if exc.instance:
+        body["instance"] = exc.instance
+    return JSONResponse(
+        status_code=exc.status,
+        media_type="application/problem+json",  # ← これが肝
+        content=body,
+    )`}
+            />
+
+            <CodeBlock
+              language="http"
+              title="実レスポンス（GET /problem-demo、実測）"
+              code={`HTTP/1.1 404 Not Found
+content-type: application/problem+json
+
+{
+  "type": "https://example.com/probs/memo-not-found",
+  "title": "Memo not found",
+  "status": 404,
+  "detail": "id=999 のメモは存在しません",
+  "instance": "/problem-demo"
+}`}
+            />
+            <p className="text-muted-foreground mt-3 leading-relaxed text-sm">
+              対比: FastAPI 既定は <code>content-type: application/json</code> +{" "}
+              <code>{'{ "detail": "not found" }'}</code>。problem+json
+              は media type と標準フィールドを持つ点が違います。出典: FastAPI +
+              Nuxt sandbox で実測。
+            </p>
+          </section>
+
           {/* Quiz 1 */}
           <section>
             <Quiz

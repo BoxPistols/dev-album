@@ -450,6 +450,61 @@ security:
             </InfoBox>
           </section>
 
+          {/* 実装例: JWT 検証 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              実装例: JWT 検証の実測（FastAPI）
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              トークン検証で起こる失敗（期限切れ・署名不正・未送付）が、実際にどんな
+              401 を返すかを実機で確認しました。HS256 の最小例ですが、本番の
+              Cognito（RS256 + JWKS）でも検証の流れは同じです。
+            </p>
+
+            <CodeBlock
+              language="python"
+              title="FastAPI — Bearer トークンを検証する依存"
+              code={`def require_jwt(authorization: str = Header(default="")):
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(401, "missing bearer token")
+    token = authorization.removeprefix("Bearer ")
+    try:
+        return jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(401, "token expired")
+    except jwt.InvalidTokenError:        # 署名不正など
+        raise HTTPException(401, "invalid token")`}
+            />
+
+            <CodeBlock
+              language="http"
+              title="実測: 3 ケースの 401（いずれも WWW-Authenticate 無し）"
+              code={`# (1) exp 切れ
+HTTP/1.1 401 Unauthorized
+{ "detail": "token expired" }
+
+# (2) 署名不正
+HTTP/1.1 401 Unauthorized
+{ "detail": "invalid token" }
+
+# (3) トークン無し
+HTTP/1.1 401 Unauthorized
+{ "detail": "missing bearer token" }`}
+            />
+
+            <InfoBox type="warning" title="既定では WWW-Authenticate が付かない / 弱い鍵に注意（実測）">
+              実測では 3 ケースとも <code>WWW-Authenticate</code>{" "}
+              ヘッダーが付きませんでした（FastAPI 既定）。RFC 7235
+              的には付けるべきなので、必要なら{" "}
+              <code>{'HTTPException(401, headers={"WWW-Authenticate": "Bearer"})'}</code>{" "}
+              で手動付与します。body を problem+json
+              に寄せたい場合は、エラー設計の章の Problem ハンドラを 401
+              にも適用します。 また PyJWT は HMAC 鍵が 32 バイト未満だと{" "}
+              <code>InsecureKeyLengthWarning</code> を出します（RFC 7518 §3.2:
+              HS256 は鍵長 32 バイト以上が推奨）。弱い秘密鍵は実害につながります。
+            </InfoBox>
+          </section>
+
           {/* Reference Links */}
           <section>
             <ReferenceLinks

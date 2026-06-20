@@ -338,6 +338,55 @@ npx spectral lint openapi.yaml`}
             </p>
           </section>
 
+          {/* 実機の Spectral 出力 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              実機の Spectral 出力（実測）
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              実際の FastAPI が生成した OpenAPI に Spectral をかけると、
+              「フレームワークが自動で埋める所」と「埋めない所」が一目で分かります。
+              下は FastAPI + Nuxt の sandbox で計測した実出力です。
+            </p>
+
+            <CodeBlock
+              language="yaml"
+              title=".spectral.yaml（spectral:oas を継承 + 2 ルールを error 化）"
+              code={`extends: ["spectral:oas"]
+rules:
+  operation-operationId: error
+  operation-description: error`}
+            />
+
+            <CodeBlock
+              language="bash"
+              title="spectral lint openapi.json -r .spectral.yaml の実出力"
+              code={`  1:1    warning  oas3-api-servers       OpenAPI "servers" must be present and non-empty array.
+  1:27   warning  info-contact           Info object must have "contact" object.
+  1:27   warning  info-description       Info "description" must be present and non-empty string.
+  1:99     error  operation-description  Operation "description" must be present...  paths./memos.get
+  1:99   warning  operation-tags         Operation must have non-empty "tags" array.  paths./memos.get
+  1:374    error  operation-description  ...  paths./memos.post
+  1:859    error  operation-description  ...  paths./memos/{memo_id}.get
+  1:1320   error  operation-description  ...  paths./memos/{memo_id}.delete
+
+✖ 11 problems (4 errors, 7 warnings, 0 infos, 0 hints)`}
+            />
+
+            <InfoBox type="info" title="lint で「FW が埋める所/埋めない所」が見える（実測）">
+              注目は <code>operation-operationId</code> が
+              <strong>発火しないこと</strong>です。FastAPI は operationId
+              を自動付与するため、このルールを error
+              にしても違反になりません。 一方 <code>description</code> /{" "}
+              <code>tags</code> / <code>servers</code> / <code>contact</code>{" "}
+              はフレームワークが自動では埋めないので警告・エラーになります。
+              つまり Spectral は「自動生成に任せきりだと何が欠けるか」を可視化してくれます。
+              出力の書式は{" "}
+              <code>行:列 severity ルール名 メッセージ path</code>{" "}
+              と末尾の集計です。出典: FastAPI + Nuxt sandbox で実測。
+            </InfoBox>
+          </section>
+
           {/* CI 組み込み */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
