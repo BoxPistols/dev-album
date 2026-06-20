@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const buildModes = [
   {
@@ -76,6 +77,24 @@ export default function Deploy() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ビルドからデプロイまでの流れ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              nuxt build の後、Nitro がデプロイ先を自動検出（プリセット）して各プラットフォーム向けの出力を生成します。
+            </p>
+            <MermaidDiagram
+              title="ビルドからデプロイまでの流れ（図）"
+              chart={`flowchart LR
+  S["ソース"] --> B["nuxt build"]
+  B --> N["Nitro がプリセットを自動検出"]
+  N --> V["Vercel"]
+  N --> NL["Netlify"]
+  N --> NS["node-server"]`}
+            />
+          </section>
+
           {/* build vs generate */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

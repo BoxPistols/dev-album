@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const conventions = [
   {
@@ -71,6 +72,22 @@ export default function Composables() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Composables による再利用
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              リアクティブな状態とロジックを composable に切り出すと、複数のコンポーネントから同じロジックを再利用できます。
+            </p>
+            <MermaidDiagram
+              title="Composables による再利用（図）"
+              chart={`flowchart LR
+  CO["useXxx() (状態 + ロジック)"] --> A["コンポーネントA"]
+  CO --> B["コンポーネントB"]
+  CO --> C["コンポーネントC"]`}
+            />
+          </section>
+
           {/* composable とは */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

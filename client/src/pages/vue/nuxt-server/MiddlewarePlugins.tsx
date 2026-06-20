@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const extensionPoints = [
   {
@@ -69,6 +70,22 @@ export default function MiddlewarePlugins() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ルートミドルウェアの流れ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ページ遷移の前にルートミドルウェアが走り、条件を満たさなければ navigateTo でリダイレクトします。認証ガードの典型的な流れです。
+            </p>
+            <MermaidDiagram
+              title="ルートミドルウェアの流れ（図）"
+              chart={`flowchart TD
+  N["ページ遷移"] --> M["ルートミドルウェア (認証チェック)"]
+  M -->|"OK"| P["ページを表示"]
+  M -->|"NG"| R["navigateTo でリダイレクト"]`}
+            />
+          </section>
+
           {/* 3つの拡張点の俯瞰 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

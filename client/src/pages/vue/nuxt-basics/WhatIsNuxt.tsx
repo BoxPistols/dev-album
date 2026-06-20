@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const features = [
   {
@@ -72,6 +73,24 @@ export default function WhatIsNuxt() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Nuxt 4 のディレクトリ構成
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Nuxt 4 では既定の srcDir が app/ になり、pages / components / composables が app/ 配下に入ります。サーバーは server/、設定は nuxt.config.ts です。
+            </p>
+            <MermaidDiagram
+              title="Nuxt 4 のディレクトリ構成（図）"
+              chart={`flowchart TD
+  ROOT["プロジェクト"] --> APP["app/ (Nuxt4 既定 srcDir)"]
+  ROOT --> SRV["server/ (Nitro)"]
+  ROOT --> CFG["nuxt.config.ts"]
+  APP --> PG["pages/ (ルート)"]
+  APP --> CM["components/ (自動import)"]
+  APP --> CMP["composables/ (自動import)"]`}
+            />
+          </section>
           {/* Nuxt が提供するもの */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

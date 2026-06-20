@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const reactMap = [
   {
@@ -72,6 +73,21 @@ export default function ProvideInject() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              provide / inject で Props ドリリングを回避
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              親が provide した値は、中間コンポーネントを経由せずに深い子孫が inject で直接受け取れます。Props を順に渡す必要がありません。
+            </p>
+            <MermaidDiagram
+              title="provide / inject で Props ドリリングを回避（図）"
+              chart={`flowchart TD
+  A["親: provide(key, value)"] --> B["中間コンポーネント"]
+  B --> C["孫: inject(key)"]
+  A -.->|"props を経由せず直接届く"| C`}
+            />
+          </section>
           {/* 基本 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

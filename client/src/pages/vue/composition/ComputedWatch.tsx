@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const apiMap = [
   {
@@ -64,6 +65,23 @@ export default function ComputedWatch() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              computed と watch の使い分け
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              値を導出したいなら computed、変化に反応して副作用を起こしたいなら watch、という判断軸を図にします。
+            </p>
+            <MermaidDiagram
+              title="computed と watch の使い分け（図）"
+              chart={`flowchart TD
+  Q{"何をしたい?"} -->|"値を導出する"| C["computed (キャッシュされる)"]
+  Q -->|"変化に反応して副作用"| W["watch / watchEffect"]
+  C --> T["テンプレートで使う"]
+  W --> S["API 呼び出し等の副作用"]`}
+            />
+          </section>
+
           {/* 全体像 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

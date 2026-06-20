@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const dataFlow = [
   {
@@ -76,6 +77,23 @@ export default function PropsEmits() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Props と Emits のデータの向き
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              データは props で親から子へ下り、イベントは emit
+              で子から親へ上がります。v-model はこの組み合わせで双方向にします。
+            </p>
+            <MermaidDiagram
+              title="Props と Emits のデータの向き（図）"
+              chart={`flowchart TD
+  P["親"] -->|"props (データを下へ)"| C["子"]
+  C -->|"emit (イベントを上へ)"| P
+  P -->|"v-model (双方向)"| C`}
+            />
+          </section>
+
           {/* データの流れ */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

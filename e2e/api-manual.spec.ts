@@ -113,6 +113,18 @@ const MERMAID_ROUTES = [
   "/api/quality/contract-testing",
   // Git マニュアルの gitGraph
   "/git/workflow/branch",
+  // Vue/Nuxt の追加概念図
+  "/vue/basics/components",
+  "/vue/basics/props-emits",
+  "/vue/composition/computed-watch",
+  "/vue/composition/composables",
+  "/vue/composition/provide-inject",
+  "/vue/state-routing/router",
+  "/vue/nuxt-basics/what-is-nuxt",
+  "/vue/nuxt-basics/routing-layouts",
+  "/vue/nuxt-server/middleware-plugins",
+  "/vue/nuxt-server/deploy",
+  "/vue/advanced/latest-features",
 ];
 
 test("mermaid ER図が実際の SVG として可視化される", async ({ page }) => {

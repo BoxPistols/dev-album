@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const sfcBlocks = [
   {
@@ -59,6 +60,22 @@ export default function Components() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              コンポーネントと slot の関係
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              親は子コンポーネントを import して使い、slot を通じて中身を子に差し込みます。親子と slot の関係を図にします。
+            </p>
+            <MermaidDiagram
+              title="コンポーネントと slot の関係（図）"
+              chart={`flowchart TD
+  P["親コンポーネント"] -->|"import して使う"| C["子コンポーネント"]
+  P -->|"slot に中身を渡す"| C
+  C -->|"slot で受け取って表示"| V["描画結果"]`}
+            />
+          </section>
+
           {/* 3 ブロック構成 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const reactMapping = [
   {
@@ -87,6 +88,24 @@ export default function Router() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              URL からコンポーネント表示までの流れ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              URL を Vue Router がマッチし、router-view
+              に該当コンポーネントを表示します。動的ルートのパラメータは useRoute
+              で取得します。
+            </p>
+            <MermaidDiagram
+              title="URL からコンポーネント表示までの流れ（図）"
+              chart={`flowchart TD
+  U["URL: /users/42"] --> R["Vue Router がマッチ"]
+  R --> V["router-view に該当コンポーネントを表示"]
+  V --> P["useRoute().params.id で 42 を取得"]`}
+            />
+          </section>
+
           {/* ルーターの設定 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

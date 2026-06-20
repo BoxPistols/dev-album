@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // React 概念との対応表（移行者向けに再掲）
 const reactMapping = [
@@ -113,6 +114,22 @@ export default function LatestFeatures() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              マニュアル全体の地図
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              このマニュアルで扱った領域を俯瞰します。Vue の基礎から Composition API、状態とルーティング、そして Nuxt へとつながります。
+            </p>
+            <MermaidDiagram
+              title="マニュアル全体の地図（図）"
+              chart={`flowchart TD
+  V["Vue / Nuxt"] --> B["Vue 基礎 (リアクティビティ・コンポーネント)"]
+  V --> C["Composition API (composables・provide/inject)"]
+  V --> S["状態とルーティング (Pinia・Vue Router)"]
+  V --> N["Nuxt (データ取得・server/api・レンダリング)"]`}
+            />
+          </section>
           {/* reactive props destructure */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

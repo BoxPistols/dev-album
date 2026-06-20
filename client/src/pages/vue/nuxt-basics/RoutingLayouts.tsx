@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const routeMap = [
   {
@@ -74,6 +75,21 @@ export default function RoutingLayouts() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ファイル名からルートへの対応
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              app/pages/ に置いたファイル名が、そのまま URL のルートに対応します。動的ルートは [id]、キャッチオールは [...slug] です。
+            </p>
+            <MermaidDiagram
+              title="ファイル名からルートへの対応（図）"
+              chart={`flowchart LR
+  F1["app/pages/index.vue"] --> R1["/"]
+  F2["app/pages/users/[id].vue"] --> R2["/users/:id"]
+  F3["app/pages/[...slug].vue"] --> R3["キャッチオール"]`}
+            />
+          </section>
           {/* ファイル → ルートの対応 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
