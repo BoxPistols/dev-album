@@ -250,6 +250,10 @@ const ApiReqRes = lazy(() => import("./pages/api/rest-design/RequestResponse"));
 const ApiPagination = lazy(() => import("./pages/api/rest-design/Pagination"));
 const ApiErrors = lazy(() => import("./pages/api/rest-design/ErrorHandling"));
 const ApiCaching = lazy(() => import("./pages/api/rest-design/Caching"));
+const ApiIdempotency = lazy(() => import("./pages/api/rest-design/Idempotency"));
+const ApiRateLimiting = lazy(() => import("./pages/api/build/RateLimiting"));
+const ApiWebhooks = lazy(() => import("./pages/api/build/Webhooks"));
+const ApiObservability = lazy(() => import("./pages/api/quality/Observability"));
 const ApiWhatIsOpenApi = lazy(() => import("./pages/api/openapi/WhatIsOpenApi"));
 const ApiDocStructure = lazy(() => import("./pages/api/openapi/DocumentStructure"));
 const ApiSchemaComponents = lazy(() => import("./pages/api/openapi/SchemaComponents"));
@@ -529,6 +533,7 @@ function App() {
                 <Route path="/api/rest-design/pagination" component={ApiPagination} />
                 <Route path="/api/rest-design/error-handling" component={ApiErrors} />
                 <Route path="/api/rest-design/caching" component={ApiCaching} />
+                <Route path="/api/rest-design/idempotency" component={ApiIdempotency} />
                 <Route path="/api/openapi/what-is-openapi" component={ApiWhatIsOpenApi} />
                 <Route path="/api/openapi/document-structure" component={ApiDocStructure} />
                 <Route path="/api/openapi/schema-components" component={ApiSchemaComponents} />
@@ -537,10 +542,13 @@ function App() {
                 <Route path="/api/build/mock-server" component={ApiMockServer} />
                 <Route path="/api/build/validation" component={ApiValidation} />
                 <Route path="/api/build/auth" component={ApiAuth} />
+                <Route path="/api/build/rate-limiting" component={ApiRateLimiting} />
+                <Route path="/api/build/webhooks" component={ApiWebhooks} />
                 <Route path="/api/build/versioning" component={ApiVersioning} />
                 <Route path="/api/quality/contract-testing" component={ApiContractTesting} />
                 <Route path="/api/quality/linting" component={ApiLinting} />
                 <Route path="/api/quality/security" component={ApiSecurity} />
+                <Route path="/api/quality/observability" component={ApiObservability} />
                 <Route path="/api/advanced/beyond-rest" component={ApiBeyondRest} />
                 <Route path="/api/advanced/summary" component={ApiSummary} />
 

@@ -24,7 +24,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-06-20",
     title: "API 設計 / OpenAPI 入門マニュアルを新設",
     description:
-      "REST API 設計・OpenAPI/Swagger・API 検証をゼロから学ぶ独立マニュアル（7 セクション / 25 ページ）を追加。リソース設計・ステータスコード・エラー設計・HTTP キャッシュ・スキーマファースト・契約テスト・Spectral Lint・認証認可まで体系的に扱う。",
+      "REST API 設計・OpenAPI/Swagger・API 検証をゼロから学ぶ独立マニュアル（7 セクション / 29 ページ）を追加。リソース設計・ステータスコード・エラー設計・HTTP キャッシュ・べき等キー・スキーマファースト・レート制限・Webhooks・契約テスト・Spectral Lint・認証認可・可観測性まで体系的に扱う。",
     category: "feature",
     link: "/api",
   },

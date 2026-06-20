@@ -712,6 +712,23 @@ export const searchIndex: Record<string, string[]> = {
     'If-None-Match', 'If-Modified-Since', 'Last-Modified', 'max-age', 'no-store',
     'private', 'public', '再検証', 'CDN', '帯域削減',
   ],
+  '/api/rest-design/idempotency': [
+    'べき等キー', 'Idempotency-Key', 'べき等性', 'リトライ', '安全な再送', '二重作成防止',
+    'POST', 'ネットワーク障害', 'タイムアウト', '重複排除', '決済',
+  ],
+  '/api/build/rate-limiting': [
+    'レート制限', 'スロットリング', '429', 'Too Many Requests', 'Retry-After',
+    'X-RateLimit-Limit', 'X-RateLimit-Remaining', 'トークンバケット', '固定ウィンドウ',
+    'スライディングウィンドウ', 'クォータ', 'DoS 対策',
+  ],
+  '/api/build/webhooks': [
+    'Webhook', '非同期 API', 'イベント駆動', 'コールバック', 'HMAC 署名', '署名検証',
+    'リトライ', '冪等性', 'イベント配信', 'ペイロード', 'ポーリング', '202 Accepted',
+  ],
+  '/api/quality/observability': [
+    '可観測性', 'Observability', 'ロギング', 'トレーシング', 'メトリクス', '相関 ID',
+    'Correlation ID', 'リクエスト ID', '分散トレーシング', 'OpenTelemetry', 'SLI', 'SLO',
+  ],
   '/api/openapi/what-is-openapi': [
     'OpenAPI', 'Swagger', 'OpenAPI Specification', 'OAS', 'API 仕様', '契約', 'スキーマ',
     'YAML', 'JSON', 'ドキュメント', 'openapi.json', '正本', 'Source of Truth',
