@@ -707,6 +707,11 @@ export const searchIndex: Record<string, string[]> = {
     'エラー設計', 'エラーレスポンス', 'Problem Details', 'RFC 9457', 'RFC 7807',
     'エラーコード', 'バリデーションエラー', '422', 'エラーメッセージ', '一貫性',
   ],
+  '/api/rest-design/caching': [
+    'HTTP キャッシュ', 'Cache-Control', 'ETag', '条件付きリクエスト', '304 Not Modified',
+    'If-None-Match', 'If-Modified-Since', 'Last-Modified', 'max-age', 'no-store',
+    'private', 'public', '再検証', 'CDN', '帯域削減',
+  ],
   '/api/openapi/what-is-openapi': [
     'OpenAPI', 'Swagger', 'OpenAPI Specification', 'OAS', 'API 仕様', '契約', 'スキーマ',
     'YAML', 'JSON', 'ドキュメント', 'openapi.json', '正本', 'Source of Truth',

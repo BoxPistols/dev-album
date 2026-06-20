@@ -14,6 +14,7 @@ const API_ROUTES = [
   "/api/rest-design/request-response",
   "/api/rest-design/pagination",
   "/api/rest-design/error-handling",
+  "/api/rest-design/caching",
   "/api/openapi/what-is-openapi",
   "/api/openapi/document-structure",
   "/api/openapi/schema-components",
