@@ -104,6 +104,15 @@ const MERMAID_ROUTES = [
   "/vue/nuxt-server/rendering-modes",
   "/vue/nuxt-server/server-api",
   "/vue/state-routing/pinia",
+  // API マニュアルの概念図（シーケンス図・フローチャート）
+  "/api/build/auth",
+  "/api/build/webhooks",
+  "/api/rest-design/idempotency",
+  "/api/build/rate-limiting",
+  "/api/rest-design/status-codes",
+  "/api/quality/contract-testing",
+  // Git マニュアルの gitGraph
+  "/git/workflow/branch",
 ];
 
 test("mermaid ER図が実際の SVG として可視化される", async ({ page }) => {

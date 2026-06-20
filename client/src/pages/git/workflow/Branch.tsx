@@ -1,6 +1,7 @@
 import { ArrowRight, GitBranch } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CodeBlock from '@/components/CodeBlock';
+import MermaidDiagram from '@/components/MermaidDiagram';
 import InfoBox from '@/components/InfoBox';
 import CodingChallenge from '@/components/CodingChallenge';
 import WhyNowBox from '@/components/WhyNowBox';
@@ -107,6 +108,31 @@ export default function BranchWorkflow() {
               </ul>
             </div>
           </div>
+        </section>
+
+        {/* ブランチの流れを図で見る */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
+            ブランチの流れを図で見る
+          </h2>
+          <p className="text-muted-foreground mb-6 leading-relaxed">
+            ブランチは「コミットの履歴を枝分かれさせる」仕組みです。main
+            から feature ブランチを切って作業し、終わったら main
+            にマージして合流させます。この流れを図にすると一目で分かります。
+          </p>
+          <MermaidDiagram
+            title="main から feature を切ってマージするまで"
+            chart={`gitGraph
+  commit id: "初期コミット"
+  commit id: "A"
+  branch feature
+  checkout feature
+  commit id: "B"
+  commit id: "C"
+  checkout main
+  merge feature
+  commit id: "D"`}
+          />
         </section>
 
         {/* Create and Switch Branch */}

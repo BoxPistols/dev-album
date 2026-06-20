@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const algorithms = [
   {
@@ -99,6 +100,23 @@ export default function RateLimiting() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              レート制限の判定フロー
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              リクエストごとに残り回数を確認し、超過したら 429 と Retry-After を返します。クライアントは指定時間後に再試行します。
+            </p>
+            <MermaidDiagram
+              title="レート制限の判定フロー（図）"
+              chart={`flowchart TD
+  R["リクエスト"] --> Q{"残り回数あり?"}
+  Q -->|"あり"| OK["200 (X-RateLimit-Remaining を減算)"]
+  Q -->|"なし"| NG["429 Too Many Requests + Retry-After"]
+  NG --> W["クライアントは Retry-After 後に再試行"]`}
+            />
+          </section>
+
           {/* なぜレート制限 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const authMethods = [
   {
@@ -73,6 +74,27 @@ export default function Auth() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Bearer トークン認証のフロー
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ログインでトークンを受け取り、以後のリクエストに Authorization ヘッダーで付与します。サーバーはトークンを検証して本人かを判断します。
+            </p>
+            <MermaidDiagram
+              title="Bearer トークン認証のフロー（図）"
+              chart={`sequenceDiagram
+  participant C as クライアント
+  participant S as API サーバー
+  C->>S: POST /login (認証情報)
+  S-->>C: アクセストークン (JWT)
+  C->>S: GET /me (Authorization: Bearer ...)
+  S->>S: トークン検証 (署名・期限)
+  S-->>C: 200 (本人のデータ)
+  Note over C,S: トークンが無効なら 401`}
+            />
+          </section>
+
           {/* 認証と認可は別物 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

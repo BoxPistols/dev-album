@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // メソッド別の冪等性まとめ（前章「HTTP メソッド」と地続き）
 const methods = [
@@ -73,6 +74,28 @@ export default function Idempotency() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              べき等キーによる二重作成防止
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              同じ Idempotency-Key の再送には保存済みの結果を返すため、ネットワーク再送で同じ POST が二度届いても二重に作成されません。
+            </p>
+            <MermaidDiagram
+              title="べき等キーによる二重作成防止（図）"
+              chart={`sequenceDiagram
+  participant C as クライアント
+  participant S as API サーバー
+  C->>S: POST /orders (Idempotency-Key: abc)
+  S->>S: キー abc を保存して処理
+  S-->>C: 201 Created
+  Note over C: レスポンス未達 → 再送
+  C->>S: POST /orders (Idempotency-Key: abc)
+  S->>S: キー abc は処理済み
+  S-->>C: 同じ 201 (二重作成しない)`}
+            />
+          </section>
+
           {/* 問題: 届かなかったレスポンス */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

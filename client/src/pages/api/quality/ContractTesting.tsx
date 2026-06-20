@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const approaches = [
   {
@@ -63,6 +64,24 @@ export default function ContractTesting() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              契約テストの位置づけ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              OpenAPI を契約の正本とし、コンシューマとプロバイダの双方がそれに沿っているかを CI で検証します。ズレはマージ前に検知します。
+            </p>
+            <MermaidDiagram
+              title="契約テストの位置づけ（図）"
+              chart={`flowchart LR
+  O["OpenAPI (契約の正本)"] --> C["コンシューマ: 契約に沿って呼ぶ"]
+  O --> P["プロバイダ: 契約通り返すか"]
+  C --> T["契約テスト (CI)"]
+  P --> T
+  T -->|"ズレを検知"| F["マージ前に失敗"]`}
+            />
+          </section>
+
           {/* 問題 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // カテゴリの概要（1xx 情報応答は実務での使用が稀なため省略し、2xx〜5xx を扱う）
 const categories = [
@@ -140,6 +141,22 @@ export default function StatusCodes() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ステータスコードの分岐
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              結果が成功か、クライアント起因の失敗か、サーバ起因の失敗かで、返すべきステータスコードの系列が決まります。
+            </p>
+            <MermaidDiagram
+              title="ステータスコードの分岐（図）"
+              chart={`flowchart TD
+  REQ["リクエスト"] --> A{"処理できた?"}
+  A -->|"成功"| S2["2xx (200 / 201 / 204)"]
+  A -->|"クライアント起因"| S4["4xx (400 / 401 / 403 / 404 / 422)"]
+  A -->|"サーバ起因"| S5["5xx (500 / 503)"]`}
+            />
+          </section>
           {/* カテゴリ */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">

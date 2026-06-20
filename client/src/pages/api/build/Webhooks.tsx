@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const useCases = [
   {
@@ -70,6 +71,26 @@ export default function Webhooks() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Webhook の配信とリトライ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              イベントが起きると提供側が受信側の登録 URL へ POST します。受信側は署名を検証し、2xx を返せなければ提供側が再送します。
+            </p>
+            <MermaidDiagram
+              title="Webhook の配信とリトライ（図）"
+              chart={`sequenceDiagram
+  participant P as 提供側 (送信)
+  participant R as 受信側 (登録URL)
+  Note over P: イベント発生
+  P->>R: POST (署名つきペイロード)
+  R->>R: HMAC 署名を検証
+  R-->>P: 2xx (受領)
+  Note over P,R: 2xx が来なければ指数バックオフで再送`}
+            />
+          </section>
+
           {/* Webhook とは */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
