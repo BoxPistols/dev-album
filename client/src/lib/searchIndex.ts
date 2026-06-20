@@ -671,6 +671,10 @@ export const searchIndex: Record<string, string[]> = {
   '/api': [
     'このマニュアルについて', 'API 設計', 'OpenAPI', 'Swagger', 'REST', 'カリキュラム', '学習の進め方',
   ],
+  '/api/quickstart': [
+    'クイックスタート', '現場', '緊急', '最短', '学習フロー', 'フロントエンド', 'FE',
+    'バックエンド苦手', 'データベース苦手', '要点', 'ロードマップ', '最初に読む', 'survival',
+  ],
   '/api/basics/what-is-api': [
     'API とは', 'Application Programming Interface', 'Web API', 'クライアント', 'サーバー',
     'インターフェース', '契約', 'リクエスト', 'レスポンス', 'エンドポイント', 'JSON',

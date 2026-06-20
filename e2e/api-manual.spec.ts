@@ -5,6 +5,7 @@ import { test, expect } from "@playwright/test";
 
 const API_ROUTES = [
   "/api",
+  "/api/quickstart",
   "/api/basics/what-is-api",
   "/api/basics/http",
   "/api/basics/rest",

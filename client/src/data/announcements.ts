@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-20-api-quickstart",
+    date: "2026-06-20",
+    title: "API マニュアルに FE 向けクイックスタートを追加",
+    description:
+      "バックエンドやデータベースが苦手なフロントエンドエンジニアが、現場で急いで API 設計・連携を学ぶための「要点を絞った一貫した学習フロー」を追加。最小限の BE/DB メンタルモデルと、最短ルートの読む順序を示す。",
+    category: "feature",
+    link: "/api/quickstart",
+  },
+  {
     id: "2026-06-20-api-design-manual",
     date: "2026-06-20",
     title: "API 設計 / OpenAPI 入門マニュアルを新設",

@@ -240,6 +240,7 @@ const UxUsabilityTesting = lazy(() => import("./pages/ux-design/evaluation/Usabi
 
 // ── API 設計マニュアル (24ページ) ──
 const ApiHome = lazy(() => import("./pages/api/Home"));
+const ApiQuickstart = lazy(() => import("./pages/api/Quickstart"));
 const ApiWhatIs = lazy(() => import("./pages/api/basics/WhatIsApi"));
 const ApiHttp = lazy(() => import("./pages/api/basics/Http"));
 const ApiRest = lazy(() => import("./pages/api/basics/Rest"));
@@ -530,6 +531,7 @@ function App() {
 
                 {/* === API 設計マニュアル === */}
                 <Route path="/api" component={ApiHome} />
+                <Route path="/api/quickstart" component={ApiQuickstart} />
                 <Route path="/api/basics/what-is-api" component={ApiWhatIs} />
                 <Route path="/api/basics/http" component={ApiHttp} />
                 <Route path="/api/basics/rest" component={ApiRest} />

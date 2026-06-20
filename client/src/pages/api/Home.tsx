@@ -9,6 +9,7 @@ import {
   GitFork,
   Users,
   Code2,
+  Rocket,
   Keyboard,
 } from "lucide-react";
 
@@ -16,7 +17,7 @@ const sectionCards = [
   {
     number: 1,
     title: "API の基礎",
-    steps: "STEP 2-5",
+    steps: "STEP 3-6",
     description:
       "API・HTTP・REST という設計思想と、リソース指向の URI 設計を整理する。サーバ言語に依存しない普遍的な土台を作る。",
     href: "/api/basics/what-is-api",
@@ -25,7 +26,7 @@ const sectionCards = [
   {
     number: 2,
     title: "REST API 設計",
-    steps: "STEP 6-12",
+    steps: "STEP 7-13",
     description:
       "HTTP メソッド・ステータスコード・リクエスト/レスポンス・ページネーション・エラー設計・HTTP キャッシュ・べき等キーを、実例で具体化する。",
     href: "/api/rest-design/http-methods",
@@ -34,7 +35,7 @@ const sectionCards = [
   {
     number: 3,
     title: "OpenAPI / Swagger",
-    steps: "STEP 13-17",
+    steps: "STEP 14-18",
     description:
       "OpenAPI でAPIを「契約」として記述する方法。ドキュメント構造・スキーマ・Swagger UI・スキーマファースト開発までを扱う。",
     href: "/api/openapi/what-is-openapi",
@@ -43,7 +44,7 @@ const sectionCards = [
   {
     number: 4,
     title: "API 構築実践",
-    steps: "STEP 18-23",
+    steps: "STEP 19-24",
     description:
       "モックサーバーから始め、バリデーション・認証認可・レート制限・Webhooks・バージョニングまで、API を「動かしながら」固める。",
     href: "/api/build/mock-server",
@@ -52,7 +53,7 @@ const sectionCards = [
   {
     number: 5,
     title: "API 検証と品質",
-    steps: "STEP 24-28",
+    steps: "STEP 25-29",
     description:
       "契約テスト・Spectral Lint・セキュリティ・可観測性、そしてデバッグと GUI/CLI ツールの使い方。品質を CI と運用で担保する。",
     href: "/api/quality/contract-testing",
@@ -61,7 +62,7 @@ const sectionCards = [
   {
     number: 6,
     title: "設計と協業",
-    steps: "STEP 29-30",
+    steps: "STEP 30-31",
     description:
       "バックエンドとフロントエンドの API 設計の違いと協業。デザイン・情報設計（IA）と API の関連を、デザイナー視点も交えて整理する。",
     href: "/api/collaboration/backend-frontend",
@@ -70,7 +71,7 @@ const sectionCards = [
   {
     number: 7,
     title: "フロントエンド実践",
-    steps: "STEP 31-34",
+    steps: "STEP 32-35",
     description:
       "React・Next.js・Vue・Nuxt それぞれでの API 連携を、データフェッチ・型生成・ローディング/エラー処理まで実装で学ぶ。",
     href: "/api/practice/react",
@@ -79,7 +80,7 @@ const sectionCards = [
   {
     number: 8,
     title: "発展",
-    steps: "STEP 35-36",
+    steps: "STEP 36-37",
     description:
       "GraphQL・gRPC など REST 以外の選択肢と使い分け。最後に設計チェックリストで全体を振り返る。",
     href: "/api/advanced/beyond-rest",
@@ -125,6 +126,32 @@ export default function Home() {
           >
             学習を始める
             <ArrowRight size={20} />
+          </Link>
+        </div>
+      </section>
+
+      {/* クイックスタート CTA（FE 向け） */}
+      <section className="px-4 md:px-8 -mt-6 mb-4">
+        <div className="max-w-3xl mx-auto">
+          <Link href="/api/quickstart" className="group block">
+            <div className="flex items-start gap-4 rounded-2xl border border-primary/30 bg-primary/5 p-5 md:p-6 hover:border-primary/50 hover:shadow-sm transition-all">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                <Rocket className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-base md:text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                  現場で急いでいる方へ — クイックスタート
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  バックエンドやデータベースが苦手なフロントエンドエンジニアが、要点を絞って最短で
+                  API を扱えるようになるための学習フローです。「まず読む順」を案内します。
+                </p>
+              </div>
+              <ArrowRight
+                className="flex-shrink-0 mt-1 text-primary group-hover:translate-x-1 transition-transform"
+                size={20}
+              />
+            </div>
           </Link>
         </div>
       </section>
