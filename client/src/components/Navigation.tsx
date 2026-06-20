@@ -4,7 +4,6 @@ import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, 
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
-  type ManualId, type ManualInfo,
 } from '@/lib/navigation';
 import { searchIndex } from '@/lib/searchIndex';
 import { toSlug } from '@/hooks/useAutoHeadingIds';
@@ -16,49 +15,12 @@ import { useStreak } from '@/hooks/useStreak';
 import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
 
-const manualColors: Record<ManualId, string> = {
-  react: 'text-primary',
-  git: 'text-primary',
-  threejs: 'text-primary',
-  'claude-mux': 'text-primary',
-  'ai-ml': 'text-primary',
-  'ux-design': 'text-primary',
-  api: 'text-primary',
-  vue: 'text-primary',
-};
-
-const manualBgColors: Record<ManualId, string> = {
-  react: 'bg-primary',
-  git: 'bg-primary',
-  threejs: 'bg-primary',
-  'claude-mux': 'bg-primary',
-  'ai-ml': 'bg-primary',
-  'ux-design': 'bg-primary',
-  api: 'bg-primary',
-  vue: 'bg-primary',
-};
-
-const manualBorderColors: Record<ManualId, string> = {
-  react: 'border-primary',
-  git: 'border-primary',
-  threejs: 'border-primary',
-  'claude-mux': 'border-primary',
-  'ai-ml': 'border-primary',
-  'ux-design': 'border-primary',
-  api: 'border-primary',
-  vue: 'border-primary',
-};
-
-const manualActiveBg: Record<ManualId, string> = {
-  react: 'bg-primary/10',
-  git: 'bg-primary/10',
-  threejs: 'bg-primary/10',
-  'claude-mux': 'bg-primary/10',
-  'ai-ml': 'bg-primary/10',
-  'ux-design': 'bg-primary/10',
-  api: 'bg-primary/10',
-  vue: 'bg-primary/10',
-};
+// マニュアル別の色は現在すべて統一プライマリカラー（CLAUDE.md のバウハウス・ミニマル方針）。
+// 以前はマニュアルごとの Record だったが全エントリ同一値のため定数化した。
+const MANUAL_TEXT = 'text-primary';
+const MANUAL_BG = 'bg-primary';
+const MANUAL_BORDER = 'border-primary';
+const MANUAL_ACTIVE_BG = 'bg-primary/10';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -173,7 +135,7 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                   className={`px-3 py-1.5 rounded-lg text-center text-xs font-medium border transition-colors truncate ${
                     isActive
-                      ? `${manualBorderColors[m.id]} ${manualActiveBg[m.id]} ${manualColors[m.id]}`
+                      ? `${MANUAL_BORDER} ${MANUAL_ACTIVE_BG} ${MANUAL_TEXT}`
                       : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                   }`}
                 >
@@ -265,7 +227,7 @@ export default function Navigation() {
                   return (
                     <div key={bPath} className="group flex items-center">
                       <Link href={bPath} onClick={() => setIsOpen(false)} className={`flex-1 min-w-0 px-4 py-1.5 text-sm transition-colors ${location === bPath ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'} rounded-lg truncate`}>
-                        <span className={`text-[12px] mr-1 ${manualColors[p.manualId]}`}>{p.manualId.toUpperCase()}</span>
+                        <span className={`text-[12px] mr-1 ${MANUAL_TEXT}`}>{p.manualId.toUpperCase()}</span>
                         {p.title}
                       </Link>
                       <button
@@ -296,7 +258,7 @@ export default function Navigation() {
                       onClick={() => { setIsOpen(false); setSearchQuery(''); }}
                       className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent rounded-lg transition-colors"
                     >
-                      <span className={`text-xs font-semibold mr-1.5 ${manualColors[page.manualId]}`}>
+                      <span className={`text-xs font-semibold mr-1.5 ${MANUAL_TEXT}`}>
                         {page.manualId.toUpperCase()} {page.step}
                       </span>
                       {page.title}
@@ -325,7 +287,7 @@ export default function Navigation() {
               {Object.entries(partGroups).map(([part, secs]) => (
                 <div key={part}>
                   {part !== '_default' && partLabels[part] && (
-                    <p className={`px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-wider ${manualColors[activeManualId]}`}>
+                    <p className={`px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-wider ${MANUAL_TEXT}`}>
                       {partLabels[part]}
                     </p>
                   )}
@@ -383,21 +345,21 @@ export default function Navigation() {
                     className="block px-4 py-3 rounded-lg border border-border hover:bg-sidebar-accent transition-all group"
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg ${manualBgColors[m.id]} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <div className={`w-8 h-8 rounded-lg ${MANUAL_BG} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                         <span className="text-white font-bold text-sm">{m.icon}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-foreground">{m.shortTitle}</p>
                         <div className="flex items-center justify-between mt-0.5">
                           <p className="text-[12px] text-muted-foreground uppercase tracking-wider">{getManualPages(m.id).length}ステップ</p>
-                          <p className={`text-[12px] font-bold ${manualColors[m.id]}`}>{percentage}%</p>
+                          <p className={`text-[12px] font-bold ${MANUAL_TEXT}`}>{percentage}%</p>
                         </div>
                       </div>
                     </div>
                     {/* 進捗バー */}
                     <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
                       <div 
-                        className={`h-full ${manualBgColors[m.id]} transition-all duration-700`}
+                        className={`h-full ${MANUAL_BG} transition-all duration-700`}
                         style={{ width: `${percentage}%` }}
                       />
                     </div>

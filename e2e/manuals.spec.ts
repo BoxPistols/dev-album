@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-// API 設計マニュアルの全ページが実際に描画されることを検証するスモークテスト。
+// API 設計 / Vue・Nuxt マニュアルの全ページが実際に描画されることを検証するスモークテスト。
 // tsc / ビルドでは捕捉できない「描画時の例外」を検出する目的。
 
-const API_ROUTES = [
+const RENDER_ROUTES = [
   "/api",
   "/api/quickstart",
   "/api/basics/what-is-api",
@@ -69,11 +69,11 @@ const API_ROUTES = [
   "/vue/advanced/latest-features",
 ];
 
-test("API マニュアルの全ページが例外なく描画される", async ({ page }) => {
+test("API / Vue・Nuxt マニュアルの全ページが例外なく描画される", async ({ page }) => {
   const pageErrors: string[] = [];
   page.on("pageerror", (err) => pageErrors.push(err.message));
 
-  for (const route of API_ROUTES) {
+  for (const route of RENDER_ROUTES) {
     pageErrors.length = 0;
     await page.goto(route, { waitUntil: "networkidle" });
 
