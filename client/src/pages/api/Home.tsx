@@ -7,6 +7,8 @@ import {
   Wrench,
   ShieldCheck,
   GitFork,
+  Users,
+  Code2,
   Keyboard,
 } from "lucide-react";
 
@@ -23,16 +25,16 @@ const sectionCards = [
   {
     number: 2,
     title: "REST API 設計",
-    steps: "STEP 6-10",
+    steps: "STEP 6-12",
     description:
-      "HTTP メソッドの使い分け・ステータスコード・リクエスト/レスポンス・ページネーション・エラー設計を、実例で具体化する。",
+      "HTTP メソッド・ステータスコード・リクエスト/レスポンス・ページネーション・エラー設計・HTTP キャッシュ・べき等キーを、実例で具体化する。",
     href: "/api/rest-design/http-methods",
     icon: <Boxes className="w-6 h-6" />,
   },
   {
     number: 3,
     title: "OpenAPI / Swagger",
-    steps: "STEP 11-15",
+    steps: "STEP 13-17",
     description:
       "OpenAPI でAPIを「契約」として記述する方法。ドキュメント構造・スキーマ・Swagger UI・スキーマファースト開発までを扱う。",
     href: "/api/openapi/what-is-openapi",
@@ -41,25 +43,43 @@ const sectionCards = [
   {
     number: 4,
     title: "API 構築実践",
-    steps: "STEP 16-19",
+    steps: "STEP 18-23",
     description:
-      "モックサーバーから始め、入力バリデーション・認証認可・バージョニングまで、API を「動かしながら」固める実践プロセス。",
+      "モックサーバーから始め、バリデーション・認証認可・レート制限・Webhooks・バージョニングまで、API を「動かしながら」固める。",
     href: "/api/build/mock-server",
     icon: <Wrench className="w-6 h-6" />,
   },
   {
     number: 5,
     title: "API 検証と品質",
-    steps: "STEP 20-22",
+    steps: "STEP 24-28",
     description:
-      "契約テスト・Spectral によるスキーマ Lint・API セキュリティ設計。契約のズレを検知し、品質をCIで担保する。",
+      "契約テスト・Spectral Lint・セキュリティ・可観測性、そしてデバッグと GUI/CLI ツールの使い方。品質を CI と運用で担保する。",
     href: "/api/quality/contract-testing",
     icon: <ShieldCheck className="w-6 h-6" />,
   },
   {
     number: 6,
+    title: "設計と協業",
+    steps: "STEP 29-30",
+    description:
+      "バックエンドとフロントエンドの API 設計の違いと協業。デザイン・情報設計（IA）と API の関連を、デザイナー視点も交えて整理する。",
+    href: "/api/collaboration/backend-frontend",
+    icon: <Users className="w-6 h-6" />,
+  },
+  {
+    number: 7,
+    title: "フロントエンド実践",
+    steps: "STEP 31-34",
+    description:
+      "React・Next.js・Vue・Nuxt それぞれでの API 連携を、データフェッチ・型生成・ローディング/エラー処理まで実装で学ぶ。",
+    href: "/api/practice/react",
+    icon: <Code2 className="w-6 h-6" />,
+  },
+  {
+    number: 8,
     title: "発展",
-    steps: "STEP 23-24",
+    steps: "STEP 35-36",
     description:
       "GraphQL・gRPC など REST 以外の選択肢と使い分け。最後に設計チェックリストで全体を振り返る。",
     href: "/api/advanced/beyond-rest",

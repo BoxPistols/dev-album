@@ -32,7 +32,7 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(231);
+    expect(pages.length).toBe(238);
   });
 
   it("マニュアル別ページ数", () => {
@@ -42,7 +42,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("claude-mux").length).toBe(52);
     expect(getManualPages("ai-ml").length).toBe(11);
     expect(getManualPages("ux-design").length).toBe(12);
-    expect(getManualPages("api").length).toBe(29);
+    expect(getManualPages("api").length).toBe(36);
   });
 
   it("全ページのパスがマニュアルプレフィックスで始まる", () => {

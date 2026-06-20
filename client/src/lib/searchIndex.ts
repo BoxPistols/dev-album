@@ -777,6 +777,34 @@ export const searchIndex: Record<string, string[]> = {
     'API セキュリティ', 'OWASP API Security Top 10', 'BOLA', '認可不備', 'レート制限',
     'マスアサインメント', '入力検証', 'HTTPS', 'CORS', 'セキュリティヘッダー',
   ],
+  '/api/quality/debugging-tools': [
+    'デバッグ', '検証ツール', 'curl', 'httpie', 'Postman', 'Bruno', 'Insomnia',
+    'DevTools', 'Network パネル', 'Swagger UI', '障害切り分け', 'CORS', '再現', 'ログ',
+  ],
+  '/api/collaboration/backend-frontend': [
+    'バックエンド', 'フロントエンド', 'BE', 'FE', '協業', '観点の違い', '契約駆動',
+    'RESTful', 'OpenAPI 共有', '型生成', '並行開発', '責務分担', 'モック',
+  ],
+  '/api/collaboration/design-and-api': [
+    'デザイン', '情報設計', 'IA', '情報アーキテクチャ', 'デザイナー', 'UX',
+    'ローディング', 'エラー状態', '空状態', 'ページネーション', 'デザインシステム', 'API レスポンス',
+  ],
+  '/api/practice/react': [
+    'React', 'fetch', 'useEffect', 'TanStack Query', 'React Query', 'useQuery',
+    'openapi-typescript', 'openapi-fetch', 'AbortController', 'ローディング', 'エラー処理', '型安全',
+  ],
+  '/api/practice/nextjs': [
+    'Next.js', 'App Router', 'Server Components', 'Route Handlers', 'Server Actions',
+    'fetch', 'キャッシュ', 'revalidate', 'use client', 'データフェッチ',
+  ],
+  '/api/practice/vue': [
+    'Vue', 'Composition API', 'ref', 'onMounted', 'VueUse', 'useFetch', 'Pinia',
+    'TanStack Query Vue', '型生成', 'リアクティブ', 'ローディング', 'エラー処理',
+  ],
+  '/api/practice/nuxt': [
+    'Nuxt', 'useFetch', 'useAsyncData', '$fetch', 'ofetch', 'server/api', 'Nitro',
+    'SSR', 'データフェッチ', '型安全', 'BFF', '重複排除',
+  ],
   '/api/advanced/beyond-rest': [
     'GraphQL', 'gRPC', 'REST 以外', 'クエリ言語', 'スキーマ', 'Protocol Buffers',
     'オーバーフェッチ', 'アンダーフェッチ', 'tRPC', 'WebSocket', '使い分け',

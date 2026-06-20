@@ -175,6 +175,8 @@ export const sections: SectionInfo[] = [
   { id: 'openapi', title: 'OpenAPI / Swagger', manualId: 'api' },
   { id: 'api-build', title: 'API 構築実践', manualId: 'api' },
   { id: 'api-quality', title: 'API 検証と品質', manualId: 'api' },
+  { id: 'api-collaboration', title: '設計と協業', manualId: 'api' },
+  { id: 'api-practice', title: 'フロントエンド実践', manualId: 'api' },
   { id: 'api-advanced', title: '発展', manualId: 'api' },
 ];
 
@@ -437,8 +439,15 @@ export const pages: PageInfo[] = [
   { step: 25, path: '/api/quality/linting', title: 'スキーマ Lint と Spectral', sectionId: 'api-quality', manualId: 'api' },
   { step: 26, path: '/api/quality/security', title: 'API セキュリティ設計', sectionId: 'api-quality', manualId: 'api' },
   { step: 27, path: '/api/quality/observability', title: 'API の可観測性', sectionId: 'api-quality', manualId: 'api' },
-  { step: 28, path: '/api/advanced/beyond-rest', title: 'REST 以外の選択肢（GraphQL / gRPC）', sectionId: 'api-advanced', manualId: 'api' },
-  { step: 29, path: '/api/advanced/summary', title: '設計まとめとチェックリスト', sectionId: 'api-advanced', manualId: 'api' },
+  { step: 28, path: '/api/quality/debugging-tools', title: 'API のデバッグと GUI / CLI ツール', sectionId: 'api-quality', manualId: 'api' },
+  { step: 29, path: '/api/collaboration/backend-frontend', title: 'バックエンドとフロントエンドの API 設計', sectionId: 'api-collaboration', manualId: 'api' },
+  { step: 30, path: '/api/collaboration/design-and-api', title: 'デザイン・情報設計と API', sectionId: 'api-collaboration', manualId: 'api' },
+  { step: 31, path: '/api/practice/react', title: 'React での API 連携', sectionId: 'api-practice', manualId: 'api' },
+  { step: 32, path: '/api/practice/nextjs', title: 'Next.js での API 連携', sectionId: 'api-practice', manualId: 'api' },
+  { step: 33, path: '/api/practice/vue', title: 'Vue での API 連携', sectionId: 'api-practice', manualId: 'api' },
+  { step: 34, path: '/api/practice/nuxt', title: 'Nuxt での API 連携', sectionId: 'api-practice', manualId: 'api' },
+  { step: 35, path: '/api/advanced/beyond-rest', title: 'REST 以外の選択肢（GraphQL / gRPC）', sectionId: 'api-advanced', manualId: 'api' },
+  { step: 36, path: '/api/advanced/summary', title: '設計まとめとチェックリスト', sectionId: 'api-advanced', manualId: 'api' },
 ];
 
 // ── ヘルパー関数 ──

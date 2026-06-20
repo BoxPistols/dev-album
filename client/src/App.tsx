@@ -254,6 +254,13 @@ const ApiIdempotency = lazy(() => import("./pages/api/rest-design/Idempotency"))
 const ApiRateLimiting = lazy(() => import("./pages/api/build/RateLimiting"));
 const ApiWebhooks = lazy(() => import("./pages/api/build/Webhooks"));
 const ApiObservability = lazy(() => import("./pages/api/quality/Observability"));
+const ApiDebugTools = lazy(() => import("./pages/api/quality/DebuggingTools"));
+const ApiBackendFrontend = lazy(() => import("./pages/api/collaboration/BackendFrontend"));
+const ApiDesignAndApi = lazy(() => import("./pages/api/collaboration/DesignAndApi"));
+const ApiPracticeReact = lazy(() => import("./pages/api/practice/ReactApi"));
+const ApiPracticeNext = lazy(() => import("./pages/api/practice/NextApi"));
+const ApiPracticeVue = lazy(() => import("./pages/api/practice/VueApi"));
+const ApiPracticeNuxt = lazy(() => import("./pages/api/practice/NuxtApi"));
 const ApiWhatIsOpenApi = lazy(() => import("./pages/api/openapi/WhatIsOpenApi"));
 const ApiDocStructure = lazy(() => import("./pages/api/openapi/DocumentStructure"));
 const ApiSchemaComponents = lazy(() => import("./pages/api/openapi/SchemaComponents"));
@@ -549,6 +556,13 @@ function App() {
                 <Route path="/api/quality/linting" component={ApiLinting} />
                 <Route path="/api/quality/security" component={ApiSecurity} />
                 <Route path="/api/quality/observability" component={ApiObservability} />
+                <Route path="/api/quality/debugging-tools" component={ApiDebugTools} />
+                <Route path="/api/collaboration/backend-frontend" component={ApiBackendFrontend} />
+                <Route path="/api/collaboration/design-and-api" component={ApiDesignAndApi} />
+                <Route path="/api/practice/react" component={ApiPracticeReact} />
+                <Route path="/api/practice/nextjs" component={ApiPracticeNext} />
+                <Route path="/api/practice/vue" component={ApiPracticeVue} />
+                <Route path="/api/practice/nuxt" component={ApiPracticeNuxt} />
                 <Route path="/api/advanced/beyond-rest" component={ApiBeyondRest} />
                 <Route path="/api/advanced/summary" component={ApiSummary} />
 
