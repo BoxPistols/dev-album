@@ -8,6 +8,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // データモデリングの基本用語（最初に1行で噛み砕く）
 const terms = [
@@ -193,10 +194,9 @@ export default function ErDiagram() {
               <code>PK</code> / <code>FK</code> を末尾に添えます。
             </p>
 
-            <CodeBlock
-              language="markdown"
-              title="mermaid: 単一エンティティの記法"
-              code={`erDiagram
+            <MermaidDiagram
+              title="mermaid: 単一エンティティの記法（図）"
+              chart={`erDiagram
     USER {
         int id PK
         string name
@@ -297,10 +297,9 @@ export default function ErDiagram() {
               記号には意味があり、線の両端でカーディナリティを示します。
             </p>
 
-            <CodeBlock
-              language="markdown"
-              title="mermaid: 1:N の関連を書く"
-              code={`erDiagram
+            <MermaidDiagram
+              title="mermaid: 1:N の関連（図）"
+              chart={`erDiagram
     USER ||--o{ ORDER : places
     USER {
         int id PK
@@ -420,10 +419,9 @@ export default function ErDiagram() {
               </p>
             </div>
 
-            <CodeBlock
-              language="markdown"
-              title="mermaid: N:M を中間テーブルで表す"
-              code={`erDiagram
+            <MermaidDiagram
+              title="mermaid: N:M を中間テーブルで表す（図）"
+              chart={`erDiagram
     POST ||--o{ POST_TAG : has
     TAG  ||--o{ POST_TAG : has
     POST {

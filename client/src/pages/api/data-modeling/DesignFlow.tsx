@@ -8,6 +8,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // 設計フローの 5 段階（用語の噛み砕きを各 step に同梱）
 const flowSteps = [
@@ -278,10 +279,9 @@ export default function DesignFlow() {
               </div>
             </div>
 
-            <CodeBlock
-              language="markdown"
-              title="同じ ER 図を mermaid erDiagram で書く"
-              code={`erDiagram
+            <MermaidDiagram
+              title="同じ ER 図を mermaid erDiagram で書く（図）"
+              chart={`erDiagram
   USER ||--o{ ORDER : places
   ORDER }o--o{ PRODUCT : contains
 

@@ -8,6 +8,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // 正規形の段階を表で示すためのデータ
 const normalForms = [
@@ -359,10 +360,9 @@ CREATE TABLE user (
               <code>|&#123;</code>＝1以上の多、です。
             </p>
 
-            <CodeBlock
-              language="markdown"
-              title="mermaid erDiagram で同じ関係を書く"
-              code={`erDiagram
+            <MermaidDiagram
+              title="mermaid erDiagram で同じ関係を書く（図）"
+              chart={`erDiagram
   USER ||--o{ ORDER : places
   ORDER ||--|{ ORDER_ITEM : contains
   PRODUCT ||--o{ ORDER_ITEM : "appears in"

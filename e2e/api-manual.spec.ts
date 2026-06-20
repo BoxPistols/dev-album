@@ -68,3 +68,25 @@ test("API マニュアルの全ページが例外なく描画される", async (
     ).toEqual([]);
   }
 });
+
+// データモデリング各ページの mermaid ER図が実際に SVG として描画されること
+const MERMAID_ROUTES = [
+  "/api/data-modeling/er-diagram",
+  "/api/data-modeling/normalization",
+  "/api/data-modeling/design-flow",
+  "/api/data-modeling/worked-example",
+];
+
+test("mermaid ER図が実際の SVG として可視化される", async ({ page }) => {
+  for (const route of MERMAID_ROUTES) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    // MermaidDiagram が生成した SVG が DOM に存在し、表示されていること
+    const svg = page.locator(".mermaid-svg svg").first();
+    await expect(svg, `mermaid SVG が描画されない: ${route}`).toBeVisible({
+      timeout: 15_000,
+    });
+    // SVG 内にエンティティ名（テキスト）が含まれること（空の図でないこと）
+    const svgText = (await svg.textContent())?.trim() ?? "";
+    expect(svgText.length, `mermaid SVG が空: ${route}`).toBeGreaterThan(0);
+  }
+});

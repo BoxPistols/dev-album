@@ -8,6 +8,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 // エンドポイント一覧（Step 4 のリソース設計表で使用）
 const endpoints = [
@@ -258,10 +259,9 @@ export default function WorkedExample() {
               が 1 以上の多を表します。
             </p>
 
-            <CodeBlock
-              language="markdown"
-              title="mermaid erDiagram（テキストから ER図を生成）"
-              code={`erDiagram
+            <MermaidDiagram
+              title="mermaid erDiagram（テキストから生成した図）"
+              chart={`erDiagram
     USER ||--o{ POST : writes
     POST ||--o{ COMMENT : has
     POST }o--o{ TAG : tagged
