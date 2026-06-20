@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-20-api-data-modeling",
+    date: "2026-06-20",
+    title: "API マニュアルにデータモデリング・設計フロー編を追加",
+    description:
+      "ER図・モデル定義・要件からモデル/API への基本的な設計フローを扱う新セクション（4 ページ）を追加。エンティティとリレーション・正規化・要件→概念/論理/物理モデル→API リソース設計の流れを、実践例つきで学べる。",
+    category: "feature",
+    link: "/api/data-modeling/er-diagram",
+  },
+  {
     id: "2026-06-20-api-quickstart",
     date: "2026-06-20",
     title: "API マニュアルに FE 向けクイックスタートを追加",

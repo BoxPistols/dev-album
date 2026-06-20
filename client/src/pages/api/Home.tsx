@@ -10,6 +10,7 @@ import {
   Users,
   Code2,
   Rocket,
+  Database,
   Keyboard,
 } from "lucide-react";
 
@@ -25,62 +26,71 @@ const sectionCards = [
   },
   {
     number: 2,
+    title: "データモデリングと設計フロー",
+    steps: "STEP 7-10",
+    description:
+      "ER図・エンティティとリレーション・正規化、そして要件→概念/論理/物理モデル→API リソースへの設計フローを、実践例つきで学ぶ。",
+    href: "/api/data-modeling/er-diagram",
+    icon: <Database className="w-6 h-6" />,
+  },
+  {
+    number: 3,
     title: "REST API 設計",
-    steps: "STEP 7-13",
+    steps: "STEP 11-17",
     description:
       "HTTP メソッド・ステータスコード・リクエスト/レスポンス・ページネーション・エラー設計・HTTP キャッシュ・べき等キーを、実例で具体化する。",
     href: "/api/rest-design/http-methods",
     icon: <Boxes className="w-6 h-6" />,
   },
   {
-    number: 3,
+    number: 4,
     title: "OpenAPI / Swagger",
-    steps: "STEP 14-18",
+    steps: "STEP 18-22",
     description:
       "OpenAPI でAPIを「契約」として記述する方法。ドキュメント構造・スキーマ・Swagger UI・スキーマファースト開発までを扱う。",
     href: "/api/openapi/what-is-openapi",
     icon: <FileJson className="w-6 h-6" />,
   },
   {
-    number: 4,
+    number: 5,
     title: "API 構築実践",
-    steps: "STEP 19-24",
+    steps: "STEP 23-28",
     description:
       "モックサーバーから始め、バリデーション・認証認可・レート制限・Webhooks・バージョニングまで、API を「動かしながら」固める。",
     href: "/api/build/mock-server",
     icon: <Wrench className="w-6 h-6" />,
   },
   {
-    number: 5,
+    number: 6,
     title: "API 検証と品質",
-    steps: "STEP 25-29",
+    steps: "STEP 29-33",
     description:
       "契約テスト・Spectral Lint・セキュリティ・可観測性、そしてデバッグと GUI/CLI ツールの使い方。品質を CI と運用で担保する。",
     href: "/api/quality/contract-testing",
     icon: <ShieldCheck className="w-6 h-6" />,
   },
   {
-    number: 6,
+    number: 7,
     title: "設計と協業",
-    steps: "STEP 30-31",
+    steps: "STEP 34-35",
     description:
       "バックエンドとフロントエンドの API 設計の違いと協業。デザイン・情報設計（IA）と API の関連を、デザイナー視点も交えて整理する。",
     href: "/api/collaboration/backend-frontend",
     icon: <Users className="w-6 h-6" />,
   },
   {
-    number: 7,
+    number: 8,
     title: "フロントエンド実践",
-    steps: "STEP 32-35",
+    steps: "STEP 36-39",
     description:
       "React・Next.js・Vue・Nuxt それぞれでの API 連携を、データフェッチ・型生成・ローディング/エラー処理まで実装で学ぶ。",
     href: "/api/practice/react",
     icon: <Code2 className="w-6 h-6" />,
   },
   {
-    number: 8,
+    number: 9,
     title: "発展",
-    steps: "STEP 36-37",
+    steps: "STEP 40-41",
     description:
       "GraphQL・gRPC など REST 以外の選択肢と使い分け。最後に設計チェックリストで全体を振り返る。",
     href: "/api/advanced/beyond-rest",

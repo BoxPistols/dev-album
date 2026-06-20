@@ -245,6 +245,10 @@ const ApiWhatIs = lazy(() => import("./pages/api/basics/WhatIsApi"));
 const ApiHttp = lazy(() => import("./pages/api/basics/Http"));
 const ApiRest = lazy(() => import("./pages/api/basics/Rest"));
 const ApiResources = lazy(() => import("./pages/api/basics/Resources"));
+const ApiErDiagram = lazy(() => import("./pages/api/data-modeling/ErDiagram"));
+const ApiNormalization = lazy(() => import("./pages/api/data-modeling/Normalization"));
+const ApiDesignFlow = lazy(() => import("./pages/api/data-modeling/DesignFlow"));
+const ApiWorkedExample = lazy(() => import("./pages/api/data-modeling/WorkedExample"));
 const ApiHttpMethods = lazy(() => import("./pages/api/rest-design/HttpMethods"));
 const ApiStatusCodes = lazy(() => import("./pages/api/rest-design/StatusCodes"));
 const ApiReqRes = lazy(() => import("./pages/api/rest-design/RequestResponse"));
@@ -536,6 +540,10 @@ function App() {
                 <Route path="/api/basics/http" component={ApiHttp} />
                 <Route path="/api/basics/rest" component={ApiRest} />
                 <Route path="/api/basics/resources" component={ApiResources} />
+                <Route path="/api/data-modeling/er-diagram" component={ApiErDiagram} />
+                <Route path="/api/data-modeling/normalization" component={ApiNormalization} />
+                <Route path="/api/data-modeling/design-flow" component={ApiDesignFlow} />
+                <Route path="/api/data-modeling/worked-example" component={ApiWorkedExample} />
                 <Route path="/api/rest-design/http-methods" component={ApiHttpMethods} />
                 <Route path="/api/rest-design/status-codes" component={ApiStatusCodes} />
                 <Route path="/api/rest-design/request-response" component={ApiReqRes} />
