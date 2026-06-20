@@ -463,6 +463,34 @@ content-type: application/json
               応答（許可メソッド・ヘッダー）を見直します。
             </p>
 
+            <CodeBlock
+              language="http"
+              title="preflight OPTIONS の実測（FastAPI + Nuxt sandbox で計測）"
+              code={`# JSON の POST 等の直前に、ブラウザが自動で送る preflight
+OPTIONS /memos HTTP/1.1
+Host: localhost:8000
+Origin: http://localhost:3000
+Access-Control-Request-Method: POST
+
+HTTP/1.1 200 OK
+access-control-allow-origin: http://localhost:3000
+access-control-allow-methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
+# Network パネルでは、本リクエストの直前に OPTIONS の行が出る`}
+            />
+
+            <InfoBox type="info" title="直叩き vs BFF で CORS ヘッダーの有無が変わる（実測）">
+              同じデータでも、ブラウザから外部 BE を<strong>直叩き</strong>（
+              <code>GET :8000/memos</code>）するとレスポンスに{" "}
+              <code>access-control-allow-origin</code>{" "}
+              が必要になります。一方、同一オリジンの BFF 経由（
+              <code>GET :3000/api/memos</code>）では、そもそも CORS
+              ヘッダー自体が登場しません（CORS の対象外）。「画面で CORS、curl で
+              OK」のときは、まず通信先が別オリジンになっていないかを疑います。
+              なお Swagger UI で <strong>Authorize</strong> に Bearer
+              を入れると、以後の Try it out は各リクエストに{" "}
+              <code>authorization: Bearer xxx</code> を自動付与します。
+            </InfoBox>
+
             <ul className="space-y-3 text-sm text-muted-foreground leading-relaxed mb-6">
               <li className="rounded-lg border border-border bg-card p-4">
                 <span className="font-bold text-foreground">

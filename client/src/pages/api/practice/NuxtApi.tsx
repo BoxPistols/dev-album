@@ -444,6 +444,94 @@ export default defineEventHandler(async (event): Promise<User[]> => {
             />
           </section>
 
+          {/* 実機検証済みの実例 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              実機検証済みの実例（FastAPI + Nuxt）
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ここまでの内容を、実際に動く FastAPI + Nuxt
+              の構成で確認した実コードで見ます。 以下はすべて typecheck
+              通過・実機でのレスポンス 200 を確認済みのものです。
+            </p>
+
+            <h3 className="text-base font-bold text-foreground mb-2">
+              ① OpenAPI から型生成して使う
+            </h3>
+            <p className="text-muted-foreground mb-3 leading-relaxed">
+              BE の OpenAPI から TypeScript 型を生成し、生成型をそのまま使います。
+              BE がモデルを変えたら再生成で型が変わり、合わない箇所が型エラーで即わかります。
+            </p>
+            <CodeBlock
+              language="bash"
+              title="型生成（package.json の scripts に登録）"
+              code={`pnpm gen:api
+# = openapi-typescript http://localhost:8000/openapi.json -o app/types/api.ts`}
+            />
+            <CodeBlock
+              language="ts"
+              title="app/stores/memos.ts — 生成型をそのまま使う"
+              code={`import type { components } from '~/types/api'
+
+// BE の Pydantic モデル MemoRead がそのまま型になる
+export type Memo = components['schemas']['MemoRead']
+// 型付き Pydantic → { id: number; title: string; body: string; created_at: string }
+// 対比: dict[str, Any] は { [key: string]: unknown } に潰れ、型安全が効かない`}
+            />
+
+            <h3 className="text-base font-bold text-foreground mb-2 mt-8">
+              ② server/api（Nitro）を BFF にして CORS を回避する
+            </h3>
+            <CodeBlock
+              language="ts"
+              title="server/api/memos.get.ts — Nuxt サーバが FastAPI をプロキシ"
+              code={`export default defineEventHandler(async (event) => {
+  const { fastapiBase } = useRuntimeConfig(event) // サーバ専用設定（ブラウザに露出しない）
+  return await $fetch(\`\${fastapiBase}/memos\`)      // サーバ間通信 → CORS は無関係
+})`}
+            />
+            <CodeBlock
+              language="ts"
+              title="nuxt.config.ts"
+              code={`export default defineNuxtConfig({
+  runtimeConfig: {
+    fastapiBase: 'http://localhost:8000',         // サーバ専用
+    public: { apiBase: 'http://localhost:8000' },  // クライアントにも露出
+  },
+})`}
+            />
+            <InfoBox type="success" title="実測: BFF 経由はブラウザに CORS が出ない">
+              ブラウザから <code>GET :3000/api/memos</code>（同一オリジン）を叩くと、
+              200 で FastAPI の memos がプロキシ返却され、CORS
+              は発生しませんでした。 対して直叩きの{" "}
+              <code>GET :8000/memos</code> は、サーバが{" "}
+              <code>access-control-allow-origin</code> を返す必要があります。
+            </InfoBox>
+
+            <h3 className="text-base font-bold text-foreground mb-2 mt-8">
+              ③ useFetch（宣言的）と $fetch（命令的）の実コード
+            </h3>
+            <CodeBlock
+              language="ts"
+              title="pages/bff.vue — useFetch: 宣言的・SSR 対応・表示データ向け"
+              code={`const { data: memos, pending, error } = await useFetch<Memo[]>('/api/memos')`}
+            />
+            <CodeBlock
+              language="ts"
+              title="composable + store — $fetch: 命令的・イベント内/onMounted 向け"
+              code={`// app/composables/useApi.ts
+export const callApi = <T>(path: string, opts = {}) =>
+  $fetch<T>(path, { baseURL: usePublicApiBase(), ...opts })
+
+// store 内
+this.memos = await callApi<Memo[]>('/memos')                            // 取得
+await callApi<Memo>('/memos', { method: 'POST', body: { title, body } }) // 送信（イベント内）`}
+            />
+            <p className="text-muted-foreground mt-3 leading-relaxed text-sm">
+              出典: FastAPI + Nuxt の sandbox 実装（typecheck 通過・実機 200 確認）。
+            </p>
+          </section>
+
           {/* Reference Links */}
           <section>
             <ReferenceLinks
