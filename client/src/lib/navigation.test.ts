@@ -27,11 +27,12 @@ describe("navigation データ整合性", () => {
       "threejs",
       "ai-ml",
       "ux-design",
+      "api",
     ]);
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(202);
+    expect(pages.length).toBe(226);
   });
 
   it("マニュアル別ページ数", () => {
@@ -41,6 +42,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("claude-mux").length).toBe(52);
     expect(getManualPages("ai-ml").length).toBe(11);
     expect(getManualPages("ux-design").length).toBe(12);
+    expect(getManualPages("api").length).toBe(24);
   });
 
   it("全ページのパスがマニュアルプレフィックスで始まる", () => {
@@ -72,6 +74,7 @@ describe("navigation データ整合性", () => {
       "claude-mux",
       "ai-ml",
       "ux-design",
+      "api",
     ];
     for (const section of sections) {
       expect(validIds).toContain(section.manualId);

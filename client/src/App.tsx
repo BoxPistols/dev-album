@@ -238,6 +238,32 @@ const UxDesignSystem = lazy(() => import("./pages/ux-design/ui-design/DesignSyst
 const UxFigmaPrototype = lazy(() => import("./pages/ux-design/prototyping/FigmaPrototype"));
 const UxUsabilityTesting = lazy(() => import("./pages/ux-design/evaluation/UsabilityTesting"));
 
+// ── API 設計マニュアル (24ページ) ──
+const ApiHome = lazy(() => import("./pages/api/Home"));
+const ApiWhatIs = lazy(() => import("./pages/api/basics/WhatIsApi"));
+const ApiHttp = lazy(() => import("./pages/api/basics/Http"));
+const ApiRest = lazy(() => import("./pages/api/basics/Rest"));
+const ApiResources = lazy(() => import("./pages/api/basics/Resources"));
+const ApiHttpMethods = lazy(() => import("./pages/api/rest-design/HttpMethods"));
+const ApiStatusCodes = lazy(() => import("./pages/api/rest-design/StatusCodes"));
+const ApiReqRes = lazy(() => import("./pages/api/rest-design/RequestResponse"));
+const ApiPagination = lazy(() => import("./pages/api/rest-design/Pagination"));
+const ApiErrors = lazy(() => import("./pages/api/rest-design/ErrorHandling"));
+const ApiWhatIsOpenApi = lazy(() => import("./pages/api/openapi/WhatIsOpenApi"));
+const ApiDocStructure = lazy(() => import("./pages/api/openapi/DocumentStructure"));
+const ApiSchemaComponents = lazy(() => import("./pages/api/openapi/SchemaComponents"));
+const ApiSwaggerUi = lazy(() => import("./pages/api/openapi/SwaggerUi"));
+const ApiSchemaFirst = lazy(() => import("./pages/api/openapi/SchemaFirst"));
+const ApiMockServer = lazy(() => import("./pages/api/build/MockServer"));
+const ApiValidation = lazy(() => import("./pages/api/build/Validation"));
+const ApiAuth = lazy(() => import("./pages/api/build/Auth"));
+const ApiVersioning = lazy(() => import("./pages/api/build/Versioning"));
+const ApiContractTesting = lazy(() => import("./pages/api/quality/ContractTesting"));
+const ApiLinting = lazy(() => import("./pages/api/quality/Linting"));
+const ApiSecurity = lazy(() => import("./pages/api/quality/Security"));
+const ApiBeyondRest = lazy(() => import("./pages/api/advanced/BeyondRest"));
+const ApiSummary = lazy(() => import("./pages/api/advanced/Summary"));
+
 function Loading() {
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
@@ -489,6 +515,32 @@ function App() {
                 <Route path="/ux-design/ui-design/design-system" component={UxDesignSystem} />
                 <Route path="/ux-design/prototyping/figma-prototype" component={UxFigmaPrototype} />
                 <Route path="/ux-design/evaluation/usability-testing" component={UxUsabilityTesting} />
+
+                {/* === API 設計マニュアル === */}
+                <Route path="/api" component={ApiHome} />
+                <Route path="/api/basics/what-is-api" component={ApiWhatIs} />
+                <Route path="/api/basics/http" component={ApiHttp} />
+                <Route path="/api/basics/rest" component={ApiRest} />
+                <Route path="/api/basics/resources" component={ApiResources} />
+                <Route path="/api/rest-design/http-methods" component={ApiHttpMethods} />
+                <Route path="/api/rest-design/status-codes" component={ApiStatusCodes} />
+                <Route path="/api/rest-design/request-response" component={ApiReqRes} />
+                <Route path="/api/rest-design/pagination" component={ApiPagination} />
+                <Route path="/api/rest-design/error-handling" component={ApiErrors} />
+                <Route path="/api/openapi/what-is-openapi" component={ApiWhatIsOpenApi} />
+                <Route path="/api/openapi/document-structure" component={ApiDocStructure} />
+                <Route path="/api/openapi/schema-components" component={ApiSchemaComponents} />
+                <Route path="/api/openapi/swagger-ui" component={ApiSwaggerUi} />
+                <Route path="/api/openapi/schema-first" component={ApiSchemaFirst} />
+                <Route path="/api/build/mock-server" component={ApiMockServer} />
+                <Route path="/api/build/validation" component={ApiValidation} />
+                <Route path="/api/build/auth" component={ApiAuth} />
+                <Route path="/api/build/versioning" component={ApiVersioning} />
+                <Route path="/api/quality/contract-testing" component={ApiContractTesting} />
+                <Route path="/api/quality/linting" component={ApiLinting} />
+                <Route path="/api/quality/security" component={ApiSecurity} />
+                <Route path="/api/advanced/beyond-rest" component={ApiBeyondRest} />
+                <Route path="/api/advanced/summary" component={ApiSummary} />
 
                 {/* 404 */}
                 <Route component={NotFound} />

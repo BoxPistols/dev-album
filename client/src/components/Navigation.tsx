@@ -23,6 +23,7 @@ const manualColors: Record<ManualId, string> = {
   'claude-mux': 'text-primary',
   'ai-ml': 'text-primary',
   'ux-design': 'text-primary',
+  api: 'text-primary',
 };
 
 const manualBgColors: Record<ManualId, string> = {
@@ -32,6 +33,7 @@ const manualBgColors: Record<ManualId, string> = {
   'claude-mux': 'bg-primary',
   'ai-ml': 'bg-primary',
   'ux-design': 'bg-primary',
+  api: 'bg-primary',
 };
 
 const manualBorderColors: Record<ManualId, string> = {
@@ -41,6 +43,7 @@ const manualBorderColors: Record<ManualId, string> = {
   'claude-mux': 'border-primary',
   'ai-ml': 'border-primary',
   'ux-design': 'border-primary',
+  api: 'border-primary',
 };
 
 const manualActiveBg: Record<ManualId, string> = {
@@ -50,6 +53,7 @@ const manualActiveBg: Record<ManualId, string> = {
   'claude-mux': 'bg-primary/10',
   'ai-ml': 'bg-primary/10',
   'ux-design': 'bg-primary/10',
+  api: 'bg-primary/10',
 };
 
 export default function Navigation() {

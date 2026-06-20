@@ -666,4 +666,101 @@ export const searchIndex: Record<string, string[]> = {
     'ユーザビリティテスト', 'ヒューリスティック評価', 'Nielsen',
     'SUS', 'タスク完了率', 'NPS', '改善サイクル', 'A/B テスト',
   ],
+
+  // ===== api-manual =====
+  '/api': [
+    'このマニュアルについて', 'API 設計', 'OpenAPI', 'Swagger', 'REST', 'カリキュラム', '学習の進め方',
+  ],
+  '/api/basics/what-is-api': [
+    'API とは', 'Application Programming Interface', 'Web API', 'クライアント', 'サーバー',
+    'インターフェース', '契約', 'リクエスト', 'レスポンス', 'エンドポイント', 'JSON',
+  ],
+  '/api/basics/http': [
+    'HTTP', 'リクエスト', 'レスポンス', 'メソッド', 'ヘッダー', 'ボディ', 'ステータスコード',
+    'URL', 'URI', 'ステートレス', 'HTTPS', 'Content-Type', 'curl',
+  ],
+  '/api/basics/rest': [
+    'REST', 'RESTful', 'Roy Fielding', 'リソース指向', 'ステートレス', '統一インターフェース',
+    'HATEOAS', 'Richardson 成熟度モデル', '冪等性', 'キャッシュ',
+  ],
+  '/api/basics/resources': [
+    'リソース設計', 'URI 設計', '名詞', '複数形', 'コレクション', 'ネスト', 'パスパラメータ',
+    'クエリパラメータ', '命名規則', 'ケバブケース', 'URL 設計',
+  ],
+  '/api/rest-design/http-methods': [
+    'HTTP メソッド', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', '冪等性', '安全性',
+    'CRUD', 'リソース操作', 'べき等',
+  ],
+  '/api/rest-design/status-codes': [
+    'ステータスコード', '200', '201', '204', '400', '401', '403', '404', '409', '422', '500',
+    '2xx', '4xx', '5xx', 'Location ヘッダー', '成功', 'クライアントエラー', 'サーバーエラー',
+  ],
+  '/api/rest-design/request-response': [
+    'リクエスト設計', 'レスポンス設計', 'リクエストボディ', 'レスポンスボディ', 'JSON',
+    'エンベロープ', 'メタデータ', 'Content-Type', 'Accept', 'ヘッダー', '一貫性',
+  ],
+  '/api/rest-design/pagination': [
+    'ページネーション', 'オフセット', 'カーソル', 'limit', 'offset', 'cursor', 'フィルタ',
+    'ソート', 'sort', 'filter', 'キーセットページネーション', 'リンクヘッダー',
+  ],
+  '/api/rest-design/error-handling': [
+    'エラー設計', 'エラーレスポンス', 'Problem Details', 'RFC 9457', 'RFC 7807',
+    'エラーコード', 'バリデーションエラー', '422', 'エラーメッセージ', '一貫性',
+  ],
+  '/api/openapi/what-is-openapi': [
+    'OpenAPI', 'Swagger', 'OpenAPI Specification', 'OAS', 'API 仕様', '契約', 'スキーマ',
+    'YAML', 'JSON', 'ドキュメント', 'openapi.json', '正本', 'Source of Truth',
+  ],
+  '/api/openapi/document-structure': [
+    'OpenAPI ドキュメント', 'openapi', 'info', 'paths', 'components', 'servers',
+    'operation', 'parameters', 'requestBody', 'responses', 'tags', 'YAML 構造',
+  ],
+  '/api/openapi/schema-components': [
+    'スキーマ', 'components', 'schemas', '$ref', '再利用', 'JSON Schema', 'type', 'properties',
+    'required', 'enum', 'allOf', 'oneOf', 'nullable', 'モデル定義',
+  ],
+  '/api/openapi/swagger-ui': [
+    'Swagger UI', 'Redoc', 'API ドキュメント', 'Try it out', 'Execute', 'Authorize',
+    'インタラクティブ', 'docs', 'ドキュメント生成', 'スキーマ表示',
+  ],
+  '/api/openapi/schema-first': [
+    'スキーマファースト', 'デザインファースト', 'コードファースト', '型生成',
+    'openapi-typescript', 'コード生成', '契約駆動', 'モック', 'SDK 生成', 'ワークフロー',
+  ],
+  '/api/build/mock-server': [
+    'モックサーバー', 'Prism', 'スタブ', 'モック', 'フロントエンド先行', '並行開発',
+    'example', 'レスポンス例', 'API シミュレーション',
+  ],
+  '/api/build/validation': [
+    'バリデーション', '入力検証', 'スキーマ検証', 'Zod', 'JSON Schema', '422',
+    'リクエスト検証', '型安全', 'サニタイズ', '境界値', '防御的設計',
+  ],
+  '/api/build/auth': [
+    '認証', '認可', 'Authentication', 'Authorization', 'API キー', 'Bearer トークン',
+    'JWT', 'OAuth 2.0', 'スコープ', '401', '403', 'securityScheme',
+  ],
+  '/api/build/versioning': [
+    'バージョニング', 'API バージョン', 'URL バージョニング', 'ヘッダーバージョニング',
+    'v1', '後方互換', '破壊的変更', '非推奨', 'Deprecation', 'Sunset',
+  ],
+  '/api/quality/contract-testing': [
+    '契約テスト', 'Contract Testing', 'Pact', 'コンシューマ駆動契約', 'CDC',
+    'プロバイダ', 'コンシューマ', '契約のズレ', '型契約', 'スキーマ検証', 'CI',
+  ],
+  '/api/quality/linting': [
+    'Lint', 'Spectral', 'スタイルガイド', 'API ガバナンス', 'ルールセット', '命名規則チェック',
+    'OpenAPI 検証', '静的解析', 'CI 連携', '一貫性',
+  ],
+  '/api/quality/security': [
+    'API セキュリティ', 'OWASP API Security Top 10', 'BOLA', '認可不備', 'レート制限',
+    'マスアサインメント', '入力検証', 'HTTPS', 'CORS', 'セキュリティヘッダー',
+  ],
+  '/api/advanced/beyond-rest': [
+    'GraphQL', 'gRPC', 'REST 以外', 'クエリ言語', 'スキーマ', 'Protocol Buffers',
+    'オーバーフェッチ', 'アンダーフェッチ', 'tRPC', 'WebSocket', '使い分け',
+  ],
+  '/api/advanced/summary': [
+    'まとめ', 'チェックリスト', 'API 設計レビュー', 'ベストプラクティス', '設計原則',
+    '一貫性', '次のステップ', '振り返り',
+  ],
 };

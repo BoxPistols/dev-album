@@ -1,4 +1,4 @@
-export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design';
+export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design' | 'api';
 
 export interface ManualInfo {
   id: ManualId;
@@ -76,6 +76,14 @@ export const manuals: ManualInfo[] = [
     description: 'ユーザーリサーチからプロトタイピング・評価まで',
     icon: 'U',
     color: '#EC4899',
+  },
+  {
+    id: 'api',
+    title: 'API 設計 / OpenAPI 入門',
+    shortTitle: 'API 設計',
+    description: 'REST API 設計・OpenAPI/Swagger・API 検証をゼロから学ぶ',
+    icon: '{}',
+    color: '#10B981',
   },
 ];
 
@@ -159,6 +167,15 @@ export const sections: SectionInfo[] = [
   { id: 'ui-design', title: 'UI デザイン', manualId: 'ux-design' },
   { id: 'prototyping', title: 'プロトタイピング', manualId: 'ux-design' },
   { id: 'evaluation', title: '評価と改善', manualId: 'ux-design' },
+
+  // === API 設計マニュアル ===
+  { id: 'api-intro', title: 'はじめに', manualId: 'api' },
+  { id: 'api-basics', title: 'API の基礎', manualId: 'api' },
+  { id: 'rest-design', title: 'REST API 設計', manualId: 'api' },
+  { id: 'openapi', title: 'OpenAPI / Swagger', manualId: 'api' },
+  { id: 'api-build', title: 'API 構築実践', manualId: 'api' },
+  { id: 'api-quality', title: 'API 検証と品質', manualId: 'api' },
+  { id: 'api-advanced', title: '発展', manualId: 'api' },
 ];
 
 // ── ページ定義 ──
@@ -389,6 +406,34 @@ export const pages: PageInfo[] = [
   { step: 10, path: '/ux-design/ui-design/design-system', title: 'デザインシステム構築', sectionId: 'ui-design', manualId: 'ux-design' },
   { step: 11, path: '/ux-design/prototyping/figma-prototype', title: 'Figma プロトタイピング', sectionId: 'prototyping', manualId: 'ux-design' },
   { step: 12, path: '/ux-design/evaluation/usability-testing', title: 'ユーザビリティテストと改善', sectionId: 'evaluation', manualId: 'ux-design' },
+
+  // ===========================
+  // API 設計マニュアル (24ページ)
+  // ===========================
+  { step: 1, path: '/api', title: 'このマニュアルについて', sectionId: 'api-intro', manualId: 'api' },
+  { step: 2, path: '/api/basics/what-is-api', title: 'API とは何か', sectionId: 'api-basics', manualId: 'api' },
+  { step: 3, path: '/api/basics/http', title: 'HTTP の基礎', sectionId: 'api-basics', manualId: 'api' },
+  { step: 4, path: '/api/basics/rest', title: 'REST という設計思想', sectionId: 'api-basics', manualId: 'api' },
+  { step: 5, path: '/api/basics/resources', title: 'リソースと URI 設計', sectionId: 'api-basics', manualId: 'api' },
+  { step: 6, path: '/api/rest-design/http-methods', title: 'HTTP メソッドの使い分け', sectionId: 'rest-design', manualId: 'api' },
+  { step: 7, path: '/api/rest-design/status-codes', title: 'ステータスコード設計', sectionId: 'rest-design', manualId: 'api' },
+  { step: 8, path: '/api/rest-design/request-response', title: 'リクエスト / レスポンス設計', sectionId: 'rest-design', manualId: 'api' },
+  { step: 9, path: '/api/rest-design/pagination', title: 'ページネーション・フィルタ・ソート', sectionId: 'rest-design', manualId: 'api' },
+  { step: 10, path: '/api/rest-design/error-handling', title: 'エラーレスポンス設計', sectionId: 'rest-design', manualId: 'api' },
+  { step: 11, path: '/api/openapi/what-is-openapi', title: 'OpenAPI 仕様とは', sectionId: 'openapi', manualId: 'api' },
+  { step: 12, path: '/api/openapi/document-structure', title: 'OpenAPI ドキュメントの構造', sectionId: 'openapi', manualId: 'api' },
+  { step: 13, path: '/api/openapi/schema-components', title: 'スキーマとコンポーネント', sectionId: 'openapi', manualId: 'api' },
+  { step: 14, path: '/api/openapi/swagger-ui', title: 'Swagger UI と Redoc', sectionId: 'openapi', manualId: 'api' },
+  { step: 15, path: '/api/openapi/schema-first', title: 'スキーマファースト開発', sectionId: 'openapi', manualId: 'api' },
+  { step: 16, path: '/api/build/mock-server', title: 'モックサーバーから始める', sectionId: 'api-build', manualId: 'api' },
+  { step: 17, path: '/api/build/validation', title: '入力バリデーション', sectionId: 'api-build', manualId: 'api' },
+  { step: 18, path: '/api/build/auth', title: '認証と認可', sectionId: 'api-build', manualId: 'api' },
+  { step: 19, path: '/api/build/versioning', title: 'API バージョニング', sectionId: 'api-build', manualId: 'api' },
+  { step: 20, path: '/api/quality/contract-testing', title: '契約テスト', sectionId: 'api-quality', manualId: 'api' },
+  { step: 21, path: '/api/quality/linting', title: 'スキーマ Lint と Spectral', sectionId: 'api-quality', manualId: 'api' },
+  { step: 22, path: '/api/quality/security', title: 'API セキュリティ設計', sectionId: 'api-quality', manualId: 'api' },
+  { step: 23, path: '/api/advanced/beyond-rest', title: 'REST 以外の選択肢（GraphQL / gRPC）', sectionId: 'api-advanced', manualId: 'api' },
+  { step: 24, path: '/api/advanced/summary', title: '設計まとめとチェックリスト', sectionId: 'api-advanced', manualId: 'api' },
 ];
 
 // ── ヘルパー関数 ──
@@ -430,7 +475,7 @@ export function getSectionPages(sectionId: string): PageInfo[] {
 }
 
 export function getManualIdFromPath(path: string): ManualId | undefined {
-  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design)/);
+  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design|api)/);
   return match ? (match[1] as ManualId) : undefined;
 }
 

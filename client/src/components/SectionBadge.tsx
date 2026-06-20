@@ -8,6 +8,7 @@ const manualColors: Record<ManualId, string> = {
   'claude-mux': 'bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800',
   'ai-ml': 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800',
   'ux-design': 'bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-400 border-pink-200 dark:border-pink-800',
+  api: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800',
 };
 
 export default function SectionBadge() {

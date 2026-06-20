@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-20-api-design-manual",
+    date: "2026-06-20",
+    title: "API 設計 / OpenAPI 入門マニュアルを新設",
+    description:
+      "REST API 設計・OpenAPI/Swagger・API 検証をゼロから学ぶ独立マニュアル（7 セクション / 24 ページ）を追加。リソース設計・ステータスコード・エラー設計・スキーマファースト・契約テスト・Spectral Lint・認証認可まで体系的に扱う。",
+    category: "feature",
+    link: "/api",
+  },
+  {
     id: "2026-04-27-announcements-page",
     date: "2026-04-27",
     title: "お知らせ全件ページを追加",

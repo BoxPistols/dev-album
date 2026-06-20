@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Sparkles, Wrench, Bug, Tag } from "lucide-react";
+import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Sparkles, Wrench, Bug, Tag } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
@@ -27,6 +27,7 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
   "claude-mux": <Terminal size={20} />,
   "ai-ml": <Brain size={20} />,
   "ux-design": <Palette size={20} />,
+  api: <Network size={20} />,
 };
 
 const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
@@ -83,6 +84,15 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "ペルソナ / ジャーニーマップ",
       "IA / ワイヤーフレーム / Figma",
       "ユーザビリティテスト",
+    ],
+  },
+  api: {
+    tagline: "REST API 設計から OpenAPI/Swagger・検証までゼロベースで学べる",
+    topics: [
+      "REST 設計とリソースモデリング",
+      "OpenAPI / Swagger UI",
+      "バリデーション / 認証認可",
+      "契約テスト / Spectral Lint",
     ],
   },
 };
