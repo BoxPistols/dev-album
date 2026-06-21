@@ -155,7 +155,9 @@
 
 /* ── マニュアル別ブランドカラー ──
    <html data-manual="..."> のときだけ primary 系トークンを各ブランド色に上書きする（useManualTheme フックで付与）。
-   light / dark / dracula(.dark-soft) すべて WCAG AA（≥4.5:1）を実測して選定。他マニュアルは無影響。 */
+   light / dark / dracula(.dark-soft) すべて WCAG AA（≥4.5:1）に加え、
+   ダークは APCA（WCAG 3 候補）の Lc も実測し、ハレーションを避けるため
+   明るく彩度の高い色は Lc が過大にならない範囲（概ね Lc 50〜75）に抑えている。他マニュアルは無影響。 */
 [data-manual="git"] {
   --primary: #BE123C;
   --primary-foreground: #F9FAFB;
@@ -257,24 +259,24 @@
   --sidebar-ring: #0F766E;
 }
 .dark[data-manual="threejs"] {
-  --primary: #5EEAD4;
+  --primary: #2DD4BF;
   --primary-foreground: #0C1425;
-  --sidebar-primary: #5EEAD4;
+  --sidebar-primary: #2DD4BF;
   --sidebar-primary-foreground: #0C1425;
-  --accent: #5EEAD4;
+  --accent: #2DD4BF;
   --accent-foreground: #0C1425;
-  --ring: #5EEAD4;
-  --sidebar-ring: #5EEAD4;
+  --ring: #2DD4BF;
+  --sidebar-ring: #2DD4BF;
 }
 .dark-soft[data-manual="threejs"] {
-  --primary: #5EEAD4;
+  --primary: #2DD4BF;
   --primary-foreground: #282A36;
-  --sidebar-primary: #5EEAD4;
+  --sidebar-primary: #2DD4BF;
   --sidebar-primary-foreground: #282A36;
-  --accent: #5EEAD4;
+  --accent: #2DD4BF;
   --accent-foreground: #282A36;
-  --ring: #5EEAD4;
-  --sidebar-ring: #5EEAD4;
+  --ring: #2DD4BF;
+  --sidebar-ring: #2DD4BF;
 }
 [data-manual="ai-ml"] {
   --primary: #B45309;
@@ -287,24 +289,24 @@
   --sidebar-ring: #B45309;
 }
 .dark[data-manual="ai-ml"] {
-  --primary: #FCD34D;
+  --primary: #F59E0B;
   --primary-foreground: #0C1425;
-  --sidebar-primary: #FCD34D;
+  --sidebar-primary: #F59E0B;
   --sidebar-primary-foreground: #0C1425;
-  --accent: #FCD34D;
+  --accent: #F59E0B;
   --accent-foreground: #0C1425;
-  --ring: #FCD34D;
-  --sidebar-ring: #FCD34D;
+  --ring: #F59E0B;
+  --sidebar-ring: #F59E0B;
 }
 .dark-soft[data-manual="ai-ml"] {
-  --primary: #FCD34D;
+  --primary: #F59E0B;
   --primary-foreground: #282A36;
-  --sidebar-primary: #FCD34D;
+  --sidebar-primary: #F59E0B;
   --sidebar-primary-foreground: #282A36;
-  --accent: #FCD34D;
+  --accent: #F59E0B;
   --accent-foreground: #282A36;
-  --ring: #FCD34D;
-  --sidebar-ring: #FCD34D;
+  --ring: #F59E0B;
+  --sidebar-ring: #F59E0B;
 }
 [data-manual="ux-design"] {
   --primary: #BE185D;
