@@ -11,6 +11,7 @@ import SettingsPopup from "./components/SettingsPopup";
 import AchievementToastContainer from "./components/AchievementToast";
 import ChatWidget from "./components/ChatWidget";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
+import { useManualTheme } from "./hooks/useManualTheme";
 import { Toaster } from "sonner";
 
 // ── ランディング ──
@@ -316,6 +317,7 @@ function Loading() {
 function MainContent({ children }: { children: ReactNode }) {
   const { layoutMode } = useLayout();
   useAutoHeadingIds();
+  useManualTheme();
   return (
     <main className={`flex-1 md:ml-64 w-full ${layoutMode === 'wide' ? 'layout-wide' : ''}`}>
       <Suspense fallback={<Loading />}>{children}</Suspense>

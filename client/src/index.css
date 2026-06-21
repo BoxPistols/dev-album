@@ -153,6 +153,45 @@
   --sidebar-ring: #BD93F9;
 }
 
+/* ── Vue / Nuxt マニュアルはブランドのグリーンを primary にする ──
+   <html data-manual="vue"> のときだけ primary 系トークンを上書きする（useManualTheme フックで付与）。
+   各テーマで WCAG AA（≥4.5:1）を満たすよう実測して選定した値。 */
+[data-manual="vue"] {
+  /* Light: emerald-700。text 5.48:1 / 白文字 5.25:1（現状の青と同等以上） */
+  --primary: #047857;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #047857;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #047857;
+  --accent-foreground: #F9FAFB;
+  --ring: #047857;
+  --sidebar-ring: #047857;
+}
+
+.dark[data-manual="vue"] {
+  /* Dark: Vue ブランド緑 #42B883。text 7.97:1 / fg 6.66:1 */
+  --primary: #42B883;
+  --primary-foreground: #06231A;
+  --sidebar-primary: #42B883;
+  --sidebar-primary-foreground: #06231A;
+  --accent: #42B883;
+  --accent-foreground: #06231A;
+  --ring: #42B883;
+  --sidebar-ring: #42B883;
+}
+
+.dark-soft[data-manual="vue"] {
+  /* Dracula: Dracula パレットの緑 #50FA7B。text 10.38:1 */
+  --primary: #50FA7B;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #50FA7B;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #50FA7B;
+  --accent-foreground: #282A36;
+  --ring: #50FA7B;
+  --sidebar-ring: #50FA7B;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
