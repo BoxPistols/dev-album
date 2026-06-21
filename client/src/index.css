@@ -153,11 +153,190 @@
   --sidebar-ring: #BD93F9;
 }
 
-/* ── Vue / Nuxt マニュアルはブランドのグリーンを primary にする ──
-   <html data-manual="vue"> のときだけ primary 系トークンを上書きする（useManualTheme フックで付与）。
-   各テーマで WCAG AA（≥4.5:1）を満たすよう実測して選定した値。 */
-[data-manual="vue"] {
-  /* Light: emerald-700。text 5.48:1 / 白文字 5.25:1（現状の青と同等以上） */
+/* ── マニュアル別ブランドカラー ──
+   <html data-manual="..."> のときだけ primary 系トークンを各ブランド色に上書きする（useManualTheme フックで付与）。
+   light / dark / dracula(.dark-soft) すべて WCAG AA（≥4.5:1）を実測して選定。他マニュアルは無影響。 */
+[data-manual="git"] {
+  --primary: #BE123C;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #BE123C;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #BE123C;
+  --accent-foreground: #F9FAFB;
+  --ring: #BE123C;
+  --sidebar-ring: #BE123C;
+}
+.dark[data-manual="git"] {
+  --primary: #FB7185;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #FB7185;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #FB7185;
+  --accent-foreground: #0C1425;
+  --ring: #FB7185;
+  --sidebar-ring: #FB7185;
+}
+.dark-soft[data-manual="git"] {
+  --primary: #FB7185;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #FB7185;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #FB7185;
+  --accent-foreground: #282A36;
+  --ring: #FB7185;
+  --sidebar-ring: #FB7185;
+}
+[data-manual="react"] {
+  --primary: #4F46E5;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #4F46E5;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #4F46E5;
+  --accent-foreground: #F9FAFB;
+  --ring: #4F46E5;
+  --sidebar-ring: #4F46E5;
+}
+.dark[data-manual="react"] {
+  --primary: #A5B4FC;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #A5B4FC;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #A5B4FC;
+  --accent-foreground: #0C1425;
+  --ring: #A5B4FC;
+  --sidebar-ring: #A5B4FC;
+}
+.dark-soft[data-manual="react"] {
+  --primary: #A5B4FC;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #A5B4FC;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #A5B4FC;
+  --accent-foreground: #282A36;
+  --ring: #A5B4FC;
+  --sidebar-ring: #A5B4FC;
+}
+[data-manual="claude-mux"] {
+  --primary: #6D28D9;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #6D28D9;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #6D28D9;
+  --accent-foreground: #F9FAFB;
+  --ring: #6D28D9;
+  --sidebar-ring: #6D28D9;
+}
+.dark[data-manual="claude-mux"] {
+  --primary: #C4B5FD;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #C4B5FD;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #C4B5FD;
+  --accent-foreground: #0C1425;
+  --ring: #C4B5FD;
+  --sidebar-ring: #C4B5FD;
+}
+.dark-soft[data-manual="claude-mux"] {
+  --primary: #C4B5FD;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #C4B5FD;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #C4B5FD;
+  --accent-foreground: #282A36;
+  --ring: #C4B5FD;
+  --sidebar-ring: #C4B5FD;
+}
+[data-manual="threejs"] {
+  --primary: #0F766E;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #0F766E;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #0F766E;
+  --accent-foreground: #F9FAFB;
+  --ring: #0F766E;
+  --sidebar-ring: #0F766E;
+}
+.dark[data-manual="threejs"] {
+  --primary: #5EEAD4;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #5EEAD4;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #5EEAD4;
+  --accent-foreground: #0C1425;
+  --ring: #5EEAD4;
+  --sidebar-ring: #5EEAD4;
+}
+.dark-soft[data-manual="threejs"] {
+  --primary: #5EEAD4;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #5EEAD4;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #5EEAD4;
+  --accent-foreground: #282A36;
+  --ring: #5EEAD4;
+  --sidebar-ring: #5EEAD4;
+}
+[data-manual="ai-ml"] {
+  --primary: #B45309;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #B45309;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #B45309;
+  --accent-foreground: #F9FAFB;
+  --ring: #B45309;
+  --sidebar-ring: #B45309;
+}
+.dark[data-manual="ai-ml"] {
+  --primary: #FCD34D;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #FCD34D;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #FCD34D;
+  --accent-foreground: #0C1425;
+  --ring: #FCD34D;
+  --sidebar-ring: #FCD34D;
+}
+.dark-soft[data-manual="ai-ml"] {
+  --primary: #FCD34D;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #FCD34D;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #FCD34D;
+  --accent-foreground: #282A36;
+  --ring: #FCD34D;
+  --sidebar-ring: #FCD34D;
+}
+[data-manual="ux-design"] {
+  --primary: #BE185D;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #BE185D;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #BE185D;
+  --accent-foreground: #F9FAFB;
+  --ring: #BE185D;
+  --sidebar-ring: #BE185D;
+}
+.dark[data-manual="ux-design"] {
+  --primary: #F9A8D4;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #F9A8D4;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #F9A8D4;
+  --accent-foreground: #0C1425;
+  --ring: #F9A8D4;
+  --sidebar-ring: #F9A8D4;
+}
+.dark-soft[data-manual="ux-design"] {
+  --primary: #F9A8D4;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #F9A8D4;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #F9A8D4;
+  --accent-foreground: #282A36;
+  --ring: #F9A8D4;
+  --sidebar-ring: #F9A8D4;
+}
+[data-manual="api"] {
   --primary: #047857;
   --primary-foreground: #F9FAFB;
   --sidebar-primary: #047857;
@@ -167,9 +346,37 @@
   --ring: #047857;
   --sidebar-ring: #047857;
 }
-
+.dark[data-manual="api"] {
+  --primary: #34D399;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #34D399;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #34D399;
+  --accent-foreground: #0C1425;
+  --ring: #34D399;
+  --sidebar-ring: #34D399;
+}
+.dark-soft[data-manual="api"] {
+  --primary: #34D399;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #34D399;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #34D399;
+  --accent-foreground: #282A36;
+  --ring: #34D399;
+  --sidebar-ring: #34D399;
+}
+[data-manual="vue"] {
+  --primary: #047857;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #047857;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #047857;
+  --accent-foreground: #F9FAFB;
+  --ring: #047857;
+  --sidebar-ring: #047857;
+}
 .dark[data-manual="vue"] {
-  /* Dark: Vue ブランド緑 #42B883。text 7.97:1 / fg 6.66:1 */
   --primary: #42B883;
   --primary-foreground: #06231A;
   --sidebar-primary: #42B883;
@@ -179,9 +386,7 @@
   --ring: #42B883;
   --sidebar-ring: #42B883;
 }
-
 .dark-soft[data-manual="vue"] {
-  /* Dracula: Dracula パレットの緑 #50FA7B。text 10.38:1 */
   --primary: #50FA7B;
   --primary-foreground: #282A36;
   --sidebar-primary: #50FA7B;
