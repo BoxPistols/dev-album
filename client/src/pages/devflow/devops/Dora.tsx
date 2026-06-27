@@ -135,16 +135,23 @@ export default function Dora() {
                   </tr>
                   <tr>
                     <td className="py-3 px-3 font-medium text-foreground">
-                      平均復旧時間（MTTR）
+                      変更障害復旧時間（旧 MTTR）
                     </td>
                     <td className="py-3 px-3">安定性</td>
                     <td className="py-3 px-3">
-                      障害発生からサービス復旧までの時間
+                      デプロイ起因の障害が発生してから復旧するまでの時間
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              4 つ目の指標は、DORA が 2023 年に「平均復旧時間（MTTR）」から
+              <strong>変更障害復旧時間（Failed Deployment Recovery Time）</strong>
+              へ名称と定義を見直しています。任意の障害全般ではなく
+              「デプロイ（変更）が原因の障害から復旧するまでの時間」に対象を絞った点が変更のポイントです。
+              MTTR は広く知られた旧称として併記しています。
+            </p>
           </section>
 
           {/* ベンチマーク */}

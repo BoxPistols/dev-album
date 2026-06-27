@@ -330,7 +330,7 @@ export default function Culture() {
                 },
                 {
                   title: "IT Revolution - The Three Ways",
-                  url: "https://itrevolution.com/articles/the-three-ways-principles-underpinning-devops/",
+                  url: "https://itrevolution.com/the-three-ways-principles-underpinning-devops/",
                   description:
                     "『The DevOps Handbook』著者による The Three Ways の解説記事",
                 },

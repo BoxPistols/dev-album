@@ -323,7 +323,7 @@ export default function Choosing() {
                 {
                   title:
                     "MDN - クライアントサイドとサーバーサイドのレンダリング",
-                  url: "https://developer.mozilla.org/ja/docs/Web/Performance/Guides/Rendering",
+                  url: "https://developer.mozilla.org/ja/docs/Glossary/SSR",
                   description:
                     "レンダリング方式とパフォーマンスの関係を解説した中立的なリファレンス",
                 },

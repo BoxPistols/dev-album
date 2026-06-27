@@ -100,7 +100,7 @@ export default function StorageCdn() {
                 <div className="rounded-lg bg-primary/5 border border-primary/20 p-4">
                   <p className="font-bold text-primary mb-1">オブジェクト</p>
                   <p className="text-muted-foreground">
-                    本体データ + メタデータ。1 オブジェクト最大 5TB
+                    本体データ + メタデータ。1 オブジェクト最大 50TB
                     まで保存できる
                   </p>
                 </div>

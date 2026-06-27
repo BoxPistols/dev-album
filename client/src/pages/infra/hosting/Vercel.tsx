@@ -399,7 +399,7 @@ export async function GET(request: Request) {
                 },
                 {
                   title: "vercel.json リファレンス",
-                  url: "https://vercel.com/docs/projects/project-configuration",
+                  url: "https://vercel.com/docs/project-configuration/vercel-json",
                   description:
                     "ビルド・リダイレクト・ヘッダなど vercel.json の設定項目",
                 },
