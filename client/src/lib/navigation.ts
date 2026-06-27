@@ -224,6 +224,7 @@ export const sections: SectionInfo[] = [
   { id: 'bff-backend', title: 'BFF とバックエンド設計', manualId: 'infra' },
   { id: 'devops-cicd', title: 'CI/CD と IaC', manualId: 'infra' },
   { id: 'observability', title: '可観測性と運用', manualId: 'infra' },
+  { id: 'aws', title: 'AWS 実践入門', manualId: 'infra' },
 
   // === 開発フロー / チーム / DesignOps マニュアル ===
   { id: 'devflow-intro', title: 'はじめに', manualId: 'devflow' },
@@ -565,6 +566,13 @@ export const pages: PageInfo[] = [
   { step: 25, path: '/infra/devops/containers', title: 'コンテナと実行環境', sectionId: 'devops-cicd', manualId: 'infra' },
   { step: 26, path: '/infra/observability/monitoring', title: 'モニタリングとログ', sectionId: 'observability', manualId: 'infra' },
   { step: 27, path: '/infra/observability/sre', title: 'SRE と信頼性設計', sectionId: 'observability', manualId: 'infra' },
+  { step: 28, path: '/infra/aws/overview', title: 'AWS の全体像と主要サービス', sectionId: 'aws', manualId: 'infra' },
+  { step: 29, path: '/infra/aws/iam-account', title: 'アカウント設計と IAM', sectionId: 'aws', manualId: 'infra' },
+  { step: 30, path: '/infra/aws/network-vpc', title: 'ネットワークと VPC', sectionId: 'aws', manualId: 'infra' },
+  { step: 31, path: '/infra/aws/compute', title: 'コンピュート（EC2 / ECS / Lambda）', sectionId: 'aws', manualId: 'infra' },
+  { step: 32, path: '/infra/aws/storage-cdn', title: 'ストレージと配信（S3 / CloudFront）', sectionId: 'aws', manualId: 'infra' },
+  { step: 33, path: '/infra/aws/database', title: 'データベース（RDS / Aurora / DynamoDB）', sectionId: 'aws', manualId: 'infra' },
+  { step: 34, path: '/infra/aws/cost-ops', title: 'コスト管理と Well-Architected', sectionId: 'aws', manualId: 'infra' },
 
   // ===========================
   // 開発フロー / チーム / DesignOps マニュアル (21ページ)

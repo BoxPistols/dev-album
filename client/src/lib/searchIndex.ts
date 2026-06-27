@@ -1031,6 +1031,34 @@ export const searchIndex: Record<string, string[]> = {
     'SRE', '信頼性', 'SLI', 'SLO', 'SLA', 'エラーバジェット', 'トイル',
     'インシデント', '可用性', 'ポストモーテム',
   ],
+  '/infra/aws/overview': [
+    'AWS', 'Amazon Web Services', 'マネジメントコンソール', 'リージョン', 'アベイラビリティゾーン',
+    '主要サービス', 'EC2', 'S3', 'Lambda', 'RDS', 'IAM', 'グローバルインフラ',
+  ],
+  '/infra/aws/iam-account': [
+    'IAM', 'アカウント設計', 'ルートユーザー', 'IAMユーザー', 'ロール', 'ポリシー',
+    '最小権限', 'MFA', 'AWS Organizations', 'マルチアカウント', 'IAM Identity Center',
+  ],
+  '/infra/aws/network-vpc': [
+    'VPC', 'ネットワーク', 'サブネット', 'パブリックサブネット', 'プライベートサブネット',
+    'セキュリティグループ', 'ルートテーブル', 'インターネットゲートウェイ', 'NAT', 'CIDR',
+  ],
+  '/infra/aws/compute': [
+    'コンピュート', 'EC2', 'ECS', 'Fargate', 'Lambda', 'Auto Scaling', 'ロードバランサー',
+    'ALB', 'コンテナ', 'サーバーレス', 'AMI',
+  ],
+  '/infra/aws/storage-cdn': [
+    'S3', 'オブジェクトストレージ', 'EBS', 'EFS', 'CloudFront', 'CDN', '静的サイトホスティング',
+    'バケット', '署名付きURL', 'ストレージクラス', 'OAC',
+  ],
+  '/infra/aws/database': [
+    'RDS', 'Aurora', 'DynamoDB', 'ElastiCache', 'リレーショナル', 'NoSQL', 'マネージドDB',
+    'リードレプリカ', 'マルチAZ', 'バックアップ',
+  ],
+  '/infra/aws/cost-ops': [
+    'コスト管理', 'Billing', 'Cost Explorer', 'Budgets', 'CloudWatch', 'Well-Architected',
+    'タグ', '従量課金', '無料利用枠', 'コスト最適化', 'CloudTrail',
+  ],
 
   // ===== devflow-manual =====
   '/devflow': [

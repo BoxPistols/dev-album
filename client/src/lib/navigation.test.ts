@@ -35,7 +35,7 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(313);
+    expect(pages.length).toBe(320);
   });
 
   it("マニュアル別ページ数", () => {
@@ -47,7 +47,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("ux-design").length).toBe(12);
     expect(getManualPages("api").length).toBe(41);
     expect(getManualPages("vue").length).toBe(22);
-    expect(getManualPages("infra").length).toBe(27);
+    expect(getManualPages("infra").length).toBe(34);
     expect(getManualPages("devflow").length).toBe(21);
   });
 

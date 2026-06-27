@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-27-infra-aws-section",
+    date: "2026-06-27",
+    title: "インフラマニュアルに「AWS 実践入門」セクションを追加",
+    description:
+      "バックエンド / インフラ / DevOps マニュアルに AWS の実践セクション（7 ページ）を追加。主要サービスの全体像・アカウント設計と IAM・ネットワークと VPC・コンピュート（EC2 / ECS / Lambda）・ストレージと配信（S3 / CloudFront）・データベース（RDS / Aurora / DynamoDB）・コスト管理と Well-Architected まで、代表的なハイパースケーラーを地図として学べる。",
+    category: "update",
+    link: "/infra/aws/overview",
+  },
+  {
     id: "2026-06-27-infra-devops-manual",
     date: "2026-06-27",
     title: "バックエンド / インフラ / DevOps マニュアルを新設",

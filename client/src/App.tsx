@@ -303,6 +303,13 @@ const InfraIac = lazy(() => import("./pages/infra/devops/Iac"));
 const InfraContainers = lazy(() => import("./pages/infra/devops/Containers"));
 const InfraMonitoring = lazy(() => import("./pages/infra/observability/Monitoring"));
 const InfraSre = lazy(() => import("./pages/infra/observability/Sre"));
+const InfraAwsOverview = lazy(() => import("./pages/infra/aws/Overview"));
+const InfraAwsIam = lazy(() => import("./pages/infra/aws/IamAccount"));
+const InfraAwsNetwork = lazy(() => import("./pages/infra/aws/NetworkVpc"));
+const InfraAwsCompute = lazy(() => import("./pages/infra/aws/Compute"));
+const InfraAwsStorage = lazy(() => import("./pages/infra/aws/StorageCdn"));
+const InfraAwsDatabase = lazy(() => import("./pages/infra/aws/Database"));
+const InfraAwsCostOps = lazy(() => import("./pages/infra/aws/CostOps"));
 
 // === 開発フロー / チーム / DesignOps マニュアル ===
 const FlowHome = lazy(() => import("./pages/devflow/Home"));
@@ -706,6 +713,13 @@ function App() {
                 <Route path="/infra/devops/containers" component={InfraContainers} />
                 <Route path="/infra/observability/monitoring" component={InfraMonitoring} />
                 <Route path="/infra/observability/sre" component={InfraSre} />
+                <Route path="/infra/aws/overview" component={InfraAwsOverview} />
+                <Route path="/infra/aws/iam-account" component={InfraAwsIam} />
+                <Route path="/infra/aws/network-vpc" component={InfraAwsNetwork} />
+                <Route path="/infra/aws/compute" component={InfraAwsCompute} />
+                <Route path="/infra/aws/storage-cdn" component={InfraAwsStorage} />
+                <Route path="/infra/aws/database" component={InfraAwsDatabase} />
+                <Route path="/infra/aws/cost-ops" component={InfraAwsCostOps} />
 
                 {/* === 開発フロー / チーム / DesignOps マニュアル === */}
                 <Route path="/devflow" component={FlowHome} />

@@ -9,6 +9,7 @@ import {
   GitBranch,
   Workflow,
   Activity,
+  Server,
   Keyboard,
 } from "lucide-react";
 
@@ -84,6 +85,15 @@ const sectionCards = [
       "ログ・メトリクス・トレースの三本柱、監視とアラート、SLO の考え方を整理する。動いた後の「運用」を見据えた設計を学べる。",
     href: "/infra/observability/monitoring",
     icon: <Activity className="w-6 h-6" />,
+  },
+  {
+    number: 9,
+    title: "AWS 実践入門",
+    steps: "STEP 28-34",
+    description:
+      "主要サービスの全体像から、IAM・VPC・コンピュート・ストレージ・データベース・コスト管理まで。代表的なハイパースケーラーを地図として掴む。",
+    href: "/infra/aws/overview",
+    icon: <Server className="w-6 h-6" />,
   },
 ];
 
