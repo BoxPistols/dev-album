@@ -367,7 +367,7 @@ export async function GET() {
                 },
                 {
                   title: "Next.js - Route Handlers",
-                  url: "https://nextjs.org/docs/app/building-your-application/routing/route-handlers",
+                  url: "https://nextjs.org/docs/app/getting-started/route-handlers",
                   description:
                     "app/api でサーバー側エンドポイントを作る公式ドキュメント。実質 BFF の実装場所",
                 },

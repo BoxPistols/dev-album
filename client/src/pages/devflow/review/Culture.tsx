@@ -14,8 +14,8 @@ const labels = [
     description: "良い点を素直に伝える。承認以外の前向きなフィードバック。",
   },
   {
-    title: "nit",
-    description: "任意の細かい提案。対応してもしなくてもよい。",
+    title: "nitpick",
+    description: "些細だが直しておきたい小さな指摘。任意（non-blocking）扱いが基本。",
   },
   {
     title: "suggestion",
@@ -28,6 +28,14 @@ const labels = [
   {
     title: "question",
     description: "意図を確認する質問。指摘ではなく理解のため。",
+  },
+  {
+    title: "thought",
+    description: "レビュー中に浮かんだ着想。non-blocking だが議論の種になる。",
+  },
+  {
+    title: "chore",
+    description: "受け入れ前に済ませたい定型作業（プロセス上の必須対応）。",
   },
 ];
 
@@ -120,7 +128,7 @@ export default function Culture() {
               指摘の意図を一目で伝える記法が
               <strong>Conventional Comments</strong>です。
               コメントの先頭にラベルを付け、それが praise（称賛）なのか
-              nit（任意の提案）なのか issue（問題）なのかを明示します。
+              nitpick（些細な指摘）なのか issue（問題）なのかを明示します。
               これにより作者は「必ず直すべきか・任意か・ただの質問か」をすぐ判断できます。
             </p>
 
@@ -145,7 +153,7 @@ export default function Culture() {
               title="Conventional Comments の記法例"
               code={`praise: テストのエッジケースまで丁寧に書かれていて読みやすいです。
 
-nit: 変数名を items より userItems にすると意図が伝わりやすそうです。
+nitpick: 変数名を items より userItems にすると意図が伝わりやすそうです。
 
 suggestion: ここは早期 return にすると、ネストが浅くなって読みやすくなります。
 
@@ -161,7 +169,7 @@ suggestion (non-blocking): この命名は好みなので、対応は任意で�
           {/* Quiz 1 */}
           <section>
             <Quiz
-              question="Conventional Comments でコメント先頭にラベル（praise / nit / issue など）を付ける狙いは？"
+              question="Conventional Comments でコメント先頭にラベル（praise / nitpick / issue など）を付ける狙いは？"
               options={[
                 { label: "コメントの文字数を減らすため" },
                 {
@@ -172,7 +180,7 @@ suggestion (non-blocking): この命名は好みなので、対応は任意で�
                 { label: "CI に自動修正させるため" },
                 { label: "レビュアーを匿名にするため" },
               ]}
-              explanation="Conventional Comments はラベルで指摘の種類を示します。praise は称賛、nit は任意、issue は要対応、question は確認です。作者は先頭を見るだけで「必ず直すか・任意か・質問か」を判断でき、無用な往復が減ります。"
+              explanation="Conventional Comments はラベルで指摘の種類を示します。praise は称賛、nitpick は些細な指摘、issue は要対応、question は確認です。作者は先頭を見るだけで「必ず直すか・任意か・質問か」を判断でき、無用な往復が減ります。"
             />
           </section>
 
@@ -300,7 +308,7 @@ suggestion (non-blocking): この命名は好みなので、対応は任意で�
                   title: "Conventional Comments",
                   url: "https://conventionalcomments.org/",
                   description:
-                    "praise / nit / suggestion / issue / question などのラベル記法の公式仕様",
+                    "praise / nitpick / suggestion / issue / question / thought / chore などのラベル記法の公式仕様",
                 },
                 {
                   title: "Google - How to write code review comments",

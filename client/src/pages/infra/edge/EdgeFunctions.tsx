@@ -338,7 +338,7 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
               links={[
                 {
                   title: "Next.js - Middleware",
-                  url: "https://nextjs.org/docs/app/building-your-application/routing/middleware",
+                  url: "https://nextjs.org/docs/app/api-reference/file-conventions/middleware",
                   description:
                     "middleware.ts でリクエスト前にリダイレクト・リライトを行う公式ガイド",
                 },
@@ -356,7 +356,7 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
                 },
                 {
                   title: "WinterCG - Minimum Common Web Platform API",
-                  url: "https://common-min-api.proposal.wintercg.org/",
+                  url: "https://min-common-api.proposal.wintertc.org/",
                   description:
                     "ランタイム横断で共通化を目指す Web 標準 API の仕様提案",
                 },
