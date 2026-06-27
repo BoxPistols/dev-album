@@ -243,6 +243,15 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
               個々のページに同じ判定を書かずに済みます。matcher
               で適用範囲を絞るのがコツです。
             </InfoBox>
+
+            <InfoBox type="info" title="この領域は動きが速い（2026 年時点）">
+              エッジ実行の API は標準化が進む一方で、各プラットフォームの「推奨」は
+              変わり続けています。たとえば Vercel は、単独の Edge Functions より
+              Node.js ランタイム（Fluid compute）を既定として案内する方向に動いており、
+              Next.js でも <code>middleware</code> の呼び名や位置づけが見直されています。
+              ここで重要なのは個別の名前ではなく、「ユーザーに近い場所で軽い処理を素早く返す」
+              というモデルです。具体的な設定名・既定値は、必ず利用時点の公式ドキュメントで確認してください。
+            </InfoBox>
           </section>
 
           {/* 制約（仕様 vs 実測） */}
