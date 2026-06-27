@@ -1,4 +1,4 @@
-export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design' | 'api' | 'vue';
+export type ManualId = 'react' | 'git' | 'threejs' | 'claude-mux' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'infra' | 'devflow';
 
 export interface ManualInfo {
   id: ManualId;
@@ -92,6 +92,22 @@ export const manuals: ManualInfo[] = [
     description: 'Vue 3・Composition API・Pinia・Nuxt を実践的に学ぶ',
     icon: 'V',
     color: '#42B883',
+  },
+  {
+    id: 'infra',
+    title: 'バックエンド / インフラ / DevOps 入門',
+    shortTitle: 'Infra / DevOps',
+    description: 'ホスティング・エッジ・BaaS・DB・BFF・CI/CD まで、フロントの先を学ぶ',
+    icon: '☁',
+    color: '#0EA5E9',
+  },
+  {
+    id: 'devflow',
+    title: '開発フロー / チーム / DesignOps 入門',
+    shortTitle: '開発フロー',
+    description: 'アジャイル・スクラム・DevOps・コードレビュー・DesignOps を学ぶ',
+    icon: '⟳',
+    color: '#F97316',
   },
 ];
 
@@ -197,6 +213,26 @@ export const sections: SectionInfo[] = [
   { id: 'nuxt-basics', title: 'Nuxt 基礎', manualId: 'vue' },
   { id: 'nuxt-server', title: 'Nuxt サーバーと実践', manualId: 'vue' },
   { id: 'vue-advanced', title: '最新と総まとめ', manualId: 'vue' },
+
+  // === バックエンド / インフラ / DevOps マニュアル ===
+  { id: 'infra-intro', title: 'はじめに', manualId: 'infra' },
+  { id: 'infra-foundations', title: 'インフラの全体像', manualId: 'infra' },
+  { id: 'hosting', title: 'ホスティングとデプロイ', manualId: 'infra' },
+  { id: 'edge-cdn', title: 'エッジと CDN', manualId: 'infra' },
+  { id: 'baas', title: 'BaaS（Supabase / Firebase）', manualId: 'infra' },
+  { id: 'database', title: 'データベース', manualId: 'infra' },
+  { id: 'bff-backend', title: 'BFF とバックエンド設計', manualId: 'infra' },
+  { id: 'devops-cicd', title: 'CI/CD と IaC', manualId: 'infra' },
+  { id: 'observability', title: '可観測性と運用', manualId: 'infra' },
+
+  // === 開発フロー / チーム / DesignOps マニュアル ===
+  { id: 'devflow-intro', title: 'はじめに', manualId: 'devflow' },
+  { id: 'agile-scrum', title: 'アジャイルとスクラム', manualId: 'devflow' },
+  { id: 'project-mgmt', title: 'プロジェクトマネジメント', manualId: 'devflow' },
+  { id: 'devops-flow', title: 'DevOps とデリバリー', manualId: 'devflow' },
+  { id: 'code-review', title: 'コードレビュー', manualId: 'devflow' },
+  { id: 'designops', title: 'DesignOps とデザインフロー', manualId: 'devflow' },
+  { id: 'team-quality', title: 'チーム品質とコラボレーション', manualId: 'devflow' },
 ];
 
 // ── ページ定義 ──
@@ -498,6 +534,62 @@ export const pages: PageInfo[] = [
   { step: 20, path: '/vue/nuxt-server/middleware-plugins', title: 'ミドルウェア・プラグイン・モジュール', sectionId: 'nuxt-server', manualId: 'vue' },
   { step: 21, path: '/vue/nuxt-server/deploy', title: 'Nuxt のデプロイ', sectionId: 'nuxt-server', manualId: 'vue' },
   { step: 22, path: '/vue/advanced/latest-features', title: 'Vue 3.5 / Nuxt 4 の最新機能と総まとめ', sectionId: 'vue-advanced', manualId: 'vue' },
+
+  // ===========================
+  // バックエンド / インフラ / DevOps マニュアル (27ページ)
+  // ===========================
+  { step: 1, path: '/infra', title: 'このマニュアルについて', sectionId: 'infra-intro', manualId: 'infra' },
+  { step: 2, path: '/infra/foundations/landscape', title: 'クラウドとインフラの全体像', sectionId: 'infra-foundations', manualId: 'infra' },
+  { step: 3, path: '/infra/foundations/compute-models', title: 'サーバー / サーバーレス / エッジ', sectionId: 'infra-foundations', manualId: 'infra' },
+  { step: 4, path: '/infra/foundations/choosing', title: 'アーキテクチャの選択軸', sectionId: 'infra-foundations', manualId: 'infra' },
+  { step: 5, path: '/infra/hosting/vercel', title: 'Vercel', sectionId: 'hosting', manualId: 'infra' },
+  { step: 6, path: '/infra/hosting/netlify', title: 'Netlify', sectionId: 'hosting', manualId: 'infra' },
+  { step: 7, path: '/infra/hosting/cloudflare-pages', title: 'Cloudflare Pages / Workers', sectionId: 'hosting', manualId: 'infra' },
+  { step: 8, path: '/infra/hosting/comparison', title: 'ホスティングの比較と選び方', sectionId: 'hosting', manualId: 'infra' },
+  { step: 9, path: '/infra/edge/cdn-basics', title: 'CDN とキャッシュの基礎', sectionId: 'edge-cdn', manualId: 'infra' },
+  { step: 10, path: '/infra/edge/cloudflare', title: 'Cloudflare の全体像', sectionId: 'edge-cdn', manualId: 'infra' },
+  { step: 11, path: '/infra/edge/edge-functions', title: 'エッジ関数とエッジコンピューティング', sectionId: 'edge-cdn', manualId: 'infra' },
+  { step: 12, path: '/infra/baas/what-is-baas', title: 'BaaS とは', sectionId: 'baas', manualId: 'infra' },
+  { step: 13, path: '/infra/baas/supabase', title: 'Supabase', sectionId: 'baas', manualId: 'infra' },
+  { step: 14, path: '/infra/baas/firebase', title: 'Firebase', sectionId: 'baas', manualId: 'infra' },
+  { step: 15, path: '/infra/baas/comparison', title: 'Supabase と Firebase の比較', sectionId: 'baas', manualId: 'infra' },
+  { step: 16, path: '/infra/database/relational', title: 'リレーショナル DB と PostgreSQL', sectionId: 'database', manualId: 'infra' },
+  { step: 17, path: '/infra/database/serverless-db', title: 'サーバーレス DB と接続管理', sectionId: 'database', manualId: 'infra' },
+  { step: 18, path: '/infra/database/orm', title: 'ORM（Prisma / Drizzle）', sectionId: 'database', manualId: 'infra' },
+  { step: 19, path: '/infra/database/beyond-relational', title: 'KV・ベクトル・オブジェクトストレージ', sectionId: 'database', manualId: 'infra' },
+  { step: 20, path: '/infra/bff/what-is-bff', title: 'BFF パターンとは', sectionId: 'bff-backend', manualId: 'infra' },
+  { step: 21, path: '/infra/bff/auth', title: '認証・認可とシークレット管理', sectionId: 'bff-backend', manualId: 'infra' },
+  { step: 22, path: '/infra/bff/api-gateway', title: 'API Gateway とバックエンド構成', sectionId: 'bff-backend', manualId: 'infra' },
+  { step: 23, path: '/infra/devops/cicd', title: 'CI/CD パイプライン', sectionId: 'devops-cicd', manualId: 'infra' },
+  { step: 24, path: '/infra/devops/iac', title: 'Infrastructure as Code', sectionId: 'devops-cicd', manualId: 'infra' },
+  { step: 25, path: '/infra/devops/containers', title: 'コンテナと実行環境', sectionId: 'devops-cicd', manualId: 'infra' },
+  { step: 26, path: '/infra/observability/monitoring', title: 'モニタリングとログ', sectionId: 'observability', manualId: 'infra' },
+  { step: 27, path: '/infra/observability/sre', title: 'SRE と信頼性設計', sectionId: 'observability', manualId: 'infra' },
+
+  // ===========================
+  // 開発フロー / チーム / DesignOps マニュアル (21ページ)
+  // ===========================
+  { step: 1, path: '/devflow', title: 'このマニュアルについて', sectionId: 'devflow-intro', manualId: 'devflow' },
+  { step: 2, path: '/devflow/agile/what-is-agile', title: 'アジャイルとは', sectionId: 'agile-scrum', manualId: 'devflow' },
+  { step: 3, path: '/devflow/agile/scrum', title: 'スクラムの全体像', sectionId: 'agile-scrum', manualId: 'devflow' },
+  { step: 4, path: '/devflow/agile/sprint', title: 'スプリントとイベント', sectionId: 'agile-scrum', manualId: 'devflow' },
+  { step: 5, path: '/devflow/agile/kanban', title: 'カンバンとフロー効率', sectionId: 'agile-scrum', manualId: 'devflow' },
+  { step: 6, path: '/devflow/pm/backlog', title: 'バックログとユーザーストーリー', sectionId: 'project-mgmt', manualId: 'devflow' },
+  { step: 7, path: '/devflow/pm/estimation', title: '見積もりとプランニング', sectionId: 'project-mgmt', manualId: 'devflow' },
+  { step: 8, path: '/devflow/pm/roadmap', title: 'ロードマップと優先順位付け', sectionId: 'project-mgmt', manualId: 'devflow' },
+  { step: 9, path: '/devflow/devops/culture', title: 'DevOps 文化と CALMS', sectionId: 'devops-flow', manualId: 'devflow' },
+  { step: 10, path: '/devflow/devops/dora', title: 'DORA メトリクスと開発生産性', sectionId: 'devops-flow', manualId: 'devflow' },
+  { step: 11, path: '/devflow/devops/branching', title: 'ブランチ戦略とリリースフロー', sectionId: 'devops-flow', manualId: 'devflow' },
+  { step: 12, path: '/devflow/review/why-review', title: 'コードレビューの目的', sectionId: 'code-review', manualId: 'devflow' },
+  { step: 13, path: '/devflow/review/pull-request', title: 'Pull Request の運用', sectionId: 'code-review', manualId: 'devflow' },
+  { step: 14, path: '/devflow/review/perspectives', title: 'レビュー観点とチェックリスト', sectionId: 'code-review', manualId: 'devflow' },
+  { step: 15, path: '/devflow/review/culture', title: 'レビュー文化とコミュニケーション', sectionId: 'code-review', manualId: 'devflow' },
+  { step: 16, path: '/devflow/designops/what-is-designops', title: 'DesignOps とは', sectionId: 'designops', manualId: 'devflow' },
+  { step: 17, path: '/devflow/designops/design-review', title: 'デザインレビュー', sectionId: 'designops', manualId: 'devflow' },
+  { step: 18, path: '/devflow/designops/handoff', title: 'デザインとエンジニアの協業・ハンドオフ', sectionId: 'designops', manualId: 'devflow' },
+  { step: 19, path: '/devflow/team/documentation', title: 'ドキュメンテーションと ADR', sectionId: 'team-quality', manualId: 'devflow' },
+  { step: 20, path: '/devflow/team/retrospective', title: 'ふりかえりと継続的改善', sectionId: 'team-quality', manualId: 'devflow' },
+  { step: 21, path: '/devflow/team/incident', title: 'インシデント対応とポストモーテム', sectionId: 'team-quality', manualId: 'devflow' },
 ];
 
 // ── ヘルパー関数 ──
@@ -539,7 +631,7 @@ export function getSectionPages(sectionId: string): PageInfo[] {
 }
 
 export function getManualIdFromPath(path: string): ManualId | undefined {
-  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design|api|vue)/);
+  const match = path.match(/^\/(react|git|threejs|claude-mux|ai-ml|ux-design|api|vue|infra|devflow)/);
   return match ? (match[1] as ManualId) : undefined;
 }
 

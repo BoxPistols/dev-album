@@ -29,11 +29,13 @@ describe("navigation データ整合性", () => {
       "ux-design",
       "api",
       "vue",
+      "infra",
+      "devflow",
     ]);
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(265);
+    expect(pages.length).toBe(313);
   });
 
   it("マニュアル別ページ数", () => {
@@ -45,6 +47,8 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("ux-design").length).toBe(12);
     expect(getManualPages("api").length).toBe(41);
     expect(getManualPages("vue").length).toBe(22);
+    expect(getManualPages("infra").length).toBe(27);
+    expect(getManualPages("devflow").length).toBe(21);
   });
 
   it("全ページのパスがマニュアルプレフィックスで始まる", () => {
@@ -78,6 +82,8 @@ describe("navigation データ整合性", () => {
       "ux-design",
       "api",
       "vue",
+      "infra",
+      "devflow",
     ];
     for (const section of sections) {
       expect(validIds).toContain(section.manualId);

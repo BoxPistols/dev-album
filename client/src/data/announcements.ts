@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-27-infra-devops-manual",
+    date: "2026-06-27",
+    title: "バックエンド / インフラ / DevOps マニュアルを新設",
+    description:
+      "フロントの先にあるインフラ領域を扱う独立マニュアル（9 セクション / 27 ページ）を追加。クラウドの全体像・Vercel / Netlify / Cloudflare のホスティング・CDN とエッジ・Supabase / Firebase（BaaS）・PostgreSQL / ORM / サーバーレス DB・BFF と認証・CI/CD / IaC / コンテナ・可観測性と SRE まで通しで学べる。",
+    category: "feature",
+    link: "/infra",
+  },
+  {
+    id: "2026-06-27-devflow-designops-manual",
+    date: "2026-06-27",
+    title: "開発フロー / チーム / DesignOps マニュアルを新設",
+    description:
+      "チーム開発の進め方を扱う独立マニュアル（7 セクション / 21 ページ）を追加。アジャイル・スクラム・カンバン・バックログと見積もり・DevOps 文化と DORA メトリクス・ブランチ戦略・コードレビューと PR 運用・DesignOps とデザインレビュー・ふりかえりとインシデント対応まで体系的に学べる。",
+    category: "feature",
+    link: "/devflow",
+  },
+  {
     id: "2026-06-21-vue-nuxt-manual",
     date: "2026-06-21",
     title: "Vue 3 / Nuxt マニュアルを新設",
