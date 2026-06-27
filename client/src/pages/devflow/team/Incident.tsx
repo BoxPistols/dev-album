@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const flowSteps = [
   {
@@ -131,6 +133,18 @@ export default function Incident() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: インシデント対応の流れ"
+              chart={`flowchart TD
+    A["検知"] --> B["トリアージ（Sev 判定）"]
+    B --> C["指揮官を任命"]
+    C --> D["対応（復旧 + 状況共有）"]
+    D --> E{"影響は止まったか"}
+    E -->|"いいえ"| D
+    E -->|"はい"| F["収束を宣言"]
+    F --> G["ポストモーテム"]`}
+            />
 
             <InfoBox type="info" title="指揮官は「手を動かさない」">
               インシデント指揮官の役割は、判断と進行の整理です。
@@ -282,6 +296,62 @@ export default function Incident() {
               ポストモーテムを書いて満足すると、再発防止アクションが放置されます。
               担当と期限を決め、完了するまでチケットとして追跡することで、学びが次に活きます。
             </InfoBox>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="非難なきポストモーテムを埋めよう"
+              description="タイムライン・根本原因（5 Whys）・再発防止アクションの見出しを埋めてください。___ を適切な語に置き換えます。アクションには担当と期限を残します。"
+              initialCode={`# ポストモーテム: ログイン障害（2026-06-27）
+
+## サマリ
+
+10:00〜10:25 の間、ログインが断続的に失敗した。重大度 Sev2。
+
+## ___1
+
+- 10:00 監視がエラー率の上昇を検知
+- 10:06 指揮官を立て、Sev2 と判定
+- 10:25 設定を切り戻し、収束を宣言
+
+## ___2（5 Whys）
+
+- なぜ失敗した? 認証サーバーが過負荷になった
+- なぜ過負荷? 接続数の上限が低いまま放置されていた
+- なぜ放置? 上限を見直す工程が手順に無かった
+
+## ___3
+
+- ___4 接続数のアラートを追加（担当: 山田 / 期限: 7/4）`}
+              answer={`# ポストモーテム: ログイン障害（2026-06-27）
+
+## サマリ
+
+10:00〜10:25 の間、ログインが断続的に失敗した。重大度 Sev2。
+
+## タイムライン
+
+- 10:00 監視がエラー率の上昇を検知
+- 10:06 指揮官を立て、Sev2 と判定
+- 10:25 設定を切り戻し、収束を宣言
+
+## 根本原因（5 Whys）
+
+- なぜ失敗した? 認証サーバーが過負荷になった
+- なぜ過負荷? 接続数の上限が低いまま放置されていた
+- なぜ放置? 上限を見直す工程が手順に無かった
+
+## 再発防止アクション
+
+- [ ] 接続数のアラートを追加（担当: 山田 / 期限: 7/4）`}
+              hints={[
+                "事実を時系列に並べる欄は タイムライン",
+                "なぜを繰り返して掘り下げる欄は 根本原因",
+                "次に同じ事故を防ぐ打ち手を書く欄は 再発防止アクション",
+                "未完了チェックボックスは [ ] で表す",
+              ]}
+              keywords={["タイムライン", "根本原因", "再発防止", "[ ]"]}
+            />
           </section>
 
           {/* ランブック整備 */}

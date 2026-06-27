@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const accountabilities = [
   {
@@ -185,6 +187,19 @@ export default function Scrum() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: スクラムのループ（イベントの連鎖）"
+              chart={`flowchart TD
+    PB["プロダクトバックログ"] --> SP["スプリントプランニング"]
+    SP -->|"スプリントゴール確定"| SG["スプリント開始"]
+    SG --> DS["デイリースクラム（毎日 15 分）"]
+    DS -->|"作業を進める"| DS
+    DS --> SR["スプリントレビュー"]
+    SR --> RT["レトロスペクティブ"]
+    RT -->|"改善を次へ"| SP
+    SR -->|"フィードバックを反映"| PB`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -300,6 +315,46 @@ export default function Scrum() {
                 { label: "役割・イベント・作成物" },
               ]}
               explanation="スクラムの経験主義は透明性 (Transparency)・検査 (Inspection)・適応 (Adaptation) の 3 本柱で成り立ちます。見える状態にして、頻繁に点検し、ズレたら早く調整する、という循環です。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: スプリントゴールと完成の定義を書く
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              スプリントゴールは「このスプリントで何を実現するか」の単一の目的、
+              完成の定義 (DoD) は「どの状態で完成と言えるか」のチェックリストです。
+              下のテンプレートの空欄を埋めて、両方を書いてみましょう。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="スプリントゴールと完成の定義を書こう"
+              description="決済機能を扱うスプリントを想定し、スプリントゴールの一文を『カート内の商品をクレジットカードで購入できる』に、DoD の 1 項目を『コードレビューが完了している』に書き換えてください（___ を埋める）。"
+              initialCode={`# スプリントゴール
+- ___
+
+# 完成の定義 (Definition of Done)
+- 受け入れ基準を満たし、関連テストが通っている
+- ___
+- ステージング環境で動作確認が済んでいる`}
+              answer={`# スプリントゴール
+- カート内の商品をクレジットカードで購入できる
+
+# 完成の定義 (Definition of Done)
+- 受け入れ基準を満たし、関連テストが通っている
+- コードレビューが完了している
+- ステージング環境で動作確認が済んでいる`}
+              hints={[
+                "ゴールは個別タスクの寄せ集めでなく一文の目的にする。カート内の商品をクレジットカードで購入できる、と書く",
+                "DoD の品質ゲートとして、コードレビューが完了している、を加える",
+              ]}
+              keywords={[
+                "カート内の商品をクレジットカードで購入できる",
+                "コードレビューが完了している",
+              ]}
             />
           </section>
 

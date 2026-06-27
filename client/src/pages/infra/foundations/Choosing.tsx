@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const renderingStrategies = [
   {
@@ -108,6 +110,17 @@ export default function Choosing() {
               ページの性質ごとに最適な方式を選ぶのが一般的です。
               「アプリ全体で一つ」と考えなくて構いません。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: レンダリング戦略の決定木（CSR / SSR / SSG / ISR）"
+              chart={`flowchart TD
+    Start["このページをどう描く？"] --> Q1{"内容はユーザーごとに変わる？"}
+    Q1 -->|"はい・操作中心"| CSR["CSR（ブラウザで組み立て）"]
+    Q1 -->|"いいえ・共通の内容"| Q2{"更新頻度は？"}
+    Q2 -->|"ほぼ更新しない"| SSG["SSG（ビルド時に作り置き）"]
+    Q2 -->|"たまに更新する"| ISR["ISR（裏で再生成）"]
+    Q2 -->|"常に最新が必要"| SSR["SSR（リクエスト毎に生成）"]`}
+            />
           </section>
 
           {/* モノリス vs マイクロサービス */}
@@ -307,6 +320,53 @@ export default function Choosing() {
                 { label: "すべてを自前運用の常駐サーバーで構築する" },
               ]}
               explanation="小規模では、来るか分からない負荷のために複雑さを先払いすると開発スピードを失います。モノリス＋マネージドで単純に始め、実際にボトルネックが観測されてから必要な部分だけ切り出すほうが、引き返しやすく無駄が少なくなります。"
+            />
+          </section>
+
+          {/* ハンズオン: 決定メモ */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: 選定の決定メモを書く
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              更新がまれで表示速度を最優先したいドキュメントサイト、という前提です。
+              決定木をたどると、どのレンダリング戦略に行き着くかを 結論の `___`
+              に書いてください。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="ドキュメントサイトのレンダリング戦略を決める"
+              description="更新がまれで速さ最優先のドキュメントサイトに最適な戦略を、決定メモの結論に書いてください。"
+              initialCode={`# 決定メモ: ドキュメントサイトのレンダリング戦略
+
+## 前提
+- 更新頻度: ほぼ更新しない
+- 優先する軸: 表示速度・コスト・堅牢さ
+
+## 検討
+- 内容はユーザーごとに変わらない → CSR は外す
+- 更新がまれ → 裏で再生成する ISR まではいらない
+
+## 結論
+採用する戦略: ___`}
+              answer={`# 決定メモ: ドキュメントサイトのレンダリング戦略
+
+## 前提
+- 更新頻度: ほぼ更新しない
+- 優先する軸: 表示速度・コスト・堅牢さ
+
+## 検討
+- 内容はユーザーごとに変わらない → CSR は外す
+- 更新がまれ → 裏で再生成する ISR まではいらない
+
+## 結論
+採用する戦略: SSG`}
+              hints={[
+                "ビルド時に HTML を作り置きして配信を速く安価にする戦略は SSG",
+              ]}
+              keywords={["SSG"]}
             />
           </section>
 

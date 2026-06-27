@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 export default function ComputeModels() {
   return (
@@ -104,6 +106,17 @@ export default function ComputeModels() {
                 </p>
               </div>
             </div>
+
+            <MermaidDiagram
+              title="図: リクエストが来てから応答するまでの流れ（3モデル）"
+              chart={`flowchart TD
+    R["リクエスト到着"] --> Q{"どの実行モデル？"}
+    Q -->|"常駐サーバー"| A1["起動済みプロセスが受ける"] --> A2["処理して応答（速い）"]
+    Q -->|"サーバーレス"| B0{"環境は温まっている？"}
+    B0 -->|"ウォーム"| B1["既存環境を再利用"] --> A2
+    B0 -->|"コールド"| B2["環境確保・コードロード・初期化"] --> B3["処理して応答（初回は遅い）"]
+    Q -->|"エッジ"| C1["近くの拠点で V8 isolate 起動（軽量）"] --> C2["処理して応答（低レイテンシ）"]`}
+            />
           </section>
 
           {/* 比較表 */}
@@ -305,6 +318,46 @@ export async function handler() {
                 { label: "長時間の WebSocket 常時接続" },
               ]}
               explanation="エッジはユーザーに近い拠点で軽量に動き、起動が速く低レイテンシです。一方で実行時間や使える API に制約があり、状態は持てません。そのため、軽くて速さが効く処理（認証・リダイレクト・整形）に向き、重い処理や常時接続は別のモデルに任せます。"
+            />
+          </section>
+
+          {/* ハンズオン: 関数設定 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: エッジで動かす関数を設定する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Vercel
+              の関数は、設定ファイルで「どの実行モデルで動かすか」を指定できます。
+              低レイテンシを優先してユーザーに近い拠点で動かしたいとき、 `runtime`
+              に何を指定すればよいかを埋めてください。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="関数をエッジランタイムで動かす設定を書こう"
+              description="vercel.json で api/geo の関数を、ユーザーに近い拠点で動くランタイムに指定してください。"
+              initialCode={`{
+  "functions": {
+    "api/geo.ts": {
+      "runtime": "___",
+      "memory": 128
+    }
+  }
+}`}
+              answer={`{
+  "functions": {
+    "api/geo.ts": {
+      "runtime": "edge",
+      "memory": 128
+    }
+  }
+}`}
+              hints={[
+                "ユーザーに近い拠点で V8 isolate として動かすランタイムは edge",
+              ]}
+              keywords={["edge"]}
             />
           </section>
 

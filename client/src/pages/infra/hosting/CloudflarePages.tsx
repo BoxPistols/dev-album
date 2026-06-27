@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const bindings = [
   {
@@ -200,6 +202,35 @@ npx wrangler kv namespace create MY_KV`}
                   </p>
                 </div>
               ))}
+            </div>
+
+            <MermaidDiagram
+              title="図: リクエストから Worker、bindings 経由のリソース利用"
+              chart={`flowchart LR
+    U["ユーザーのリクエスト"] --> W["Worker（エッジで実行）"]
+    W --> E["env オブジェクト"]
+    E --> KV["KV<br/>（設定値・キャッシュ）"]
+    E --> D1["D1<br/>（SQL データ）"]
+    E --> R2["R2<br/>（ファイル・画像）"]
+    KV --> RES["レスポンスを生成"]
+    D1 --> RES
+    R2 --> RES
+    RES --> U`}
+            />
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="terminal"
+                title="KV ネームスペースを作成する wrangler コマンドを書こう"
+                description="MY_KV という名前の KV ネームスペースを作成する wrangler コマンドを完成させてください。"
+                initialCode={`npx wrangler kv namespace ___ MY_KV`}
+                answer={`npx wrangler kv namespace create MY_KV`}
+                hints={[
+                  "新しいネームスペースを作るサブコマンドは create",
+                ]}
+                keywords={["create"]}
+              />
             </div>
           </section>
 

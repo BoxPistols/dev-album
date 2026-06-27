@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const ec2Concepts = [
   {
@@ -142,6 +144,30 @@ systemctl start nginx
 
 # 動作確認用のページを配置
 echo "<h1>Hello from EC2</h1>" > /usr/share/nginx/html/index.html`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="terminal"
+              title="EC2 起動時の user-data スクリプトを完成させよう"
+              description="起動と同時に nginx をインストールして起動する user-data スクリプトを完成させてください。1 行目の shebang と、インストール・起動のコマンドを埋めます。"
+              initialCode={`___
+# パッケージを更新して nginx をインストール・起動する
+yum update -y
+yum install -y nginx
+systemctl enable nginx
+systemctl ___ nginx`}
+              answer={`#!/bin/bash
+# パッケージを更新して nginx をインストール・起動する
+yum update -y
+yum install -y nginx
+systemctl enable nginx
+systemctl start nginx`}
+              hints={[
+                "スクリプトの 1 行目は実行するシェルを示す shebang（#!/bin/bash）",
+                "サービスを今すぐ起動する systemctl のサブコマンドは start",
+              ]}
+              keywords={["#!/bin/bash", "start"]}
             />
           </section>
 
@@ -282,6 +308,18 @@ export const handler = async (event) => {
               抽象度が上がるほど運用の手間は減りますが、制御できる範囲は狭くなります。
               処理の性質に合わせて選ぶのが基本です。
             </p>
+
+            <MermaidDiagram
+              title="図: コンピュート選択のディシジョンフロー"
+              chart={`flowchart TD
+    START["処理を動かしたい"] --> Q1{"イベント駆動・断続的な処理？"}
+    Q1 -->|"はい"| LAMBDA["Lambda（サーバーレス）"]
+    Q1 -->|"いいえ"| Q2{"すでにコンテナ化済み？"}
+    Q2 -->|"はい"| ECS["ECS / Fargate（コンテナ）"]
+    Q2 -->|"いいえ"| Q3{"OS まで細かく制御したい？"}
+    Q3 -->|"はい"| EC2["EC2（仮想サーバー）"]
+    Q3 -->|"いいえ"| ECS`}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {models.map((m) => (

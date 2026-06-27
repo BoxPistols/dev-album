@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const bffJobs = [
   {
@@ -119,6 +121,17 @@ export default function WhatIsBff() {
                 </div>
               </div>
             </div>
+
+            <MermaidDiagram
+              title="図: BFF が複数サービスを集約する流れ"
+              chart={`flowchart LR
+    C["クライアント<br/>(ブラウザ / モバイル)"] -->|"1回の問い合わせ"| B["BFF"]
+    B -->|"並行で呼ぶ"| SA["サービスA<br/>(ユーザー)"]
+    B -->|"並行で呼ぶ"| SB["サービスB<br/>(注文)"]
+    SA --> B
+    SB --> B
+    B -->|"集約・整形した1レスポンス"| C`}
+            />
 
             <InfoBox type="info" title="BFF は「翻訳と窓口」">
               BFF
@@ -290,6 +303,45 @@ export async function GET() {
               つ 4 つに増えても、変更は BFF
               の中に閉じ込められ、クライアントのコードは安定したままにできます。
             </p>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="2 つのサービスを並行で集約しよう"
+                description="ユーザーと注文を別々のサービスから取り、往復を1回にまとめます。2つの fetch を同時に走らせる API を補ってください（順番待ちにしない）。"
+                initialCode={`// app/api/dashboard/route.ts（サーバー専用・JSX なし）
+export async function GET() {
+  // 2 つの fetch を同時に走らせて往復を 1 回にまとめる
+  const [userRes, ordersRes] = await Promise.___([
+    fetch("https://users.internal/api/me"),
+    fetch("https://orders.internal/api/recent"),
+  ]);
+
+  const user = await userRes.json();
+  const orders = await ordersRes.json();
+
+  return Response.json({ name: user.displayName, orders: orders.items });
+}`}
+                answer={`// app/api/dashboard/route.ts（サーバー専用・JSX なし）
+export async function GET() {
+  // 2 つの fetch を同時に走らせて往復を 1 回にまとめる
+  const [userRes, ordersRes] = await Promise.all([
+    fetch("https://users.internal/api/me"),
+    fetch("https://orders.internal/api/recent"),
+  ]);
+
+  const user = await userRes.json();
+  const orders = await ordersRes.json();
+
+  return Response.json({ name: user.displayName, orders: orders.items });
+}`}
+                hints={[
+                  "複数の Promise を並行で待ち合わせるのは Promise.all",
+                ]}
+                keywords={["Promise.all"]}
+              />
+            </div>
           </section>
 
           {/* メリットと注意点 */}

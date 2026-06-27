@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const ormRoles = [
   {
@@ -159,6 +161,15 @@ model Order {
               を実行すると、スキーマの差分から SQL
               マイグレーションが生成され、型付きのクライアントも同時に再生成されます。
             </p>
+
+            <MermaidDiagram
+              title="図: スキーマ駆動のワークフロー（定義 → マイグレート → 型付きクエリ）"
+              chart={`flowchart LR
+    S["スキーマを定義<br/>(schema.prisma / pgTable)"] --> M["マイグレーション生成<br/>(差分から SQL)"]
+    M --> A["DB へ適用<br/>(開発・本番に同順で)"]
+    S --> G["型を生成"]
+    G --> Q["型付きクエリ<br/>(列名・型をコンパイル時に検査)"]`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -294,6 +305,36 @@ const result = await db
   .from(users)
   .where(eq(users.email, "hanako@example.com"));`}
             />
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="Drizzle の pgTable に email 列を定義しよう"
+                description="users テーブルを Drizzle の pgTable で定義します。email を「NOT NULL かつ UNIQUE」な text 列にする定義を完成させてください。"
+                initialCode={`import { pgTable, bigserial, text } from "drizzle-orm/pg-core";
+
+export const users = pgTable("users", {
+  id: bigserial("id", { mode: "number" }).primaryKey(),
+  // email は必須かつ重複不可
+  email: text("email").___,
+  name: text("name").notNull(),
+});`}
+                answer={`import { pgTable, bigserial, text } from "drizzle-orm/pg-core";
+
+export const users = pgTable("users", {
+  id: bigserial("id", { mode: "number" }).primaryKey(),
+  // email は必須かつ重複不可
+  email: text("email").notNull().unique(),
+  name: text("name").notNull(),
+});`}
+                hints={[
+                  "NOT NULL は .notNull() で表す",
+                  "重複不可（UNIQUE）は .unique() を続けて呼ぶ",
+                ]}
+                keywords={["notNull()", "unique()"]}
+              />
+            </div>
           </section>
 
           {/* 生 SQL との使い分け */}

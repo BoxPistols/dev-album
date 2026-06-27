@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const baasFeatures = [
   {
@@ -116,6 +117,21 @@ export default function WhatIsBaas() {
               BaaS は「サーバを一切書かない」ための道具ではなく、
               「どのアプリにも共通する定番部分を自作しない」ための道具だと捉えると過不足がありません。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: アプリと BaaS が提供する機能ブロック"
+              chart={`flowchart TD
+    A["アプリ(クライアント)"] --> B["BaaS"]
+    subgraph B_INNER["BaaS が肩代わりする機能"]
+      direction LR
+      AU["認証(Auth)"]
+      DB["データベース(DB)"]
+      ST["ストレージ(Storage)"]
+      RT["リアルタイム"]
+      FN["サーバーレス関数"]
+    end
+    B --> B_INNER`}
+            />
           </section>
 
           {/* 従来構成との違い */}

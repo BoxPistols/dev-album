@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const labels = [
   {
@@ -99,6 +101,29 @@ export default function Culture() {
             </p>
           </section>
 
+          {/* フィードバックの言い換え図 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              フィードバックの組み立て方
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              同じ指摘でも、主語と語り口を変えるだけで受け取り方が変わります。
+              気づきをそのままぶつけず、コードに向けて、相談の形に整えてから出します。
+            </p>
+            <MermaidDiagram
+              title="図: フィードバックの整え方"
+              chart={`flowchart LR
+    F["気づき"] --> S{"主語は人?"}
+    S -->|"はい"| FIX1["主語をコードに置き換える<br/>『あなた』→『このコード』"]
+    S -->|"いいえ"| T{"命令形?"}
+    FIX1 --> T
+    T -->|"はい"| FIX2["質問・相談の形に<br/>『こうして』→『こうするとどう?』"]
+    T -->|"いいえ"| L["ラベルを付ける<br/>(nitpick: / suggestion: 等)"]
+    FIX2 --> L
+    L --> O["送信できるコメント"]`}
+            />
+          </section>
+
           {/* 人ではなくコードを批評する */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -164,6 +189,19 @@ question: この分岐はどんなケースを想定していますか？ 意図
 # label と任意の decoration を組み合わせる書き方
 suggestion (non-blocking): この命名は好みなので、対応は任意で大丈夫です。`}
             />
+
+            <div className="mt-6">
+              <CodingChallenge
+                preview
+                previewType="markdown"
+                title="Conventional Comment のラベルを埋めよう"
+                description="変数名を変えると意図が伝わりやすそう、という任意の細かい提案です。先頭に付ける正式なラベルを埋めてください。"
+                initialCode={`___: 変数名を items より userItems にすると意図が伝わりやすそうです。`}
+                answer={`nitpick: 変数名を items より userItems にすると意図が伝わりやすそうです。`}
+                hints={["些細だが直しておきたい任意の指摘を表すラベルは nitpick"]}
+                keywords={["nitpick"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 1 */}

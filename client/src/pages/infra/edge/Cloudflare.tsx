@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const products = [
   {
@@ -165,6 +167,21 @@ export default function Cloudflare() {
               CDN や WAF が効くのは proxied
               のときだけ、という点が混乱しやすいポイントです。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: リクエストが Cloudflare のエッジを通る流れ"
+              chart={`flowchart LR
+    U["利用者"] -->|"DNSで案内"| CF["Cloudflare エッジ"]
+    subgraph CF_INNER["エッジで処理"]
+      direction TB
+      W["WAF / DDoS 対策"] --> T["TLS 終端"]
+      T --> CA["CDN キャッシュ"]
+    end
+    CF --> CF_INNER
+    CA -->|"HIT"| U
+    CA -->|"MISS"| O["オリジン"]
+    O --> CA`}
+            />
           </section>
 
           {/* 製品グリッド */}
@@ -353,6 +370,21 @@ export default function Cloudflare() {
               ここでは「Cloudflare
               には自前のコードをエッジで動かす層がある」という位置づけを押さえれば十分です。
             </p>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="terminal"
+                title="ハンズオン: Worker をデプロイするコマンドを書こう"
+                description="wrangler CLI で Worker を Cloudflare のエッジへ公開するサブコマンドを書いてください。"
+                initialCode={`# Worker をエッジへ公開する
+wrangler ___`}
+                answer={`# Worker をエッジへ公開する
+wrangler deploy`}
+                hints={["公開（デプロイ）するサブコマンドは deploy"]}
+                keywords={["deploy"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 2 */}

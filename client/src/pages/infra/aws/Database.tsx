@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const managedTakeover = [
   {
@@ -110,6 +112,17 @@ export default function Database() {
               のスタンバイは通常は読み取りに使わず、
               あくまで障害時の切り替え先です。混同しやすいので、目的で分けて理解しておきましょう。
             </p>
+
+            <MermaidDiagram
+              title="図: RDS のマルチ AZ とリードレプリカの構成"
+              chart={`flowchart TD
+    APP["アプリケーション"] -->|"書き込み・読み取り"| PRI["プライマリ（AZ-a）"]
+    PRI -.->|"同期レプリケーション"| STB["スタンバイ（AZ-c・障害時に昇格）"]
+    PRI -.->|"非同期レプリケーション"| RR1["リードレプリカ 1"]
+    PRI -.->|"非同期レプリケーション"| RR2["リードレプリカ 2"]
+    APP -->|"参照のみ"| RR1
+    APP -->|"参照のみ"| RR2`}
+            />
           </section>
 
           {/* Aurora */}
@@ -182,6 +195,30 @@ aws dynamodb query \\
   --table-name Orders \\
   --key-condition-expression "userId = :u" \\
   --expression-attribute-values '{":u": {"S": "user-42"}}'`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="terminal"
+              title="DynamoDB テーブルを作成するコマンドを完成させよう"
+              description="userId をパーティションキー（HASH）にした Orders テーブルを作成します。サブコマンドと key-schema のキータイプを埋めてください。"
+              initialCode={`# userId をパーティションキーにした Orders テーブルを作る
+aws dynamodb ___ \\
+  --table-name Orders \\
+  --attribute-definitions AttributeName=userId,AttributeType=S \\
+  --key-schema AttributeName=userId,KeyType=___ \\
+  --billing-mode PAY_PER_REQUEST`}
+              answer={`# userId をパーティションキーにした Orders テーブルを作る
+aws dynamodb create-table \\
+  --table-name Orders \\
+  --attribute-definitions AttributeName=userId,AttributeType=S \\
+  --key-schema AttributeName=userId,KeyType=HASH \\
+  --billing-mode PAY_PER_REQUEST`}
+              hints={[
+                "テーブルを作るサブコマンドは create-table",
+                "パーティションキーの KeyType は HASH（ソートキーは RANGE）",
+              ]}
+              keywords={["create-table", "HASH"]}
             />
           </section>
 

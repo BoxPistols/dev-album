@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const values = [
   {
@@ -275,6 +277,22 @@ export default function WhatIsAgile() {
                 </tbody>
               </table>
             </div>
+
+            <MermaidDiagram
+              title="図: ウォーターフォール（直列）とアジャイル（反復ループ）"
+              chart={`flowchart TD
+    subgraph WF["ウォーターフォール（直列）"]
+      direction LR
+      W1["要件定義"] --> W2["設計"] --> W3["実装"] --> W4["テスト"] --> W5["リリース"]
+    end
+    subgraph AG["アジャイル（反復ループ）"]
+      direction LR
+      A1["計画"] --> A2["開発"] --> A3["レビュー"]
+      A3 -->|"学びを反映"| A1
+      A3 --> A4["増分リリース"]
+    end
+    WF -.->|"後戻りコスト大"| AG`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -386,6 +404,51 @@ export default function WhatIsAgile() {
                 { label: "計画を立てるとスプリントが回らなくなるから" },
               ]}
               explanation="アジャイルは計画を否定しません。一度立てた計画に固執せず、スプリントごとに見直し更新し続けることを重視します。「計画」より「計画する行為（学びへの適応）」に価値を置く、と捉えると正確です。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: 大きな要求を増分に分割する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              漸進的デリバリーの核は、大きな要求を「それ自体で価値のある小さな増分」に割ることです。
+              下のテンプレートの空欄を埋めて、ログイン機能を 3 つの増分に分割してみましょう。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="大きな要求を反復可能な増分に分割しよう"
+              description="「ユーザー認証機能」という大きな要求を、各回で動いて触れる 3 つの増分に分割します。Increment 1 の見出しを、まず最小限で動く形にあたる『メール+パスワードでログインできる』に書き換えてください（___ を埋める）。"
+              initialCode={`# 要求: ユーザー認証機能
+
+大きな要求を、毎回「動いて触れる」増分に分割する。
+
+## Increment 1（最小で動く）
+- ___
+
+## Increment 2（次に積む）
+- パスワードリセットを追加する
+
+## Increment 3（さらに積む）
+- ソーシャルログインを追加する`}
+              answer={`# 要求: ユーザー認証機能
+
+大きな要求を、毎回「動いて触れる」増分に分割する。
+
+## Increment 1（最小で動く）
+- メール+パスワードでログインできる
+
+## Increment 2（次に積む）
+- パスワードリセットを追加する
+
+## Increment 3（さらに積む）
+- ソーシャルログインを追加する`}
+              hints={[
+                "最小増分はそれ単体でログインが成立する形にする。メールとパスワードでログインできる、と書く",
+              ]}
+              keywords={["メール+パスワードでログインできる"]}
             />
           </section>
 

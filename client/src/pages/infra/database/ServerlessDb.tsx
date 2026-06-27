@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const services = [
   {
@@ -197,6 +199,15 @@ export default function ServerlessDb() {
               </div>
             </div>
 
+            <MermaidDiagram
+              title="図: サーバーレス関数からプール経由で接続する流れ"
+              chart={`flowchart LR
+    F1["関数A"] --> P["プーラー(PgBouncer)"]
+    F2["関数B"] --> P
+    F3["関数C(数百同時)"] --> P
+    P -->|"少数の実接続にまとめる"| PG["PostgreSQL"]`}
+            />
+
             <InfoBox
               type="info"
               title="transaction モードと prepared statement"
@@ -244,6 +255,23 @@ export async function getUser(id: number) {
               SQL インジェクションを防げます。エッジで動かす場合は、 この HTTP
               ドライバを選ぶことで TCP 制約を回避できます。
             </p>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="プール済みエンドポイントを指す接続文字列を書こう"
+                description="サーバーレス関数の接続枯渇を避けるには、ダイレクト接続ではなくプーラー(PgBouncer)経由のホストを指定します。pgbouncer=true を付けてプールモードを有効にした接続文字列を完成させてください。"
+                initialCode={`# .env — プール経由の接続文字列
+# ダイレクト接続ではなく、プーラー経由のホストを指定する
+DATABASE_URL="postgres://user:pass@db.pooler.example.com:6543/app?___=true"`}
+                answer={`# .env — プール経由の接続文字列
+# ダイレクト接続ではなく、プーラー経由のホストを指定する
+DATABASE_URL="postgres://user:pass@db.pooler.example.com:6543/app?pgbouncer=true"`}
+                hints={["プーラー経由を示すクエリパラメータは pgbouncer"]}
+                keywords={["pgbouncer=true"]}
+              />
+            </div>
           </section>
 
           {/* DB ブランチング */}

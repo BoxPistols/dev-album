@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const iamEntities = [
   {
@@ -125,6 +127,17 @@ export default function IamAccount() {
               ))}
             </div>
 
+            <MermaidDiagram
+              title="図: ユーザー・グループ・ロール・ポリシーの関係"
+              chart={`flowchart TD
+    U["ユーザー（人）"] --> GRP["グループ（developers）"]
+    GRP -->|"ポリシーを付与"| P1["ポリシー（許可ルール）"]
+    SVC["サービス（EC2 / Lambda）"] -->|"引き受け"| ROLE["ロール（一時権限）"]
+    ROLE -->|"ポリシーを付与"| P2["ポリシー（許可ルール）"]
+    P1 --> RES["AWS リソース（S3 など）"]
+    P2 --> RES`}
+            />
+
             <p className="text-muted-foreground mt-6 leading-relaxed">
               権限の付け方には「ユーザーに直接付ける」「グループ経由で付ける」「ロールを引き受けて付ける」の
               選択肢があります。人にはグループ、サービスにはロール、という使い分けを基本にすると整理しやすくなります。
@@ -173,6 +186,56 @@ export default function IamAccount() {
               この「許可は加算、拒否は最優先」のルールを覚えておくと、
               権限の挙動を予測しやすくなります。
             </p>
+
+            <MermaidDiagram
+              title="図: ポリシー評価の流れ（明示的 Deny が最優先）"
+              chart={`flowchart TD
+    REQ["リクエスト（この操作を許可？）"] --> D{"明示的な Deny がある？"}
+    D -->|"はい"| DENY["拒否（最優先）"]
+    D -->|"いいえ"| A{"明示的な Allow がある？"}
+    A -->|"はい"| ALLOW["許可"]
+    A -->|"いいえ"| DEF["暗黙の拒否（デフォルト）"]`}
+            />
+
+            <p className="text-muted-foreground mt-6 mb-4 leading-relaxed">
+              実際に書いてみましょう。下のポリシーは、特定の S3
+              バケットへの読み取りだけを許可するものです。Effect・Action・Resource
+              の穴を埋めてください。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="S3 読み取り許可の IAM ポリシーを完成させよう"
+              description="特定バケットへの読み取り（s3:GetObject）を「許可」する IAM ポリシーの Effect・Action・Resource を埋めてください。"
+              initialCode={`{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowReadOnly",
+      "Effect": "___",
+      "Action": "s3:___",
+      "Resource": "arn:aws:s3:::my-example-bucket/*"
+    }
+  ]
+}`}
+              answer={`{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowReadOnly",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-example-bucket/*"
+    }
+  ]
+}`}
+              hints={[
+                "許可するときの Effect は Allow（拒否は Deny）",
+                "オブジェクトを読み取るアクションは GetObject",
+              ]}
+              keywords={["Allow", "GetObject"]}
+            />
           </section>
 
           {/* Quiz 1 */}

@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const computeKinds = [
   {
@@ -149,6 +151,17 @@ export default function Vercel() {
               呼び出しまで含めてレビューでき、デザイナーや非エンジニアも
               ブラウザを開くだけで確認に参加できます。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: git push からデプロイまでのフロー"
+              chart={`flowchart TD
+    P["git push / PR 作成"] --> D["Vercel が変更を検知"]
+    D --> B["フレームワークを自動検出してビルド"]
+    B --> J{"本番ブランチへの<br/>マージか？"}
+    J -->|"はい"| PR["Production Deploy<br/>（独自ドメイン）"]
+    J -->|"いいえ"| PV["Preview Deploy<br/>（固有 URL）"]
+    PV --> R["PR にプレビュー URL を表示"]`}
+            />
           </section>
 
           {/* Serverless と Edge */}
@@ -284,6 +297,29 @@ export async function GET(request: Request) {
   ]
 }`}
             />
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="vercel.json のビルド設定を埋めよう"
+                description="ビルドコマンドに npm run build、出力ディレクトリに dist を指定する vercel.json を完成させてください。"
+                initialCode={`{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "___",
+  "outputDirectory": "dist"
+}`}
+                answer={`{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}`}
+                hints={[
+                  "buildCommand には本番ビルドを実行するスクリプトを入れる。Vite/CRA なら npm run build",
+                ]}
+                keywords={["npm run build"]}
+              />
+            </div>
           </section>
 
           {/* 料金感と制約 */}

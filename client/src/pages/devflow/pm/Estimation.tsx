@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const scaleItems = [
   {
@@ -182,6 +184,17 @@ export default function Estimation() {
               </table>
             </div>
 
+            <MermaidDiagram
+              title="図: プランニングポーカーの流れ"
+              chart={`flowchart TD
+    A["ストーリーと受け入れ基準を確認"] --> B["各自がカードを選ぶ"]
+    B --> C["一斉に提示する"]
+    C --> D{"見積もりは揃ったか"}
+    D -->|"揃った"| E["ポイント確定"]
+    D -->|"割れた"| F["最大・最小の人が根拠を説明"]
+    F --> B`}
+            />
+
             <InfoBox type="warning" title="平均を取って終わりにしない">
               数字が割れたとき、機械的に平均して切り上げるのは避けましょう。
               ズレているのは、誰かが知っている前提や見落としているリスクのサインです。
@@ -277,6 +290,41 @@ export default function Estimation() {
               だからこそ「6 スプリントで完了」と断言するより、
               幅を持たせて伝える方が誠実で、後の信頼にもつながります。
             </p>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="markdown"
+                title="ベロシティ（完了ポイントの合計）を計算しよう"
+                description="あるスプリントで完了したストーリーのポイントを合計して、このスプリントのベロシティを求めてください。___ を計算結果に置き換えます。"
+                initialCode={`# スプリント 5 の完了ストーリー
+
+- ログイン改善: 3 ポイント
+- 検索フィルタ: 5 ポイント
+- 通知設定: 2 ポイント
+- 再注文ボタン: 8 ポイント
+
+# 未完了（カウントしない）
+- 決済リファクタ: 5 ポイント（次スプリントへ持ち越し）
+
+このスプリントのベロシティ = 3 + 5 + 2 + 8 = ___ ポイント`}
+                answer={`# スプリント 5 の完了ストーリー
+
+- ログイン改善: 3 ポイント
+- 検索フィルタ: 5 ポイント
+- 通知設定: 2 ポイント
+- 再注文ボタン: 8 ポイント
+
+# 未完了（カウントしない）
+- 決済リファクタ: 5 ポイント（次スプリントへ持ち越し）
+
+このスプリントのベロシティ = 3 + 5 + 2 + 8 = 18 ポイント`}
+                hints={[
+                  "ベロシティは完了したストーリーのポイントだけを合計する（持ち越しは含めない）",
+                ]}
+                keywords={["18"]}
+              />
+            </div>
           </section>
 
           {/* 不確実性のコーン */}

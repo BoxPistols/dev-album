@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const concepts = [
   {
@@ -169,6 +171,15 @@ export default function Containers() {
               ))}
             </div>
 
+            <MermaidDiagram
+              title="図: Dockerfile からコンテナ実行までの流れ"
+              chart={`flowchart LR
+    D["Dockerfile"] -->|"build"| I["イメージ（レイヤの集まり）"]
+    I -->|"push"| RG["レジストリ"]
+    RG -->|"pull"| H["別ホスト"]
+    I -->|"run"| C["コンテナ（実行中の実体）"]`}
+            />
+
             <InfoBox type="info" title="レイヤの順番がキャッシュ効率を決める">
               変わりにくいもの（依存のインストール）を先に、
               変わりやすいもの（アプリのソース）を後に置くと、
@@ -232,6 +243,45 @@ CMD ["nginx", "-g", "daemon off;"]`}
               実行イメージにはコンパイラも開発依存も含まれず、
               軽量で攻撃面の小さいイメージになります。
             </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="マルチステージ Dockerfile を完成させよう"
+              description="build ステージで作った成果物を runtime ステージへコピーする部分を埋めてください。___ を正しい命令・参照に置き換えます。"
+              initialCode={`# build ステージ: 成果物を作る
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# runtime ステージ: 成果物だけを軽量イメージへ
+FROM nginx:alpine AS runtime
+// build ステージの /app/dist だけをコピーする
+COPY ___ /app/dist /usr/share/nginx/html
+EXPOSE 80
+___ ["nginx", "-g", "daemon off;"]`}
+              answer={`# build ステージ: 成果物を作る
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# runtime ステージ: 成果物だけを軽量イメージへ
+FROM nginx:alpine AS runtime
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]`}
+              hints={[
+                "前のステージから取り出すには --from=build を COPY に付ける",
+                "コンテナ起動時に実行するコマンドを指定する命令は CMD",
+              ]}
+              keywords={["--from=build", "CMD"]}
+            />
           </section>
 
           <section>

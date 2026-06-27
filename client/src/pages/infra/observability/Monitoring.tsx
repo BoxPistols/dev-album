@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const pillars = [
   {
@@ -117,6 +119,17 @@ export default function Monitoring() {
               ))}
             </div>
 
+            <MermaidDiagram
+              title="図: テレメトリの収集から通知までの流れ"
+              chart={`flowchart LR
+    APP["アプリ"] -->|"メトリクス"| COL["コレクター（OTel）"]
+    APP -->|"ログ"| COL
+    APP -->|"トレース"| COL
+    COL --> DB["ダッシュボード"]
+    COL --> AL["アラート"]
+    AL -->|"症状を検知"| ONC["オンコール通知"]`}
+            />
+
             <InfoBox type="info" title="3つは置き換えではなく補完">
               メトリクスは「何かおかしい」を安く知らせ、
               ログは「具体的に何が起きたか」を記録し、
@@ -158,6 +171,34 @@ export default function Monitoring() {
               <code>level</code> や <code>service</code> といった共通のキーを
               チームで揃えておくと、サービス横断で同じ条件で検索できます。
             </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="構造化ログの JSON を完成させよう"
+              description="ログとトレースを突き合わせるためのキーと、深刻度を表すキーを埋めてください。___ を正しいキー名に置き換えます。"
+              initialCode={`{
+  "timestamp": "2026-06-27T09:12:33.482Z",
+  "___": "error",
+  "service": "checkout-api",
+  "___": "a1b2c3d4e5f60718",
+  "message": "payment provider timeout",
+  "statusCode": 504
+}`}
+              answer={`{
+  "timestamp": "2026-06-27T09:12:33.482Z",
+  "level": "error",
+  "service": "checkout-api",
+  "traceId": "a1b2c3d4e5f60718",
+  "message": "payment provider timeout",
+  "statusCode": 504
+}`}
+              hints={[
+                "ログの深刻度（error / warn / info）を表す慣用キーは level",
+                "トレースと突き合わせるための ID を入れるキーは traceId",
+              ]}
+              keywords={["level", "traceId"]}
+            />
           </section>
 
           <section>

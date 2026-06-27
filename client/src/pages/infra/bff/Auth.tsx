@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const sessionVsJwt = [
   {
@@ -236,6 +238,21 @@ export default function Auth() {
               が保持し、ブラウザの JavaScript には渡しません。
             </p>
 
+            <MermaidDiagram
+              title="図: ログインから HttpOnly Cookie を使った後続リクエストまで"
+              chart={`sequenceDiagram
+    participant B as "ブラウザ"
+    participant F as "BFF"
+    participant A as "認証サービス"
+    B->>F: "ログイン要求(email/password)"
+    F->>A: "資格情報を検証"
+    A-->>F: "セッショントークン"
+    F-->>B: "Set-Cookie: HttpOnly; Secure; SameSite"
+    Note over B: "JS から読めない Cookie として保持"
+    B->>F: "後続リクエスト(Cookie 自動送信)"
+    F-->>B: "認証済みレスポンス"`}
+            />
+
             <CodeBlock
               language="ts"
               title="app/api/login/route.ts — HttpOnly Cookie をセットする"
@@ -277,6 +294,25 @@ export async function POST(request: Request) {
               認証トークンは HttpOnly Cookie に置くか、BFF
               が保持して直接はクライアントに渡さない設計にします。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="セッション Cookie の属性を埋めよう"
+                description="セッション用 Cookie を安全側に倒します。JS から読めなくする属性・HTTPS 限定にする属性・別サイトからの送信を抑える属性を、Set-Cookie ヘッダに補ってください。"
+                initialCode={`# レスポンスの Set-Cookie ヘッダ
+# JS から不可視 / HTTPS 限定 / クロスサイト送信を抑制
+Set-Cookie: session=abc123; ___; Secure; SameSite=Lax; Path=/; Max-Age=86400`}
+                answer={`# レスポンスの Set-Cookie ヘッダ
+# JS から不可視 / HTTPS 限定 / クロスサイト送信を抑制
+Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=86400`}
+                hints={[
+                  "JavaScript から Cookie を読めなくする属性は HttpOnly",
+                ]}
+                keywords={["HttpOnly"]}
+              />
+            </div>
           </section>
 
           {/* OAuth2 / OIDC */}

@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const mergeStrategies = [
   {
@@ -74,6 +76,34 @@ export default function PullRequest() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* PR のライフサイクル図 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              PR のライフサイクル
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              PR は「開く → CI → レビュー → 承認 → マージ」という流れで進みます。
+              各ステップで誰が何をするかを整理すると、運用の勘所が掴めます。
+            </p>
+            <MermaidDiagram
+              title="図: PR のライフサイクル"
+              chart={`sequenceDiagram
+    participant A as "作者"
+    participant G as "GitHub"
+    participant CI as "CI"
+    participant R as "レビュアー"
+    A->>G: "PR を open"
+    G->>CI: "チェック起動"
+    CI-->>G: "Lint / 型 / テスト 結果"
+    G->>R: "レビュー依頼"
+    R->>A: "コメント (指摘・質問)"
+    A->>G: "修正を push"
+    G->>CI: "再チェック"
+    R->>G: "Approve"
+    A->>G: "Merge"`}
+            />
+          </section>
+
           {/* 小さい PR の価値 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -234,6 +264,21 @@ Closes #
               ブランチ保護で「コードオーナーのレビューを必須」にすれば、
               担当領域の変更が必ずその領域の詳しい人を通る運用になります。
             </p>
+
+            <div className="mt-6">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="CODEOWNERS の1行を書こう"
+                description="client/src/ui 配下を変更した PR に @org/frontend を自動でレビュアー割り当てする CODEOWNERS の行を完成させてください。"
+                initialCode={`# パターン  担当者/チーム
+/client/src/ui/      ___`}
+                answer={`# パターン  担当者/チーム
+/client/src/ui/      @org/frontend`}
+                hints={["担当チームは @ から始まる @org/frontend"]}
+                keywords={["@org/frontend"]}
+              />
+            </div>
           </section>
 
           {/* マージ戦略 */}

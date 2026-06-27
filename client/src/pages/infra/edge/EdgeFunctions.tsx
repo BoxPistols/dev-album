@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const useCases = [
   {
@@ -244,6 +246,21 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
               で適用範囲を絞るのがコツです。
             </InfoBox>
 
+            <MermaidDiagram
+              title="図: リクエストが middleware を通ってページに届くまで"
+              chart={`sequenceDiagram
+    participant U as "利用者"
+    participant M as "middleware(エッジ)"
+    participant P as "ページ / ルート"
+    U->>M: "リクエスト"
+    alt "未認証"
+      M-->>U: "ログインへリダイレクト"
+    else "認証済み"
+      M->>P: "next() で通過"
+      P-->>U: "ページを返す"
+    end`}
+            />
+
             <InfoBox type="info" title="この領域は動きが速い（2026 年時点）">
               エッジ実行の API は標準化が進む一方で、各プラットフォームの「推奨」は
               変わり続けています。たとえば Vercel は、単独の Edge Functions より
@@ -318,6 +335,25 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
               Node
               ランタイムのサーバレス関数に任せると役割分担が明確になります。
             </p>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="ハンズオン: middleware の matcher を埋めよう"
+                description="middleware を /dashboard 以下のパスにだけ適用する matcher を書いてください。:path* で配下のパスをまとめて指定します。"
+                initialCode={`// middleware.ts の末尾。/dashboard 以下にだけ適用する
+// /dashboard とその配下すべてにマッチさせる
+export const config = { matcher: ["___"] };`}
+                answer={`// middleware.ts の末尾。/dashboard 以下にだけ適用する
+// /dashboard とその配下すべてにマッチさせる
+export const config = { matcher: ["/dashboard/:path*"] };`}
+                hints={[
+                  "/dashboard 配下を再帰的に指す書き方は /dashboard/:path*",
+                ]}
+                keywords={["/dashboard/:path*"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 2 */}

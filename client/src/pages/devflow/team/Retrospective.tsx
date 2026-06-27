@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const methods = [
   {
@@ -84,6 +86,16 @@ export default function Retrospective() {
               「機能が良かったか」ではなく「その機能を、どんなやり方で作ったか」を振り返ります。
               プロセスを改善できれば、次に作るものすべての質が底上げされます。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: ふりかえりの基本フロー"
+              chart={`flowchart LR
+    A["場を整える"] --> B["データを集める"]
+    B --> C["気づきを引き出す"]
+    C --> D["アクションを決める"]
+    D --> E["ふりかえりを締める"]
+    E -->|"次の周回へ"| A`}
+            />
           </section>
 
           {/* 手法の比較 */}
@@ -216,6 +228,50 @@ export default function Retrospective() {
               個に絞り、「誰が・いつまでに・何を」を具体化します。
               次回その達成を確認することで、改善のループが回り始めます。
             </InfoBox>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="KPT ボードを埋めよう"
+              description="Keep / Problem / Try の 3 枠に見出しを入れ、Try には「誰が・いつまでに・何を」がわかる具体的なアクションを 1 つ書いてください。___ を置き換えます。"
+              initialCode={`# スプリント 12 ふりかえり（KPT）
+
+## ___1
+
+- 朝会を 10 分で切り上げられた
+- レビューの返信が早かった
+
+## ___2
+
+- リリース直前にテストが詰まった
+- 仕様の確認が口頭だけで記録に残らなかった
+
+## ___3
+
+- ___4`}
+              answer={`# スプリント 12 ふりかえり（KPT）
+
+## Keep
+
+- 朝会を 10 分で切り上げられた
+- レビューの返信が早かった
+
+## Problem
+
+- リリース直前にテストが詰まった
+- 仕様の確認が口頭だけで記録に残らなかった
+
+## Try
+
+- 山田が次スプリント開始までに、仕様確認を ADR に残す運用を試す`}
+              hints={[
+                "続けたいことを書く枠は Keep",
+                "困ったこと・うまくいかなかったことは Problem",
+                "次に試すことは Try",
+                "Try は「誰が・いつまでに・何を」がわかる 1 つの具体的アクションにする",
+              ]}
+              keywords={["Keep", "Problem", "Try", "試す"]}
+            />
           </section>
 
           {/* カイゼンと心理的安全性 */}

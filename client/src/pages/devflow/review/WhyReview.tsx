@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const benefits = [
   {
@@ -62,6 +64,29 @@ export default function WhyReview() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* レビューの価値ループ図 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              レビューが生む価値のループ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              レビューは一度きりの検査ではなく、作者とレビュアーの間で回り続ける循環です。
+              欠陥検出・知識共有・一貫性は、この循環の中で繰り返し生まれます。
+            </p>
+            <MermaidDiagram
+              title="図: レビューの価値ループ"
+              chart={`flowchart LR
+    A["作者: PR を出す"] --> R["レビュアー: コードを読む"]
+    R --> F["フィードバック<br/>(指摘・質問・称賛)"]
+    F --> A
+    R -->|"意図を把握"| K["知識共有<br/>(バス係数↑)"]
+    F -->|"基準をすり合わせ"| C["一貫性の維持"]
+    K --> Q["チームの共有資産"]
+    C --> Q
+    Q -->|"次の PR へ"| A`}
+            />
+          </section>
+
           {/* 品質・欠陥の早期検出 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -256,6 +281,35 @@ export default function WhyReview() {
                 { label: "指摘を一切せず承認だけする立場になる" },
               ]}
               explanation="レビューを協働と捉えると、レビュアーと作者は対立せず「このコードを良くする」という共通の目的を共有します。門番モデルは対立や防御を生みやすく、本来の目的（品質・知識共有）から離れがちです。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: レビューの目的を言語化する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              レビュー依頼に添える短い説明を書いてみましょう。
+              「なぜレビューしてほしいか（目的）」を一言で示すと、レビュアーは焦点を絞れます。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="レビュー依頼の目的を埋めよう"
+              description="レビュー依頼メモの目的欄を埋めてください。レビューは粗探しではなく、欠陥の早期検出と知識共有が目的です。"
+              initialCode={`## レビュー依頼
+
+このPRの目的: ___ の早期検出と知識共有
+
+特に見てほしい: 認可まわりの分岐`}
+              answer={`## レビュー依頼
+
+このPRの目的: 欠陥 の早期検出と知識共有
+
+特に見てほしい: 認可まわりの分岐`}
+              hints={["本番より手前で止めたい対象は『欠陥』"]}
+              keywords={["欠陥"]}
             />
           </section>
 

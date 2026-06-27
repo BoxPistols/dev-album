@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const heuristics = [
   {
@@ -154,6 +156,18 @@ export default function DesignReview() {
               対象をデザインそのものに限定します。
               作り手を守ることで、率直な意見が出しやすい場になります。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: デザインレビューの進め方"
+              chart={`flowchart TD
+    G["作り手: ゴールと制約を共有"] --> F["見てほしい焦点を明示"]
+    F --> H["観点で評価<br/>(ヒューリスティック・a11y・一貫性)"]
+    H --> I{"目的を果たせている?"}
+    I -->|"いいえ"| C["観察・影響・提案で<br/>フィードバック"]
+    I -->|"はい"| OK["承認"]
+    C --> RV["作り手が改善"]
+    RV --> H`}
+            />
           </section>
 
           {/* 10ヒューリスティック */}
@@ -320,6 +334,31 @@ export default function DesignReview() {
                 { label: "「自分ならこう作る」と完成形を提示する" },
               ]}
               explanation="目的ベースのフィードバックは、解決策を押し付けず「観察・影響・提案」で伝えます。色の指定だけでは意図が伝わらず、作り手が別の良い解を検討する余地もなくなります。目的を共有すれば、複数の解決策を一緒に探せます。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: ヒューリスティックに紐づく批評を書く
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              批評は感想ではなく、根拠となる観点に紐づけると伝わります。
+              保存中なのに何のフィードバックも出ない画面への指摘を、対応するヒューリスティックの名前で埋めましょう。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="批評コメントを観点に紐づけよう"
+              description="保存処理中に状態が表示されない問題は、ニールセンの経験則のどれに反するか。空欄に観点名を埋めてください（ヒント: 今どういう状態かを伝える原則）。"
+              initialCode={`観点: ___ の可視化
+観察: 保存ボタンを押しても進行中の表示がなく、完了したか分からない
+提案: ローディングと完了のフィードバックを追加する`}
+              answer={`観点: システム状態 の可視化
+観察: 保存ボタンを押しても進行中の表示がなく、完了したか分からない
+提案: ローディングと完了のフィードバックを追加する`}
+              hints={["今どういう状態かを伝える原則は『システム状態の可視化』"]}
+              keywords={["システム状態"]}
             />
           </section>
 

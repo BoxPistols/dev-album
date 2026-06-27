@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const adrSections = [
   {
@@ -118,6 +120,26 @@ export default function Documentation() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: ADR のライフサイクル（状態遷移）"
+              chart={`stateDiagram-v2
+    [*] --> Proposed
+    Proposed --> Accepted: "レビューで合意"
+    Proposed --> Rejected: "採用しないと決定"
+    Accepted --> Deprecated: "もう使わない"
+    Accepted --> Superseded: "新しい ADR で置き換え"
+    Superseded --> [*]
+    Deprecated --> [*]
+    Rejected --> [*]`}
+            />
+
+            <InfoBox type="info" title="状態は消さずに「上書き」する">
+              Accepted（承認済み）の決定が古くなったら、その ADR
+              を削除せず Superseded（置き換え済み）に変え、
+              新しい ADR から参照します。 過去の判断と現在の判断が連なって残ることで、
+              「なぜ変えたのか」まで辿れます。
+            </InfoBox>
           </section>
 
           {/* ADR テンプレート */}
@@ -162,6 +184,58 @@ React 標準の Context と hooks で対応する。
               ADR は過去の判断を消さず、新しい ADR で上書きします。
               「なぜ前はこう決め、なぜ今変えるのか」が連なって残ることで、判断の履歴そのものが資産になります。
             </InfoBox>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="ADR の 4 セクションを埋めよう"
+              description="状態・背景・決定・結果の見出しと、Status 欄の状態を埋めて ADR を完成させてください。___ を適切な語に置き換えます。"
+              initialCode={`# ADR-0002: API クライアントを fetch に統一する
+
+## ___1
+
+承認済み（2026-06-27）
+
+## ___2
+
+複数のライブラリで HTTP 通信が混在し、エラー処理がばらついている。
+標準の fetch なら追加依存なしで揃えられる。
+
+## ___3
+
+新規コードの HTTP 通信は標準の fetch に統一する。
+
+## ___4
+
+- 良い点: 依存が減り、エラー処理の書き方が揃う
+- 諦めた点: 一部の便利機能は自前で補う必要がある`}
+              answer={`# ADR-0002: API クライアントを fetch に統一する
+
+## Status
+
+承認済み（2026-06-27）
+
+## Context
+
+複数のライブラリで HTTP 通信が混在し、エラー処理がばらついている。
+標準の fetch なら追加依存なしで揃えられる。
+
+## Decision
+
+新規コードの HTTP 通信は標準の fetch に統一する。
+
+## Consequences
+
+- 良い点: 依存が減り、エラー処理の書き方が揃う
+- 諦めた点: 一部の便利機能は自前で補う必要がある`}
+              hints={[
+                "今この決定がどの段階か（提案中・承認済み等）を示す見出しは Status",
+                "なぜこの判断が必要になったかの背景は Context",
+                "結局どうすると決めたかは Decision",
+                "得たもの・諦めたもの（トレードオフ）は Consequences",
+              ]}
+              keywords={["Status", "Context", "Decision", "Consequences"]}
+            />
           </section>
 
           {/* Quiz 1 */}

@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 export default function NetworkVpc() {
   return (
@@ -170,6 +172,18 @@ export default function NetworkVpc() {
                 </p>
               </div>
             </div>
+
+            <MermaidDiagram
+              title="図: VPC のサブネット構成とルーティング"
+              chart={`flowchart TD
+    NET["インターネット"] <--> IGW["インターネットゲートウェイ（IGW）"]
+    subgraph VPC["VPC（10.0.0.0/16）"]
+      IGW --> PUB["パブリックサブネット（ALB / 踏み台）"]
+      PUB --> NAT["NAT ゲートウェイ"]
+      NAT --> PRIV["プライベートサブネット（アプリ / DB）"]
+    end
+    PRIV -.->|"外への通信のみ"| NAT`}
+            />
           </section>
 
           {/* ゲートウェイとルートテーブル */}
@@ -321,6 +335,24 @@ export default function NetworkVpc() {
 HTTPS    443     0.0.0.0/0         # 全世界からの HTTPS を許可
 HTTP     80      0.0.0.0/0         # 全世界からの HTTP を許可
 SSH      22      203.0.113.10/32   # 管理者の固定 IP からのみ SSH 許可`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="セキュリティグループのインバウンドルールを埋めよう"
+              description="全世界からの HTTPS（ポート 443）を許可し、SSH（ポート 22）は管理者の固定 IP だけに絞るルールを完成させてください。タイプ・ポート・ソースの穴を埋めます。"
+              initialCode={`# タイプ   ポート  ソース            用途
+HTTPS    ___     0.0.0.0/0         # 全世界からの HTTPS を許可
+SSH      22      ___               # 管理者の固定 IP からのみ許可`}
+              answer={`# タイプ   ポート  ソース            用途
+HTTPS    443     0.0.0.0/0         # 全世界からの HTTPS を許可
+SSH      22      203.0.113.10/32   # 管理者の固定 IP からのみ許可`}
+              hints={[
+                "HTTPS の標準ポートは 443",
+                "固定 IP 1 つだけに絞るには /32 を付ける（例: 203.0.113.10/32）",
+              ]}
+              keywords={["443", "/32"]}
             />
 
             <InfoBox type="warning" title="0.0.0.0/0 の SSH 開放は避ける">

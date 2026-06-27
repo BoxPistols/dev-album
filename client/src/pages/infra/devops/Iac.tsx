@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const tools = [
   {
@@ -218,6 +220,41 @@ resource "aws_s3_bucket" "assets" {
               実行する手順は書きません。Terraform が現状と比べ、
               足りなければ作成、設定が違えば更新、定義から消えれば削除します。
             </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="Terraform のリソース定義を完成させよう"
+              description="S3 バケットを宣言する resource ブロックを埋めてください。___ をリソース種別とバケット名に置き換えます。"
+              initialCode={`provider "aws" {
+  region = "ap-northeast-1"
+}
+
+// リソース種別とローカル名を指定して宣言する
+resource "___" "assets" {
+  ___ = "dev-album-assets"
+
+  tags = {
+    ManagedBy = "terraform"
+  }
+}`}
+              answer={`provider "aws" {
+  region = "ap-northeast-1"
+}
+
+resource "aws_s3_bucket" "assets" {
+  bucket = "dev-album-assets"
+
+  tags = {
+    ManagedBy = "terraform"
+  }
+}`}
+              hints={[
+                "AWS の S3 バケットを表すリソース種別は aws_s3_bucket",
+                "バケット名を指定する属性キーは bucket",
+              ]}
+              keywords={["aws_s3_bucket", "bucket"]}
+            />
           </section>
 
           <section>
@@ -253,6 +290,16 @@ resource "aws_s3_bucket" "assets" {
               で差分を確認し、
               <code>apply</code> で適用する二段構えが基本です。
             </p>
+
+            <MermaidDiagram
+              title="図: 定義から適用までの流れと state の役割"
+              chart={`flowchart LR
+    W["定義を書く（.tf）"] --> P["plan（差分を計算）"]
+    P --> A["apply（適用）"]
+    A --> R["実際のインフラ"]
+    A --> S["state（現在の記録）"]
+    S -->|"次回の差分計算に使う"| P`}
+            />
 
             <CodeBlock
               language="bash"

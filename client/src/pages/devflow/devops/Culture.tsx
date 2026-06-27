@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const calmsCards = [
   {
@@ -292,6 +294,53 @@ export default function Culture() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: The Three Ways のループ"
+              chart={`flowchart LR
+    Dev["開発"] -->|"フロー(左→右)"| Ops["運用"]
+    Ops --> User["利用者"]
+    User -.->|"フィードバック(右→左)"| Ops
+    Ops -.->|"フィードバック(右→左)"| Dev
+    Dev -->|"継続的な学習と実験"| Dev`}
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン：実践を CALMS の文字に対応づける
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              現場でよく出てくる実践が、CALMS の 5 要素（Culture / Automation /
+              Lean / Measurement / Sharing）のどれに当たるかを対応づけてみます。
+              空欄に当てはまる頭文字を入れましょう。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="実践を CALMS の文字にマッピングしよう"
+              description="各実践が CALMS のどの要素に対応するか、頭文字（C / A / L / M / S）を埋めてください。___ を 1 文字に置き換えます。"
+              initialCode={`# CALMS マッピング
+
+- デプロイ頻度や復旧時間を計測する → M
+- ビルドとテストを CI で自動化する → A
+- ポストモーテムを全社で公開する → ___
+- 小さく作って早く出し、ムダを減らす → L
+- Dev と Ops が共通のゴールに協力する → C`}
+              answer={`# CALMS マッピング
+
+- デプロイ頻度や復旧時間を計測する → M
+- ビルドとテストを CI で自動化する → A
+- ポストモーテムを全社で公開する → S
+- 小さく作って早く出し、ムダを減らす → L
+- Dev と Ops が共通のゴールに協力する → C`}
+              hints={[
+                "知識・成功も失敗も共有するのは Sharing（共有）",
+              ]}
+              keywords={["→ S"]}
+            />
           </section>
 
           {/* Quiz 2 */}

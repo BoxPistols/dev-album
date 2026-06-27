@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const ceremonies = [
   {
@@ -132,6 +134,16 @@ export default function Sprint() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: 1 スプリント内のイベントのタイムライン"
+              chart={`flowchart LR
+    START["スプリント開始"] --> PLAN["スプリントプランニング"]
+    PLAN --> DEV["開発期間（毎日デイリースクラム）"]
+    DEV --> REV["スプリントレビュー"]
+    REV --> RETRO["レトロスペクティブ"]
+    RETRO --> END["スプリント終了 → 次へ"]`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -258,6 +270,43 @@ export default function Sprint() {
                 { label: "デイリースクラムを省略できる" },
               ]}
               explanation="DoD はインクリメントが完成と言える条件をチームで合意したものです。明文化することで「完成したつもり」のズレがなくなり、後工程での手戻りを減らせます。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: バーンダウンを読み、ゴールを書く
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              バーンダウンチャートは残作業量の推移です。
+              下のメモは 10 日スプリントの 5 日目時点。理想線では残り 20pt のはずが
+              実績は 30pt 残っています。空欄を埋めて、状態の読み取りとスプリントゴールを完成させましょう。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="バーンダウンを読み、スプリントゴールを書こう"
+              description="残作業が理想線より多い状態は『遅れている』。1 つ目の空欄を『遅れている』に、スプリントゴールを『検索結果ページを表示できる』に書き換えてください（___ を埋める）。"
+              initialCode={`# バーンダウン読み取り（10日スプリント / 5日目）
+- 理想線の残り: 20pt
+- 実績の残り: 30pt
+- 判定: 実績が理想より多いので ___
+
+# スプリントゴール
+- ___`}
+              answer={`# バーンダウン読み取り（10日スプリント / 5日目）
+- 理想線の残り: 20pt
+- 実績の残り: 30pt
+- 判定: 実績が理想より多いので 遅れている
+
+# スプリントゴール
+- 検索結果ページを表示できる`}
+              hints={[
+                "実績の残りが理想線より上にあるとき、進捗は遅れている",
+                "ゴールは一文の目的にする。検索結果ページを表示できる、と書く",
+              ]}
+              keywords={["遅れている", "検索結果ページを表示できる"]}
             />
           </section>
 

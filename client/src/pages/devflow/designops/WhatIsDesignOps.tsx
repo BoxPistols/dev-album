@@ -6,6 +6,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const domains = [
   {
@@ -190,6 +191,19 @@ export default function WhatIsDesignOps() {
               どれかひとつだけを整えても効果は限定的で、 4
               つを噛み合わせることで初めてチーム全体の流れがなめらかになります。
             </p>
+
+            <MermaidDiagram
+              title="図: DesignOps が扱う4領域"
+              chart={`flowchart TD
+    DO["DesignOps<br/>(デザインの運用最適化)"] --> P["プロセス<br/>(依頼・レビュー・承認)"]
+    DO --> T["ツール<br/>(Figma・トークン・権限)"]
+    DO --> H["人<br/>(採用・育成・役割分担)"]
+    DO --> G["ガバナンス<br/>(命名・追加ルール・承認)"]
+    P --> R["デザイナーが<br/>設計に集中できる環境"]
+    T --> R
+    H --> R
+    G --> R`}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {domains.map((d) => (

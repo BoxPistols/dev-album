@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const horizons = [
   {
@@ -165,6 +167,15 @@ export default function Roadmap() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: Now-Next-Later の確度と粒度"
+              chart={`flowchart LR
+    N["Now: 着手中・高確度・詳細"] --> X["Next: 候補・方向性は固まる"]
+    X --> L["Later: 粗いアイデア・低確度"]
+    N -.->|"確度が高い"| H["詳しく見積もる"]
+    L -.->|"確度が低い"| C["粗いまま保つ"]`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -260,6 +271,35 @@ export default function Roadmap() {
               入力が主観なら出力も主観です。スコアは議論を整理する補助線として使い、
               最後はチームの判断で上書きしてよい、という前提を共有しておきましょう。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="markdown"
+                title="RICE スコアを計算しよう"
+                description="Reach × Impact × Confidence ÷ Effort で RICE スコアを求めてください。___ を計算結果に置き換えます。"
+                initialCode={`# 施策: 再注文ボタンの追加
+
+- Reach（影響する人数 / 月）: 800
+- Impact（1 人あたりの効果）: 2
+- Confidence（確信度）: 0.5
+- Effort（人月）: 4
+
+RICE スコア = (800 * 2 * 0.5) / 4 = ___`}
+                answer={`# 施策: 再注文ボタンの追加
+
+- Reach（影響する人数 / 月）: 800
+- Impact（1 人あたりの効果）: 2
+- Confidence（確信度）: 0.5
+- Effort（人月）: 4
+
+RICE スコア = (800 * 2 * 0.5) / 4 = 200`}
+                hints={[
+                  "Reach × Impact × Confidence を先に計算し、最後に Effort で割る",
+                ]}
+                keywords={["200"]}
+              />
+            </div>
           </section>
 
           {/* マイルストーン */}

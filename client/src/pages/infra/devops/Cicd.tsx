@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const stages = [
   {
@@ -93,6 +95,18 @@ export default function Cicd() {
               は「検査を通った成果物を環境へ届ける」段階です。
               間にビルド成果物（アーティファクト）を挟むことで、検査とデプロイを別々に扱えます。
             </p>
+
+            <MermaidDiagram
+              title="図: push から本番デプロイまでのパイプライン"
+              chart={`flowchart LR
+    P["push / PR"] --> L["lint"]
+    L --> T["test"]
+    T --> B["build"]
+    B --> A["アーティファクト"]
+    A --> S["deploy（staging）"]
+    S -->|"検証 OK / 承認"| PR["deploy（production）"]
+    S -->|"異常"| RB["ロールバック"]`}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {stages.map((s) => (
@@ -281,6 +295,51 @@ jobs:
               ただし加工して出力すると漏れることがあるため、 秘密情報は echo
               せず、必要な箇所だけで使うのが基本です。
             </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="GitHub Actions のステップを完成させよう"
+              description="Node のセットアップ後、依存のインストール → テストを走らせる step を埋めてください。___ を正しいキー・値に置き換えます。"
+              initialCode={`name: CI
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      // ここに依存インストールとテストの step を書く
+      - name: Install
+        run: ___
+      - name: Test
+        ___: npm test`}
+              answer={`name: CI
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install
+        run: npm ci
+      - name: Test
+        run: npm test`}
+              hints={[
+                "クリーンインストールには npm install ではなく npm ci を使う",
+                "シェルコマンドを実行する step のキーは run",
+              ]}
+              keywords={["npm ci", "run"]}
+            />
           </section>
 
           <section>

@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const pillars = [
   {
@@ -113,6 +115,16 @@ export default function Supabase() {
               SQL・インデックス・トランザクションの知識がそのまま使えます。
               これは学習コストと移行コストの両方を下げる、地味だが効く性質です。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: クライアントから PostgreSQL へ届くまで（RLS の関所）"
+              chart={`flowchart LR
+    C["クライアント<br/>(supabase-js)"] -->|"anon key"| AU["Auth"]
+    AU -->|"auth.uid() を付与"| RLS{"RLS ポリシー"}
+    RLS -->|"許可された行のみ"| PG["PostgreSQL"]
+    RLS -.->|"許可外は<br/>存在しない扱い"| X["遮断"]
+    PG --> C`}
+            />
           </section>
 
           {/* Auth と RLS */}
@@ -161,6 +173,27 @@ create policy "insert own posts"
               「公開するテーブルには必ず RLS
               を有効化し、明示的に許可を書く」を基本にしてください。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="ハンズオン: RLS ポリシーを埋めよう"
+                description="posts テーブルで「自分が所有する行だけ読める」SELECT ポリシーを完成させてください。ログイン中ユーザーの ID を返す関数と、所有者を表す列を比較します。"
+                initialCode={`-- 読み取り: 自分が所有する行だけを返す
+create policy "read own posts"
+  on posts for select
+  using ( ___ = user_id );`}
+                answer={`-- 読み取り: 自分が所有する行だけを返す
+create policy "read own posts"
+  on posts for select
+  using ( auth.uid() = user_id );`}
+                hints={[
+                  "ログイン中ユーザーの ID を返す関数は auth.uid()",
+                ]}
+                keywords={["auth.uid()"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 1 */}

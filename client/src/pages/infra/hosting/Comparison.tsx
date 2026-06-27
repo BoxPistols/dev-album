@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const useCases = [
   {
@@ -210,6 +212,43 @@ export default function Comparison() {
                   </p>
                 </div>
               ))}
+            </div>
+
+            <MermaidDiagram
+              title="図: どのホスティングを選ぶかの判断フロー"
+              chart={`flowchart TD
+    S["ホスティングを選ぶ"] --> Q1{"ランタイムや<br/>ネットワークを<br/>細かく制御したい？"}
+    Q1 -->|"はい"| VPS["自前 VPS / コンテナ"]
+    Q1 -->|"いいえ"| Q2{"Next.js 中心？"}
+    Q2 -->|"はい"| VER["Vercel"]
+    Q2 -->|"いいえ"| Q3{"エッジ実行と<br/>低レイテンシが要件？"}
+    Q3 -->|"はい"| CF["Cloudflare"]
+    Q3 -->|"いいえ"| Q4{"静的中心 +<br/>少しの動的？"}
+    Q4 -->|"はい"| NET["Netlify"]
+    Q4 -->|"いいえ"| VER`}
+            />
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="markdown"
+                title="要件から選定理由を書こう"
+                description="「静的サイトにフォーム送信を足したい」という要件に対して、まず検討するサービス名を空欄に入れて選定メモを完成させてください。"
+                initialCode={`## 選定メモ
+
+- 要件: 静的サイトにフォーム送信を足したい
+- まず検討するサービス: ___
+- 理由: Forms やリダイレクト設定が手厚く、設定ファイルで完結しやすいため`}
+                answer={`## 選定メモ
+
+- 要件: 静的サイトにフォーム送信を足したい
+- まず検討するサービス: Netlify
+- 理由: Forms やリダイレクト設定が手厚く、設定ファイルで完結しやすいため`}
+                hints={[
+                  "静的中心 + 少しの動的（フォーム送信）に手厚いのは Netlify",
+                ]}
+                keywords={["Netlify"]}
+              />
             </div>
           </section>
 

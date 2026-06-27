@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const availability = [
   {
@@ -175,6 +177,44 @@ export default function Sre() {
               信頼性チームと開発チームの綱引きを、
               感情ではなく残りバジェットで判断できるようにするのが狙いです。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: SLI から行動までのつながり"
+              chart={`flowchart LR
+    SLI["SLI（成功率を測る）"] --> SLO["SLO（目標 99.9%）"]
+    SLO --> EB["エラーバジェット（残り 0.1%）"]
+    EB -->|"余裕あり"| FEAT["新機能・リリースに振る"]
+    EB -->|"使い切り"| REL["信頼性改善を優先・リリース凍結"]`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="エラーバジェットを計算してみよう"
+              description="月間リクエスト 1,000,000 件・SLO 99.9% のとき、許容される失敗の件数（エラーバジェット）を埋めてください。___ を計算結果に置き換えます。"
+              initialCode={`# エラーバジェット計算
+
+- 月間リクエスト数: 1,000,000
+- SLO: 99.9%（成功率の目標）
+- 許容される失敗率: 0.1%
+
+許容される失敗件数 = 1,000,000 * 0.001 = ___ 件
+
+この件数を使い切るまでは、リリースや実験に振ってよい。`}
+              answer={`# エラーバジェット計算
+
+- 月間リクエスト数: 1,000,000
+- SLO: 99.9%（成功率の目標）
+- 許容される失敗率: 0.1%
+
+許容される失敗件数 = 1,000,000 * 0.001 = 1000 件
+
+この件数を使い切るまでは、リリースや実験に振ってよい。`}
+              hints={[
+                "1,000,000 の 0.1% は 1,000,000 * 0.001",
+              ]}
+              keywords={["1000"]}
+            />
           </section>
 
           <section>

@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const tableParts = [
   {
@@ -162,6 +164,24 @@ CREATE TABLE orders (
               に実在する id しか入れられなくなり、
               「持ち主のいない注文」が生まれることを DB レベルで防げます。
             </p>
+
+            <MermaidDiagram
+              title="図: users と orders の関係（1 対 N）"
+              chart={`erDiagram
+    USERS ||--o{ ORDERS : "1人が複数の注文を持つ"
+    USERS {
+      bigint id PK
+      text email "UNIQUE"
+      text name
+      timestamptz created_at
+    }
+    ORDERS {
+      bigint id PK
+      bigint user_id FK
+      numeric total
+      timestamptz created_at
+    }`}
+            />
           </section>
 
           {/* 正規化 */}
@@ -364,6 +384,29 @@ ORDER BY total_amount DESC;`}
               この考え方は後の章で扱う ORM
               のマイグレーション機能にも引き継がれます。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="orders テーブルの外部キーを書こう"
+                description="orders.user_id を users.id への外部キーにする CREATE TABLE 文を完成させてください。参照先テーブルと列を REFERENCES で指定します。"
+                initialCode={`CREATE TABLE orders (
+  id      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  -- user_id は users.id を参照する外部キー
+  user_id BIGINT NOT NULL REFERENCES ___,
+  total   NUMERIC(10, 2) NOT NULL
+);`}
+                answer={`CREATE TABLE orders (
+  id      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  -- user_id は users.id を参照する外部キー
+  user_id BIGINT NOT NULL REFERENCES users(id),
+  total   NUMERIC(10, 2) NOT NULL
+);`}
+                hints={["参照先は users テーブルの id 列なので users(id) と書く"]}
+                keywords={["users(id)"]}
+              />
+            </div>
           </section>
 
           {/* PostgreSQL の強み */}

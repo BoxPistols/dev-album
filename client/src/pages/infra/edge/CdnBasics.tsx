@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const cacheStrategies = [
   {
@@ -114,6 +116,20 @@ export default function CdnBasics() {
               <code>x-vercel-cache</code> ヘッダで、HIT したか MISS
               したかを確認できます。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: キャッシュ HIT / MISS と再検証の流れ"
+              chart={`flowchart TD
+    U["ユーザー"] --> E{"エッジに<br/>新鮮なキャッシュ?"}
+    E -->|"HIT(新鮮)"| R["即座に返す"]
+    E -->|"MISS(無い/期限切れ)"| O["オリジンへ問い合わせ"]
+    O --> C{"内容は<br/>変わった?"}
+    C -->|"変化あり"| N["200 + 本体を再取得"]
+    C -->|"変化なし"| NM["304 Not Modified<br/>(本体なし)"]
+    N --> S["エッジに保存して返す"]
+    NM --> S
+    S --> R`}
+            />
           </section>
 
           {/* なぜ速くなるか */}
@@ -235,6 +251,26 @@ cache-control: no-cache`}
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="ハンズオン: Cache-Control を埋めよう"
+                description="静的アセットを「全キャッシュで 1 年間（31536000 秒）新鮮」かつ「期限内は再検証しない」設定にしてください。max-age と immutable を埋めます。"
+                initialCode={`# 静的アセット: 1年キャッシュ、内容が変わらない前提
+# max-age に秒数、最後に再検証を抑制するディレクティブを入れる
+cache-control: public, max-age=___, ___`}
+                answer={`# 静的アセット: 1年キャッシュ、内容が変わらない前提
+# max-age に秒数、最後に再検証を抑制するディレクティブを入れる
+cache-control: public, max-age=31536000, immutable`}
+                hints={[
+                  "1 年は秒に直すと 31536000",
+                  "期限内のリロードでも再検証させないのは immutable",
+                ]}
+                keywords={["31536000", "immutable"]}
+              />
             </div>
           </section>
 

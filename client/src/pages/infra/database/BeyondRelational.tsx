@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const kvServices = [
   {
@@ -123,6 +125,19 @@ async function getUserCached(id: number) {
   return user;
 }`}
             />
+
+            <div className="my-8">
+              <CodingChallenge
+                preview
+                previewType="terminal"
+                title="TTL 付きで値をセットする redis コマンドを書こう"
+                description="session:42 というキーに値 alice を入れ、60 秒で自動失効させます。SET コマンドの有効期限オプション（秒指定）を補ってください。"
+                initialCode={`redis-cli SET session:42 alice ___ 60`}
+                answer={`redis-cli SET session:42 alice EX 60`}
+                hints={["秒単位で有効期限を付けるオプションは EX"]}
+                keywords={["EX 60"]}
+              />
+            </div>
 
             <InfoBox type="info" title="KV は「正」ではなく「写し」に使う">
               キャッシュやセッションのデータは、失効や消失を前提に設計します。
@@ -309,6 +324,18 @@ async function uploadAvatar(userId: number, file: Uint8Array) {
                 </tbody>
               </table>
             </div>
+
+            <MermaidDiagram
+              title="図: データの性質で保管先を選ぶ"
+              chart={`flowchart TD
+    Q["保存したいデータは？"] --> R{"関連のある<br/>構造化データ？"}
+    R -->|"はい"| RDB["リレーショナル DB<br/>(整合性・JOIN・トランザクション)"]
+    R -->|"いいえ"| K{"キー1つで引く<br/>短命なデータ？"}
+    K -->|"はい"| KV["KV ストア<br/>(Redis / Cloudflare KV)"]
+    K -->|"いいえ"| V{"意味の近さで<br/>検索したい？"}
+    V -->|"はい"| VEC["ベクトル DB<br/>(pgvector / Pinecone)"]
+    V -->|"いいえ"| OBJ["オブジェクトストレージ<br/>(S3 / R2)"]`}
+            />
 
             <InfoBox type="info" title="使い分けは組み合わせて使う">
               実際のアプリは、これらを併用します。ユーザー情報は RDB、

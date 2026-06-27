@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-27-infra-devflow-visuals-handson",
+    date: "2026-06-27",
+    title: "インフラ / 開発フロー全ページに図解とハンズオンを追加",
+    description:
+      "バックエンド/インフラ/DevOps と 開発フロー/DesignOps の全 54 ページに、Mermaid による図解（構成図・フロー・シーケンス・ER 図・gitGraph）と、書いて学べるハンズオン（CLI・設定ファイル・SQL・ADR・ユーザーストーリー・ポストモーテム等）を追加。読むだけでなく、見て・手を動かして理解できる教材に強化した。",
+    category: "update",
+    link: "/infra",
+  },
+  {
     id: "2026-06-27-infra-aws-section",
     date: "2026-06-27",
     title: "インフラマニュアルに「AWS 実践入門」セクションを追加",

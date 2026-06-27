@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const pillars = [
   {
@@ -165,6 +167,53 @@ export default function CostOps() {
     "ThresholdType": "PERCENTAGE"
   }
 }`}
+            />
+
+            <MermaidDiagram
+              title="図: コストの可視化から通知までの流れ"
+              chart={`flowchart LR
+    USE["リソース利用（従量課金）"] --> BILL["Billing（請求の全体像）"]
+    USE --> CE["Cost Explorer（内訳の分析）"]
+    USE --> BUD["Budgets（上限としきい値）"]
+    BUD -->|"しきい値超過"| ALERT["アラート（メール / SNS）"]
+    ALERT --> ME["担当者が対処"]`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="月次予算とアラートの定義を完成させよう"
+              description="月 50 USD のコスト予算を作り、実績が 80% に達したら通知する Budgets の定義を埋めてください。BudgetType・Amount・Threshold の穴を埋めます。"
+              initialCode={`{
+  "BudgetName": "monthly-cost-guard",
+  "BudgetType": "___",
+  "TimeUnit": "MONTHLY",
+  "BudgetLimit": { "Amount": "___", "Unit": "USD" },
+  "Notification": {
+    "ComparisonOperator": "GREATER_THAN",
+    "NotificationType": "ACTUAL",
+    "Threshold": ___,
+    "ThresholdType": "PERCENTAGE"
+  }
+}`}
+              answer={`{
+  "BudgetName": "monthly-cost-guard",
+  "BudgetType": "COST",
+  "TimeUnit": "MONTHLY",
+  "BudgetLimit": { "Amount": "50", "Unit": "USD" },
+  "Notification": {
+    "ComparisonOperator": "GREATER_THAN",
+    "NotificationType": "ACTUAL",
+    "Threshold": 80,
+    "ThresholdType": "PERCENTAGE"
+  }
+}`}
+              hints={[
+                "費用ベースの予算なら BudgetType は COST",
+                "月 50 USD の上限なので Amount は 50",
+                "80% で通知するなら Threshold は 80",
+              ]}
+              keywords={["COST", "50", "80"]}
             />
           </section>
 

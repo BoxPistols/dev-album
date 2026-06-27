@@ -6,6 +6,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const comparisonRows = [
   {
@@ -211,6 +212,18 @@ export default function Comparison() {
               要件から逆算すると、選択は素直になります。下は典型的な目安です。
               実際には複数の軸が絡むため、最も重い要件を優先軸にして判断します。
             </p>
+
+            <MermaidDiagram
+              title="図: データの形から考える選定フロー"
+              chart={`flowchart TD
+    S["どんなデータを扱う?"] --> Q1{"関連が多く<br/>集計や結合が中心?"}
+    Q1 -->|"はい"| SB["SQL / Supabase<br/>(PostgreSQL)"]
+    Q1 -->|"いいえ"| Q2{"リアルタイム同期や<br/>オフライン対応が中心?"}
+    Q2 -->|"はい"| FB["NoSQL / Firebase<br/>(Firestore)"]
+    Q2 -->|"いいえ"| Q3{"SQL の知識や<br/>セルフホストを重視?"}
+    Q3 -->|"はい"| SB
+    Q3 -->|"いいえ"| FB`}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-xl border border-border bg-card p-5">

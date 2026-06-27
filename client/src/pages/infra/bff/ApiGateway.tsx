@@ -7,6 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
 
 const gatewayRoles = [
   {
@@ -107,6 +108,16 @@ export default function ApiGateway() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: 単一の入口で認証・レート制限・ルーティングを担う"
+              chart={`flowchart LR
+    C["クライアント"] --> G["API Gateway"]
+    G -.->|"認証 / レート制限 / ルーティング"| G
+    G --> S1["Users サービス"]
+    G --> S2["Orders サービス"]
+    G --> S3["Products サービス"]`}
+            />
 
             <InfoBox type="info" title="横断的関心事の集約所">
               認証・レート制限・ログのような「どのサービスでも必要なこと」を

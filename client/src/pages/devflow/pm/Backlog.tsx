@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const investItems = [
   {
@@ -262,6 +264,52 @@ Then  「まだ注文がありません」というメッセージが表示さ�
             </InfoBox>
           </section>
 
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン：ストーリーと受け入れ基準を書く
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              「ダークモード切り替え」という機能を、ユーザーストーリー（As a /
+              I want / So that）と受け入れ基準（Given-When-Then）の形で書いてみます。
+              空欄を埋めて、価値の理由と完了条件をはっきりさせましょう。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="ストーリーと受け入れ基準を埋めよう"
+              description="As a / I want / So that の 3 行と、Given / When / Then の受け入れ基準を完成させてください。___ を適切なキーワードに置き換えます。"
+              initialCode={`# ストーリー: ダークモード切り替え
+
+As a   サイトを夜間に使う読者として
+I want 画面をダークモードに切り替えたい
+So ___ 暗い環境でも目が疲れにくくなるため
+
+## 受け入れ基準
+
+Given 設定画面を開いている読者
+When  「ダークモード」をオンにする
+___   背景が暗色に切り替わり、設定が次回も保持される`}
+              answer={`# ストーリー: ダークモード切り替え
+
+As a   サイトを夜間に使う読者として
+I want 画面をダークモードに切り替えたい
+So that 暗い環境でも目が疲れにくくなるため
+
+## 受け入れ基準
+
+Given 設定画面を開いている読者
+When  「ダークモード」をオンにする
+Then  背景が暗色に切り替わり、設定が次回も保持される`}
+              hints={[
+                "ストーリーの 3 行目は So that（なぜ）で始める",
+                "受け入れ基準の結果（期待される状態）は Then で書く",
+              ]}
+              keywords={["So that", "Then"]}
+            />
+          </section>
+
           {/* 階層 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -324,6 +372,16 @@ Then  「まだ注文がありません」というメッセージが表示さ�
                 </tbody>
               </table>
             </div>
+
+            <MermaidDiagram
+              title="図: エピック → ストーリー → タスクの階層"
+              chart={`flowchart TD
+    E["エピック: 会員のリピート購入を促す"] --> S1["ストーリー: 注文履歴から再注文できる"]
+    E --> S2["ストーリー: お気に入りから再注文できる"]
+    S1 --> T1["タスク: 履歴 API を作る"]
+    S1 --> T2["タスク: 一覧 UI を作る"]
+    S1 --> T3["タスク: 再注文ボタンを実装する"]`}
+            />
 
             <p className="text-muted-foreground leading-relaxed">
               エピックは「いつか分割される予約席」のようなものです。

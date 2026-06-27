@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const globalLayers = [
   {
@@ -173,6 +175,18 @@ export default function Overview() {
               ))}
             </div>
 
+            <MermaidDiagram
+              title="図: グローバルインフラの階層（リージョン > AZ > リソース）"
+              chart={`flowchart TD
+    G["AWS グローバル"] --> R1["リージョン（東京 ap-northeast-1）"]
+    G --> R2["リージョン（バージニア us-east-1）"]
+    R1 --> AZ1["AZ 1a"]
+    R1 --> AZ2["AZ 1c"]
+    AZ1 --> E1["EC2 / RDS など"]
+    AZ2 --> E2["EC2 / RDS など"]
+    G -.->|"配信"| EDGE["エッジロケーション（CloudFront）"]`}
+            />
+
             <p className="text-muted-foreground mt-6 leading-relaxed">
               日本向けサービスなら東京リージョン（ap-northeast-1）を選ぶのが定番です。
               一方で、後述の IAM のような一部のサービスや料金表示は us-east-1
@@ -245,6 +259,25 @@ aws s3 ls s3://my-example-bucket/
 
 # ローカルファイルを S3 にアップロード
 aws s3 cp ./index.html s3://my-example-bucket/`}
+            />
+
+            <CodingChallenge
+              preview
+              previewType="terminal"
+              title="自分の権限と S3 バケットを確認するコマンドを書こう"
+              description="今どの権限で操作しているかを確認し、続けて S3 のバケット一覧を表示する 2 つの aws CLI コマンドを書いてください。"
+              initialCode={`# 今どの IAM 権限で操作しているかを確認する
+aws sts get-caller-identity
+
+# S3 のバケット一覧を表示する
+aws s3 ___`}
+              answer={`# 今どの IAM 権限で操作しているかを確認する
+aws sts get-caller-identity
+
+# S3 のバケット一覧を表示する
+aws s3 ls`}
+              hints={["バケットの一覧表示は list の意味を持つ ls サブコマンド"]}
+              keywords={["ls"]}
             />
           </section>
 
@@ -358,6 +391,17 @@ aws s3 cp ./index.html s3://my-example-bucket/`}
               「コードを動かす」「ファイルを置く」「データを保存する」「外部とつなぐ」「権限を管理する」「監視する」——
               この対応関係を覚えておくと、設計図を読むときの足場になります。
             </p>
+
+            <MermaidDiagram
+              title="図: 代表サービスの役割マップ"
+              chart={`flowchart LR
+    U["ユーザー"] --> CF["CloudFront（配信）"]
+    CF --> S3["S3（ストレージ）"]
+    CF --> EC2["EC2 / Lambda（コンピュート）"]
+    EC2 --> DB["RDS / DynamoDB（データベース）"]
+    IAM["IAM（認証・認可）"] -.->|"権限"| EC2
+    CW["CloudWatch（監視）"] -.->|"メトリクス"| EC2`}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {serviceMap.map((svc) => (

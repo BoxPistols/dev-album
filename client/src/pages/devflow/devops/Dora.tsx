@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const spaceDims = [
   {
@@ -152,6 +154,17 @@ export default function Dora() {
               「デプロイ（変更）が原因の障害から復旧するまでの時間」に対象を絞った点が変更のポイントです。
               MTTR は広く知られた旧称として併記しています。
             </p>
+
+            <MermaidDiagram
+              title="図: Four Keys の 2 軸（スループットと安定性）"
+              chart={`flowchart TD
+    K["Four Keys"] --> T["スループット(速さ)"]
+    K --> S["安定性"]
+    T --> T1["デプロイ頻度"]
+    T --> T2["変更リードタイム"]
+    S --> S1["変更失敗率"]
+    S --> S2["変更障害復旧時間"]`}
+            />
           </section>
 
           {/* ベンチマーク */}
@@ -274,6 +287,31 @@ export default function Dora() {
               安定性も底上げします。速さと安定は対立しないというのが Four Keys
               の重要な発見です。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="markdown"
+                title="変更失敗率を計算しよう"
+                description="ある期間のデプロイのうち、障害や修正を要した割合（変更失敗率）をパーセントで求めてください。___ を計算結果に置き換えます。"
+                initialCode={`# 直近 1 か月のデプロイ実績
+
+- 総デプロイ数: 50
+- うち障害・修正を要したデプロイ: 4
+
+変更失敗率 = 4 / 50 * 100 = ___ %`}
+                answer={`# 直近 1 か月のデプロイ実績
+
+- 総デプロイ数: 50
+- うち障害・修正を要したデプロイ: 4
+
+変更失敗率 = 4 / 50 * 100 = 8 %`}
+                hints={[
+                  "失敗したデプロイ数 ÷ 総デプロイ数 × 100 でパーセントになる",
+                ]}
+                keywords={["8"]}
+              />
+            </div>
           </section>
 
           {/* SPACE */}

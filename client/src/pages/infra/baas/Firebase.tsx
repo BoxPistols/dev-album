@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const products = [
   {
@@ -111,6 +113,16 @@ export default function Firebase() {
                 </div>
               ))}
             </div>
+
+            <MermaidDiagram
+              title="図: クライアントと Firebase（リアルタイム同期・認証・関数）"
+              chart={`flowchart LR
+    C["クライアント<br/>(Web / モバイル)"] <-->|"onSnapshot<br/>(リアルタイム購読)"| FS["Cloud Firestore"]
+    C -->|"ログイン"| AU["Authentication"]
+    FS -->|"書き込みをトリガ"| FN["Cloud Functions"]
+    FN -->|"外部連携 / 集計"| EXT["外部サービス / GCP"]
+    AU -.->|"uid を提供"| FS`}
+            />
           </section>
 
           {/* Firestore と Realtime Database */}
@@ -250,6 +262,32 @@ service cloud.firestore {
               開発初期にテスト用の全許可ルールを置いたまま公開すると、誰でも読み書きできてしまいます。
               公開前に「必要な操作だけを明示的に許可しているか」を必ず見直してください。
             </InfoBox>
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="ハンズオン: Firestore セキュリティルールを埋めよう"
+                description="posts/{postId} を「ログイン済みで、かつドキュメントの所有者」だけが読めるルールにしてください。認証チェックと所有者チェックの 2 条件を埋めます。"
+                initialCode={`// posts/{postId} は所有者だけが読める
+match /posts/{postId} {
+  // ログイン済み かつ 所有者(userId が自分の uid)
+  allow read: if ___ != null
+    && resource.data.userId == ___;
+}`}
+                answer={`// posts/{postId} は所有者だけが読める
+match /posts/{postId} {
+  // ログイン済み かつ 所有者(userId が自分の uid)
+  allow read: if request.auth != null
+    && resource.data.userId == request.auth.uid;
+}`}
+                hints={[
+                  "ログイン済みかは request.auth が null でないかで判定",
+                  "ログイン中ユーザーの ID は request.auth.uid",
+                ]}
+                keywords={["request.auth", "request.auth.uid"]}
+              />
+            </div>
           </section>
 
           {/* クエリと同期 */}

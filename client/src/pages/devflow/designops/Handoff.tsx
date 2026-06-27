@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const gapTactics = [
   {
@@ -62,6 +64,32 @@ export default function Handoff() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* ハンドオフの流れ図 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンドオフの流れ
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              ハンドオフは「投げ渡す儀式」ではなく、Figma Dev Mode・トークン・実装を
+              地続きにつなぐやり取りです。デザイナーとエンジニアの往復で精度が上がります。
+            </p>
+            <MermaidDiagram
+              title="図: デザイナーとエンジニアのハンドオフ"
+              chart={`sequenceDiagram
+    participant D as "デザイナー"
+    participant DM as "Figma Dev Mode"
+    participant TK as "デザイントークン"
+    participant E as "エンジニア"
+    D->>DM: "デザインを Dev Mode で公開"
+    E->>DM: "余白・色・サイズを読む"
+    DM->>TK: "Variables を書き出し"
+    TK->>E: "CSS 変数として取り込み"
+    E->>D: "実装を Storybook で共有"
+    D->>E: "デザイン QA で差分を指摘"
+    E->>TK: "トークン側で値を揃える"`}
+            />
+          </section>
+
           {/* Figma Dev Mode */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -130,6 +158,27 @@ function toCssVariables(group: Record<string, { $value: string }>, prefix: strin
 
 const css = \`:root {\\n\${toCssVariables(tokens.color, "color")}\\n}\`;`}
             />
+
+            <div className="mt-6">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="W3C 形式のデザイントークンを完成させよう"
+                description="color.primary トークンを W3C デザイントークン形式で定義します。色を表す $type の値を埋めてください。"
+                initialCode={`{
+  "color": {
+    "primary": { "$value": "#2563EB", "$type": "___" }
+  }
+}`}
+                answer={`{
+  "color": {
+    "primary": { "$value": "#2563EB", "$type": "color" }
+  }
+}`}
+                hints={["色を表す $type の値は color"]}
+                keywords={["color"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 1 */}

@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const serviceLayers = [
   {
@@ -191,6 +193,26 @@ export default function Landscape() {
               という具合に、適材適所で組み合わせるのが一般的です。 「全部 IaaS
               で揃える」必要はありません。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: 各層で「自分が管理する範囲」がどこまで縮むか"
+              chart={`flowchart TB
+    subgraph IaaS["IaaS（例: EC2）"]
+      I1["アプリ・データ（自分）"]
+      I2["ランタイム・OS（自分）"]
+      I3["仮想化・物理（事業者）"]
+    end
+    subgraph PaaS["PaaS（例: Vercel）"]
+      P1["アプリ・データ（自分）"]
+      P2["ランタイム・OS（事業者）"]
+      P3["仮想化・物理（事業者）"]
+    end
+    subgraph SaaS["SaaS（例: Notion）"]
+      S1["設定・データ（自分）"]
+      S2["アプリ〜物理まで（事業者）"]
+    end
+    IaaS -->|"任せる範囲が広がる"| PaaS -->|"さらに広がる"| SaaS`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -308,6 +330,49 @@ export default function Landscape() {
                 { label: "仮想化基盤そのもののセキュリティ" },
               ]}
               explanation="物理セキュリティ・ハードウェア・仮想化基盤は事業者の責任です。利用者は、その上で動かすアプリのコード、誰に何を許可するかというアクセス権限、保存するデータの扱いに責任を持ちます。『クラウドだから安全』ではなく、線引きを意識することが重要です。"
+            />
+          </section>
+
+          {/* ハンズオン: サービスを層に分類 */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: サービスを層に分類する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              代表的なサービスがどの層に属するかを書き分けてみます。 AWS Lambda
+              は「リクエスト時だけ関数を実行する」モデルなので、 どの層に当たるかを
+              `layer` の値で埋めてください。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="config"
+              title="サービスを層（IaaS / PaaS / SaaS / FaaS）に分類しよう"
+              description="services.yaml の lambda エントリの layer を、関数単位で実行するモデルに合う層に埋めてください。"
+              initialCode={`# サービスと所属する層の対応表
+services:
+  - name: AWS EC2
+    layer: IaaS
+  - name: Vercel
+    layer: PaaS
+  - name: AWS Lambda
+    layer: ___
+  - name: Notion
+    layer: SaaS`}
+              answer={`# サービスと所属する層の対応表
+services:
+  - name: AWS EC2
+    layer: IaaS
+  - name: Vercel
+    layer: PaaS
+  - name: AWS Lambda
+    layer: FaaS
+  - name: Notion
+    layer: SaaS`}
+              hints={[
+                "リクエストが来たときだけ関数単位で実行する層は Function as a Service",
+              ]}
+              keywords={["FaaS"]}
             />
           </section>
 

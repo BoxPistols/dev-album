@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const featureCards = [
   {
@@ -175,6 +177,49 @@ export default async (request: Request, context: Context) => {
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"`}
             />
+
+            <MermaidDiagram
+              title="図: ビルドパイプラインとリクエスト時のリダイレクト解決"
+              chart={`flowchart TD
+    G["git push"] --> BC["build.command を実行<br/>（npm run build）"]
+    BC --> PUB["build.publish を CDN に配信<br/>（dist）"]
+    PUB --> CDN["CDN エッジに公開"]
+    CDN --> REQ["ユーザーのリクエスト"]
+    REQ --> M{"redirects に<br/>マッチする？"}
+    M -->|"status 301"| RD["別 URL へリダイレクト"]
+    M -->|"status 200"| RW["URL を変えず /index.html を返す<br/>（SPA リライト）"]
+    M -->|"マッチなし"| ST["静的ファイルを返す"]`}
+            />
+
+            <div className="mt-8">
+              <CodingChallenge
+                preview
+                previewType="config"
+                title="netlify.toml のビルドと SPA リダイレクトを埋めよう"
+                description="ビルドコマンド・公開ディレクトリ・SPA フォールバックのリダイレクトを完成させてください。全パスを /index.html に status 200 で返します。"
+                initialCode={`[build]
+  command = "npm run build"
+  publish = "___"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = ___`}
+                answer={`[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200`}
+                hints={[
+                  "publish はビルド成果物の出力先ディレクトリ。Vite なら dist",
+                  "SPA フォールバックは URL を変えず中身を差し替えるリライト。status は 200",
+                ]}
+                keywords={["dist", "200"]}
+              />
+            </div>
           </section>
 
           {/* Quiz 1 */}

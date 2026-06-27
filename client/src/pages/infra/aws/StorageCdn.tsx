@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const storageClasses = [
   {
@@ -192,6 +194,21 @@ aws s3 sync ./dist s3://my-site-bucket \\
 aws s3 presign s3://my-private-bucket/report.pdf \\
   --expires-in 3600`}
             />
+
+            <CodingChallenge
+              preview
+              previewType="terminal"
+              title="ビルド成果物を S3 に同期するコマンドを書こう"
+              description="ローカルの ./dist ディレクトリの中身を、差分だけバケット my-site-bucket に反映する aws CLI コマンドを書いてください。"
+              initialCode={`# dist/ の中身をバケットに反映する（差分のみ転送）
+aws s3 ___ ./dist s3://my-site-bucket`}
+              answer={`# dist/ の中身をバケットに反映する（差分のみ転送）
+aws s3 sync ./dist s3://my-site-bucket`}
+              hints={[
+                "ディレクトリ全体を差分転送で反映するサブコマンドは sync",
+              ]}
+              keywords={["sync"]}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -323,6 +340,16 @@ aws s3 presign s3://my-private-bucket/report.pdf \\
               CloudFront に一本化され、 キャッシュ制御やアクセス制御を
               CloudFront 側で統一できます。
             </p>
+
+            <MermaidDiagram
+              title="図: CloudFront(エッジ) → S3(オリジン) の配信フロー（OAC）"
+              chart={`flowchart LR
+    U["ユーザー"] --> CF["CloudFront（エッジ）"]
+    CF -->|"キャッシュヒット"| U
+    CF -->|"ミス（OAC で署名）"| S3["S3（オリジン・非公開）"]
+    S3 --> CF
+    X["直アクセス"] -.->|"拒否"| S3`}
+            />
 
             <CodeBlock
               language="json"

@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const perspectives = [
   {
@@ -187,6 +189,19 @@ export default function Perspectives() {
               と付けるだけで、レビュアーの温度感が伝わります。 ブロッカーと nit
               が混ざると、作者は全部を必須と受け取って疲弊しがちです。
             </p>
+
+            <MermaidDiagram
+              title="図: 指摘の判断フロー"
+              chart={`flowchart TD
+    S["気づいた点"] --> Q{"マージを止めるべき?<br/>(バグ・安全性・設計の問題)"}
+    Q -->|"はい"| RC["Request changes<br/>(ブロッキング)"]
+    Q -->|"いいえ"| N{"好み・細かい改善?"}
+    N -->|"はい"| NIT["nit: として伝える<br/>(任意)"]
+    N -->|"いいえ"| AP["Approve"]
+    RC --> A["作者が対応 or 合意"]
+    NIT --> A
+    A --> AP`}
+            />
           </section>
 
           {/* Quiz 1 */}
@@ -300,6 +315,27 @@ export default function Perspectives() {
                 { label: "スタイルの指摘だけして承認する" },
               ]}
               explanation="大きすぎる PR は無理に通すと見落としが増えます。分割を提案して各 PR を読み切れるサイズにするのが健全です。分割できない場合は説明で読む順を案内するなど、負荷を下げる工夫をします。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: 指摘を分類する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              次の指摘は「直さないとマージできない」のか「任意の好み」なのか。
+              頭にラベルを付けて温度感を伝えましょう。null 参照は実行時例外を招くブロッキング指摘です。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="ブロッキング指摘にラベルを付けよう"
+              description="null のとき例外になる指摘は対応必須です。頭に付けるラベルを埋めてください（任意の好みは nit、要対応は issue）。"
+              initialCode={`___: この入力が null のとき例外になります。検証が必要です。`}
+              answer={`issue: この入力が null のとき例外になります。検証が必要です。`}
+              hints={["対応が必須な問題の指摘は issue"]}
+              keywords={["issue"]}
             />
           </section>
 

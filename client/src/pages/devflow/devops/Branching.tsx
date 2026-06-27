@@ -7,6 +7,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const strategies = [
   {
@@ -216,6 +218,19 @@ git rebase main
 git push -u origin feature/add-search`}
             />
 
+            <MermaidDiagram
+              title="図: GitHub Flow（main + 短命ブランチ → PR マージ）"
+              chart={`gitGraph
+    commit id: "init"
+    branch feature/add-search
+    checkout feature/add-search
+    commit id: "add-form"
+    commit id: "add-tests"
+    checkout main
+    merge feature/add-search id: "merge-PR"
+    commit id: "deploy"`}
+            />
+
             <InfoBox type="info" title="仕様は範囲、実測は運用">
               「短命」は仕様では数時間〜1日とされますが、実測ではレビュー待ちで
               数日伸びることがあります。理由はコードの完成度ではなく、
@@ -240,6 +255,40 @@ git push -u origin feature/add-search`}
                 { label: "release ブランチを複数並行で持つため" },
               ]}
               explanation="ブランチが長く生きるほど main との差分が広がり、マージ時のコンフリクト（マージ地獄）が大きくなります。短命ブランチで頻繁に統合すれば差分が小さく保たれ、統合の痛みが減ります。これが CI/CD とも噛み合い、リードタイム短縮につながります。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン：フィーチャーブランチを作って push する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              GitHub Flow の基本操作を書いてみます。main から短命なフィーチャーブランチを
+              切り、リモートへ push してプルリクエストを出せる状態にします。
+              空欄のコマンドを埋めましょう。
+            </p>
+
+            <CodingChallenge
+              preview
+              previewType="terminal"
+              title="ブランチ作成と push のコマンドを書こう"
+              description="main から feature/add-login ブランチを作成し、リモート origin へ push するコマンドを完成させてください。___ を適切な部分に置き換えます。"
+              initialCode={`# main から短命ブランチを作成して切り替える
+git ___ -c feature/add-login main
+
+# 作業してコミットしたあと、リモートへ push する
+git ___ -u origin feature/add-login`}
+              answer={`# main から短命ブランチを作成して切り替える
+git switch -c feature/add-login main
+
+# 作業してコミットしたあと、リモートへ push する
+git push -u origin feature/add-login`}
+              hints={[
+                "ブランチを作成して切り替えるのは git switch -c",
+                "リモートへ反映するのは git push（-u で上流ブランチを設定）",
+              ]}
+              keywords={["switch", "push"]}
             />
           </section>
 

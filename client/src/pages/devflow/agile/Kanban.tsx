@@ -6,6 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
+import MermaidDiagram from "@/components/MermaidDiagram";
+import CodingChallenge from "@/components/CodingChallenge";
 
 const practices = [
   {
@@ -103,6 +105,15 @@ export default function Kanban() {
               これにより滞留が減り、一枚のカードがボードを流れきるまでの時間が短くなります。
               上限に達して手が止まったときこそ、ボトルネックが可視化された瞬間です。
             </InfoBox>
+
+            <MermaidDiagram
+              title="図: WIP 制限つきカンバンボード"
+              chart={`flowchart LR
+    TODO["Todo（待ち）"] -->|"プルする"| DOING["Doing（WIP=2）"]
+    DOING --> REVIEW["Review"]
+    REVIEW --> DONE["Done（完了）"]
+    DOING -.->|"WIP 上限に達したら新規着手を止める"| TODO`}
+            />
           </section>
 
           {/* リードタイムとサイクルタイム */}
@@ -327,6 +338,46 @@ export default function Kanban() {
                 { label: "カンバンはリソース効率の最大化を最優先する" },
               ]}
               explanation="全員が常に忙しい状態（高いリソース効率）でも、仕掛かりが増えれば一件あたりの待ち時間が伸び、顧客から見た完了は遅くなりがちです。カンバンは作業が滞らず流れるフロー効率を優先します。"
+            />
+          </section>
+
+          {/* ハンズオン */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              ハンズオン: リードタイムとサイクルタイムを計算する
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              リードタイムは「依頼発生から完了まで」、サイクルタイムは「着手から完了まで」です。
+              下のタイムスタンプから両方を計算してみましょう。差分が、着手前の待ち時間にあたります。
+            </p>
+            <CodingChallenge
+              preview
+              previewType="markdown"
+              title="リードタイムとサイクルタイムを求めよう"
+              description="依頼=1日目、着手=4日目、完了=9日目。リードタイム = 完了 - 依頼 = 8日、サイクルタイム = 完了 - 着手 = 5日。1 つ目の空欄を『8日』、2 つ目を『5日』に書き換えてください（___ を埋める）。"
+              initialCode={`# タイムスタンプ
+- 依頼が発生: 1日目
+- 着手: 4日目
+- 完了: 9日目
+
+# 計算
+- リードタイム（完了 - 依頼）: ___
+- サイクルタイム（完了 - 着手）: ___
+- 着手前の待ち = リードタイム - サイクルタイム = 3日`}
+              answer={`# タイムスタンプ
+- 依頼が発生: 1日目
+- 着手: 4日目
+- 完了: 9日目
+
+# 計算
+- リードタイム（完了 - 依頼）: 8日
+- サイクルタイム（完了 - 着手）: 5日
+- 着手前の待ち = リードタイム - サイクルタイム = 3日`}
+              hints={[
+                "リードタイムは完了 9 から依頼 1 を引いて 8日",
+                "サイクルタイムは完了 9 から着手 4 を引いて 5日",
+              ]}
+              keywords={["8日", "5日"]}
             />
           </section>
 
