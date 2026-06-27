@@ -241,16 +241,16 @@ export default function Auth() {
             <MermaidDiagram
               title="図: ログインから HttpOnly Cookie を使った後続リクエストまで"
               chart={`sequenceDiagram
-    participant B as "ブラウザ"
-    participant F as "BFF"
-    participant A as "認証サービス"
-    B->>F: "ログイン要求(email/password)"
-    F->>A: "資格情報を検証"
-    A-->>F: "セッショントークン"
-    F-->>B: "Set-Cookie: HttpOnly; Secure; SameSite"
-    Note over B: "JS から読めない Cookie として保持"
-    B->>F: "後続リクエスト(Cookie 自動送信)"
-    F-->>B: "認証済みレスポンス"`}
+    participant B as ブラウザ
+    participant F as BFF
+    participant A as 認証サービス
+    B->>F: ログイン要求 email/password
+    F->>A: 資格情報を検証
+    A-->>F: セッショントークン
+    F-->>B: Set-Cookie HttpOnly Secure SameSite
+    Note over B: JS から読めない Cookie として保持
+    B->>F: 後続リクエスト Cookie 自動送信
+    F-->>B: 認証済みレスポンス`}
             />
 
             <CodeBlock
