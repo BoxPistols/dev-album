@@ -274,6 +274,65 @@ const VueRenderingModes = lazy(() => import("./pages/vue/nuxt-server/RenderingMo
 const VueMiddlewarePlugins = lazy(() => import("./pages/vue/nuxt-server/MiddlewarePlugins"));
 const VueDeploy = lazy(() => import("./pages/vue/nuxt-server/Deploy"));
 const VueLatestFeatures = lazy(() => import("./pages/vue/advanced/LatestFeatures"));
+
+// === バックエンド / インフラ / DevOps マニュアル ===
+const InfraHome = lazy(() => import("./pages/infra/Home"));
+const InfraLandscape = lazy(() => import("./pages/infra/foundations/Landscape"));
+const InfraComputeModels = lazy(() => import("./pages/infra/foundations/ComputeModels"));
+const InfraChoosing = lazy(() => import("./pages/infra/foundations/Choosing"));
+const InfraVercel = lazy(() => import("./pages/infra/hosting/Vercel"));
+const InfraNetlify = lazy(() => import("./pages/infra/hosting/Netlify"));
+const InfraCloudflarePages = lazy(() => import("./pages/infra/hosting/CloudflarePages"));
+const InfraHostingComparison = lazy(() => import("./pages/infra/hosting/Comparison"));
+const InfraCdnBasics = lazy(() => import("./pages/infra/edge/CdnBasics"));
+const InfraCloudflare = lazy(() => import("./pages/infra/edge/Cloudflare"));
+const InfraEdgeFunctions = lazy(() => import("./pages/infra/edge/EdgeFunctions"));
+const InfraWhatIsBaas = lazy(() => import("./pages/infra/baas/WhatIsBaas"));
+const InfraSupabase = lazy(() => import("./pages/infra/baas/Supabase"));
+const InfraFirebase = lazy(() => import("./pages/infra/baas/Firebase"));
+const InfraBaasComparison = lazy(() => import("./pages/infra/baas/Comparison"));
+const InfraRelational = lazy(() => import("./pages/infra/database/Relational"));
+const InfraServerlessDb = lazy(() => import("./pages/infra/database/ServerlessDb"));
+const InfraOrm = lazy(() => import("./pages/infra/database/Orm"));
+const InfraBeyondRelational = lazy(() => import("./pages/infra/database/BeyondRelational"));
+const InfraWhatIsBff = lazy(() => import("./pages/infra/bff/WhatIsBff"));
+const InfraAuth = lazy(() => import("./pages/infra/bff/Auth"));
+const InfraApiGateway = lazy(() => import("./pages/infra/bff/ApiGateway"));
+const InfraCicd = lazy(() => import("./pages/infra/devops/Cicd"));
+const InfraIac = lazy(() => import("./pages/infra/devops/Iac"));
+const InfraContainers = lazy(() => import("./pages/infra/devops/Containers"));
+const InfraMonitoring = lazy(() => import("./pages/infra/observability/Monitoring"));
+const InfraSre = lazy(() => import("./pages/infra/observability/Sre"));
+const InfraAwsOverview = lazy(() => import("./pages/infra/aws/Overview"));
+const InfraAwsIam = lazy(() => import("./pages/infra/aws/IamAccount"));
+const InfraAwsNetwork = lazy(() => import("./pages/infra/aws/NetworkVpc"));
+const InfraAwsCompute = lazy(() => import("./pages/infra/aws/Compute"));
+const InfraAwsStorage = lazy(() => import("./pages/infra/aws/StorageCdn"));
+const InfraAwsDatabase = lazy(() => import("./pages/infra/aws/Database"));
+const InfraAwsCostOps = lazy(() => import("./pages/infra/aws/CostOps"));
+
+// === 開発フロー / チーム / DesignOps マニュアル ===
+const FlowHome = lazy(() => import("./pages/devflow/Home"));
+const FlowWhatIsAgile = lazy(() => import("./pages/devflow/agile/WhatIsAgile"));
+const FlowScrum = lazy(() => import("./pages/devflow/agile/Scrum"));
+const FlowSprint = lazy(() => import("./pages/devflow/agile/Sprint"));
+const FlowKanban = lazy(() => import("./pages/devflow/agile/Kanban"));
+const FlowBacklog = lazy(() => import("./pages/devflow/pm/Backlog"));
+const FlowEstimation = lazy(() => import("./pages/devflow/pm/Estimation"));
+const FlowRoadmap = lazy(() => import("./pages/devflow/pm/Roadmap"));
+const FlowCulture = lazy(() => import("./pages/devflow/devops/Culture"));
+const FlowDora = lazy(() => import("./pages/devflow/devops/Dora"));
+const FlowBranching = lazy(() => import("./pages/devflow/devops/Branching"));
+const FlowWhyReview = lazy(() => import("./pages/devflow/review/WhyReview"));
+const FlowPullRequest = lazy(() => import("./pages/devflow/review/PullRequest"));
+const FlowPerspectives = lazy(() => import("./pages/devflow/review/Perspectives"));
+const FlowReviewCulture = lazy(() => import("./pages/devflow/review/Culture"));
+const FlowWhatIsDesignOps = lazy(() => import("./pages/devflow/designops/WhatIsDesignOps"));
+const FlowDesignReview = lazy(() => import("./pages/devflow/designops/DesignReview"));
+const FlowHandoff = lazy(() => import("./pages/devflow/designops/Handoff"));
+const FlowDocumentation = lazy(() => import("./pages/devflow/team/Documentation"));
+const FlowRetrospective = lazy(() => import("./pages/devflow/team/Retrospective"));
+const FlowIncident = lazy(() => import("./pages/devflow/team/Incident"));
 const ApiHttpMethods = lazy(() => import("./pages/api/rest-design/HttpMethods"));
 const ApiStatusCodes = lazy(() => import("./pages/api/rest-design/StatusCodes"));
 const ApiReqRes = lazy(() => import("./pages/api/rest-design/RequestResponse"));
@@ -625,6 +684,65 @@ function App() {
                 <Route path="/vue/nuxt-server/middleware-plugins" component={VueMiddlewarePlugins} />
                 <Route path="/vue/nuxt-server/deploy" component={VueDeploy} />
                 <Route path="/vue/advanced/latest-features" component={VueLatestFeatures} />
+
+                {/* === バックエンド / インフラ / DevOps マニュアル === */}
+                <Route path="/infra" component={InfraHome} />
+                <Route path="/infra/foundations/landscape" component={InfraLandscape} />
+                <Route path="/infra/foundations/compute-models" component={InfraComputeModels} />
+                <Route path="/infra/foundations/choosing" component={InfraChoosing} />
+                <Route path="/infra/hosting/vercel" component={InfraVercel} />
+                <Route path="/infra/hosting/netlify" component={InfraNetlify} />
+                <Route path="/infra/hosting/cloudflare-pages" component={InfraCloudflarePages} />
+                <Route path="/infra/hosting/comparison" component={InfraHostingComparison} />
+                <Route path="/infra/edge/cdn-basics" component={InfraCdnBasics} />
+                <Route path="/infra/edge/cloudflare" component={InfraCloudflare} />
+                <Route path="/infra/edge/edge-functions" component={InfraEdgeFunctions} />
+                <Route path="/infra/baas/what-is-baas" component={InfraWhatIsBaas} />
+                <Route path="/infra/baas/supabase" component={InfraSupabase} />
+                <Route path="/infra/baas/firebase" component={InfraFirebase} />
+                <Route path="/infra/baas/comparison" component={InfraBaasComparison} />
+                <Route path="/infra/database/relational" component={InfraRelational} />
+                <Route path="/infra/database/serverless-db" component={InfraServerlessDb} />
+                <Route path="/infra/database/orm" component={InfraOrm} />
+                <Route path="/infra/database/beyond-relational" component={InfraBeyondRelational} />
+                <Route path="/infra/bff/what-is-bff" component={InfraWhatIsBff} />
+                <Route path="/infra/bff/auth" component={InfraAuth} />
+                <Route path="/infra/bff/api-gateway" component={InfraApiGateway} />
+                <Route path="/infra/devops/cicd" component={InfraCicd} />
+                <Route path="/infra/devops/iac" component={InfraIac} />
+                <Route path="/infra/devops/containers" component={InfraContainers} />
+                <Route path="/infra/observability/monitoring" component={InfraMonitoring} />
+                <Route path="/infra/observability/sre" component={InfraSre} />
+                <Route path="/infra/aws/overview" component={InfraAwsOverview} />
+                <Route path="/infra/aws/iam-account" component={InfraAwsIam} />
+                <Route path="/infra/aws/network-vpc" component={InfraAwsNetwork} />
+                <Route path="/infra/aws/compute" component={InfraAwsCompute} />
+                <Route path="/infra/aws/storage-cdn" component={InfraAwsStorage} />
+                <Route path="/infra/aws/database" component={InfraAwsDatabase} />
+                <Route path="/infra/aws/cost-ops" component={InfraAwsCostOps} />
+
+                {/* === 開発フロー / チーム / DesignOps マニュアル === */}
+                <Route path="/devflow" component={FlowHome} />
+                <Route path="/devflow/agile/what-is-agile" component={FlowWhatIsAgile} />
+                <Route path="/devflow/agile/scrum" component={FlowScrum} />
+                <Route path="/devflow/agile/sprint" component={FlowSprint} />
+                <Route path="/devflow/agile/kanban" component={FlowKanban} />
+                <Route path="/devflow/pm/backlog" component={FlowBacklog} />
+                <Route path="/devflow/pm/estimation" component={FlowEstimation} />
+                <Route path="/devflow/pm/roadmap" component={FlowRoadmap} />
+                <Route path="/devflow/devops/culture" component={FlowCulture} />
+                <Route path="/devflow/devops/dora" component={FlowDora} />
+                <Route path="/devflow/devops/branching" component={FlowBranching} />
+                <Route path="/devflow/review/why-review" component={FlowWhyReview} />
+                <Route path="/devflow/review/pull-request" component={FlowPullRequest} />
+                <Route path="/devflow/review/perspectives" component={FlowPerspectives} />
+                <Route path="/devflow/review/culture" component={FlowReviewCulture} />
+                <Route path="/devflow/designops/what-is-designops" component={FlowWhatIsDesignOps} />
+                <Route path="/devflow/designops/design-review" component={FlowDesignReview} />
+                <Route path="/devflow/designops/handoff" component={FlowHandoff} />
+                <Route path="/devflow/team/documentation" component={FlowDocumentation} />
+                <Route path="/devflow/team/retrospective" component={FlowRetrospective} />
+                <Route path="/devflow/team/incident" component={FlowIncident} />
 
                 {/* 404 */}
                 <Route component={NotFound} />

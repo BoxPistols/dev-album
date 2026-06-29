@@ -922,4 +922,226 @@ export const searchIndex: Record<string, string[]> = {
     'Vue 3.5', 'Nuxt 4', '最新機能', 'reactive props destructure', 'defineModel', 'useId',
     'useTemplateRef', 'compatibilityVersion', 'まとめ', '次のステップ',
   ],
+
+  // ===== infra-manual =====
+  '/infra': [
+    'このマニュアルについて', 'バックエンド', 'インフラ', 'DevOps', 'カリキュラム', '前提知識',
+  ],
+  '/infra/foundations/landscape': [
+    'クラウド', 'インフラ', 'IaaS', 'PaaS', 'SaaS', 'オンプレミス', 'AWS', 'GCP', 'Azure',
+    'リージョン', '責任共有モデル', 'マネージドサービス',
+  ],
+  '/infra/foundations/compute-models': [
+    'サーバー', 'サーバーレス', 'エッジ', 'VM', 'コンテナ', 'FaaS', 'Lambda', 'コールドスタート',
+    'エッジコンピューティング', '実行モデル', 'スケーリング',
+  ],
+  '/infra/foundations/choosing': [
+    'アーキテクチャ', '選択軸', 'SSR', 'SSG', 'CSR', 'モノリス', 'マイクロサービス',
+    'コスト', 'スケーラビリティ', '運用負荷', 'トレードオフ',
+  ],
+  '/infra/hosting/vercel': [
+    'Vercel', 'Next.js', 'デプロイ', 'プレビューデプロイ', 'Edge Functions', 'Serverless Functions',
+    '環境変数', 'ドメイン', 'ISR', 'ビルド', 'CI',
+  ],
+  '/infra/hosting/netlify': [
+    'Netlify', 'デプロイ', 'Netlify Functions', 'Edge Functions', 'Forms', 'ビルド設定',
+    'netlify.toml', 'リダイレクト', '環境変数',
+  ],
+  '/infra/hosting/cloudflare-pages': [
+    'Cloudflare Pages', 'Workers', 'デプロイ', 'エッジ', 'wrangler', 'Functions',
+    'KV', 'D1', 'R2', 'バインディング',
+  ],
+  '/infra/hosting/comparison': [
+    'ホスティング比較', 'Vercel', 'Netlify', 'Cloudflare', '選び方', '料金', 'ベンダーロックイン',
+    'パフォーマンス', '用途別',
+  ],
+  '/infra/edge/cdn-basics': [
+    'CDN', 'キャッシュ', 'エッジ', 'オリジン', 'TTL', 'キャッシュ無効化', 'Cache-Control',
+    'stale-while-revalidate', 'PoP', 'レイテンシ',
+  ],
+  '/infra/edge/cloudflare': [
+    'Cloudflare', 'DNS', 'プロキシ', 'WAF', 'DDoS', 'SSL', 'CDN', 'Zero Trust',
+    'ネットワーク', 'セキュリティ',
+  ],
+  '/infra/edge/edge-functions': [
+    'エッジ関数', 'Edge Functions', 'Cloudflare Workers', 'V8 isolate', 'ミドルウェア',
+    'エッジコンピューティング', 'WinterCG', '地理的分散', 'レイテンシ',
+  ],
+  '/infra/baas/what-is-baas': [
+    'BaaS', 'Backend as a Service', 'mBaaS', '認証', 'データベース', 'ストレージ',
+    'リアルタイム', 'サーバーレス', 'メリット', 'デメリット',
+  ],
+  '/infra/baas/supabase': [
+    'Supabase', 'PostgreSQL', 'Auth', 'Row Level Security', 'RLS', 'Realtime', 'Storage',
+    'Edge Functions', 'supabase-js', 'オープンソース',
+  ],
+  '/infra/baas/firebase': [
+    'Firebase', 'Firestore', 'Realtime Database', 'Authentication', 'Cloud Functions',
+    'Hosting', 'NoSQL', 'セキュリティルール', 'Google Cloud',
+  ],
+  '/infra/baas/comparison': [
+    'Supabase', 'Firebase', '比較', 'SQL', 'NoSQL', 'RLS', 'セキュリティルール',
+    '料金', 'ベンダーロックイン', '選び方',
+  ],
+  '/infra/database/relational': [
+    'リレーショナルデータベース', 'PostgreSQL', 'RDB', 'SQL', 'テーブル', 'インデックス',
+    'トランザクション', 'ACID', '正規化', 'JOIN', 'マイグレーション',
+  ],
+  '/infra/database/serverless-db': [
+    'サーバーレス DB', 'Neon', 'PlanetScale', 'Turso', '接続管理', 'コネクションプール',
+    'サーバーレス', 'エッジ', 'ブランチング', 'スケール',
+  ],
+  '/infra/database/orm': [
+    'ORM', 'Prisma', 'Drizzle', '型安全', 'スキーマ', 'マイグレーション', 'クエリビルダー',
+    'N+1', 'TypeScript', 'リレーション',
+  ],
+  '/infra/database/beyond-relational': [
+    'KV', 'Key-Value', 'Redis', 'ベクトルデータベース', 'pgvector', 'オブジェクトストレージ',
+    'S3', 'R2', 'NoSQL', '埋め込み', 'キャッシュ',
+  ],
+  '/infra/bff/what-is-bff': [
+    'BFF', 'Backend for Frontend', 'API集約', 'プロキシ', 'BFFパターン', 'マイクロサービス',
+    'オーケストレーション', 'フロントエンド最適化',
+  ],
+  '/infra/bff/auth': [
+    '認証', '認可', 'JWT', 'セッション', 'OAuth', 'OpenID Connect', 'シークレット管理',
+    '環境変数', 'トークン', 'Cookie', 'CSRF',
+  ],
+  '/infra/bff/api-gateway': [
+    'API Gateway', 'ゲートウェイ', 'ルーティング', 'レート制限', '認証', 'バックエンド構成',
+    'リバースプロキシ', 'マイクロサービス',
+  ],
+  '/infra/devops/cicd': [
+    'CI/CD', '継続的インテグレーション', '継続的デリバリー', 'GitHub Actions', 'パイプライン',
+    'ビルド', 'テスト', 'デプロイ', 'ワークフロー', '自動化',
+  ],
+  '/infra/devops/iac': [
+    'IaC', 'Infrastructure as Code', 'Terraform', 'Pulumi', '宣言的', 'べき等',
+    '状態管理', 'プロビジョニング', '再現性',
+  ],
+  '/infra/devops/containers': [
+    'コンテナ', 'Docker', 'イメージ', 'Dockerfile', 'Kubernetes', 'オーケストレーション',
+    '仮想化', '実行環境', 'コンテナレジストリ',
+  ],
+  '/infra/observability/monitoring': [
+    'モニタリング', 'ログ', 'メトリクス', 'トレース', '可観測性', 'Observability',
+    'アラート', 'Sentry', 'Datadog', '構造化ログ',
+  ],
+  '/infra/observability/sre': [
+    'SRE', '信頼性', 'SLI', 'SLO', 'SLA', 'エラーバジェット', 'トイル',
+    'インシデント', '可用性', 'ポストモーテム',
+  ],
+  '/infra/aws/overview': [
+    'AWS', 'Amazon Web Services', 'マネジメントコンソール', 'リージョン', 'アベイラビリティゾーン',
+    '主要サービス', 'EC2', 'S3', 'Lambda', 'RDS', 'IAM', 'グローバルインフラ',
+  ],
+  '/infra/aws/iam-account': [
+    'IAM', 'アカウント設計', 'ルートユーザー', 'IAMユーザー', 'ロール', 'ポリシー',
+    '最小権限', 'MFA', 'AWS Organizations', 'マルチアカウント', 'IAM Identity Center',
+  ],
+  '/infra/aws/network-vpc': [
+    'VPC', 'ネットワーク', 'サブネット', 'パブリックサブネット', 'プライベートサブネット',
+    'セキュリティグループ', 'ルートテーブル', 'インターネットゲートウェイ', 'NAT', 'CIDR',
+  ],
+  '/infra/aws/compute': [
+    'コンピュート', 'EC2', 'ECS', 'Fargate', 'Lambda', 'Auto Scaling', 'ロードバランサー',
+    'ALB', 'コンテナ', 'サーバーレス', 'AMI',
+  ],
+  '/infra/aws/storage-cdn': [
+    'S3', 'オブジェクトストレージ', 'EBS', 'EFS', 'CloudFront', 'CDN', '静的サイトホスティング',
+    'バケット', '署名付きURL', 'ストレージクラス', 'OAC',
+  ],
+  '/infra/aws/database': [
+    'RDS', 'Aurora', 'DynamoDB', 'ElastiCache', 'リレーショナル', 'NoSQL', 'マネージドDB',
+    'リードレプリカ', 'マルチAZ', 'バックアップ',
+  ],
+  '/infra/aws/cost-ops': [
+    'コスト管理', 'Billing', 'Cost Explorer', 'Budgets', 'CloudWatch', 'Well-Architected',
+    'タグ', '従量課金', '無料利用枠', 'コスト最適化', 'CloudTrail',
+  ],
+
+  // ===== devflow-manual =====
+  '/devflow': [
+    'このマニュアルについて', '開発フロー', 'チーム', 'DesignOps', 'カリキュラム', 'アジャイル',
+  ],
+  '/devflow/agile/what-is-agile': [
+    'アジャイル', 'アジャイルソフトウェア開発宣言', 'ウォーターフォール', '反復', 'インクリメンタル',
+    '価値', '原則', '適応', '顧客協調',
+  ],
+  '/devflow/agile/scrum': [
+    'スクラム', 'スプリント', 'プロダクトオーナー', 'スクラムマスター', '開発者',
+    'スクラムイベント', 'プロダクトバックログ', '透明性', '検査', '適応',
+  ],
+  '/devflow/agile/sprint': [
+    'スプリント', 'スプリントプランニング', 'デイリースクラム', 'スプリントレビュー',
+    'レトロスペクティブ', 'スプリントゴール', 'ベロシティ', 'バーンダウン',
+  ],
+  '/devflow/agile/kanban': [
+    'カンバン', 'WIP制限', 'フロー効率', 'リードタイム', 'サイクルタイム', 'ボード',
+    'プル型', '可視化', '継続的フロー',
+  ],
+  '/devflow/pm/backlog': [
+    'バックログ', 'ユーザーストーリー', 'INVEST', '受け入れ基準', 'エピック',
+    'バックログリファインメント', '優先順位', 'プロダクトオーナー',
+  ],
+  '/devflow/pm/estimation': [
+    '見積もり', 'ストーリーポイント', 'プランニングポーカー', '相対見積もり', 'ベロシティ',
+    'Tシャツサイズ', '不確実性', 'コーンオブアンサーティンティ',
+  ],
+  '/devflow/pm/roadmap': [
+    'ロードマップ', '優先順位付け', 'RICE', 'MoSCoW', '価値', 'アウトカム',
+    'マイルストーン', 'ナウネクストレイター', 'ステークホルダー',
+  ],
+  '/devflow/devops/culture': [
+    'DevOps', '文化', 'CALMS', 'Culture', 'Automation', 'Lean', 'Measurement', 'Sharing',
+    'サイロ', 'コラボレーション', '責任共有',
+  ],
+  '/devflow/devops/dora': [
+    'DORA', 'Four Keys', 'デプロイ頻度', 'リードタイム', '変更失敗率', '平均復旧時間',
+    'MTTR', '開発生産性', 'エリートパフォーマー', 'SPACE',
+  ],
+  '/devflow/devops/branching': [
+    'ブランチ戦略', 'Git Flow', 'GitHub Flow', 'trunk-based', 'リリースフロー', 'フィーチャーフラグ',
+    'マージ', 'デプロイ', '継続的デリバリー',
+  ],
+  '/devflow/review/why-review': [
+    'コードレビュー', '目的', '品質', '知識共有', 'バス係数', '欠陥検出',
+    '共同所有', 'フィードバック', 'メリット',
+  ],
+  '/devflow/review/pull-request': [
+    'Pull Request', 'PR', 'マージリクエスト', 'ドラフト', 'レビュアー', 'PRサイズ',
+    'セルフレビュー', 'テンプレート', 'CI', '小さなPR',
+  ],
+  '/devflow/review/perspectives': [
+    'レビュー観点', 'チェックリスト', '正確性', '可読性', '設計', 'セキュリティ',
+    'テスト', 'パフォーマンス', 'ノンブロッキング', '指摘',
+  ],
+  '/devflow/review/culture': [
+    'レビュー文化', 'コミュニケーション', '心理的安全性', 'コンベンショナルコメント',
+    'nit', '人ではなくコード', 'フィードバック', '建設的',
+  ],
+  '/devflow/designops/what-is-designops': [
+    'DesignOps', 'デザインオペレーション', 'デザインシステム', 'デザイン負債', 'プロセス',
+    'スケール', 'ワークフロー', 'ツール', 'ガバナンス',
+  ],
+  '/devflow/designops/design-review': [
+    'デザインレビュー', 'クリティーク', 'フィードバック', 'デザイン批評', 'ヒューリスティック評価',
+    'アクセシビリティ', '一貫性', '観点', 'デザイン QA',
+  ],
+  '/devflow/designops/handoff': [
+    'ハンドオフ', 'デザインとエンジニア', '協業', 'Figma', 'デザイントークン', 'Dev Mode',
+    'Storybook', 'デザインシステム', '実装ギャップ', 'Code Connect',
+  ],
+  '/devflow/team/documentation': [
+    'ドキュメンテーション', 'ADR', 'Architecture Decision Record', '意思決定記録', 'README',
+    'ランブック', 'ナレッジ共有', 'ドキュメント駆動',
+  ],
+  '/devflow/team/retrospective': [
+    'ふりかえり', 'レトロスペクティブ', 'KPT', 'YWT', '継続的改善', 'カイゼン',
+    'アクションアイテム', 'タイムライン', 'Fun Done Learn',
+  ],
+  '/devflow/team/incident': [
+    'インシデント対応', 'ポストモーテム', '障害対応', '非難なきポストモーテム', 'RCA',
+    '根本原因分析', 'インシデント指揮官', 'タイムライン', '再発防止',
+  ],
 };

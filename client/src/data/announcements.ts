@@ -20,6 +20,42 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-06-27-infra-devflow-visuals-handson",
+    date: "2026-06-27",
+    title: "インフラ / 開発フロー全ページに図解とハンズオンを追加",
+    description:
+      "バックエンド/インフラ/DevOps と 開発フロー/DesignOps の全 54 ページに、Mermaid による図解（構成図・フロー・シーケンス・ER 図・gitGraph）と、書いて学べるハンズオン（CLI・設定ファイル・SQL・ADR・ユーザーストーリー・ポストモーテム等）を追加。読むだけでなく、見て・手を動かして理解できる教材に強化した。",
+    category: "update",
+    link: "/infra",
+  },
+  {
+    id: "2026-06-27-infra-aws-section",
+    date: "2026-06-27",
+    title: "インフラマニュアルに「AWS 実践入門」セクションを追加",
+    description:
+      "バックエンド / インフラ / DevOps マニュアルに AWS の実践セクション（7 ページ）を追加。主要サービスの全体像・アカウント設計と IAM・ネットワークと VPC・コンピュート（EC2 / ECS / Lambda）・ストレージと配信（S3 / CloudFront）・データベース（RDS / Aurora / DynamoDB）・コスト管理と Well-Architected まで、代表的なハイパースケーラーを地図として学べる。",
+    category: "update",
+    link: "/infra/aws/overview",
+  },
+  {
+    id: "2026-06-27-infra-devops-manual",
+    date: "2026-06-27",
+    title: "バックエンド / インフラ / DevOps マニュアルを新設",
+    description:
+      "フロントの先にあるインフラ領域を扱う独立マニュアル（9 セクション / 27 ページ）を追加。クラウドの全体像・Vercel / Netlify / Cloudflare のホスティング・CDN とエッジ・Supabase / Firebase（BaaS）・PostgreSQL / ORM / サーバーレス DB・BFF と認証・CI/CD / IaC / コンテナ・可観測性と SRE まで通しで学べる。",
+    category: "feature",
+    link: "/infra",
+  },
+  {
+    id: "2026-06-27-devflow-designops-manual",
+    date: "2026-06-27",
+    title: "開発フロー / チーム / DesignOps マニュアルを新設",
+    description:
+      "チーム開発の進め方を扱う独立マニュアル（7 セクション / 21 ページ）を追加。アジャイル・スクラム・カンバン・バックログと見積もり・DevOps 文化と DORA メトリクス・ブランチ戦略・コードレビューと PR 運用・DesignOps とデザインレビュー・ふりかえりとインシデント対応まで体系的に学べる。",
+    category: "feature",
+    link: "/devflow",
+  },
+  {
     id: "2026-06-21-vue-nuxt-manual",
     date: "2026-06-21",
     title: "Vue 3 / Nuxt マニュアルを新設",
