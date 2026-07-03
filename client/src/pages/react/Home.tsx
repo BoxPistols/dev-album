@@ -629,8 +629,8 @@ function CurriculumPart({ partLabel, partTitle, partColor, items }: {
 function PrereqItem({ level, title, desc }: { level: 'ok' | 'plus' | 'none'; title: string; desc: string }) {
   const config = {
     ok: { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-800 dark:text-green-400', label: 'OK' },
-    plus: { bg: 'bg-amber-100 dark:bg-amber-900/40', text: 'text-amber-600 dark:text-amber-400', label: '+' },
-    none: { bg: 'bg-slate-100 dark:bg-slate-800/40', text: 'text-slate-500 dark:text-slate-400', label: '-' },
+    plus: { bg: 'bg-amber-100 dark:bg-amber-900/40', text: 'text-amber-800 dark:text-amber-400', label: '+' },
+    none: { bg: 'bg-slate-100 dark:bg-slate-800/40', text: 'text-slate-600 dark:text-slate-400', label: '-' },
   }[level];
 
   return (

@@ -51,7 +51,7 @@ const CLAIMS = [
   {
     pkg: "react",
     label: "React（プレビュー実行環境）",
-    claimed: vendorMajor(/react-(\d+)\./),
+    claimed: vendorMajor(/\/react-(\d+)\./),
     note: "UMD 配布は 18 が最終。React 19 専用 API のプレビュー制約はページ内に注記済み",
     allowDrift: true,
   },

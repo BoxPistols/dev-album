@@ -138,7 +138,7 @@
   --secondary: #44475A;
   --secondary-foreground: #F8F8F2;
   --muted: #44475A;
-  --muted-foreground: #8595BD;
+  --muted-foreground: #B4BEDD; /* card/muted/kbd の全背景で AA を満たす（#8595BD/#A3B0D4 は muted 上で未達） */
   --accent: #BD93F9;
   --accent-foreground: #282A36;
   --destructive: #FF5555;

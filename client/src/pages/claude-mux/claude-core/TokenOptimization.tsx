@@ -105,7 +105,7 @@ $ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80`} language="bash" />
                 { level: 'low', desc: 'リネーム、typo修正など単純なタスク。高速・低コスト。', color: 'text-emerald-600' },
                 { level: 'medium', desc: 'コスト重視のコーディングタスク。バランス型。', color: 'text-blue-600' },
                 { level: 'high（既定）', desc: 'トークン消費と知能のバランス。大半のモデルの既定値。', color: 'text-purple-600' },
-                { level: 'xhigh', desc: 'より深い推論。Fable 5 / Sonnet 5 / Opus 4.7 以降などで利用可能。', color: 'text-amber-600' },
+                { level: 'xhigh', desc: 'より深い推論。Fable 5 / Opus 4.7 以降などで利用可能。', color: 'text-amber-600' },
                 { level: 'max', desc: '最深推論（セッション限定）。過剰思考になりやすいため検証してから採用。', color: 'text-red-600' },
               ].map(item => (
                 <div key={item.level} className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">

@@ -289,7 +289,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   モデルの effort level（adaptive reasoning の強度）を切替。引数なしでスライダー、<code>auto</code> でモデル既定値にリセット。<strong>応答完了を待たず即時反映</strong>。<code>/model</code> 内でも左右キーで調整可能。
                 </p>
                 <p className="text-xs text-muted-foreground mb-3">
-                  対応モデル: Fable 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（既定は <code>high</code>、Opus 4.7 のみ <code>xhigh</code>）
+                  対応モデル: Fable 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（既定は <code>high</code>、Fable 5・Opus 4.7 以降は <code>xhigh</code> が既定）
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -319,7 +319,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">xhigh</td>
                         <td className="p-2">より深い推論を高トークン消費で。Opus 4.7 の既定</td>
-                        <td className="p-2">Fable 5 / Sonnet 5 / Opus 4.8 / 4.7</td>
+                        <td className="p-2">Fable 5 / Opus 4.8 / 4.7</td>
                       </tr>
                       <tr>
                         <td className="p-2 font-mono">max</td>

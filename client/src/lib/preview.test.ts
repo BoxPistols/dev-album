@@ -209,6 +209,16 @@ function App() {
     expect(html).not.toContain("from '@mui/material'");
     expect(html).not.toContain("import {");
   });
+
+  it("末尾に行コメントが付いた import 文も除去される（回帰防止）", () => {
+    const code = `import styled from 'styled-components'; // CSS-in-JS
+import { css } from '@emotion/react' // コメント
+function App() { return <div css={css\`color:red\`}>x</div>; }`;
+    const html = buildPreviewHtml(code, "", false);
+    // import 行がそのまま残ると classic script で構文エラーになる
+    expect(html).not.toContain("import styled from");
+    expect(html).not.toContain("import { css }");
+  });
 });
 
 // ============================================================
@@ -230,7 +240,7 @@ function App() { return <Button variant="contained">OK</Button>; }`;
     expect(html).toContain("fonts.googleapis.com");
     // MaterialUI グローバルの展開と読み込み失敗ガード
     expect(html).toContain("Object.assign(window, MaterialUI)");
-    expect(html).toContain("MUI(CDN) の読み込みに失敗しました");
+    expect(html).toContain("MUI ライブラリ(/vendor)の読み込みに失敗しました");
   });
 
   it("MUI プレビューはテーマモードに応じた ThemeProvider でラップされる", () => {
@@ -278,7 +288,7 @@ function App() { return <Btn>x</Btn>; }`;
     expect(detectPreviewLibs(code)).toEqual(["styled-components"]);
     const html = buildPreviewHtml(code, "", false);
     expect(html).toContain("/vendor/styled-components-6.1.19.min.js");
-    expect(html).toContain("styled-components(CDN) の読み込みに失敗しました");
+    expect(html).toContain("styled-components ライブラリ(/vendor)の読み込みに失敗しました");
   });
 
   it("@emotion/ の import から自動検出して UMD 3 点を読み込む", () => {

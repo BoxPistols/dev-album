@@ -38,8 +38,8 @@ export function detectPreviewLibs(code: string): PreviewLib[] {
  */
 function stripModuleSyntax(code: string): string {
   return code
-    .replace(/^import\s[^'"]*?from\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
-    .replace(/^import\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
+    .replace(/^import\s[^'"]*?from\s*['"][^'"]*['"];?[^\S\n]*(?:\/\/[^\n]*)?$/gm, '')
+    .replace(/^import\s*['"][^'"]*['"];?[^\S\n]*(?:\/\/[^\n]*)?$/gm, '')
     .replace(/^export\s+default\s+/gm, '')
     .replace(/^export\s+/gm, '');
 }
@@ -148,11 +148,11 @@ ${cssCode}
 try{
   var {useState,useEffect,useRef,useCallback,useMemo,useReducer,useContext,createContext}=React;
 ${needsMui ? `  if(typeof MaterialUI==='undefined'){
-    throw new Error('MUI(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+    throw new Error('MUI ライブラリ(/vendor)の読み込みに失敗しました。ページを再読み込みしてください。');
   }
   Object.assign(window, MaterialUI);
 ` : ''}${needsStyled ? `  if(typeof styled==='undefined'){
-    throw new Error('styled-components(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+    throw new Error('styled-components ライブラリ(/vendor)の読み込みに失敗しました。ページを再読み込みしてください。');
   }
   (function(){
     var sc=window.styled;
@@ -161,7 +161,7 @@ ${needsMui ? `  if(typeof MaterialUI==='undefined'){
     if(typeof s==='function'){['css','keyframes','createGlobalStyle','ThemeProvider','useTheme'].forEach(function(k){if(s[k]&&typeof window[k]==='undefined'){window[k]=s[k];}});}
   })();
 ` : ''}${needsEmotion ? `  if(typeof emotionReact==='undefined'){
-    throw new Error('Emotion(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+    throw new Error('Emotion ライブラリ(/vendor)の読み込みに失敗しました。ページを再読み込みしてください。');
   }
   var css=emotionReact.css,keyframes=emotionReact.keyframes,Global=emotionReact.Global,ThemeProvider=emotionReact.ThemeProvider,useTheme=emotionReact.useTheme;
   var styled=typeof emotionStyled!=='undefined'?(emotionStyled.default||emotionStyled):undefined;
@@ -228,7 +228,7 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
  * Markdown をプレビュー用HTMLに変換する
  */
 export function buildMarkdownPreviewHtml(markdown: string, isDark = false): string {
-  const jsonContent = JSON.stringify(markdown);
+  const jsonContent = JSON.stringify(markdown).replace(/<\//g, '<\\/');
   const bg = isDark ? '#1e1e2e' : '#fff';
   const fg = isDark ? '#cdd6f4' : '#24292f';
   const borderColor = isDark ? '#45475a' : '#d0d7de';
@@ -299,7 +299,7 @@ try {
  * ターミナル風のコマンド/設定ファイル表示
  */
 export function buildTerminalPreviewHtml(text: string, isDark = true): string {
-  const jsonContent = JSON.stringify(text);
+  const jsonContent = JSON.stringify(text).replace(/<\//g, '<\\/');
   const bg = isDark ? '#1e1e2e' : '#fafafa';
   const textColor = isDark ? '#cdd6f4' : '#333';
   const commentColor = isDark ? '#6c7086' : '#999';
@@ -369,7 +369,7 @@ document.getElementById('terminal').innerHTML = render(${jsonContent});
  * JSON設定ファイルのバリデーション付きプレビュー
  */
 export function buildConfigPreviewHtml(config: string, isDark = true): string {
-  const jsonContent = JSON.stringify(config);
+  const jsonContent = JSON.stringify(config).replace(/<\//g, '<\\/');
   const bg = isDark ? '#1e1e2e' : '#fafafa';
   const textColor = isDark ? '#cdd6f4' : '#333';
   const validBg = isDark ? '#1e3a2f' : '#dafbe1';
