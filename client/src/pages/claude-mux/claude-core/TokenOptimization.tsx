@@ -157,8 +157,8 @@ $ export CLAUDE_CODE_EFFORT_LEVEL=medium`} language="bash" />
             preview
             previewType="config"
             title="permissions.deny で読み取りを制御しよう"
-            description="トークン消費を削減するため、settings.json の permissions.deny に読み取り拒否ルールを書いてください。ロックファイル、ビルド出力、秘匿ファイルを対象にしましょう。"
-            initialCode={`{\n  "permissions": {\n    "___": [  // ← ここを埋める（拒否リストのキー）\n      "Read(./node_modules/**)",\n      "Read(./dist/**)",\n      "___",  // ← ここを埋める（package-lock.json の読み取り拒否）\n      "Read(./.env)",\n      "Read(./secrets/**)"\n    ]\n  }\n}`}
+            description="トークン消費を削減するため、settings.json の permissions.deny に読み取り拒否ルールを書いてください。1つ目の ___ は拒否リストのキー、2つ目の ___ は package-lock.json の読み取り拒否ルールです（JSON なのでコメントは書けません）。"
+            initialCode={`{\n  "permissions": {\n    "___": [\n      "Read(./node_modules/**)",\n      "Read(./dist/**)",\n      "___",\n      "Read(./.env)",\n      "Read(./secrets/**)"\n    ]\n  }\n}`}
             answer={`{\n  "permissions": {\n    "deny": [\n      "Read(./node_modules/**)",\n      "Read(./dist/**)",\n      "Read(./package-lock.json)",\n      "Read(./.env)",\n      "Read(./secrets/**)"\n    ]\n  }\n}`}
             hints={[
               '読み取りの遮断は permissions.deny に "Read(パス)" 形式で指定します',
