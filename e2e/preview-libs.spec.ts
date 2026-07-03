@@ -93,6 +93,68 @@ test.describe("Tailwind プレビュー（実コンパイル）", () => {
   }
 });
 
+test.describe("プレビューのエラー不変条件（全 iframe 走査）", () => {
+  // プレビュー iframe がエラー表示になっていたらその内容を返す
+  const detectError = `(() => {
+    const root = document.getElementById('root');
+    if (root) {
+      const strong = root.querySelector('div > strong');
+      if (strong && strong.textContent === 'Error:') {
+        return 'runtime: ' + root.textContent.slice(0, 120);
+      }
+      return null;
+    }
+    // トランスパイルエラーページは #root がなく body 直下が <pre> のみ
+    const first = document.body && document.body.firstElementChild;
+    if (
+      document.body &&
+      document.body.children.length === 1 &&
+      first &&
+      first.tagName === 'PRE' &&
+      getComputedStyle(document.body).color === 'rgb(243, 139, 168)'
+    ) {
+      return 'transpile: ' + first.textContent.slice(0, 120);
+    }
+    return null;
+  })()`;
+
+  const PAGES = [
+    "/react/mui/intro",
+    "/react/mui/components",
+    "/react/mui/customization",
+    "/react/tailwind/intro",
+    "/react/tailwind/responsive-dark",
+    "/react/tailwind/shadcn",
+    "/react/css-basics/styled-components",
+    "/react/css-basics/emotion",
+  ];
+
+  for (const path of PAGES) {
+    test(`${path}: 全プレビューがエラー表示にならない`, async ({ page }) => {
+      test.setTimeout(60_000);
+      await page.goto(path);
+      // 遅延描画対策で末尾までスクロールし、CDN ロードと描画を待つ
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(8_000);
+
+      const errors: string[] = [];
+      let frameCount = 0;
+      for (const frame of page.frames()) {
+        if (frame === page.mainFrame()) continue;
+        frameCount++;
+        try {
+          const err = await frame.evaluate(detectError);
+          if (err) errors.push(err as string);
+        } catch {
+          // 再生成中の frame は無視
+        }
+      }
+      expect(frameCount, "プレビュー iframe が 1 つも見つからない").toBeGreaterThan(0);
+      expect(errors, `エラー表示のプレビューあり:\n${errors.join("\n")}`).toEqual([]);
+    });
+  }
+});
+
 test.describe("CSS-in-JS プレビュー（実ライブラリ）", () => {
   test("styled-components: sc- クラスが生成される", async ({ page }) => {
     await page.goto("/react/css-basics/styled-components");

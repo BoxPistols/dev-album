@@ -270,6 +270,45 @@ function App() { return <Button variant="contained">OK</Button>; }`;
     const html = buildPreviewHtml("function App() { return null; }", "", false);
     expect(html).not.toContain("@tailwindcss/browser");
   });
+
+  it("styled-components の import から自動検出して UMD を読み込む", () => {
+    const code = `import styled from 'styled-components';
+const Btn = styled.button\`color: red;\`;
+function App() { return <Btn>x</Btn>; }`;
+    expect(detectPreviewLibs(code)).toEqual(["styled-components"]);
+    const html = buildPreviewHtml(code, "", false);
+    expect(html).toContain("styled-components@6.1.19");
+    expect(html).toContain("styled-components(CDN) の読み込みに失敗しました");
+  });
+
+  it("@emotion/ の import から自動検出して UMD 3 点を読み込む", () => {
+    const code = `import { css } from '@emotion/react';
+function App() { return <div css={css\`color: red;\`}>x</div>; }`;
+    expect(detectPreviewLibs(code)).toEqual(["emotion"]);
+    const html = buildPreviewHtml(code, "", false);
+    expect(html).toContain("@emotion/react@11.14.0");
+    expect(html).toContain("@emotion/styled@11.14.1");
+    expect(html).toContain("@emotion/css@11.13.5");
+  });
+
+  it("Emotion 使用時は jsx ファクトリが emotionReact.jsx に切り替わる（css prop 有効化）", () => {
+    const code = `import { css } from '@emotion/react';
+function App() { return <div css={css\`color: red;\`}>x</div>; }`;
+    const html = buildPreviewHtml(code, "", false);
+    expect(html).toContain("emotionReact.jsx(");
+    // 非 Emotion コードは通常の React.createElement のまま
+    const plain = buildPreviewHtml("function App() { return <div>x</div>; }", "", false);
+    expect(plain).toContain("React.createElement(");
+    expect(plain).not.toContain("emotionReact.jsx(");
+  });
+
+  it("ライブラリ不使用コードには外部 CDN スクリプトが一切含まれない", () => {
+    const html = buildPreviewHtml("function App() { return <p>plain</p>; }", "", false);
+    expect(html).not.toContain("material-ui");
+    expect(html).not.toContain("@tailwindcss");
+    expect(html).not.toContain("styled-components");
+    expect(html).not.toContain("@emotion");
+  });
 });
 
 // ============================================================

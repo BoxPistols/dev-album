@@ -152,6 +152,92 @@ describe('全チャレンジコードのトランスパイル検証', () => {
 });
 
 // ============================================================
+// 全 CodePreview コードのトランスパイル検証
+// （CodingChallenge と異なり code={`...`} prop を使うため別途抽出する）
+// ============================================================
+describe('全 CodePreview コードのトランスパイル検証', () => {
+  const pagesDir = path.resolve(__dirname, '..', 'pages');
+
+  /**
+   * CodePreview の code={`...`} だけを抽出する。
+   * - CodeBlock（静的表示・プレビューなし）の code prop は対象外
+   * - language prop が tsx/jsx 以外（css/bash/html 等）は実行時も
+   *   プレビューされない（canPreview=false）ため対象外
+   * エスケープ（\` \$ 等）を正しく跨いで最初の未エスケープな
+   * バッククォート + } で終端する
+   */
+  function extractPreviewCodes(src: string): string[] {
+    const codes: string[] = [];
+    const pattern = /code=\{`((?:\\[\s\S]|[^`\\])*)`\}/g;
+    for (const m of src.matchAll(pattern)) {
+      const idx = m.index ?? 0;
+      // 直前に現れるコンポーネント開始タグが CodePreview のものだけを対象にする
+      const previewStart = src.lastIndexOf('<CodePreview', idx);
+      const blockStart = src.lastIndexOf('<CodeBlock', idx);
+      if (previewStart === -1 || blockStart > previewStart) continue;
+      // 実行時の canPreview 判定を再現: language が tsx/jsx（省略時は tsx）のみ
+      const closeIdx = src.indexOf('/>', idx + m[0].length);
+      const span = src.slice(previewStart, closeIdx === -1 ? idx : closeIdx);
+      const language = span.match(/language="([^"]+)"/)?.[1] ?? 'tsx';
+      if (language !== 'tsx' && language !== 'jsx') continue;
+      // ページソース上のエスケープを実行時の文字列に戻す
+      const code = m[1]
+        .replace(/\\u\{([0-9a-fA-F]+)\}/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+        .replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '\t')
+        .replace(/\\'/g, "'")
+        .replace(/\\"/g, '"')
+        .replace(/\\`/g, '`')
+        .replace(/\\\$/g, '$')
+        .replace(/\\\\/g, '\\');
+      codes.push(code);
+    }
+    return codes;
+  }
+
+  function scanPreviewPages(dir: string): { file: string; codes: string[] }[] {
+    const results: { file: string; codes: string[] }[] = [];
+    if (!fs.existsSync(dir)) return results;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        results.push(...scanPreviewPages(full));
+      } else if (entry.name.endsWith('.tsx')) {
+        const src = fs.readFileSync(full, 'utf-8');
+        if (!src.includes('CodePreview')) continue;
+        const codes = extractPreviewCodes(src).filter(
+          // JSX プレビューされるものだけ検証（css/bash/HTML 等は対象外）
+          (code) => isJsxCode(code) && !/<style>/.test(code),
+        );
+        if (codes.length > 0) {
+          results.push({ file: path.relative(pagesDir, full), codes });
+        }
+      }
+    }
+    return results;
+  }
+
+  const previewResults = scanPreviewPages(pagesDir);
+
+  it('CodePreview を含むページが検出される（抽出の自壊防止）', () => {
+    expect(previewResults.length).toBeGreaterThan(10);
+  });
+
+  for (const { file, codes } of previewResults) {
+    it(`[${file}] の CodePreview コード (${codes.length}個) がトランスパイル可能`, () => {
+      for (const code of codes) {
+        const result = tryTranspile(code);
+        if (!result.ok) {
+          const preview = code.split('\n').filter(l => l.trim()).slice(0, 3).join(' ').substring(0, 100);
+          throw new Error(`トランスパイル失敗: ${result.error}\n  コード: ${preview}...`);
+        }
+      }
+    });
+  }
+});
+
+// ============================================================
 // detectComponentName (App 優先)
 // ============================================================
 describe('detectComponentName: App 優先レンダリング', () => {
