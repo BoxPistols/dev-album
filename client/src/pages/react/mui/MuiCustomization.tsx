@@ -237,6 +237,55 @@ function App() {
 });`}
             />
 
+            <p className="text-muted-foreground my-4 leading-relaxed">
+              上の設定を反映した結果です。見出しのウェイトと文字サイズ、本文の行間、ボタンの大文字変換なしが実際の描画で確認できます。
+            </p>
+
+            <CodePreview
+              language="tsx"
+              title="タイポグラフィ設定の結果"
+              previewHeight={480}
+              code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Typography, Button, Stack, Divider } from '@mui/material';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Noto Sans JP", "Helvetica Neue", Arial, sans-serif',
+    h1: { fontSize: '2.5rem', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em' },
+    h2: { fontSize: '2rem', fontWeight: 700, lineHeight: 1.4 },
+    h3: { fontSize: '1.5rem', fontWeight: 700, lineHeight: 1.4 },
+    h4: { fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.5 },
+    body1: { fontSize: '1rem', lineHeight: 1.8 },
+    body2: { fontSize: '0.875rem', lineHeight: 1.7 },
+    button: { textTransform: 'none', fontWeight: 600 },
+  },
+});
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Stack spacing={1.5}>
+        <Typography variant="h1">見出し H1</Typography>
+        <Typography variant="h2">見出し H2</Typography>
+        <Typography variant="h3">見出し H3</Typography>
+        <Typography variant="h4">見出し H4</Typography>
+        <Divider />
+        <Typography variant="body1">
+          本文 body1。日本語は行間を広めに取ると読みやすくなります。lineHeight 1.8 を設定した状態です。
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          本文 body2。補助テキストや注釈に使います。lineHeight 1.7。
+        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button variant="contained">Submit form</Button>
+          <Typography variant="caption" color="text.secondary">大文字変換なし</Typography>
+        </Stack>
+      </Stack>
+    </ThemeProvider>
+  );
+}`}
+            />
+
             <InfoBox type="warning" title="textTransform: 'none' は重要">
               <p>
                 MUI のデフォルトではボタンのテキストがすべて大文字（<code>SUBMIT</code>）になります。
@@ -324,6 +373,63 @@ function App() {
     },
   },
 });`}
+            />
+
+            <p className="text-muted-foreground my-4 leading-relaxed">
+              上の設定を反映したテーマを適用した結果です。全ボタンの角丸とパディング、アウトラインの枠線 2px、テキストフィールドとカードの角丸が一括で揃います。
+            </p>
+
+            <CodePreview
+              language="tsx"
+              title="オーバーライドの結果"
+              previewHeight={440}
+              code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Button, TextField, Card, CardContent, Typography, Stack } from '@mui/material';
+
+const theme = createTheme({
+  palette: { primary: { main: '#6366f1' } },
+  components: {
+    MuiButton: {
+      defaultProps: { disableElevation: true },
+      styleOverrides: {
+        root: { borderRadius: 8, padding: '10px 24px', fontSize: '0.9375rem', fontWeight: 600, textTransform: 'none' },
+        containedPrimary: { '&:hover': { boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)' } },
+        outlined: { borderWidth: 2, '&:hover': { borderWidth: 2 } },
+      },
+    },
+    MuiTextField: {
+      defaultProps: { variant: 'outlined', size: 'medium' },
+      styleOverrides: { root: { '& .MuiOutlinedInput-root': { borderRadius: 8 } } },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: { borderRadius: 12, border: '1px solid rgba(0,0,0,0.08)', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' },
+      },
+    },
+  },
+});
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Stack spacing={2}>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Button variant="contained">角丸 8px</Button>
+          <Button variant="outlined">枠線 2px</Button>
+        </Stack>
+        <TextField label="メールアドレス" placeholder="you@example.com" fullWidth />
+        <Card>
+          <CardContent>
+            <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 700 }}>Card は角丸 12px</Typography>
+            <Typography variant="body2" color="text.secondary">
+              MuiCard の styleOverrides で、全カードのボーダーとシャドウが統一されます。
+            </Typography>
+          </CardContent>
+        </Card>
+      </Stack>
+    </ThemeProvider>
+  );
+}`}
             />
           </section>
 
@@ -624,6 +730,87 @@ const theme = createTheme({
 });
 
 export default theme;`}
+            />
+
+            <p className="text-muted-foreground my-4 leading-relaxed">
+              完成したテーマを実際の画面に適用した結果です。AppBar・Card・Chip・Button・Dialog がすべて同じブランド設定で描画されます。「ダイアログを開く」をクリックすると実際にモーダルが開きます。
+            </p>
+
+            <CodePreview
+              language="tsx"
+              title="ZENN Design テーマの実画面"
+              previewHeight={520}
+              code={`import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AppBar, Toolbar, Typography, Button, Card, CardContent, Chip, Stack, Box } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: { main: '#6366f1', light: '#818cf8', dark: '#4f46e5', contrastText: '#ffffff' },
+    secondary: { main: '#ec4899' },
+    background: { default: '#fafbfc', paper: '#ffffff' },
+    text: { primary: '#1a1a2e', secondary: '#6b7280' },
+  },
+  typography: {
+    fontFamily: '"Noto Sans JP", "Inter", sans-serif',
+    h6: { fontWeight: 700 },
+    button: { textTransform: 'none', fontWeight: 600 },
+  },
+  shape: { borderRadius: 10 },
+  components: {
+    MuiButton: { defaultProps: { disableElevation: true }, styleOverrides: { root: { padding: '10px 24px' } } },
+    MuiCard: { styleOverrides: { root: { border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' } } },
+    MuiAppBar: { styleOverrides: { root: { boxShadow: '0 1px 3px rgba(0,0,0,0.06)' } } },
+    MuiChip: { styleOverrides: { root: { fontWeight: 500 } } },
+  },
+});
+
+function App() {
+  const [open, setOpen] = useState(false);
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ bgcolor: 'background.default', p: 2, borderRadius: 2 }}>
+        <AppBar position="static" color="primary" sx={{ borderRadius: 2, mb: 2 }}>
+          <Toolbar variant="dense">
+            <Typography sx={{ mr: 1 }}>🎨</Typography>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, flexGrow: 1 }}>ZENN Design</Typography>
+            <Button color="inherit" size="small">ログイン</Button>
+          </Toolbar>
+        </AppBar>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>ブランドテーマの適用結果</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              パレット・タイポグラフィ・角丸・オーバーライドを 1 つのテーマに統合しています。
+            </Typography>
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mb: 2 }}>
+              <Chip label="primary" color="primary" />
+              <Chip label="secondary" color="secondary" />
+              <Chip label="outlined" variant="outlined" />
+            </Stack>
+            <Stack direction="row" spacing={1}>
+              <Button variant="contained" onClick={() => setOpen(true)}>ダイアログを開く</Button>
+              <Button variant="outlined">キャンセル</Button>
+            </Stack>
+          </CardContent>
+        </Card>
+        <Dialog open={open} onClose={() => setOpen(false)}>
+          <DialogTitle>ブランドテーマのダイアログ</DialogTitle>
+          <DialogContent>
+            <Typography variant="body2" color="text.secondary">
+              Dialog にもテーマの角丸とタイポグラフィが反映されます。クリックで実際に開閉できます。
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpen(false)}>閉じる</Button>
+            <Button variant="contained" onClick={() => setOpen(false)}>OK</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </ThemeProvider>
+  );
+}`}
             />
 
             <CodeBlock

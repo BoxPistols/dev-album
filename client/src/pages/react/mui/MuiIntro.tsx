@@ -334,30 +334,63 @@ function App() {
 
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
-              title="Container の使い方"
+              title="Container の使い方（maxWidth で幅制限）"
+              previewHeight={340}
               code={`import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-function PageLayout() {
+function App() {
   return (
-    <>
-      {/* 最大幅 lg（1200px）のコンテナ */}
-      <Container maxWidth="lg">
-        <Typography variant="h4">ページタイトル</Typography>
-        <Typography variant="body1">コンテンツがここに入ります。</Typography>
-      </Container>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* maxWidth="xs"（444px）: 中央寄せの狭いカラム */}
+      <Box sx={{ bgcolor: 'grey.100', py: 1, borderRadius: 1 }}>
+        <Container maxWidth="xs">
+          <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', p: 1.5, borderRadius: 1, textAlign: 'center' }}>
+            maxWidth="xs"（444px）
+          </Box>
+        </Container>
+      </Box>
 
-      {/* maxWidth のオプション */}
-      {/* xs: 444px, sm: 600px, md: 900px, lg: 1200px, xl: 1536px */}
-      <Container maxWidth="sm">
-        狭いコンテナ（フォームなどに最適）
-      </Container>
-    </>
+      {/* maxWidth="sm"（600px） */}
+      <Box sx={{ bgcolor: 'grey.100', py: 1, borderRadius: 1 }}>
+        <Container maxWidth="sm">
+          <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', p: 1.5, borderRadius: 1, textAlign: 'center' }}>
+            maxWidth="sm"（600px）
+          </Box>
+        </Container>
+      </Box>
+
+      {/* maxWidth="md"（900px） */}
+      <Box sx={{ bgcolor: 'grey.100', py: 1, borderRadius: 1 }}>
+        <Container maxWidth="md">
+          <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', p: 1.5, borderRadius: 1, textAlign: 'center' }}>
+            maxWidth="md"（900px）
+          </Box>
+        </Container>
+      </Box>
+
+      {/* maxWidth に false を指定すると制限なし（親いっぱいに広がる） */}
+      <Box sx={{ bgcolor: 'grey.100', py: 1, borderRadius: 1 }}>
+        <Container maxWidth={false}>
+          <Box sx={{ bgcolor: 'grey.700', color: '#fff', p: 1.5, borderRadius: 1, textAlign: 'center' }}>
+            maxWidth に false（制限なし）
+          </Box>
+        </Container>
+      </Box>
+    </Box>
   );
 }`}
             />
+
+            <InfoBox type="info" title="Container の maxWidth">
+              <p>
+                <code>Container</code> はコンテンツを中央寄せし、指定した幅で頭打ちにします。
+                ブレイクポイント値は xs: 444px / sm: 600px / md: 900px / lg: 1200px / xl: 1536px です。
+                上のプレビューはヘッダー右上の拡大アイコンで全幅表示にすると、maxWidth ごとのカラム幅の差がはっきり分かります。
+              </p>
+            </InfoBox>
           </section>
 
           {/* セクション7: sx prop */}
@@ -368,60 +401,71 @@ function PageLayout() {
               テーマの値を参照でき、レスポンシブ対応も簡単にできます。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="sx prop の便利な機能"
-              showLineNumbers
+              previewHeight={420}
               code={`import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
-function SxPropExamples() {
+function App() {
   return (
-    <>
-      {/* スペーシングの略記 */}
-      <Box sx={{
-        p: 2,    // padding: 16px（テーマの spacing × 2）
-        px: 3,   // padding-left + padding-right: 24px
-        py: 1,   // padding-top + padding-bottom: 8px
-        m: 2,    // margin: 16px
-        mt: 4,   // margin-top: 32px
-        mb: 'auto', // margin-bottom: auto
-      }} />
-
-      {/* テーマのカラーパレットを参照 */}
-      <Box sx={{
-        color: 'primary.main',
-        bgcolor: 'grey.100',
-        borderColor: 'divider',
-      }} />
-
-      {/* 疑似クラス */}
-      <Button sx={{
-        '&:hover': {
-          bgcolor: 'primary.dark',
-          transform: 'scale(1.05)',
-        },
-        '&:disabled': {
-          opacity: 0.5,
-        },
-      }}>
-        ホバーでスケールアップ
-      </Button>
-
-      {/* レスポンシブ（ブレイクポイント対応） */}
-      <Box sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        gap: { xs: 1, md: 3 },
-        fontSize: { xs: '0.875rem', md: '1rem' },
-      }}>
-        レスポンシブなレイアウト
+    <Stack spacing={2}>
+      {/* スペーシング: 数値は 8px 単位（p: 2 は padding 16px） */}
+      <Box sx={{ p: 2, bgcolor: 'grey.100', color: 'grey.900', borderRadius: 1 }}>
+        <Typography variant="body2">p: 2 → padding 16px（8px 単位。Tailwind の 4px 刻みと違う）</Typography>
       </Box>
 
-      {/* MUI のスペーシング単位 */}
-      {/* 1 = 8px, 2 = 16px, 3 = 24px, 4 = 32px */}
-      {/* Tailwind の 4px 刻みと違い、8px 刻みなので注意 */}
-    </>
+      {/* テーマのカラーパレットを参照 */}
+      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+        <Box sx={{ px: 2, py: 1, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1 }}>primary.main</Box>
+        <Box sx={{ px: 2, py: 1, bgcolor: 'success.main', color: '#fff', borderRadius: 1 }}>success.main</Box>
+        <Box sx={{ px: 2, py: 1, bgcolor: 'error.main', color: '#fff', borderRadius: 1 }}>error.main</Box>
+        <Box sx={{ px: 2, py: 1, border: '2px solid', borderColor: 'primary.main', color: 'primary.main', borderRadius: 1 }}>borderColor</Box>
+      </Box>
+
+      {/* 疑似クラス: ホバーで色とサイズが変わる（実際に動く） */}
+      <Button
+        variant="contained"
+        sx={{
+          alignSelf: 'flex-start',
+          transition: 'transform 150ms, background-color 150ms',
+          '&:hover': { bgcolor: 'secondary.main', transform: 'scale(1.05)' },
+        }}
+      >
+        ホバーで色が変わるボタン
+      </Button>
+
+      {/* 疑似クラス（Box 版）: ホバーで背景がプライマリ色に変わる */}
+      <Box
+        sx={{
+          p: 2,
+          bgcolor: 'grey.100',
+          color: 'grey.900',
+          borderRadius: 1,
+          cursor: 'pointer',
+          transition: 'background-color 150ms',
+          '&:hover': { bgcolor: 'primary.main', color: 'primary.contrastText' },
+        }}
+      >
+        この行にホバーすると背景色が変わる
+      </Box>
+
+      {/* レスポンシブ: 幅で並びが変わる（拡大/縮小で確認） */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: { xs: 1, md: 2 },
+        }}
+      >
+        <Box sx={{ flex: 1, p: 1.5, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1, textAlign: 'center' }}>A</Box>
+        <Box sx={{ flex: 1, p: 1.5, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1, textAlign: 'center' }}>B</Box>
+        <Box sx={{ flex: 1, p: 1.5, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1, textAlign: 'center' }}>C</Box>
+      </Box>
+    </Stack>
   );
 }`}
             />

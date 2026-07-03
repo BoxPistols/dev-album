@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-04-mui-live-previews",
+    date: "2026-07-04",
+    title: "MUI マニュアルの UI 例をすべてライブプレビュー化（デザイナー向け）",
+    description:
+      "静的なコードだけでは UI が見えずデザイナーに伝わらないという指摘を受け、Grid・Stack・TextField・Select・Snackbar・Dialog・AppBar・Drawer・ダッシュボードなどのコンポーネント例を、実際に描画される（そして Snackbar / Dialog / Drawer はクリックで開く）ライブプレビューに置き換えた。コードを読まなくても完成形の UI と挙動を確認できる。",
+    category: "update",
+    link: "/react/mui/components",
+  },
+  {
     id: "2026-07-03-ai-coding-agents-section",
     date: "2026-07-03",
     title: "「AI コーディングエージェント」セクションを新設（Gemini CLI / Codex / Copilot / Amazon Q）",

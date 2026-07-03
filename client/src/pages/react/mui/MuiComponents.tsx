@@ -34,39 +34,30 @@ export default function MuiComponents() {
               MUI のレイアウトコンポーネントを使えば、レスポンシブなグリッドやフレックスレイアウトを簡単に構築できます。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
-              title="Grid コンポーネント（MUI v7）"
-              showLineNumbers
+              title="Grid コンポーネント"
+              previewHeight={300}
               code={`import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
-function GridExample() {
+function App() {
+  const cell = { p: 2, color: '#fff', borderRadius: 1 };
   return (
-    // container でグリッドコンテナを作成
-    <Grid container spacing={3}>
-      {/* 12カラムシステム: size で幅を指定 */}
-
-      {/* モバイル: 全幅、タブレット以上: 8/12 */}
-      <Grid size={{ xs: 12, md: 8 }}>
-        <Box sx={{ p: 2, bgcolor: 'primary.light', borderRadius: 1 }}>
-          メインコンテンツ（8カラム）
-        </Box>
+    <Grid container spacing={2}>
+      {/* 12 カラム制。item の xs で常に幅を分割する */}
+      {/* 8 : 4 の 2 カラム */}
+      <Grid item xs={8}>
+        <Box sx={{ ...cell, bgcolor: 'primary.main' }}>メインコンテンツ（8 カラム）</Box>
+      </Grid>
+      <Grid item xs={4}>
+        <Box sx={{ ...cell, bgcolor: 'secondary.main' }}>サイド（4 カラム）</Box>
       </Grid>
 
-      {/* モバイル: 全幅、タブレット以上: 4/12 */}
-      <Grid size={{ xs: 12, md: 4 }}>
-        <Box sx={{ p: 2, bgcolor: 'secondary.light', borderRadius: 1 }}>
-          サイドバー（4カラム）
-        </Box>
-      </Grid>
-
-      {/* 3等分のカード */}
-      {[1, 2, 3].map((item) => (
-        <Grid key={item} size={{ xs: 12, sm: 6, md: 4 }}>
-          <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
-            カード {item}
-          </Box>
+      {/* 3 等分（4 + 4 + 4） */}
+      {[1, 2, 3].map((n) => (
+        <Grid item xs={4} key={n}>
+          <Box sx={{ ...cell, bgcolor: 'grey.700' }}>カード {n}</Box>
         </Grid>
       ))}
     </Grid>
@@ -74,25 +65,38 @@ function GridExample() {
 }`}
             />
 
+            <InfoBox type="info" title="レスポンシブと MUI v7 の記法">
+              <p>
+                幅はブレークポイントごとに変えられます。たとえば{' '}
+                <code>{'<Grid item xs={12} md={8}>'}</code> は「モバイルでは全幅、md（900px）以上で 8 カラム」。
+                プレビュー右上の目のアイコンで表示幅を広げると切り替わりが見えます。
+                なお MUI v7 では <code>item</code> を書かず{' '}
+                <code>{'<Grid size={{ xs: 12, md: 8 }}>'}</code> と書きます（結果は同じ。プレビューは UMD 配布のある v5 記法）。
+              </p>
+            </InfoBox>
+
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Stack コンポーネント"
+              previewHeight={280}
               code={`import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-function StackExample() {
+function App() {
   return (
-    <>
-      {/* 横並び（デフォルト: 縦並び） */}
+    <Stack spacing={3}>
+      {/* 横並び（デフォルトは縦並び、direction="row" で横並び） */}
       <Stack direction="row" spacing={2}>
         <Button variant="contained">保存</Button>
         <Button variant="outlined">キャンセル</Button>
       </Stack>
 
-      {/* レスポンシブに方向を変更 */}
+      {/* レスポンシブに方向を変更 + 区切り線 */}
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         spacing={2}
@@ -103,16 +107,12 @@ function StackExample() {
         <Box>項目 3</Box>
       </Stack>
 
-      {/* 両端揃え */}
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      {/* 両端揃え（見出しとアクションを左右に配置） */}
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h6">タイトル</Typography>
         <Button>アクション</Button>
       </Stack>
-    </>
+    </Stack>
   );
 }`}
             />
@@ -125,19 +125,21 @@ function StackExample() {
               フォーム関連のコンポーネントは、ラベル、バリデーション表示、ヘルパーテキストが組み込まれています。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="TextField の使い方"
-              showLineNumbers
+              previewHeight={460}
               code={`import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
-function TextFieldExamples() {
+function App() {
   const [name, setName] = useState('');
-  const [error, setError] = useState(false);
+  // 入力値の長さからエラー状態を導出（1〜2 文字ならエラー）
+  const error = name.length > 0 && name.length < 3;
 
   return (
-    <Stack spacing={3}>
-      {/* バリアント */}
+    <Stack spacing={2.5}>
+      {/* バリアント 3 種 */}
       <TextField label="Outlined（デフォルト）" variant="outlined" />
       <TextField label="Filled" variant="filled" />
       <TextField label="Standard" variant="standard" />
@@ -147,31 +149,21 @@ function TextFieldExamples() {
       <TextField label="パスワード" type="password" />
       <TextField label="数値" type="number" />
 
-      {/* ヘルパーテキストとエラー */}
+      {/* エラー表示（入力に連動して helperText が切り替わる） */}
       <TextField
         label="ユーザー名"
         value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-          setError(e.target.value.length < 3);
-        }}
+        onChange={(e) => setName(e.target.value)}
         error={error}
         helperText={error ? '3文字以上で入力してください' : 'お好きなユーザー名を入力'}
       />
 
       {/* 複数行（テキストエリア） */}
-      <TextField
-        label="自己紹介"
-        multiline
-        rows={4}
-        placeholder="あなたについて教えてください"
-      />
+      <TextField label="自己紹介" multiline rows={3} placeholder="あなたについて教えてください" />
 
-      {/* 全幅 */}
+      {/* 全幅・サイズ */}
       <TextField label="検索" fullWidth />
-
-      {/* サイズ */}
-      <TextField label="小さい" size="small" />
+      <TextField label="小さいサイズ" size="small" />
     </Stack>
   );
 }`}
@@ -179,29 +171,28 @@ function TextFieldExamples() {
 
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Select と Checkbox"
+              previewHeight={380}
               code={`import {
   Select, MenuItem, InputLabel, FormControl,
   Checkbox, FormControlLabel, FormGroup,
-  Radio, RadioGroup, Switch,
+  Radio, RadioGroup, Switch, Stack,
 } from '@mui/material';
 
-function FormControls() {
+function App() {
   const [category, setCategory] = useState('');
   const [agree, setAgree] = useState(false);
+  const [plan, setPlan] = useState('monthly');
+  const [notify, setNotify] = useState(true);
 
   return (
-    <Stack spacing={3}>
-      {/* セレクトボックス */}
+    <Stack spacing={2.5}>
+      {/* セレクトボックス（value と onChange を state に連動） */}
       <FormControl fullWidth>
         <InputLabel>カテゴリ</InputLabel>
-        <Select
-          value={category}
-          label="カテゴリ"
-          onChange={(e) => setCategory(e.target.value)}
-        >
+        <Select value={category} label="カテゴリ" onChange={(e) => setCategory(e.target.value)}>
           <MenuItem value="design">デザイン</MenuItem>
           <MenuItem value="development">開発</MenuItem>
           <MenuItem value="marketing">マーケティング</MenuItem>
@@ -211,31 +202,22 @@ function FormControls() {
       {/* チェックボックス */}
       <FormGroup>
         <FormControlLabel
-          control={
-            <Checkbox
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
-            />
-          }
+          control={<Checkbox checked={agree} onChange={(e) => setAgree(e.target.checked)} />}
           label="利用規約に同意する"
         />
       </FormGroup>
 
       {/* ラジオボタン */}
       <FormControl>
-        <RadioGroup defaultValue="monthly">
-          <FormControlLabel
-            value="monthly" control={<Radio />} label="月額プラン"
-          />
-          <FormControlLabel
-            value="yearly" control={<Radio />} label="年額プラン"
-          />
+        <RadioGroup value={plan} onChange={(e) => setPlan(e.target.value)}>
+          <FormControlLabel value="monthly" control={<Radio />} label="月額プラン" />
+          <FormControlLabel value="yearly" control={<Radio />} label="年額プラン" />
         </RadioGroup>
       </FormControl>
 
       {/* スイッチ */}
       <FormControlLabel
-        control={<Switch />}
+        control={<Switch checked={notify} onChange={(e) => setNotify(e.target.checked)} />}
         label="通知を有効にする"
       />
     </Stack>
@@ -285,25 +267,26 @@ function App() {
 
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Snackbar（トースト通知）"
-              showLineNumbers
+              previewHeight={240}
               code={`import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 
-function SnackbarExample() {
+function App() {
   const [open, setOpen] = useState(false);
 
   const handleSave = () => {
-    // 保存処理...
-    setOpen(true); // 通知を表示
+    // 保存処理を実行したあと通知を表示
+    setOpen(true);
   };
 
   return (
     <>
+      {/* ボタンを押すと下部にトーストが開き、4 秒で自動的に閉じる */}
       <Button variant="contained" onClick={handleSave}>
         保存する
       </Button>
@@ -314,11 +297,7 @@ function SnackbarExample() {
         onClose={() => setOpen(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert
-          onClose={() => setOpen(false)}
-          severity="success"
-          variant="filled"
-        >
+        <Alert onClose={() => setOpen(false)} severity="success" variant="filled">
           変更を保存しました
         </Alert>
       </Snackbar>
@@ -329,32 +308,28 @@ function SnackbarExample() {
 
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Dialog（モーダル）"
-              showLineNumbers
+              previewHeight={240}
               code={`import { useState } from 'react';
 import {
   Dialog, DialogTitle, DialogContent,
-  DialogContentText, DialogActions,
+  DialogContentText, DialogActions, Button,
 } from '@mui/material';
-import Button from '@mui/material/Button';
 
-function ConfirmDialog() {
+function App() {
   const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
-    // 削除処理...
+    // 削除処理を実行してからモーダルを閉じる
     setOpen(false);
   };
 
   return (
     <>
-      <Button
-        variant="outlined"
-        color="error"
-        onClick={() => setOpen(true)}
-      >
+      {/* ボタンを押すとモーダルが開く */}
+      <Button variant="outlined" color="error" onClick={() => setOpen(true)}>
         削除する
       </Button>
 
@@ -362,19 +337,12 @@ function ConfirmDialog() {
         <DialogTitle>本当に削除しますか？</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            この操作は取り消せません。
-            関連するすべてのデータが完全に削除されます。
+            この操作は取り消せません。関連するすべてのデータが完全に削除されます。
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>
-            キャンセル
-          </Button>
-          <Button
-            onClick={handleDelete}
-            color="error"
-            variant="contained"
-          >
+          <Button onClick={() => setOpen(false)}>キャンセル</Button>
+          <Button onClick={handleDelete} color="error" variant="contained">
             削除する
           </Button>
         </DialogActions>
@@ -393,44 +361,36 @@ function ConfirmDialog() {
               ヘッダー、サイドバー、タブ切り替えなど、よくあるパターンをカバーします。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="AppBar（ヘッダーバー）"
-              showLineNumbers
+              previewHeight={240}
               code={`import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-function Header() {
+function App() {
   return (
     <AppBar position="static">
       <Toolbar>
-        {/* ハンバーガーメニュー（モバイル用） */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          sx={{ mr: 2, display: { md: 'none' } }}
-        >
-          <MenuIcon />
+        {/* ハンバーガーメニュー（実プロジェクトでは MenuIcon を使う） */}
+        <IconButton edge="start" color="inherit" sx={{ mr: 2 }}>
+          ☰
         </IconButton>
 
-        {/* ロゴ / タイトル */}
+        {/* ロゴ / タイトル。flexGrow で残り幅を占有し右側を押し出す */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           MyApp
         </Typography>
 
-        {/* ナビゲーションリンク（PC用） */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+        {/* ナビゲーションリンク */}
+        <Box sx={{ display: 'flex', gap: 1 }}>
           <Button color="inherit">ホーム</Button>
-          <Button color="inherit">機能紹介</Button>
           <Button color="inherit">料金</Button>
-          <Button variant="outlined" color="inherit">
-            ログイン
-          </Button>
+          <Button variant="outlined" color="inherit">ログイン</Button>
         </Box>
       </Toolbar>
     </AppBar>
@@ -440,39 +400,39 @@ function Header() {
 
             <div className="mt-4" />
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Drawer（サイドバー）"
-              showLineNumbers
+              previewHeight={320}
               code={`import { useState } from 'react';
 import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PersonIcon from '@mui/icons-material/Person';
 
-function Sidebar() {
+function App() {
   const [open, setOpen] = useState(false);
 
+  // 実プロジェクトでは @mui/icons-material のアイコンを使う
   const menuItems = [
-    { text: 'ホーム', icon: <HomeIcon /> },
-    { text: 'プロフィール', icon: <PersonIcon /> },
-    { text: '設定', icon: <SettingsIcon /> },
+    { text: 'ホーム', icon: '🏠' },
+    { text: 'プロフィール', icon: '👤' },
+    { text: '設定', icon: '⚙️' },
   ];
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>メニューを開く</Button>
+      {/* ボタンを押すと左からサイドバーがスライドインする */}
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        メニューを開く
+      </Button>
 
-      <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <Box sx={{ width: 250 }}>
+      <Drawer variant="temporary" open={open} onClose={() => setOpen(false)}>
+        <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
           <List>
             {menuItems.map((item) => (
               <ListItem key={item.text} disablePadding>
@@ -640,47 +600,30 @@ function App() {
               ここまで学んだコンポーネントを組み合わせて、管理画面風のダッシュボードを作ってみましょう。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Dashboard.tsx"
-              showLineNumbers
+              previewHeight={480}
               code={`import { useState } from 'react';
 import {
   AppBar, Toolbar, Typography, IconButton,
-  Drawer, Box, Container, Paper,
+  Drawer, Box, Container,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText,
   Card, CardContent, Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import MenuIcon from '@mui/icons-material/Menu';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-// 統計カード
-function StatCard({ title, value, icon, color }: {
-  title: string;
-  value: string;
-  icon: React.ReactNode;
-  color: string;
-}) {
+// 統計カード（アイコンは絵文字で代替）
+function StatCard({ title, value, icon, color }) {
   return (
     <Card>
       <CardContent>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Box>
-            <Typography variant="body2" color="text.secondary">
-              {title}
-            </Typography>
-            <Typography variant="h4" fontWeight="bold" sx={{ mt: 1 }}>
-              {value}
-            </Typography>
+            <Typography variant="body2" color="text.secondary">{title}</Typography>
+            <Typography variant="h5" fontWeight="bold" sx={{ mt: 0.5 }}>{value}</Typography>
           </Box>
-          <Box sx={{
-            p: 1.5, borderRadius: 2,
-            bgcolor: color, color: 'white',
-          }}>
+          <Box sx={{ p: 1, borderRadius: 2, bgcolor: color, fontSize: 22, lineHeight: 1 }}>
             {icon}
           </Box>
         </Stack>
@@ -689,66 +632,56 @@ function StatCard({ title, value, icon, color }: {
   );
 }
 
-const DRAWER_WIDTH = 240;
-
-export default function Dashboard() {
+function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const stats = [
-    { title: 'ユーザー数', value: '1,234', icon: <PeopleIcon />, color: '#3b82f6' },
-    { title: '売上', value: '¥890K', icon: <TrendingUpIcon />, color: '#10b981' },
-    { title: 'PV数', value: '45.2K', icon: <BarChartIcon />, color: '#f59e0b' },
-    { title: 'コンバージョン', value: '3.2%', icon: <DashboardIcon />, color: '#8b5cf6' },
+    { title: 'ユーザー数', value: '1,234', icon: '👥', color: '#dbeafe' },
+    { title: '売上', value: '¥890K', icon: '📈', color: '#dcfce7' },
+    { title: 'PV数', value: '45.2K', icon: '📊', color: '#fef3c7' },
+    { title: 'コンバージョン', value: '3.2%', icon: '🎯', color: '#ede9fe' },
   ];
 
+  const menu = ['ダッシュボード', 'ユーザー', '分析', '設定'];
+
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* サイドバー */}
-      <Drawer
-        variant="temporary"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        sx={{ '& .MuiDrawer-paper': { width: DRAWER_WIDTH } }}
-      >
-        <Toolbar />
-        <List>
-          {['ダッシュボード', 'ユーザー', '分析', '設定'].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon><DashboardIcon /></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+    <Box>
+      {/* ヘッダーバー */}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton color="inherit" edge="start" onClick={() => setDrawerOpen(true)} sx={{ mr: 2 }}>
+            ☰
+          </IconButton>
+          <Typography variant="h6">ダッシュボード</Typography>
+        </Toolbar>
+      </AppBar>
+
+      {/* サイドバー（☰ をクリックで開く） */}
+      <Drawer variant="temporary" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <Box sx={{ width: 240 }} role="presentation" onClick={() => setDrawerOpen(false)}>
+          <List>
+            {menu.map((text) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>📊</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Drawer>
 
-      {/* メインコンテンツ */}
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={() => setDrawerOpen(true)}
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6">ダッシュボード</Typography>
-          </Toolbar>
-        </AppBar>
-
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            {stats.map((stat) => (
-              <Grid key={stat.title} size={{ xs: 12, sm: 6, md: 3 }}>
-                <StatCard {...stat} />
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      {/* 統計カードのグリッド（v5 記法: container + item + xs/sm/md） */}
+      <Container maxWidth="lg" sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          {stats.map((stat) => (
+            <Grid item xs={12} sm={6} md={3} key={stat.title}>
+              <StatCard {...stat} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </Box>
   );
 }`}
