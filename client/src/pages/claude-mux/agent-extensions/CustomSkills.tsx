@@ -37,8 +37,8 @@ export default function CustomSkills() {
               Skillsは <code>.claude/skills/*/SKILL.md</code> に配置する専門知識の定義です。スラッシュコマンドとして呼び出せ、段階的に知識を提供（Progressive Disclosure）します。
             </p>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              SKILL.md は YAML frontmatter（<code>name</code>, <code>description</code>）と Markdown 本文で構成される。
-              <code>name</code> がそのまま <code>/スラッシュコマンド名</code> になり、<code>description</code> は Claude が自動判断で呼び出す際の判定基準になる。
+              SKILL.md は YAML frontmatter と Markdown 本文で構成される。
+              <strong>ディレクトリ名</strong>がそのまま <code>/スラッシュコマンド名</code> になり、<code>description</code> は Claude が自動判断で呼び出す際の判定基準になる（<code>name</code> は一覧での表示名で、省略時はディレクトリ名）。
             </p>
             <CodeBlock code={`# .claude/skills/deploy/SKILL.md
 
@@ -110,7 +110,7 @@ open /tmp/report.html
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">frontmatter オプション</h4>
-                <p className="text-xs text-muted-foreground"><code>name</code>（/コマンド名）、<code>description</code>（自動呼び出し判定）が必須。Agent Skills 標準に準拠。</p>
+                <p className="text-xs text-muted-foreground"><code>description</code>（自動呼び出しの判定基準）の記載を推奨。他に <code>disable-model-invocation</code>（自動呼び出し禁止）、<code>allowed-tools</code>、<code>model</code>、<code>context: fork</code> 等。Agent Skills 標準に準拠。</p>
               </div>
             </div>
           </section>
@@ -122,7 +122,7 @@ open /tmp/report.html
               カスタムスラッシュコマンド
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Markdownファイルを特定のディレクトリに配置するだけで、独自のスラッシュコマンドを追加できます。
+              Markdownファイルを特定のディレクトリに配置するだけで、独自のスラッシュコマンドを追加できます。カスタムコマンドは Skills に統合されており、<code>.claude/commands/deploy.md</code> と <code>.claude/skills/deploy/SKILL.md</code> はどちらも <code>/deploy</code> を定義します。
             </p>
             <div className="space-y-4">
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -130,7 +130,7 @@ open /tmp/report.html
                   <h4 className="font-bold text-sm">プロジェクトコマンド</h4>
                   <code className="text-xs text-muted-foreground">.claude/commands/*.md</code>
                 </div>
-                <p className="text-xs text-muted-foreground mb-3"><code>/project:コマンド名</code> で呼び出し。チーム全員が使用可能。</p>
+                <p className="text-xs text-muted-foreground mb-3">ファイル名がそのまま <code>/コマンド名</code> になる（例: review-pr.md → /review-pr）。チーム全員が使用可能。</p>
                 <CodeBlock code={`# .claude/commands/review-pr.md
 
 現在のブランチのPRをレビューしてください。
@@ -143,7 +143,7 @@ open /tmp/report.html
                   <h4 className="font-bold text-sm">ユーザーコマンド</h4>
                   <code className="text-xs text-muted-foreground">~/.claude/commands/*.md</code>
                 </div>
-                <p className="text-xs text-muted-foreground"><code>/user:コマンド名</code> で呼び出し。全プロジェクトで使用可能な個人コマンド。</p>
+                <p className="text-xs text-muted-foreground"><code>/コマンド名</code> で呼び出し。全プロジェクトで使用可能な個人コマンド。</p>
               </div>
             </div>
           </section>
@@ -187,7 +187,7 @@ open /tmp/report.html
   }
 }`} language="json" />
             <InfoBox type="info" title="フックの種類">
-              <code>command</code>（シェルコマンド実行）、<code>prompt</code>（モデルでyes/no判定）、<code>agent</code>（サブエージェントで検証）の3タイプがあります。
+              <code>command</code>（シェルコマンド実行）、<code>prompt</code>（モデルでyes/no判定）、<code>agent</code>（サブエージェントで検証）に加え、<code>http</code>（HTTP POST）と <code>mcp_tool</code>（MCPツール呼び出し）の5タイプがあります。
             </InfoBox>
           </section>
 

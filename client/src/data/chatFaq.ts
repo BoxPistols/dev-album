@@ -253,13 +253,4 @@ export const faqEntries: FaqEntry[] = [
       "Model Context Protocol は AI モデルに外部ツールやデータソースを接続する標準プロトコルです。ファイルシステム、データベース、API などと Claude Code を連携できます。",
     relatedPages: ["/claude-mux/mcp/mcp-setup"],
   },
-  {
-    id: "claude-tmux",
-    manualId: "claude-mux",
-    question: "tmux とは何ですか",
-    keywords: ["tmux", "ターミナル", "マルチプレクサ", "セッション"],
-    answer:
-      "tmux はターミナルマルチプレクサです。1 つの端末で複数のセッション・ウィンドウ・ペインを管理でき、SSH 切断後もプロセスを維持できます。",
-    relatedPages: ["/claude-mux/tmux-intro/what-is-tmux"],
-  },
 ];

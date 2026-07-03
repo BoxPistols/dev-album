@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from "react";
-import { Switch, Route } from "wouter";
+import { Switch, Route, Redirect } from "wouter";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { PlatformProvider } from "./contexts/PlatformContext";
 import { LayoutProvider, useLayout } from "./contexts/LayoutContext";
@@ -157,7 +157,7 @@ const ThreejsPhysics = lazy(() => import("./pages/threejs/game-dev/physics"));
 const ThreejsGameCamera = lazy(() => import("./pages/threejs/game-dev/camera"));
 const ThreejsHudGameloop = lazy(() => import("./pages/threejs/game-dev/hud-gameloop"));
 
-// ── Claude+tmux マニュアル (44ページ) ──
+// ── Claude Code マニュアル (40ページ) ──
 // ClaudeMuxHome は /claude-mux が CmWelcome (step 1) に統合されたため削除
 const CmWelcome = lazy(() => import("./pages/claude-mux/getting-started/Welcome"));
 const CmWhyClaudeCode = lazy(() => import("./pages/claude-mux/getting-started/WhyClaudeCode"));
@@ -172,21 +172,11 @@ const CmMCPSetup = lazy(() => import("./pages/claude-mux/mcp/MCPSetup"));
 const CmMCPPractical = lazy(() => import("./pages/claude-mux/mcp/MCPPractical"));
 const CmSubagents = lazy(() => import("./pages/claude-mux/agent-extensions/Subagents"));
 const CmCustomSkills = lazy(() => import("./pages/claude-mux/agent-extensions/CustomSkills"));
-const CmWhyTmux = lazy(() => import("./pages/claude-mux/tmux-intro/WhyTmux"));
-const CmItermVsTmux = lazy(() => import("./pages/claude-mux/tmux-intro/ItermVsTmux"));
-const CmTmuxPrereq = lazy(() => import("./pages/claude-mux/tmux-intro/Prerequisites"));
-const CmInstallTmux = lazy(() => import("./pages/claude-mux/tmux-setup/InstallTmux"));
-const CmVerifyInstall = lazy(() => import("./pages/claude-mux/tmux-setup/VerifyInstall"));
-const CmCoreConcepts = lazy(() => import("./pages/claude-mux/tmux-basics/CoreConcepts"));
-const CmFirstSession = lazy(() => import("./pages/claude-mux/tmux-basics/FirstSession"));
-const CmPrefixKey = lazy(() => import("./pages/claude-mux/tmux-basics/PrefixKey"));
-const CmWindowsPanes = lazy(() => import("./pages/claude-mux/tmux-basics/WindowsPanes"));
-const CmTmuxConfig = lazy(() => import("./pages/claude-mux/tmux-customize/TmuxConfig"));
-const CmProdConfig = lazy(() => import("./pages/claude-mux/tmux-customize/ProductivityConfig"));
-const CmPlugins = lazy(() => import("./pages/claude-mux/tmux-customize/Plugins"));
-const CmTmuxIntegration = lazy(() => import("./pages/claude-mux/integration/TmuxIntegration"));
-const CmTmuxpAutomation = lazy(() => import("./pages/claude-mux/integration/TmuxpAutomation"));
-const CmPracticalWorkflow = lazy(() => import("./pages/claude-mux/integration/PracticalWorkflow"));
+const CmGeminiCli = lazy(() => import("./pages/claude-mux/ai-coding-agents/GeminiCli"));
+const CmOpenAiCodex = lazy(() => import("./pages/claude-mux/ai-coding-agents/OpenAiCodex"));
+const CmGithubCopilot = lazy(() => import("./pages/claude-mux/ai-coding-agents/GithubCopilot"));
+const CmAmazonQDeveloper = lazy(() => import("./pages/claude-mux/ai-coding-agents/AmazonQDeveloper"));
+const CmChoosingTools = lazy(() => import("./pages/claude-mux/ai-coding-agents/ChoosingTools"));
 const CmContextEngineering = lazy(() => import("./pages/claude-mux/claude-core/ContextEngineering"));
 const CmHarnessEngineering = lazy(() => import("./pages/claude-mux/best-practices/HarnessEngineering"));
 const CmDesignMd = lazy(() => import("./pages/claude-mux/multi-ai-architecture/DesignMd"));
@@ -195,10 +185,8 @@ const CmCmuxSetup = lazy(() => import("./pages/claude-mux/cmux/CmuxSetup"));
 const CmCmuxAgentTeams = lazy(() => import("./pages/claude-mux/cmux/CmuxAgentTeams"));
 const CmCmuxBrowserAPI = lazy(() => import("./pages/claude-mux/cmux/CmuxBrowserAPI"));
 const CmCmuxWorktrees = lazy(() => import("./pages/claude-mux/cmux/CmuxWorktrees"));
-const CmSessionMgmt = lazy(() => import("./pages/claude-mux/reference/SessionManagement"));
 const CmTroubleshooting = lazy(() => import("./pages/claude-mux/reference/Troubleshooting"));
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-mux/reference/ClaudeCheatsheet"));
-const CmTmuxCheatsheet = lazy(() => import("./pages/claude-mux/reference/TmuxCheatsheet"));
 const CmEffectiveWorkflows = lazy(() => import("./pages/claude-mux/best-practices/EffectiveWorkflows"));
 const CmSpecDrivenDev = lazy(() => import("./pages/claude-mux/best-practices/SpecDrivenDev"));
 const CmTestingDebugging = lazy(() => import("./pages/claude-mux/best-practices/TestingDebugging"));
@@ -225,7 +213,7 @@ const AiDeepLearning = lazy(() => import("./pages/ai-ml/ml-fundamentals/DeepLear
 const AiLlmBasics = lazy(() => import("./pages/ai-ml/lmops/LlmBasics"));
 const AiLmopsWorkflow = lazy(() => import("./pages/ai-ml/lmops/LmopsWorkflow"));
 
-// ── UX デザインマニュアル (12ページ) ──
+// ── UX デザインマニュアル (15ページ) ──
 const UxHome = lazy(() => import("./pages/ux-design/Home"));
 const UxWhatIsUx = lazy(() => import("./pages/ux-design/ux-foundations/WhatIsUx"));
 const UxDesignProcess = lazy(() => import("./pages/ux-design/ux-foundations/DesignProcess"));
@@ -237,6 +225,9 @@ const UxWireframe = lazy(() => import("./pages/ux-design/ia-wireframe/Wireframe"
 const UxVisualDesign = lazy(() => import("./pages/ux-design/ui-design/VisualDesign"));
 const UxDesignSystem = lazy(() => import("./pages/ux-design/ui-design/DesignSystem"));
 const UxFigmaPrototype = lazy(() => import("./pages/ux-design/prototyping/FigmaPrototype"));
+const UxDesignTokensForDesigners = lazy(() => import("./pages/ux-design/for-designers/DesignTokensForDesigners"));
+const UxComponentThinking = lazy(() => import("./pages/ux-design/for-designers/ComponentThinking"));
+const UxAiCollaborationWithTokens = lazy(() => import("./pages/ux-design/for-designers/AiCollaborationWithTokens"));
 const UxUsabilityTesting = lazy(() => import("./pages/ux-design/evaluation/UsabilityTesting"));
 
 // ── API 設計マニュアル (24ページ) ──
@@ -537,7 +528,7 @@ function App() {
                 <Route path="/threejs/game-dev/camera" component={ThreejsGameCamera} />
                 <Route path="/threejs/game-dev/hud-gameloop" component={ThreejsHudGameloop} />
 
-                {/* === Claude+tmux マニュアル === */}
+                {/* === Claude Code マニュアル === */}
                 <Route path="/claude-mux" component={CmWelcome} />
                 <Route path="/claude-mux/getting-started/why-claude-code" component={CmWhyClaudeCode} />
                 <Route path="/claude-mux/claude-intro/claude-code-intro" component={CmClaudeCodeIntro} />
@@ -551,21 +542,33 @@ function App() {
                 <Route path="/claude-mux/mcp/mcp-practical" component={CmMCPPractical} />
                 <Route path="/claude-mux/agent-extensions/subagents" component={CmSubagents} />
                 <Route path="/claude-mux/agent-extensions/custom-skills" component={CmCustomSkills} />
-                <Route path="/claude-mux/tmux-intro/why-tmux" component={CmWhyTmux} />
-                <Route path="/claude-mux/tmux-intro/iterm-vs-tmux" component={CmItermVsTmux} />
-                <Route path="/claude-mux/tmux-intro/prerequisites" component={CmTmuxPrereq} />
-                <Route path="/claude-mux/tmux-setup/install-tmux" component={CmInstallTmux} />
-                <Route path="/claude-mux/tmux-setup/verify-install" component={CmVerifyInstall} />
-                <Route path="/claude-mux/tmux-basics/core-concepts" component={CmCoreConcepts} />
-                <Route path="/claude-mux/tmux-basics/first-session" component={CmFirstSession} />
-                <Route path="/claude-mux/tmux-basics/prefix-key" component={CmPrefixKey} />
-                <Route path="/claude-mux/tmux-basics/windows-panes" component={CmWindowsPanes} />
-                <Route path="/claude-mux/tmux-customize/tmux-config" component={CmTmuxConfig} />
-                <Route path="/claude-mux/tmux-customize/productivity-config" component={CmProdConfig} />
-                <Route path="/claude-mux/tmux-customize/plugins" component={CmPlugins} />
-                <Route path="/claude-mux/integration/tmux-integration" component={CmTmuxIntegration} />
-                <Route path="/claude-mux/integration/tmuxp-automation" component={CmTmuxpAutomation} />
-                <Route path="/claude-mux/integration/practical-workflow" component={CmPracticalWorkflow} />
+                <Route path="/claude-mux/ai-coding-agents/gemini-cli" component={CmGeminiCli} />
+                <Route path="/claude-mux/ai-coding-agents/openai-codex" component={CmOpenAiCodex} />
+                <Route path="/claude-mux/ai-coding-agents/github-copilot" component={CmGithubCopilot} />
+                <Route path="/claude-mux/ai-coding-agents/amazon-q-developer" component={CmAmazonQDeveloper} />
+                <Route path="/claude-mux/ai-coding-agents/choosing-tools" component={CmChoosingTools} />
+                {/* 旧 tmux 系ルートの互換リダイレクト（削除済みページのブックマーク対策） */}
+                <Route path="/claude-mux/tmux-intro/*">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/tmux-setup/*">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/tmux-basics/*">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/tmux-customize/*">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/integration/*">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/reference/session-management">
+                  <Redirect to="/claude-mux" replace />
+                </Route>
+                <Route path="/claude-mux/reference/tmux-cheatsheet">
+                  <Redirect to="/claude-mux/reference/claude-cheatsheet" replace />
+                </Route>
                 <Route path="/claude-mux/claude-core/context-engineering" component={CmContextEngineering} />
                 <Route path="/claude-mux/best-practices/harness-engineering" component={CmHarnessEngineering} />
                 <Route path="/claude-mux/multi-ai/design-md" component={CmDesignMd} />
@@ -574,10 +577,8 @@ function App() {
                 <Route path="/claude-mux/cmux/agent-teams" component={CmCmuxAgentTeams} />
                 <Route path="/claude-mux/cmux/browser-api" component={CmCmuxBrowserAPI} />
                 <Route path="/claude-mux/cmux/worktrees" component={CmCmuxWorktrees} />
-                <Route path="/claude-mux/reference/session-management" component={CmSessionMgmt} />
                 <Route path="/claude-mux/reference/troubleshooting" component={CmTroubleshooting} />
                 <Route path="/claude-mux/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
-                <Route path="/claude-mux/reference/tmux-cheatsheet" component={CmTmuxCheatsheet} />
                 <Route path="/claude-mux/best-practices/effective-workflows" component={CmEffectiveWorkflows} />
                 <Route path="/claude-mux/best-practices/spec-driven-dev" component={CmSpecDrivenDev} />
                 <Route path="/claude-mux/best-practices/testing-debugging" component={CmTestingDebugging} />
@@ -616,6 +617,9 @@ function App() {
                 <Route path="/ux-design/ui-design/visual-design" component={UxVisualDesign} />
                 <Route path="/ux-design/ui-design/design-system" component={UxDesignSystem} />
                 <Route path="/ux-design/prototyping/figma-prototype" component={UxFigmaPrototype} />
+                <Route path="/ux-design/for-designers/design-tokens-for-designers" component={UxDesignTokensForDesigners} />
+                <Route path="/ux-design/for-designers/component-thinking" component={UxComponentThinking} />
+                <Route path="/ux-design/for-designers/ai-collaboration-with-tokens" component={UxAiCollaborationWithTokens} />
                 <Route path="/ux-design/evaluation/usability-testing" component={UxUsabilityTesting} />
 
                 {/* === API 設計マニュアル === */}

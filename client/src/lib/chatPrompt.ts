@@ -19,7 +19,7 @@ const BASE_SYSTEM_PROMPT = `あなたは Dev Album（Web 開発の実践リフ�
 マニュアル構成:
 - Git / GitHub 入門: Git・GitHub・AIエージェント連携
 - React / TypeScript / Next.js 入門: React・TypeScript・Tailwind・MUI・Next.js・アクセシビリティ
-- Claude Code & 開発環境: Claude Code・tmux・MCP・CI/CD
+- Claude Code & 開発環境: Claude Code・AI コーディングエージェント・MCP・CI/CD
 - Three.js / React Three Fiber 入門: 3Dグラフィックス・WebGL`;
 
 // Layer 2: マニュアル構造のコンテキスト

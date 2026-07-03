@@ -93,7 +93,7 @@ export default function ClaudeCodeIntro() {
                   </div>
                   <div className="p-3 bg-slate-900 rounded border border-slate-800">
                     <span className="text-emerald-400">$ claude --model sonnet</span>
-                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します。短縮名（sonnet, opus, haiku）または完全名（claude-sonnet-4-6 等）が使用可能。</p>
+                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します。エイリアス（sonnet, opus, haiku, fable）または完全名（claude-sonnet-5 等）が使用可能。</p>
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function ClaudeCodeIntro() {
               </div>
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <span className="font-bold block mb-1">保護機能</span>
-                <p className="text-muted-foreground">.claudeignore による特定ファイルの読み込み遮断、サンドボックス環境（macOS: Seatbelt / Linux: bubblewrap）での動作制限。</p>
+                <p className="text-muted-foreground">settings.json の permissions.deny による特定ファイルの読み取り遮断、サンドボックス環境（macOS: Seatbelt / Linux: bubblewrap）での動作制限。</p>
               </div>
             </div>
           </section>
@@ -136,8 +136,8 @@ export default function ClaudeCodeIntro() {
                 <p className="text-xs text-muted-foreground">サイドバー/タブパネル、インラインdiff表示、チェックポイントによるロールバック。<code className="text-[var(--claude-primary)]">Cmd+Esc</code> でフォーカス切替。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-2">JetBrains（Beta）</h4>
-                <p className="text-xs text-muted-foreground">IDE diffビューア統合、自動診断共有。<code className="text-[var(--claude-primary)]">Cmd+Esc</code> でクイック起動。</p>
+                <h4 className="font-bold text-sm mb-2">JetBrains</h4>
+                <p className="text-xs text-muted-foreground">IDE ターミナル上で動作。diffビューア統合、自動診断共有に対応。</p>
               </div>
             </div>
           </section>
@@ -148,15 +148,19 @@ export default function ClaudeCodeIntro() {
             <div className="space-y-6">
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
                 <h3 className="text-lg font-semibold mb-4 text-sm">1. インストール</h3>
-                <p className="text-xs text-muted-foreground mb-4">Node.js (npm) を使用してグローバルにインストールします。</p>
-                <CodeBlock code="$ npm install -g @anthropic-ai/claude-code" language="bash" />
+                <p className="text-xs text-muted-foreground mb-4">ネイティブインストーラ（推奨・自動更新あり）または npm でインストールします。</p>
+                <CodeBlock code={`# ネイティブインストール（推奨）
+$ curl -fsSL https://claude.ai/install.sh | bash
+
+# npm でインストールする場合
+$ npm install -g @anthropic-ai/claude-code`} language="bash" />
               </div>
 
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
                 <h3 className="text-lg font-semibold mb-4 text-sm">2. 認証</h3>
-                <p className="text-xs text-muted-foreground mb-4">Anthropicアカウント（Max/Teamプラン）またはAPIキーで認証します。</p>
+                <p className="text-xs text-muted-foreground mb-4">Claude サブスクリプション（Pro / Max / Team / Enterprise）または Anthropic Console アカウントで認証します。</p>
                 <CodeBlock code={`# ブラウザ経由でAnthropicアカウント認証
-$ claude login
+$ claude auth login
 
 # APIキーで認証する場合
 $ export ANTHROPIC_API_KEY=sk-ant-...`} language="bash" />
@@ -181,7 +185,7 @@ $ claude
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                 { key: 'Ctrl+C', desc: '現在の生成をキャンセル' },
-                { key: 'Ctrl+L', desc: 'ターミナル画面クリア（履歴保持）' },
+                { key: 'Ctrl+L', desc: '画面を再描画（表示乱れの回復、履歴保持）' },
                 { key: 'Esc+Esc', desc: '巻き戻しまたは要約' },
                 { key: 'Shift+Tab', desc: 'パーミッションモード切替' },
                 { key: 'Option+P', desc: 'モデル切替（macOS）' },
@@ -201,8 +205,8 @@ $ claude
             previewType="terminal"
             title="Claude Code の基本コマンドを書いてみよう"
             description="Claude Code CLI の主要な起動オプションを整理しましょう。対話モード、非対話モード、セッション継続、モデル指定の4つのコマンドをコメント付きで書いてください。"
-            initialCode={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude ___ "このプロジェクトの構造を説明して"  # ← ここを埋める\n\n# 3. 直前のセッションを継続\nclaude ___  # ← ここを埋める\n\n# 4. モデルを指定して起動\nclaude ___ claude-sonnet-4-6  # ← ここを埋める`}
-            answer={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude -p "このプロジェクトの構造を説明して"\n\n# 3. 直前のセッションを継続\nclaude -c\n\n# 4. モデルを指定して起動\nclaude --model claude-sonnet-4-6`}
+            initialCode={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude ___ "このプロジェクトの構造を説明して"  # ← ここを埋める\n\n# 3. 直前のセッションを継続\nclaude ___  # ← ここを埋める\n\n# 4. モデルを指定して起動\nclaude ___ claude-sonnet-5  # ← ここを埋める`}
+            answer={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude -p "このプロジェクトの構造を説明して"\n\n# 3. 直前のセッションを継続\nclaude -c\n\n# 4. モデルを指定して起動\nclaude --model claude-sonnet-5`}
             hints={[
               '対話モードは引数なしで claude を実行します',
               '非対話モードは -p フラグを使います',

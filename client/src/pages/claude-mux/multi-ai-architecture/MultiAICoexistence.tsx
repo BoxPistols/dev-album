@@ -231,10 +231,10 @@ pull_request_opened:
       - performance
       - coding_standards`} />
                 <CodeBlock language="bash" code={`# Claude Code での開発フロー
-# tmux ペイン 1: 実装
+# ターミナルタブ 1: 実装
 claude "認証機能を実装して"
 
-# tmux ペイン 2: テスト
+# ターミナルタブ 2: テスト
 claude "テストを書いて実行して"
 
 # PR 作成 → Gemini が自動レビュー
@@ -242,32 +242,23 @@ gh pr create --title "feat: 認証機能"`} />
               </div>
 
               <div className="p-4 md:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h3 className="text-base md:text-lg font-bold mb-4">パターン C: tmux マルチペインでの AI 協調</h3>
+                <h3 className="text-base md:text-lg font-bold mb-4">パターン C: マルチターミナルでの AI 協調</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  tmux のペインを活用して複数の AI ツールを同時に起動し、それぞれに異なる役割を割り当てる高度な構成。
+                  複数のターミナルタブ（または cmux のワークスペース）で複数の AI ツールを同時に起動し、それぞれに異なる役割を割り当てる高度な構成。
                 </p>
-                <CodeBlock language="yaml" code={`# ~/.tmuxp/multi-ai-team.yaml
-session_name: multi-ai
-windows:
-  - window_name: development
-    layout: main-vertical
-    panes:
-      # Claude Code: 設計・実装
-      - shell_command:
-          - cd ~/project
-          - claude
-      # Gemini CLI: 並行調査
-      - shell_command:
-          - cd ~/project
-          - gemini
-  - window_name: review
-    layout: even-horizontal
-    panes:
-      - shell_command:
-          - cd ~/project
-          - claude "/code-review"
-      - shell_command:
-          - cd ~/project`} />
+                <CodeBlock language="bash" code={`# タブ 1: Claude Code — 設計・実装
+cd ~/project && claude
+> 認証機能を設計して実装して
+
+# タブ 2: Gemini CLI — 並行調査（無料枠を活用）
+cd ~/project && gemini
+> このライブラリの最新の破壊的変更を調べて
+
+# タブ 3: Claude Code — レビュー専任
+cd ~/project && claude "/code-review"
+
+# cmux を使う場合は 1 ワークスペース = 1 エージェントで割り当て、
+# 通知リングで入力待ちのエージェントを見分ける`} />
               </div>
             </div>
           </section>
@@ -361,7 +352,7 @@ windows:
                   phase: 'Phase 4: チーム展開',
                   items: [
                     'チームメンバーのツール選択の自由を確保',
-                    'tmux マルチペインによる協調ワークフロー',
+                    'マルチターミナル（タブ / cmux）による協調ワークフロー',
                     'スキルの改善サイクルを確立（rules-to-skills）',
                   ],
                 },
@@ -390,9 +381,9 @@ windows:
             preview
             previewType="terminal"
             title="マルチ AI ハイブリッド環境を構築しよう"
-            description="Claude Code と他の AI ツールを共存させるディレクトリ構成と、tmuxp によるマルチ AI チーム構成を書いてください。"
+            description="Claude Code と他の AI ツールを共存させるディレクトリ構成と、共通コンテキストファイルの設定を書いてください。"
             initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\nEOF`}
-            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. tmuxp 設定（マルチAIチーム）:\n# session_name: multi-ai\n# windows:\n#   - window_name: development\n#     panes:\n#       - claude\n#       - gemini`}
+            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
             hints={[
               'AGENTS.md は全 AI ツールが自動認識する共通コンテキストファイルです',
               'CLAUDE.md には Claude Code 固有の指示のみ記述します',

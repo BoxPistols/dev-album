@@ -20,6 +20,51 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-03-ai-coding-agents-section",
+    date: "2026-07-03",
+    title: "「AI コーディングエージェント」セクションを新設（Gemini CLI / Codex / Copilot / Amazon Q）",
+    description:
+      "Claude Code 以外の主要 AI コーディングツール 4 つと、ユースケース別の選び方・使い分けを解説する 5 ページを追加。各ページは公式ドキュメントの一次情報のみを根拠に、インストール手順・料金体系・Claude Code との特性の違いを扱う。",
+    category: "feature",
+    link: "/claude-mux/ai-coding-agents/choosing-tools",
+  },
+  {
+    id: "2026-07-03-designer-tokens-section",
+    date: "2026-07-03",
+    title: "デザイナー向け「トークンとコンポーネント」セクションを新設",
+    description:
+      "コードを書いたことがないデザイナーを対象に、デザイントークン入門・コンポーネント思考・AI 時代のデザイン共通言語の 3 ページを UX デザインマニュアルに追加。Figma Variables との対応や、トークン語彙で AI に指示するプロンプトの書き方まで扱う。",
+    category: "feature",
+    link: "/ux-design/for-designers/design-tokens-for-designers",
+  },
+  {
+    id: "2026-07-03-claude-code-fact-check",
+    date: "2026-07-03",
+    title: "Claude Code ガイドを公式ドキュメントと全面照合",
+    description:
+      "Claude Code 関連 13 ページを公式リファレンス 15 ページと突き合わせ、廃止済み機能（.claudeignore、claude config set 等）や誤った記述（thinking トークンの課金、スラッシュコマンドのプレフィックス、MCP スコープの保存先等）を現行仕様に修正した。",
+    category: "fix",
+    link: "/claude-mux/claude-intro/claude-code-intro",
+  },
+  {
+    id: "2026-07-03-tmux-section-retired",
+    date: "2026-07-03",
+    title: "tmux セクションを終了し、AI エージェント中心の構成に再編",
+    description:
+      "Claude Code & 開発環境マニュアルから tmux 関連 17 ページを削除し、AI コーディングエージェントの比較・使い分けに紙面を再配分した。旧 URL は自動的にマニュアルトップへリダイレクトされる。",
+    category: "release",
+    link: "/claude-mux",
+  },
+  {
+    id: "2026-07-03-a11y-and-preview-hardening",
+    date: "2026-07-03",
+    title: "アクセシビリティ改善とプレビュー基盤の安定化",
+    description:
+      "axe-core による自動検査を導入し、コードエディタのラベル・コントラスト不足（muted-foreground トークン等）・キーボード操作の問題を修正。ライブプレビューのライブラリ読み込みを CDN 依存からセルフホストに切り替え、オフラインや社内ネットワークでも安定動作するようにした。",
+    category: "update",
+    link: "/react/accessibility/semantic-aria",
+  },
+  {
     id: "2026-07-03-live-preview-real-libraries",
     date: "2026-07-03",
     title: "ライブプレビューが MUI / Tailwind / styled-components / Emotion の実ライブラリで動作するように",
@@ -150,7 +195,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-04-26",
     title: "cmux 教材を 5 ページ追加",
     description:
-      "Intro / Setup / AgentTeams / BrowserAPI / Worktrees。cmux と tmux の使い分け、Claude Code との連携、git worktree との組み合わせを扱う。",
+      "Intro / Setup / AgentTeams / BrowserAPI / Worktrees。ターミナル環境の使い分け、Claude Code との連携、git worktree との組み合わせを扱う。",
     category: "feature",
     link: "/claude-mux/cmux/cmux-intro",
   },

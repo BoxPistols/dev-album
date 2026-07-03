@@ -200,7 +200,7 @@ claude /terminal-setup
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
-                    ['ターミナル (CLI)', 'tmux 統合、スクリプト連携、ヘッドレス実行', '柔軟性が高い、環境非依存'],
+                    ['ターミナル (CLI)', 'スクリプト連携、ヘッドレス実行、複数セッションの並行運用', '柔軟性が高い、環境非依存'],
                     ['VS Code 拡張機能', 'Web フロントエンド開発、TypeScript プロジェクト', 'エディタとのシームレスな統合'],
                     ['JetBrains プラグイン', 'Java/Kotlin 開発、大規模プロジェクト', 'IDE の高度な解析機能との連携'],
                     ['デスクトップアプリ', 'IDE を使わない開発、スタンドアロン利用', '軽量、独立した作業環境'],
@@ -215,8 +215,8 @@ claude /terminal-setup
               </table>
             </div>
 
-            <InfoBox type="info" title="tmux との併用がおすすめ">
-              IDE 統合と tmux は排他ではありません。IDE のターミナルパネルで tmux セッションを起動し、Claude Code を実行するハイブリッド構成が実用的です。tmux によるセッション永続化の恩恵を受けつつ、IDE の機能も活用できます。
+            <InfoBox type="info" title="CLI との併用がおすすめ">
+              IDE 統合と CLI は排他ではありません。IDE のターミナルパネルで Claude Code を起動するハイブリッド構成が実用的です。CLI の柔軟性（セッション再開・ヘッドレス実行）の恩恵を受けつつ、IDE の機能も活用できます。
             </InfoBox>
           </section>
 

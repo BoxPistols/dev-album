@@ -34,7 +34,7 @@ export default function Subagents() {
               マルチエージェント・オーケストレーション
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Codeは <code>Task</code> ツールを使用してサブエージェントを動的に生成します。各サブエージェントは独自のコンテキストウィンドウで実行されるため、メインの会話コンテキストを消費しません。
+              Claude Codeは <code>Agent</code> ツールを使用してサブエージェントを動的に生成します。各サブエージェントは独自のコンテキストウィンドウで実行されるため、メインの会話コンテキストを消費しません。
             </p>
             <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
               <h4 className="font-bold mb-4">並列化の構造</h4>
@@ -44,7 +44,7 @@ export default function Subagents() {
                   <p>エンジニアとの対話、全体計画の立案、サブエージェントの管理。</p>
                 </li>
                 <li className="flex gap-3 ml-8">
-                  <div className="w-6 h-6 rounded bg-emerald-600 text-white flex-shrink-0 flex items-center justify-center text-[12px]">Sub</div>
+                  <div className="w-6 h-6 rounded bg-emerald-700 text-white flex-shrink-0 flex items-center justify-center text-[12px]">Sub</div>
                   <p>分離されたコンテキストでサブタスクを実行。結果のみメインに返される。</p>
                 </li>
               </ul>
@@ -61,20 +61,20 @@ export default function Subagents() {
               ビルトインサブエージェント
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Codeには3つのビルトインサブエージェントタイプがあります。
+              Claude Codeには Explore / Plan / general-purpose などのビルトインサブエージェントがあり、Claudeがタスクに応じて自動的に委譲します。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-[var(--claude-primary)] mb-3">Bash</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">コマンド実行に特化。Git操作やターミナルタスクを処理します。</p>
-              </div>
-              <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-[var(--claude-primary)] mb-3">Explore</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">コードベース探索に特化。ファイル検索、キーワード検索、コード分析を高速に実行します。</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">コードベース探索に特化した読み取り専用エージェント。ファイル検索、キーワード検索、コード分析を高速に実行します。</p>
               </div>
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-[var(--claude-primary)] mb-3">Plan</h4>
                 <p className="text-xs text-muted-foreground leading-relaxed">実装計画の設計に特化。アーキテクチャのトレードオフを考慮した計画を立案します。</p>
+              </div>
+              <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                <h4 className="font-bold text-[var(--claude-primary)] mb-3">general-purpose</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">探索と修正の両方が必要な複合タスク向け。複数ステップの調査・実装を単独で遂行します。</p>
               </div>
             </div>
           </section>
@@ -91,11 +91,9 @@ export default function Subagents() {
             <CodeBlock code={`# .claude/agents/test-runner.md
 
 ---
-tools:
-  - Bash
-  - Read
-  - Glob
-  - Grep
+name: test-runner
+description: テストの実行と失敗原因の分析が必要な時に使用
+tools: Bash, Read, Glob, Grep
 model: haiku
 ---
 
@@ -108,7 +106,7 @@ model: haiku
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">frontmatter設定</h4>
-                <p className="text-xs text-muted-foreground"><code>tools</code>（使用可能ツール）、<code>model</code>（モデル指定）、<code>maxTurns</code>（最大ターン数）、<code>mcpServers</code>（利用MCP）等を指定。</p>
+                <p className="text-xs text-muted-foreground"><code>name</code> と <code>description</code> は必須（description は Claude が委譲を判断する基準）。他に <code>tools</code>、<code>model</code>（sonnet / opus / haiku / fable / inherit）、<code>maxTurns</code>、<code>mcpServers</code>、<code>memory</code> 等を指定。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">コスト最適化</h4>
@@ -124,7 +122,7 @@ model: haiku
               バックグラウンド実行と監視
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              サブエージェントはバックグラウンドで実行可能です。<code>/tasks</code> コマンドで実行中のタスク一覧を確認できます。tmuxで画面を分割すれば、別のペインの <code>git diff</code> 等でファイル変更をリアルタイムに監視できます。
+              サブエージェントはバックグラウンドで実行可能です。<code>/tasks</code> コマンドで実行中のタスク一覧を確認できます。別のターミナルタブで <code>git diff</code> を実行すれば、ファイル変更をリアルタイムに監視できます。
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -142,10 +140,10 @@ model: haiku
             previewType="markdown"
             title="カスタムサブエージェントを定義しよう"
             description=".claude/agents/ に配置するカスタムエージェントの Markdown ファイルを書いてください。リファクタリング提案を行うエージェントを定義しましょう。"
-            initialCode={`# refactor-advisor.md\n\n---\ntools:\n  - ___  # ← ここを埋める（ファイル読み取り）\n  - ___  # ← ここを埋める（ファイル検索）\n  - Grep\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
-            answer={`# refactor-advisor.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
+            initialCode={`# refactor-advisor.md\n\n---\nname: refactor-advisor\ndescription: リファクタリング提案が必要な時に使用\ntools: ___, ___, Grep  # ← ここを埋める（ファイル読み取りとファイル検索）\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
+            answer={`# refactor-advisor.md\n\n---\nname: refactor-advisor\ndescription: リファクタリング提案が必要な時に使用\ntools: Read, Glob, Grep\nmodel: sonnet\n---\n\nコードのリファクタリング提案を行うエージェントです。\n\n## 手順\n1. 対象ディレクトリのファイル構造を把握する\n2. コードの重複、複雑度の高い関数を検出する\n3. リファクタリングの優先順位を付けて提案する\n4. 各提案について期待される改善効果を説明する\n\n## 出力形式\n- 優先度（High/Medium/Low）\n- 対象ファイルと関数名\n- 提案内容と改善効果`}
             hints={[
-              'frontmatter で tools, model を指定します',
+              'frontmatter で name, description, tools, model を指定します（name と description は必須）',
               '読み取り専用のツール（Read, Glob, Grep）のみに制限すると安全です',
               '手順と出力形式を明確に定義するとエージェントの精度が向上します',
             ]}

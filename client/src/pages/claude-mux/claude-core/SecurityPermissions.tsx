@@ -65,10 +65,11 @@ export default function SecurityPermissions() {
             <div className="space-y-3">
               {[
                 { mode: 'default', desc: '各ツール初回使用時にパーミッション確認を表示。標準的な開発に推奨。', color: 'text-emerald-600' },
-                { mode: 'acceptEdits', desc: 'ファイル編集操作を自動承認。Bashコマンドは引き続き確認。', color: 'text-blue-600' },
-                { mode: 'plan', desc: '分析のみ。ファイル変更・コマンド実行を一切行わない読み取り専用モード。', color: 'text-purple-600' },
+                { mode: 'acceptEdits', desc: 'ファイル編集と mkdir / mv 等の基本ファイル操作コマンドを自動承認。その他の Bash コマンドは引き続き確認。', color: 'text-blue-600' },
+                { mode: 'plan', desc: '調査と計画の作成に専念するモード。ファイル編集は行わず、読み取りや探索でプランを提示する。', color: 'text-purple-600' },
+                { mode: 'auto', desc: '分類器モデルが各操作を安全確認しつつ、ルーチンの確認プロンプトを省略。長時間タスク向け（research preview）。', color: 'text-cyan-600' },
                 { mode: 'dontAsk', desc: '事前に許可されたツール以外は自動拒否。CI/CD環境向け。', color: 'text-amber-600' },
-                { mode: 'bypassPermissions', desc: '全パーミッション確認をスキップ。隔離されたサンドボックス環境でのみ使用。', color: 'text-red-600' },
+                { mode: 'bypassPermissions', desc: '全パーミッション確認をスキップ。隔離されたコンテナ / VM でのみ使用。', color: 'text-red-600' },
               ].map(item => (
                 <div key={item.mode} className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                   <code className={`font-bold text-sm min-w-[160px] ${item.color}`}>{item.mode}</code>

@@ -218,13 +218,13 @@ $ claude mcp add serena -- uvx \\
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
               <Package className="text-[var(--claude-primary)]" />
-              /plugins でMCPサーバをインストール
+              /plugin でMCPサーバをインストール
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              <code>/plugins</code> コマンドで、MCPサーバのマーケットプレイスからサーバを検索・インストールできます。CLIコマンドを手動で入力する必要がありません。
+              <code>/plugin</code> コマンドで、MCPサーバを同梱したプラグインをマーケットプレイスから検索・インストールできます。CLIコマンドを手動で入力する必要がありません。
             </p>
-            <CodeBlock code={`# セッション内で /plugins を実行
-> /plugins
+            <CodeBlock code={`# セッション内で /plugin を実行
+> /plugin
 
 # マーケットプレイスが表示される
 # カテゴリ別にサーバを検索
@@ -252,15 +252,15 @@ $ claude mcp add serena -- uvx \\
               @ でMCPリソースを参照
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              MCPサーバが公開するリソース（ドキュメント、スキーマ、設定ファイルなど）は、プロンプト内で <code>@</code> を入力するとオートコンプリートに表示されます。選択したリソースがコンテキストとして渡されます。
+              MCPサーバが公開するリソース（ドキュメント、スキーマ、設定ファイルなど）は、プロンプト内で <code>@</code> を入力するとオートコンプリートに表示されます。参照形式は <code>@サーバ名:プロトコル://リソース/パス</code> で、選択したリソースがコンテキストとして渡されます。
             </p>
             <div className="space-y-4">
               <div className="p-5 bg-slate-900 rounded-xl border border-slate-700">
-                <p className="text-[12px] text-slate-500 mb-2 font-mono">リソース参照の例</p>
+                <p className="text-[12px] text-slate-500 mb-2 font-mono">リソース参照の例（@サーバ名:プロトコル://パス）</p>
                 <div className="text-emerald-400 font-mono text-sm leading-relaxed">
                   &gt; @ と入力 → オートコンプリートでリソース一覧が表示<br />
-                  &gt; @supabase/schema を参照して、usersテーブルにCRUDのAPIを作成して<br />
-                  &gt; @sentry/recent-errors の内容を確認して、対処方針を提案して
+                  &gt; @supabase:schema://users を参照して、usersテーブルにCRUDのAPIを作成して<br />
+                  &gt; @sentry:issue://recent の内容を確認して、対処方針を提案して
                 </div>
               </div>
               <InfoBox type="info" title="リソース対応の確認">

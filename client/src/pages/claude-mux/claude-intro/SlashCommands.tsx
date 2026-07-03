@@ -66,7 +66,7 @@ export default function SlashCommands() {
               <div className="grid grid-cols-1 gap-4">
                 {[
                   { cmd: '/resume [session]', desc: 'ID または名前で過去セッションを再開。引数なしでピッカー表示。エイリアス: /continue。CLI からは claude --continue / claude --resume <id> でも復帰可能。' },
-                  { cmd: '/branch [name]', desc: '現在の会話の分岐ポイントを作成。分岐後も元セッションは /resume から戻れる。エイリアス: /fork。' },
+                  { cmd: '/branch [name]', desc: '現在の会話の分岐ポイントを作成。分岐後も元セッションは /resume から戻れる。/fork は別コマンド（会話を引き継いだ background subagent を起動）。' },
                   { cmd: '/rewind', desc: '会話・コードを以前のポイントへ復元、または途中以降を要約。Esc×2 でも起動。restore code / conversation / both / summarize from here の 4 アクション。エイリアス: /checkpoint, /undo。' },
                   { cmd: '/rename [name]', desc: 'セッションに識別名を付与。引数なしで会話履歴から自動生成。プロンプトバーに表示。' },
                   { cmd: '/export [filename]', desc: '対話履歴をプレーンテキストで書き出し。引数なしでクリップボード/ファイル選択ダイアログ。' },
@@ -102,8 +102,8 @@ export default function SlashCommands() {
                 <p className="text-xs text-muted-foreground mt-2 leading-relaxed">現在のコンテキスト使用量を<strong>カラーグリッド</strong>で表示。コンテキスト過多のツール、memory bloat、容量警告に対する最適化提案も。</p>
               </div>
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <code className="text-[var(--claude-primary)] font-bold text-sm">/extra-usage</code>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">レート制限到達後も作業を継続するための extra usage を構成。</p>
+                <code className="text-[var(--claude-primary)] font-bold text-sm">/usage-credits</code>
+                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">レート制限到達後も作業を継続するための usage credits を構成（旧 /extra-usage）。</p>
               </div>
             </div>
             <InfoBox type="info" title="/cost は /usage の別名（v2.x 系で統合）">
@@ -156,7 +156,7 @@ export default function SlashCommands() {
                 { cmd: '/agents', desc: 'subagent（agent）設定を管理。' },
                 { cmd: '/skills', desc: '利用可能な skill 一覧を表示。t キーでトークン数ソート。' },
                 { cmd: '/tasks', desc: 'バックグラウンドタスクを一覧・管理。エイリアス: /bashes。' },
-                { cmd: '/simplify [focus]', desc: 'バンドル skill。最近変更したファイルの再利用性 / 品質 / 効率を 3 つの review agent で並列分析し修正。' },
+                { cmd: '/simplify [focus]', desc: 'バンドル skill。変更コードの再利用性 / 単純化 / 効率 / 抽象度を 4 つの review agent で並列分析し修正を適用。' },
                 { cmd: '/loop [interval] [prompt]', desc: 'バンドル skill。プロンプトをセッション内で繰り返し実行（例: /loop 5m check if the deploy finished）。エイリアス: /proactive。' },
                 { cmd: '/ultrareview [PR]', desc: 'クラウドサンドボックスで多 agent コードレビューを実行。' },
                 { cmd: '/insights', desc: 'これまでのセッションを分析し、領域 / インタラクションパターン / 摩擦点をレポート化。' },
@@ -289,7 +289,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   モデルの effort level（adaptive reasoning の強度）を切替。引数なしでスライダー、<code>auto</code> でモデル既定値にリセット。<strong>応答完了を待たず即時反映</strong>。<code>/model</code> 内でも左右キーで調整可能。
                 </p>
                 <p className="text-xs text-muted-foreground mb-3">
-                  対応モデル: Opus 4.7 / Opus 4.6 / Sonnet 4.6（v2.1.117 以降の既定は Opus 4.7 で <code>xhigh</code>、Opus 4.6 / Sonnet 4.6 で <code>high</code>）
+                  対応モデル: Fable 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（既定は <code>high</code>、Opus 4.7 のみ <code>xhigh</code>）
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -318,8 +318,8 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">xhigh</td>
-                        <td className="p-2">大半のコーディング / agentic タスクで最良。Opus 4.7 推奨既定</td>
-                        <td className="p-2">Opus 4.7 のみ</td>
+                        <td className="p-2">より深い推論を高トークン消費で。Opus 4.7 の既定</td>
+                        <td className="p-2">Fable 5 / Sonnet 5 / Opus 4.8 / 4.7</td>
                       </tr>
                       <tr>
                         <td className="p-2 font-mono">max</td>
@@ -444,11 +444,11 @@ claude --effort xhigh
             <div className="space-y-4">
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <h4 className="font-bold text-sm mb-1">プロジェクトコマンド</h4>
-                <p className="text-xs text-muted-foreground"><code>.claude/commands/</code> にMarkdownファイルを配置 → <code>/project:コマンド名</code> で呼び出し。チーム共有可能。</p>
+                <p className="text-xs text-muted-foreground"><code>.claude/commands/</code> にMarkdownファイルを配置 → ファイル名がそのまま <code>/コマンド名</code> になる（例: review.md → /review）。チーム共有可能。</p>
               </div>
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <h4 className="font-bold text-sm mb-1">ユーザーコマンド</h4>
-                <p className="text-xs text-muted-foreground"><code>~/.claude/commands/</code> にMarkdownファイルを配置 → <code>/user:コマンド名</code> で呼び出し。全プロジェクトで使用可能。</p>
+                <p className="text-xs text-muted-foreground"><code>~/.claude/commands/</code> にMarkdownファイルを配置 → <code>/コマンド名</code> で全プロジェクトから呼び出し可能。カスタムコマンドは Skills に統合されており、<code>.claude/skills/&lt;name&gt;/SKILL.md</code> でも同じコマンドを定義できる。</p>
               </div>
             </div>
           </section>
@@ -480,8 +480,8 @@ claude --effort xhigh
             previewType="terminal"
             title="カスタムコマンドを作成しよう"
             description="プロジェクトの .claude/commands/ ディレクトリに配置するカスタムスラッシュコマンドのMarkdownファイルを書いてください。コードレビューを実行するコマンドで、セキュリティとパフォーマンスの観点からレビューを行い、結果をマークダウンで出力するものです。"
-            initialCode={`# review.md - /project:review で呼び出されるコマンド\n\n___ HEAD~1 の変更をレビューしてください。  # ← ここを埋める（差分取得コマンド）\n\n## レビュー観点\n1. ___: 入力バリデーション、認証・認可の不備  # ← ここを埋める\n2. ___: N+1クエリ、不要な再レンダリング  # ← ここを埋める\n\n## 出力形式\n- 重要度（High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明と修正案`}
-            answer={`# review.md - /project:review で呼び出されるコマンド\n\ngit diff HEAD~1 の変更をレビューしてください。\n\n## レビュー観点\n1. セキュリティ: 入力バリデーション、認証・認可の不備\n2. パフォーマンス: N+1クエリ、不要な再レンダリング\n\n## 出力形式\n- 重要度（High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明と修正案`}
+            initialCode={`# review.md - /review で呼び出されるコマンド\n\n___ HEAD~1 の変更をレビューしてください。  # ← ここを埋める（差分取得コマンド）\n\n## レビュー観点\n1. ___: 入力バリデーション、認証・認可の不備  # ← ここを埋める\n2. ___: N+1クエリ、不要な再レンダリング  # ← ここを埋める\n\n## 出力形式\n- 重要度（High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明と修正案`}
+            answer={`# review.md - /review で呼び出されるコマンド\n\ngit diff HEAD~1 の変更をレビューしてください。\n\n## レビュー観点\n1. セキュリティ: 入力バリデーション、認証・認可の不備\n2. パフォーマンス: N+1クエリ、不要な再レンダリング\n\n## 出力形式\n- 重要度（High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明と修正案`}
             hints={[
               'カスタムコマンドはMarkdownファイルで、内容がそのままプロンプトとして送信されます',
               'git diff を使って変更差分を参照するよう指示しましょう',

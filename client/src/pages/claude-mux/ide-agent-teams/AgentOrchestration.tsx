@@ -85,13 +85,13 @@ claude
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-3">Split panes モード</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  各チームメイトが tmux または iTerm2 の独立ペインで動作する。複数のチームメイトの出力を同時に視認でき、大規模なチームで有用。
+                  各チームメイトが iTerm2 または tmux の独立ペインで動作する。複数のチームメイトの出力を同時に視認でき、大規模なチームで有用。
                 </p>
-                <CodeBlock language="bash" code={`# tmux の split panes モードで起動
-claude --teammate-mode tmux
+                <CodeBlock language="bash" code={`# iTerm2 の split panes モードで起動（macOS）
+claude --teammate-mode iterm2
 
-# iTerm2 を使う場合（macOS）
-claude --teammate-mode iterm2`} />
+# tmux を使っている場合
+claude --teammate-mode tmux`} />
               </div>
 
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -108,7 +108,7 @@ cmux claude-teams
             </div>
 
             <InfoBox type="info" title="どちらを選ぶか">
-              2〜3 人なら in-process で十分。リモート/Linux で永続化したいなら tmux split panes、macOS ローカルで通知リング込みの可視化が欲しいなら cmux ネイティブ split が向く。
+              2〜3 人なら in-process で十分。macOS ローカルで通知リング込みの可視化が欲しいなら cmux ネイティブ split が向く。iTerm2（または tmux）ユーザーは split panes モードも選べる。
             </InfoBox>
           </section>
 
@@ -124,12 +124,9 @@ cmux claude-teams
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold mb-3">tmux での起動例</h3>
-                <CodeBlock language="bash" code={`# tmux セッションで Agent Teams を起動
-tmux new-session -s dev
-
-# メインペイン: チームリード
-claude --teammate-mode tmux
+                <h3 className="text-xl font-bold mb-3">split panes モードでの起動例</h3>
+                <CodeBlock language="bash" code={`# iTerm2 の split panes モードで Agent Teams を起動（macOS）
+claude --teammate-mode iterm2
 
 # チームリードから指示例:
 # "このバグを調査して。researcher と fixer の2人のチームメイトを使って、
@@ -264,8 +261,8 @@ claude
 git worktree add ../project-auth feature/auth
 git worktree add ../project-dashboard feature/dashboard
 
-# split panes モードで Agent Teams を起動
-claude --teammate-mode tmux
+# split panes モードで Agent Teams を起動（iTerm2 の場合）
+claude --teammate-mode iterm2
 
 # チームリードへの指示例:
 # "2つの機能を並列開発して:
@@ -336,7 +333,7 @@ git worktree remove ../project-dashboard`} />
                 { title: 'ファイル操作の分離を徹底する', desc: '各チームメイトが編集するファイルの範囲を明確に指示する。「Aは src/auth/ 配下、Bは src/dashboard/ 配下」のように。同一ファイルの同時編集は避ける。' },
                 { title: 'インターフェースを先に定義する', desc: '複数メイトが連携する場合、先にインターフェースや型定義を確定させる。これにより各メイトが独立して実装を進められる。' },
                 { title: '小さく始めて段階的に拡大する', desc: 'まず2人のチームメイトで試し、ワークフローが安定してから人数を増やす。管理コストはメイト数に対して線形以上に増加する。' },
-                { title: 'split panes モードで可視性を確保する', desc: '4人以上のチームメイトを使う場合は tmux の split panes モードを使って各メイトの出力を同時に監視する。' },
+                { title: 'split panes モードで可視性を確保する', desc: '4人以上のチームメイトを使う場合は split panes モード（iTerm2 等）や cmux ネイティブ split を使って各メイトの出力を同時に監視する。' },
                 { title: '定期的にチームリードの進捗確認を促す', desc: 'チームリードに「各メイトの進捗を確認して、問題があれば対処して」と明示的に指示すると、タスクが停滞しにくい。' },
               ].map(item => (
                 <div key={item.title} className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -353,11 +350,11 @@ git worktree remove ../project-dashboard`} />
             previewType="terminal"
             title="Agent Teams のワークフローを設計しよう"
             description="E コマースサイトに「商品レビュー機能」を追加する想定で、Agent Teams の構成と起動コマンドを記述してください。チームリードへの指示、チームメイトの役割分担、Git ワークツリーの準備を含めてください。"
-            initialCode={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit ___ add ../project-review-api feature/review-api  # ← ここを埋める\ngit ___ add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を tmux split panes モードで起動:\ntmux new-session -s review-dev\nclaude ___ tmux  # ← ここを埋める\n\n# 3. チームリードへの指示:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
-            answer={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit worktree add ../project-review-api feature/review-api\ngit worktree add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を tmux split panes モードで起動:\ntmux new-session -s review-dev\nclaude --teammate-mode tmux\n\n# 3. チームリードへの指示（チームメイトの役割分担を含む）:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:\n#  api-dev: ../project-review-api でレビューの CRUD API とバリデーションを実装\n#  ui-dev: ../project-review-ui でレビュー投稿フォームと一覧表示コンポーネントを実装\n#  api-dev が型定義を作成したら ui-dev に共有して。"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
+            initialCode={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit ___ add ../project-review-api feature/review-api  # ← ここを埋める\ngit ___ add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を split panes モードで起動（iTerm2）:\nclaude ___ iterm2  # ← ここを埋める\n\n# 3. チームリードへの指示:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
+            answer={`# Agent Teams で商品レビュー機能を実装する\n\n# 1. Git ワークツリーを作成（API用とUI用）:\ngit worktree add ../project-review-api feature/review-api\ngit worktree add ../project-review-ui feature/review-ui\n\n# 2. Agent Teams を split panes モードで起動（iTerm2）:\nclaude --teammate-mode iterm2\n\n# 3. チームリードへの指示（チームメイトの役割分担を含む）:\n# "商品レビュー機能を実装して。2人のチームメイトで分担:\n#  api-dev: ../project-review-api でレビューの CRUD API とバリデーションを実装\n#  ui-dev: ../project-review-ui でレビュー投稿フォームと一覧表示コンポーネントを実装\n#  api-dev が型定義を作成したら ui-dev に共有して。"\n\n# 4. 作業完了後のマージ手順:\ngit checkout main\ngit merge feature/review-api\ngit merge feature/review-ui\ngit worktree remove ../project-review-api\ngit worktree remove ../project-review-ui`}
             hints={[
               'git worktree add でAPI用とUI用の作業ディレクトリを分離する',
-              '--teammate-mode tmux で split panes モードを有効にする',
+              '--teammate-mode iterm2 で split panes モードを有効にする',
               'チームリードへの指示には各メイトの担当範囲とワークツリーのパスを明記する',
               '作業完了後は git merge で各ブランチを統合し、ワークツリーを削除する',
             ]}

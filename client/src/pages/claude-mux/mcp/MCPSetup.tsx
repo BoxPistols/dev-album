@@ -68,8 +68,9 @@ $ claude mcp add --transport http my-server https://example.com/mcp
 # JSON形式で追加
 $ claude mcp add-json my-server '{"type":"stdio","command":"npx","args":["-y","@mcp/server"]}'
 
-# Claude Desktopの設定をインポート
-$ claude mcp add-from-claude-desktop`}
+# 環境変数を渡して追加
+$ claude mcp add --env API_KEY=YOUR_KEY --transport stdio my-server \\
+    -- npx -y @mcp/my-server`}
               language="bash"
             />
           </section>
@@ -85,9 +86,9 @@ $ claude mcp add-from-claude-desktop`}
             </p>
             <div className="space-y-4">
               {[
-                { scope: 'local（デフォルト）', path: '.claude/settings.local.json', desc: '現在のプロジェクトのみ。個人用、Git 管理外。' },
+                { scope: 'local（デフォルト）', path: '~/.claude.json（プロジェクト別エントリ）', desc: '現在のプロジェクトのみ。個人用、Git 管理外。' },
                 { scope: 'project', path: '.mcp.json', desc: 'プロジェクトルートに配置。Git 管理でチーム共有可能。' },
-                { scope: 'user', path: '~/.claude/settings.json', desc: '全プロジェクトで利用可能な個人設定。' },
+                { scope: 'user', path: '~/.claude.json', desc: '全プロジェクトで利用可能な個人設定。' },
               ].map(item => (
                 <div key={item.scope} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                   <div className="flex items-baseline gap-3 mb-1">
@@ -117,7 +118,7 @@ $ claude mcp add -s user my-tool -- npx -y @mcp/my-tool`} language="bash" />
                   { cmd: 'claude mcp list', desc: '登録済みMCPサーバの一覧を表示' },
                   { cmd: 'claude mcp get <name>', desc: '特定サーバの詳細設定を表示' },
                   { cmd: 'claude mcp remove <name>', desc: 'MCPサーバを削除' },
-                  { cmd: 'claude mcp serve', desc: 'Claude Code自体をMCPサーバとして起動' },
+                  { cmd: 'claude mcp login <name>', desc: 'HTTP/SSEサーバのOAuth認証をCLIから実行（logout で解除）' },
                   { cmd: '/mcp', desc: 'セッション内でMCPサーバを管理・OAuth認証' },
                 ].map(item => (
                   <div key={item.cmd} className="flex items-start gap-4 pb-4 border-b border-slate-100 dark:border-slate-800 last:border-0 last:pb-0">
@@ -136,7 +137,7 @@ $ claude mcp add -s user my-tool -- npx -y @mcp/my-tool`} language="bash" />
               <code>-s project</code> スコープで追加すると、プロジェクトルートに <code>.mcp.json</code> が生成されます。このファイルをGit管理することで、チームメンバー全員が同じMCPサーバ構成を使用できます。
             </p>
             <InfoBox type="info" title="初回承認">
-              プロジェクトスコープのMCPサーバは、各チームメンバーが初回使用時に承認する必要があります。<code>claude mcp reset-project-choices</code> で承認をリセットできます。
+              プロジェクトスコープのMCPサーバは、各チームメンバーが初回使用時に承認する必要があります。未承認のサーバは <code>claude mcp list</code> に「Pending approval」と表示され、対話セッションを起動すると承認できます。settings.json の <code>enableAllProjectMcpServers</code> で一括承認も可能です。
             </InfoBox>
           </section>
 
@@ -165,7 +166,7 @@ $ MCP_TIMEOUT=30000 claude`} language="bash" />
                 <div className="flex items-baseline gap-3 mb-1">
                   <code className="text-[var(--claude-primary)] font-bold text-sm">MAX_MCP_OUTPUT_TOKENS</code>
                 </div>
-                <p className="text-xs text-muted-foreground mb-2">MCPツールからの出力トークン上限。大量のデータを返すツール（DB検索結果、ログ取得など）で有効です。</p>
+                <p className="text-xs text-muted-foreground mb-2">MCPツールからの出力トークン上限。既定では出力が 10,000 トークンを超えると警告が表示されます。大量のデータを返すツール（DB検索結果、ログ取得など）で有効です。</p>
                 <CodeBlock code={`# 大きなレスポンスを許容する
 $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               </div>
@@ -182,7 +183,7 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               トランスポートプロトコル
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              MCPは2種類の通信方式をサポートしています。サーバの種類に応じて使い分けます。
+              主な通信方式は stdio と HTTP の2種類です（他に SSE / WebSocket にも対応）。サーバの種類に応じて使い分けます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -208,13 +209,13 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               MCPリソースへのアクセス
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              MCPサーバが公開するリソース（ファイル、ドキュメント、データなど）には、プロンプト内で <code>@</code> プレフィックスを使ってアクセスできます。入力中にオートコンプリートでリソース一覧が表示されます。
+              MCPサーバが公開するリソース（ファイル、ドキュメント、データなど）には、プロンプト内で <code>@サーバ名:プロトコル://リソース/パス</code> の形式でアクセスできます。<code>@</code> の入力中にオートコンプリートでリソース一覧が表示されます。
             </p>
             <div className="p-5 bg-slate-900 rounded-xl border border-slate-700 mb-4">
-              <p className="text-[12px] text-slate-500 mb-2 font-mono">リソースの参照</p>
+              <p className="text-[12px] text-slate-500 mb-2 font-mono">リソースの参照（形式: @サーバ名:プロトコル://パス）</p>
               <div className="text-emerald-400 font-mono text-sm leading-relaxed">
-                &gt; @my-docs/api-reference を読んで、認証エンドポイントの仕様を教えて<br />
-                &gt; @figma/design-tokens のカラー変数を使ってテーマを作成して
+                &gt; @docs:file://api/authentication を読んで、認証エンドポイントの仕様を教えて<br />
+                &gt; @github:issue://123 の内容を確認して修正方針を提案して
               </div>
             </div>
             <InfoBox type="info" title="リソースとツールの違い">

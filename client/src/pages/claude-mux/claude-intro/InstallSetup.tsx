@@ -34,15 +34,18 @@ export default function InstallSetup() {
               インストール
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Code は npm パッケージとして配布されています。Node.js 18 以上が必要です。
+              ネイティブインストーラ（推奨・自動更新あり）または npm で導入できます。npm の場合は Node.js 22 以上が推奨です（インストールされる実体はネイティブバイナリ）。
             </p>
-            <CodeBlock code={`# npm でグローバルインストール
+            <CodeBlock code={`# ネイティブインストール（推奨: macOS / Linux / WSL）
+$ curl -fsSL https://claude.ai/install.sh | bash
+
+# npm でグローバルインストール
 $ npm install -g @anthropic-ai/claude-code
 
 # バージョン確認
 $ claude --version`} language="bash" />
             <InfoBox type="info" title="前提条件">
-              Node.js 18+、Git、macOS 12+ / Ubuntu 20.04+ / Windows (WSL2) が必要です。
+              macOS 13+ / Windows 10 1809+ / Ubuntu 20.04+ / Debian 10+ などに対応。Windows はネイティブ動作可能（WSL 2 も利用可）。4GB 以上の RAM が必要です。
             </InfoBox>
           </section>
 
@@ -53,7 +56,7 @@ $ claude --version`} language="bash" />
               認証の設定
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              初回起動時にブラウザが開き、Anthropic アカウントで認証します。Max プランまたは API キーが必要です。
+              初回起動時にブラウザが開き、Anthropic アカウントで認証します。Pro / Max / Team / Enterprise のいずれかの Claude サブスクリプション、または Console（API）アカウントが必要です（無料プランは対象外）。
             </p>
             <CodeBlock code={`# 初回起動（ブラウザ認証が開始）
 $ claude
@@ -63,8 +66,8 @@ $ export ANTHROPIC_API_KEY="sk-ant-..."
 $ claude`} language="bash" />
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <h4 className="font-bold text-sm mb-2">Max プラン（推奨）</h4>
-                <p className="text-xs text-muted-foreground">Anthropic Console から Max サブスクリプションに加入。月額定額で利用可能。</p>
+                <h4 className="font-bold text-sm mb-2">Claude サブスクリプション（推奨）</h4>
+                <p className="text-xs text-muted-foreground">claude.ai の Pro / Max プラン。月額定額で利用可能。Team / Enterprise プランにも対応。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <h4 className="font-bold text-sm mb-2">API キー</h4>
@@ -80,7 +83,7 @@ $ claude`} language="bash" />
               プロジェクトの初期化
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              <code>/init</code> コマンドで、プロジェクトのルートに <code>CLAUDE.md</code> を自動生成します。Claude Code はこのファイルをシステムプロンプトとして読み込み、プロジェクト固有のルールや慣例を記憶します。
+              <code>/init</code> コマンドで、プロジェクトのルートに <code>CLAUDE.md</code> を自動生成します。Claude Code はこのファイルを毎セッション開始時にコンテキストとして読み込み、プロジェクト固有のルールや慣例を参照します。
             </p>
             <CodeBlock code={`# プロジェクトディレクトリで Claude Code を起動
 $ cd ~/projects/my-app
@@ -127,8 +130,8 @@ $ claude -p "このプロジェクトの構造を説明して"
 # 直前のセッションを再開
 $ claude -c
 
-# 特定のモデルを指定
-$ claude --model claude-sonnet-4-6`} language="bash" />
+# 特定のモデルを指定（エイリアスまたは完全名）
+$ claude --model sonnet`} language="bash" />
               <InfoBox type="info" title="IDE統合">
                 VS Code では公式拡張「Claude Code」が提供されています。ターミナルパネルに Claude Code が統合され、エディタのコンテキストを自動共有します。JetBrains IDE にも対応。
               </InfoBox>
@@ -142,7 +145,7 @@ $ claude --model claude-sonnet-4-6`} language="bash" />
             initialCode={`# CLAUDE.md\n\n## 技術スタック\n- ___ + React 18  # ← ここを埋める\n- Vite でビルド\n- Tailwind CSS でスタイリング\n\n## コマンド\n- ビルド: npm run ___  # ← ここを埋める\n- テスト: npm ___  # ← ここを埋める\n- lint: npm run lint\n- 開発サーバー: npm run dev\n\n## コーディング規約\n- 関数コンポーネントと hooks を使用\n- 命名規則: camelCase（変数・関数）、PascalCase（コンポーネント）\n- コミットメッセージは日本語で簡潔に`}
             answer={`# CLAUDE.md\n\n## 技術スタック\n- TypeScript + React 18\n- Vite でビルド\n- Tailwind CSS でスタイリング\n\n## コマンド\n- ビルド: npm run build\n- テスト: npm test\n- lint: npm run lint\n- 開発サーバー: npm run dev\n\n## コーディング規約\n- 関数コンポーネントと hooks を使用\n- 命名規則: camelCase（変数・関数）、PascalCase（コンポーネント）\n- コミットメッセージは日本語で簡潔に`}
             hints={[
-              'CLAUDE.md はエージェントへのシステムプロンプトとして機能します',
+              'CLAUDE.md は毎セッション開始時に読み込まれる持続的な指示ファイルです',
               'よく使うコマンド（ビルド、テスト、lint）を明記しましょう',
               'コーディング規約を記載するとコード生成の品質が向上します',
             ]}

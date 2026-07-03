@@ -94,21 +94,21 @@ export default function TestingDebugging() {
               </div>
             </div>
             <CodeBlock
-              code={`# tmux で2ペインに分割して並行作業
+              code={`# ターミナルタブ（または cmux のペイン）を 2 つ開いて並行作業
 
-# セッションA（Writer）: 左ペイン
+# セッションA（Writer）: タブ 1
 $ claude
 > ユーザー認証のリフレッシュトークン機能を実装して。
 
-# セッションB（Reviewer）: 右ペイン（Writerの実装完了後）
+# セッションB（Reviewer）: タブ 2（Writerの実装完了後）
 $ claude
 > git diff HEAD~1 の変更をセキュリティ観点でレビューして。
 > 特にトークンの有効期限、ストレージ方法、
 > CSRF対策を確認して。`}
               language="bash"
             />
-            <InfoBox type="info" title="tmux との相性">
-              tmux のペイン分割を使えば、Writer と Reviewer を同じ画面で並行して管理できます。Writer が完了したら Reviewer ペインに切り替えてレビューを依頼するフローが効率的です。
+            <InfoBox type="info" title="画面分割との相性">
+              ターミナルの分割表示や cmux のペイン分割を使えば、Writer と Reviewer を同じ画面で並行して管理できます。Writer が完了したら Reviewer 側に切り替えてレビューを依頼するフローが効率的です。
             </InfoBox>
           </section>
 
@@ -261,16 +261,16 @@ $ git worktree add ../migration-auth -b migrate/auth
 $ git worktree add ../migration-dashboard -b migrate/dashboard
 $ git worktree add ../migration-settings -b migrate/settings
 
-# tmux で3ペインを開いて並列実行
-# ペイン1:
+# ターミナルタブを 3 つ開いて並列実行
+# タブ1:
 $ cd ../migration-auth && claude
 > src/auth/ 配下のコンポーネントを React Router v6 に移行して。
 
-# ペイン2:
+# タブ2:
 $ cd ../migration-dashboard && claude
 > src/dashboard/ 配下のコンポーネントを React Router v6 に移行して。
 
-# ペイン3:
+# タブ3:
 $ cd ../migration-settings && claude
 > src/settings/ 配下のコンポーネントを React Router v6 に移行して。`}
               language="bash"

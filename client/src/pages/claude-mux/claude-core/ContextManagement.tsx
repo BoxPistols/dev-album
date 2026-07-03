@@ -22,7 +22,7 @@ export default function ContextManagement() {
             コンテキスト管理
           </h1>
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
-            CLAUDE.mdによるメモリ管理と、.claudeignoreによる参照範囲の制御。
+            CLAUDE.mdによるメモリ管理と、permissions.denyによる参照範囲の制御。
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function ContextManagement() {
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">相対・絶対パス対応</h4>
-                <p className="text-xs text-muted-foreground"><code>@./local-file.md</code> や <code>@~/global.md</code> の両方に対応。再帰インポートは最大深度5。</p>
+                <p className="text-xs text-muted-foreground"><code>@./local-file.md</code> や <code>@~/global.md</code> の両方に対応。再帰インポートは最大深度4。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">パス条件付きルール</h4>
@@ -99,7 +99,7 @@ export default function ContextManagement() {
             <div className="space-y-3">
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <code className="text-xs text-[var(--claude-primary)]">~/.claude/projects/&lt;project&gt;/memory/MEMORY.md</code>
-                <p className="text-xs text-muted-foreground mt-1">プロジェクト別の自動メモリ。起動時にMEMORY.mdの先頭200行が読み込まれます。</p>
+                <p className="text-xs text-muted-foreground mt-1">プロジェクト別の自動メモリ。起動時にMEMORY.mdの先頭200行（または25KB）が読み込まれます。</p>
               </div>
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <p className="text-xs text-muted-foreground"><code>/memory</code> コマンドでCLAUDE.mdを直接編集可能。「これを覚えて」と指示すれば、Claudeが自動的にメモリに保存します。</p>
@@ -107,31 +107,33 @@ export default function ContextManagement() {
             </div>
           </section>
 
-          {/* .claudeignore */}
+          {/* アクセス制御 */}
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
               <Filter className="text-[var(--claude-primary)]" />
-              .claudeignore
+              ファイルアクセスの制御（permissions.deny）
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              <code>.gitignore</code> と同様の構文で、Claude Codeがスキャン時に無視するファイル・ディレクトリを指定します。
+              Claude Code に特定のファイル・ディレクトリを読ませないようにするには、<code>settings.json</code> の <code>permissions.deny</code> で <code>Read</code> ルールを指定します。パスにはワイルドカードが使えます。
             </p>
             <CodeBlock
-              code={`# .claudeignore の例
-node_modules/
-dist/
-build/
-*.log
-.git/
-package-lock.json
-pnpm-lock.yaml
-*.svg
-*.png
-.env
-.env.*
-secrets/`}
-              language="text"
+              code={`// .claude/settings.json の例
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./dist/**)",
+      "Read(./package-lock.json)"
+    ]
+  }
+}`}
+              language="json"
             />
+            <InfoBox type="info" title="CLAUDE.md の読み込み除外">
+              モノレポで他チームの CLAUDE.md を読み込みたくない場合は、settings.json の <code>claudeMdExcludes</code> に glob パターンを指定して除外できます。
+            </InfoBox>
           </section>
 
           {/* セキュリティ */}
@@ -141,7 +143,7 @@ secrets/`}
               秘匿情報の保護
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
-              <code>.env</code> ファイルや秘密鍵は必ず <code>.claudeignore</code> に含めてください。加えて、<code>settings.json</code> のパーミッション設定でファイル読み取りを明示的に拒否できます。
+              <code>.env</code> ファイルや秘密鍵は、<code>settings.json</code> の <code>permissions.deny</code> で読み取りを明示的に拒否してください。deny ルールはどのパーミッションモードでも適用されます。
             </p>
             <CodeBlock code={`// .claude/settings.json の例
 {
@@ -150,7 +152,7 @@ secrets/`}
   }
 }`} language="json" />
             <InfoBox type="warning" title="セキュリティ">
-              .claudeignore とパーミッション設定は補完的なセキュリティレイヤーです。両方を設定することで、エージェントによる意図しないファイルアクセスを防止できます。
+              permissions.deny とサンドボックス（macOS: Seatbelt / Linux: bubblewrap）は補完的なセキュリティレイヤーです。組み合わせることで、エージェントによる意図しないファイルアクセスを防止できます。
             </InfoBox>
           </section>
 
@@ -184,15 +186,15 @@ secrets/`}
           preview
           previewType="markdown"
           title="CLAUDE.md を設計してみよう"
-          description="プロジェクトルートの CLAUDE.md に、コンテキスト階層・@import・.claudeignore のルールをまとめたガイドを書いてください。"
-          initialCode={`# CLAUDE.md\n\n## プロジェクト概要\nReact + TypeScript のWebアプリケーション。\n\n## コンテキスト管理\n- チーム共有ルール: ./CLAUDE.md\n- 個人設定: ~/.claude/CLAUDE.md\n- トピック別: .claude/rules/*.md\n\n___docs/api-guide.md  # ← ここを埋める（インポート記号）\n___.claude/rules/testing.md\n\n## 除外設定\n___ に以下を追加:  # ← ここを埋める（除外設定ファイル名）\n- node_modules/\n- dist/\n- .env\n- *.log`}
-          answer={`# CLAUDE.md\n\n## プロジェクト概要\nReact + TypeScript のWebアプリケーション。\n\n## コンテキスト管理\n- チーム共有ルール: ./CLAUDE.md\n- 個人設定: ~/.claude/CLAUDE.md\n- トピック別: .claude/rules/*.md\n\n@docs/api-guide.md\n@.claude/rules/testing.md\n\n## 除外設定\n.claudeignore に以下を追加:\n- node_modules/\n- dist/\n- .env\n- *.log`}
+          description="プロジェクトルートの CLAUDE.md に、コンテキスト階層・@import・アクセス制御のルールをまとめたガイドを書いてください。"
+          initialCode={`# CLAUDE.md\n\n## プロジェクト概要\nReact + TypeScript のWebアプリケーション。\n\n## コンテキスト管理\n- チーム共有ルール: ./CLAUDE.md\n- 個人設定: ~/.claude/CLAUDE.md\n- トピック別: .claude/rules/*.md\n\n___docs/api-guide.md  # ← ここを埋める（インポート記号）\n___.claude/rules/testing.md\n\n## アクセス制御\n.claude/settings.json の ___ に Read 拒否ルールを追加:  # ← ここを埋める（設定キー）\n- "Read(./.env)"\n- "Read(./secrets/**)"`}
+          answer={`# CLAUDE.md\n\n## プロジェクト概要\nReact + TypeScript のWebアプリケーション。\n\n## コンテキスト管理\n- チーム共有ルール: ./CLAUDE.md\n- 個人設定: ~/.claude/CLAUDE.md\n- トピック別: .claude/rules/*.md\n\n@docs/api-guide.md\n@.claude/rules/testing.md\n\n## アクセス制御\n.claude/settings.json の permissions.deny に Read 拒否ルールを追加:\n- "Read(./.env)"\n- "Read(./secrets/**)"`}
           hints={[
             'CLAUDE.md はプロジェクトの技術スタックと基本ルールを定義します',
             '@import で外部ファイルを参照できます（@path/to/file.md）',
-            '.claudeignore で不要なファイルをスキャン対象外にしましょう',
+            'ファイルの読み取り遮断は settings.json の permissions.deny で設定します',
           ]}
-          keywords={['@', '.claudeignore']}
+          keywords={['@', 'permissions.deny']}
         />
 
         <PageNavigation />

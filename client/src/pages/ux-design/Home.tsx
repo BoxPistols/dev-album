@@ -4,6 +4,7 @@ import {
   Layers,
   Palette,
   MousePointerClick,
+  SwatchBook,
   ClipboardCheck,
   ArrowRight,
 } from 'lucide-react';
@@ -47,9 +48,16 @@ const sections = [
     path: '/ux-design/prototyping/figma-prototype',
   },
   {
+    icon: <SwatchBook size={20} />,
+    title: 'デザイナーのためのトークンとコンポーネント',
+    steps: 'STEP 12-14',
+    description: 'コード無しで学ぶデザイントークン・コンポーネント思考・AI との共通言語',
+    path: '/ux-design/for-designers/design-tokens-for-designers',
+  },
+  {
     icon: <ClipboardCheck size={20} />,
     title: '評価と改善',
-    steps: 'STEP 12',
+    steps: 'STEP 15',
     description: 'ユーザビリティテストの実施と改善サイクル',
     path: '/ux-design/evaluation/usability-testing',
   },
@@ -71,7 +79,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-20 md:py-28 relative z-10">
           <div className="mb-6 flex items-center gap-3 flex-wrap">
             <span className="text-xs font-semibold text-white/90 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-              全12ステップ
+              全15ステップ
             </span>
             <span className="text-xs font-semibold text-pink-200/90 bg-pink-400/10 backdrop-blur-sm px-3 py-1 rounded-full border border-pink-300/10">
               UX Design

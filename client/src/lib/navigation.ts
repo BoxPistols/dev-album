@@ -49,7 +49,7 @@ export const manuals: ManualInfo[] = [
     id: 'claude-mux',
     title: 'Claude Code & 開発環境',
     shortTitle: 'Claude Code',
-    description: 'AI ツール・tmux・CI/CD の実践ガイド',
+    description: 'Claude Code と AI コーディングエージェント・CI/CD の実践ガイド',
     icon: 'C',
     color: '#8B5CF6',
   },
@@ -157,17 +157,13 @@ export const sections: SectionInfo[] = [
   { id: 'practical', title: '実践編', manualId: 'threejs' },
   { id: 'game-dev', title: '開発編', manualId: 'threejs' },
 
-  // === Claude+tmux マニュアル ===
+  // === Claude Code マニュアル ===
   { id: 'getting-started', title: 'はじめに', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'ガイドの目的と前提条件' },
   { id: 'claude-intro', title: 'Claude Code 導入', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'インストールと初期設定' },
   { id: 'claude-core', title: 'Claude Code コア機能', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'スラッシュコマンド・権限・CLAUDE.md' },
   { id: 'mcp', title: 'MCP連携', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'Model Context Protocol の活用' },
   { id: 'agent-extensions', title: 'エージェントの拡張', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'Subagents・Hooks・カスタムコマンド' },
-  { id: 'tmux-intro', title: 'tmux入門', manualId: 'claude-mux', part: 'basic', colorScheme: 'tmux', description: 'tmux の概念と基本操作' },
-  { id: 'tmux-setup', title: 'tmuxセットアップ', manualId: 'claude-mux', part: 'basic', colorScheme: 'tmux', description: 'インストールと初期設定' },
-  { id: 'tmux-basics', title: 'tmux基本操作', manualId: 'claude-mux', part: 'basic', colorScheme: 'tmux', description: 'ウィンドウ・ペイン・セッション管理' },
-  { id: 'tmux-customize', title: 'tmuxカスタマイズ', manualId: 'claude-mux', part: 'basic', colorScheme: 'tmux', description: 'キーバインド・テーマ・プラグイン' },
-  { id: 'integration', title: '統合ワークフロー', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'Claude Code + tmux の実践的統合' },
+  { id: 'ai-coding-agents', title: 'AI コーディングエージェント', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: '主要 AI CLI/エージェントの比較と使い分け' },
   { id: 'cmux', title: 'cmux (GUI 環境管理)', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'Ghostty ベースの macOS ネイティブ端末' },
   { id: 'reference', title: 'リファレンス', manualId: 'claude-mux', part: 'basic', colorScheme: 'claude', description: 'コマンド・設定リファレンス' },
   { id: 'best-practices', title: 'ベストプラクティス', manualId: 'claude-mux', part: 'advanced', colorScheme: 'claude', description: 'トークン最適化・コンテキスト管理' },
@@ -190,6 +186,7 @@ export const sections: SectionInfo[] = [
   { id: 'ia-wireframe', title: 'IA とワイヤーフレーム', manualId: 'ux-design' },
   { id: 'ui-design', title: 'UI デザイン', manualId: 'ux-design' },
   { id: 'prototyping', title: 'プロトタイピング', manualId: 'ux-design' },
+  { id: 'for-designers', title: 'デザイナーのためのトークンとコンポーネント', manualId: 'ux-design' },
   { id: 'evaluation', title: '評価と改善', manualId: 'ux-design' },
 
   // === API 設計マニュアル ===
@@ -379,7 +376,7 @@ export const pages: PageInfo[] = [
   { step: 23, path: '/threejs/game-dev/hud-gameloop', title: 'HUD・スコア・ゲームループ', sectionId: 'game-dev', manualId: 'threejs' },
 
   // ===========================
-  // Claude+tmux マニュアル (44ページ)
+  // Claude Code マニュアル (40ページ)
   // ===========================
   { step: 1, path: '/claude-mux', title: 'このガイドの目的', sectionId: 'getting-started', manualId: 'claude-mux' },
   { step: 2, path: '/claude-mux/getting-started/why-claude-code', title: 'なぜClaude Codeなのか', sectionId: 'getting-started', manualId: 'claude-mux' },
@@ -395,44 +392,32 @@ export const pages: PageInfo[] = [
   { step: 12, path: '/claude-mux/mcp/mcp-practical', title: '実践的な MCP 連携', sectionId: 'mcp', manualId: 'claude-mux' },
   { step: 13, path: '/claude-mux/agent-extensions/subagents', title: 'Subagents による並列処理', sectionId: 'agent-extensions', manualId: 'claude-mux' },
   { step: 14, path: '/claude-mux/agent-extensions/custom-skills', title: 'Skills・コマンド・Hooks', sectionId: 'agent-extensions', manualId: 'claude-mux' },
-  { step: 15, path: '/claude-mux/tmux-intro/why-tmux', title: 'なぜtmuxを学ぶのか', sectionId: 'tmux-intro', manualId: 'claude-mux' },
-  { step: 16, path: '/claude-mux/tmux-intro/iterm-vs-tmux', title: 'iTerm2との違い', sectionId: 'tmux-intro', manualId: 'claude-mux' },
-  { step: 17, path: '/claude-mux/tmux-intro/prerequisites', title: '前提知識', sectionId: 'tmux-intro', manualId: 'claude-mux' },
-  { step: 18, path: '/claude-mux/tmux-setup/install-tmux', title: 'tmuxのインストール', sectionId: 'tmux-setup', manualId: 'claude-mux' },
-  { step: 19, path: '/claude-mux/tmux-setup/verify-install', title: 'インストール確認', sectionId: 'tmux-setup', manualId: 'claude-mux' },
-  { step: 20, path: '/claude-mux/tmux-basics/core-concepts', title: 'コアコンセプト', sectionId: 'tmux-basics', manualId: 'claude-mux' },
-  { step: 21, path: '/claude-mux/tmux-basics/first-session', title: '最初のセッション作成', sectionId: 'tmux-basics', manualId: 'claude-mux' },
-  { step: 22, path: '/claude-mux/tmux-basics/prefix-key', title: 'プリフィックスキーの理解', sectionId: 'tmux-basics', manualId: 'claude-mux' },
-  { step: 23, path: '/claude-mux/tmux-basics/windows-panes', title: 'ウィンドウとペインの操作', sectionId: 'tmux-basics', manualId: 'claude-mux' },
-  { step: 24, path: '/claude-mux/tmux-customize/tmux-config', title: 'tmux.confの基本', sectionId: 'tmux-customize', manualId: 'claude-mux' },
-  { step: 25, path: '/claude-mux/tmux-customize/productivity-config', title: '生産性向上の設定', sectionId: 'tmux-customize', manualId: 'claude-mux' },
-  { step: 26, path: '/claude-mux/tmux-customize/plugins', title: 'プラグイン導入', sectionId: 'tmux-customize', manualId: 'claude-mux' },
-  { step: 27, path: '/claude-mux/integration/tmux-integration', title: 'tmux との統合 (AI Cockpit)', sectionId: 'integration', manualId: 'claude-mux' },
-  { step: 28, path: '/claude-mux/integration/tmuxp-automation', title: 'tmuxp による環境のコード化', sectionId: 'integration', manualId: 'claude-mux' },
-  { step: 29, path: '/claude-mux/integration/practical-workflow', title: '実践ワークフロー構築', sectionId: 'integration', manualId: 'claude-mux' },
-  { step: 30, path: '/claude-mux/cmux/cmux-intro', title: 'cmux: GUI ベースのエージェント管理', sectionId: 'cmux', manualId: 'claude-mux' },
-  { step: 31, path: '/claude-mux/cmux/cmux-setup', title: 'cmux のセットアップと活用', sectionId: 'cmux', manualId: 'claude-mux' },
-  { step: 32, path: '/claude-mux/cmux/agent-teams', title: 'cmux と Agent Teams', sectionId: 'cmux', manualId: 'claude-mux' },
-  { step: 33, path: '/claude-mux/cmux/browser-api', title: 'ビルトインブラウザと Scriptable API', sectionId: 'cmux', manualId: 'claude-mux' },
-  { step: 34, path: '/claude-mux/cmux/worktrees', title: 'cmux と git worktree', sectionId: 'cmux', manualId: 'claude-mux' },
-  { step: 35, path: '/claude-mux/reference/session-management', title: '環境の永続化', sectionId: 'reference', manualId: 'claude-mux' },
-  { step: 36, path: '/claude-mux/reference/troubleshooting', title: 'トラブルシューティング', sectionId: 'reference', manualId: 'claude-mux' },
-  { step: 37, path: '/claude-mux/reference/claude-cheatsheet', title: 'Claude Code チートシート', sectionId: 'reference', manualId: 'claude-mux' },
-  { step: 38, path: '/claude-mux/reference/tmux-cheatsheet', title: 'tmux チートシート', sectionId: 'reference', manualId: 'claude-mux' },
-  { step: 39, path: '/claude-mux/best-practices/harness-engineering', title: 'ハーネスエンジニアリング', sectionId: 'best-practices', manualId: 'claude-mux' },
-  { step: 40, path: '/claude-mux/best-practices/effective-workflows', title: '効果的なワークフロー', sectionId: 'best-practices', manualId: 'claude-mux' },
-  { step: 41, path: '/claude-mux/best-practices/spec-driven-dev', title: '仕様駆動開発 (SDD)', sectionId: 'best-practices', manualId: 'claude-mux' },
-  { step: 42, path: '/claude-mux/best-practices/testing-debugging', title: 'テストとデバッグの戦略', sectionId: 'best-practices', manualId: 'claude-mux' },
-  { step: 43, path: '/claude-mux/hooks-advanced/hooks-guide', title: 'Hooks の設計と実装', sectionId: 'hooks-advanced', manualId: 'claude-mux' },
-  { step: 44, path: '/claude-mux/hooks-advanced/hooks-recipes', title: 'Hooks 実践レシピ', sectionId: 'hooks-advanced', manualId: 'claude-mux' },
-  { step: 45, path: '/claude-mux/ci-cd/github-actions', title: 'GitHub Actions 連携', sectionId: 'cicd-headless', manualId: 'claude-mux' },
-  { step: 46, path: '/claude-mux/ci-cd/headless-mode', title: 'ヘッドレスモードと自動化', sectionId: 'cicd-headless', manualId: 'claude-mux' },
-  { step: 47, path: '/claude-mux/ide-agent-teams/ide-integration', title: 'VS Code・JetBrains 連携', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
-  { step: 48, path: '/claude-mux/ide-agent-teams/agent-orchestration', title: 'エージェントチームの協調', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
-  { step: 49, path: '/claude-mux/ide-agent-teams/plugins-ecosystem', title: 'プラグインとエコシステム', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
-  { step: 50, path: '/claude-mux/multi-ai/multi-ai-coexistence', title: 'マルチAIツールの共存戦略', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
-  { step: 51, path: '/claude-mux/multi-ai/single-source-of-truth', title: 'シングルソースオブトゥルース設計', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
-  { step: 52, path: '/claude-mux/multi-ai/design-md', title: 'CLAUDE.md / AGENTS.md / DESIGN.md', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+  { step: 15, path: '/claude-mux/ai-coding-agents/gemini-cli', title: 'Gemini CLI', sectionId: 'ai-coding-agents', manualId: 'claude-mux' },
+  { step: 16, path: '/claude-mux/ai-coding-agents/openai-codex', title: 'OpenAI Codex', sectionId: 'ai-coding-agents', manualId: 'claude-mux' },
+  { step: 17, path: '/claude-mux/ai-coding-agents/github-copilot', title: 'GitHub Copilot', sectionId: 'ai-coding-agents', manualId: 'claude-mux' },
+  { step: 18, path: '/claude-mux/ai-coding-agents/amazon-q-developer', title: 'Amazon Q Developer', sectionId: 'ai-coding-agents', manualId: 'claude-mux' },
+  { step: 19, path: '/claude-mux/ai-coding-agents/choosing-tools', title: 'ツールの選び方と使い分け', sectionId: 'ai-coding-agents', manualId: 'claude-mux' },
+  { step: 20, path: '/claude-mux/cmux/cmux-intro', title: 'cmux: GUI ベースのエージェント管理', sectionId: 'cmux', manualId: 'claude-mux' },
+  { step: 21, path: '/claude-mux/cmux/cmux-setup', title: 'cmux のセットアップと活用', sectionId: 'cmux', manualId: 'claude-mux' },
+  { step: 22, path: '/claude-mux/cmux/agent-teams', title: 'cmux と Agent Teams', sectionId: 'cmux', manualId: 'claude-mux' },
+  { step: 23, path: '/claude-mux/cmux/browser-api', title: 'ビルトインブラウザと Scriptable API', sectionId: 'cmux', manualId: 'claude-mux' },
+  { step: 24, path: '/claude-mux/cmux/worktrees', title: 'cmux と git worktree', sectionId: 'cmux', manualId: 'claude-mux' },
+  { step: 25, path: '/claude-mux/reference/troubleshooting', title: 'トラブルシューティング', sectionId: 'reference', manualId: 'claude-mux' },
+  { step: 26, path: '/claude-mux/reference/claude-cheatsheet', title: 'Claude Code チートシート', sectionId: 'reference', manualId: 'claude-mux' },
+  { step: 27, path: '/claude-mux/best-practices/harness-engineering', title: 'ハーネスエンジニアリング', sectionId: 'best-practices', manualId: 'claude-mux' },
+  { step: 28, path: '/claude-mux/best-practices/effective-workflows', title: '効果的なワークフロー', sectionId: 'best-practices', manualId: 'claude-mux' },
+  { step: 29, path: '/claude-mux/best-practices/spec-driven-dev', title: '仕様駆動開発 (SDD)', sectionId: 'best-practices', manualId: 'claude-mux' },
+  { step: 30, path: '/claude-mux/best-practices/testing-debugging', title: 'テストとデバッグの戦略', sectionId: 'best-practices', manualId: 'claude-mux' },
+  { step: 31, path: '/claude-mux/hooks-advanced/hooks-guide', title: 'Hooks の設計と実装', sectionId: 'hooks-advanced', manualId: 'claude-mux' },
+  { step: 32, path: '/claude-mux/hooks-advanced/hooks-recipes', title: 'Hooks 実践レシピ', sectionId: 'hooks-advanced', manualId: 'claude-mux' },
+  { step: 33, path: '/claude-mux/ci-cd/github-actions', title: 'GitHub Actions 連携', sectionId: 'cicd-headless', manualId: 'claude-mux' },
+  { step: 34, path: '/claude-mux/ci-cd/headless-mode', title: 'ヘッドレスモードと自動化', sectionId: 'cicd-headless', manualId: 'claude-mux' },
+  { step: 35, path: '/claude-mux/ide-agent-teams/ide-integration', title: 'VS Code・JetBrains 連携', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
+  { step: 36, path: '/claude-mux/ide-agent-teams/agent-orchestration', title: 'エージェントチームの協調', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
+  { step: 37, path: '/claude-mux/ide-agent-teams/plugins-ecosystem', title: 'プラグインとエコシステム', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
+  { step: 38, path: '/claude-mux/multi-ai/multi-ai-coexistence', title: 'マルチAIツールの共存戦略', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+  { step: 39, path: '/claude-mux/multi-ai/single-source-of-truth', title: 'シングルソースオブトゥルース設計', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+  { step: 40, path: '/claude-mux/multi-ai/design-md', title: 'CLAUDE.md / AGENTS.md / DESIGN.md', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
 
   // ===========================
   // AI / Python / 機械学習マニュアル (8ページ)
@@ -450,7 +435,7 @@ export const pages: PageInfo[] = [
   { step: 11, path: '/ai-ml/lmops/lmops-workflow', title: 'LMOps ワークフロー', sectionId: 'lmops', manualId: 'ai-ml' },
 
   // ===========================
-  // UX デザインマニュアル (12ページ)
+  // UX デザインマニュアル (15ページ)
   // ===========================
   { step: 1, path: '/ux-design', title: 'このマニュアルについて', sectionId: 'ux-intro', manualId: 'ux-design' },
   { step: 2, path: '/ux-design/ux-foundations/what-is-ux', title: 'UX デザインとは', sectionId: 'ux-foundations', manualId: 'ux-design' },
@@ -463,7 +448,10 @@ export const pages: PageInfo[] = [
   { step: 9, path: '/ux-design/ui-design/visual-design', title: 'ビジュアルデザインの原則', sectionId: 'ui-design', manualId: 'ux-design' },
   { step: 10, path: '/ux-design/ui-design/design-system', title: 'デザインシステム構築', sectionId: 'ui-design', manualId: 'ux-design' },
   { step: 11, path: '/ux-design/prototyping/figma-prototype', title: 'Figma プロトタイピング', sectionId: 'prototyping', manualId: 'ux-design' },
-  { step: 12, path: '/ux-design/evaluation/usability-testing', title: 'ユーザビリティテストと改善', sectionId: 'evaluation', manualId: 'ux-design' },
+  { step: 12, path: '/ux-design/for-designers/design-tokens-for-designers', title: 'デザイントークン入門（デザイナー向け）', sectionId: 'for-designers', manualId: 'ux-design' },
+  { step: 13, path: '/ux-design/for-designers/component-thinking', title: 'コンポーネント思考', sectionId: 'for-designers', manualId: 'ux-design' },
+  { step: 14, path: '/ux-design/for-designers/ai-collaboration-with-tokens', title: 'AI 時代のデザイン共通言語', sectionId: 'for-designers', manualId: 'ux-design' },
+  { step: 15, path: '/ux-design/evaluation/usability-testing', title: 'ユーザビリティテストと改善', sectionId: 'evaluation', manualId: 'ux-design' },
 
   // ===========================
   // API 設計マニュアル (24ページ)
@@ -661,10 +649,10 @@ export function getPrevSectionFirstPage(currentPath: string): PageInfo | undefin
   return getSectionPages(manualSections[sectionIndex - 1].id)[0];
 }
 
-// ── Claude+tmux パート定義 ──
+// ── Claude Code パート定義 ──
 
 export const parts = [
-  { id: 'basic', title: '基礎編', description: 'Claude Code の全機能と tmux の基本操作' },
+  { id: 'basic', title: '基礎編', description: 'Claude Code の全機能と AI コーディングエージェントの使い分け' },
   { id: 'advanced', title: '発展編', description: 'ベストプラクティス、CI/CD、マルチAI連携' },
 ];
 

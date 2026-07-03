@@ -134,8 +134,8 @@ export default function ClaudeCheatsheet() {
               headers={['コマンド', '説明']}
               rows={[
                 ['claude', '対話モード（REPL）を起動'],
-                ['claude "prompt"', 'ワンショット実行（結果を出力して終了）'],
-                ['claude -p "prompt"', 'パイプモード（stdin/stdout のみ、スピナー非表示）'],
+                ['claude "prompt"', '初期プロンプト付きで対話モードを起動'],
+                ['claude -p "prompt"', '非対話モード。結果を出力して終了（パイプ対応）'],
                 ['claude -c / claude --continue', '直前のセッションを継続して起動'],
                 ['claude --resume <id>', '指定セッション ID または名前で再開'],
                 ['claude --continue --fork-session', '直前を分岐起動（新 ID、元セッションは保持）'],
@@ -144,9 +144,9 @@ export default function ClaudeCheatsheet() {
                 ['claude --debug', '起動時からデバッグログを有効化'],
                 ['claude --verbose', '詳細ログを表示して起動'],
                 ['claude --dangerously-skip-permissions', '全権限を自動承認（CI/スクリプト用）'],
-                ['cat file | claude "prompt"', 'ファイル内容をパイプで渡して処理'],
-                ['claude config set <key> <val>', '設定値を永続的に変更'],
-                ['claude mcp serve', 'Claude Code を MCP サーバーとして起動'],
+                ['cat file | claude -p "prompt"', 'ファイル内容をパイプで渡して処理'],
+                ['claude update', 'Claude Code を最新版に更新（設定変更は /config key=value か settings.json で）'],
+                ['claude mcp list', '登録済み MCP サーバの一覧と接続状態を表示'],
               ]}
             />
           </section>
@@ -163,13 +163,13 @@ export default function ClaudeCheatsheet() {
                 ['Enter', 'プロンプトを送信'],
                 ['Shift + Enter', '改行を挿入（ターミナル設定が必要）'],
                 ['Escape', '応答の生成を中断'],
-                ['Escape × 2', '/rewind を起動（コード / 会話を巻き戻し or 要約）'],
-                ['Ctrl + C', '現在の入力をキャンセル / 2 回で終了'],
+                ['Escape × 2', '入力が空なら /rewind を起動、入力中はドラフトをクリア'],
+                ['Ctrl + C', '実行中の操作を中断 / 入力クリア、2 回で終了'],
                 ['Ctrl + D', 'REPL を終了'],
-                ['Tab', 'ファイルパスの補完'],
+                ['Ctrl + O', '詳細トランスクリプト表示の切替'],
                 ['Up / Down', '入力履歴の参照'],
-                ['Shift + Tab', 'パーミッションモード切替（default / auto-accept / plan / auto）'],
-                ['# で始める', 'メモ入力モード（エージェントに送信しない）'],
+                ['Shift + Tab', 'パーミッションモード切替（default → acceptEdits → plan、有効化時は auto 等も）'],
+                ['Ctrl + R', 'コマンド履歴の逆検索'],
                 ['! で始める', 'bash コマンドを直接実行'],
                 ['/ で始める', 'スラッシュコマンド / skill 呼び出し'],
                 ['@ で始める', 'ファイルパス補完'],
@@ -212,8 +212,8 @@ export default function ClaudeCheatsheet() {
                 ['default（デフォルト）', '読み取りは自動許可、書き込み・実行は毎回確認'],
                 ['plan', '読み取り専用。コード変更の計画のみ作成し実行しない'],
                 ['acceptEdits', 'ファイル編集を自動許可、コマンド実行は毎回確認'],
-                ['dontAsk', '全操作を自動許可（信頼できるプロジェクトのみ推奨）'],
-                ['bypassPermissions', '全権限チェックをスキップ（CI/CD 専用）'],
+                ['dontAsk', '許可済みルール以外のツール呼び出しを自動拒否（CI・スクリプト向け）'],
+                ['bypassPermissions', '全権限チェックをスキップ（隔離されたコンテナ / VM 専用）'],
               ]}
             />
           </section>

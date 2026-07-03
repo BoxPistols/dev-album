@@ -24,7 +24,7 @@ export default function Welcome() {
           </h1>
 
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
-            Claude Code を中心とした AI 駆動開発のハーネス（土台）を体系的に学び、tmux または cmux と組み合わせて再現可能な開発基盤を構築するためのガイドです。
+            Claude Code を中心とした AI 駆動開発のハーネス（土台）を体系的に学び、主要な AI コーディングエージェントの使い分けと組み合わせて再現可能な開発基盤を構築するためのガイドです。
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export default function Welcome() {
             </h2>
 
             <p className="text-foreground mb-8 leading-relaxed">
-              前半で Claude Code の機能とハーネス設計（CLAUDE.md / Skills / Hooks / Subagents）を体系的に学び、中盤で tmux または cmux による環境管理を習得し、最後に両者を統合した実践ワークフローを構築します。
+              前半で Claude Code の機能とハーネス設計（CLAUDE.md / Skills / Hooks / Subagents）を体系的に学び、中盤で主要な AI コーディングエージェントの比較と cmux による環境管理を習得し、最後にベストプラクティスと自動化へ進みます。
             </p>
 
             <div className="space-y-3">
@@ -88,8 +88,8 @@ export default function Welcome() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
                 { title: '実践的アプローチ', desc: '理論よりも実行を重視。各ステップに実行可能なコマンドとコード例を配置しています。' },
-                { title: 'Claude Code First', desc: 'AI エージェントを主軸に据え、tmux / cmux はエージェント運用のための環境管理層として解説します。' },
-                { title: 'Cross Platform', desc: 'tmux は macOS / Linux / WSL2 で動き、cmux は macOS ネイティブ。両方を併用するパターンも解説します。' },
+                { title: 'Claude Code First', desc: 'Claude Code を主軸に据えつつ、Gemini CLI / Codex / Copilot / Amazon Q など他のエージェントも公平に比較します。' },
+                { title: 'ツール非依存の設計', desc: 'AGENTS.md 等の共通コンテキスト設計により、特定ツールに縛られない開発基盤の作り方を解説します。' },
                 { title: '網羅的なリファレンス', desc: 'スラッシュコマンド、MCP、Skills、Hooks、Subagents、Agent Teams を体系的に整理しています。' },
               ].map(item => (
                 <div key={item.title} className="p-4 rounded-lg border border-slate-200 dark:border-slate-800">

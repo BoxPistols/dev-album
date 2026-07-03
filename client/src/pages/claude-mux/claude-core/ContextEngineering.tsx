@@ -125,9 +125,10 @@ export default function ContextEngineering() {
             </div>
 
             <p className="text-foreground leading-relaxed">
-              特に <code className="text-primary">/btw</code> は 2026
-              年に追加された機能で、 「ちょい聞き」を会話本体に混ぜずに済む。
-              細かい確認で context を汚さないために有効。
+              特に <code className="text-primary">/btw</code> は
+              「ちょい聞き」を会話本体に混ぜずに済む。
+              質問と回答は会話履歴に入らず、親会話の prompt cache
+              を再利用するため追加コストも小さい。
             </p>
           </section>
 
@@ -267,23 +268,17 @@ Plan Mode に入って:
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              2026 年 4 月に Claude Code は 1 時間版 prompt cache を導入した。
-              長く同じ context（CLAUDE.md、@import
-              群、Skills）を読み続けるセッションでは、 キャッシュが効くと API
-              コストとレイテンシが大幅に下がる。
+              Claude Code は prompt cache を自動的に利用する。
+              毎回同じ prefix（CLAUDE.md、@import 群、Skills）を
+              読み込むセッションでは、キャッシュ読み取りは通常の入力トークンより
+              大幅に安価になり、レイテンシも下がる。
             </p>
 
-            <CodeBlock
-              language="bash"
-              code={`# 1 時間 cache を有効化（環境変数）
-export ENABLE_PROMPT_CACHING_1H=1
-
-# 5 分 cache を強制したい場合
-export FORCE_PROMPT_CACHING_5M=1
-
-# Claude Code を起動
-claude`}
-            />
+            <p className="text-foreground mb-6 leading-relaxed">
+              つまり「コンテキストの前半（システム側の指示群）を安定させる」ことが
+              そのままコスト最適化になる。キャッシュヒット率や使用量の内訳は{" "}
+              <code className="text-primary">/usage</code> で確認できる。
+            </p>
 
             <InfoBox type="info" title="効果が出る条件">
               CLAUDE.md や Skills

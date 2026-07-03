@@ -40,16 +40,16 @@ export default function TokenOptimization() {
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold mb-2 flex items-center gap-2">
                   <BarChart3 className="w-4 h-4 text-emerald-600" />
-                  /cost
+                  /usage
                 </h4>
-                <p className="text-xs text-muted-foreground">現在のセッションで消費したトークン量と金額見積もりを表示。</p>
+                <p className="text-xs text-muted-foreground">セッションコスト・プラン使用制限・アクティビティ統計をタブで表示。</p>
               </div>
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold mb-2 flex items-center gap-2">
                   <BarChart3 className="w-4 h-4 text-blue-600" />
-                  /usage
+                  /cost
                 </h4>
-                <p className="text-xs text-muted-foreground">サブスクリプションプランの残り容量とレート制限を表示。</p>
+                <p className="text-xs text-muted-foreground">/usage のエイリアス。セッションのトークン量と金額見積（ローカル計算）を確認できる。</p>
               </div>
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold mb-2 flex items-center gap-2">
@@ -63,7 +63,7 @@ export default function TokenOptimization() {
                   <BarChart3 className="w-4 h-4 text-amber-600" />
                   /stats
                 </h4>
-                <p className="text-xs text-muted-foreground">日次使用量、セッション履歴、モデル使用傾向をダッシュボード表示。</p>
+                <p className="text-xs text-muted-foreground">/usage のエイリアス。アクティビティ統計（Stats）タブを開いた状態で起動する。</p>
               </div>
             </div>
           </section>
@@ -75,7 +75,7 @@ export default function TokenOptimization() {
               自動コンパクション
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              コンテキスト使用量が95%に達すると、Claude Codeは自動的に会話履歴を要約（コンパクション）します。手動でも <code>/compact</code> で任意のタイミングで実行可能です。
+              コンテキスト使用量が上限に近づくと、Claude Codeは自動的に会話履歴を要約（コンパクション）します。手動でも <code>/compact</code> で任意のタイミングで実行可能です。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -87,7 +87,7 @@ export default function TokenOptimization() {
                 <p className="text-xs text-muted-foreground mt-2">タスク切替時に会話を完全リセット。コンパクションではなく新規開始したい場合に使用。</p>
               </div>
             </div>
-            <CodeBlock code={`# 自動コンパクションの閾値を変更（デフォルト: 95%）
+            <CodeBlock code={`# 自動コンパクションの発動閾値（1-100%）を変更。低い値ほど早めに圧縮
 $ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80`} language="bash" />
           </section>
 
@@ -103,8 +103,10 @@ $ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80`} language="bash" />
             <div className="space-y-3">
               {[
                 { level: 'low', desc: 'リネーム、typo修正など単純なタスク。高速・低コスト。', color: 'text-emerald-600' },
-                { level: 'medium', desc: '標準的なコーディングタスク。バランス型。', color: 'text-blue-600' },
-                { level: 'high（デフォルト）', desc: '複雑な推論やアーキテクチャ設計。最高品質。', color: 'text-purple-600' },
+                { level: 'medium', desc: 'コスト重視のコーディングタスク。バランス型。', color: 'text-blue-600' },
+                { level: 'high（既定）', desc: 'トークン消費と知能のバランス。大半のモデルの既定値。', color: 'text-purple-600' },
+                { level: 'xhigh', desc: 'より深い推論。Fable 5 / Sonnet 5 / Opus 4.7 以降などで利用可能。', color: 'text-amber-600' },
+                { level: 'max', desc: '最深推論（セッション限定）。過剰思考になりやすいため検証してから採用。', color: 'text-red-600' },
               ].map(item => (
                 <div key={item.level} className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                   <code className={`font-bold text-sm min-w-[160px] ${item.color}`}>{item.level}</code>
@@ -112,10 +114,14 @@ $ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80`} language="bash" />
                 </div>
               ))}
             </div>
-            <CodeBlock code={`# 環境変数で設定
-$ export CLAUDE_CODE_EFFORT_LEVEL=medium
+            <CodeBlock code={`# セッション内で切替（引数なしでスライダー表示）
+> /effort medium
 
-# またはセッション内で /model コマンドから左右矢印で調整（Opus使用時）`} language="bash" />
+# 起動時に指定
+$ claude --effort medium
+
+# 環境変数で設定（他の設定より優先）
+$ export CLAUDE_CODE_EFFORT_LEVEL=medium`} language="bash" />
           </section>
 
           {/* モデル層別化 */}
@@ -126,8 +132,8 @@ $ export CLAUDE_CODE_EFFORT_LEVEL=medium
             </h2>
             <div className="space-y-4">
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-2 text-[var(--claude-primary)]">1. .claudeignore の徹底</h4>
-                <p className="text-xs text-muted-foreground">不要なファイル（node_modules, dist, lock files, 画像等）を除外し、初期スキャンのトークン消費を削減。</p>
+                <h4 className="font-bold text-sm mb-2 text-[var(--claude-primary)]">1. permissions.deny で不要ファイルを遮断</h4>
+                <p className="text-xs text-muted-foreground">情報価値の低い巨大ファイル（lock files, ビルド出力等）や秘匿ファイルは settings.json の permissions.deny で読み取りを拒否し、無駄なトークン消費を防ぐ。</p>
               </div>
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2 text-[var(--claude-primary)]">2. モデルの使い分け</h4>
@@ -149,17 +155,17 @@ $ export CLAUDE_CODE_EFFORT_LEVEL=medium
           </section>
           <CodingChallenge
             preview
-            previewType="terminal"
-            title=".claudeignore を設定しよう"
-            description="トークン消費を削減するための .claudeignore ファイルを作成してください。node_modules、ビルド出力、ロックファイル、画像ファイルなどを除外しましょう。"
-            initialCode={`# .claudeignore\n# 不要なファイルを除外してトークン消費を削減\n\n___  # ← ここを埋める（依存パッケージフォルダ）\n___  # ← ここを埋める（ビルド出力フォルダ）\nbuild/\n.next/\n\n# ロックファイル\npackage-lock.json\nyarn.lock\npnpm-lock.yaml\n\n# 画像・バイナリ\n*.png\n*.jpg\n*.gif\n*.ico\n*.woff2\n\n# その他\n.git/\ncoverage/\n*.map`}
-            answer={`# .claudeignore\n# 不要なファイルを除外してトークン消費を削減\n\nnode_modules/\ndist/\nbuild/\n.next/\n\n# ロックファイル\npackage-lock.json\nyarn.lock\npnpm-lock.yaml\n\n# 画像・バイナリ\n*.png\n*.jpg\n*.gif\n*.ico\n*.woff2\n\n# その他\n.git/\ncoverage/\n*.map`}
+            previewType="config"
+            title="permissions.deny で読み取りを制御しよう"
+            description="トークン消費を削減するため、settings.json の permissions.deny に読み取り拒否ルールを書いてください。ロックファイル、ビルド出力、秘匿ファイルを対象にしましょう。"
+            initialCode={`{\n  "permissions": {\n    "___": [  // ← ここを埋める（拒否リストのキー）\n      "Read(./node_modules/**)",\n      "Read(./dist/**)",\n      "___",  // ← ここを埋める（package-lock.json の読み取り拒否）\n      "Read(./.env)",\n      "Read(./secrets/**)"\n    ]\n  }\n}`}
+            answer={`{\n  "permissions": {\n    "deny": [\n      "Read(./node_modules/**)",\n      "Read(./dist/**)",\n      "Read(./package-lock.json)",\n      "Read(./.env)",\n      "Read(./secrets/**)"\n    ]\n  }\n}`}
             hints={[
-              'node_modules や dist などの生成ファイルは最優先で除外しましょう',
+              '読み取りの遮断は permissions.deny に "Read(パス)" 形式で指定します',
               'ロックファイルはトークンを大量消費しますが情報価値が低いです',
-              '画像やバイナリファイルもコンテキストに不要です',
+              'deny ルールはどのパーミッションモードでも適用されます',
             ]}
-            keywords={['node_modules/', 'dist/']}
+            keywords={['deny', 'Read']}
           />
         </div>
         <PageNavigation />

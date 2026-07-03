@@ -92,7 +92,7 @@ export default function WhyClaudeCode() {
                   </tr>
                   <tr className="border-b border-slate-100 dark:border-slate-800">
                     <td className="py-3 px-4 font-medium text-foreground">バックグラウンド実行</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">tmux連携</td>
+                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">対応</td>
                     <td className="py-3 px-4 text-center">エディタ依存</td>
                     <td className="py-3 px-4 text-center">タブ必須</td>
                   </tr>
@@ -136,14 +136,14 @@ export default function WhyClaudeCode() {
             </div>
           </section>
 
-          {/* tmuxとの親和性 */}
+          {/* ターミナル環境との親和性 */}
           <section className="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-            <h2 className="text-2xl font-bold mb-4">tmux との親和性</h2>
+            <h2 className="text-2xl font-bold mb-4">ターミナル環境との親和性</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              Claude Code はターミナルで動作するため、tmux のペイン分割との相性が優れています。エージェントの実行状況、サーバーログ、Git操作を並列で監視しながら開発を進められます。
+              Claude Code はターミナルで動作するため、複数のターミナルタブや cmux のようなワークスペース管理ツールとの相性が優れています。エージェントの実行状況、サーバーログ、Git操作を並列で監視しながら開発を進められます。
             </p>
             <InfoBox type="info" title="本ガイドの構成">
-              前半で Claude Code の機能を体系的に学び、後半で tmux の操作を習得した上で、最後に両者を統合した実践ワークフローを構築します。
+              前半で Claude Code の機能を体系的に学び、中盤で主要な AI コーディングエージェントの比較と cmux による環境管理を習得した上で、最後にベストプラクティスと自動化を扱います。
             </InfoBox>
           </section>
         </div>

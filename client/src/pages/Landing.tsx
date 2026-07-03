@@ -63,10 +63,10 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
     ],
   },
   "claude-mux": {
-    tagline: "AI ツールと tmux を使った開発ワークフローを試しながら学べる",
+    tagline: "Claude Code と AI コーディングエージェントの開発ワークフローを試しながら学べる",
     topics: [
       "Claude Code CLI 活用",
-      "tmux マルチプレクサ",
+      "AI コーディングエージェント比較",
       "MCP サーバー / Hooks",
       "CI/CD パイプライン",
     ],
@@ -244,8 +244,8 @@ export default function Landing() {
             実践リファレンス
           </h1>
           <p className="text-lg text-zinc-400 max-w-xl leading-relaxed mb-10">
-            Git・React・Claude Code・Three.js。 4 領域を Web
-            標準とアクセシビリティの視点で解説。
+            Git・React・Claude Code・Three.js をはじめとする 10 のマニュアルを
+            Web 標準とアクセシビリティの視点で解説。
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
