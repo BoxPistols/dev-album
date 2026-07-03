@@ -136,7 +136,7 @@ export default function LiveEditor({
           {!autoRun && (
             <button
               onClick={runPreview}
-              className="flex items-center gap-1 px-3 py-1 rounded bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-700 transition-colors"
+              className="flex items-center gap-1 px-3 py-1 rounded bg-emerald-700 text-white text-xs font-medium hover:bg-emerald-800 transition-colors"
             >
               <Play size={12} />
               実行
@@ -212,6 +212,7 @@ export default function LiveEditor({
               <textarea
                 value={activeFile.code}
                 onChange={(e) => handleCodeChange(e.target.value)}
+                aria-label={`コードエディタ: ${activeFile.name}`}
                 spellCheck={false}
                 className="w-full h-full min-h-[200px] py-4 px-5 font-mono text-sm leading-relaxed bg-transparent text-[#cdd6f4] resize-none focus:outline-none"
                 style={

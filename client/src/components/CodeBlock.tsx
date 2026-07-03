@@ -84,17 +84,22 @@ export default function CodeBlock({
         </div>
       )}
 
-      {/* コード本体 */}
+      {/* コード本体（横スクロールをキーボードでも操作できるよう focusable にする） */}
       <Highlight theme={themes.vsDark} code={code.trim()} language={prismLanguage}>
         {({ tokens, getLineProps, getTokenProps }) => (
-          <div className="overflow-x-auto">
+          <div
+            className="overflow-x-auto focus:outline-2 focus:outline-primary"
+            tabIndex={0}
+            role="region"
+            aria-label={title ? `コード: ${title}` : 'コードブロック'}
+          >
             <pre className="p-4 font-mono text-sm leading-relaxed m-0">
               {tokens.map((line, i) => {
                 const { key: _lk, ...lineProps } = getLineProps({ line });
                 return (
                   <div key={i} {...lineProps} className="flex">
                     {showLineNumbers && (
-                      <span className="inline-block w-10 text-right pr-4 text-[#6c7086] select-none flex-shrink-0 text-xs leading-relaxed">
+                      <span className="inline-block w-10 text-right pr-4 text-[#8b90a8] select-none flex-shrink-0 text-xs leading-relaxed">
                         {i + 1}
                       </span>
                     )}

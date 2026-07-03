@@ -177,6 +177,7 @@ export default function CodePreview({
           onChange={(e) => setEditableCode(e.target.value)}
           onScroll={handleScroll}
           onKeyDown={handleKeyDown}
+          aria-label={title ? `コードエディタ: ${title}` : 'コードエディタ'}
           spellCheck={false}
           wrap="off"
           className="absolute inset-0 w-full h-full py-4 px-5 font-mono text-[13px] leading-[1.6] bg-transparent text-transparent caret-white resize-none focus:outline-none selection:bg-blue-500/30 overflow-auto z-10 whitespace-pre"
@@ -237,7 +238,7 @@ export default function CodePreview({
           <span className="text-xs font-medium text-[#cdd6f4] ml-2">{title}</span>
         )}
         {language && (
-          <span className="text-[12px] font-mono text-[#cdd6f4]/40 uppercase">{language}</span>
+          <span className="text-[12px] font-mono text-[#cdd6f4]/65 uppercase">{language}</span>
         )}
       </div>
       <div className="flex items-center gap-0.5">

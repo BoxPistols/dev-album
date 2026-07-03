@@ -61,7 +61,7 @@ client/src/
 |---------|-----|------|
 | --primary | #2563EB | アクション、リンク、フォーカスリング |
 | --foreground | #3F3F46 | 見出し、本文テキスト |
-| --muted-foreground | #71717A | 補助テキスト、プレースホルダー |
+| --muted-foreground | #67676F | 補助テキスト、プレースホルダー（muted 背景上でも AA 4.5:1 を満たす実測値） |
 | --background | #FAFAFA | ページ背景 |
 | --card | #FFFFFF | カード背景 |
 | --muted | #F4F4F5 | セクション背景、無効状態 |

@@ -70,16 +70,23 @@ const RENDER_ROUTES = [
 ];
 
 test("API / Vue・Nuxt マニュアルの全ページが例外なく描画される", async ({ page }) => {
+  // 60 ルート以上を巡回するため全体タイムアウトを拡張
+  test.setTimeout(240_000);
+
   const pageErrors: string[] = [];
   page.on("pageerror", (err) => pageErrors.push(err.message));
 
   for (const route of RENDER_ROUTES) {
     pageErrors.length = 0;
-    await page.goto(route, { waitUntil: "networkidle" });
+    // networkidle は dev サーバーのオンデマンド変換で永久に収束しないことがあるため、
+    // DOM 到達 + 要素ベースの待機（h1 表示）に置き換える
+    await page.goto(route, { waitUntil: "domcontentloaded" });
 
     // h1 が存在し、空でないテキストを持つこと（＝コンポーネントが描画された）
     const h1 = page.locator("h1").first();
-    await expect(h1, `h1 が見つからない: ${route}`).toBeVisible();
+    await expect(h1, `h1 が見つからない: ${route}`).toBeVisible({
+      timeout: 15_000,
+    });
     const text = (await h1.textContent())?.trim() ?? "";
     expect(text.length, `h1 が空: ${route}`).toBeGreaterThan(0);
 
@@ -128,8 +135,12 @@ const MERMAID_ROUTES = [
 ];
 
 test("mermaid ER図が実際の SVG として可視化される", async ({ page }) => {
+  // 20 ルート以上 × mermaid レンダリング待ちのため全体タイムアウトを拡張
+  test.setTimeout(300_000);
+
   for (const route of MERMAID_ROUTES) {
-    await page.goto(route, { waitUntil: "networkidle" });
+    // networkidle は収束が不安定なため、SVG 出現の明示的待機に置き換える
+    await page.goto(route, { waitUntil: "domcontentloaded" });
     // MermaidDiagram が生成した SVG が DOM に存在し、表示されていること
     const svg = page.locator(".mermaid-svg svg").first();
     await expect(svg, `mermaid SVG が描画されない: ${route}`).toBeVisible({

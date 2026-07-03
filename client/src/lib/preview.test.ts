@@ -23,8 +23,8 @@ describe("buildPreviewHtml (JSX/TSX)", () => {
       false,
     );
     expect(html).toContain("<!DOCTYPE html>");
-    expect(html).toContain("react@18");
-    expect(html).toContain("react-dom@18");
+    expect(html).toContain("react-18.3.1");
+    expect(html).toContain("react-dom-18.3.1");
     expect(html).toContain("App");
   });
 
@@ -51,7 +51,7 @@ describe("buildPreviewHtml (JSX/TSX)", () => {
     const html = buildPreviewHtml("function {{{ broken", "", false);
     expect(html).toContain("<!DOCTYPE html>");
     // エラーメッセージが含まれる
-    expect(html).not.toContain("react@18");
+    expect(html).not.toContain("react-18.3.1");
   });
 
   it("THREE を含むコードでも Three.js CDN は含まない（buildPreviewHtml は JSX 専用）", () => {
@@ -67,13 +67,13 @@ describe("buildPreviewHtml (JSX/TSX)", () => {
 
   // --- 追加テスト ---
 
-  it("React 18 UMD スクリプトタグを含む（React 19 ではない）", () => {
+  it("React 18 UMD スクリプトタグを含む（React 19 ではない・セルフホスト）", () => {
     const html = buildPreviewHtml("function App() { return null; }", "", false);
-    expect(html).toContain("react@18.3.1/umd/react.production.min.js");
-    expect(html).toContain("react-dom@18.3.1/umd/react-dom.production.min.js");
+    expect(html).toContain("/vendor/react-18.3.1.production.min.js");
+    expect(html).toContain("/vendor/react-dom-18.3.1.production.min.js");
     // React 19 が混入していないこと
-    expect(html).not.toContain("react@19");
-    expect(html).not.toContain("react-dom@19");
+    expect(html).not.toContain("react-19");
+    expect(html).not.toContain("react-dom-19");
   });
 
   it("スプレッド演算子 (...styles[variant]) がトランスパイルされる", () => {
@@ -90,7 +90,7 @@ function App() {
 }`;
     const html = buildPreviewHtml(code, "", false);
     // トランスパイルが成功しエラーHTMLではないこと
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
     expect(html).toContain("App");
     // スプレッド構文がトランスパイル後のコードに残る（ES2018+ 対応）
     expect(html).toContain("...styles[variant]");
@@ -103,7 +103,7 @@ function Badge({ variant = 'success', children }) {
 }
 function App() { return <Badge>test</Badge>; }`;
     const html = buildPreviewHtml(code, "", false);
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
     expect(html).toContain("App");
     // エラーHTMLではない
     expect(html).not.toContain("color:#f38ba8");
@@ -123,7 +123,7 @@ function App() {
   );
 }`;
     const html = buildPreviewHtml(code, "", false);
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
     // Badge と App 両方がトランスパイル結果に含まれる
     expect(html).toContain("Badge");
     expect(html).toContain("App");
@@ -143,7 +143,7 @@ function App() {
     expect(html).toContain("Footer");
     expect(html).toContain("App");
     // エラーなく生成される
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
   });
 
   it("componentName 検出で Badge と App が両方存在する場合、App を優先する", () => {
@@ -177,7 +177,7 @@ function App() {
     expect(html).toContain("#f38ba8");
     expect(html).toContain("<pre>");
     // React CDN は含まない
-    expect(html).not.toContain("react@18.3.1");
+    expect(html).not.toContain("react-18.3.1");
   });
 
   it("import 文と export キーワードが除去される", () => {
@@ -188,7 +188,7 @@ export default function App() {
 }`;
     const html = buildPreviewHtml(code, "", false);
     // import/export が除去されてもトランスパイル成功
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
     expect(html).toContain("App");
     // import 文がそのまま残っていないこと
     expect(html).not.toContain("import React from");
@@ -204,7 +204,7 @@ function App() {
   return <Button variant="contained">OK</Button>;
 }`;
     const html = buildPreviewHtml(code, "", false);
-    expect(html).toContain("react@18");
+    expect(html).toContain("react-18.3.1");
     // import の断片（from 行や閉じ括弧）が残っていないこと
     expect(html).not.toContain("from '@mui/material'");
     expect(html).not.toContain("import {");
@@ -226,7 +226,7 @@ function App() { return <Button variant="contained">OK</Button>; }`;
 
   it("MUI コードで UMD スクリプトと Roboto フォントを読み込む", () => {
     const html = buildPreviewHtml(muiCode, "", false);
-    expect(html).toContain("@mui/material@5.18.0/umd/material-ui.production.min.js");
+    expect(html).toContain("/vendor/mui-material-5.18.0.umd.min.js");
     expect(html).toContain("fonts.googleapis.com");
     // MaterialUI グローバルの展開と読み込み失敗ガード
     expect(html).toContain("Object.assign(window, MaterialUI)");
@@ -243,7 +243,7 @@ function App() { return <Button variant="contained">OK</Button>; }`;
 
   it("MUI を使わないコードには MUI CDN を含めない", () => {
     const html = buildPreviewHtml("function App() { return null; }", "", false);
-    expect(html).not.toContain("material-ui.production.min.js");
+    expect(html).not.toContain("mui-material-5.18.0");
     expect(html).not.toContain("MaterialUI");
   });
 
@@ -254,7 +254,7 @@ function App() { return <Button variant="contained">OK</Button>; }`;
       false,
       ["tailwind"],
     );
-    expect(html).toContain("@tailwindcss/browser@4.3.2");
+    expect(html).toContain("/vendor/tailwindcss-browser-4.3.2.global.js");
     // class ベースの dark バリアント定義
     expect(html).toContain("@custom-variant dark");
   });
@@ -268,7 +268,7 @@ function App() { return <Button variant="contained">OK</Button>; }`;
 
   it("libs 未指定では Tailwind CDN を含めない", () => {
     const html = buildPreviewHtml("function App() { return null; }", "", false);
-    expect(html).not.toContain("@tailwindcss/browser");
+    expect(html).not.toContain("tailwindcss-browser");
   });
 
   it("styled-components の import から自動検出して UMD を読み込む", () => {
@@ -277,7 +277,7 @@ const Btn = styled.button\`color: red;\`;
 function App() { return <Btn>x</Btn>; }`;
     expect(detectPreviewLibs(code)).toEqual(["styled-components"]);
     const html = buildPreviewHtml(code, "", false);
-    expect(html).toContain("styled-components@6.1.19");
+    expect(html).toContain("/vendor/styled-components-6.1.19.min.js");
     expect(html).toContain("styled-components(CDN) の読み込みに失敗しました");
   });
 
@@ -286,9 +286,9 @@ function App() { return <Btn>x</Btn>; }`;
 function App() { return <div css={css\`color: red;\`}>x</div>; }`;
     expect(detectPreviewLibs(code)).toEqual(["emotion"]);
     const html = buildPreviewHtml(code, "", false);
-    expect(html).toContain("@emotion/react@11.14.0");
-    expect(html).toContain("@emotion/styled@11.14.1");
-    expect(html).toContain("@emotion/css@11.13.5");
+    expect(html).toContain("/vendor/emotion-react-11.14.0.umd.min.js");
+    expect(html).toContain("/vendor/emotion-styled-11.14.1.umd.min.js");
+    expect(html).toContain("/vendor/emotion-css-11.13.5.umd.min.js");
   });
 
   it("Emotion 使用時は jsx ファクトリが emotionReact.jsx に切り替わる（css prop 有効化）", () => {
@@ -302,12 +302,12 @@ function App() { return <div css={css\`color: red;\`}>x</div>; }`;
     expect(plain).not.toContain("emotionReact.jsx(");
   });
 
-  it("ライブラリ不使用コードには外部 CDN スクリプトが一切含まれない", () => {
+  it("ライブラリ不使用コードには追加ライブラリのスクリプトが一切含まれない", () => {
     const html = buildPreviewHtml("function App() { return <p>plain</p>; }", "", false);
-    expect(html).not.toContain("material-ui");
-    expect(html).not.toContain("@tailwindcss");
+    expect(html).not.toContain("mui-material");
+    expect(html).not.toContain("tailwindcss-browser");
     expect(html).not.toContain("styled-components");
-    expect(html).not.toContain("@emotion");
+    expect(html).not.toContain("emotion-");
   });
 });
 
@@ -315,9 +315,9 @@ function App() { return <div css={css\`color: red;\`}>x</div>; }`;
 // buildThreePreviewHtml
 // ============================================================
 describe("buildThreePreviewHtml", () => {
-  it("Three.js CDN を含む", () => {
+  it("セルフホストの Three.js を含む", () => {
     const html = buildThreePreviewHtml("const scene = new THREE.Scene();");
-    expect(html).toContain("cdn.jsdelivr.net/npm/three");
+    expect(html).toContain("/vendor/three-0.160.1.min.js");
     expect(html).toContain("THREE.Scene()");
   });
 
@@ -349,11 +349,11 @@ describe("buildThreePreviewHtml", () => {
 
   // --- 追加テスト ---
 
-  it("Three.js CDN バージョンが 0.160.1 である（0.183.2 ではない）", () => {
+  it("Three.js のバージョンが 0.160.1 である（0.183.2 ではない）", () => {
     const html = buildThreePreviewHtml("const scene = new THREE.Scene();");
-    expect(html).toContain("three@0.160.1/build/three.min.js");
+    expect(html).toContain("three-0.160.1.min.js");
     // ローカルで使う 0.183.2 が混入しないこと
-    expect(html).not.toContain("three@0.183");
+    expect(html).not.toContain("0.183");
   });
 
   it("___ プレースホルダが複数箇所あっても全て置換される", () => {

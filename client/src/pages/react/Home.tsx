@@ -89,7 +89,7 @@ const curriculumPart2 = [
     title: 'Server / Client',
     steps: 'STEP 40-43',
     description: 'RSC、データフェッチング、Loading UI',
-    color: 'bg-emerald-600',
+    color: 'bg-emerald-700',
   },
   {
     icon: <Code2 size={20} />,
@@ -137,7 +137,7 @@ const curriculumPart4 = [
     title: 'アーキテクチャ',
     steps: 'STEP 60-62',
     description: '設計・デザインシステム・保守運用',
-    color: 'bg-emerald-600',
+    color: 'bg-emerald-700',
   },
 ];
 
@@ -283,8 +283,8 @@ export default function Home() {
                   <div className="w-2.5 h-2.5 rounded-full bg-[#f9e2af]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#a6e3a1]" />
                 </div>
-                <span className="text-xs text-[#cdd6f4]/50 ml-1">タイトル</span>
-                <span className="text-[12px] font-mono text-[#cdd6f4]/30 uppercase">tsx</span>
+                <span className="text-xs text-[#cdd6f4]/70 ml-1">タイトル</span>
+                <span className="text-[12px] font-mono text-[#cdd6f4]/65 uppercase">tsx</span>
               </div>
               <div className="flex items-center gap-1.5 text-[#cdd6f4]/40">
                 <Code2 size={14} />
@@ -345,7 +345,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
               <div className="flex items-start gap-2.5">
-                <div className="px-2 py-0.5 rounded bg-emerald-600 text-white text-xs font-medium shrink-0 mt-0.5">チェック</div>
+                <div className="px-2 py-0.5 rounded bg-emerald-700 text-white text-xs font-medium shrink-0 mt-0.5">チェック</div>
                 <span className="text-muted-foreground">コードを採点します。キーワードベースの緩い判定で、完全一致でなくても正解になります</span>
               </div>
               <div className="flex items-start gap-2.5">
@@ -527,7 +527,7 @@ export default function Home() {
           <CurriculumPart
             partLabel="第3部"
             partTitle="Storybook（STEP 54-59）"
-            partColor="bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400"
+            partColor="bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400"
             items={curriculumPart3}
           />
 
@@ -535,7 +535,7 @@ export default function Home() {
           <CurriculumPart
             partLabel="第4部"
             partTitle="アーキテクチャ（STEP 60-62）"
-            partColor="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
+            partColor="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400"
             items={curriculumPart4}
           />
 
@@ -543,7 +543,7 @@ export default function Home() {
           <CurriculumPart
             partLabel="第5部"
             partTitle="実務品質とアクセシビリティ（STEP 63-71）"
-            partColor="bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
+            partColor="bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400"
             items={curriculumPart5}
           />
         </section>
@@ -628,7 +628,7 @@ function CurriculumPart({ partLabel, partTitle, partColor, items }: {
 
 function PrereqItem({ level, title, desc }: { level: 'ok' | 'plus' | 'none'; title: string; desc: string }) {
   const config = {
-    ok: { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-600 dark:text-green-400', label: 'OK' },
+    ok: { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-800 dark:text-green-400', label: 'OK' },
     plus: { bg: 'bg-amber-100 dark:bg-amber-900/40', text: 'text-amber-600 dark:text-amber-400', label: '+' },
     none: { bg: 'bg-slate-100 dark:bg-slate-800/40', text: 'text-slate-500 dark:text-slate-400', label: '-' },
   }[level];

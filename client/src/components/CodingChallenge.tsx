@@ -247,6 +247,7 @@ function HighlightedEditor({
         ref={textareaRef}
         value={code}
         onChange={(e) => onChange(e.target.value)}
+        aria-label="チャレンジのコードエディタ"
         onScroll={handleScroll}
         onKeyDown={(e) => {
           if (e.key === 'Tab') {
@@ -484,7 +485,7 @@ export default function CodingChallenge({
       <div className="flex flex-wrap gap-2">
         <button
           onClick={handleCheck}
-          className="px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors"
+          className="px-4 py-2 rounded-lg bg-emerald-700 text-white text-sm font-medium hover:bg-emerald-800 transition-colors"
         >
           チェックする
         </button>

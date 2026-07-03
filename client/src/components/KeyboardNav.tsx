@@ -91,7 +91,8 @@ export default function KeyboardNav() {
       )}
 
       {/* 画面下部ショートカットバー */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 hidden md:flex items-center justify-center gap-1 py-2 px-4 bg-card/80 backdrop-blur-sm border-t border-border md:ml-64">
+      {/* bg-card/80 だと下のコンテンツ次第で文字コントラストが AA を割るため 95% に */}
+      <div className="fixed bottom-0 left-0 right-0 z-30 hidden md:flex items-center justify-center gap-1 py-2 px-4 bg-card/95 backdrop-blur-sm border-t border-border md:ml-64">
         {/* 前へ */}
         <button
           onClick={() => prevPage && navigate(prevPage.path, `← ${prevPage.title}`)}
@@ -136,7 +137,7 @@ export default function KeyboardNav() {
         <div className="h-4 w-px bg-border mx-1" />
 
         {/* ショートカット一覧 */}
-        <div className="flex items-center gap-2 text-[12px] text-muted-foreground/60">
+        <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
           <span className="flex items-center gap-0.5">
             <kbd className="px-1 py-0.5 rounded bg-muted/60 border border-border/50 font-mono">{mod}+←→</kbd>
             <span className="ml-0.5">ページ</span>

@@ -4,16 +4,21 @@ import { transform } from 'sucrase';
 /** プレビュー iframe に追加読み込みできる外部ライブラリ */
 export type PreviewLib = 'mui' | 'tailwind' | 'styled-components' | 'emotion';
 
+// プレビュー用 UMD は client/public/vendor/ にセルフホスト（CDN 障害・社内ネットワークの
+// 単一障害点を排除）。srcDoc iframe は親と同一オリジンなので絶対パスで解決される。
 // UMD 配布は MUI v5 系が最終のため、ライブプレビューは v5 で実行する
 // （Button / Typography / Alert 等の基本 API は v5〜v7 で同一）
-const MUI_UMD_URL = 'https://unpkg.com/@mui/material@5.18.0/umd/material-ui.production.min.js';
+const REACT_UMD_URL = '/vendor/react-18.3.1.production.min.js';
+const REACT_DOM_UMD_URL = '/vendor/react-dom-18.3.1.production.min.js';
+const THREE_UMD_URL = '/vendor/three-0.160.1.min.js';
+const MUI_UMD_URL = '/vendor/mui-material-5.18.0.umd.min.js';
 const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
 // Tailwind v4 のブラウザ実行ビルド（クラスを実行時にコンパイルする公式デモ用ビルド）
-const TAILWIND_BROWSER_URL = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.2/dist/index.global.js';
-const STYLED_COMPONENTS_UMD_URL = 'https://unpkg.com/styled-components@6.1.19/dist/styled-components.min.js';
-const EMOTION_REACT_UMD_URL = 'https://unpkg.com/@emotion/react@11.14.0/dist/emotion-react.umd.min.js';
-const EMOTION_STYLED_UMD_URL = 'https://unpkg.com/@emotion/styled@11.14.1/dist/emotion-styled.umd.min.js';
-const EMOTION_CSS_UMD_URL = 'https://unpkg.com/@emotion/css@11.13.5/dist/emotion-css.umd.min.js';
+const TAILWIND_BROWSER_URL = '/vendor/tailwindcss-browser-4.3.2.global.js';
+const STYLED_COMPONENTS_UMD_URL = '/vendor/styled-components-6.1.19.min.js';
+const EMOTION_REACT_UMD_URL = '/vendor/emotion-react-11.14.0.umd.min.js';
+const EMOTION_STYLED_UMD_URL = '/vendor/emotion-styled-11.14.1.umd.min.js';
+const EMOTION_CSS_UMD_URL = '/vendor/emotion-css-11.13.5.umd.min.js';
 
 /**
  * コード中の import 文からプレビューに必要な外部ライブラリを検出する。
@@ -96,9 +101,9 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
   return `<!DOCTYPE html>
 <html${needsTailwind && isDark ? ' class="dark"' : ''}><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"><\/script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"><\/script>
-${needsThree ? '<script src="https://unpkg.com/three@0.160.1/build/three.min.js"><\\/script>' : ''}
+<script src="${REACT_UMD_URL}"><\/script>
+<script src="${REACT_DOM_UMD_URL}"><\/script>
+${needsThree ? `<script src="${THREE_UMD_URL}"><\\/script>` : ''}
 ${needsMui ? `<link rel="stylesheet" href="${ROBOTO_FONT_URL}">
 <script src="${MUI_UMD_URL}"><\/script>` : ''}
 ${needsStyled ? `<script src="${STYLED_COMPONENTS_UMD_URL}"><\/script>` : ''}
@@ -201,7 +206,7 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
 <script>
 (function() {
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js';
+  s.src = '${THREE_UMD_URL}';
   s.onload = function() {
     try {
       ${safeCode}

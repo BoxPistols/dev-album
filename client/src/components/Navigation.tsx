@@ -388,14 +388,14 @@ export default function Navigation() {
                 <Link
                   href="/dev/components"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors"
                 >
                   UI カタログ (dev)
                 </Link>
                 <Link
                   href="/dev/test-results"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors"
                 >
                   テスト結果 (dev)
                 </Link>

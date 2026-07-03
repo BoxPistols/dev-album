@@ -66,7 +66,8 @@
   --secondary: #F4F4F5;
   --secondary-foreground: #3F3F46;
   --muted: #F4F4F5;
-  --muted-foreground: #71717A;
+  /* #71717A は muted 背景上で 4.39:1 と AA 未達のため、実測 5.10:1 の #67676F に */
+  --muted-foreground: #67676F;
   --accent: #2563EB;
   --accent-foreground: #F9FAFB;
   --destructive: #DC2626;

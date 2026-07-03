@@ -43,30 +43,38 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
+        // precache はアプリシェル（エントリ + CSS + フォント/アイコン）に限定し、
+        // ページチャンクと プレビュー用 vendor UMD はランタイムキャッシュに委ねる
+        // （初回訪問で全ページ分 ~12MB を precache していた過剰を解消）
+        globPatterns: [
+          "**/*.{html,css,svg,png,woff2}",
+          "assets/index-*.js",
+          "assets/vendor-react-*.js",
+        ],
+        globIgnores: ["vendor/**"],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/unpkg\.com\/.*/i,
-            handler: "CacheFirst",
+            // ページチャンク: 一度訪れたページはオフラインでも開ける
+            urlPattern: /\/assets\/.+\.js$/i,
+            handler: "StaleWhileRevalidate",
             options: {
-              cacheName: "cdn-unpkg",
+              cacheName: "app-assets",
               expiration: {
-                maxEntries: 20,
+                maxEntries: 200,
                 maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
               },
-              cacheableResponse: { statuses: [0, 200] },
             },
           },
           {
-            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
+            // プレビュー用セルフホスト UMD（ファイル名にバージョン入りのため CacheFirst で安全）
+            urlPattern: /\/vendor\/.+\.js$/i,
             handler: "CacheFirst",
             options: {
-              cacheName: "cdn-jsdelivr",
+              cacheName: "preview-vendor",
               expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 30,
+                maxEntries: 12,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
               },
-              cacheableResponse: { statuses: [0, 200] },
             },
           },
           {
@@ -121,7 +129,6 @@ export default defineConfig({
             "@react-three/drei",
             "@react-three/postprocessing",
           ],
-          "vendor-framer": ["framer-motion"],
         },
       },
     },
