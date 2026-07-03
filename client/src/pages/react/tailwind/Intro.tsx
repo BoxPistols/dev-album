@@ -132,27 +132,35 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="パディングとマージン"
-              previewHeight={340}
+              previewHeight={520}
+              libs={['tailwind']}
               code={`function App() {
-  const box = (label, style) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14 }}>
-      <div style={{ background: 'var(--bg-accent)', borderRadius: 4, ...style }}>
-        <div style={{ background: 'var(--bg-accent-light)', borderRadius: 2, padding: '4px 8px', fontSize: 13 }}>{label}</div>
-      </div>
-      <code style={{ color: 'var(--text-muted)', fontSize: 12 }}>{Object.entries(style).map(([k,v]) => k + ': ' + v).join(', ')}</code>
-    </div>
-  );
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <strong style={{ fontSize: 13, color: 'var(--text)' }}>パディング（内側の余白）</strong>
-      {box('p-4: 全方向 16px', { padding: 16 })}
-      {box('px-6: 左右 24px', { paddingLeft: 24, paddingRight: 24 })}
-      {box('py-2: 上下 8px', { paddingTop: 8, paddingBottom: 8 })}
-      {box('pt-8: 上だけ 32px', { paddingTop: 32 })}
-      <strong style={{ fontSize: 13, color: 'var(--text)', marginTop: 4 }}>マージン（外側の余白）</strong>
-      {box('m-4: 全方向 16px', { margin: 16 })}
-      {box('mx-auto: 左右 auto', { marginLeft: 'auto', marginRight: 'auto' })}
-      {box('mb-6: 下だけ 24px', { marginBottom: 24 })}
+    <div className="flex flex-col gap-3 text-sm">
+      <p className="text-xs font-semibold text-gray-600 dark:text-gray-300">パディング（内側の余白）— 青い部分がパディング</p>
+      <div className="p-4 bg-blue-200 rounded w-fit">
+        <div className="bg-white text-blue-900 rounded px-2 py-1">p-4（全方向 16px）</div>
+      </div>
+      <div className="px-6 bg-blue-200 rounded w-fit">
+        <div className="bg-white text-blue-900 rounded px-2 py-1">px-6（左右 24px）</div>
+      </div>
+      <div className="py-2 bg-blue-200 rounded w-fit">
+        <div className="bg-white text-blue-900 rounded px-2 py-1">py-2（上下 8px）</div>
+      </div>
+      <div className="pt-8 bg-blue-200 rounded w-fit">
+        <div className="bg-white text-blue-900 rounded px-2 py-1">pt-8（上だけ 32px）</div>
+      </div>
+
+      <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mt-2">マージン（外側の余白）— 破線とのすき間がマージン</p>
+      <div className="border border-dashed border-gray-400 rounded w-fit">
+        <div className="m-4 bg-blue-200 text-blue-900 rounded px-2 py-1">m-4（全方向 16px）</div>
+      </div>
+      <div className="border border-dashed border-gray-400 rounded">
+        <div className="mx-auto w-fit bg-blue-200 text-blue-900 rounded px-2 py-1">mx-auto（左右中央）</div>
+      </div>
+      <div className="border border-dashed border-gray-400 rounded w-fit">
+        <div className="mb-6 bg-blue-200 text-blue-900 rounded px-2 py-1">mb-6（下だけ 24px）</div>
+      </div>
     </div>
   );
 }`}
@@ -161,20 +169,16 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="幅と高さ"
-              previewHeight={200}
+              previewHeight={260}
+              libs={['tailwind']}
               code={`function App() {
-  const row = (label, style) => (
-    <div style={{ fontSize: 13, display: 'flex', alignItems: 'center', gap: 8 }}>
-      <div style={{ background: 'var(--bg-accent)', borderRadius: 4, padding: '4px 8px', textAlign: 'center', ...style }}>{label}</div>
-      <code style={{ color: 'var(--text-muted)', fontSize: 11 }}>{Object.entries(style).map(([k,v]) => k + ': ' + v).join(', ')}</code>
-    </div>
-  );
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {row('w-full: 幅 100%', { width: '100%' })}
-      {row('w-1/2: 幅 50%', { width: '50%' })}
-      {row('w-64: 幅 256px', { width: 256 })}
-      {row('max-w-4xl: 最大幅 896px', { maxWidth: 896, width: '100%' })}
+    <div className="flex flex-col gap-2 text-sm">
+      <div className="w-full bg-blue-200 text-blue-900 rounded px-2 py-1">w-full（幅 100%）</div>
+      <div className="w-1/2 bg-blue-200 text-blue-900 rounded px-2 py-1">w-1/2（幅 50%）</div>
+      <div className="w-64 bg-blue-200 text-blue-900 rounded px-2 py-1">w-64（幅 256px）</div>
+      <div className="max-w-4xl w-full bg-blue-200 text-blue-900 rounded px-2 py-1">max-w-4xl（最大幅 896px）</div>
+      <div className="h-16 bg-blue-100 text-blue-900 rounded px-2 py-1">h-16（高さ 64px）</div>
     </div>
   );
 }`}
@@ -192,23 +196,23 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="テキストと背景の色"
-              previewHeight={280}
+              previewHeight={340}
+              libs={['tailwind']}
               code={`function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {/* テキスト色 */}
-      <p style={{ color: 'var(--text)', margin: 0 }}>ほぼ黒のテキスト (text-gray-900)</p>
-      <p style={{ color: 'var(--text-accent)', margin: 0 }}>青いテキスト (text-blue-600)</p>
-      <p style={{ color: 'var(--text-danger)', margin: 0 }}>赤いテキスト (text-red-500)</p>
+    <div className="flex flex-col gap-2 text-sm">
+      <div className="bg-white border border-gray-200 rounded p-3 flex flex-col gap-1">
+        <p className="text-gray-900">text-gray-900: ほぼ黒のテキスト</p>
+        <p className="text-blue-600">text-blue-600: 青いテキスト</p>
+        <p className="text-red-500">text-red-500: 赤いテキスト</p>
+      </div>
 
-      {/* 背景色 */}
-      <div style={{ background: 'var(--bg-card)', padding: '8px 12px', borderRadius: 4 }}>白い背景 (bg-white)</div>
-      <div style={{ background: 'var(--bg-muted)', padding: '8px 12px', borderRadius: 4 }}>薄いグレーの背景 (bg-gray-100)</div>
-      <div style={{ background: '#3b82f6', color: '#fff', padding: '8px 12px', borderRadius: 4 }}>青い背景 (bg-blue-500)</div>
+      <div className="bg-white text-gray-900 border border-gray-200 rounded px-3 py-2">bg-white: 白い背景</div>
+      <div className="bg-gray-100 text-gray-900 rounded px-3 py-2">bg-gray-100: 薄いグレーの背景</div>
+      <div className="bg-blue-500 text-white rounded px-3 py-2">bg-blue-500: 青い背景</div>
 
-      {/* ボーダー色 */}
-      <div style={{ border: '1px solid var(--border)', padding: '8px 12px', borderRadius: 4 }}>グレーのボーダー</div>
-      <div style={{ border: '2px solid var(--text-accent)', padding: '8px 12px', borderRadius: 4 }}>太い青ボーダー</div>
+      <div className="border border-gray-300 bg-white text-gray-900 rounded px-3 py-2">border-gray-300: グレーのボーダー</div>
+      <div className="border-2 border-blue-500 bg-white text-gray-900 rounded px-3 py-2">border-2 border-blue-500: 太い青ボーダー</div>
     </div>
   );
 }`}
@@ -233,31 +237,32 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="テキストのスタイリング"
-              previewHeight={420}
+              previewHeight={620}
+              libs={['tailwind']}
               code={`function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <strong style={{ fontSize: 13, color: 'var(--text)' }}>フォントサイズ</strong>
-      <p style={{ fontSize: 12, margin: 0 }}>text-xs: 12px - 極小テキスト</p>
-      <p style={{ fontSize: 14, margin: 0 }}>text-sm: 14px - 小さいテキスト</p>
-      <p style={{ fontSize: 16, margin: 0 }}>text-base: 16px - 標準テキスト</p>
-      <p style={{ fontSize: 18, margin: 0 }}>text-lg: 18px - 少し大きめ</p>
-      <p style={{ fontSize: 20, margin: 0 }}>text-xl: 20px - 大きめ</p>
-      <p style={{ fontSize: 24, margin: 0 }}>text-2xl: 24px - 見出し</p>
-      <p style={{ fontSize: 36, margin: 0 }}>text-4xl: 36px - 大見出し</p>
+    <div className="bg-white text-gray-900 rounded-lg p-4 flex flex-col gap-1">
+      <p className="text-xs font-semibold text-gray-500">フォントサイズ</p>
+      <p className="text-xs">text-xs: 極小テキスト（12px）</p>
+      <p className="text-sm">text-sm: 小さいテキスト（14px）</p>
+      <p className="text-base">text-base: 標準テキスト（16px）</p>
+      <p className="text-lg">text-lg: 少し大きめ（18px）</p>
+      <p className="text-xl">text-xl: 大きめ（20px）</p>
+      <p className="text-2xl">text-2xl: 見出し（24px）</p>
+      <p className="text-4xl">text-4xl: 大見出し（36px）</p>
 
-      <strong style={{ fontSize: 13, color: 'var(--text)', marginTop: 8 }}>フォントウェイト</strong>
-      <p style={{ fontWeight: 400, margin: 0 }}>font-normal: 普通（400）</p>
-      <p style={{ fontWeight: 500, margin: 0 }}>font-medium: ミディアム（500）</p>
-      <p style={{ fontWeight: 600, margin: 0 }}>font-semibold: セミボールド（600）</p>
-      <p style={{ fontWeight: 700, margin: 0 }}>font-bold: ボールド（700）</p>
-      <p style={{ fontWeight: 800, margin: 0 }}>font-extrabold: エクストラボールド（800）</p>
+      <p className="text-xs font-semibold text-gray-500 mt-3">フォントウェイト</p>
+      <p className="font-normal">font-normal: 普通（400）</p>
+      <p className="font-medium">font-medium: ミディアム（500）</p>
+      <p className="font-semibold">font-semibold: セミボールド（600）</p>
+      <p className="font-bold">font-bold: ボールド（700）</p>
+      <p className="font-extrabold">font-extrabold: エクストラボールド（800）</p>
 
-      <strong style={{ fontSize: 13, color: 'var(--text)', marginTop: 8 }}>テキスト装飾・配置</strong>
-      <p style={{ textDecoration: 'underline', margin: 0 }}>underline: 下線</p>
-      <p style={{ textDecoration: 'line-through', margin: 0 }}>line-through: 取り消し線</p>
-      <p style={{ textAlign: 'center', margin: 0 }}>text-center: 中央揃え</p>
-      <p style={{ textAlign: 'right', margin: 0 }}>text-right: 右揃え</p>
+      <p className="text-xs font-semibold text-gray-500 mt-3">テキスト装飾・配置</p>
+      <p className="underline">underline: 下線</p>
+      <p className="line-through">line-through: 取り消し線</p>
+      <p className="text-center">text-center: 中央揃え</p>
+      <p className="text-right">text-right: 右揃え</p>
     </div>
   );
 }`}
@@ -274,27 +279,34 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="Flexbox レイアウト"
-              previewHeight={240}
+              previewHeight={340}
+              libs={['tailwind']}
               code={`function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* 横並び（中央揃え） */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#c4b5fd' }} />
-        <span style={{ fontWeight: 500 }}>ユーザー名</span>
+    <div className="flex flex-col gap-5 text-sm">
+      <div>
+        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">flex items-center gap-4（横並び・中央揃え）</p>
+        <div className="flex items-center gap-4 bg-white text-gray-900 rounded-lg p-3">
+          <div className="w-10 h-10 rounded-full bg-violet-300" />
+          <span className="font-medium">ユーザー名</span>
+        </div>
       </div>
 
-      {/* 両端揃え */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--bg-muted)', borderRadius: 8 }}>
-        <span style={{ fontWeight: 700, fontSize: 18 }}>ロゴ</span>
-        <span style={{ color: 'var(--text-muted)' }}>ナビ</span>
+      <div>
+        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">flex justify-between items-center（両端揃え）</p>
+        <div className="flex justify-between items-center bg-gray-100 text-gray-900 rounded-lg px-3 py-2">
+          <span className="font-bold text-lg">ロゴ</span>
+          <span className="text-gray-500">ナビ</span>
+        </div>
       </div>
 
-      {/* 折り返しタグ */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        <span style={{ padding: '4px 12px', background: 'var(--bg-accent)', borderRadius: 9999, fontSize: 14 }}>タグ1</span>
-        <span style={{ padding: '4px 12px', background: 'var(--bg-accent)', borderRadius: 9999, fontSize: 14 }}>タグ2</span>
-        <span style={{ padding: '4px 12px', background: 'var(--bg-accent)', borderRadius: 9999, fontSize: 14 }}>タグ3</span>
+      <div>
+        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">flex flex-wrap gap-2（折り返しタグ）</p>
+        <div className="flex flex-wrap gap-2 bg-white rounded-lg p-3">
+          <span className="px-3 py-1 bg-blue-100 text-blue-900 rounded-full">タグ1</span>
+          <span className="px-3 py-1 bg-blue-100 text-blue-900 rounded-full">タグ2</span>
+          <span className="px-3 py-1 bg-blue-100 text-blue-900 rounded-full">タグ3</span>
+        </div>
       </div>
     </div>
   );
@@ -306,27 +318,25 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="Grid レイアウト"
-              previewHeight={240}
+              previewHeight={260}
+              libs={['tailwind']}
               code={`function App() {
-  const cell = { background: 'var(--bg-muted)', padding: 16, borderRadius: 4, textAlign: 'center', fontSize: 14 };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* 3カラムグリッド */}
+    <div className="flex flex-col gap-5 text-sm">
       <div>
-        <p style={{ fontSize: 13, fontWeight: 600, margin: '0 0 8px', color: 'var(--text)' }}>3カラムグリッド (grid-cols-3 gap-4)</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-          <div style={cell}>1</div>
-          <div style={cell}>2</div>
-          <div style={cell}>3</div>
+        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">grid grid-cols-3 gap-4（3カラムグリッド）</p>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="bg-gray-100 text-gray-900 rounded p-4 text-center">1</div>
+          <div className="bg-gray-100 text-gray-900 rounded p-4 text-center">2</div>
+          <div className="bg-gray-100 text-gray-900 rounded p-4 text-center">3</div>
         </div>
       </div>
 
-      {/* メイン + サイドバー */}
       <div>
-        <p style={{ fontSize: 13, fontWeight: 600, margin: '0 0 8px', color: 'var(--text)' }}>メイン + サイドバー (grid-cols-4)</p>
-        <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: 16 }}>
-          <div style={{ ...cell, background: 'var(--bg-accent)' }}>メインコンテンツ（3/4）</div>
-          <div style={{ ...cell, background: 'var(--bg-accent)' }}>サイドバー（1/4）</div>
+        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">grid grid-cols-4 + col-span-3（メイン + サイドバー）</p>
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-3 bg-blue-100 text-blue-900 rounded p-4 text-center">メイン（col-span-3）</div>
+          <div className="bg-blue-100 text-blue-900 rounded p-4 text-center">サイド</div>
         </div>
       </div>
     </div>
@@ -346,28 +356,26 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="状態のプレフィックス"
-              previewHeight={200}
+              previewHeight={240}
+              libs={['tailwind']}
               code={`function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <button
-        style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: 6, cursor: 'pointer', transition: 'background 0.2s' }}
-        onMouseEnter={e => e.currentTarget.style.background = '#2563eb'}
-        onMouseLeave={e => e.currentTarget.style.background = '#3b82f6'}
-      >
-        ホバーで暗くなるボタン
+    <div className="flex flex-col gap-3 text-sm">
+      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors cursor-pointer">
+        hover:bg-blue-600（ホバーで暗くなる）
       </button>
 
-      <button
-        style={{ background: '#22c55e', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: 6, cursor: 'pointer', transition: 'background 0.2s' }}
-        onMouseEnter={e => e.currentTarget.style.background = '#16a34a'}
-        onMouseLeave={e => e.currentTarget.style.background = '#22c55e'}
-      >
-        押すと更に暗くなるボタン
+      <button className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white px-4 py-2 rounded-md transition-colors cursor-pointer">
+        active:bg-green-700（押すと更に暗くなる）
       </button>
 
-      <button style={{ background: 'var(--bg-muted)', color: 'var(--text-muted)', border: 'none', padding: '8px 16px', borderRadius: 6, cursor: 'not-allowed', opacity: 0.5 }} disabled>
-        無効なボタン
+      <input
+        className="border-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-white text-gray-900 rounded-md px-3 py-2"
+        placeholder="focus:border-blue-500（クリックで枠が青に）"
+      />
+
+      <button className="bg-gray-200 text-gray-500 px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+        disabled:opacity-50（無効なボタン）
       </button>
     </div>
   );

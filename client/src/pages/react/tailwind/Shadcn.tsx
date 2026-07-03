@@ -128,31 +128,64 @@ npx shadcn@latest add button card dialog input select`}
             <h2 className="text-2xl font-bold text-foreground mb-4">Button コンポーネント</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               shadcn/ui の Button はバリアント（種類）とサイズを props で切り替えられます。
+              実物は <code>npx shadcn@latest add button</code> で生成されます。
+              下のプレビューでは、仕組みが見えるよう cva（class-variance-authority）を
+              「variant → クラス文字列のマップ」に単純化した抜粋を定義して動かしています。
             </p>
 
             <CodePreview
               language="tsx"
               title="Button の使い方"
-              previewHeight={180}
-              code={`function App() {
-  const base = { border: 'none', borderRadius: 6, fontWeight: 500, cursor: 'pointer', fontSize: 14, padding: '8px 16px', transition: 'all 0.15s' };
+              previewHeight={200}
+              libs={['tailwind']}
+              code={`// 簡略版 Button — 実物は npx shadcn@latest add button で生成される
+// 仕組みが見えるよう cva を「variant → クラス文字列のマップ」に単純化した抜粋
+// 本来は bg-primary 等の CSS 変数を使うが、プレビュー用に具体色（zinc 系）へ置き換えている
+const buttonVariants = {
+  variant: {
+    default: 'bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200',
+    secondary: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700',
+    destructive: 'bg-red-600 text-zinc-50 hover:bg-red-700',
+    outline: 'border border-zinc-300 bg-transparent text-zinc-900 hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-800',
+    ghost: 'bg-transparent text-zinc-900 hover:bg-zinc-100 dark:text-zinc-50 dark:hover:bg-zinc-800',
+    link: 'bg-transparent text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50',
+  },
+  size: {
+    default: 'h-9 px-4 py-2',
+    sm: 'h-8 rounded-md px-3 text-xs',
+    lg: 'h-10 rounded-md px-8',
+  },
+};
+
+function Button({ variant = 'default', size = 'default', className = '', ...props }) {
+  const base =
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50';
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+    <button
+      className={[base, buttonVariants.variant[variant], buttonVariants.size[size], className].join(' ')}
+      {...props}
+    />
+  );
+}
+
+function App() {
+  return (
+    <div className="flex flex-wrap items-center gap-2.5">
       {/* バリアント */}
-      <button style={{ ...base, background: '#18181b', color: '#fff' }}>デフォルト</button>
-      <button style={{ ...base, background: 'var(--bg-muted)', color: 'var(--text)' }}>セカンダリ</button>
-      <button style={{ ...base, background: '#ef4444', color: '#fff' }}>削除</button>
-      <button style={{ ...base, background: 'transparent', color: 'var(--text)', border: '1px solid var(--border)' }}>アウトライン</button>
-      <button style={{ ...base, background: 'transparent', color: 'var(--text)' }}>ゴースト</button>
-      <button style={{ ...base, background: 'transparent', color: 'var(--text)', textDecoration: 'underline', padding: '8px 4px' }}>リンク</button>
+      <Button>デフォルト</Button>
+      <Button variant="secondary">セカンダリ</Button>
+      <Button variant="destructive">削除</Button>
+      <Button variant="outline">アウトライン</Button>
+      <Button variant="ghost">ゴースト</Button>
+      <Button variant="link">リンク</Button>
 
       {/* サイズ */}
-      <button style={{ ...base, background: '#18181b', color: '#fff', fontSize: 12, padding: '4px 12px' }}>小さい</button>
-      <button style={{ ...base, background: '#18181b', color: '#fff' }}>標準</button>
-      <button style={{ ...base, background: '#18181b', color: '#fff', fontSize: 16, padding: '10px 24px' }}>大きい</button>
+      <Button size="sm">小さい</Button>
+      <Button>標準</Button>
+      <Button size="lg">大きい</Button>
 
       {/* 無効 */}
-      <button style={{ ...base, background: '#18181b', color: '#fff', opacity: 0.5, cursor: 'not-allowed' }} disabled>無効</button>
+      <Button disabled>無効</Button>
     </div>
   );
 }`}
@@ -164,31 +197,75 @@ npx shadcn@latest add button card dialog input select`}
             <h2 className="text-2xl font-bold text-foreground mb-4">Card コンポーネント</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Card は複数のサブコンポーネント（Header、Title、Content、Footer）を組み合わせて使います。
+              プレビューには <code>npx shadcn@latest add card</code> で生成される実装を単純化した抜粋を定義しています。
             </p>
 
             <CodePreview
               language="tsx"
               title="Card の使い方"
-              previewHeight={250}
-              code={`function App() {
-  const card = { width: 320, border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden', background: 'var(--bg-card)' };
-  const btn = { border: 'none', borderRadius: 6, fontWeight: 500, cursor: 'pointer', fontSize: 14, padding: '8px 16px' };
+              previewHeight={300}
+              libs={['tailwind']}
+              code={`// 簡略版 Card / Button — 実物は npx shadcn@latest add card button で生成される
+// 本来の bg-card 等の CSS 変数はプレビュー用に具体色（zinc 系）へ置き換えている
+function Card({ className = '', ...props }) {
   return (
-    <div style={card}>
-      <div style={{ padding: '20px 20px 0' }}>
-        <h3 style={{ margin: 0, fontWeight: 600, fontSize: 18 }}>プロジェクト名</h3>
-        <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: 14 }}>React と Tailwind CSS で作るポートフォリオサイト</p>
-      </div>
-      <div style={{ padding: '12px 20px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ padding: '2px 10px', background: 'var(--bg-accent)', color: 'var(--text-accent)', fontSize: 12, borderRadius: 9999 }}>React</span>
-        <span style={{ padding: '2px 10px', background: 'var(--bg-success)', color: 'var(--text-success)', fontSize: 12, borderRadius: 9999 }}>Tailwind</span>
-        <span style={{ padding: '2px 10px', background: '#f3e8ff', color: '#7c3aed', fontSize: 12, borderRadius: 9999 }}>TypeScript</span>
-      </div>
-      <div style={{ padding: '12px 20px 20px', display: 'flex', justifyContent: 'space-between' }}>
-        <button style={{ ...btn, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text)' }}>詳細</button>
-        <button style={{ ...btn, background: '#18181b', color: '#fff' }}>デモを見る</button>
-      </div>
-    </div>
+    <div
+      className={
+        'rounded-xl border border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 ' +
+        className
+      }
+      {...props}
+    />
+  );
+}
+function CardHeader({ className = '', ...props }) {
+  return <div className={'flex flex-col gap-1.5 p-6 ' + className} {...props} />;
+}
+function CardTitle({ className = '', ...props }) {
+  return <h3 className={'text-lg font-semibold leading-none tracking-tight ' + className} {...props} />;
+}
+function CardDescription({ className = '', ...props }) {
+  return <p className={'text-sm text-zinc-500 dark:text-zinc-400 ' + className} {...props} />;
+}
+function CardContent({ className = '', ...props }) {
+  return <div className={'p-6 pt-0 ' + className} {...props} />;
+}
+function CardFooter({ className = '', ...props }) {
+  return <div className={'flex items-center p-6 pt-0 ' + className} {...props} />;
+}
+function Button({ variant = 'default', className = '', ...props }) {
+  const variants = {
+    default: 'bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200',
+    outline: 'border border-zinc-300 bg-transparent text-zinc-900 hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-50 dark:hover:bg-zinc-800',
+  };
+  return (
+    <button
+      className={
+        'inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ' +
+        variants[variant] + ' ' + className
+      }
+      {...props}
+    />
+  );
+}
+
+function App() {
+  return (
+    <Card className="w-80">
+      <CardHeader>
+        <CardTitle>プロジェクト名</CardTitle>
+        <CardDescription>React と Tailwind CSS で作るポートフォリオサイト</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-wrap gap-2">
+        <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">React</span>
+        <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">Tailwind</span>
+        <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-950 dark:text-purple-300">TypeScript</span>
+      </CardContent>
+      <CardFooter className="justify-between">
+        <Button variant="outline">詳細</Button>
+        <Button>デモを見る</Button>
+      </CardFooter>
+    </Card>
   );
 }`}
             />
@@ -336,66 +413,126 @@ function DeleteConfirmDialog() {
             <h2 className="text-2xl font-bold text-foreground mb-4">実践：設定画面の構築</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               shadcn/ui のコンポーネントを組み合わせて、実用的な設定画面を作ってみましょう。
+              プレビューでは前のセクションと同じ簡略版の Button / Card に加えて、
+              Input / Label / Switch / Separator の簡略版を定義して組み立てています。
+              実際のプロジェクトでは <code>npx shadcn@latest add</code> で生成した実物を
+              <code>@/components/ui/</code> から import します。
             </p>
 
             <CodePreview
               language="tsx"
               title="SettingsPage.tsx"
-              previewHeight={400}
-              code={`function App() {
-  const [email, setEmail] = React.useState(false);
-  const [push, setPush] = React.useState(false);
-  const card = { border: '1px solid var(--border)', borderRadius: 12, background: 'var(--bg-card)', overflow: 'hidden' };
-  const input = { width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: 6, fontSize: 14, outline: 'none', boxSizing: 'border-box', background: 'var(--bg)', color: 'var(--text)' };
-  const label = { fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 4 };
-  const toggle = (on) => ({
-    width: 44, height: 24, borderRadius: 12, border: 'none', cursor: 'pointer',
-    background: on ? '#18181b' : 'var(--border)', position: 'relative', transition: 'background 0.2s',
-  });
-  const dot = (on) => ({
-    width: 20, height: 20, borderRadius: '50%', background: 'var(--bg)',
-    position: 'absolute', top: 2, left: on ? 22 : 2, transition: 'left 0.2s',
-  });
-
+              previewHeight={660}
+              libs={['tailwind']}
+              code={`// 簡略版の Button / Card / Input / Label / Switch / Separator を定義して組み立てる
+// 実物は npx shadcn@latest add button card input label switch separator で生成される
+// 本来の CSS 変数ベースの色はプレビュー用に具体色（zinc 系）へ置き換えている
+function Card({ className = '', ...props }) {
+  return <div className={'rounded-xl border border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 ' + className} {...props} />;
+}
+function CardHeader({ className = '', ...props }) {
+  return <div className={'flex flex-col gap-1.5 p-6 ' + className} {...props} />;
+}
+function CardTitle({ className = '', ...props }) {
+  return <h3 className={'text-lg font-semibold leading-none tracking-tight ' + className} {...props} />;
+}
+function CardDescription({ className = '', ...props }) {
+  return <p className={'text-sm text-zinc-500 dark:text-zinc-400 ' + className} {...props} />;
+}
+function CardContent({ className = '', ...props }) {
+  return <div className={'p-6 pt-0 ' + className} {...props} />;
+}
+function CardFooter({ className = '', ...props }) {
+  return <div className={'flex items-center p-6 pt-0 ' + className} {...props} />;
+}
+function Button({ className = '', ...props }) {
+  return <button className={'inline-flex h-9 items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 ' + className} {...props} />;
+}
+function Input({ className = '', ...props }) {
+  return <input className={'flex h-9 w-full rounded-md border border-zinc-300 bg-transparent px-3 py-1 text-sm placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:border-zinc-600 dark:placeholder:text-zinc-500 ' + className} {...props} />;
+}
+function Label({ className = '', ...props }) {
+  return <label className={'text-sm font-medium leading-none ' + className} {...props} />;
+}
+// Switch は role="switch" + aria-checked で支援技術にオン/オフを伝える
+function Switch({ checked, onCheckedChange }) {
   return (
-    <div style={{ maxWidth: 480, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <button
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onCheckedChange(!checked)}
+      className={
+        'inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ' +
+        (checked ? 'bg-zinc-900 dark:bg-zinc-50' : 'bg-zinc-300 dark:bg-zinc-600')
+      }
+    >
+      <span
+        className={
+          'pointer-events-none block h-4 w-4 rounded-full bg-white shadow transition-transform ' +
+          (checked ? 'translate-x-4 dark:bg-zinc-900' : 'translate-x-1')
+        }
+      />
+    </button>
+  );
+}
+function Separator() {
+  return <div role="separator" className="h-px w-full bg-zinc-200 dark:bg-zinc-700" />;
+}
+
+function App() {
+  const [email, setEmail] = useState(true);
+  const [push, setPush] = useState(false);
+  return (
+    <div className="mx-auto flex max-w-md flex-col gap-4 text-zinc-900 dark:text-zinc-50">
       <div>
-        <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>設定</h1>
-        <p style={{ color: 'var(--text-muted)', margin: '4px 0 0', fontSize: 14 }}>アカウントと通知の設定を管理します。</p>
+        <h1 className="text-2xl font-bold">設定</h1>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">アカウントと通知の設定を管理します。</p>
       </div>
-      <hr style={{ border: 'none', borderTop: '1px solid var(--border)' }} />
+      <Separator />
 
-      <div style={card}>
-        <div style={{ padding: '16px 20px 0' }}>
-          <h3 style={{ margin: 0, fontWeight: 600 }}>プロフィール</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: 14, margin: '2px 0 0' }}>公開される情報を編集します。</p>
-        </div>
-        <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div><span style={label}>表示名</span><input style={input} placeholder="田中 太郎" /></div>
-          <div><span style={label}>メールアドレス</span><input style={input} placeholder="taro@example.com" /></div>
-        </div>
-        <div style={{ padding: '8px 20px 16px' }}>
-          <button style={{ background: '#18181b', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 16px', fontWeight: 500, cursor: 'pointer' }}>保存する</button>
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>プロフィール</CardTitle>
+          <CardDescription>公開される情報を編集します。</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="name">表示名</Label>
+            <Input id="name" placeholder="田中 太郎" />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="mail">メールアドレス</Label>
+            <Input id="mail" type="email" placeholder="taro@example.com" />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button>保存する</Button>
+        </CardFooter>
+      </Card>
 
-      <div style={card}>
-        <div style={{ padding: '16px 20px 0' }}>
-          <h3 style={{ margin: 0, fontWeight: 600 }}>通知</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: 14, margin: '2px 0 0' }}>通知の受け取り方を設定します。</p>
-        </div>
-        <div style={{ padding: '12px 20px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div><p style={{ fontWeight: 500, margin: 0 }}>メール通知</p><p style={{ color: 'var(--text-muted)', fontSize: 13, margin: '2px 0 0' }}>重要な更新をメールで受け取る</p></div>
-            <button onClick={() => setEmail(!email)} style={toggle(email)}><div style={dot(email)} /></button>
+      <Card>
+        <CardHeader>
+          <CardTitle>通知</CardTitle>
+          <CardDescription>通知の受け取り方を設定します。</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">メール通知</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">重要な更新をメールで受け取る</p>
+            </div>
+            <Switch checked={email} onCheckedChange={setEmail} />
           </div>
-          <hr style={{ border: 'none', borderTop: '1px solid var(--border)' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div><p style={{ fontWeight: 500, margin: 0 }}>プッシュ通知</p><p style={{ color: 'var(--text-muted)', fontSize: 13, margin: '2px 0 0' }}>ブラウザのプッシュ通知を有効にする</p></div>
-            <button onClick={() => setPush(!push)} style={toggle(push)}><div style={dot(push)} /></button>
+          <Separator />
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">プッシュ通知</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">ブラウザのプッシュ通知を有効にする</p>
+            </div>
+            <Switch checked={push} onCheckedChange={setPush} />
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }`}

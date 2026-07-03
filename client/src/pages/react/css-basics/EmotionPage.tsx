@@ -186,23 +186,68 @@ function App() {
             <CodePreview
               language="tsx"
               title="混在パターンの実例（プレビュー）"
-              code={`function App() {
+              code={`import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+// プレビューでは JSX 変換を設定済み。実プロジェクトでは vite.config.ts の
+// jsxImportSource 設定（またはファイル先頭の @jsxImportSource プラグマ）が必要
+
+// 共通 UI コンポーネントは styled で定義（再利用前提）
+const EditButton = styled.button\`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #3b82f6;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+\`;
+
+const ProBadge = styled.span\`
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  background: var(--bg-accent);
+  color: var(--text-accent);
+  vertical-align: middle;
+\`;
+
+// ページ固有のレイアウトは css prop で書く（その場限りのスタイル）
+function App() {
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 32 }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: 0 }}>
-          プロフィール{' '}
-          <span style={{ padding: '2px 8px', borderRadius: 9999, fontSize: '0.75rem', background: 'var(--bg-accent)', color: '#3b82f6', verticalAlign: 'middle' }}>Pro</span>
+    <div css={css\`max-width: 800px; margin: 0 auto;\`}>
+      <header
+        css={css\`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+        \`}
+      >
+        <h1 css={css\`font-size: 2rem; font-weight: 800;\`}>
+          プロフィール <ProBadge>Pro</ProBadge>
         </h1>
-        <button style={{ padding: '10px 20px', border: 'none', borderRadius: 8, fontWeight: 600, cursor: 'pointer', background: '#3b82f6', color: 'white' }}>編集</button>
+        <EditButton>編集</EditButton>
       </header>
-      <div style={{ background: 'var(--bg-muted)', borderRadius: 12, padding: 24 }}>
-        <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>styled API と css prop を1つのページで混在して使えます。</p>
+      <div
+        css={css\`
+          background: var(--bg-muted);
+          border-radius: 12px;
+          padding: 24px;
+        \`}
+      >
+        <p css={css\`color: var(--text-muted);\`}>
+          styled API と css prop は同じスタイルシートに挿入されるため、混在して使えます。
+        </p>
       </div>
     </div>
   );
 }`}
-              previewHeight={160}
+              previewHeight={230}
             />
           </section>
 
@@ -219,22 +264,34 @@ function App() {
             <CodePreview
               language="tsx"
               title="css prop + テンプレートリテラル（プレビュー）"
-              code={`function App() {
+              code={`import { css } from '@emotion/react';
+
+function App() {
   return (
-    <div style={{
-      background: 'white', borderRadius: 12, padding: 24,
-      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-    }}>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1e293b', marginBottom: 8 }}>
+    <div
+      css={css\`
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        transition: box-shadow 0.2s ease;
+
+        &:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        }
+      \`}
+    >
+      <h3 css={css\`font-size: 1.25rem; font-weight: 600; margin-bottom: 8px;\`}>
         カードタイトル
       </h3>
-      <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>
-        カードの説明文です。Emotion の css prop で直接スタイルを適用しています。
+      <p css={css\`color: var(--text-muted);\`}>
+        css prop に渡したスタイルは css-xxxx 形式のクラス名にコンパイルされます。
+        カードにホバーすると、ネストした &:hover セレクタで影が付きます。
       </p>
     </div>
   );
 }`}
-              previewHeight={140}
+              previewHeight={210}
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">オブジェクト記法</h3>
@@ -390,43 +447,61 @@ const Badge = styled.span({
             <h2 className="text-2xl font-bold text-foreground mb-4">スタイルの合成（Composition）</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               Emotion の大きな強みの一つが、スタイルの合成です。
-              複数のスタイルを組み合わせて、新しいスタイルを作れます。
+              css prop に配列を渡すと、複数のスタイルを順に適用できます。
+              falsy な値は無視されるため、<code className="bg-muted px-1.5 py-0.5 rounded text-sm">isActive && activeStyle</code> のような条件付きの合成も1行で書けます。
             </p>
 
             <CodePreview
               language="tsx"
               title="配列でスタイルを合成（プレビュー）"
-              code={`function App() {
-  var base = {
-    border: 'none', borderRadius: 8, fontWeight: 600,
-    cursor: 'pointer', marginRight: 8, marginBottom: 8,
-  };
-  var variants = {
-    primary: { background: '#3b82f6', color: 'white' },
-    secondary: { background: 'var(--bg-muted)', color: 'var(--text)' },
-    outline: { background: 'transparent', color: '#3b82f6', border: '2px solid #3b82f6' },
-  };
-  var sizes = {
-    sm: { padding: '6px 12px', fontSize: '0.8rem' },
-    md: { padding: '10px 20px', fontSize: '0.875rem' },
-    lg: { padding: '14px 28px', fontSize: '1rem' },
-  };
+              code={`import { css } from '@emotion/react';
 
-  function Btn({ variant, size, children }) {
-    var s = Object.assign({}, base, variants[variant || 'primary'], sizes[size || 'md']);
-    return React.createElement('button', { style: s }, children);
-  }
+const baseStyle = css\`
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 8px 8px 0;
+  background: var(--bg-muted);
+  color: var(--text);
+\`;
 
+const primaryStyle = css\`
+  background: #3b82f6;
+  color: white;
+\`;
+
+const outlineStyle = css\`
+  background: transparent;
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+\`;
+
+const activeStyle = css\`
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.45);
+\`;
+
+function App() {
+  const [isActive, setIsActive] = useState(false);
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-      <Btn variant="primary" size="sm">Primary SM</Btn>
-      <Btn variant="secondary" size="md">Secondary MD</Btn>
-      <Btn variant="outline" size="lg">Outline LG</Btn>
-      <Btn variant="primary" size="lg">Primary LG</Btn>
+    <div>
+      <button css={baseStyle}>Base</button>
+      <button css={[baseStyle, primaryStyle]}>Base + Primary</button>
+      <button css={[baseStyle, outlineStyle]}>Base + Outline</button>
+      <button
+        css={[baseStyle, primaryStyle, isActive && activeStyle]}
+        onClick={() => setIsActive(!isActive)}
+      >
+        {isActive ? 'アクティブ' : 'クリックで切替'}
+      </button>
+      <p css={css\`color: var(--text-muted); font-size: 0.875rem;\`}>
+        配列の後ろのスタイルが前を上書きします。falsy な値は無視されます。
+      </p>
     </div>
   );
 }`}
-              previewHeight={80}
+              previewHeight={190}
             />
 
             <InfoBox type="success" title="合成の利点">

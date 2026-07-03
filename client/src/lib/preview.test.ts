@@ -5,6 +5,7 @@ import {
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
+  detectPreviewLibs,
 } from "./preview";
 import {
   resolvePreviewType,
@@ -191,6 +192,83 @@ export default function App() {
     expect(html).toContain("App");
     // import 文がそのまま残っていないこと
     expect(html).not.toContain("import React from");
+  });
+
+  it("複数行 import 文も除去される", () => {
+    const code = `
+import {
+  Button,
+  Stack,
+} from '@mui/material';
+function App() {
+  return <Button variant="contained">OK</Button>;
+}`;
+    const html = buildPreviewHtml(code, "", false);
+    expect(html).toContain("react@18");
+    // import の断片（from 行や閉じ括弧）が残っていないこと
+    expect(html).not.toContain("from '@mui/material'");
+    expect(html).not.toContain("import {");
+  });
+});
+
+// ============================================================
+// 外部ライブラリ読み込み（MUI / Tailwind）
+// ============================================================
+describe("buildPreviewHtml: 外部ライブラリ", () => {
+  const muiCode = `
+import Button from '@mui/material/Button';
+function App() { return <Button variant="contained">OK</Button>; }`;
+
+  it("@mui/material の import から MUI を自動検出する", () => {
+    expect(detectPreviewLibs(muiCode)).toEqual(["mui"]);
+    expect(detectPreviewLibs("function App() { return null; }")).toEqual([]);
+  });
+
+  it("MUI コードで UMD スクリプトと Roboto フォントを読み込む", () => {
+    const html = buildPreviewHtml(muiCode, "", false);
+    expect(html).toContain("@mui/material@5.18.0/umd/material-ui.production.min.js");
+    expect(html).toContain("fonts.googleapis.com");
+    // MaterialUI グローバルの展開と読み込み失敗ガード
+    expect(html).toContain("Object.assign(window, MaterialUI)");
+    expect(html).toContain("MUI(CDN) の読み込みに失敗しました");
+  });
+
+  it("MUI プレビューはテーマモードに応じた ThemeProvider でラップされる", () => {
+    const light = buildPreviewHtml(muiCode, "", false);
+    const dark = buildPreviewHtml(muiCode, "", true);
+    expect(light).toContain("mode:'light'");
+    expect(dark).toContain("mode:'dark'");
+    expect(dark).toContain("CssBaseline");
+  });
+
+  it("MUI を使わないコードには MUI CDN を含めない", () => {
+    const html = buildPreviewHtml("function App() { return null; }", "", false);
+    expect(html).not.toContain("material-ui.production.min.js");
+    expect(html).not.toContain("MaterialUI");
+  });
+
+  it("libs=['tailwind'] で Tailwind ブラウザビルドを読み込む", () => {
+    const html = buildPreviewHtml(
+      'function App() { return <div className="p-4 bg-blue-500">Hi</div>; }',
+      "",
+      false,
+      ["tailwind"],
+    );
+    expect(html).toContain("@tailwindcss/browser@4.3.2");
+    // class ベースの dark バリアント定義
+    expect(html).toContain("@custom-variant dark");
+  });
+
+  it("Tailwind + ダークモードで html に dark クラスが付く", () => {
+    const dark = buildPreviewHtml("function App() { return null; }", "", true, ["tailwind"]);
+    const light = buildPreviewHtml("function App() { return null; }", "", false, ["tailwind"]);
+    expect(dark).toContain('<html class="dark">');
+    expect(light).not.toContain('<html class="dark">');
+  });
+
+  it("libs 未指定では Tailwind CDN を含めない", () => {
+    const html = buildPreviewHtml("function App() { return null; }", "", false);
+    expect(html).not.toContain("@tailwindcss/browser");
   });
 });
 

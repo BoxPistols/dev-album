@@ -64,18 +64,22 @@ export default function ResponsiveDark() {
             <h2 className="text-2xl font-bold text-foreground mb-4">レスポンシブの実践パターン</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               実際の UI でよく使うレスポンシブパターンを見ていきましょう。
+              以下のプレビューは Tailwind の実コンパイラで動いています。プレビュー中央のハンドルをドラッグして幅を変えると、
+              <code>sm:</code>（640px）や <code>md:</code>（768px）の切り替わりを実際に確認できます。
             </p>
 
             <CodePreview
               language="tsx"
               title="レスポンシブなグリッドレイアウト"
-              previewHeight={120}
+              previewHeight={280}
+              libs={['tailwind']}
               code={`function App() {
+  // モバイル: 1列 → sm(640px〜): 2列 → md(768px〜): 3列
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-      <div style={{ background: 'var(--bg-card)', padding: 16, borderRadius: 8, boxShadow: 'var(--shadow)' }}>カード 1</div>
-      <div style={{ background: 'var(--bg-card)', padding: 16, borderRadius: 8, boxShadow: 'var(--shadow)' }}>カード 2</div>
-      <div style={{ background: 'var(--bg-card)', padding: 16, borderRadius: 8, boxShadow: 'var(--shadow)' }}>カード 3</div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="rounded-lg bg-white p-4 text-zinc-800 shadow-sm dark:bg-zinc-800 dark:text-zinc-100">カード 1</div>
+      <div className="rounded-lg bg-white p-4 text-zinc-800 shadow-sm dark:bg-zinc-800 dark:text-zinc-100">カード 2</div>
+      <div className="rounded-lg bg-white p-4 text-zinc-800 shadow-sm dark:bg-zinc-800 dark:text-zinc-100">カード 3</div>
     </div>
   );
 }`}
@@ -86,32 +90,35 @@ export default function ResponsiveDark() {
             <CodePreview
               language="tsx"
               title="レスポンシブなナビゲーション"
-              previewHeight={200}
+              previewHeight={240}
+              libs={['tailwind']}
               code={`function App() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const linkStyle = { color: 'var(--text-muted)', textDecoration: 'none', fontSize: 14 };
+  const link = 'text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100';
 
+  // md 未満: ハンバーガー + 開閉メニュー / md 以上: 横並びナビのみ
   return (
-    <header style={{ background: 'var(--bg-card)', boxShadow: 'var(--shadow)', borderRadius: 8, overflow: 'hidden' }}>
-      <div style={{ maxWidth: 600, margin: '0 auto', padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>MyApp</h1>
+    <header className="rounded-lg bg-white shadow-sm dark:bg-zinc-800">
+      <div className="flex items-center justify-between px-4 py-3">
+        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">MyApp</h1>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          style={{ background: 'none', border: '1px solid var(--border)', borderRadius: 6, padding: '4px 10px', fontSize: 18, cursor: 'pointer', color: 'var(--text)' }}
+          aria-expanded={isOpen}
+          className="rounded-md border border-zinc-300 px-3 py-1 text-lg text-zinc-700 md:hidden dark:border-zinc-600 dark:text-zinc-200"
         >
           ☰
         </button>
-        <nav style={{ display: 'flex', gap: 24 }}>
-          <a href="#" style={linkStyle}>ホーム</a>
-          <a href="#" style={linkStyle}>概要</a>
-          <a href="#" style={linkStyle}>お問い合わせ</a>
+        <nav className="hidden gap-6 md:flex">
+          <a href="#" className={link}>ホーム</a>
+          <a href="#" className={link}>概要</a>
+          <a href="#" className={link}>お問い合わせ</a>
         </nav>
       </div>
       {isOpen && (
-        <nav style={{ padding: '0 16px 12px', display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <a href="#" style={{ ...linkStyle, display: 'block', padding: '8px 0' }}>ホーム</a>
-          <a href="#" style={{ ...linkStyle, display: 'block', padding: '8px 0' }}>概要</a>
-          <a href="#" style={{ ...linkStyle, display: 'block', padding: '8px 0' }}>お問い合わせ</a>
+        <nav className="flex flex-col gap-1 px-4 pb-3 md:hidden">
+          <a href="#" className={link + ' block py-2'}>ホーム</a>
+          <a href="#" className={link + ' block py-2'}>概要</a>
+          <a href="#" className={link + ' block py-2'}>お問い合わせ</a>
         </nav>
       )}
     </header>
@@ -146,33 +153,40 @@ export default function ResponsiveDark() {
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Tailwind のダークモードは <code>dark:</code> プレフィックスで実現します。
               ライトモードとダークモードのスタイルを1つの要素に同時に記述できます。
+              以下のデモのトグルボタンは <code>document.documentElement.classList.toggle('dark')</code> で
+              html 要素の class を実際に切り替えており、<code>dark:</code> 付きのスタイルがまとめて反映されます。
             </p>
 
             <CodePreview
               language="tsx"
               title="ダークモードの基本"
-              previewHeight={220}
+              previewHeight={260}
+              libs={['tailwind']}
               code={`function App() {
-  const [isDark, setIsDark] = React.useState(false);
-  const bg = isDark ? '#111827' : '#ffffff';
-  const text = isDark ? '#ffffff' : '#111827';
-  const sub = isDark ? '#9ca3af' : '#4b5563';
-  const border = isDark ? '#374151' : '#e5e7eb';
+  // html 要素の .dark class を直接切り替える（class 戦略）
+  const [isDark, setIsDark] = React.useState(
+    () => document.documentElement.classList.contains('dark')
+  );
+
+  const toggle = () => {
+    document.documentElement.classList.toggle('dark');
+    setIsDark(document.documentElement.classList.contains('dark'));
+  };
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="rounded-lg bg-zinc-100 p-4 transition-colors duration-200 dark:bg-zinc-950">
       <button
-        onClick={() => setIsDark(!isDark)}
-        style={{ marginBottom: 12, padding: '6px 16px', borderRadius: 8, border: '1px solid ' + border, background: isDark ? '#1f2937' : '#f3f4f6', color: text, cursor: 'pointer' }}
+        onClick={toggle}
+        className="mb-3 rounded-lg border border-zinc-300 bg-white px-4 py-1.5 text-zinc-900 transition-colors duration-200 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100"
       >
         {isDark ? '🌙 ダーク' : '☀️ ライト'}
       </button>
-      <div style={{ background: bg, padding: 16, borderRadius: 8, transition: 'all 0.3s' }}>
-        <h1 style={{ color: text, fontSize: 20, fontWeight: 700, margin: '0 0 4px' }}>タイトル</h1>
-        <p style={{ color: sub, margin: 0 }}>説明テキスト</p>
+      <div className="rounded-lg bg-white p-4 transition-colors duration-200 dark:bg-zinc-900">
+        <h1 className="mb-1 text-xl font-bold text-zinc-900 dark:text-white">タイトル</h1>
+        <p className="text-zinc-600 dark:text-zinc-400">説明テキスト</p>
       </div>
-      <div style={{ border: '1px solid ' + border, borderRadius: 8, padding: 16, marginTop: 12, background: bg, transition: 'all 0.3s' }}>
-        <p style={{ color: text, margin: 0 }}>ボーダー付きカード</p>
+      <div className="mt-3 rounded-lg border border-zinc-200 bg-white p-4 transition-colors duration-200 dark:border-zinc-700 dark:bg-zinc-900">
+        <p className="text-zinc-900 dark:text-zinc-100">ボーダー付きカード</p>
       </div>
     </div>
   );
@@ -306,37 +320,30 @@ function ThemeToggle() {
             <h2 className="text-2xl font-bold text-foreground mb-4">アニメーションユーティリティ</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Tailwind には基本的なアニメーションとトランジションのユーティリティが用意されています。
-              マイクロインタラクションの実装に便利です。
+              <code>animate-spin</code>・<code>animate-pulse</code>・<code>animate-bounce</code> は keyframes を書かずにそのまま使える内蔵アニメーションです。
+              ホバー時の変化は <code>hover:</code> と <code>transition</code>・<code>duration-200</code> の組み合わせで実装します。
             </p>
 
             <CodePreview
               language="tsx"
               title="トランジションとアニメーション"
               previewHeight={220}
-              css={`
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
-@keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
-`}
+              libs={['tailwind']}
               code={`function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <button
-        style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '8px 20px', borderRadius: 8, cursor: 'pointer', transition: 'all 0.2s' }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#2563eb'; e.currentTarget.style.transform = 'scale(1.05)'; }}
-        onMouseLeave={e => { e.currentTarget.style.background = '#3b82f6'; e.currentTarget.style.transform = 'scale(1)'; }}
-      >
+    <div className="flex flex-col gap-4 p-2">
+      <button className="self-start rounded-lg bg-blue-600 px-5 py-2 text-white transition duration-200 ease-out hover:scale-105 hover:bg-blue-700">
         ホバーで色とサイズが変化
       </button>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ width: 24, height: 24, border: '3px solid #3b82f6', borderTop: '3px solid transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-        <span style={{ color: 'var(--text-muted)' }}>読み込み中...</span>
+      <div className="flex items-center gap-4">
+        <div className="h-6 w-6 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        <span className="text-zinc-500 dark:text-zinc-400">読み込み中...</span>
       </div>
 
-      <div style={{ display: 'flex', gap: 24 }}>
-        <span style={{ animation: 'pulse 2s ease-in-out infinite' }}>パルス</span>
-        <span style={{ animation: 'bounce 1s ease-in-out infinite' }}>バウンス</span>
+      <div className="flex gap-6">
+        <span className="animate-pulse text-zinc-800 dark:text-zinc-200">パルス</span>
+        <span className="animate-bounce text-zinc-800 dark:text-zinc-200">バウンス</span>
       </div>
     </div>
   );
@@ -392,7 +399,8 @@ function ThemeToggle() {
             <CodePreview
               language="tsx"
               title="ProfilePage.tsx"
-              previewHeight={420}
+              previewHeight={560}
+              libs={['tailwind']}
               code={`function App() {
   const skills = [
     { name: 'React', level: 90 },
@@ -402,37 +410,40 @@ function ThemeToggle() {
   ];
 
   return (
-    <div style={{ fontFamily: 'sans-serif', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border)' }}>
+    <div className="overflow-hidden rounded-xl border border-zinc-200 font-sans dark:border-zinc-700">
       {/* ヘッダー */}
-      <div style={{ background: 'linear-gradient(to right, #3b82f6, #7c3aed)', padding: '32px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', border: '3px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, color: '#fff' }}>
+      <div className="flex items-center gap-4 bg-linear-to-r from-blue-500 to-violet-600 px-6 py-8">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/30 bg-white/20 text-2xl text-white md:h-18 md:w-18">
           T
         </div>
         <div>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800, color: '#fff' }}>田中 太郎</h1>
-          <p style={{ margin: '4px 0 0', color: '#dbeafe', fontSize: 16 }}>フロントエンドエンジニア</p>
+          <h1 className="text-xl font-extrabold text-white md:text-2xl">田中 太郎</h1>
+          <p className="mt-1 text-sm text-blue-100 md:text-base">フロントエンドエンジニア</p>
         </div>
       </div>
 
-      {/* コンテンツ */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16, padding: 20, background: 'var(--bg-subtle)' }}>
-        <div style={{ background: 'var(--bg-card)', borderRadius: 12, padding: 20, boxShadow: 'var(--shadow)' }}>
-          <h2 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700 }}>自己紹介</h2>
-          <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: 1.7, fontSize: 14 }}>
+      {/* コンテンツ: モバイルは1列、md 以上で 2fr 1fr の2カラム */}
+      <div className="grid grid-cols-1 gap-4 bg-zinc-50 p-5 transition-colors duration-200 md:grid-cols-[2fr_1fr] dark:bg-zinc-900">
+        <div className="rounded-xl bg-white p-5 shadow-sm transition-colors duration-200 dark:bg-zinc-800">
+          <h2 className="mb-2 text-lg font-bold text-zinc-900 dark:text-zinc-100">自己紹介</h2>
+          <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             5年以上の Web 開発経験を持つフロントエンドエンジニアです。React と TypeScript を使った開発を専門としています。
           </p>
         </div>
-        <div style={{ background: 'var(--bg-card)', borderRadius: 12, padding: 20, boxShadow: 'var(--shadow)' }}>
-          <h2 style={{ margin: '0 0 12px', fontSize: 18, fontWeight: 700 }}>スキル</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className="rounded-xl bg-white p-5 shadow-sm transition-colors duration-200 dark:bg-zinc-800">
+          <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-zinc-100">スキル</h2>
+          <div className="flex flex-col gap-3">
             {skills.map(s => (
               <div key={s.name}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
-                  <span style={{ color: 'var(--text)' }}>{s.name}</span>
-                  <span style={{ color: 'var(--text-muted)' }}>{s.level}%</span>
+                <div className="mb-1 flex justify-between text-xs">
+                  <span className="text-zinc-800 dark:text-zinc-200">{s.name}</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">{s.level}%</span>
                 </div>
-                <div style={{ width: '100%', height: 8, background: 'var(--border)', borderRadius: 9999, overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: s.level + '%', background: '#3b82f6', borderRadius: 9999, transition: 'width 0.5s ease-out' }} />
+                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
+                  <div
+                    className="h-full rounded-full bg-blue-500 transition-[width] duration-500 ease-out"
+                    style={{ width: s.level + '%' }}
+                  />
                 </div>
               </div>
             ))}
@@ -446,10 +457,12 @@ function ThemeToggle() {
 
             <InfoBox type="success" title="レスポンシブ・ダークモードのポイント">
               <p>
-                このコンポーネントは、モバイルでは縦並び、PC では横並びのレイアウトになります。
-                ダークモードにも対応し、トランジションで切り替えアニメーションも付けています。
-                実際のプロジェクトでも、この「モバイルファースト + <code>dark:</code> プレフィックス」のパターンを基本にすれば、
+                このコンポーネントは <code>grid-cols-1 md:grid-cols-[2fr_1fr]</code> により、
+                モバイルでは縦並び、768px 以上では 2:1 の横並びレイアウトになります（プレビューの幅ハンドルで確認できます）。
+                配色は <code>dark:</code> プレフィックスでダークモードに対応し、<code>transition-colors</code> で切り替えを滑らかにしています。
+                この「モバイルファースト + <code>dark:</code> プレフィックス」のパターンを基本にすれば、
                 あらゆるデバイスとテーマに対応できます。
+                スキルバーの幅だけは値が動的なため <code>style</code> で渡しています。
               </p>
             </InfoBox>
           </section>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
-import { useDebouncedPreview } from '@/lib/preview';
+import { useDebouncedPreview, type PreviewLib } from '@/lib/preview';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface CodePreviewProps {
@@ -13,6 +13,8 @@ interface CodePreviewProps {
   layout?: 'horizontal' | 'vertical';
   /** true にするとコードを隠し、プレビューのみ表示する（視覚デモ用） */
   previewOnly?: boolean;
+  /** プレビュー iframe に読み込む外部ライブラリ（MUI は import 文から自動検出される） */
+  libs?: PreviewLib[];
 }
 
 const languageMap: Record<string, Language> = {
@@ -32,6 +34,7 @@ export default function CodePreview({
   previewHeight = 320,
   layout = 'horizontal',
   previewOnly = false,
+  libs,
 }: CodePreviewProps) {
   const [editableCode, setEditableCode] = useState(code);
   const [copied, setCopied] = useState(false);
@@ -53,7 +56,7 @@ export default function CodePreview({
   const canPreview = language === 'tsx' || language === 'jsx';
   const isHorizontal = layout === 'horizontal';
 
-  const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, theme === 'dark');
+  const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, theme === 'dark', libs);
 
   const handleReset = () => setEditableCode(code);
 

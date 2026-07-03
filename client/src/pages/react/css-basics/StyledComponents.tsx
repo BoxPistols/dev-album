@@ -114,29 +114,56 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="基本的なスタイルコンポーネント"
-              code={`function App() {
+              code={`import styled from 'styled-components';
+
+const Wrapper = styled.div\`
+  max-width: 640px;
+\`;
+
+const Title = styled.h1\`
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+\`;
+
+const Lead = styled.p\`
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+\`;
+
+const StartButton = styled.button\`
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+
+  &:hover {
+    background-color: #2563eb;
+  }
+\`;
+
+function App() {
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-      <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#1e293b', marginBottom: 16, lineHeight: 1.2 }}>
-        React でスタイリングを学ぼう
-      </h1>
-      <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)', lineHeight: 1.8, maxWidth: 640 }}>
-        styled-components を使えば、CSS の知識をそのまま活かして
-        コンポーネントにスタイルを適用できます。
-      </p>
-      <button style={{
-        display: 'inline-flex', alignItems: 'center', gap: 8,
-        padding: '12px 24px', border: 'none', borderRadius: 8,
-        backgroundColor: '#3b82f6', color: 'white',
-        fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer',
-        marginTop: 16,
-      }}>
-        はじめる
-      </button>
-    </div>
+    <Wrapper>
+      <Title>React でスタイリングを学ぼう</Title>
+      <Lead>
+        styled.要素名 にテンプレートリテラルで CSS を渡すと、
+        そのスタイルを持つコンポーネントが作られます。
+      </Lead>
+      <StartButton>はじめる</StartButton>
+    </Wrapper>
   );
 }`}
-              previewHeight={200}
+              previewHeight={300}
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">ネストと擬似要素</h3>
@@ -206,70 +233,112 @@ export default defineConfig({
             <CodePreview
               language="tsx"
               title="動的スタイルの基本"
-              code={`function App() {
-  function Button({ primary, children }) {
-    return (
-      <button style={{
-        padding: '10px 20px', borderRadius: 6, fontWeight: 600,
-        cursor: 'pointer', transition: 'all 0.2s ease',
-        backgroundColor: primary ? '#3b82f6' : 'transparent',
-        color: primary ? 'white' : '#3b82f6',
-        border: '2px solid #3b82f6', marginRight: 8,
-      }}>
-        {children}
-      </button>
-    );
-  }
+              code={`import styled from 'styled-components';
 
+const Button = styled.button\`
+  padding: 10px 20px;
+  border: 2px solid #3b82f6;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+
+  /* $primary の値でスタイルを切り替える */
+  background-color: \${(props) => (props.$primary ? '#3b82f6' : 'transparent')};
+  color: \${(props) => (props.$primary ? 'white' : '#3b82f6')};
+
+  &:hover {
+    opacity: 0.85;
+  }
+\`;
+
+function App() {
   return (
     <div>
-      <Button primary>プライマリ</Button>
+      <Button $primary>プライマリ</Button>
       <Button>アウトライン</Button>
     </div>
   );
 }`}
-              previewHeight={80}
+              previewHeight={100}
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">複数の props を使う例</h3>
+            <p className="text-foreground/80 mb-4 leading-relaxed">
+              <code className="bg-muted px-1.5 py-0.5 rounded text-sm">css</code> ヘルパーでスタイルの断片を定義し、
+              props の値をキーにしたマップで切り替えると、バリアントが増えても見通しを保てます。
+            </p>
             <CodePreview
               language="tsx"
               title="サイズとバリアントの組み合わせ"
-              code={`function App() {
-  var variants = {
-    primary: { backgroundColor: '#3b82f6', color: 'white', border: 'none' },
-    secondary: { backgroundColor: '#6b7280', color: 'white', border: 'none' },
-    outline: { backgroundColor: 'transparent', color: '#3b82f6', border: '2px solid #3b82f6' },
-    ghost: { backgroundColor: 'transparent', color: '#374151', border: 'none' },
-  };
-  var sizes = {
-    sm: { padding: '6px 12px', fontSize: '0.75rem' },
-    md: { padding: '10px 20px', fontSize: '0.875rem' },
-    lg: { padding: '14px 28px', fontSize: '1rem' },
-  };
+              code={`import styled, { css } from 'styled-components';
 
-  function StyledButton({ variant, size, fullWidth, children }) {
-    var v = variant || 'primary';
-    var s = size || 'md';
-    var style = Object.assign({
-      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      gap: 8, borderRadius: 8, fontWeight: 600, cursor: 'pointer',
-      transition: 'all 0.2s ease', width: fullWidth ? '100%' : 'auto',
-    }, variants[v], sizes[s]);
-    return React.createElement('button', { style: style }, children);
-  }
+const variants = {
+  primary: css\`
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+  \`,
+  secondary: css\`
+    background-color: #6b7280;
+    color: white;
+    border: none;
+  \`,
+  outline: css\`
+    background-color: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+  \`,
+  ghost: css\`
+    background-color: transparent;
+    color: var(--text);
+    border: none;
+  \`,
+};
 
+const sizes = {
+  sm: css\`
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  \`,
+  md: css\`
+    padding: 10px 20px;
+    font-size: 0.875rem;
+  \`,
+  lg: css\`
+    padding: 14px 28px;
+    font-size: 1rem;
+  \`,
+};
+
+const StyledButton = styled.button\`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: \${(p) => (p.$fullWidth ? '100%' : 'auto')};
+
+  \${(p) => variants[p.$variant ?? 'primary']}
+  \${(p) => sizes[p.$size ?? 'md']}
+\`;
+
+function App() {
   return (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      <StyledButton variant="primary" size="sm">小さいボタン</StyledButton>
-      <StyledButton variant="secondary" size="md">中ボタン</StyledButton>
-      <StyledButton variant="outline" size="lg">大きいアウトライン</StyledButton>
-      <StyledButton variant="ghost">ゴースト</StyledButton>
-      <StyledButton variant="primary" fullWidth>全幅ボタン</StyledButton>
+      <StyledButton $variant="primary" $size="sm">小さいボタン</StyledButton>
+      <StyledButton $variant="secondary" $size="md">中ボタン</StyledButton>
+      <StyledButton $variant="outline" $size="lg">大きいアウトライン</StyledButton>
+      <StyledButton $variant="ghost">ゴースト</StyledButton>
+      <StyledButton $variant="primary" $fullWidth>全幅ボタン</StyledButton>
     </div>
   );
 }`}
-              previewHeight={120}
+              previewHeight={200}
             />
 
             <InfoBox type="warning" title="$ 接頭辞を忘れずに">
@@ -379,22 +448,45 @@ const Input = styled.input.attrs(() => ({
             <CodePreview
               language="tsx"
               title="スタイルの拡張"
-              code={`function App() {
-  var base = {
-    padding: '10px 20px', border: 'none', borderRadius: 8,
-    fontWeight: 600, fontSize: '0.875rem', cursor: 'pointer',
-  };
+              code={`import styled from 'styled-components';
 
+const Button = styled.button\`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  background-color: var(--bg-muted);
+  color: var(--text);
+\`;
+
+// styled(既存コンポーネント) でベースのスタイルを継承して上書きする
+const PrimaryButton = styled(Button)\`
+  background-color: #3b82f6;
+  color: white;
+\`;
+
+const DangerButton = styled(PrimaryButton)\`
+  background-color: #ef4444;
+\`;
+
+const RoundButton = styled(PrimaryButton)\`
+  border-radius: 9999px;
+  padding: 10px 24px;
+\`;
+
+function App() {
   return (
     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-      <button style={{ ...base, backgroundColor: 'var(--bg-muted)', color: 'var(--text)' }}>ベース</button>
-      <button style={{ ...base, backgroundColor: '#3b82f6', color: 'white' }}>プライマリ</button>
-      <button style={{ ...base, backgroundColor: '#ef4444', color: 'white' }}>デンジャー</button>
-      <button style={{ ...base, backgroundColor: '#3b82f6', color: 'white', borderRadius: 9999, padding: '10px 24px' }}>ラウンド</button>
+      <Button>ベース</Button>
+      <PrimaryButton>プライマリ</PrimaryButton>
+      <DangerButton>デンジャー</DangerButton>
+      <RoundButton>ラウンド</RoundButton>
     </div>
   );
 }`}
-              previewHeight={80}
+              previewHeight={150}
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">as prop でタグを変更</h3>
@@ -898,61 +990,70 @@ function ProgressBar({ value }: { value: number }) {
             <CodePreview
               language="tsx"
               title="アニメーションの定義と使用"
-              code={`function App() {
+              code={`import styled, { keyframes } from 'styled-components';
+
+const spin = keyframes\`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+\`;
+
+const fadeIn = keyframes\`
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+\`;
+
+const shimmer = keyframes\`
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+\`;
+
+const Spinner = styled.div\`
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: \${spin} 0.8s linear infinite;
+\`;
+
+const FadeCard = styled.div\`
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 200px;
+  animation: \${fadeIn} 0.6s ease-out;
+\`;
+
+const Skeleton = styled.div\`
+  height: 20px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--border) 25%, var(--bg-muted) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: \${shimmer} 1.5s ease-in-out infinite;
+\`;
+
+function App() {
   return (
     <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
       <div>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>スピナー</p>
-        <div className="spinner" />
+        <Spinner />
       </div>
       <div>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>フェードインカード</p>
-        <div className="fade-card" style={{
-          padding: 24, background: 'white', borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxWidth: 200,
-        }}>
-          カード内容
-        </div>
+        <FadeCard>カード内容</FadeCard>
       </div>
       <div style={{ flex: 1, minWidth: 200 }}>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 8 }}>スケルトン</p>
-        <div className="skeleton" style={{ width: '100%', height: 20, borderRadius: 4, marginBottom: 8 }} />
-        <div className="skeleton" style={{ width: '70%', height: 20, borderRadius: 4, marginBottom: 8 }} />
-        <div className="skeleton" style={{ width: '50%', height: 20, borderRadius: 4 }} />
+        <Skeleton style={{ marginBottom: 8 }} />
+        <Skeleton style={{ width: '70%', marginBottom: 8 }} />
+        <Skeleton style={{ width: '50%' }} />
       </div>
     </div>
   );
 }`}
-              css={`
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.spinner {
-  width: 32px; height: 32px;
-  border: 3px solid var(--border);
-  border-top-color: #3b82f6;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-.fade-card {
-  animation: fadeIn 0.6s ease-out;
-}
-.skeleton {
-  background: linear-gradient(90deg, var(--border) 25%, var(--bg-muted) 50%, var(--border) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-}
-`}
-              previewHeight={140}
+              previewHeight={280}
             />
           </section>
 
@@ -1058,7 +1159,16 @@ const StyledButton = styled.button<{
   &:hover {
     opacity: 0.9;
   }
-\`;`}
+\`;
+
+function App() {
+  return (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <StyledButton $variant="primary" $size="sm">保存</StyledButton>
+      <StyledButton $variant="danger" $size="lg">削除</StyledButton>
+    </div>
+  );
+}`}
               answer={`import styled from 'styled-components';
 
 const StyledButton = styled.button<{
@@ -1080,7 +1190,16 @@ const StyledButton = styled.button<{
   &:hover {
     opacity: 0.9;
   }
-\`;`}
+\`;
+
+function App() {
+  return (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <StyledButton $variant="primary" $size="sm">保存</StyledButton>
+      <StyledButton $variant="danger" $size="lg">削除</StyledButton>
+    </div>
+  );
+}`}
               keywords={["'danger'", '$size']}
               hints={[
                 '赤い背景色 #ef4444 に対応する variant 値は danger です',

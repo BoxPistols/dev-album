@@ -1,12 +1,40 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { transform } from 'sucrase';
 
+/** プレビュー iframe に追加読み込みできる外部ライブラリ */
+export type PreviewLib = 'mui' | 'tailwind' | 'styled-components' | 'emotion';
+
+// UMD 配布は MUI v5 系が最終のため、ライブプレビューは v5 で実行する
+// （Button / Typography / Alert 等の基本 API は v5〜v7 で同一）
+const MUI_UMD_URL = 'https://unpkg.com/@mui/material@5.18.0/umd/material-ui.production.min.js';
+const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+// Tailwind v4 のブラウザ実行ビルド（クラスを実行時にコンパイルする公式デモ用ビルド）
+const TAILWIND_BROWSER_URL = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.2/dist/index.global.js';
+const STYLED_COMPONENTS_UMD_URL = 'https://unpkg.com/styled-components@6.1.19/dist/styled-components.min.js';
+const EMOTION_REACT_UMD_URL = 'https://unpkg.com/@emotion/react@11.14.0/dist/emotion-react.umd.min.js';
+const EMOTION_STYLED_UMD_URL = 'https://unpkg.com/@emotion/styled@11.14.1/dist/emotion-styled.umd.min.js';
+const EMOTION_CSS_UMD_URL = 'https://unpkg.com/@emotion/css@11.13.5/dist/emotion-css.umd.min.js';
+
+/**
+ * コード中の import 文からプレビューに必要な外部ライブラリを検出する。
+ * Tailwind は import が現れないため、利用側が libs で明示する。
+ */
+export function detectPreviewLibs(code: string): PreviewLib[] {
+  const libs: PreviewLib[] = [];
+  if (/@mui\/material/.test(code)) libs.push('mui');
+  if (/from\s*['"]styled-components['"]/.test(code)) libs.push('styled-components');
+  if (/@emotion\//.test(code)) libs.push('emotion');
+  return libs;
+}
+
 /**
  * import 文と export キーワードを除去し、プレビュー用に整形する
+ * （複数行 import にも対応。実行時は UMD グローバルから解決される）
  */
 function stripModuleSyntax(code: string): string {
   return code
-    .replace(/^import\s+.*$/gm, '')
+    .replace(/^import\s[^'"]*?from\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
+    .replace(/^import\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
     .replace(/^export\s+default\s+/gm, '')
     .replace(/^export\s+/gm, '');
 }
@@ -23,10 +51,21 @@ function detectComponentName(code: string): string {
 
 /**
  * JSX/TSX コードを iframe 用 HTML に変換する
+ * libs: 明示的に読み込む外部ライブラリ（import 文からの自動検出とマージされる）
  */
-export function buildPreviewHtml(jsxCode: string, cssCode: string, isDark = false): string {
+export function buildPreviewHtml(
+  jsxCode: string,
+  cssCode: string,
+  isDark = false,
+  libs?: readonly PreviewLib[],
+): string {
   const cleanedCode = stripModuleSyntax(jsxCode);
   const componentName = detectComponentName(cleanedCode);
+  const activeLibs = new Set<PreviewLib>([...detectPreviewLibs(jsxCode), ...(libs ?? [])]);
+  const needsMui = activeLibs.has('mui');
+  const needsTailwind = activeLibs.has('tailwind');
+  const needsStyled = activeLibs.has('styled-components');
+  const needsEmotion = activeLibs.has('emotion');
 
   let transpiledCode = '';
   let errorMessage = '';
@@ -35,6 +74,8 @@ export function buildPreviewHtml(jsxCode: string, cssCode: string, isDark = fals
     const result = transform(cleanedCode, {
       transforms: ['jsx', 'typescript'],
       jsxRuntime: 'classic',
+      // Emotion 使用時は css prop を有効にするため jsx ファクトリを切り替える
+      ...(needsEmotion ? { jsxPragma: 'emotionReact.jsx' } : {}),
       production: false,
     });
     transpiledCode = result.code;
@@ -53,12 +94,24 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
   const needsThree = /\bTHREE\b/.test(cleanedCode);
 
   return `<!DOCTYPE html>
-<html><head><meta charset="utf-8">
+<html${needsTailwind && isDark ? ' class="dark"' : ''}><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"><\/script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"><\/script>
 ${needsThree ? '<script src="https://unpkg.com/three@0.160.1/build/three.min.js"><\\/script>' : ''}
+${needsMui ? `<link rel="stylesheet" href="${ROBOTO_FONT_URL}">
+<script src="${MUI_UMD_URL}"><\/script>` : ''}
+${needsStyled ? `<script src="${STYLED_COMPONENTS_UMD_URL}"><\/script>` : ''}
+${needsEmotion ? `<script src="${EMOTION_REACT_UMD_URL}"><\/script>
+<script src="${EMOTION_STYLED_UMD_URL}"><\/script>
+<script src="${EMOTION_CSS_UMD_URL}"><\/script>` : ''}
+${needsTailwind ? `<style>/* 先にレイヤー順を宣言し、preview-base を最下位に固定する（Tailwind 注入シートより前が必須） */
+@layer preview-base, properties, theme, base, components, utilities;</style>
+<script src="${TAILWIND_BROWSER_URL}"><\/script>
+<style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>` : ''}
 <style>
+${needsTailwind ? `/* 基底スタイルを最下位レイヤーに置き、Tailwind の @layer utilities が勝てるようにする */
+@layer preview-base {` : ''}
 :root{
   --bg:${isDark ? '#1e1e2e' : '#fff'};
   --bg-subtle:${isDark ? '#252640' : '#f8fafc'};
@@ -82,15 +135,40 @@ input,textarea,select,button{font:inherit;color:var(--text);background:var(--bg)
 input:focus,textarea:focus,select:focus{outline:2px solid var(--text-accent);outline-offset:1px;}
 button{cursor:pointer;background:var(--bg-muted);border-color:var(--border);}
 button:hover{opacity:0.85;}
+${needsTailwind ? '}' : ''}
 ${cssCode}
 </style></head><body>
 <div id="root"></div>
 <script>
 try{
   var {useState,useEffect,useRef,useCallback,useMemo,useReducer,useContext,createContext}=React;
-  ${transpiledCode}
+${needsMui ? `  if(typeof MaterialUI==='undefined'){
+    throw new Error('MUI(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+  }
+  Object.assign(window, MaterialUI);
+` : ''}${needsStyled ? `  if(typeof styled==='undefined'){
+    throw new Error('styled-components(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+  }
+  (function(){
+    var sc=window.styled;
+    if(sc&&typeof sc!=='function'&&sc.default){Object.assign(window,sc);window.styled=sc.default;}
+    var s=window.styled;
+    if(typeof s==='function'){['css','keyframes','createGlobalStyle','ThemeProvider','useTheme'].forEach(function(k){if(s[k]&&typeof window[k]==='undefined'){window[k]=s[k];}});}
+  })();
+` : ''}${needsEmotion ? `  if(typeof emotionReact==='undefined'){
+    throw new Error('Emotion(CDN) の読み込みに失敗しました。ネットワーク接続を確認してください。');
+  }
+  var css=emotionReact.css,keyframes=emotionReact.keyframes,Global=emotionReact.Global,ThemeProvider=emotionReact.ThemeProvider,useTheme=emotionReact.useTheme;
+  var styled=typeof emotionStyled!=='undefined'?(emotionStyled.default||emotionStyled):undefined;
+  var injectGlobal=typeof emotion!=='undefined'?emotion.injectGlobal:undefined;
+  var cx=typeof emotion!=='undefined'?emotion.cx:undefined;
+` : ''}  ${transpiledCode}
   if(typeof ${componentName}!=='undefined'){
-    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(${componentName}));
+    var __element=React.createElement(${componentName});
+${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${isDark ? 'dark' : 'light'}',background:{default:'${isDark ? '#1e1e2e' : '#fff'}'}}});
+    __element=React.createElement(MaterialUI.ThemeProvider,{theme:__previewTheme},
+      React.createElement(MaterialUI.CssBaseline),__element);
+` : ''}    ReactDOM.createRoot(document.getElementById('root')).render(__element);
   }
 }catch(e){
   document.getElementById('root').innerHTML=
@@ -355,17 +433,20 @@ export function useDebouncedPreview(
   canPreview: boolean,
   delay = 300,
   isDark = false,
+  libs?: readonly PreviewLib[],
 ): string {
   const [previewHtml, setPreviewHtml] = useState('');
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  // 配列 identity での再ビルドを避けるため中身で比較する
+  const libsKey = libs?.join(',') ?? '';
 
   const build = useCallback(() => {
     if (!canPreview) {
       setPreviewHtml('');
       return;
     }
-    setPreviewHtml(buildPreviewHtml(code, css, isDark));
-  }, [code, css, canPreview, isDark]);
+    setPreviewHtml(buildPreviewHtml(code, css, isDark, libsKey ? (libsKey.split(',') as PreviewLib[]) : undefined));
+  }, [code, css, canPreview, isDark, libsKey]);
 
   // 初回即時実行
   useEffect(() => {

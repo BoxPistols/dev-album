@@ -83,13 +83,20 @@ export default function PlainCss() {
             <CodePreview
               language="tsx"
               title="src/App.tsx"
-              code={`function App() {
+              css={`.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.title { font-size: 2rem; font-weight: bold; color: #1a1a1a; }
+.card { background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.button { padding: 8px 16px; border: none; border-radius: 4px; background-color: #3b82f6; color: white; cursor: pointer; }
+.button:hover { background-color: #2563eb; }`}
+              code={`import './styles/App.css';
+
+function App() {
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#1a1a1a' }}>こんにちは React</h1>
-      <div style={{ background: 'white', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+    <div className="container">
+      <h1 className="title">こんにちは React</h1>
+      <div className="card">
         <p>カードコンテンツ</p>
-        <button style={{ padding: '8px 16px', border: 'none', borderRadius: 4, backgroundColor: '#3b82f6', color: 'white', cursor: 'pointer' }}>クリック</button>
+        <button className="button">クリック</button>
       </div>
     </div>
   );
@@ -255,21 +262,20 @@ function Article() {
 
             <CodePreview
               language="tsx"
-              title="src/components/Card.tsx（CSS Modules のプレビュー）"
+              title="Card コンポーネントのプレビュー（通常のクラス名で再現）"
+              css={`.card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.2s ease; max-width: 360px; }
+.card:hover { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+.title { font-size: 1.25rem; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
+.description { font-size: 0.875rem; color: #64748b; line-height: 1.6; }
+.footer { display: flex; justify-content: flex-end; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+.footer button { padding: 8px 16px; border: none; border-radius: 6px; background-color: #3b82f6; color: white; cursor: pointer; font-weight: 500; }`}
               code={`function App() {
   return (
-    <div style={{
-      background: 'white',
-      borderRadius: 12,
-      padding: 24,
-      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-      transition: 'box-shadow 0.2s ease',
-      maxWidth: 360,
-    }}>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>カードタイトル</h3>
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>カードの説明文です。CSS Modules により、クラス名がユニークに変換されます。</p>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
-        <button style={{ padding: '8px 16px', border: 'none', borderRadius: 6, backgroundColor: '#3b82f6', color: 'white', cursor: 'pointer', fontWeight: 500 }}>詳細</button>
+    <div className="card">
+      <h3 className="title">カードタイトル</h3>
+      <p className="description">カードの説明文です。カーソルを重ねると影が強調されます。</p>
+      <div className="footer">
+        <button>詳細</button>
       </div>
     </div>
   );
@@ -277,11 +283,20 @@ function Article() {
               previewHeight={200}
             />
 
+            <InfoBox type="info" title="プレビューは通常のクラス名で表示">
+              <p>
+                このプレビューはブラウザ内で直接描画しているため、Card.module.css と同じ内容のスタイルを
+                <code className="bg-muted px-1.5 py-0.5 rounded text-sm">.card</code> などの通常のクラス名のまま適用しています。
+                実際の Vite ビルドでは <code className="bg-muted px-1.5 py-0.5 rounded text-sm">_card_x7h3k_1</code> のような
+                ユニークなクラス名に変換されます。変換後の姿は次の HTML 例で確認できます。
+              </p>
+            </InfoBox>
+
             <div className="mt-4" />
 
             <CodeBlock
               language="html"
-              title="実際に生成される HTML（開発者ツールで確認）"
+              title="実際のビルドで生成される HTML（開発者ツールで確認）"
               code={`<!-- ユニークなクラス名が自動生成される -->
 <div class="_card_x7h3k_1">
   <h3 class="_title_x7h3k_5">カードタイトル</h3>

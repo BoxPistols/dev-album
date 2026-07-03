@@ -812,6 +812,13 @@ function TodoApp() {
 
           {/* CodingChallenge */}
           <section>
+            <div className="mb-6">
+              <InfoBox type="info" title="このチャレンジのプレビューについて">
+                <p>
+                  ライブプレビューの実行環境は React 18 系 UMD のため、useActionState などの React 19 専用 API はエディタ上でのコード検証のみ行い、プレビュー実行は行いません。
+                </p>
+              </InfoBox>
+            </div>
             <CodingChallenge
               title="useActionState でコメント投稿フォームを作成する"
               description="CommentForm の ___ を埋めてください。React 19 の useActionState でフォームアクションの状態管理を行います。"

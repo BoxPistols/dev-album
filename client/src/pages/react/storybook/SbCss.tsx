@@ -251,14 +251,15 @@ export const Secondary: Story = {
 
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">CSS Modules のビジュアルプレビュー</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              CSS Modules でスコープされたクラス名がどのように適用されるか、実際のカードコンポーネントで確認します。
+              CSS Modules でスコープされたクラス名がどのように適用されるか、カードコンポーネントの例で確認します。
               各クラスは <code>.module.css</code> によって自動的にユニークな名前に変換されます。
+              以下は見た目を inline style で再現した静的デモで、表示しているクラス名は変換形式の例です（ハッシュ部分はビルドごとに変わります）。
             </p>
             <CodePreview previewOnly
               title="CSS Modules でスタイリングされたコンポーネント"
               code={`function CardCssModules() {
   /* CSS Modules ではスコープされたクラス名が自動生成される
-     例: .card → .Card_card_x7k2a */
+     例: .card → .Card_card__x7k2a のような形式（ハッシュ部分は例示） */
   const styles = {
     card: {
       border: '1px solid var(--border)',
@@ -342,11 +343,11 @@ export const Secondary: Story = {
         <div style={styles.body}>
           <span style={styles.tag}>scoped</span>
           <h3 style={styles.title}>プロフィールカード</h3>
-          <p style={styles.desc}>CSS Modules で自動スコープされたクラスが適用されています。名前衝突の心配がありません。</p>
+          <p style={styles.desc}>CSS Modules で自動スコープされたクラスが適用された状態を再現しています。名前衝突の心配がありません。</p>
           <button style={styles.btn}>詳細を見る</button>
           <div style={styles.scopeInfo}>
-            <p style={styles.scopeText}>クラス名: .Card_card_x7k2a</p>
-            <p style={styles.scopeText}>クラス名: .Card_title_m3j1b</p>
+            <p style={styles.scopeText}>例: .card → .Card_card__x7k2a のような形式に変換される</p>
+            <p style={styles.scopeText}>例: .title → .Card_title__m3j1b のような形式に変換される</p>
           </div>
         </div>
       </div>
@@ -515,88 +516,47 @@ export default preview;`}
 
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">Tailwind CSS のビジュアルプレビュー</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              同じカードコンポーネントを Tailwind CSS のユーティリティクラスで構築した場合のイメージです。
+              同じカードコンポーネントを Tailwind CSS のユーティリティクラスで構築した例です。
+              このプレビューは Tailwind を実際に読み込んで描画しており、カード下部に表示しているクラス名はこのカードで実際に使っているものです。
               クラス名を見るだけでスタイルが把握できるのが Tailwind の特徴です。
             </p>
             <CodePreview previewOnly
               title="Tailwind CSS コンポーネント"
+              previewHeight={480}
+              libs={['tailwind']}
               code={`function CardTailwind() {
-  /* Tailwind ではユーティリティクラスで直接スタイルを適用する
-     ここでは inline style で Tailwind 的なアプローチを再現 */
+  // Tailwind ではユーティリティクラスで直接スタイルを適用する
+  // このプレビューは Tailwind を実際に読み込んでコンパイルしている
   return (
-    <div style={{ padding: '24px', background: 'var(--bg-muted)', minHeight: '100%' }}>
-      <div style={{
-        maxWidth: '320px',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        background: 'var(--bg)',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)',
-        fontFamily: '"Inter", system-ui, sans-serif',
-      }}>
-        {/* bg-gradient-to-br from-cyan-500 to-blue-600 */}
-        <div style={{
-          width: '100%',
-          height: '160px',
-          background: 'linear-gradient(to bottom right, #06b6d4, #2563eb)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontSize: '14px',
-          fontWeight: '600',
-        }}>Tailwind Card</div>
+    <div className="p-6 bg-slate-100 dark:bg-slate-900 min-h-full">
+      <div className="max-w-xs rounded-xl shadow-md overflow-hidden bg-white dark:bg-slate-800 font-sans">
+        <div className="w-full h-40 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+          Tailwind Card
+        </div>
 
-        {/* p-4 space-y-2 */}
-        <div style={{ padding: '16px' }}>
-          {/* text-xs font-semibold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-full */}
-          <span style={{
-            display: 'inline-block',
-            background: '#ecfeff',
-            color: '#0891b2',
-            fontSize: '12px',
-            fontWeight: '600',
-            padding: '2px 8px',
-            borderRadius: '9999px',
-            marginBottom: '8px',
-            textTransform: 'uppercase',
-          }}>utility-first</span>
+        <div className="p-4">
+          <span className="inline-block bg-cyan-50 text-cyan-600 text-xs font-semibold px-2 py-0.5 rounded-full mb-2 uppercase">
+            utility-first
+          </span>
 
-          {/* text-base font-bold text-slate-800 */}
-          <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b', margin: '0 0 6px 0' }}>
+          <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5">
             プロフィールカード
           </h3>
 
-          {/* text-sm text-slate-500 */}
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '0 0 12px 0', lineHeight: '1.5' }}>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
             Tailwind のユーティリティクラスだけで構築。className に直接スタイルを記述します。
           </p>
 
-          {/* bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg text-sm font-semibold */}
-          <button style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            padding: '8px 16px',
-            background: '#0891b2',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '13px',
-            fontWeight: '600',
-            cursor: 'pointer',
-          }}>詳細を見る</button>
+          <button className="inline-flex items-center bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+            詳細を見る
+          </button>
 
-          {/* クラス名の可視化 */}
-          <div style={{
-            marginTop: '12px',
-            padding: '8px 12px',
-            background: '#f0fdfa',
-            borderRadius: '6px',
-            border: '1px dashed #99f6e4',
-          }}>
-            <p style={{ fontSize: '12px', color: '#5eead4', fontFamily: 'monospace', margin: '0 0 2px 0' }}>
+          {/* このカードで実際に使っているクラスの一部 */}
+          <div className="mt-3 px-3 py-2 bg-teal-50 dark:bg-teal-950 rounded-md border border-dashed border-teal-200 dark:border-teal-800">
+            <p className="text-xs text-teal-600 dark:text-teal-400 font-mono mb-0.5">
               className="rounded-xl shadow-md overflow-hidden"
             </p>
-            <p style={{ fontSize: '12px', color: '#5eead4', fontFamily: 'monospace', margin: 0 }}>
+            <p className="text-xs text-teal-600 dark:text-teal-400 font-mono">
               className="bg-cyan-600 text-white px-4 py-2 rounded-lg"
             </p>
           </div>
@@ -993,12 +953,14 @@ export default preview;`}
             <p className="text-foreground/80 mb-4 leading-relaxed">
               CSS-in-JS アプローチでは、スタイルが JavaScript の中に埋め込まれます。
               テーマの値を props 経由で参照し、動的なスタイリングが可能です。
+              以下は styled-components 本体を読み込まず、テーマオブジェクトを参照する書き方を inline style で再現した静的デモです。
             </p>
             <CodePreview previewOnly
               title="styled-components スタイル"
               code={`function CardStyledComponents() {
   /* styled-components / Emotion では JS の中にスタイルを書く
-     テーマ値は props.theme で参照可能 */
+     テーマ値は props.theme で参照可能
+     （このデモは本体を読み込まず inline style で見た目を再現） */
   const theme = {
     primary: '#8b5cf6',
     primaryLight: '#ede9fe',

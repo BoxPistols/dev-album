@@ -37,11 +37,13 @@ export default function CssInJs() {
             <p className="text-foreground/80 mb-4 leading-relaxed">
               CSS-in-JS は、JavaScript（または TypeScript）のコード内にスタイルを記述するアプローチの総称です。
               スタイルはコンポーネントと同じファイル内に書かれ、JavaScript の力を使って動的にスタイルを生成します。
+              次のプレビューは、スタイルを JavaScript オブジェクトとして組み立てる感覚を inline style で再現した概念デモです。
+              styled-components などの実際のライブラリ API は次のステップで扱います。
             </p>
 
             <CodePreview
               language="tsx"
-              title="CSS-in-JS の基本的なイメージ"
+              title="CSS-in-JS の基本的なイメージ（inline style で再現）"
               code={`function App() {
   const buttonBase = {
     padding: '8px 16px',
@@ -202,7 +204,7 @@ export default function CssInJs() {
 
             <CodePreview
               language="tsx"
-              title="すべてが1ファイルに凝集"
+              title="すべてが1ファイルに凝集（inline style による概念デモ）"
               code={`function App() {
   var _s = React.useState(0);
   var count = _s[0];
@@ -344,26 +346,39 @@ function App() {
             <p className="text-foreground/80 mb-4 leading-relaxed">
               CSS-in-JS では、スタイルの props に型を付けられます。
               存在しない props を渡そうとするとコンパイルエラーになるため、安全です。
+              以下は同じ考え方を、型注釈付きの props と inline style で再現したデモです。
+              型注釈はコンパイル時のチェックに使われ、実行時のコードからは取り除かれます。
             </p>
 
             <CodePreview
               language="tsx"
               title="型安全なスタイル props（プレビュー）"
-              code={`function App() {
-  var sizeMap = {
-    sm: { padding: '6px 12px', fontSize: '0.75rem' },
-    md: { padding: '8px 16px', fontSize: '0.875rem' },
-    lg: { padding: '12px 24px', fontSize: '1rem' },
-  };
-  var colorMap = {
-    primary: '#3b82f6',
-    secondary: '#6b7280',
-    danger: '#ef4444',
-  };
+              code={`type Size = 'sm' | 'md' | 'lg';
+type Variant = 'primary' | 'secondary' | 'danger';
 
-  function StyledButton({ variant, size, fullWidth, children }) {
-    return React.createElement('button', {
-      style: {
+const sizeMap: Record<Size, { padding: string; fontSize: string }> = {
+  sm: { padding: '6px 12px', fontSize: '0.75rem' },
+  md: { padding: '8px 16px', fontSize: '0.875rem' },
+  lg: { padding: '12px 24px', fontSize: '1rem' },
+};
+const colorMap: Record<Variant, string> = {
+  primary: '#3b82f6',
+  secondary: '#6b7280',
+  danger: '#ef4444',
+};
+
+interface StyledButtonProps {
+  variant: Variant;
+  size: Size;
+  fullWidth?: boolean;
+  children: React.ReactNode;
+}
+
+// 型にない variant / size を渡すとコンパイルエラーになる
+function StyledButton({ variant, size, fullWidth, children }: StyledButtonProps) {
+  return (
+    <button
+      style={{
         padding: sizeMap[size].padding,
         fontSize: sizeMap[size].fontSize,
         backgroundColor: colorMap[variant],
@@ -373,10 +388,14 @@ function App() {
         width: fullWidth ? '100%' : 'auto',
         cursor: 'pointer',
         fontWeight: 600,
-      }
-    }, children);
-  }
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
+function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ display: 'flex', gap: 8 }}>
@@ -388,7 +407,7 @@ function App() {
     </div>
   );
 }`}
-              previewHeight={120}
+              previewHeight={140}
             />
           </section>
 

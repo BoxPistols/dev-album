@@ -112,7 +112,7 @@ import { Button, TextField, Card } from '@mui/material';
             <InfoBox type="warning" title="日本語プロジェクトでのフォント">
               <p>
                 日本語プロジェクトでは Roboto の代わりに Noto Sans JP を使うことが多いです。
-                テーマでフォントを変更する方法は Step 27 で詳しく解説します。
+                テーマでフォントを変更する方法は Step 30 で詳しく解説します。
               </p>
             </InfoBox>
           </section>
@@ -133,7 +133,7 @@ import { Button, TextField, Card } from '@mui/material';
 
 // デフォルトテーマを作成
 const theme = createTheme({
-  // ここでカスタマイズ（Step 27 で詳しく解説）
+  // ここでカスタマイズ（Step 30 で詳しく解説）
 });
 
 export default theme;`}
@@ -180,38 +180,52 @@ createRoot(document.getElementById('root')!).render(
             <CodePreview
               language="tsx"
               title="Button の使い方"
-              previewHeight={240}
-              code={`function App() {
-  const contained = (bg) => ({ background: bg, color: '#fff', border: 'none', borderRadius: 4, padding: '6px 16px', fontSize: 14, fontWeight: 500, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: 0.5 });
-  const outlined = (c) => ({ background: 'transparent', color: c, border: '1px solid ' + c, borderRadius: 4, padding: '5px 15px', fontSize: 14, fontWeight: 500, cursor: 'pointer' });
+              previewHeight={320}
+              code={`import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
-        <button style={contained('#1976d2')}>塗りつぶし</button>
-        <button style={outlined('#1976d2')}>アウトライン</button>
-        <button style={{ background: 'transparent', border: 'none', color: '#1976d2', padding: '6px 8px', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>テキスト</button>
-      </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        <button style={contained('#1976d2')}>プライマリ</button>
-        <button style={contained('#9c27b0')}>セカンダリ</button>
-        <button style={contained('#2e7d32')}>成功</button>
-        <button style={contained('#d32f2f')}>エラー</button>
-        <button style={contained('#ed6c02')}>警告</button>
-        <button style={contained('#0288d1')}>情報</button>
-      </div>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <button style={{ ...contained('#1976d2'), padding: '4px 10px', fontSize: 13 }}>小</button>
-        <button style={contained('#1976d2')}>中</button>
-        <button style={{ ...contained('#1976d2'), padding: '8px 22px', fontSize: 15 }}>大</button>
-      </div>
+    <Stack spacing={2}>
+      {/* バリアント */}
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        <Button variant="contained">塗りつぶし</Button>
+        <Button variant="outlined">アウトライン</Button>
+        <Button variant="text">テキスト</Button>
+      </Stack>
+      {/* カラー */}
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        <Button variant="contained" color="primary">プライマリ</Button>
+        <Button variant="contained" color="secondary">セカンダリ</Button>
+        <Button variant="contained" color="success">成功</Button>
+        <Button variant="contained" color="error">エラー</Button>
+        <Button variant="contained" color="warning">警告</Button>
+        <Button variant="contained" color="info">情報</Button>
+      </Stack>
+      {/* サイズ */}
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Button variant="contained" size="small">小</Button>
+        <Button variant="contained" size="medium">中</Button>
+        <Button variant="contained" size="large">大</Button>
+      </Stack>
+      {/* 無効状態と全幅 */}
       <div>
-        <button style={{ ...contained('#1976d2'), opacity: 0.5, cursor: 'not-allowed' }} disabled>無効なボタン</button>
+        <Button variant="contained" disabled>無効なボタン</Button>
       </div>
-      <button style={{ ...contained('#1976d2'), width: '100%', textAlign: 'center' }}>全幅ボタン</button>
-    </div>
+      <Button variant="contained" fullWidth>全幅ボタン</Button>
+    </Stack>
   );
 }`}
             />
+
+            <InfoBox type="info" title="ライブプレビューの実行環境">
+              <p>
+                このページのプレビューは CDN 配信（UMD ビルド）の MUI をブラウザ内で直接実行しています。
+                UMD 配布は v5 系が最終ですが、ここで扱う Button / Typography / Box などの基本 API は v5 以降のバージョンで共通です。
+                ボタンをクリックすると、MUI 本来のリップルエフェクトも確認できます。
+                手元のプロジェクトでは npm でインストールしたバージョンを使ってください。
+              </p>
+            </InfoBox>
           </section>
 
           {/* セクション5: Typography */}
@@ -225,27 +239,43 @@ createRoot(document.getElementById('root')!).render(
             <CodePreview
               language="tsx"
               title="Typography の使い方"
-              previewHeight={340}
-              code={`function App() {
+              previewHeight={480}
+              code={`import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
+function App() {
   return (
-    <div style={{ fontFamily: 'Roboto, sans-serif', display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <h1 style={{ fontSize: 40, fontWeight: 300, margin: 0 }}>h1 見出し</h1>
-      <h2 style={{ fontSize: 32, fontWeight: 300, margin: 0 }}>h2 見出し</h2>
-      <h3 style={{ fontSize: 26, fontWeight: 400, margin: 0 }}>h3 見出し</h3>
-      <h4 style={{ fontSize: 22, fontWeight: 400, margin: 0 }}>h4 見出し</h4>
-      <h5 style={{ fontSize: 18, fontWeight: 400, margin: 0 }}>h5 見出し</h5>
-      <h6 style={{ fontSize: 16, fontWeight: 500, margin: 0 }}>h6 見出し</h6>
-      <p style={{ fontSize: 16, margin: '8px 0 0' }}>body1 - 標準の本文テキスト（16px）</p>
-      <p style={{ fontSize: 14, margin: 0 }}>body2 - 少し小さい本文（14px）</p>
-      <span style={{ fontSize: 12, color: 'var(--text-muted)', display: 'block', marginTop: 8 }}>caption（小さいテキスト）</span>
-      <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--text-muted)', display: 'block' }}>overline</span>
-      <p style={{ color: '#1976d2', margin: '8px 0 0' }}>プライマリカラー</p>
-      <p style={{ color: 'var(--text-muted)', margin: 0 }}>セカンダリテキスト</p>
-      <p style={{ color: '#d32f2f', margin: 0 }}>エラーカラー</p>
-    </div>
+    <Stack spacing={0.5}>
+      {/* 見出しバリアント（サイズはテーマのデフォルト値） */}
+      <Typography variant="h3" component="h1">h3 見出し</Typography>
+      <Typography variant="h4" component="h2">h4 見出し</Typography>
+      <Typography variant="h5" component="h3">h5 見出し</Typography>
+      <Typography variant="h6" component="h4">h6 見出し</Typography>
+
+      {/* 本文バリアント */}
+      <Typography variant="body1" sx={{ mt: 1 }}>body1 - 標準の本文テキスト（16px）</Typography>
+      <Typography variant="body2">body2 - 少し小さい本文（14px）</Typography>
+      <Typography variant="caption" sx={{ mt: 1 }}>caption（小さいテキスト）</Typography>
+      <Typography variant="overline">overline</Typography>
+
+      {/* カラー指定 */}
+      <Typography color="primary" sx={{ mt: 1 }}>プライマリカラー</Typography>
+      <Typography color="text.secondary">セカンダリテキスト</Typography>
+      <Typography color="error">エラーカラー</Typography>
+    </Stack>
   );
 }`}
             />
+
+            <InfoBox type="info" title="variant と component の使い分け">
+              <p>
+                <code>variant</code> は見た目、<code>component</code> は実際に描画される HTML 要素を決めます。
+                「デザイン上は h3 サイズだが、文書構造上はページの h1」のように、
+                見た目とセマンティクスを分離できるのが Typography の重要な機能です。
+                h1 / h2 のデフォルトサイズ（96px / 60px）はランディングページ向けに大きいため、
+                アプリでは <code>variant="h4"</code> 程度を h1 として使うことがよくあります。
+              </p>
+            </InfoBox>
           </section>
 
           {/* セクション6: Box と Container */}
@@ -256,44 +286,45 @@ createRoot(document.getElementById('root')!).render(
               <code>Container</code> はコンテンツの最大幅を制限するラッパーです。
             </p>
 
-            <CodeBlock
+            <CodePreview
               language="tsx"
               title="Box の使い方"
+              previewHeight={320}
               code={`import Box from '@mui/material/Box';
 
-function BoxExamples() {
+function App() {
   return (
     <>
-      {/* 基本的なスタイリング */}
-      <Box
-        sx={{
-          p: 2,              // padding: 16px（8px × 2）
-          m: 1,              // margin: 8px
-          bgcolor: 'grey.100',
-          borderRadius: 1,   // 4px × 1 = 4px
-        }}
-      >
+      {/* 基本的なスタイリング: p: 2 は padding 16px（8px × 2） */}
+      <Box sx={{ p: 2, mb: 2, bgcolor: 'grey.100', color: 'grey.900', borderRadius: 1 }}>
         スタイリングされた Box
       </Box>
 
       {/* Flexbox レイアウト */}
-      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-        <Box>アイテム 1</Box>
-        <Box>アイテム 2</Box>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2 }}>
+        <Box sx={{ p: 1.5, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1 }}>
+          アイテム 1
+        </Box>
+        <Box sx={{ p: 1.5, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 1 }}>
+          アイテム 2
+        </Box>
       </Box>
 
-      {/* レスポンシブ対応 */}
+      {/* レスポンシブ対応: モバイル 100% / md 以上 50%（プレビュー幅を変えると変化） */}
       <Box
         sx={{
-          width: { xs: '100%', md: '50%' },  // モバイル: 100%, タブレット以上: 50%
-          p: { xs: 2, md: 4 },               // モバイル: 16px, タブレット以上: 32px
+          width: { xs: '100%', md: '50%' },
+          p: { xs: 2, md: 4 },
+          mb: 2,
+          border: '1px dashed',
+          borderColor: 'divider',
         }}
       >
         レスポンシブな Box
       </Box>
 
       {/* HTML 要素の変更 */}
-      <Box component="section" sx={{ p: 3 }}>
+      <Box component="section" sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
         section 要素として描画される
       </Box>
     </>
@@ -415,36 +446,46 @@ function SxPropExamples() {
             <CodePreview
               language="tsx"
               title="WelcomePage.tsx"
-              previewHeight={340}
-              code={`function App() {
-  const btnContained = { background: '#1976d2', color: '#fff', border: 'none', borderRadius: 4, padding: '10px 24px', fontSize: 15, fontWeight: 500, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 8 };
-  const btnOutlined = { background: 'transparent', color: '#1976d2', border: '1px solid #1976d2', borderRadius: 4, padding: '9px 23px', fontSize: 15, fontWeight: 500, cursor: 'pointer' };
+              previewHeight={360}
+              code={`import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
+function App() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 300, background: '#fafafa', fontFamily: 'Roboto, sans-serif' }}>
-      <div style={{ textAlign: 'center', maxWidth: 500 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 300,
+      }}
+    >
+      <Box sx={{ textAlign: 'center', maxWidth: 500 }}>
         {/* アイコン */}
-        <div style={{ display: 'inline-flex', padding: 16, borderRadius: '50%', background: '#1976d2', color: '#fff', marginBottom: 24, fontSize: 28, fontWeight: 700 }}>
+        <Avatar sx={{ bgcolor: 'primary.main', width: 64, height: 64, mx: 'auto', mb: 3, fontWeight: 700 }}>
           {'</>'}
-        </div>
+        </Avatar>
 
         {/* タイトル */}
-        <h1 style={{ fontSize: 36, fontWeight: 800, margin: '0 0 12px', color: '#1a1a2e' }}>
+        <Typography variant="h4" component="h1" fontWeight={800} gutterBottom>
           React アプリへようこそ
-        </h1>
+        </Typography>
 
         {/* 説明文 */}
-        <p style={{ fontSize: 16, color: 'var(--text-muted)', lineHeight: 1.8, margin: '0 auto 28px', maxWidth: 460 }}>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3.5, lineHeight: 1.8 }}>
           MUI を使って美しく機能的な UI を構築しましょう。Material Design のガイドラインに沿った、一貫性のあるデザインを簡単に実現できます。
-        </p>
+        </Typography>
 
         {/* ボタン */}
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button style={btnContained}>はじめる →</button>
-          <button style={btnOutlined}>ドキュメントを読む</button>
-        </div>
-      </div>
-    </div>
+        <Stack direction="row" spacing={1.5} justifyContent="center" flexWrap="wrap" useFlexGap>
+          <Button variant="contained" size="large">はじめる</Button>
+          <Button variant="outlined" size="large">ドキュメントを読む</Button>
+        </Stack>
+      </Box>
+    </Box>
   );
 }`}
             />

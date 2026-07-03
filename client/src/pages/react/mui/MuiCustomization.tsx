@@ -73,37 +73,54 @@ export default theme;`}
             <CodePreview
               language="tsx"
               title="パレットの設定"
-              previewHeight={260}
-              code={`function App() {
-  const palette = {
+              previewHeight={360}
+              code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Button, Chip, Stack, Box, Typography } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
     primary: { main: '#6366f1', light: '#818cf8', dark: '#4f46e5' },
     secondary: { main: '#ec4899' },
-    error: '#ef4444', warning: '#f59e0b', success: '#10b981', info: '#3b82f6',
-  };
-  const swatch = (color, label) => (
-    React.createElement('div', { key: label, style: { display: 'flex', alignItems: 'center', gap: 8 } },
-      React.createElement('div', { style: { width: 32, height: 32, borderRadius: 6, background: color, border: '1px solid rgba(0,0,0,0.08)' } }),
-      React.createElement('span', { style: { fontSize: 13 } }, label),
-      React.createElement('code', { style: { fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 } }, color)
-    )
-  );
+    error: { main: '#ef4444' },
+    warning: { main: '#f59e0b' },
+    success: { main: '#10b981' },
+    info: { main: '#3b82f6' },
+  },
+});
+
+// theme.palette から実際の値を取り出して表示するスウォッチ
+function Swatch({ color, label }) {
   return (
-    <div style={{ fontFamily: 'sans-serif', display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <strong style={{ fontSize: 14 }}>Primary</strong>
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-        {swatch(palette.primary.light, 'light')}
-        {swatch(palette.primary.main, 'main')}
-        {swatch(palette.primary.dark, 'dark')}
-      </div>
-      <strong style={{ fontSize: 14, marginTop: 8 }}>Secondary & Semantic</strong>
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-        {swatch(palette.secondary.main, 'secondary')}
-        {swatch(palette.error, 'error')}
-        {swatch(palette.warning, 'warning')}
-        {swatch(palette.success, 'success')}
-        {swatch(palette.info, 'info')}
-      </div>
-    </div>
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Box sx={{ width: 28, height: 28, borderRadius: 1, bgcolor: color, border: '1px solid rgba(0,0,0,0.1)' }} />
+      <Typography variant="caption">{label}</Typography>
+      <Typography variant="caption" color="text.secondary">{color}</Typography>
+    </Stack>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Stack spacing={2}>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Button variant="contained" color="primary">primary</Button>
+          <Button variant="contained" color="secondary">secondary</Button>
+          <Button variant="outlined" color="error">error</Button>
+        </Stack>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Chip label="success" color="success" />
+          <Chip label="warning" color="warning" />
+          <Chip label="info" color="info" />
+        </Stack>
+        <Typography variant="subtitle2">theme.palette.primary の値</Typography>
+        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+          <Swatch color={theme.palette.primary.light} label="light" />
+          <Swatch color={theme.palette.primary.main} label="main" />
+          <Swatch color={theme.palette.primary.dark} label="dark" />
+        </Stack>
+      </Stack>
+    </ThemeProvider>
   );
 }`}
             />
@@ -113,28 +130,37 @@ export default theme;`}
             <CodePreview
               language="tsx"
               title="ダークモードのパレット"
-              previewHeight={200}
-              code={`function App() {
-  const [isDark, setIsDark] = React.useState(false);
-  const bg = isDark ? '#0f172a' : '#f8fafc';
-  const paper = isDark ? '#1e293b' : '#ffffff';
-  const text = isDark ? '#f1f5f9' : '#1e293b';
-  const sub = isDark ? '#94a3b8' : '#64748b';
-  const primary = isDark ? '#818cf8' : '#6366f1';
+              previewHeight={300}
+              code={`import { useState, useMemo } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Paper, Typography, Switch, Stack, Button } from '@mui/material';
+
+function App() {
+  const [mode, setMode] = useState('light');
+  // mode が変わるたびにテーマを作り直す
+  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
   return (
-    <div style={{ background: bg, padding: 20, borderRadius: 8, transition: 'all 0.3s', fontFamily: 'sans-serif' }}>
-      <button
-        onClick={() => setIsDark(!isDark)}
-        style={{ background: primary, color: '#fff', border: 'none', borderRadius: 6, padding: '8px 20px', fontWeight: 600, cursor: 'pointer', marginBottom: 16, transition: 'background 0.3s' }}
-      >
-        {isDark ? '🌙 ダークモード' : '☀️ ライトモード'}
-      </button>
-      <div style={{ background: paper, padding: 16, borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', transition: 'all 0.3s' }}>
-        <h3 style={{ margin: '0 0 4px', color: text, fontSize: 18, fontWeight: 600 }}>MUI テーマ切替</h3>
-        <p style={{ margin: 0, color: sub, fontSize: 14 }}>palette.mode で全コンポーネントがダークモードに対応します。</p>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ bgcolor: 'background.default', p: 3, borderRadius: 2 }}>
+        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+          <Typography variant="body2">light</Typography>
+          <Switch
+            checked={mode === 'dark'}
+            onChange={(e) => setMode(e.target.checked ? 'dark' : 'light')}
+            inputProps={{ 'aria-label': 'ダークモード切替' }}
+          />
+          <Typography variant="body2">dark</Typography>
+        </Stack>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="h6" gutterBottom>palette.mode: {mode}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            mode を切り替えると、背景・文字・ボタンの色がテーマから自動で再計算されます。
+          </Typography>
+          <Button variant="contained" sx={{ mt: 2 }}>ボタンも自動対応</Button>
+        </Paper>
+      </Box>
+    </ThemeProvider>
   );
 }`}
             />
@@ -311,37 +337,55 @@ export default theme;`}
             <CodePreview
               language="tsx"
               title="3つのスタイリング手法"
-              previewHeight={180}
-              code={`function App() {
-  const baseBtn = { border: 'none', borderRadius: 8, padding: '10px 24px', fontSize: 15, fontWeight: 600, cursor: 'pointer', color: '#fff' };
+              previewHeight={340}
+              code={`import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Button, Stack, Typography } from '@mui/material';
+
+// 1. styleOverrides: テーマ経由で全 Button に適用
+const theme = createTheme({
+  palette: { primary: { main: '#6366f1' } },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: { borderRadius: 8, textTransform: 'none', fontWeight: 600 },
+      },
+    },
+  },
+});
+
+// 3. styled(): 再利用可能なカスタムコンポーネント
+const GradientButton = styled(Button)({
+  background: 'linear-gradient(45deg, #6366f1, #ec4899)',
+  color: '#fff',
+  padding: '10px 24px',
+  '&:hover': { boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
+});
+
+function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, fontFamily: 'sans-serif' }}>
-      <div>
-        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>1. styleOverrides（全ボタン共通）</span>
-        <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
-          <button style={{ ...baseBtn, background: '#6366f1' }}>角丸 8px</button>
-          <button style={{ ...baseBtn, background: '#6366f1' }}>統一スタイル</button>
+    <ThemeProvider theme={theme}>
+      <Stack spacing={2}>
+        <div>
+          <Typography variant="caption" color="text.secondary">1. styleOverrides（全ボタン共通）</Typography>
+          <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
+            <Button variant="contained">角丸 8px</Button>
+            <Button variant="outlined">統一スタイル</Button>
+          </Stack>
         </div>
-      </div>
-      <div>
-        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>2. sx prop（個別調整: mt, mb）</span>
-        <div style={{ marginTop: 16, marginBottom: 8 }}>
-          <button style={{ ...baseBtn, background: '#6366f1' }}>送信（mt:2, mb:1 相当）</button>
+        <div>
+          <Typography variant="caption" color="text.secondary">2. sx prop（この 1 箇所だけ個別調整）</Typography>
+          <div>
+            <Button variant="contained" sx={{ mt: 1, mb: 1, px: 4 }}>送信</Button>
+          </div>
         </div>
-      </div>
-      <div>
-        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>3. styled()（再利用コンポーネント）</span>
-        <div style={{ marginTop: 4 }}>
-          <button
-            style={{ ...baseBtn, background: 'linear-gradient(45deg, #6366f1, #ec4899)', padding: '12px 32px', transition: 'all 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)'}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
-          >
-            グラデーションボタン
-          </button>
+        <div>
+          <Typography variant="caption" color="text.secondary">3. styled()（再利用コンポーネント）</Typography>
+          <div>
+            <GradientButton sx={{ mt: 0.5 }}>グラデーションボタン</GradientButton>
+          </div>
         </div>
-      </div>
-    </div>
+      </Stack>
+    </ThemeProvider>
   );
 }`}
             />

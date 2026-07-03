@@ -11,8 +11,13 @@ import { transform } from 'sucrase';
 import fs from 'node:fs';
 import path from 'node:path';
 
+// preview.ts の stripModuleSyntax と同一実装（複数行 import 対応）
 function stripModuleSyntax(code: string): string {
-  return code.replace(/^import\s+.*$/gm, '').replace(/^export\s+default\s+/gm, '').replace(/^export\s+/gm, '');
+  return code
+    .replace(/^import\s[^'"]*?from\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
+    .replace(/^import\s*['"][^'"]*['"];?[^\S\n]*$/gm, '')
+    .replace(/^export\s+default\s+/gm, '')
+    .replace(/^export\s+/gm, '');
 }
 
 function isJsxCode(code: string): boolean {

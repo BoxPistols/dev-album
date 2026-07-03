@@ -20,6 +20,42 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-03-live-preview-real-libraries",
+    date: "2026-07-03",
+    title: "ライブプレビューが MUI / Tailwind / styled-components / Emotion の実ライブラリで動作するように",
+    description:
+      "プレビュー基盤を拡張し、コード例が対象ライブラリ本体（CDN 版）をブラウザ内で実行するようになった。これまで見た目をインライン CSS で再現していた例はすべて実コードに置き換え、掲載コードをそのままコピーして実プロジェクトで使える状態にした。",
+    category: "release",
+    link: "/react/mui/intro",
+  },
+  {
+    id: "2026-07-03-mui-pages-real-code",
+    date: "2026-07-03",
+    title: "MUI マニュアルのコード例を実 MUI コンポーネントに刷新",
+    description:
+      "MUI 入門・コンポーネント活用・テーマカスタマイズの全ライブプレビューを、実際の Button / Typography / Alert / Tabs / Card / createTheme を使うコードに書き換えた。リップルエフェクトやテーマ切替など MUI 本来の挙動をプレビューで確認できる。",
+    category: "update",
+    link: "/react/mui/intro",
+  },
+  {
+    id: "2026-07-03-tailwind-pages-real-classes",
+    date: "2026-07-03",
+    title: "Tailwind CSS マニュアルのコード例を実ユーティリティクラスに刷新",
+    description:
+      "Tailwind 入門・レスポンシブとダークモード・shadcn/ui の全ライブプレビューを、実際にコンパイルされる Tailwind クラスベースのコードに書き換えた。dark: バリアントやレスポンシブの切り替わりを実挙動で確認できる。",
+    category: "update",
+    link: "/react/tailwind/intro",
+  },
+  {
+    id: "2026-07-03-css-in-js-pages-real-code",
+    date: "2026-07-03",
+    title: "styled-components / Emotion / CSS Modules ページの正確性を改善",
+    description:
+      "styled-components と Emotion のライブプレビューを実ライブラリで動作させ、css prop や transient props の実挙動を確認できるようにした。ビルド時変換が必要な CSS Modules は、プレビューの制約を明示する正確な説明に改めた。",
+    category: "fix",
+    link: "/react/css-basics/styled-components",
+  },
+  {
     id: "2026-06-27-infra-devflow-visuals-handson",
     date: "2026-06-27",
     title: "インフラ / 開発フロー全ページに図解とハンズオンを追加",

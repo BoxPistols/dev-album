@@ -7,6 +7,7 @@ import {
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
+  type PreviewLib,
 } from '@/lib/preview';
 import { useTheme } from '@/contexts/ThemeContext';
 import { incrementChallengePassCount, checkAchievements } from '@/hooks/useAchievements';
@@ -26,6 +27,8 @@ interface CodingChallengeProps {
   /** プレビュー種別: threejs / markdown / terminal / config / jsx（デフォルト自動判定） */
   previewType?: 'threejs' | 'markdown' | 'terminal' | 'config' | 'jsx';
   css?: string;
+  /** プレビュー iframe に読み込む外部ライブラリ（MUI は import 文から自動検出される） */
+  libs?: PreviewLib[];
 }
 
 /**
@@ -158,7 +161,13 @@ export function resolvePreviewType(code: string, previewType?: string): string {
 }
 
 /** プレビュータイプに応じた HTML を生成 */
-function buildPreviewForType(type: string, code: string, css: string, isDark: boolean): string {
+function buildPreviewForType(
+  type: string,
+  code: string,
+  css: string,
+  isDark: boolean,
+  libs?: readonly PreviewLib[],
+): string {
   switch (type) {
     case 'threejs':
       return buildThreePreviewHtml(code, isDark);
@@ -169,7 +178,7 @@ function buildPreviewForType(type: string, code: string, css: string, isDark: bo
     case 'config':
       return buildConfigPreviewHtml(code, isDark);
     default:
-      return buildPreviewHtml(code, css, isDark);
+      return buildPreviewHtml(code, css, isDark, libs);
   }
 }
 
@@ -283,6 +292,7 @@ export default function CodingChallenge({
   preview = false,
   previewType,
   css = '',
+  libs,
 }: CodingChallengeProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -296,20 +306,24 @@ export default function CodingChallenge({
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const resolvedType = resolvePreviewType(code, previewType);
+  // 配列 identity での再ビルドを避けるため中身で比較する
+  const libsKey = libs?.join(',') ?? '';
+  const resolvedLibs = libsKey ? (libsKey.split(',') as PreviewLib[]) : undefined;
 
   // プレビュー用 HTML をデバウンス生成
   useEffect(() => {
     if (!preview) return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark));
+      setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
     }, 400);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [code, css, preview, isDark, resolvedType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code, css, preview, isDark, resolvedType, libsKey]);
 
   // 初回プレビュー
   useEffect(() => {
-    if (preview) setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark));
+    if (preview) setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
