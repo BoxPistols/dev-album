@@ -102,6 +102,8 @@ test.describe("プレビューのエラー不変条件（全 iframe 走査）", 
       if (strong && strong.textContent === 'Error:') {
         return 'runtime: ' + root.textContent.slice(0, 120);
       }
+      // #root はあるのに子要素ゼロ = 例外を投げずに無言で描画失敗した状態
+      if (root.childElementCount === 0) return 'blank: #root が空（描画されていない）';
       return null;
     }
     // トランスパイルエラーページは #root がなく body 直下が <pre> のみ

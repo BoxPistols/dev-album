@@ -20,6 +20,12 @@ const EMOTION_REACT_UMD_URL = '/vendor/emotion-react-11.14.0.umd.min.js';
 const EMOTION_STYLED_UMD_URL = '/vendor/emotion-styled-11.14.1.umd.min.js';
 const EMOTION_CSS_UMD_URL = '/vendor/emotion-css-11.13.5.umd.min.js';
 
+// プレビュー iframe の Content-Security-Policy。
+// script/style は自己ホスト(/vendor='self')とトランスパイル済みインラインを許可。
+// connect-src 'none' で fetch/XHR/WebSocket を封じ、万一のコードでも外部送信を不可能にする
+// （srcDoc は allow-same-origin で親オリジンを継承するため、この多層防御を併用する）。
+const PREVIEW_CSP = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https:; connect-src 'none'; base-uri 'none'";
+
 /**
  * コード中の import 文からプレビューに必要な外部ライブラリを検出する。
  * Tailwind は import が現れないため、利用側が libs で明示する。
@@ -91,6 +97,7 @@ export function buildPreviewHtml(
   if (errorMessage) {
     return `<!DOCTYPE html>
 <html><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <style>body{font-family:system-ui;margin:0;padding:16px;background:#1e1e2e;color:#f38ba8;}
 pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
 <body><pre>${errorMessage.replace(/</g, '&lt;')}</pre></body></html>`;
@@ -100,6 +107,7 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
 
   return `<!DOCTYPE html>
 <html${needsTailwind && isDark ? ' class="dark"' : ''}><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="${REACT_UMD_URL}"><\/script>
 <script src="${REACT_DOM_UMD_URL}"><\/script>
@@ -194,6 +202,7 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: ${bgColor}; overflow: hidden; }
@@ -241,6 +250,7 @@ export function buildMarkdownPreviewHtml(markdown: string, isDark = false): stri
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <style>
   * { margin: 0; box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 16px; color: ${fg}; background: ${bg}; font-size: 14px; line-height: 1.6; }
@@ -313,6 +323,7 @@ export function buildTerminalPreviewHtml(text: string, isDark = true): string {
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <style>
   * { margin: 0; box-sizing: border-box; }
   body { font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace; background: ${bg}; color: ${textColor}; padding: 16px; font-size: 13px; line-height: 1.7; }
@@ -388,6 +399,7 @@ export function buildConfigPreviewHtml(config: string, isDark = true): string {
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${PREVIEW_CSP}">
 <style>
   * { margin: 0; box-sizing: border-box; }
   body { font-family: 'SF Mono', Consolas, monospace; background: ${bg}; color: ${textColor}; padding: 16px; font-size: 13px; line-height: 1.6; }

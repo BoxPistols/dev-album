@@ -210,6 +210,15 @@ function App() {
     expect(html).not.toContain("import {");
   });
 
+  it("CSP meta を含み、connect-src 'none' で外部送信を封じる", () => {
+    const html = buildPreviewHtml("function App() { return null; }", "", false);
+    expect(html).toContain('http-equiv="Content-Security-Policy"');
+    expect(html).toContain("connect-src 'none'");
+    // 自己ホスト script と Google Fonts(MUI Roboto) は許可されている
+    expect(html).toContain("script-src 'self' 'unsafe-inline'");
+    expect(html).toContain("https://fonts.googleapis.com");
+  });
+
   it("末尾に行コメントが付いた import 文も除去される（回帰防止）", () => {
     const code = `import styled from 'styled-components'; // CSS-in-JS
 import { css } from '@emotion/react' // コメント
