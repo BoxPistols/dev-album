@@ -73,7 +73,7 @@ export default theme;`}
             <CodePreview
               language="tsx"
               title="パレットの設定"
-              previewHeight={360}
+              previewHeight={400}
               code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, Chip, Stack, Box, Typography } from '@mui/material';
 
@@ -102,24 +102,27 @@ function Swatch({ color, label }) {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Stack spacing={2}>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-          <Button variant="contained" color="primary">primary</Button>
-          <Button variant="contained" color="secondary">secondary</Button>
-          <Button variant="outlined" color="error">error</Button>
+      {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
+      <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
+        <Stack spacing={2}>
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+            <Button variant="contained" color="primary">primary</Button>
+            <Button variant="contained" color="secondary">secondary</Button>
+            <Button variant="outlined" color="error">error</Button>
+          </Stack>
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+            <Chip label="success" color="success" />
+            <Chip label="warning" color="warning" />
+            <Chip label="info" color="info" />
+          </Stack>
+          <Typography variant="subtitle2">theme.palette.primary の値</Typography>
+          <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+            <Swatch color={theme.palette.primary.light} label="light" />
+            <Swatch color={theme.palette.primary.main} label="main" />
+            <Swatch color={theme.palette.primary.dark} label="dark" />
+          </Stack>
         </Stack>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-          <Chip label="success" color="success" />
-          <Chip label="warning" color="warning" />
-          <Chip label="info" color="info" />
-        </Stack>
-        <Typography variant="subtitle2">theme.palette.primary の値</Typography>
-        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
-          <Swatch color={theme.palette.primary.light} label="light" />
-          <Swatch color={theme.palette.primary.main} label="main" />
-          <Swatch color={theme.palette.primary.dark} label="dark" />
-        </Stack>
-      </Stack>
+      </Box>
     </ThemeProvider>
   );
 }`}
@@ -244,9 +247,9 @@ function App() {
             <CodePreview
               language="tsx"
               title="タイポグラフィ設定の結果"
-              previewHeight={480}
+              previewHeight={530}
               code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Typography, Button, Stack, Divider } from '@mui/material';
+import { Typography, Button, Stack, Divider, Box } from '@mui/material';
 
 const theme = createTheme({
   typography: {
@@ -264,23 +267,26 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Stack spacing={1.5}>
-        <Typography variant="h1">見出し H1</Typography>
-        <Typography variant="h2">見出し H2</Typography>
-        <Typography variant="h3">見出し H3</Typography>
-        <Typography variant="h4">見出し H4</Typography>
-        <Divider />
-        <Typography variant="body1">
-          本文 body1。日本語は行間を広めに取ると読みやすくなります。lineHeight 1.8 を設定した状態です。
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          本文 body2。補助テキストや注釈に使います。lineHeight 1.7。
-        </Typography>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Button variant="contained">Submit form</Button>
-          <Typography variant="caption" color="text.secondary">大文字変換なし</Typography>
+      {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
+      <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
+        <Stack spacing={1.5}>
+          <Typography variant="h1">見出し H1</Typography>
+          <Typography variant="h2">見出し H2</Typography>
+          <Typography variant="h3">見出し H3</Typography>
+          <Typography variant="h4">見出し H4</Typography>
+          <Divider />
+          <Typography variant="body1">
+            本文 body1。日本語は行間を広めに取ると読みやすくなります。lineHeight 1.8 を設定した状態です。
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            本文 body2。補助テキストや注釈に使います。lineHeight 1.7。
+          </Typography>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Button variant="contained">Submit form</Button>
+            <Typography variant="caption" color="text.secondary">大文字変換なし</Typography>
+          </Stack>
         </Stack>
-      </Stack>
+      </Box>
     </ThemeProvider>
   );
 }`}
@@ -382,9 +388,9 @@ function App() {
             <CodePreview
               language="tsx"
               title="オーバーライドの結果"
-              previewHeight={440}
+              previewHeight={490}
               code={`import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Button, TextField, Card, CardContent, Typography, Stack } from '@mui/material';
+import { Button, TextField, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 
 const theme = createTheme({
   palette: { primary: { main: '#6366f1' } },
@@ -412,21 +418,24 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Stack spacing={2}>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-          <Button variant="contained">角丸 8px</Button>
-          <Button variant="outlined">枠線 2px</Button>
+      {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
+      <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
+        <Stack spacing={2}>
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+            <Button variant="contained">角丸 8px</Button>
+            <Button variant="outlined">枠線 2px</Button>
+          </Stack>
+          <TextField label="メールアドレス" placeholder="you@example.com" fullWidth />
+          <Card>
+            <CardContent>
+              <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 700 }}>Card は角丸 12px</Typography>
+              <Typography variant="body2" color="text.secondary">
+                MuiCard の styleOverrides で、全カードのボーダーとシャドウが統一されます。
+              </Typography>
+            </CardContent>
+          </Card>
         </Stack>
-        <TextField label="メールアドレス" placeholder="you@example.com" fullWidth />
-        <Card>
-          <CardContent>
-            <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 700 }}>Card は角丸 12px</Typography>
-            <Typography variant="body2" color="text.secondary">
-              MuiCard の styleOverrides で、全カードのボーダーとシャドウが統一されます。
-            </Typography>
-          </CardContent>
-        </Card>
-      </Stack>
+      </Box>
     </ThemeProvider>
   );
 }`}
@@ -443,9 +452,9 @@ function App() {
             <CodePreview
               language="tsx"
               title="3つのスタイリング手法"
-              previewHeight={340}
+              previewHeight={390}
               code={`import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography, Box } from '@mui/material';
 
 // 1. styleOverrides: テーマ経由で全 Button に適用
 const theme = createTheme({
@@ -470,27 +479,30 @@ const GradientButton = styled(Button)({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Stack spacing={2}>
-        <div>
-          <Typography variant="caption" color="text.secondary">1. styleOverrides（全ボタン共通）</Typography>
-          <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
-            <Button variant="contained">角丸 8px</Button>
-            <Button variant="outlined">統一スタイル</Button>
-          </Stack>
-        </div>
-        <div>
-          <Typography variant="caption" color="text.secondary">2. sx prop（この 1 箇所だけ個別調整）</Typography>
+      {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
+      <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
+        <Stack spacing={2}>
           <div>
-            <Button variant="contained" sx={{ mt: 1, mb: 1, px: 4 }}>送信</Button>
+            <Typography variant="caption" color="text.secondary">1. styleOverrides（全ボタン共通）</Typography>
+            <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
+              <Button variant="contained">角丸 8px</Button>
+              <Button variant="outlined">統一スタイル</Button>
+            </Stack>
           </div>
-        </div>
-        <div>
-          <Typography variant="caption" color="text.secondary">3. styled()（再利用コンポーネント）</Typography>
           <div>
-            <GradientButton sx={{ mt: 0.5 }}>グラデーションボタン</GradientButton>
+            <Typography variant="caption" color="text.secondary">2. sx prop（この 1 箇所だけ個別調整）</Typography>
+            <div>
+              <Button variant="contained" sx={{ mt: 1, mb: 1, px: 4 }}>送信</Button>
+            </div>
           </div>
-        </div>
-      </Stack>
+          <div>
+            <Typography variant="caption" color="text.secondary">3. styled()（再利用コンポーネント）</Typography>
+            <div>
+              <GradientButton sx={{ mt: 0.5 }}>グラデーションボタン</GradientButton>
+            </div>
+          </div>
+        </Stack>
+      </Box>
     </ThemeProvider>
   );
 }`}

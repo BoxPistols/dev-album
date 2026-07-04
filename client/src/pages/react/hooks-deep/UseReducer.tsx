@@ -564,7 +564,7 @@ function TodoApp() {
         {filteredTodos.map((todo) => (
           <li key={todo.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', border: '1px solid #E5E7EB', borderRadius: '6px', marginBottom: '6px' }}>
             <input type="checkbox" checked={todo.completed} onChange={() => dispatch({ type: 'toggle', payload: todo.id })} />
-            <span style={{ flex: 1, textDecoration: todo.completed ? 'line-through' : 'none', color: todo.completed ? '#9CA3AF' : '#1F2937', fontSize: '14px' }}>{todo.text}</span>
+            <span style={{ flex: 1, textDecoration: todo.completed ? 'line-through' : 'none', color: todo.completed ? 'var(--text-muted)' : 'var(--text)', fontSize: '14px' }}>{todo.text}</span>
             <button onClick={() => dispatch({ type: 'delete', payload: todo.id })} style={{ color: '#EF4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px' }}>削除</button>
           </li>
         ))}

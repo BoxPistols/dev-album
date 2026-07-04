@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-05-preview-dark-contrast-fix",
+    date: "2026-07-05",
+    title: "ライブプレビューのダークテーマ表示崩れを全ページ一括修正",
+    description:
+      "プレビュー内で固定色の文字とテーマ連動の背景（またはその逆）が混在し、ダークテーマで文字が背景に沈んで読めなくなる箇所を、React マニュアル全体で洗い出して修正した。MUI カスタマイズ・状態管理・アクセシビリティ・Storybook・CSS 設計・コンポーネント駆動開発など 20 ページ以上のプレビューが、ライト／ダーク双方で正しく読めるようになった。",
+    category: "fix",
+    link: "/react/mui/customization",
+  },
+  {
     id: "2026-07-04-mui-live-previews",
     date: "2026-07-04",
     title: "MUI マニュアルの UI 例をすべてライブプレビュー化（デザイナー向け）",

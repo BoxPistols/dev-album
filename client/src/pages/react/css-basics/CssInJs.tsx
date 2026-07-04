@@ -221,11 +221,11 @@ export default function CssInJs() {
       <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={function() { setCount(count + 1); }}
-          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: 'var(--bg-muted)', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: '#f1f5f9', color: '#334155', cursor: 'pointer', fontWeight: 600 }}
         >+1</button>
         <button
           onClick={function() { setCount(count - 1); }}
-          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: 'var(--bg-muted)', cursor: 'pointer', fontWeight: 600 }}
+          style={{ padding: '8px 16px', border: 'none', borderRadius: 6, background: '#f1f5f9', color: '#334155', cursor: 'pointer', fontWeight: 600 }}
         >-1</button>
       </div>
     </div>

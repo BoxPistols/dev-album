@@ -339,7 +339,7 @@ function App() {
 
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {results.map((result, i) => (
-          <li key={i} style={{ padding: '8px 12px', backgroundColor: '#F9FAFB', borderRadius: '6px', marginBottom: '8px', fontSize: '14px' }}>
+          <li key={i} style={{ padding: '8px 12px', backgroundColor: 'var(--bg-muted)', borderRadius: '6px', marginBottom: '8px', fontSize: '14px' }}>
             {result}
           </li>
         ))}
@@ -495,7 +495,7 @@ function App() {
       </div>
 
       <div style={{ backgroundColor: '#F9FAFB', borderRadius: '8px', padding: '12px' }}>
-        <p style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', marginTop: 0 }}>ログ:</p>
+        <p style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', marginTop: 0, color: '#374151' }}>ログ:</p>
         {log.length === 0 ? (
           <p style={{ fontSize: '14px', color: '#9CA3AF', margin: 0 }}>まだ操作がありません</p>
         ) : (
@@ -558,13 +558,13 @@ function App() {
     <div style={{ padding: '16px', maxWidth: '400px' }}>
       <div
         onClick={() => addLog('外側の div がクリックされた')}
-        style={{ padding: '24px', backgroundColor: '#DBEAFE', borderRadius: '8px', cursor: 'pointer', marginBottom: '12px' }}
+        style={{ padding: '24px', backgroundColor: 'var(--bg-accent)', borderRadius: '8px', cursor: 'pointer', marginBottom: '12px' }}
       >
         <p style={{ fontSize: '14px', marginBottom: '8px', marginTop: 0 }}>外側の div</p>
 
         <div
           onClick={() => addLog('内側の div がクリックされた')}
-          style={{ padding: '16px', backgroundColor: '#DCFCE7', borderRadius: '8px', cursor: 'pointer' }}
+          style={{ padding: '16px', backgroundColor: 'var(--bg-success)', borderRadius: '8px', cursor: 'pointer' }}
         >
           <p style={{ fontSize: '14px', marginBottom: '8px', marginTop: 0 }}>内側の div</p>
 
@@ -578,7 +578,7 @@ function App() {
       </div>
 
       <div style={{ backgroundColor: '#F9FAFB', borderRadius: '8px', padding: '12px' }}>
-        <p style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', marginTop: 0 }}>イベントログ:</p>
+        <p style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', marginTop: 0, color: '#1F2937' }}>イベントログ:</p>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {log.map((entry, i) => (
             <li key={i} style={{ fontSize: '12px', color: '#4B5563', marginBottom: '2px' }}>{entry}</li>
@@ -831,7 +831,7 @@ function ColorPicker() {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
         <code style={{ fontSize: '16px', fontFamily: 'monospace', fontWeight: 'bold' }}>{selectedColor}</code>
-        <button onClick={handleCopyColor} style={{ padding: '4px 12px', fontSize: '13px', backgroundColor: '#F3F4F6', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>コピー</button>
+        <button onClick={handleCopyColor} style={{ padding: '4px 12px', fontSize: '13px', backgroundColor: '#F3F4F6', color: '#374151', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>コピー</button>
         <button onClick={handleSaveColor} style={{ padding: '4px 12px', fontSize: '13px', backgroundColor: '#DBEAFE', color: '#1D4ED8', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>保存</button>
         {copiedMessage && <span style={{ fontSize: '13px', color: '#16A34A' }}>{copiedMessage}</span>}
       </div>
@@ -865,7 +865,7 @@ function ColorPicker() {
           <p style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', marginTop: 0 }}>保存した色（{savedColors.length}）</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {savedColors.map((color) => (
-              <div key={color} style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#F9FAFB', borderRadius: '999px', padding: '4px 8px' }}>
+              <div key={color} style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: 'var(--bg-muted)', borderRadius: '999px', padding: '4px 8px' }}>
                 <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: color }} />
                 <span style={{ fontSize: '12px', fontFamily: 'monospace' }}>{color}</span>
                 <button onClick={() => handleRemoveSaved(color)} style={{ color: '#9CA3AF', background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', marginLeft: '2px', padding: 0 }}>&times;</button>

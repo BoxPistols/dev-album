@@ -300,7 +300,7 @@ export const Secondary: Story = {
     title: {
       fontSize: '16px',
       fontWeight: '700',
-      color: '#1e293b',
+      color: 'var(--text)',
       margin: '0 0 6px 0',
     },
     desc: {

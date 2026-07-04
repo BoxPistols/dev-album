@@ -108,7 +108,7 @@ export default function FormA11y() {
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={error ? 'email-error' : undefined}
           placeholder="example@mail.com"
-          style={{ width: '100%', padding: '10px 12px', border: error ? '2px solid #ef4444' : '1px solid var(--border)', borderRadius: '6px', fontSize: '14px', background: error ? '#fef2f2' : 'var(--bg)', color: 'var(--text)', boxSizing: 'border-box', outline: 'none' }}
+          style={{ width: '100%', padding: '10px 12px', border: error ? '2px solid #ef4444' : '1px solid var(--border)', borderRadius: '6px', fontSize: '14px', background: error ? '#fef2f2' : 'var(--bg)', color: error ? '#991b1b' : 'var(--text)', boxSizing: 'border-box', outline: 'none' }}
         />
         {error && (
           <p id="email-error" role="alert" style={{ margin: '6px 0 0', fontSize: '13px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -229,14 +229,14 @@ export default function FormA11y() {
       <div style={{ marginBottom: '20px', padding: '16px', border: '1px solid #86efac', borderRadius: '8px', background: '#f0fdf4' }}>
         <p style={{ fontSize: '12px', fontWeight: '700', color: '#16a34a', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>良い例</p>
         <div style={{ marginBottom: '12px' }}>
-          <label htmlFor="fullname" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: 'var(--text)' }}>
+          <label htmlFor="fullname" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
             名前 <span style={{ color: '#ef4444' }} aria-hidden="true">*</span>
           </label>
           <input id="fullname" type="text" required aria-required="true" placeholder="山田 太郎"
             style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '6px', fontSize: '14px', background: 'var(--bg)', color: 'var(--text)', boxSizing: 'border-box' }} />
         </div>
         <div>
-          <label htmlFor="company" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: 'var(--text)' }}>
+          <label htmlFor="company" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
             会社名 <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '400' }}>（任意）</span>
           </label>
           <input id="company" type="text" placeholder="株式会社サンプル"
@@ -248,7 +248,7 @@ export default function FormA11y() {
       <div style={{ padding: '16px', border: '1px solid #fca5a5', borderRadius: '8px', background: '#fef2f2' }}>
         <p style={{ fontSize: '12px', fontWeight: '700', color: '#dc2626', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>悪い例</p>
         <div>
-          <label htmlFor="phone" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: 'var(--text)' }}>
+          <label htmlFor="phone" style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>
             電話番号 *
           </label>
           <input id="phone" type="tel"

@@ -864,7 +864,7 @@ function Layout() {
           return React.createElement('div', {
             key: item,
             style: {
-              background: 'white', borderRadius: 12, padding: 20,
+              background: 'var(--bg-card)', borderRadius: 12, padding: 20,
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
               textAlign: 'center', fontSize: '0.875rem', color: 'var(--text)',
             }
@@ -878,7 +878,7 @@ function Layout() {
 .fluid-title {
   font-size: clamp(1.2rem, 4vw, 2.5rem);
   font-weight: 800;
-  color: #1e293b;
+  color: var(--text);
   margin-bottom: 4px;
 }
 .auto-grid {

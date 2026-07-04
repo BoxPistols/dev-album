@@ -296,7 +296,7 @@ export default function SnackbarPatterns() {
               fontSize: '14px',
             }}
           >
-            <span style={{ color: '#1e293b' }}>{item}</span>
+            <span style={{ color: 'var(--text)' }}>{item}</span>
             <button
               onClick={() => handleDelete(i)}
               style={{

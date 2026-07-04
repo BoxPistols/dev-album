@@ -867,7 +867,7 @@ Dark                          .dark { ... }`}
           {[{n:'caption',s:12},{n:'body-sm',s:14},{n:'body',s:16},{n:'title-sm',s:20},{n:'title',s:24},{n:'headline',s:32}].map(t => (
             <div key={t.n} style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
               <span style={{ ...label, width: 80, marginBottom: 0, textAlign: 'right', flexShrink: 0 }}>{t.s}px</span>
-              <span style={{ fontSize: t.s, color: '#1e293b', lineHeight: 1.4 }}>{t.n}</span>
+              <span style={{ fontSize: t.s, color: 'var(--text)', lineHeight: 1.4 }}>{t.n}</span>
             </div>
           ))}
         </div>

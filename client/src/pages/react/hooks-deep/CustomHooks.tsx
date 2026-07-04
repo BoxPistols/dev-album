@@ -58,7 +58,7 @@ function Modal() {
       </button>
       {isOpen && (
         <div style={{ marginTop: '8px', padding: '16px', border: '1px solid #D1D5DB', borderRadius: '8px', backgroundColor: '#F9FAFB' }}>
-          <p style={{ fontSize: '14px', marginBottom: '8px' }}>モーダルの内容です</p>
+          <p style={{ fontSize: '14px', marginBottom: '8px', color: '#1F2937' }}>モーダルの内容です</p>
           <button onClick={close} style={{ padding: '4px 12px', borderRadius: '6px', backgroundColor: '#6B7280', color: 'white', border: 'none', cursor: 'pointer', fontSize: '13px' }}>閉じる</button>
         </div>
       )}

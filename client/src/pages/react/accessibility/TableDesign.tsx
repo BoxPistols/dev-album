@@ -117,7 +117,7 @@ export default function TableDesign() {
               <td style={{ textAlign: 'right', padding: '10px 12px', color: 'var(--text)' }}>{d.sales}</td>
               <td style={{ textAlign: 'right', padding: '10px 12px', color: d.yoy.startsWith('+') ? '#22c55e' : '#ef4444' }}>{d.yoy}</td>
               <td style={{ textAlign: 'right', padding: '10px 12px' }}>
-                <span style={{ padding: '2px 8px', borderRadius: '9999px', fontSize: '12px', background: parseInt(d.rate) >= 100 ? 'var(--bg-success, #dcfce7)' : 'var(--bg-warning, #fef3c7)', color: parseInt(d.rate) >= 100 ? 'var(--text-success, #166534)' : 'var(--text-warning, #92400e)' }}>{d.rate}</span>
+                <span style={{ padding: '2px 8px', borderRadius: '9999px', fontSize: '12px', background: parseInt(d.rate) >= 100 ? 'var(--bg-success, #dcfce7)' : 'var(--bg-warning, #fef3c7)', color: 'var(--text-warning, var(--text))' }}>{d.rate}</span>
               </td>
             </tr>
           ))}
@@ -554,7 +554,7 @@ export default function TableDesign() {
                   {row.map((cell, j) => (
                     <td key={j} style={{ padding: '8px 12px', color: j === 0 ? 'var(--text-muted, #64748b)' : 'var(--text)', whiteSpace: 'nowrap' }}>
                       {j === 6 ? (
-                        <span style={{ padding: '2px 8px', borderRadius: '9999px', fontSize: '12px', background: cell === '稼働中' ? 'var(--bg-success, #dcfce7)' : 'var(--bg-warning, #fef3c7)', color: cell === '稼働中' ? 'var(--text-success, #166534)' : 'var(--text-warning, #92400e)' }}>{cell}</span>
+                        <span style={{ padding: '2px 8px', borderRadius: '9999px', fontSize: '12px', background: cell === '稼働中' ? 'var(--bg-success, #dcfce7)' : 'var(--bg-warning, #fef3c7)', color: cell === '稼働中' ? 'var(--text-success, #166534)' : 'var(--text-warning, var(--text))' }}>{cell}</span>
                       ) : cell}
                     </td>
                   ))}

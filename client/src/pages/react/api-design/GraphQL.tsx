@@ -96,7 +96,7 @@ export default function GraphQL() {
           <div style={{ fontWeight: "600", fontSize: "13px", color: "#6B7280", marginBottom: "4px" }}>ユーザー</div>
           {user ? (
             <div>
-              <div style={{ fontWeight: "bold" }}>{user.name}</div>
+              <div style={{ fontWeight: "bold", color: "#1f2937" }}>{user.name}</div>
               <div style={{ fontSize: "13px", color: "#9CA3AF" }}>+メール, 住所, 会社, 電話... (不要なデータ)</div>
             </div>
           ) : <span style={{ color: "#9CA3AF" }}>未取得</span>}
@@ -104,7 +104,7 @@ export default function GraphQL() {
         <div style={{ padding: "12px", background: "#F3F4F6", borderRadius: "8px", minHeight: "80px" }}>
           <div style={{ fontWeight: "600", fontSize: "13px", color: "#6B7280", marginBottom: "4px" }}>投稿</div>
           {posts ? posts.map(p => (
-            <div key={p.id} style={{ fontSize: "13px", marginBottom: "2px" }}>- {p.title.slice(0, 30)}...</div>
+            <div key={p.id} style={{ fontSize: "13px", marginBottom: "2px", color: "#1f2937" }}>- {p.title.slice(0, 30)}...</div>
           )) : <span style={{ color: "#9CA3AF" }}>未取得</span>}
         </div>
       </div>

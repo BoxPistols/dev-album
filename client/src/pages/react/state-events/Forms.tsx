@@ -287,7 +287,7 @@ function App() { return <TextInputs /> }`}
           <option value="20">20px - 大きめ</option>
           <option value="24">24px - 大きい</option>
         </select>
-        <p style={{ marginTop: '12px', padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: fontSize + 'px' }}>
+        <p style={{ marginTop: '12px', padding: '12px', backgroundColor: 'var(--bg-muted)', borderRadius: '8px', fontSize: fontSize + 'px' }}>
           このテキストのサイズが変わります
         </p>
       </div>

@@ -190,7 +190,7 @@ export const Secondary: Story = {
         {variants.map(v => {
           const c = colors[v];
           return [
-            <div key={v + '-label'} style={{ fontSize: '12px', fontWeight: 600, color: '#475569', display: 'flex', alignItems: 'center' }}>{v}</div>,
+            <div key={v + '-label'} style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text)', display: 'flex', alignItems: 'center' }}>{v}</div>,
             ...states.map((s, si) => (
               <div key={v + s} style={{ display: 'flex', justifyContent: 'center', padding: '6px' }}>
                 <button style={{
@@ -477,7 +477,7 @@ export const BorderRadiusFull = '9999px';`}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {tokens.map((t, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '120px 28px 1fr auto', alignItems: 'center', gap: '10px', padding: '6px 10px', borderRadius: '6px', background: 'var(--bg-muted)' }}>
-              <span style={{ fontSize: '12px', color: '#475569', fontWeight: 500 }}>Figma: {t.figma}</span>
+              <span style={{ fontSize: '12px', color: 'var(--text)', fontWeight: 500 }}>Figma: {t.figma}</span>
               <div style={{ width: 22, height: 22, borderRadius: 4, background: t.value, border: '1px solid var(--border)' }} />
               <code style={{ fontSize: '12px', color: '#3b82f6', background: 'var(--bg-accent)', padding: '2px 6px', borderRadius: 3 }}>{t.css}</code>
               <code style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t.value}</code>
@@ -502,7 +502,7 @@ export const BorderRadiusFull = '9999px';`}
           <h3 style={{ margin: '0 0 10px', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', fontWeight: 700 }}>Typography Scale</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {typo.map((t, i) => (
-              <div key={i} style={{ fontSize: t.size, fontWeight: t.weight, color: '#1e293b', lineHeight: 1.4 }}>
+              <div key={i} style={{ fontSize: t.size, fontWeight: t.weight, color: 'var(--text)', lineHeight: 1.4 }}>
                 {t.name} <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 400 }}>({t.size} / {t.weight})</span>
               </div>
             ))}
@@ -813,7 +813,7 @@ jobs:
   const Card = ({ title }) => (
     <div style={{ border: '1px solid var(--border)', borderRadius: 10, padding: '14px', background: 'var(--bg)' }}>
       <div style={{ width: '100%', height: 48, borderRadius: 6, background: 'linear-gradient(135deg, #dbeafe, #ede9fe)', marginBottom: 10 }} />
-      <div style={{ fontSize: '12px', fontWeight: 600, color: '#1e293b' }}>{title}</div>
+      <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text)' }}>{title}</div>
       <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: 2 }}>説明テキスト</div>
     </div>
   );
@@ -985,7 +985,7 @@ jobs:
                 <span style={{ fontSize: '20px' }}>{s.icon}</span>
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 700, color: s.color }}>{s.title}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{s.sub}</div>
+                  <div style={{ fontSize: '12px', color: '#64748b' }}>{s.sub}</div>
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -1010,7 +1010,7 @@ jobs:
       </div>
       <div style={{ marginTop: '16px', padding: '10px 14px', borderRadius: 8, background: 'var(--bg-muted)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" stroke="#22c55e" strokeWidth="1.5" fill="none"/><path d="M5 8l2 2 4-4" stroke="#22c55e" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        <span style={{ fontSize: '12px', color: '#475569' }}>Chromatic CI が各 PR で自動実行 → デザイナーがレビュー → マージ</span>
+        <span style={{ fontSize: '12px', color: 'var(--text)' }}>Chromatic CI が各 PR で自動実行 → デザイナーがレビュー → マージ</span>
       </div>
     </div>
   );

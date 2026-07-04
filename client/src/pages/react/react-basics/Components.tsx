@@ -628,7 +628,7 @@ function App() {
           fontSize: '16px',
           fontWeight: 'bold',
           marginBottom: '6px',
-          color: '#1F2937',
+          color: 'var(--text)',
         }}>
           カードのタイトル
         </h3>

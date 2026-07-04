@@ -581,7 +581,7 @@ function SearchResults({ results }: { results: Item[] }) {
                 borderRadius: '8px',
                 textDecoration: 'none',
                 fontWeight: link.current ? 'bold' : 'normal',
-                background: link.current ? 'var(--accent)' : 'transparent',
+                background: link.current ? 'var(--accent, #2563eb)' : 'transparent',
                 color: link.current ? '#fff' : 'var(--text)',
                 border: link.current ? 'none' : '1px solid var(--border)',
                 fontSize: '13px',

@@ -90,7 +90,7 @@ function App() {
         padding: '8px 16px',
         borderRadius: '8px',
         border: '1px solid #E5E7EB',
-        backgroundColor: 'white',
+        backgroundColor: 'var(--bg-muted)',
         cursor: 'pointer',
         fontSize: '14px',
       }}>
@@ -331,7 +331,7 @@ function App() {
                 fontSize: '14px',
                 border: 'none',
                 cursor: 'pointer',
-                backgroundColor: '#F9FAFB',
+                backgroundColor: 'var(--bg-muted)',
               }}
             >
               <span>{item.title}</span>
@@ -449,8 +449,7 @@ function Stepper() {
             padding: '6px 16px',
             fontSize: '13px',
             border: '1px solid #E5E7EB',
-            borderRadius: '8px',
-            backgroundColor: 'white',
+                        backgroundColor: 'var(--bg-muted)',
             cursor: currentStep === 0 ? 'default' : 'pointer',
             opacity: currentStep === 0 ? 0.3 : 1,
           }}
@@ -923,7 +922,7 @@ function App() {
       }}>
         \u{1F4ED}
       </div>
-      <h3 style={{ fontSize: '16px', fontWeight: '500', color: '#374151' }}>{title}</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '500', color: 'var(--text)' }}>{title}</h3>
       {description && (
         <p style={{ marginTop: '4px', fontSize: '13px', color: '#9CA3AF', maxWidth: '240px' }}>
           {description}

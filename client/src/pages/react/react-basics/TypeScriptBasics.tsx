@@ -218,7 +218,7 @@ interface ButtonProps {
             backgroundColor: '#dbeafe', padding: '2px 8px', borderRadius: '9999px',
           }}>{tag}</span>
         )}
-        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '8px 0 4px', color: '#111827' }}>{title}</h3>
+        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '8px 0 4px', color: 'var(--text)' }}>{title}</h3>
         {description && (
           <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>{description}</p>
         )}

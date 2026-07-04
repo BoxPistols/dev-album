@@ -158,7 +158,7 @@ const [items, setItems] = useState<string[]>([]);`}
 
       <div style={{ marginTop: '16px', padding: '16px', backgroundColor: '#F9FAFB', borderRadius: '8px' }}>
         <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>プレビュー:</p>
-        <p style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '4px', marginBottom: '0' }}>
+        <p style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '4px', marginBottom: '0', color: '#111827' }}>
           {name ? 'こんにちは、' + name + 'さん！' : 'お名前を入力してください'}
         </p>
         <p style={{ fontSize: '13px', color: '#9CA3AF', marginTop: '8px', marginBottom: 0 }}>
@@ -501,7 +501,7 @@ function TodoApp() {
         <span style={{ fontSize: '14px' }}>利用規約に同意する</span>
       </label>
 
-      <pre style={{ marginTop: '12px', padding: '12px', backgroundColor: '#F3F4F6', borderRadius: '8px', fontSize: '12px', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
+      <pre style={{ marginTop: '12px', padding: '12px', backgroundColor: 'var(--bg-muted)', borderRadius: '8px', fontSize: '12px', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
         {JSON.stringify(formData, null, 2)}
       </pre>
     </div>
@@ -734,7 +734,7 @@ function UserDashboard() {
               onChange={() => toggleTodo(todo.id)}
               style={{ width: '20px', height: '20px' }}
             />
-            <span style={{ flex: 1, textDecoration: todo.done ? 'line-through' : 'none', color: todo.done ? '#9CA3AF' : '#111' }}>
+            <span style={{ flex: 1, textDecoration: todo.done ? 'line-through' : 'none', color: todo.done ? 'var(--text-muted)' : 'var(--text)' }}>
               {todo.text}
             </span>
             <button
@@ -786,7 +786,7 @@ function App() {
   return (
     <div style={{ padding: '16px', backgroundColor: '#F9FAFB', borderRadius: '8px', textAlign: 'center' }}>
       <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>{label}</p>
-      <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '4px 0 0' }}>{count}</p>
+      <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '4px 0 0', color: '#111827' }}>{count}</p>
     </div>
   )
 }

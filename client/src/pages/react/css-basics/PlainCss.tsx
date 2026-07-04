@@ -84,8 +84,8 @@ export default function PlainCss() {
               language="tsx"
               title="src/App.tsx"
               css={`.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-.title { font-size: 2rem; font-weight: bold; color: #1a1a1a; }
-.card { background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.title { font-size: 2rem; font-weight: bold; color: var(--text); }
+.card { background: white; color: #1a1a1a; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
 .button { padding: 8px 16px; border: none; border-radius: 4px; background-color: #3b82f6; color: white; cursor: pointer; }
 .button:hover { background-color: #2563eb; }`}
               code={`import './styles/App.css';
@@ -1128,7 +1128,7 @@ export default ProfileCard;`}
         color: 'white', fontSize: '1.5rem', fontWeight: 700,
       }}>田</div>
       <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>田中 花子</h3>
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: 16 }}>UI/UX デザイナー</p>
+      <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: 16 }}>UI/UX デザイナー</p>
       <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, textAlign: 'center', marginBottom: 20 }}>
         ユーザー体験を大切にしたデザインを心がけています。
       </p>

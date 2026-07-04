@@ -414,10 +414,10 @@ export const Danger: Story = {
         ))}
       </div>
       {/* カード */}
-      <div style={{ width: '320px', borderRadius: '12px', border: '1px solid var(--border)', overflow: 'hidden', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+      <div style={{ width: '320px', borderRadius: '12px', border: '1px solid var(--border)', overflow: 'hidden', background: 'var(--bg-card)', boxShadow: 'var(--shadow)' }}>
         {v.hasImage && <div style={{ height: '160px', background: v.imgColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '24px', fontWeight: 700 }}>Image</div>}
         <div style={{ padding: '16px' }}>
-          <h3 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700, color: '#1e293b', lineHeight: 1.4 }}>{v.title}</h3>
+          <h3 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700, color: 'var(--text)', lineHeight: 1.4 }}>{v.title}</h3>
           <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)', lineHeight: 1.5 }}>{v.description}</p>
         </div>
       </div>
@@ -571,7 +571,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
             <input type="password" value={password} readOnly style={{ ...inputStyle, borderColor: step === 2 ? '#6366f1' : '#d1d5db', boxShadow: step === 2 ? '0 0 0 2px rgba(99,102,241,0.2)' : 'none' }} />
           </div>
           <button style={{ width: '100%', padding: '10px', borderRadius: '8px', border: 'none', background: step === 3 ? '#4f46e5' : '#6366f1', color: 'white', fontSize: '14px', fontWeight: 600, cursor: 'pointer', transform: step === 3 ? 'scale(0.98)' : 'scale(1)', transition: 'all 0.15s' }}>ログイン</button>
-          {result && <div style={{ marginTop: '12px', padding: '8px 12px', borderRadius: '6px', background: result.includes('成功') ? '#f0fdf4' : 'var(--bg-muted)', color: result.includes('成功') ? '#16a34a' : 'var(--text-muted)', fontSize: '13px', fontWeight: 600, textAlign: 'center' }}>{result}</div>}
+          {result && <div style={{ marginTop: '12px', padding: '8px 12px', borderRadius: '6px', background: result.includes('成功') ? '#f0fdf4' : '#f1f5f9', color: result.includes('成功') ? '#16a34a' : '#64748b', fontSize: '13px', fontWeight: 600, textAlign: 'center' }}>{result}</div>}
         </div>
         {/* ログパネル */}
         <div style={{ flex: 1, minWidth: '240px' }}>
@@ -587,7 +587,7 @@ await expect(mockFn).toHaveBeenCalledWith(arg);`}
           </div>
           <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
             <button onClick={runTest} disabled={running} style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', background: running ? '#94a3b8' : '#6366f1', color: 'white', fontSize: '13px', fontWeight: 600, cursor: running ? 'not-allowed' : 'pointer' }}>{running ? '実行中...' : 'テスト実行'}</button>
-            <button onClick={reset} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--border)', background: 'white', color: 'var(--text-muted)', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>リセット</button>
+            <button onClick={reset} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-muted)', color: 'var(--text)', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>リセット</button>
           </div>
         </div>
       </div>
@@ -940,7 +940,7 @@ export const NoDescription: Story = {
     <div style={{ padding: '16px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* サイドバー風ツリー */}
-        <div style={{ width: '240px', background: 'white', borderRadius: '12px', border: '1px solid var(--border)', padding: '12px 8px', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+        <div style={{ width: '240px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '12px 8px', boxShadow: 'var(--shadow)' }}>
           <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '4px 12px', marginBottom: '4px' }}>Storybook Sidebar</div>
           <Folder name="Components" open={expanded.Components} onClick={() => toggle('Components')} depth={0}>
             <Story name="Button" depth={1} />

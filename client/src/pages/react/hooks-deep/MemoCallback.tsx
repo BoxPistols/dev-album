@@ -120,7 +120,7 @@ function Parent() {
   renderCount.current += 1
   return (
     <div style={{ padding: '8px 12px', border: '1px solid #FCA5A5', borderRadius: '6px', marginBottom: '6px', backgroundColor: '#FEF2F2' }}>
-      <span style={{ fontSize: '13px' }}>通常の子 (memo なし): こんにちは、{name}さん</span>
+      <span style={{ fontSize: '13px', color: '#1F2937' }}>通常の子 (memo なし): こんにちは、{name}さん</span>
       <span style={{ float: 'right', fontSize: '12px', color: '#EF4444', fontWeight: 'bold' }}>レンダー: {renderCount.current}回</span>
     </div>
   )
@@ -131,7 +131,7 @@ const MemoChild = React.memo(function MemoChild({ name }) {
   renderCount.current += 1
   return (
     <div style={{ padding: '8px 12px', border: '1px solid #86EFAC', borderRadius: '6px', marginBottom: '6px', backgroundColor: '#F0FDF4' }}>
-      <span style={{ fontSize: '13px' }}>memo 付きの子: こんにちは、{name}さん</span>
+      <span style={{ fontSize: '13px', color: '#1F2937' }}>memo 付きの子: こんにちは、{name}さん</span>
       <span style={{ float: 'right', fontSize: '12px', color: '#22C55E', fontWeight: 'bold' }}>レンダー: {renderCount.current}回</span>
     </div>
   )

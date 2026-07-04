@@ -88,7 +88,7 @@ export default function OpenApiSwagger() {
       <div style={{ display: "flex", gap: "6px", marginBottom: "12px", flexWrap: "wrap" }}>
         {presets.map((p, i) => (
           <button key={i} onClick={() => { setMethod(p.method); setPath(p.path) }}
-            style={{ padding: "4px 10px", background: "#F3F4F6", border: "1px solid #E5E7EB", borderRadius: "6px", cursor: "pointer", fontSize: "14px" }}>
+            style={{ padding: "4px 10px", background: "#F3F4F6", color: "#1f2937", border: "1px solid #E5E7EB", borderRadius: "6px", cursor: "pointer", fontSize: "14px" }}>
             {p.label}
           </button>
         ))}

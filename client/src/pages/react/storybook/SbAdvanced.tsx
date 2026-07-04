@@ -150,8 +150,8 @@ export default meta;`}
                 <span style={{ background: c.badge, color: '#fff', fontSize: '12px', fontWeight: 600, padding: '2px 6px', borderRadius: '3px', textTransform: 'uppercase' }}>{v.impact}</span>
                 <span style={{ fontWeight: 600, fontSize: '13px', color: c.text }}>{v.rule}</span>
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text, #444)', margin: '0 0 6px', lineHeight: 1.5 }}>{v.desc}</p>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted, #888)', fontFamily: 'monospace', background: 'rgba(0,0,0,0.05)', padding: '4px 8px', borderRadius: '4px', marginBottom: '6px' }}>{v.element}</div>
+              <p style={{ fontSize: '12px', color: '#334155', margin: '0 0 6px', lineHeight: 1.5 }}>{v.desc}</p>
+              <div style={{ fontSize: '12px', color: '#64748b', fontFamily: 'monospace', background: 'rgba(0,0,0,0.05)', padding: '4px 8px', borderRadius: '4px', marginBottom: '6px' }}>{v.element}</div>
               <p style={{ fontSize: '12px', color: c.text, margin: 0 }}>修正方法: {v.fix}</p>
             </div>
           );
@@ -164,7 +164,7 @@ export default meta;`}
         {passes.map((p, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', background: '#f0fdf4', borderRadius: '6px', marginBottom: '4px' }}>
             <span style={{ color: '#16a34a', fontWeight: 700, fontSize: '12px' }}>✓</span>
-            <span style={{ fontSize: '12px', color: 'var(--text, #444)' }}><strong>{p.rule}</strong>: {p.desc}</span>
+            <span style={{ fontSize: '12px', color: '#334155' }}><strong>{p.rule}</strong>: {p.desc}</span>
           </div>
         ))}
       </div>
@@ -456,7 +456,7 @@ export default create({
         <div style={{ fontSize: '12px', color: 'var(--text-muted, #888)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>デコレーターなし</div>
         <div style={{ ...cardStyle, background: 'var(--bg-accent, #fff)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <button style={{ ...btnBase, background: '#ddd', color: 'var(--text)' }}>Primary</button>
+            <button style={{ ...btnBase, background: '#ddd', color: '#1e293b' }}>Primary</button>
             <button style={{ ...btnBase, background: 'transparent', color: 'var(--text)', border: '1px solid #ccc' }}>Secondary</button>
             <p style={{ fontSize: '12px', color: 'var(--text-muted, #999)', margin: 0 }}>テーマ未適用: デフォルトのスタイル</p>
           </div>
