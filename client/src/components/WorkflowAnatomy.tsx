@@ -117,7 +117,7 @@ export default function WorkflowAnatomy({
                         )}
                         {step.kind}
                       </span>
-                      <span className="text-xs text-muted-foreground font-mono truncate">
+                      <span className="min-w-0 text-xs text-muted-foreground font-mono truncate">
                         {step.label}
                       </span>
                     </li>
@@ -129,7 +129,7 @@ export default function WorkflowAnatomy({
 
           {jobs.length > 1 && (
             <p className="text-[11px] text-muted-foreground mt-3 text-center">
-              横に並んだジョブは既定で<strong>並列</strong>に実行されます
+              依存関係（needs）がなければ、横に並んだジョブは既定で<strong>並列</strong>に実行されます
             </p>
           )}
         </div>

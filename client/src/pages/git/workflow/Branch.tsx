@@ -484,7 +484,7 @@ export default function BranchWorkflow() {
         {/* Completion */}
         <section className="mb-12">
           <InfoBox type="success" title="ブランチの基本習得！">
-            ブランチの作成・切り替え・マージができるようになりました。これで、より実践的な開発ワークフローが実現できます。次は、既存のリポジトリから学び、React 開発に進みます。
+            ブランチの作成・切り替え・マージができるようになりました。これで、より実践的な開発ワークフローが実現できます。次は、GitHub Actions と CI/CD を学びます。
           </InfoBox>
         </section>
 
