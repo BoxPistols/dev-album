@@ -19,7 +19,7 @@ export default function Integration() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 22 / 27
+            STEP 22 / 33
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             開発環境の統合確認

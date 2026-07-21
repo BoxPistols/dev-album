@@ -15,7 +15,7 @@ export default function WSL2SSH() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 18 / 27</div>
+        <div className="text-sm font-medium text-muted-foreground mb-4">STEP 18 / 33</div>
 
         <div className="mt-8 mb-12">
           <div className="inline-block px-4 py-2 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 rounded-full text-sm font-medium mb-6">

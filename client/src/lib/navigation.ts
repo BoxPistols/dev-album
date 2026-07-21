@@ -149,6 +149,7 @@ export const sections: SectionInfo[] = [
   { id: 'react-practice', title: 'React 実践', manualId: 'git' },
   { id: 'advanced-setup', title: '実践的な環境構築', manualId: 'git' },
   { id: 'ai-agent', title: 'AI エージェント連携', manualId: 'git' },
+  { id: 'github-actions', title: 'GitHub Actions / CI/CD', manualId: 'git' },
 
   // === Three.js マニュアル ===
   { id: 'threejs-intro', title: 'はじめに', manualId: 'threejs' },
@@ -347,6 +348,12 @@ export const pages: PageInfo[] = [
   { step: 25, path: '/git/ai-agent/claude-code-basics', title: 'Claude Code 基本操作', sectionId: 'ai-agent', manualId: 'git' },
   { step: 26, path: '/git/ai-agent/cursor-cline', title: 'Cursor + Cline 導入', sectionId: 'ai-agent', manualId: 'git' },
   { step: 27, path: '/git/ai-agent/sub-tools', title: '予備ツール（Gemini / Warp / Antigravity）', sectionId: 'ai-agent', manualId: 'git' },
+  { step: 28, path: '/git/github-actions/intro', title: 'GitHub Actions と CI/CD 入門', sectionId: 'github-actions', manualId: 'git' },
+  { step: 29, path: '/git/github-actions/workflow-basics', title: 'ワークフローの基本構造', sectionId: 'github-actions', manualId: 'git' },
+  { step: 30, path: '/git/github-actions/triggers-jobs', title: 'トリガー・ジョブ・ステップの制御', sectionId: 'github-actions', manualId: 'git' },
+  { step: 31, path: '/git/github-actions/ci-practice', title: 'CI 実践：lint・test・build', sectionId: 'github-actions', manualId: 'git' },
+  { step: 32, path: '/git/github-actions/secrets-cd', title: 'シークレットと環境・デプロイ（CD）', sectionId: 'github-actions', manualId: 'git' },
+  { step: 33, path: '/git/github-actions/reuse-troubleshoot', title: '再利用・最適化・トラブルシュート', sectionId: 'github-actions', manualId: 'git' },
 
   // ===========================
   // Three.js マニュアル (23ページ)

@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-21-github-actions-cicd-section",
+    date: "2026-07-21",
+    title: "Git マニュアルに「GitHub Actions / CI/CD」編を新設（全6ページ）",
+    description:
+      "最初のワークフロー YAML から、トリガー・ジョブ制御、Node/React の CI パイプライン、シークレットと環境・デプロイ（CD）、再利用ワークフローと最適化・トラブルシュートまでを、YAML を書きながら一通り体験できる6ページを追加。各ページに config プレビュー付きのコーディングチャレンジとクイズ、公式ドキュメントへの参照リンクを備える。",
+    category: "feature",
+    link: "/git/github-actions/intro",
+  },
+  {
     id: "2026-07-05-preview-dark-contrast-fix",
     date: "2026-07-05",
     title: "ライブプレビューのダークテーマ表示崩れを全ページ一括修正",
