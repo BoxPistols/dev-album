@@ -26,7 +26,7 @@ export default function ReactSetup() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 15 / 40
+            STEP 28 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             React 開発環境をセットアップしよう
@@ -298,7 +298,7 @@ export default function ReactSetup() {
 
         {/* Navigation */}
         <div className="flex justify-between items-center pt-8 border-t border-border">
-          <Button variant="outline" onClick={() => navigate('/git/workflow/branch')}>戻る</Button>
+          <Button variant="outline" onClick={() => navigate('/git/flow-automation/merge-governance')}>戻る</Button>
           <Button className="gap-2" onClick={() => navigate('/git/react/modify')}>
               次へ：デザイン変更と Git 管理
               

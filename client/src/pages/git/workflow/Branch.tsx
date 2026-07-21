@@ -491,9 +491,9 @@ export default function BranchWorkflow() {
         {/* Navigation */}
         <div className="flex justify-between items-center pt-8 border-t border-border">
           <Button variant="outline" onClick={() => navigate('/git/workflow/history')}>戻る</Button>
-          <Button className="gap-2" onClick={() => navigate('/git/react/setup')}>
-              次へ：React 開発環境セットアップ
-              
+          <Button className="gap-2" onClick={() => navigate('/git/github-actions/intro')}>
+              次へ：GitHub Actions と CI/CD 入門
+
               <ArrowRight size={20} />
             </Button>
         </div>
