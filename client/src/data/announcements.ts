@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-21-github-actions-reference",
+    date: "2026-07-21",
+    title: "GitHub Actions リファレンス（パラメータ一覧）ページを追加",
+    description:
+      "トリガーイベント（on）・コンテキスト・式の関数・よく使う公式アクション・permissions スコープ・ランナーラベルと課金倍率・gh CLI コマンドを、検索して当てはめる早見表としてまとめた実践リファレンスを GitHub Actions / CI/CD 編の最後に追加。読み終えると Git フローの中級者として日常的に参照できる一冊になる。",
+    category: "feature",
+    link: "/git/github-actions/reference",
+  },
+  {
     id: "2026-07-21-git-flow-automation-section",
     date: "2026-07-21",
     title: "Git マニュアルに「開発フロー自動化とガバナンス」編を新設（全6ページ）",

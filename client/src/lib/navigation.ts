@@ -355,12 +355,13 @@ export const pages: PageInfo[] = [
   { step: 31, path: '/git/github-actions/ci-practice', title: 'CI 実践：lint・test・build', sectionId: 'github-actions', manualId: 'git' },
   { step: 32, path: '/git/github-actions/secrets-cd', title: 'シークレットと環境・デプロイ（CD）', sectionId: 'github-actions', manualId: 'git' },
   { step: 33, path: '/git/github-actions/reuse-troubleshoot', title: '再利用・最適化・トラブルシュート', sectionId: 'github-actions', manualId: 'git' },
-  { step: 34, path: '/git/flow-automation/why', title: 'なぜ Git フローを自動化するのか', sectionId: 'flow-automation', manualId: 'git' },
-  { step: 35, path: '/git/flow-automation/auto-test-refactor', title: '自動テストと自動修正（リファクタリング）', sectionId: 'flow-automation', manualId: 'git' },
-  { step: 36, path: '/git/flow-automation/labels', title: 'ラベルと分類の自動化', sectionId: 'flow-automation', manualId: 'git' },
-  { step: 37, path: '/git/flow-automation/assignment', title: 'アサインとレビューの自動割り当て', sectionId: 'flow-automation', manualId: 'git' },
-  { step: 38, path: '/git/flow-automation/projects', title: 'GitHub Projects 連携', sectionId: 'flow-automation', manualId: 'git' },
-  { step: 39, path: '/git/flow-automation/merge-governance', title: 'マージガバナンス（意図せぬマージの防止）', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 34, path: '/git/github-actions/reference', title: 'GitHub Actions リファレンス（パラメータ一覧）', sectionId: 'github-actions', manualId: 'git' },
+  { step: 35, path: '/git/flow-automation/why', title: 'なぜ Git フローを自動化するのか', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 36, path: '/git/flow-automation/auto-test-refactor', title: '自動テストと自動修正（リファクタリング）', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 37, path: '/git/flow-automation/labels', title: 'ラベルと分類の自動化', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 38, path: '/git/flow-automation/assignment', title: 'アサインとレビューの自動割り当て', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 39, path: '/git/flow-automation/projects', title: 'GitHub Projects 連携', sectionId: 'flow-automation', manualId: 'git' },
+  { step: 40, path: '/git/flow-automation/merge-governance', title: 'マージガバナンス（意図せぬマージの防止）', sectionId: 'flow-automation', manualId: 'git' },
 
   // ===========================
   // Three.js マニュアル (23ページ)

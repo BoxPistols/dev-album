@@ -137,6 +137,7 @@ const GitActionsTriggersJobs = lazy(() => import("./pages/git/github-actions/Tri
 const GitActionsCiPractice = lazy(() => import("./pages/git/github-actions/CiPractice"));
 const GitActionsSecretsCd = lazy(() => import("./pages/git/github-actions/SecretsCd"));
 const GitActionsReuseTroubleshoot = lazy(() => import("./pages/git/github-actions/ReuseTroubleshoot"));
+const GitActionsReference = lazy(() => import("./pages/git/github-actions/Reference"));
 const GitFlowWhy = lazy(() => import("./pages/git/flow-automation/Why"));
 const GitFlowAutoTestRefactor = lazy(() => import("./pages/git/flow-automation/AutoTestRefactor"));
 const GitFlowLabels = lazy(() => import("./pages/git/flow-automation/Labels"));
@@ -520,6 +521,7 @@ function App() {
                 <Route path="/git/github-actions/ci-practice" component={GitActionsCiPractice} />
                 <Route path="/git/github-actions/secrets-cd" component={GitActionsSecretsCd} />
                 <Route path="/git/github-actions/reuse-troubleshoot" component={GitActionsReuseTroubleshoot} />
+                <Route path="/git/github-actions/reference" component={GitActionsReference} />
                 <Route path="/git/flow-automation/why" component={GitFlowWhy} />
                 <Route path="/git/flow-automation/auto-test-refactor" component={GitFlowAutoTestRefactor} />
                 <Route path="/git/flow-automation/labels" component={GitFlowLabels} />
