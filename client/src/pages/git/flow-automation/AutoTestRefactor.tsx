@@ -138,6 +138,12 @@ jobs:
               という詰まりを生みます。回避するには、専用のトークン（PAT や
               GitHub App）で push するか、整形は「修正する」のではなく
               「差分があれば失敗させて知らせる」方式にします。
+              なお、フォークからの PR では <code>on: pull_request</code> に
+              書き込み権限のあるトークンはそもそも渡らないため、
+              <code>permissions: contents: write</code> を付けても
+              push 自体が失敗します。フォーク PR も対象にするなら、
+              ラベル付けと同様に <code>pull_request_target</code>{" "}
+              を検討します（その場合はフォーク側のコードを実行しない構成にします）。
             </InfoBox>
           </section>
 

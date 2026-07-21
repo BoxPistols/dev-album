@@ -1,4 +1,5 @@
 import { ArrowRight, FolderGit2, Users } from "lucide-react";
+import CaptionedFigure from "./CaptionedFigure";
 
 /**
  * CODEOWNERS の「変更パス → レビュー担当」の対応を、矢印で結んだ行として視覚化する。
@@ -17,13 +18,7 @@ interface RoutingMapProps {
 
 export default function RoutingMap({ routes, caption }: RoutingMapProps) {
   return (
-    <figure className="my-8">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
-
+    <CaptionedFigure caption={caption}>
       <div className="rounded-2xl border border-border bg-muted/20 p-4 space-y-2">
         {routes.map((r) => (
           <div
@@ -50,6 +45,6 @@ export default function RoutingMap({ routes, caption }: RoutingMapProps) {
           </div>
         ))}
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

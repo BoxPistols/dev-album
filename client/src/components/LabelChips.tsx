@@ -1,3 +1,5 @@
+import CaptionedFigure from "./CaptionedFigure";
+
 /**
  * GitHub のラベルを模した色付きピルを並べて表示する。
  * デザイナーが「ラベルとは何か」を実物のUIに近い形で掴めるようにする。
@@ -31,12 +33,7 @@ const colorStyle: Record<LabelColor, string> = {
 
 export default function LabelChips({ labels, caption }: LabelChipsProps) {
   return (
-    <figure className="my-6">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
+    <CaptionedFigure caption={caption} className="my-6">
       <div className="flex flex-wrap gap-2">
         {labels.map((l) => (
           <span
@@ -47,6 +44,6 @@ export default function LabelChips({ labels, caption }: LabelChipsProps) {
           </span>
         ))}
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

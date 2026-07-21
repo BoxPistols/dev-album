@@ -1,3 +1,5 @@
+import CaptionedFigure from "./CaptionedFigure";
+
 /**
  * GitHub Projects のボード（カンバン）を模した図解。
  * Todo / In progress / Done の列にカードを並べ、進捗が見える状態を示す。
@@ -32,12 +34,7 @@ export default function KanbanPreview({
   caption,
 }: KanbanPreviewProps) {
   return (
-    <figure className="my-8">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
+    <CaptionedFigure caption={caption}>
       <div className="rounded-2xl border border-border bg-muted/20 p-4 overflow-x-auto">
         <div className="grid grid-cols-3 gap-3 min-w-[520px]">
           {columns.map((col) => (
@@ -75,6 +72,6 @@ export default function KanbanPreview({
           ))}
         </div>
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

@@ -1,4 +1,5 @@
 import { ChevronRight, type LucideIcon } from "lucide-react";
+import CaptionedFigure from "./CaptionedFigure";
 
 /**
  * CI/CD パイプラインを横並びのステージとして視覚化する。
@@ -23,13 +24,7 @@ export default function PipelineDiagram({
   caption,
 }: PipelineDiagramProps) {
   return (
-    <figure className="my-8">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
-
+    <CaptionedFigure caption={caption}>
       <div className="rounded-2xl border border-border bg-muted/20 p-5 overflow-x-auto">
         <div className="flex items-stretch gap-1 min-w-max">
           {stages.map((stage, i) => {
@@ -74,6 +69,6 @@ export default function PipelineDiagram({
           })}
         </div>
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

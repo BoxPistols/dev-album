@@ -71,9 +71,10 @@ export default function TriggersJobs() {
 
             <InfoBox type="warning" title="cron は UTC。JST とは 9 時間ずれる">
               <code>schedule</code> の cron は<strong>常に UTC</strong>で
-              評価されます。日本時間の平日朝 9 時に走らせたいなら、 UTC
-              では前日の 0 時なので <code>0 0 * * 1-5</code> ではなく
-              曜日をずらす必要があります。仕様は「UTC で解釈」ですが、
+              評価されます。日本時間の平日朝 9 時は UTC では同日 0 時に
+              なるため <code>0 0 * * 1-5</code> で正しく表現できますが、
+              JST 9 時より前の時刻を指定する場合は UTC では「前日」に
+              ずれるため、曜日を 1 日前にずらす必要があります。仕様は「UTC で解釈」ですが、
               実測では「思ったより 9 時間早い /
               遅い」とズレて驚くことが多い箇所です。 加えて、GitHub
               全体の負荷が高い時刻は数分〜遅延することがあり、 cron

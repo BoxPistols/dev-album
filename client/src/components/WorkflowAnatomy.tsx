@@ -7,6 +7,7 @@ import {
   ArrowDown,
   Cpu,
 } from "lucide-react";
+import CaptionedFigure from "./CaptionedFigure";
 
 /**
  * ワークフローの構造（イベント → ワークフロー → ジョブ → ステップ）を
@@ -43,13 +44,7 @@ export default function WorkflowAnatomy({
   caption,
 }: WorkflowAnatomyProps) {
   return (
-    <figure className="my-8">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
-
+    <CaptionedFigure caption={caption}>
       <div className="rounded-2xl border border-border bg-muted/20 p-5 md:p-6">
         {/* イベント */}
         <div className="flex flex-col items-center">
@@ -139,6 +134,6 @@ export default function WorkflowAnatomy({
           )}
         </div>
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

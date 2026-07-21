@@ -1,4 +1,5 @@
 import { Check, X, Lock, Unlock, GitPullRequest } from "lucide-react";
+import CaptionedFigure from "./CaptionedFigure";
 
 /**
  * マージゲートの条件（承認・CI・CODEOWNERS 等）を、達成状況とともに視覚化する。
@@ -20,13 +21,7 @@ export default function MergeGate({ conditions, caption }: MergeGateProps) {
   const allMet = conditions.every((c) => c.met);
 
   return (
-    <figure className="my-8">
-      {caption && (
-        <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
-          {caption}
-        </figcaption>
-      )}
-
+    <CaptionedFigure caption={caption}>
       <div className="rounded-2xl border border-border bg-muted/20 p-5">
         <div className="flex items-center gap-2 mb-4">
           <GitPullRequest
@@ -96,6 +91,6 @@ export default function MergeGate({ conditions, caption }: MergeGateProps) {
           )}
         </div>
       </div>
-    </figure>
+    </CaptionedFigure>
   );
 }

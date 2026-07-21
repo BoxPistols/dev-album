@@ -364,7 +364,9 @@ export default function Reference() {
               ]}
             />
             <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-              既定では多くの権限が read/write 双方に開いています。トップレベルで{" "}
+              2023 年 2 月以降に作成されたリポジトリ・組織では既定が read-only
+              になっていますが、それ以前から存在するリポジトリでは read/write
+              のままの場合があります。いずれの場合もトップレベルで{" "}
               <code>contents: read</code>{" "}
               のように絞り、必要なジョブだけ個別に足すのが安全な書き方です。
             </p>
