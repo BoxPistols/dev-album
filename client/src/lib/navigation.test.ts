@@ -35,12 +35,12 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(317);
+    expect(pages.length).toBe(323);
   });
 
   it("マニュアル別ページ数", () => {
     expect(getManualPages("react").length).toBe(77);
-    expect(getManualPages("git").length).toBe(33);
+    expect(getManualPages("git").length).toBe(39);
     expect(getManualPages("threejs").length).toBe(23);
     expect(getManualPages("claude-mux").length).toBe(40);
     expect(getManualPages("ai-ml").length).toBe(11);

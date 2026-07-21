@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-21-git-flow-automation-section",
+    date: "2026-07-21",
+    title: "Git マニュアルに「開発フロー自動化とガバナンス」編を新設（全6ページ）",
+    description:
+      "GitHub を中心にした Git フロー全体のエコシステム設計を、「なぜ自動化するのか」という背景から解説。自動テストと自動修正（整形・Dependabot・CodeQL・AI 修正）、ラベルと分類の自動化、CODEOWNERS によるアサインとレビューの自動割り当て、GitHub Projects 連携、そして意図せぬマージを防ぐマージガバナンス（ブランチ保護 / Ruleset・自己承認防止・auto-merge）までを6ページで扱う。CI/CD 編に続く実践編として、各ページにコーディングチャレンジ・クイズ・参照リンクを備える。",
+    category: "feature",
+    link: "/git/flow-automation/why",
+  },
+  {
     id: "2026-07-21-github-actions-cicd-section",
     date: "2026-07-21",
     title: "Git マニュアルに「GitHub Actions / CI/CD」編を新設（全6ページ）",
