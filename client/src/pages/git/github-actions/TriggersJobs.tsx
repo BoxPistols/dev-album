@@ -190,6 +190,56 @@ export default function TriggersJobs() {
       - run: npm test`}
             />
 
+            <figure className="my-8">
+              <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
+                図: 1 つの定義が 3 つの並列ジョブに展開される
+              </figcaption>
+              <div className="rounded-2xl border border-border bg-muted/20 p-5">
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  {/* 定義 */}
+                  <div className="rounded-xl border-2 border-primary/30 bg-card p-4 md:w-52 flex-shrink-0">
+                    <p className="text-xs font-bold text-foreground mb-1">
+                      ジョブ定義（1 つ）
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">
+                      matrix.node-version
+                    </p>
+                    <p className="font-mono text-sm text-primary mt-1">
+                      [18, 20, 22]
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-center md:flex-col text-muted-foreground">
+                    <span className="text-xs font-bold">展開</span>
+                    <span className="text-2xl leading-none">→</span>
+                  </div>
+
+                  {/* 展開後 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
+                    {["18", "20", "22"].map((v) => (
+                      <div
+                        key={v}
+                        className="rounded-lg border border-border bg-card p-3 text-center"
+                      >
+                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-muted text-foreground text-xs font-bold mb-1.5">
+                          ▢
+                        </span>
+                        <p className="text-xs font-bold text-foreground">
+                          test
+                        </p>
+                        <p className="font-mono text-[11px] text-muted-foreground">
+                          node {v}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-3 text-center">
+                  3 つは<strong>同時（並列）</strong>に走り、それぞれ独立に成否が出ます
+                </p>
+              </div>
+            </figure>
+
             <InfoBox type="info" title="fail-fast の既定は true">
               マトリクスは既定で <code>fail-fast: true</code> です。1 つの
               組み合わせが失敗すると、残りの組み合わせが即座にキャンセルされます。
@@ -240,7 +290,7 @@ export default function TriggersJobs() {
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="マトリクスと needs を書こう"
               description="matrix で 2 つの Node バージョンに展開し、build ジョブが test に依存するようにします。"
               initialCode={`jobs:

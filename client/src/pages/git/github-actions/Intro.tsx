@@ -6,7 +6,8 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
-import MermaidDiagram from "@/components/MermaidDiagram";
+import WorkflowAnatomy from "@/components/WorkflowAnatomy";
+import PipelineDiagram from "@/components/PipelineDiagram";
 
 const concepts = [
   {
@@ -111,6 +112,18 @@ export default function Intro() {
                 </p>
               </div>
             </div>
+
+            <PipelineDiagram
+              caption="図: push から本番デプロイまでの流れ（左が CI、右が CD）"
+              stages={[
+                { label: "push / PR", detail: "きっかけ" },
+                { label: "lint", detail: "CI" },
+                { label: "test", detail: "CI" },
+                { label: "build", detail: "CI" },
+                { label: "staging", detail: "CD" },
+                { label: "production", detail: "CD", highlight: true },
+              ]}
+            />
           </section>
 
           <section>
@@ -140,16 +153,28 @@ export default function Intro() {
               ))}
             </div>
 
-            <MermaidDiagram
-              title="図: イベントからステップまでの流れ"
-              chart={`flowchart TB
-    E["イベント（push / PR）"] --> W["ワークフロー（ci.yml）"]
-    W --> J1["ジョブ: lint"]
-    W --> J2["ジョブ: test"]
-    J1 --> S1["ステップ: checkout"]
-    J1 --> S2["ステップ: npm run lint"]
-    J2 --> S3["ステップ: checkout"]
-    J2 --> S4["ステップ: npm test"]`}
+            <WorkflowAnatomy
+              caption="図: イベントからステップまでの入れ子構造"
+              event="push · pull_request"
+              workflowName="ci.yml"
+              jobs={[
+                {
+                  name: "lint",
+                  runsOn: "ubuntu-latest",
+                  steps: [
+                    { kind: "uses", label: "actions/checkout@v4" },
+                    { kind: "run", label: "npm run lint" },
+                  ],
+                },
+                {
+                  name: "test",
+                  runsOn: "ubuntu-latest",
+                  steps: [
+                    { kind: "uses", label: "actions/checkout@v4" },
+                    { kind: "run", label: "npm test" },
+                  ],
+                },
+              ]}
             />
           </section>
 

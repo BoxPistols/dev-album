@@ -8,6 +8,7 @@ import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import WorkflowAnatomy from "@/components/WorkflowAnatomy";
 
 export default function WorkflowBasics() {
   return (
@@ -125,6 +126,30 @@ jobs:
       - name: Build
         run: npm run build`}
             />
+
+            <p className="text-muted-foreground mt-6 mb-2 leading-relaxed">
+              同じ内容を図にすると、YAML
+              の入れ子がそのまま構造になっていると分かります。
+            </p>
+            <WorkflowAnatomy
+              caption="図: 上の ci.yml を構造として見る"
+              event="push · pull_request"
+              workflowName="ci.yml"
+              jobs={[
+                {
+                  name: "verify",
+                  runsOn: "ubuntu-latest",
+                  steps: [
+                    { kind: "uses", label: "actions/checkout@v4" },
+                    { kind: "uses", label: "actions/setup-node@v4" },
+                    { kind: "run", label: "npm ci" },
+                    { kind: "run", label: "npm run lint" },
+                    { kind: "run", label: "npm test" },
+                    { kind: "run", label: "npm run build" },
+                  ],
+                },
+              ]}
+            />
           </section>
 
           <section>
@@ -235,7 +260,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="ワークフローの骨格を完成させよう"
               description="トリガー・ランナー・ステップの必須キーを埋めます。checkout のあと、依存インストールと lint を走らせます。"
               initialCode={`name: CI

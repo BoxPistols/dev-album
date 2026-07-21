@@ -72,6 +72,59 @@ export default function ReuseTroubleshoot() {
               CI 手順を 1 本にまとめ、各リポジトリからは呼ぶだけにできます。
             </p>
 
+            <figure className="my-6">
+              <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
+                図: 同じ YAML をコピーして持つ場合と、1 本を共有する場合
+              </figcaption>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30 p-5">
+                  <p className="text-sm font-bold text-red-800 dark:text-red-300 mb-3">
+                    コピペ（修正が 3 か所に散る）
+                  </p>
+                  <div className="space-y-2">
+                    {["repo A", "repo B", "repo C"].map((r) => (
+                      <div
+                        key={r}
+                        className="flex items-center gap-2 rounded-lg bg-card border border-border px-3 py-2"
+                      >
+                        <span className="font-mono text-xs text-foreground">
+                          {r}
+                        </span>
+                        <span className="font-mono text-[11px] text-muted-foreground ml-auto">
+                          ci.yml（全文コピー）
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 p-5">
+                  <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-3">
+                    再利用（修正は 1 か所だけ）
+                  </p>
+                  <div className="space-y-2">
+                    {["repo A", "repo B", "repo C"].map((r) => (
+                      <div
+                        key={r}
+                        className="flex items-center gap-2 rounded-lg bg-card border border-border px-3 py-2"
+                      >
+                        <span className="font-mono text-xs text-foreground">
+                          {r}
+                        </span>
+                        <span className="font-mono text-[11px] text-primary ml-auto">
+                          uses: reusable-ci.yml →
+                        </span>
+                      </div>
+                    ))}
+                    <div className="flex items-center gap-2 rounded-lg bg-primary/10 border border-primary/30 px-3 py-2">
+                      <span className="font-mono text-xs font-bold text-primary">
+                        reusable-ci.yml（共有 1 本）
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+
             <CodeBlock
               language="yaml"
               title=".github/workflows/reusable-ci.yml（呼ばれる側）"
@@ -312,7 +365,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="再利用ワークフローの呼び出しを書こう"
               description="呼ぶ側は uses で別ワークフローを指定し、with で入力を渡します。"
               initialCode={`name: CI

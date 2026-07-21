@@ -53,6 +53,36 @@ export default function AutoTestRefactor() {
               テストが保証してくれるからです。CI 実践で組んだ lint・test・build
               が、自動修正の安全網になります。まずここが緑であることが前提です。
             </p>
+
+            <figure className="my-6">
+              <figcaption className="text-sm text-muted-foreground mb-3 font-medium">
+                図: 何を機械に任せ、何を人が判断するかの線引き
+              </figcaption>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="rounded-xl border border-blue-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-5">
+                  <p className="text-sm font-bold text-blue-800 dark:text-blue-300 mb-3">
+                    機械に任せる（答えが決まっている）
+                  </p>
+                  <ul className="space-y-1.5 text-sm text-foreground/80">
+                    <li>・整形（フォーマット）</li>
+                    <li>・lint の自動修正</li>
+                    <li>・パッチ / マイナーの依存更新</li>
+                    <li>・定型的なリファクタリング</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-5">
+                  <p className="text-sm font-bold text-amber-800 dark:text-amber-300 mb-3">
+                    人が判断する（意図・設計が要る）
+                  </p>
+                  <ul className="space-y-1.5 text-sm text-foreground/80">
+                    <li>・メジャー更新の取り込み</li>
+                    <li>・設計や API の変更</li>
+                    <li>・仕様の解釈が必要な修正</li>
+                    <li>・マージの最終承認</li>
+                  </ul>
+                </div>
+              </div>
+            </figure>
           </section>
 
           <section>
@@ -264,7 +294,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="dependabot.yml を完成させよう"
               description="npm エコシステムを毎週チェックし、minor と patch を 1 つのグループにまとめます。"
               initialCode={`version: 2

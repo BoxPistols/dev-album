@@ -9,6 +9,7 @@ import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import MermaidDiagram from "@/components/MermaidDiagram";
 import CodingChallenge from "@/components/CodingChallenge";
+import KanbanPreview from "@/components/KanbanPreview";
 
 export default function Projects() {
   return (
@@ -81,6 +82,33 @@ export default function Projects() {
                 </p>
               </div>
             </div>
+
+            <KanbanPreview
+              caption="図: ボードビューの例。自動化で追加と移動が行われる"
+              columns={[
+                {
+                  title: "Todo",
+                  accent: "muted",
+                  cards: [
+                    { title: "ダークモードのコントラスト調整", tag: "bug" },
+                    { title: "検索の絞り込みを追加", tag: "feature" },
+                  ],
+                },
+                {
+                  title: "In progress",
+                  accent: "primary",
+                  cards: [{ title: "CI にキャッシュを導入", tag: "ci" }],
+                },
+                {
+                  title: "Done",
+                  accent: "success",
+                  cards: [
+                    { title: "README にバッジを追加", tag: "docs" },
+                    { title: "依存の定期更新を設定", tag: "chore" },
+                  ],
+                },
+              ]}
+            />
           </section>
 
           <section>
@@ -194,7 +222,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="add-to-project を完成させよう"
               description="Issue の作成時に、専用トークンで Projects へ項目を追加します。"
               initialCode={`name: Add to project

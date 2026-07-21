@@ -8,6 +8,7 @@ import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import LabelChips from "@/components/LabelChips";
 
 export default function Labels() {
   return (
@@ -45,6 +46,20 @@ export default function Labels() {
             <h2 className="text-2xl font-bold text-foreground mb-4">
               ラベルは何のためにあるのか
             </h2>
+
+            <LabelChips
+              caption="例: 種類・領域・規模・優先度・状態を色で見分ける"
+              labels={[
+                { text: "bug", color: "red" },
+                { text: "feature", color: "green" },
+                { text: "frontend", color: "blue" },
+                { text: "docs", color: "purple" },
+                { text: "size/XL", color: "amber" },
+                { text: "priority:high", color: "pink" },
+                { text: "stale", color: "zinc" },
+              ]}
+            />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-bold text-foreground mb-2 text-base">
@@ -224,7 +239,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="labeler.yml のルールを完成させよう"
               description="変更ファイルのグロブパターンで、Markdown なら docs ラベルを付けます。"
               initialCode={`docs:

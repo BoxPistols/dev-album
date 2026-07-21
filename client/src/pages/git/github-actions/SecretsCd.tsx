@@ -7,7 +7,7 @@ import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
-import MermaidDiagram from "@/components/MermaidDiagram";
+import PipelineDiagram from "@/components/PipelineDiagram";
 import CodingChallenge from "@/components/CodingChallenge";
 
 export default function SecretsCd() {
@@ -153,12 +153,14 @@ jobs:
           DEPLOY_TOKEN: \${{ secrets.DEPLOY_TOKEN }}`}
             />
 
-            <MermaidDiagram
-              title="図: 検査から本番デプロイまで"
-              chart={`flowchart LR
-    CI["CI（lint / test / build）"] --> S["deploy: staging"]
-    S -->|"検証 OK / 承認"| P["deploy: production"]
-    S -->|"異常"| RB["ロールバック"]`}
+            <PipelineDiagram
+              caption="図: 検査から本番まで。承認ゲートで人が最後の一押しを行う"
+              stages={[
+                { label: "CI", detail: "lint/test/build" },
+                { label: "staging", detail: "自動デプロイ" },
+                { label: "承認", detail: "必須レビュアー", highlight: true },
+                { label: "production", detail: "本番デプロイ" },
+              ]}
             />
 
             <InfoBox type="info" title="保護環境で「最後の一押し」を人に">
@@ -238,7 +240,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="環境とシークレットを書こう"
               description="production 環境を指定し、secrets からデプロイトークンを env に渡します。"
               initialCode={`jobs:

@@ -8,6 +8,7 @@ import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import PipelineDiagram from "@/components/PipelineDiagram";
 
 export default function CiPractice() {
   return (
@@ -51,6 +52,18 @@ export default function CiPractice() {
               <code>setup-node</code> の <code>cache: npm</code> を付けると、
               依存のダウンロードがキャッシュされ、2 回目以降が速くなります。
             </p>
+
+            <PipelineDiagram
+              caption="図: 1 つの検査ジョブが順に通す step"
+              stages={[
+                { label: "checkout", detail: "取得" },
+                { label: "install", detail: "npm ci" },
+                { label: "typecheck", detail: "tsc" },
+                { label: "lint", detail: "eslint" },
+                { label: "test", detail: "vitest" },
+                { label: "build", detail: "vite", highlight: true },
+              ]}
+            />
 
             <CodeBlock
               language="yaml"
@@ -250,7 +263,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="キャッシュ付き CI を完成させよう"
               description="setup-node のキャッシュを有効にし、依存を lockfile どおりに入れてテストします。"
               initialCode={`name: CI

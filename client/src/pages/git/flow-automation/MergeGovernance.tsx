@@ -9,6 +9,7 @@ import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import MermaidDiagram from "@/components/MermaidDiagram";
 import CodingChallenge from "@/components/CodingChallenge";
+import MergeGate from "@/components/MergeGate";
 
 const rules = [
   {
@@ -149,6 +150,16 @@ export default function MergeGovernance() {
                 </tbody>
               </table>
             </div>
+
+            <MergeGate
+              caption="図: 条件が 1 つでも欠けると、マージは保護される（例）"
+              conditions={[
+                { label: "PR 経由で変更している", met: true },
+                { label: "CI（lint / test / build）が成功", met: true },
+                { label: "作成者以外の承認が 1 名以上", met: false },
+                { label: "コードオーナーの承認がある", met: false },
+              ]}
+            />
 
             <InfoBox
               type="info"

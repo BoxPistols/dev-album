@@ -8,6 +8,7 @@ import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import RoutingMap from "@/components/RoutingMap";
 
 export default function Assignment() {
   return (
@@ -80,6 +81,16 @@ export default function Assignment() {
 
 # CI 設定はプラットフォーム班が見る（最後にマッチした行が優先）
 /.github/               @org/platform`}
+            />
+
+            <RoutingMap
+              caption="図: 変更したパスから、レビュー担当が自動で決まる"
+              routes={[
+                { path: "client/src/pages/git/", owner: "@org/git-team" },
+                { path: "client/src/features/", owner: "@org/threejs-team" },
+                { path: "*.md", owner: "@org/docs-team" },
+                { path: ".github/", owner: "@org/platform" },
+              ]}
             />
 
             <InfoBox
@@ -170,7 +181,7 @@ jobs:
 
             <CodingChallenge
               preview
-              previewType="config"
+              previewType="terminal"
               title="CODEOWNERS を完成させよう"
               description="既定のオーナーを全パスに設定し、Markdown だけドキュメント班に割り当てます。"
               initialCode={`# 既定のオーナー（全パス）
