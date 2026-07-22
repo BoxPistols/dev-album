@@ -131,6 +131,19 @@ const GitClaudeSetup = lazy(() => import("./pages/git/ai-agent/ClaudeCodeSetup")
 const GitClaudeBasics = lazy(() => import("./pages/git/ai-agent/ClaudeCodeBasics"));
 const GitCursorCline = lazy(() => import("./pages/git/ai-agent/CursorCline"));
 const GitSubTools = lazy(() => import("./pages/git/ai-agent/SubTools"));
+const GitActionsIntro = lazy(() => import("./pages/git/github-actions/Intro"));
+const GitActionsWorkflowBasics = lazy(() => import("./pages/git/github-actions/WorkflowBasics"));
+const GitActionsTriggersJobs = lazy(() => import("./pages/git/github-actions/TriggersJobs"));
+const GitActionsCiPractice = lazy(() => import("./pages/git/github-actions/CiPractice"));
+const GitActionsSecretsCd = lazy(() => import("./pages/git/github-actions/SecretsCd"));
+const GitActionsReuseTroubleshoot = lazy(() => import("./pages/git/github-actions/ReuseTroubleshoot"));
+const GitActionsReference = lazy(() => import("./pages/git/github-actions/Reference"));
+const GitFlowWhy = lazy(() => import("./pages/git/flow-automation/Why"));
+const GitFlowAutoTestRefactor = lazy(() => import("./pages/git/flow-automation/AutoTestRefactor"));
+const GitFlowLabels = lazy(() => import("./pages/git/flow-automation/Labels"));
+const GitFlowAssignment = lazy(() => import("./pages/git/flow-automation/Assignment"));
+const GitFlowProjects = lazy(() => import("./pages/git/flow-automation/Projects"));
+const GitFlowMergeGovernance = lazy(() => import("./pages/git/flow-automation/MergeGovernance"));
 
 // ── Three.js マニュアル (23ページ) ──
 const ThreejsHome = lazy(() => import("./pages/threejs/Home"));
@@ -502,6 +515,19 @@ function App() {
                 <Route path="/git/ai-agent/claude-code-basics" component={GitClaudeBasics} />
                 <Route path="/git/ai-agent/cursor-cline" component={GitCursorCline} />
                 <Route path="/git/ai-agent/sub-tools" component={GitSubTools} />
+                <Route path="/git/github-actions/intro" component={GitActionsIntro} />
+                <Route path="/git/github-actions/workflow-basics" component={GitActionsWorkflowBasics} />
+                <Route path="/git/github-actions/triggers-jobs" component={GitActionsTriggersJobs} />
+                <Route path="/git/github-actions/ci-practice" component={GitActionsCiPractice} />
+                <Route path="/git/github-actions/secrets-cd" component={GitActionsSecretsCd} />
+                <Route path="/git/github-actions/reuse-troubleshoot" component={GitActionsReuseTroubleshoot} />
+                <Route path="/git/github-actions/reference" component={GitActionsReference} />
+                <Route path="/git/flow-automation/why" component={GitFlowWhy} />
+                <Route path="/git/flow-automation/auto-test-refactor" component={GitFlowAutoTestRefactor} />
+                <Route path="/git/flow-automation/labels" component={GitFlowLabels} />
+                <Route path="/git/flow-automation/assignment" component={GitFlowAssignment} />
+                <Route path="/git/flow-automation/projects" component={GitFlowProjects} />
+                <Route path="/git/flow-automation/merge-governance" component={GitFlowMergeGovernance} />
 
                 {/* === Three.js マニュアル === */}
                 <Route path="/threejs" component={ThreejsHome} />

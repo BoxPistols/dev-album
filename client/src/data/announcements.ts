@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-21-github-actions-reference",
+    date: "2026-07-21",
+    title: "GitHub Actions リファレンス（パラメータ一覧）ページを追加",
+    description:
+      "トリガーイベント（on）・コンテキスト・式の関数・よく使う公式アクション・permissions スコープ・ランナーラベルと課金倍率・gh CLI コマンドを、検索して当てはめる早見表としてまとめた実践リファレンスを GitHub Actions / CI/CD 編の最後に追加。読み終えると Git フローの中級者として日常的に参照できる一冊になる。",
+    category: "feature",
+    link: "/git/github-actions/reference",
+  },
+  {
+    id: "2026-07-21-git-flow-automation-section",
+    date: "2026-07-21",
+    title: "Git マニュアルに「開発フロー自動化とガバナンス」編を新設（全6ページ）",
+    description:
+      "GitHub を中心にした Git フロー全体のエコシステム設計を、「なぜ自動化するのか」という背景から解説。自動テストと自動修正（整形・Dependabot・CodeQL・AI 修正）、ラベルと分類の自動化、CODEOWNERS によるアサインとレビューの自動割り当て、GitHub Projects 連携、そして意図せぬマージを防ぐマージガバナンス（ブランチ保護 / Ruleset・自己承認防止・auto-merge）までを6ページで扱う。CI/CD 編に続く実践編として、各ページにコーディングチャレンジ・クイズ・参照リンクを備える。",
+    category: "feature",
+    link: "/git/flow-automation/why",
+  },
+  {
+    id: "2026-07-21-github-actions-cicd-section",
+    date: "2026-07-21",
+    title: "Git マニュアルに「GitHub Actions / CI/CD」編を新設（全7ページ）",
+    description:
+      "最初のワークフロー YAML から、トリガー・ジョブ制御、Node/React の CI パイプライン、シークレットと環境・デプロイ（CD）、再利用ワークフローと最適化・トラブルシュート、パラメータ一覧リファレンスまでを、YAML を書きながら一通り体験できる7ページを追加。各ページに config/terminal プレビュー付きのコーディングチャレンジとクイズ、公式ドキュメントへの参照リンクを備える。",
+    category: "feature",
+    link: "/git/github-actions/intro",
+  },
+  {
     id: "2026-07-05-preview-dark-contrast-fix",
     date: "2026-07-05",
     title: "ライブプレビューのダークテーマ表示崩れを全ページ一括修正",

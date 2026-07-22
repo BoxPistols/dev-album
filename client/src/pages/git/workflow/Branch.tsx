@@ -28,7 +28,7 @@ export default function BranchWorkflow() {
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
-            STEP 14 / 27
+            STEP 14 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
             ブランチの基本を学ぼう
@@ -484,16 +484,16 @@ export default function BranchWorkflow() {
         {/* Completion */}
         <section className="mb-12">
           <InfoBox type="success" title="ブランチの基本習得！">
-            ブランチの作成・切り替え・マージができるようになりました。これで、より実践的な開発ワークフローが実現できます。次は、既存のリポジトリから学び、React 開発に進みます。
+            ブランチの作成・切り替え・マージができるようになりました。これで、より実践的な開発ワークフローが実現できます。次は、GitHub Actions と CI/CD を学びます。
           </InfoBox>
         </section>
 
         {/* Navigation */}
         <div className="flex justify-between items-center pt-8 border-t border-border">
           <Button variant="outline" onClick={() => navigate('/git/workflow/history')}>戻る</Button>
-          <Button className="gap-2" onClick={() => navigate('/git/react/setup')}>
-              次へ：React 開発環境セットアップ
-              
+          <Button className="gap-2" onClick={() => navigate('/git/github-actions/intro')}>
+              次へ：GitHub Actions と CI/CD 入門
+
               <ArrowRight size={20} />
             </Button>
         </div>
