@@ -6,6 +6,8 @@ import {
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
 } from '@/lib/navigation';
 import { searchIndex } from '@/lib/searchIndex';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import TruncatedText from '@/components/TruncatedText';
 import { toSlug } from '@/hooks/useAutoHeadingIds';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
@@ -109,6 +111,8 @@ export default function Navigation() {
       </button>
 
       {/* サイドバー */}
+      {/* 共有 TooltipProvider: 初回は 2 秒のウォームアップ、直近 1.5 秒以内の連続ホバーは遅延なしで表示 */}
+      <TooltipProvider delayDuration={2000} skipDelayDuration={1500}>
       <nav
         className={`fixed left-0 top-0 h-screen w-64 bg-sidebar glass-sidebar border-r border-sidebar-border overflow-y-auto transition-transform duration-300 z-40 md:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
@@ -299,7 +303,9 @@ export default function Navigation() {
                             onClick={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
                             className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-foreground hover:bg-sidebar-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                           >
-                            <span className="text-sm truncate min-w-0">{section.title}</span>
+                            <TruncatedText side="right" className="text-sm min-w-0">
+                              {section.title}
+                            </TruncatedText>
                             <ChevronDown size={18} className={`flex-shrink-0 ml-2 transition-transform ${expandedSection === section.id ? 'rotate-180' : ''}`} />
                           </button>
                           {expandedSection === section.id && (
@@ -316,7 +322,9 @@ export default function Navigation() {
                                   }`}
                                 >
                                   <div className="flex items-center justify-between">
-                                    <span className="truncate">{sub.title}</span>
+                                    <TruncatedText side="right" className="min-w-0">
+                                      {sub.title}
+                                    </TruncatedText>
                                     {sub.isCompleted && (
                                       <CheckCircle2 size={12} className="text-emerald-500 flex-shrink-0 ml-2" />
                                     )}
@@ -404,6 +412,7 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+      </TooltipProvider>
 
       {/* モバイルオーバーレイ */}
       {isOpen && (
