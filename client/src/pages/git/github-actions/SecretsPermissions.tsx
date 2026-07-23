@@ -177,8 +177,10 @@ export default function SecretsPermissions() {
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Resource owner と Repository access（対象リポジトリ）を選び、
-                  有効期限（最長 1 年）を設定します。全リポジトリではなく
-                  必要なものだけを選ぶのが安全です。
+                  有効期限を設定します。無期限も選べますが、セキュリティ上は
+                  期限を設けるのが安全で、組織のポリシーによって上限が
+                  課される場合もあります。対象は全リポジトリではなく、必要な
+                  ものだけを選びます。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-5">

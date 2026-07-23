@@ -3,9 +3,10 @@ import { useState, useRef, useLayoutEffect, useCallback } from "react";
 /**
  * 要素のテキストが truncate（ellipsis）で省略されているかを判定する。
  * scrollWidth > clientWidth で溢れを検知し、ResizeObserver でリサイズにも追従する。
- * deps にテキストなど再測定のきっかけを渡す。
+ * key に「再測定のきっかけ」（テキスト内容など）を渡すと、その変化で測り直す。
+ * 依存配列の長さを固定にするため、可変長 deps ではなく単一 key を受け取る。
  */
-export function useIsTruncated<T extends HTMLElement>(deps: unknown[] = []) {
+export function useIsTruncated<T extends HTMLElement>(key?: unknown) {
   const ref = useRef<T>(null);
   const [isTruncated, setIsTruncated] = useState(false);
 
@@ -23,8 +24,7 @@ export function useIsTruncated<T extends HTMLElement>(deps: unknown[] = []) {
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [measure, ...deps]);
+  }, [measure, key]);
 
   return { ref, isTruncated };
 }

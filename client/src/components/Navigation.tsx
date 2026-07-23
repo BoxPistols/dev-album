@@ -6,8 +6,9 @@ import {
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
 } from '@/lib/navigation';
 import { searchIndex } from '@/lib/searchIndex';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import TruncatedText from '@/components/TruncatedText';
+import { TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { useIsTruncated } from '@/hooks/useIsTruncated';
 import { toSlug } from '@/hooks/useAutoHeadingIds';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLayout } from '@/contexts/LayoutContext';
@@ -23,6 +24,95 @@ const MANUAL_TEXT = 'text-primary';
 const MANUAL_BG = 'bg-primary';
 const MANUAL_BORDER = 'border-primary';
 const MANUAL_ACTIVE_BG = 'bg-primary/10';
+
+/**
+ * サイドバーのセクション見出し。タイトルが省略された時だけ、フォーカス可能な
+ * button 自身をトリガーにして全文ツールチップを出す（キーボードの Tab でも開ける）。
+ */
+function SidebarSectionButton({
+  title,
+  expanded,
+  onToggle,
+}: {
+  title: string;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  const { ref, isTruncated } = useIsTruncated<HTMLSpanElement>(title);
+  const button = (
+    <button
+      onClick={onToggle}
+      className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-foreground hover:bg-sidebar-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+    >
+      <span ref={ref} className="text-sm truncate min-w-0">
+        {title}
+      </span>
+      <ChevronDown
+        size={18}
+        className={`flex-shrink-0 ml-2 transition-transform ${expanded ? 'rotate-180' : ''}`}
+      />
+    </button>
+  );
+  return (
+    <TooltipPrimitive.Root>
+      <TooltipPrimitive.Trigger asChild>{button}</TooltipPrimitive.Trigger>
+      {isTruncated && (
+        <TooltipContent side="right" className="max-w-xs">
+          {title}
+        </TooltipContent>
+      )}
+    </TooltipPrimitive.Root>
+  );
+}
+
+/**
+ * サイドバーのサブページリンク。省略時のみ、リンク（a）自身をトリガーに全文表示する。
+ */
+function SidebarSubLink({
+  title,
+  href,
+  active,
+  completed,
+  onNavigate,
+}: {
+  title: string;
+  href: string;
+  active: boolean;
+  completed: boolean;
+  onNavigate: () => void;
+}) {
+  const { ref, isTruncated } = useIsTruncated<HTMLSpanElement>(title);
+  const link = (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className={`block px-4 py-2 text-sm transition-all ${
+        active
+          ? 'nav-active rounded-r-lg'
+          : 'rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <span ref={ref} className="truncate min-w-0">
+          {title}
+        </span>
+        {completed && (
+          <CheckCircle2 size={12} className="text-emerald-500 flex-shrink-0 ml-2" />
+        )}
+      </div>
+    </Link>
+  );
+  return (
+    <TooltipPrimitive.Root>
+      <TooltipPrimitive.Trigger asChild>{link}</TooltipPrimitive.Trigger>
+      {isTruncated && (
+        <TooltipContent side="right" className="max-w-xs">
+          {title}
+        </TooltipContent>
+      )}
+    </TooltipPrimitive.Root>
+  );
+}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -299,37 +389,22 @@ export default function Navigation() {
                     <div key={section.id}>
                       {section.subsections.length > 0 && (
                         <>
-                          <button
-                            onClick={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
-                            className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-foreground hover:bg-sidebar-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                          >
-                            <TruncatedText side="right" className="text-sm min-w-0">
-                              {section.title}
-                            </TruncatedText>
-                            <ChevronDown size={18} className={`flex-shrink-0 ml-2 transition-transform ${expandedSection === section.id ? 'rotate-180' : ''}`} />
-                          </button>
+                          <SidebarSectionButton
+                            title={section.title}
+                            expanded={expandedSection === section.id}
+                            onToggle={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
+                          />
                           {expandedSection === section.id && (
                             <div className="ml-2 mt-1 space-y-1 border-l-2 border-sidebar-border">
                               {section.subsections.map((sub) => (
-                                <Link
+                                <SidebarSubLink
                                   key={sub.href}
+                                  title={sub.title}
                                   href={sub.href}
-                                  onClick={() => setIsOpen(false)}
-                                  className={`block px-4 py-2 text-sm transition-all ${
-                                    location === sub.href
-                                      ? 'nav-active rounded-r-lg'
-                                      : 'rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'
-                                  }`}
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <TruncatedText side="right" className="min-w-0">
-                                      {sub.title}
-                                    </TruncatedText>
-                                    {sub.isCompleted && (
-                                      <CheckCircle2 size={12} className="text-emerald-500 flex-shrink-0 ml-2" />
-                                    )}
-                                  </div>
-                                </Link>
+                                  active={location === sub.href}
+                                  completed={sub.isCompleted}
+                                  onNavigate={() => setIsOpen(false)}
+                                />
                               ))}
                             </div>
                           )}
