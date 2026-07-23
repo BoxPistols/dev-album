@@ -299,8 +299,8 @@ export default function Navigation() {
                             onClick={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
                             className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-foreground hover:bg-sidebar-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                           >
-                            <span className="text-sm">{section.title}</span>
-                            <ChevronDown size={18} className={`transition-transform ${expandedSection === section.id ? 'rotate-180' : ''}`} />
+                            <span className="text-sm truncate min-w-0">{section.title}</span>
+                            <ChevronDown size={18} className={`flex-shrink-0 ml-2 transition-transform ${expandedSection === section.id ? 'rotate-180' : ''}`} />
                           </button>
                           {expandedSection === section.id && (
                             <div className="ml-2 mt-1 space-y-1 border-l-2 border-sidebar-border">

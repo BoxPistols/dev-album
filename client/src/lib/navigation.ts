@@ -147,7 +147,7 @@ export const sections: SectionInfo[] = [
   { id: 'markdown-prompt', title: 'Markdown/プロンプト', manualId: 'git' },
   { id: 'git-workflow', title: 'Git ワークフロー実践', manualId: 'git' },
   { id: 'github-actions', title: 'GitHub Actions / CI/CD', manualId: 'git' },
-  { id: 'flow-automation', title: '開発フロー自動化とガバナンス', manualId: 'git' },
+  { id: 'flow-automation', title: 'フロー自動化とガバナンス', manualId: 'git' },
   { id: 'react-practice', title: 'React 実践', manualId: 'git' },
   { id: 'advanced-setup', title: '実践的な環境構築', manualId: 'git' },
   { id: 'ai-agent', title: 'AI エージェント連携', manualId: 'git' },
