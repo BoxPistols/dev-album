@@ -49,4 +49,6 @@ PR には `.github/labeler.yml` により変更パスからラベルが自動付
 - CI（型 / テスト / ビルド）が緑であることを、マージの前提にする。
 - `.github/CODEOWNERS` で指名された担当のレビューを尊重する。
 
+> 注意: これらを**技術的に強制**するには、GitHub 側で `main` のブランチ保護またはルールセットを別途設定する必要がある（`Require a pull request before merging` / `Require review from Code Owners` / CI を必須ステータスチェックに指定）。`.github/CODEOWNERS` はレビュー依頼を自動化するだけで、それ単体ではマージを止めない。この設定手順自体が教材「マージガバナンス」の題材。
+
 詳しい設計思想は、サイト内の **Git > フロー自動化** と **Git > GitHub Actions** を参照してください。

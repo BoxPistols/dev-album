@@ -38,7 +38,8 @@ documentation:
 
 ci:
   - changed-files:
-      - any-glob-to-any-file: '.github/**'
+      # ワークフロー本体の変更のみを ci とする（PR テンプレ・CODEOWNERS 等は対象外）
+      - any-glob-to-any-file: '.github/workflows/**'
 
 dependencies:
   - changed-files:
