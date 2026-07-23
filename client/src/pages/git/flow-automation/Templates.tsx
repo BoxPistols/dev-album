@@ -156,9 +156,10 @@ body:
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               <code>.github/ISSUE_TEMPLATE/config.yml</code> で、テンプレートを
-              使わない白紙の Issue を無効化できます。
-              <code>blank_issues_enabled: false</code> にすると、起票者は必ず
-              いずれかのテンプレートを選ぶことになります。質問など Issue
+              使わない白紙の Issue の導線を絞れます。
+              <code>blank_issues_enabled: false</code> にすると、Read / Triage
+              権限の投稿者には「空の Issue を作成」リンクが表示されなくなり、
+              用意したテンプレートから起票することになります。質問など Issue
               以外へ誘導したいときは <code>contact_links</code> を使います。
             </p>
 
@@ -171,6 +172,18 @@ contact_links:
     url: https://github.com/BoxPistols/dev-album/discussions
     about: バグ報告ではない質問はこちら`}
             />
+
+            <InfoBox
+              type="warning"
+              title="全員を完全にブロックはしない（仕様と実測のギャップ）"
+            >
+              <code>blank_issues_enabled: false</code>{" "}
+              が白紙起票を隠すのは、Read / Triage 権限の投稿者に対してです。
+              <strong>Write 以上の権限を持つメンテナー</strong>{" "}
+              には「メンテナーは空の Issue を作成できます」という導線が残ります。
+              外部からの雑多な起票を型に沿わせる用途では十分効きますが、
+              「誰も白紙 Issue を作れなくなる」わけではない点を押さえます。
+            </InfoBox>
           </section>
 
           <section>
@@ -228,7 +241,7 @@ Closes #
             </p>
 
             <Quiz
-              question="テンプレートを使わない白紙の Issue を禁止して、必ずいずれかのテンプレートを通したい。どこで設定する？"
+              question="外部からの雑多な起票を減らすため、Read / Triage 権限の投稿者に「空の Issue」を出さず、テンプレートから選ばせたい。どこで設定する？"
               options={[
                 {
                   label:
@@ -239,7 +252,7 @@ Closes #
                 { label: ".github/labeler.yml" },
                 { label: ".github/workflows/ci.yml" },
               ]}
-              explanation="config.yml の blank_issues_enabled を false にすると、白紙起票の導線が消え、起票者は用意されたテンプレート（Issue Form）から選ぶことになります。PR テンプレートや labeler、CI はいずれも別の役割で、白紙 Issue の無効化はできません。"
+              explanation="config.yml の blank_issues_enabled を false にすると、Read / Triage 権限の投稿者からは「空の Issue を作成」リンクが消え、用意したテンプレート（Issue Form）に沿って起票されます。ただし Write 以上のメンテナーには白紙 Issue の導線が残ります。PR テンプレート・labeler・CI はいずれも別の役割で、この設定はできません。"
             />
           </section>
 
