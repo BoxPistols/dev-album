@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-23-git-flow-issue-pr-templates",
+    date: "2026-07-23",
+    title: "Git フロー自動化編に「Issue / PR テンプレート」ページを追加",
+    description:
+      "開発フロー自動化とガバナンス編の最初に、Issue と PR の入口を標準化するテンプレートの解説ページを追加。Issue Forms（YAML）による必須入力・ドロップダウン、config.yml での白紙起票の無効化、PULL_REQUEST_TEMPLATE.md のチェックリスト設計を、このリポジトリ自身の .github 設定を実例として扱う。ラベル自動化やアサインの前提となる「入口の型」を最初に学べる。",
+    category: "feature",
+    link: "/git/flow-automation/templates",
+  },
+  {
     id: "2026-07-21-github-actions-reference",
     date: "2026-07-21",
     title: "GitHub Actions リファレンス（パラメータ一覧）ページを追加",
