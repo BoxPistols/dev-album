@@ -426,6 +426,21 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: var(--muted-foreground);
   }
+  /* 日本語の行組版（グローバル）: 文節（フレーズ）単位で折り返す。
+     auto-phrase 未対応ブラウザ（Safari 等）は normal に自動フォールバックする。
+     truncate / whitespace-nowrap の要素は改行しないため影響を受けない。 */
+  body {
+    word-break: auto-phrase;
+  }
+  /* 本文プロースは両端揃えで行末の凸凹を整える。単一行・nowrap 要素は
+     最終行が左揃えのままなので視覚的な影響はない。 */
+  p,
+  li,
+  dd,
+  td,
+  blockquote {
+    text-align: justify;
+  }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
     @apply font-bold tracking-tight;
