@@ -1,0 +1,34 @@
+name: Stale
+
+# 放置された Issue / PR に stale ラベルを付け、その後も動きがなければ自動でクローズする。
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 毎週月曜 00:00 UTC
+  workflow_dispatch: # 手動実行も可能
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 30
+          days-before-close: 7
+          stale-issue-label: stale
+          stale-pr-label: stale
+          exempt-issue-labels: 'pinned,security'
+          exempt-pr-labels: 'pinned,security'
+          stale-issue-message: >
+            30 日間動きがないため stale ラベルを付けました。
+            まだ必要な場合はコメントしてください。7 日後に自動でクローズされます。
+          stale-pr-message: >
+            30 日間動きがないため stale ラベルを付けました。
+            継続する場合はコメントか更新をお願いします。7 日後に自動でクローズされます。
+          close-issue-message: >
+            動きがないため自動でクローズしました。必要になったら再オープンしてください。
+          close-pr-message: >
+            動きがないため自動でクローズしました。再開する場合は再オープンしてください。

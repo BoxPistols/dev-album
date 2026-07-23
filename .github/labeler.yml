@@ -1,0 +1,47 @@
+# actions/labeler v5 の定義。
+# PR の「変更されたパス」からラベルを自動で付ける。
+# 実行は .github/workflows/labeler.yml。
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file: 'client/**'
+
+git-manual:
+  - changed-files:
+      - any-glob-to-any-file: 'client/src/pages/git/**'
+
+react-manual:
+  - changed-files:
+      - any-glob-to-any-file: 'client/src/pages/react/**'
+
+threejs-manual:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'client/src/pages/threejs/**'
+          - 'client/src/features/threejs/**'
+
+claude-manual:
+  - changed-files:
+      - any-glob-to-any-file: 'client/src/pages/claude-mux/**'
+
+design-system:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'design-system/**'
+          - 'client/src/components/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - 'zenn/**'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'pnpm-lock.yaml'
