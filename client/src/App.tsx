@@ -135,6 +135,7 @@ const GitActionsIntro = lazy(() => import("./pages/git/github-actions/Intro"));
 const GitActionsWorkflowBasics = lazy(() => import("./pages/git/github-actions/WorkflowBasics"));
 const GitActionsTriggersJobs = lazy(() => import("./pages/git/github-actions/TriggersJobs"));
 const GitActionsCiPractice = lazy(() => import("./pages/git/github-actions/CiPractice"));
+const GitActionsSecretsPermissions = lazy(() => import("./pages/git/github-actions/SecretsPermissions"));
 const GitActionsSecretsCd = lazy(() => import("./pages/git/github-actions/SecretsCd"));
 const GitActionsReuseTroubleshoot = lazy(() => import("./pages/git/github-actions/ReuseTroubleshoot"));
 const GitActionsReference = lazy(() => import("./pages/git/github-actions/Reference"));
@@ -520,6 +521,7 @@ function App() {
                 <Route path="/git/github-actions/workflow-basics" component={GitActionsWorkflowBasics} />
                 <Route path="/git/github-actions/triggers-jobs" component={GitActionsTriggersJobs} />
                 <Route path="/git/github-actions/ci-practice" component={GitActionsCiPractice} />
+                <Route path="/git/github-actions/secrets-permissions" component={GitActionsSecretsPermissions} />
                 <Route path="/git/github-actions/secrets-cd" component={GitActionsSecretsCd} />
                 <Route path="/git/github-actions/reuse-troubleshoot" component={GitActionsReuseTroubleshoot} />
                 <Route path="/git/github-actions/reference" component={GitActionsReference} />

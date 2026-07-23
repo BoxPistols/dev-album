@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-23-git-actions-secrets-permissions",
+    date: "2026-07-23",
+    title: "GitHub Actions 編に「トークン・シークレット・権限の実務」ページを追加",
+    description:
+      "初学者が最も詰まる認証・権限まわりを 1 枚に集約。どの認証（SSH / HTTPS+PAT / gh / GITHUB_TOKEN / PAT / GitHub App / OIDC）をいつ使うかの全体地図、Fine-grained PAT の発行手順、シークレットの登録とスコープ（repository / environment / organization、Dependabot は別枠）、GITHUB_TOKEN の最小権限、そして 403・HTTPS のパスワード・fork の secret・期限切れなどのよくあるハマり集をまとめた。シークレット利用ページの手前に配置。",
+    category: "feature",
+    link: "/git/github-actions/secrets-permissions",
+  },
+  {
     id: "2026-07-23-git-flow-issue-pr-templates",
     date: "2026-07-23",
     title: "Git フロー自動化編に「Issue / PR テンプレート」ページを追加",
