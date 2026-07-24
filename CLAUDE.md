@@ -59,7 +59,7 @@ client/src/
 
 | トークン | 値 | 用途 |
 |---------|-----|------|
-| --primary | #2563EB | アクション、リンク、フォーカスリング |
+| --primary | #1F5CDB | アクション、リンク、フォーカスリング（text-primary×bg-primary/10 が AA 4.5:1 を満たす実測値。旧 #2563EB は 4.48:1 で未達） |
 | --foreground | #3F3F46 | 見出し、本文テキスト |
 | --muted-foreground | #67676F | 補助テキスト、プレースホルダー（muted 背景上でも AA 4.5:1 を満たす実測値） |
 | --background | #FAFAFA | ページ背景 |

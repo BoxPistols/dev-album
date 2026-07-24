@@ -15,6 +15,8 @@ const PAGES = [
   { path: "/react/accessibility/semantic-aria", name: "アクセシビリティ教材" },
   { path: "/ux-design", name: "UX デザイン Home" },
   { path: "/training", name: "トレーニング" },
+  // コードブロック（テンプレートリテラル ${} 補間を含む）のシンタックス色コントラスト回帰を捕捉する
+  { path: "/react/testing/playwright-e2e", name: "テスト戦略（コードブロック多数）" },
 ] as const;
 
 // ThemeContext は html に付与するクラスでテーマを切り替える（dark / dark+dark-soft）
