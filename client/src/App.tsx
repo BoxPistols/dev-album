@@ -102,6 +102,11 @@ const DarkModeImpl = lazy(() => import("./pages/react/design-tokens/DarkModeImpl
 const ComponentDriven = lazy(() => import("./pages/react/cdd-flow/ComponentDriven"));
 const DesignCodeSync = lazy(() => import("./pages/react/cdd-flow/DesignCodeSync"));
 const DesignQA = lazy(() => import("./pages/react/cdd-flow/DesignQA"));
+const TestingOverview = lazy(() => import("./pages/react/testing/Overview"));
+const VitestUnit = lazy(() => import("./pages/react/testing/VitestUnit"));
+const RtlComponents = lazy(() => import("./pages/react/testing/RtlComponents"));
+const PlaywrightE2E = lazy(() => import("./pages/react/testing/PlaywrightE2E"));
+const SnapshotVisual = lazy(() => import("./pages/react/testing/SnapshotVisual"));
 
 // ── Git マニュアル (27ページ) ──
 const GitHome = lazy(() => import("./pages/git/Home"));
@@ -488,6 +493,11 @@ function App() {
                 <Route path="/react/cdd-flow/component-driven" component={ComponentDriven} />
                 <Route path="/react/cdd-flow/design-code-sync" component={DesignCodeSync} />
                 <Route path="/react/cdd-flow/design-qa" component={DesignQA} />
+                <Route path="/react/testing/overview" component={TestingOverview} />
+                <Route path="/react/testing/vitest-unit" component={VitestUnit} />
+                <Route path="/react/testing/rtl-components" component={RtlComponents} />
+                <Route path="/react/testing/playwright-e2e" component={PlaywrightE2E} />
+                <Route path="/react/testing/snapshot-visual" component={SnapshotVisual} />
 
                 {/* === Git マニュアル === */}
                 <Route path="/git" component={GitHome} />

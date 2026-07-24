@@ -139,6 +139,7 @@ export const sections: SectionInfo[] = [
   { id: 'web-quality', title: 'Web 品質と技術倫理', manualId: 'react', part: 'quality' },
   { id: 'design-tokens', title: 'デザイントークンとダークモード', manualId: 'react', part: 'quality' },
   { id: 'cdd-flow', title: 'コンポーネント駆動開発', manualId: 'react', part: 'quality' },
+  { id: 'testing', title: 'テスト戦略', manualId: 'react', part: 'quality' },
 
   // === Git マニュアル ===
   { id: 'git-intro', title: 'はじめに', manualId: 'git' },
@@ -318,6 +319,11 @@ export const pages: PageInfo[] = [
   { step: 75, path: '/react/cdd-flow/component-driven', title: 'コンポーネント駆動開発（CDD）', sectionId: 'cdd-flow', manualId: 'react' },
   { step: 76, path: '/react/cdd-flow/design-code-sync', title: 'デザインとコードの自動同期', sectionId: 'cdd-flow', manualId: 'react' },
   { step: 77, path: '/react/cdd-flow/design-qa', title: 'デザイン QA の自動化', sectionId: 'cdd-flow', manualId: 'react' },
+  { step: 78, path: '/react/testing/overview', title: 'テストの全体像とテストピラミッド', sectionId: 'testing', manualId: 'react' },
+  { step: 79, path: '/react/testing/vitest-unit', title: 'Vitest で単体テスト', sectionId: 'testing', manualId: 'react' },
+  { step: 80, path: '/react/testing/rtl-components', title: 'React コンポーネントのテスト（RTL）', sectionId: 'testing', manualId: 'react' },
+  { step: 81, path: '/react/testing/playwright-e2e', title: 'Playwright で E2E テスト', sectionId: 'testing', manualId: 'react' },
+  { step: 82, path: '/react/testing/snapshot-visual', title: 'スナップショットとビジュアルリグレッション', sectionId: 'testing', manualId: 'react' },
 
   // ===========================
   // Git マニュアル (27ページ)

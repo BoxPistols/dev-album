@@ -20,6 +20,51 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-24-react-testing-overview",
+    date: "2026-07-24",
+    title: "React 編に「テスト戦略」セクションを新設（テストの全体像）",
+    description:
+      "テストを特定フレームワークに依存しない実践として学ぶ新セクションの入口。テストピラミッド（単体 / 統合 / E2E）と「振る舞いをテストする（実装詳細に依存しない）」という原則を軸に、なぜテストが移植可能なスキルになるのかを整理した。このアプリ自身がロジックと E2E は持つがコンポーネントテストは持たない、という現状の判断も題材にしている。",
+    category: "feature",
+    link: "/react/testing/overview",
+  },
+  {
+    id: "2026-07-24-react-testing-vitest-unit",
+    date: "2026-07-24",
+    title: "テスト戦略編に「Vitest で単体テスト」ページを追加",
+    description:
+      "純粋関数を対象にした単体テストの基本（describe / it / expect、AAA パターン、カバレッジ）を、このリポジトリ自身の lib/*.test.ts を実例に解説。Vitest は React を必要とせず任意の TS/JS に対して走る、という非依存性を前面に置いた。",
+    category: "feature",
+    link: "/react/testing/vitest-unit",
+  },
+  {
+    id: "2026-07-24-react-testing-rtl-components",
+    date: "2026-07-24",
+    title: "テスト戦略編に「React コンポーネントのテスト（RTL）」ページを追加",
+    description:
+      "React Testing Library を、テスト戦略の中で唯一の React 結合点として扱う。getByRole などアクセシブルなクエリで「実装ではなくユーザーに見える振る舞い」を検証する RTL の思想そのものが、疎結合なテストの具体例になることを示した。",
+    category: "feature",
+    link: "/react/testing/rtl-components",
+  },
+  {
+    id: "2026-07-24-react-testing-playwright-e2e",
+    date: "2026-07-24",
+    title: "テスト戦略編に「Playwright で E2E テスト」ページを追加",
+    description:
+      "ブラウザを実際に操作する E2E テストを、フレームワーク非依存の手法として解説。このリポジトリの e2e/*.spec.ts と axe-core による a11y 自動チェックを実例に扱い、E2E は現状 CI に組み込まれていない点も明示した。",
+    category: "feature",
+    link: "/react/testing/playwright-e2e",
+  },
+  {
+    id: "2026-07-24-react-testing-snapshot-visual",
+    date: "2026-07-24",
+    title: "テスト戦略編に「スナップショットとビジュアルリグレッション」ページを追加",
+    description:
+      "Vitest の toMatchSnapshot と Playwright の toHaveScreenshot、そして Storybook + Chromatic によるビジュアルリグレッションを整理。スナップショットが陳腐化しやすい性質を踏まえ「いつ使い、いつ使わないか」の判断軸を中心に据えた。",
+    category: "feature",
+    link: "/react/testing/snapshot-visual",
+  },
+  {
     id: "2026-07-23-git-actions-secrets-permissions",
     date: "2026-07-23",
     title: "GitHub Actions 編に「トークン・シークレット・権限の実務」ページを追加",

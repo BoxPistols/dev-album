@@ -1161,4 +1161,34 @@ export const searchIndex: Record<string, string[]> = {
     '認証', 'SSH', 'HTTPS', 'gh auth', 'GitHub App', 'OIDC', 'Dependabot secret',
     '有効期限', '期限切れ', '403', 'fork の PR', 'よくあるハマり', 'コーディングチャレンジ',
   ],
+  '/react/testing/overview': [
+    'テストの全体像とテストピラミッド', 'なぜテストを書くのか', 'テストピラミッド',
+    'test pyramid', '単体テスト', '統合テスト', 'E2E', '振る舞いをテストする',
+    '実装詳細に依存しない', 'フレームワーク非依存', '疎結合', 'テスト戦略',
+    'unit', 'integration', 'end-to-end', 'テストの ROI', 'どこまでテストするか',
+  ],
+  '/react/testing/vitest-unit': [
+    'Vitest で単体テスト', 'Vitest', 'vitest', 'describe', 'it', 'test', 'expect',
+    'アサーション', 'AAA パターン', 'Arrange Act Assert', '純粋関数のテスト',
+    'カバレッジ', 'coverage', 'jsdom', 'モック', 'mock', 'vi.fn', 'test.each',
+    '任意の TS/JS に効く', 'フレームワーク非依存', '単体テスト',
+  ],
+  '/react/testing/rtl-components': [
+    'React コンポーネントのテスト', 'React Testing Library', 'RTL', 'testing-library',
+    'render', 'screen', 'getByRole', 'getByText', 'userEvent', 'fireEvent',
+    'ユーザー視点', '実装詳細に依存しないテスト', 'アクセシブルなクエリ',
+    'クエリ優先順位', 'findBy', 'waitFor', '疎結合なテスト', 'コンポーネント単体テスト',
+  ],
+  '/react/testing/playwright-e2e': [
+    'Playwright で E2E テスト', 'Playwright', 'playwright', 'E2E', 'end-to-end',
+    'ブラウザ自動化', 'page.goto', 'locator', 'getByRole', 'expect', 'webServer',
+    'playwright.config', 'axe-core', 'a11y 自動チェック', 'フレームワーク非依存',
+    '任意の Web アプリを駆動', 'CI 連携', 'トレース', 'リトライ', 'フレーキーテスト',
+  ],
+  '/react/testing/snapshot-visual': [
+    'スナップショットとビジュアルリグレッション', 'スナップショットテスト', 'snapshot',
+    'toMatchSnapshot', 'toMatchInlineSnapshot', 'toHaveScreenshot', 'ビジュアルリグレッション',
+    'visual regression', 'Chromatic', 'Storybook', 'いつ使うか いつ使わないか',
+    'スナップショットの陳腐化', '差分検出', 'ピクセル比較', 'ベースライン更新',
+  ],
 };
