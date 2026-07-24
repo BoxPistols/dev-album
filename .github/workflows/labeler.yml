@@ -1,0 +1,21 @@
+name: Labeler
+
+# pull_request_target を使う理由:
+# フォークからの PR では通常の pull_request トリガーに書き込み権限のあるトークンが
+# 渡らず、ラベルを付けられない。pull_request_target はベースリポジトリの権限で走るため
+# ラベル付けができる。labeler はフォーク側のコードを checkout・実行しないので安全。
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          configuration-path: .github/labeler.yml

@@ -407,6 +407,37 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+  /* スクロールバー: 細く、テーマ変数に追従（ダーク/Dracula でも浮かない） */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--muted-foreground);
+  }
+  /* 日本語の行組版（グローバル）: 文節（フレーズ）単位で折り返す。
+     auto-phrase 未対応ブラウザ（Safari 等）は normal に自動フォールバックする。
+     truncate / whitespace-nowrap の要素は改行しないため影響を受けない。 */
+  body {
+    word-break: auto-phrase;
+  }
+  /* 本文プロースは両端揃えで行末の凸凹を整える。対象は本文コンテナ（main）配下に
+     限定し、サイドバー（nav）のタイトルや進捗表示には効かせない。:where() で
+     詳細度を上げず、単一行・nowrap 要素は最終行が左揃えのままで影響しない。 */
+  main :where(p, li, dd, td, blockquote) {
+    text-align: justify;
+  }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
     @apply font-bold tracking-tight;

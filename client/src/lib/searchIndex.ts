@@ -1147,4 +1147,18 @@ export const searchIndex: Record<string, string[]> = {
     'インシデント対応', 'ポストモーテム', '障害対応', '非難なきポストモーテム', 'RCA',
     '根本原因分析', 'インシデント指揮官', 'タイムライン', '再発防止',
   ],
+  '/git/flow-automation/templates': [
+    'Issue / PR テンプレート', 'なぜ入口を標準化するのか', 'Issue テンプレート', 'PR テンプレート',
+    'テンプレート', 'template', 'templates', 'Issue Forms', 'ISSUE_TEMPLATE', 'PULL_REQUEST_TEMPLATE',
+    'config.yml', 'blank_issues_enabled', 'contact_links', 'validations', 'チェックリスト',
+    '入口の標準化', 'バグ報告', '機能リクエスト', 'コーディングチャレンジ',
+  ],
+  '/git/github-actions/secrets-permissions': [
+    'トークン・シークレット・権限の実務', 'まず全体地図 どの認証をいつ使うか',
+    'PAT', 'Personal Access Token', 'アクセストークン', 'token', 'トークン',
+    'fine-grained', 'classic', 'secrets', 'シークレット', 'secret 登録',
+    'GITHUB_TOKEN', 'permissions', '権限', '最小権限', 'Workflow permissions',
+    '認証', 'SSH', 'HTTPS', 'gh auth', 'GitHub App', 'OIDC', 'Dependabot secret',
+    '有効期限', '期限切れ', '403', 'fork の PR', 'よくあるハマり', 'コーディングチャレンジ',
+  ],
 };
