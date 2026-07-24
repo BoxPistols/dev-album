@@ -71,7 +71,7 @@
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.0",
     "jsdom": "^28.1.0",
-    "postcss": "^8.4.47",
+    "postcss": "^8.5.22",
     "prettier": "^3.6.2",
     "storybook": "^10.2.19",
     "tailwindcss": "^4.1.14",
