@@ -17,7 +17,7 @@
     "freshness": "node scripts/check-content-freshness.mjs"
   },
   "dependencies": {
-    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-accordion": "^1.2.19",
     "@radix-ui/react-collapsible": "^1.1.18",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
