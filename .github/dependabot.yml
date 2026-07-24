@@ -10,6 +10,10 @@ updates:
       - 'dependencies'
     commit-message:
       prefix: 'chore(deps)'
+    ignore:
+      # TypeScript 7.0 はネイティブ(Go)版プレビューで既存ツールチェインと非互換 → 5.x に固定
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
 
   # GitHub Actions 自身のバージョン更新
   - package-ecosystem: 'github-actions'
