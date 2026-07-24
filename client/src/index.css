@@ -47,11 +47,12 @@
 }
 
 :root {
-  --primary: #2563EB;
+  /* primary 青系は text-primary×bg-primary/10 が Light で 4.48:1(AA未達)。#1F5CDB で 5.04:1 に。Dark/Dracula は別 primary で不変 */
+  --primary: #1F5CDB;
   --primary-foreground: #F9FAFB;
-  --sidebar-primary: #2563EB;
+  --sidebar-primary: #1F5CDB;
   --sidebar-primary-foreground: #F9FAFB;
-  --chart-1: #2563EB;
+  --chart-1: #1F5CDB;
   --chart-2: #3B82F6;
   --chart-3: #60A5FA;
   --chart-4: #93C5FD;
@@ -68,19 +69,19 @@
   --muted: #F4F4F5;
   /* #71717A は muted 背景上で 4.39:1 と AA 未達のため、実測 5.10:1 の #67676F に */
   --muted-foreground: #67676F;
-  --accent: #2563EB;
+  --accent: #1F5CDB;
   --accent-foreground: #F9FAFB;
   --destructive: #DC2626;
   --destructive-foreground: #FEE2E2;
   --border: #E4E4E7;
   --input: #F4F4F5;
-  --ring: #2563EB;
+  --ring: #1F5CDB;
   --sidebar: rgba(255, 255, 255, 0.95);
   --sidebar-foreground: #3F3F46;
   --sidebar-accent: #F4F4F5;
   --sidebar-accent-foreground: #3F3F46;
   --sidebar-border: #E4E4E7;
-  --sidebar-ring: #2563EB;
+  --sidebar-ring: #1F5CDB;
 }
 
 .dark {
