@@ -1,6 +1,6 @@
 import { Copy, Check } from 'lucide-react';
 import { useState } from 'react';
-import { Highlight, themes, type Language } from 'prism-react-renderer';
+import { Highlight, themes, type Language, type PrismTheme } from 'prism-react-renderer';
 
 interface CodeBlockProps {
   code: string;
@@ -38,6 +38,27 @@ function resolveLanguage(lang: string): Language {
   const lower = lang.toLowerCase();
   return languageMap[lower] ?? (lower as Language);
 }
+
+// vsDark の一部トークン色は、このコンポーネントのコード背景 #1e1e2e に対して
+// WCAG AA (4.5:1) を満たさない。該当色のみ AA 準拠の近似色へ差し替える（色相は維持）。
+// 実測(対 #1e1e2e): prolog rgb(0,0,128)=1.02 / constant rgb(100,102,149)=3.03 / punctuation #808080=4.15
+const AA_CONTRAST_FIXES: Record<string, string> = {
+  'rgb(0, 0, 128)': '#569cd6', // prolog: 1.02 → 5.56
+  'rgb(100, 102, 149)': '#8a8ac0', // constant（テンプレートリテラル補間など）: 3.03 → 5.06
+  '#808080': '#a6accd', // punctuation: 4.15 → 7.34
+};
+
+const codeTheme: PrismTheme = {
+  ...themes.vsDark,
+  styles: themes.vsDark.styles.map((entry) => {
+    const replacement = entry.style?.color
+      ? AA_CONTRAST_FIXES[entry.style.color]
+      : undefined;
+    return replacement
+      ? { ...entry, style: { ...entry.style, color: replacement } }
+      : entry;
+  }),
+};
 
 export default function CodeBlock({
   code,
@@ -85,7 +106,7 @@ export default function CodeBlock({
       )}
 
       {/* コード本体（横スクロールをキーボードでも操作できるよう focusable にする） */}
-      <Highlight theme={themes.vsDark} code={code.trim()} language={prismLanguage}>
+      <Highlight theme={codeTheme} code={code.trim()} language={prismLanguage}>
         {({ tokens, getLineProps, getTokenProps }) => (
           <div
             className="overflow-x-auto focus:outline-2 focus:outline-primary"
