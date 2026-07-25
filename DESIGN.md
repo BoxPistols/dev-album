@@ -12,7 +12,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 - サーバレス API: `api/chat.ts` が AI チャットの代理エンドポイント（OpenAI / Gemini、Redis によるクォータ制御）。`vercel.json` が `/api/:path*` を関数へ、残りを SPA へ rewrite する。`server/index.ts`（Express）はローカル/代替の静的配信サーバで、Vercel 本番の主経路ではない。
 - 教材ページは `client/src/pages/<manual>/<section>/*.tsx`。ページ・セクション・ステップの一覧は `client/src/lib/navigation.ts` が単一の真実として持ち、`App.tsx` のルートと対応する。
 - ライブプレビュー基盤: 学習者のコードを Sucrase でブラウザ内トランスパイルし、iframe 内で描画する（JSX / terminal / config / markdown / threejs を `resolvePreviewType()` で判定）。
-- 3 テーマ（Light / Dark 高コントラスト / Dracula）は CSS 変数（`client/src/index.css` の `:root` / `.dark` / `.dark.dark-soft`）＋ html クラス切替で実現。
+- 3 テーマ（Light / Dark 高コントラスト / Dracula）は CSS 変数（`client/src/index.css` の `:root` / `.dark` / `.dark-soft`）＋ html クラス切替で実現。Dracula は `.dark` に `.dark-soft` を重ねて適用する（`.dark` の上に上書き）。
 
 ## 主要な制約
 
