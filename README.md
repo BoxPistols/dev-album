@@ -105,7 +105,7 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 ```
 
 - プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
-- iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと外部送信は `'self'` / `'none'` で構造的に封じる。
+- iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
 - `allow-same-origin` は同一オリジンの `/vendor/` を解決するために必要。緩めた分を CSP で多層防御する。
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）
