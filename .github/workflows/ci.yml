@@ -44,11 +44,13 @@ jobs:
       - name: ビルド
         run: pnpm build
 
-  # a11y 回帰ガード: axe-core で Light / Dark / Dracula の3テーマを検査し、
-  # critical / serious なアクセシビリティ違反（コントラスト等）を PR 段階でブロックする。
-  # 検査対象にはコードブロック（テンプレートリテラルの補間トークン）を含むページも入れ、
-  # シンタックス色・primary 色のコントラスト退行を捕捉する。
-  a11y:
+  # E2E 回帰ガード（a11y を含む全スペック）。
+  # a11y: axe-core で Light / Dark / Dracula の3テーマを検査し、critical / serious な
+  # 違反（コントラスト等）をブロックする。検査対象にはコードブロック（テンプレート
+  # リテラルの補間トークン）を含むページも入れ、シンタックス色・primary 色の退行を捕捉する。
+  # その他: プレビュー基盤（実ライブラリ描画・エラー不変条件）、Three.js、マニュアル導線。
+  # 「ビルドが通る ≠ 正しく描画される」ため、実描画での検証を型/単体と別ジョブで回す。
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -70,5 +72,14 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       # playwright.config の webServer が dev サーバを自動起動して検査する
-      - name: a11y 検査（axe-core / 3テーマ）
-        run: pnpm test:a11y
+      - name: E2E 検査（a11y 3テーマ含む全スペック）
+        run: pnpm test:e2e
+
+      # 失敗時のみレポートを残す（CI 固有の失敗をローカルで追跡できるようにする）
+      - name: Playwright レポートを保存
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

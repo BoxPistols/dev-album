@@ -106,12 +106,20 @@ test.describe("LP ゲーミフィケーションセクション", () => {
     const tryItHeading = page.locator('h2:has-text("体験してみる")');
     await expect(tryItHeading).toBeVisible({ timeout: 10_000 });
 
+    // 検証対象を「体験してみる」セクション内に限定する。
+    // ページ全体を対象にすると、お知らせ本文が同じ語を含んだ時に別要素と衝突する。
+    const trySection = page
+      .locator("section")
+      .filter({ has: page.locator('h2:has-text("体験してみる")') });
+
     // CodingChallenge コンポーネントが存在する（「コーディングチャレンジ」ラベル）
-    const challengeLabel = page.locator("text=コーディングチャレンジ");
+    const challengeLabel = trySection.getByText("コーディングチャレンジ", {
+      exact: true,
+    });
     await expect(challengeLabel).toBeVisible({ timeout: 5_000 });
 
     // 「チェックする」ボタンが存在する
-    const checkBtn = page.locator('button:has-text("チェックする")');
+    const checkBtn = trySection.locator('button:has-text("チェックする")');
     await expect(checkBtn).toBeVisible({ timeout: 5_000 });
   });
 

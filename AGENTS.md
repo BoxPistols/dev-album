@@ -16,11 +16,13 @@ pnpm install --frozen-lockfile   # 依存インストール（lockfile 厳守）
 pnpm dev                         # 開発サーバ（Vite）
 pnpm check                       # 型チェック（tsc --noEmit）
 pnpm test                        # 単体テスト（Vitest）
-pnpm test:a11y                   # a11y 検査（Playwright + axe-core, 3テーマ）
+pnpm test:e2e                    # E2E 全スペック（Playwright, a11y 含む）
+pnpm test:a11y                   # a11y のみ（axe-core, 3テーマ）
 pnpm build                       # 本番ビルド
 ```
 
-- CI は `型チェック → 単体テスト → ビルド` と、別ジョブで `a11y 検査`。**push 前にビルド + テスト通過を確認**する。
+- CI は `verify`（型チェック → 単体テスト → ビルド）と `e2e`（Playwright 全スペック）の 2 ジョブ。**push 前にビルド + テスト通過を確認**する。
+- ローカルで E2E を回すときは **空きポートを明示**する（`PORT=3400 pnpm test:e2e`）。既定の 3000 が他プロジェクトに使われていると、そのサーバを再利用して誤った結果になる。
 
 ## コーディング規約
 
@@ -41,7 +43,7 @@ pnpm build                       # 本番ビルド
 
 - コミットメッセージは日本語・簡潔。`Co-Authored-By` / 絵文字 / 自動生成署名を含めない。
 - 1 PR = 1 関心事。`git add .` より対象ファイルの明示を優先。
-- PR は CI（verify + a11y）緑を確認してからマージ。Vercel プレビュー配信の pending / CodeRabbit の rate-limit は非ブロッキング。
+- PR は CI（verify + e2e）緑を確認してからマージ。Vercel プレビュー配信の pending / CodeRabbit の rate-limit は非ブロッキング。
 - main へは直接コミットせず、feature ブランチ → PR → マージコミット方式。
 
 ## レビュー基準
