@@ -17,7 +17,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 ## 主要な制約
 
 - **アクセシビリティは必須要件**。WCAG AA（コントラスト 4.5:1）を満たす。色トークンは実測値で決める（手計算しない）。`text-black`/`text-white`/`bg-white` 直接使用は禁止（テーマ非対応になるため）。
-- プレビュー iframe は既定 `sandbox="allow-scripts allow-same-origin"`。`allow-same-origin` はセルフホストした `/vendor/` の UMD を同一オリジンとして解決するために要る。緩めた分は iframe 内の CSP（`script-src 'self'` / `connect-src 'none'`）で多層防御する。
+- プレビュー iframe は既定 `sandbox="allow-scripts allow-same-origin"`。`allow-same-origin` はセルフホストした `/vendor/` の UMD を同一オリジンとして解決するために要る。緩めた分は iframe 内の CSP（`default-src 'none'` / `script-src 'self' 'unsafe-inline'` / `connect-src 'none'`）で多層防御する。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために外せない。
 - 教材のトーンはフラットで実用的。エモーショナルなコピー・ネガティブ訴求・クリシェを禁止。
 
 ## 意思決定の記録
@@ -27,12 +27,24 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 
 ### 採用: Sucrase によるブラウザ内トランスパイル + セルフホスト UMD でプレビュー描画
 - 理由: ビルドを挟まず「書いて即結果」を実現するのが教材の核。
-- 配信: プレビューが読む UMD は React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本を**すべて `client/public/vendor/` にセルフホスト**する（`client/src/lib/preview.ts`）。CDN を単一障害点にせず、オフライン・社内網でも動かすため。iframe の CSP は `script-src 'self'` のため、外部ホストのスクリプトは構造的に読み込めない。
+- 配信: プレビューが読む UMD は React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本を**すべて `client/public/vendor/` にセルフホスト**する（`client/src/lib/preview.ts`）。CDN を単一障害点にせず、オフライン・社内網でも動かすため。iframe の CSP は `script-src 'self' 'unsafe-inline'` のため、外部ホストのスクリプトは構造的に読み込めない（インライン許可は学習者コードの実行にのみ効く）。
 - 制約: プレビューの React は **18.3.1**、Three.js は **0.160.1**、MUI は **v5.18** に固定する。React 19 / Three.js 0.161+ / MUI v6+ は UMD ビルドを配布しておらず、セルフホストする成果物が存在しないため。
 - 版ずれ検知: `pnpm freshness` で npm レジストリの最新版との乖離を検出する。
 
 ### 採用: 3 テーマ + CSS 変数トークン
-- 理由: ダークモードと色覚多様性を教材自身が体現する。マニュアル別の色分けは廃止し、単一プライマリ（ブルー）で統一（番号・アイコン・テキストで区別）。
+- 理由: ダークモードと色覚多様性を教材自身が体現する。
+- 構成: 地の色（`--background` / `--card` / `--foreground` / `--muted*` / `--border`）はテーマごとに 1 組だけ持ち、全マニュアルで共通にする。
+
+### 採用: マニュアル別ブランドカラーは primary 系トークンだけを差し替える
+- 理由: 8 マニュアルを横断する SPA で「いま自分がどのマニュアルにいるか」を色で示したい。一方で色を情報伝達の唯一の手段にはできない（色覚多様性）。そこで色は現在地の手がかりに留め、識別は番号・アイコン・テキストで行う。
+- 構成: `useManualTheme` が `<html data-manual="...">` を付け、`index.css` の `[data-manual="..."]` / `.dark[data-manual="..."]` / `.dark-soft[data-manual="..."]` が `--primary` / `--accent` / `--ring` / `--sidebar-*` のみを上書きする。地の色は触らないので、コンポーネント側は `bg-primary` / `text-primary` を書くだけでマニュアルを意識せずに済む。`infra` / `devflow` は上書きを持たず既定色にフォールバックする。
+- 代償: primary が 8 マニュアル × 3 テーマ = 24 通りに分岐し、コントラスト検査の対象が 24 倍になる。axe（`e2e/a11y.spec.ts`）は実描画を見るぶん代表ページの抜き取りにならざるを得ず、これだけでは取りこぼす。
+- 対策: `client/src/lib/theme-contrast.test.ts` を単体テストとして置き、ソースに実在する「文字色クラス × 背景色クラス」の組を全 24 通りのトークン値で評価する。仮想の組み合わせではなく実在する組だけを見るので、使っていない色の理論値で落ちない。axe は実描画の裏取り、こちらは全網羅という分担。
+
+### 採用: `text-primary` に重ねる自己色ティントは `bg-primary/10` を上限とする
+- 理由: `bg-primary/α` は下地を primary 自身へ寄せるため、同じ primary の文字を載せるとコントラストの余地が α に比例して減る。`bg-primary/5` のセクションヘッダ内に `bg-primary/10` のバッジを置く定型では実効 α が 1−(1−0.05)(1−0.10) = 0.145 まで上がる。
+- 経緯: ブランドカラー導入後の全マニュアル検査で、`bg-primary/20 text-primary`（ステップ番号バッジ）が複数マニュアルで AA 未達だった。選択肢は「24 通りのトークンを組み直す」か「ティントの上限を決める」かの二択で、後者を採った。前者は色相を保てず、ブランド色である意味が薄れるため。
+- 結果: ティント上限を `/10` に揃えたうえで、AA に届かなかった 7 トークンだけを色相を保ったまま微調整した（`threejs` `#0F766E`→`#0E6F68` / `ai-ml` `#B45309`→`#A14A08` / `api`・`vue` `#047857`→`#047253` / Dracula 既定 `#BD93F9`→`#CCABFA` / Dracula `git` `#FB7185`→`#FC9EAB` / Dracula `ai-ml` `#F59E0B`→`#F6A721`）。
 
 ### 採用: Light の primary = `#1F5CDB`（旧 `#2563EB` から変更）
 - 理由: `text-primary × bg-primary/10` が旧値で 4.48:1 と AA 未達だった。`#1F5CDB` で 5.04:1。Dark/Dracula は別 primary のため不変。

@@ -2,7 +2,9 @@
 
 ## プロジェクト概要
 
-Web 開発の実践リファレンス。Git・React・Claude Code・Three.js の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。W3Schools の構成を参考にしつつ、品質設計・a11y をより深く扱う。
+Web 開発の実践リファレンス。Git / React / Claude Code / Three.js / AI・ML / UX デザイン / API 設計 / Vue・Nuxt / インフラ / 開発フローの各領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。W3Schools の構成を参考にしつつ、品質設計・a11y をより深く扱う。
+
+マニュアルとページの正本は `client/src/lib/navigation.ts`。件数は増えるので文書に書かず、`client/src/lib/navigation.test.ts` が固定している値を参照する。
 
 - URL: https://dev-album.vercel.app
 - リポジトリ: https://github.com/BoxPistols/dev-album
@@ -50,13 +52,19 @@ client/src/
 ├── contexts/       ThemeContext, LayoutContext
 ├── data/           トレーニングチャレンジデータ
 ├── features/       Three.js 専用コンポーネント
-├── hooks/          useBookmarks, useProgress 等
+├── hooks/          useBookmarks, useProgress, useManualTheme 等
 ├── lib/            navigation.ts, preview.ts, searchIndex.ts
 └── pages/
-    ├── react/      React マニュアル
     ├── git/        Git マニュアル
-    ├── threejs/    Three.js マニュアル
+    ├── react/      React マニュアル
     ├── claude-mux/ Claude Code マニュアル
+    ├── threejs/    Three.js マニュアル
+    ├── ai-ml/      AI・ML マニュアル
+    ├── ux-design/  UX デザインマニュアル
+    ├── api/        API 設計マニュアル
+    ├── vue/        Vue / Nuxt マニュアル
+    ├── infra/      インフラマニュアル
+    ├── devflow/    開発フローマニュアル
     ├── Training.tsx  UI トレーニング
     ├── Landing.tsx   LP
     └── BugReport.tsx バグ報告
@@ -65,8 +73,9 @@ client/src/
 ## カラートークン
 
 ### 設計方針（バウハウス・ミニマル）
-- モノクロベース（zinc系）+ 単一プライマリ（ブルー）の抑制されたパレット
-- マニュアル別の色分けを廃止し、統一プライマリカラーで表現
+- モノクロベース（zinc系）の地 + 単一プライマリの抑制されたパレット
+- 地の色（background / card / foreground / muted / border）はテーマごとに 1 組。全マニュアル共通
+- primary はマニュアルごとのブランド色に差し替わる（下記「マニュアル別ブランドカラー」）
 - accent / cta / secondary は primary に統合
 - 3テーマ対応: Light / Dark（高コントラスト）/ Dracula（ソフトダーク）
 
@@ -98,7 +107,7 @@ client/src/
 
 | トークン | 値 | 用途 |
 |---------|-----|------|
-| --primary | #BD93F9 | アクション、リンク（Dracula パープル） |
+| --primary | #CCABFA | アクション、リンク（Dracula パープル。`text-primary × bg-primary/10` の実測で AA を満たす値。旧 #BD93F9 は未達） |
 | --foreground | #F8F8F2 | 本文テキスト |
 | --muted-foreground | #B4BEDD | 補助テキスト（`#6272A4` / `#8595BD` は muted 背景上で AA 未達） |
 | --background | #282A36 | ページ背景 |
@@ -106,9 +115,26 @@ client/src/
 | --muted | #44475A | セクション背景 |
 | --border | #44475A | ボーダー |
 
-### マニュアル別カラー（統一）
+### マニュアル別ブランドカラー
 
-全マニュアル共通で `text-primary` / `bg-primary` を使用。色ではなく番号・アイコン・テキストで区別する。
+`useManualTheme` が `<html data-manual="...">` を付け、`index.css` の `[data-manual="..."]` が `--primary` / `--accent` / `--ring` / `--sidebar-*` だけを差し替える。地の色は変わらない。コンポーネント側は `text-primary` / `bg-primary` を書くだけでよく、マニュアルを意識しない。
+
+| マニュアル | Light | Dark | Dracula |
+|---|---|---|---|
+| git | #BE123C | #FB7185 | #FC9EAB |
+| react | #4F46E5 | #A5B4FC | #A5B4FC |
+| claude-mux | #6D28D9 | #C4B5FD | #C4B5FD |
+| threejs | #0E6F68 | #2DD4BF | #2DD4BF |
+| ai-ml | #A14A08 | #F59E0B | #F6A721 |
+| ux-design | #BE185D | #F9A8D4 | #F9A8D4 |
+| api | #047253 | #34D399 | #34D399 |
+| vue | #047253 | #42B883 | #50FA7B |
+
+`infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
+
+**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 8 マニュアル × 3 テーマ = 24 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。
+
+**ティントの上限**: `text-primary` を載せる背景は `bg-primary/10` まで。`bg-primary/α` は下地を primary 側へ寄せるので α を上げるほど余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145）。`/20` は AA を割る。
 
 ## コンポーネント命名規則
 
@@ -127,6 +153,7 @@ client/src/
 | `shadow-lg` / `shadow-xl` | ノイズ過剰 | `shadow-sm` または `shadow-primary/5` |
 | `duration-500` 以上のアニメーション | 操作が鈍く感じる | `duration-150` ～ `duration-200` |
 | 色だけで情報を伝達 | 色覚多様性非対応 | アイコン + テキスト併用 |
+| `bg-primary/20` に `text-primary` | 自己色ティントで下地が文字色へ寄り AA を割る | `bg-primary/10` までに留める |
 | `/* コメント */` in CodingChallenge initialCode | Sucrase が正規表現と誤認 | `// コメント` を使用 |
 | プレビューに React 19 / Three.js 0.161+ を指定 | UMD ビルド未配布のためセルフホストできない | React 18.3.1 / Three.js 0.160.1 |
 | プレビュー iframe に `sandbox="allow-scripts"` のみ | 同一オリジンの `/vendor/` UMD を解決できない | `allow-scripts allow-same-origin` |

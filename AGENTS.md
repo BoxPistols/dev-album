@@ -30,12 +30,14 @@ pnpm build                       # 本番ビルド
 - コンポーネントは PascalCase、hooks は `use` プレフィックス、定数は UPPER_SNAKE_CASE。
 - 単一責任（1 コンポーネント 1 責務）。副作用は hooks に分離。Props は必ず型定義。
 - 色は CSS 変数トークンのみ（`text-foreground` / `bg-muted` 等）。`text-black`/`text-white`/`bg-white`/`bg-gray-*` の直接使用は禁止。
+- `--primary` 系はマニュアルごとに差し替わる（`[data-manual]`）。`text-primary` を載せる自己色ティントは `bg-primary/10` を上限とし、トークンを変えたら `client/src/lib/theme-contrast.test.ts` を通す。
 - ハードコードされた文字列（i18n 対象）・API キー/シークレットをコードに書かない。`console.log` を commit しない。
 
 ## テスト方針
 
 - 単体テストは **Vitest**、E2E / a11y は **Playwright**。
 - ロジック（純関数）は単体テスト、アクセシビリティは axe-core で 3 テーマ検査。
+- 色トークンのコントラストは二段構え。`theme-contrast.test.ts`（単体）がソースに実在するクラスの組を全マニュアル × 全テーマで網羅し、axe（E2E）が実描画で裏を取る。
 - UI/レイアウト・色を伴う変更は「ビルド緑」だけで判断しない。実描画（スクリーンショット or a11y 検査）で確認する。
 - コントラスト等の数値は手計算せず、検算ツールで実測して ground truth を確定してから採用する。
 

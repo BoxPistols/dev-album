@@ -29,6 +29,7 @@
 - [ ] `pnpm check`（型チェック）が通る
 - [ ] `pnpm test`（Unit テスト）が通る
 - [ ] `pnpm build`（ビルド）が通る
+- [ ] `pnpm test:e2e`（E2E 全スペック。a11y 検査を 3 テーマぶん含む）が通る
 - [ ] 教材ページの追加・更新・修正を含む場合、`client/src/data/announcements.ts` の `ANNOUNCEMENTS` 先頭にエントリを追加した
 - [ ] `text-black` / `bg-white` などのハードコード色を使わず、テーマトークン（`text-foreground` / `bg-card` 等）を使っている
 - [ ] コミットメッセージは日本語・簡潔（`Co-Authored-By` / 絵文字 / `Generated with Claude Code` を含めない）
