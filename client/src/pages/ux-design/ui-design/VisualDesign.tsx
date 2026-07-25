@@ -55,7 +55,7 @@ export default function VisualDesign() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-lg bg-muted/50 p-3 border border-border">
                     <p className="text-xs font-bold text-muted-foreground mb-2">Before</p>
-                    <div className="space-y-2 text-xs text-foreground/70">
+                    <div className="space-y-2 text-xs text-foreground/80">
                       <div className="bg-foreground/10 rounded px-2 py-1">タイトル</div>
                       <div className="bg-foreground/10 rounded px-2 py-1">画像</div>
                       <div className="bg-foreground/10 rounded px-2 py-1">説明文</div>
@@ -65,11 +65,11 @@ export default function VisualDesign() {
                   </div>
                   <div className="rounded-lg bg-primary/5 p-3 border border-primary/20">
                     <p className="text-xs font-bold text-primary mb-2">After</p>
-                    <div className="space-y-1 text-xs text-foreground/70 mb-2">
+                    <div className="space-y-1 text-xs text-foreground/80 mb-2">
                       <div className="bg-primary/10 rounded px-2 py-1">タイトル</div>
                       <div className="bg-primary/10 rounded px-2 py-1">画像</div>
                     </div>
-                    <div className="space-y-1 text-xs text-foreground/70">
+                    <div className="space-y-1 text-xs text-foreground/80">
                       <div className="bg-primary/10 rounded px-2 py-1">説明文</div>
                       <div className="bg-primary/10 rounded px-2 py-1">価格</div>
                     </div>
@@ -95,7 +95,7 @@ export default function VisualDesign() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-lg bg-muted/50 p-3 border border-border">
                     <p className="text-xs font-bold text-muted-foreground mb-2">Before</p>
-                    <div className="space-y-1.5 text-xs text-foreground/70">
+                    <div className="space-y-1.5 text-xs text-foreground/80">
                       <div className="bg-foreground/10 rounded px-2 py-1 w-3/4">見出し</div>
                       <div className="bg-foreground/10 rounded px-2 py-1 w-full ml-2">テキスト</div>
                       <div className="bg-foreground/10 rounded px-2 py-1 w-2/3 ml-4">ボタン</div>
@@ -104,7 +104,7 @@ export default function VisualDesign() {
                   </div>
                   <div className="rounded-lg bg-primary/5 p-3 border border-primary/20">
                     <p className="text-xs font-bold text-primary mb-2">After</p>
-                    <div className="space-y-1.5 text-xs text-foreground/70">
+                    <div className="space-y-1.5 text-xs text-foreground/80">
                       <div className="bg-primary/10 rounded px-2 py-1 w-3/4">見出し</div>
                       <div className="bg-primary/10 rounded px-2 py-1 w-full">テキスト</div>
                       <div className="bg-primary/10 rounded px-2 py-1 w-2/3">ボタン</div>
@@ -132,15 +132,15 @@ export default function VisualDesign() {
                   <div className="rounded-lg bg-muted/50 p-3 border border-border">
                     <p className="text-xs font-bold text-muted-foreground mb-2">Before</p>
                     <div className="space-y-1.5 text-xs">
-                      <div className="bg-red-200 dark:bg-red-900/40 rounded px-2 py-1 text-foreground/70">項目 A</div>
-                      <div className="bg-blue-200 dark:bg-blue-900/40 rounded px-2 py-1 text-foreground/70 font-bold">項目 B</div>
-                      <div className="bg-green-200 dark:bg-green-900/40 rounded px-2 py-1 text-foreground/70 italic">項目 C</div>
+                      <div className="bg-red-200 dark:bg-red-900/40 rounded px-2 py-1 text-foreground/80">項目 A</div>
+                      <div className="bg-blue-200 dark:bg-blue-900/40 rounded px-2 py-1 text-foreground/80 font-bold">項目 B</div>
+                      <div className="bg-green-200 dark:bg-green-900/40 rounded px-2 py-1 text-foreground/80 italic">項目 C</div>
                     </div>
                     <p className="text-[12px] text-muted-foreground mt-2">毎回異なるスタイル</p>
                   </div>
                   <div className="rounded-lg bg-primary/5 p-3 border border-primary/20">
                     <p className="text-xs font-bold text-primary mb-2">After</p>
-                    <div className="space-y-1.5 text-xs text-foreground/70">
+                    <div className="space-y-1.5 text-xs text-foreground/80">
                       <div className="bg-primary/10 rounded px-2 py-1 border-l-2 border-primary">項目 A</div>
                       <div className="bg-primary/10 rounded px-2 py-1 border-l-2 border-primary">項目 B</div>
                       <div className="bg-primary/10 rounded px-2 py-1 border-l-2 border-primary">項目 C</div>
@@ -167,7 +167,7 @@ export default function VisualDesign() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-lg bg-muted/50 p-3 border border-border">
                     <p className="text-xs font-bold text-muted-foreground mb-2">Before</p>
-                    <div className="space-y-1 text-foreground/70">
+                    <div className="space-y-1 text-foreground/80">
                       <p className="text-sm">見出し</p>
                       <p className="text-[13px]">本文テキスト</p>
                     </div>
@@ -175,7 +175,7 @@ export default function VisualDesign() {
                   </div>
                   <div className="rounded-lg bg-primary/5 p-3 border border-primary/20">
                     <p className="text-xs font-bold text-primary mb-2">After</p>
-                    <div className="space-y-1 text-foreground/70">
+                    <div className="space-y-1 text-foreground/80">
                       <p className="text-lg font-bold">見出し</p>
                       <p className="text-xs">本文テキスト</p>
                     </div>
@@ -485,7 +485,7 @@ export default function VisualDesign() {
               {/* 余白なし */}
               <div className="rounded-xl border border-border bg-card p-4">
                 <p className="text-xs font-bold text-muted-foreground mb-3">余白が不十分な例</p>
-                <div className="bg-muted/50 rounded p-2 text-xs text-foreground/70 space-y-0">
+                <div className="bg-muted/50 rounded p-2 text-xs text-foreground/80 space-y-0">
                   <p className="font-bold">商品タイトル</p>
                   <p>商品の説明テキストがここに入ります。改行もなく詰まった印象。</p>
                   <p className="font-bold">価格: 1,980円</p>
@@ -499,7 +499,7 @@ export default function VisualDesign() {
               {/* 適切な余白 */}
               <div className="rounded-xl border border-primary/20 bg-card p-4">
                 <p className="text-xs font-bold text-primary mb-3">余白が適切な例</p>
-                <div className="bg-primary/5 rounded p-4 text-xs text-foreground/70 space-y-4">
+                <div className="bg-primary/5 rounded p-4 text-xs text-foreground/80 space-y-4">
                   <div>
                     <p className="font-bold text-sm mb-1">商品タイトル</p>
                     <p className="leading-relaxed">商品の説明テキストがここに入ります。余白があることで読みやすくなります。</p>

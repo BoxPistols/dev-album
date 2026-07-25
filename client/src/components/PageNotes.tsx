@@ -34,7 +34,7 @@ export default function PageNotes({ path }: PageNotesProps) {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="このページに関するメモを自由に書けます（自動保存）"
-            className="w-full min-h-[100px] p-3 rounded-lg border border-amber-200 dark:border-amber-800/50 bg-white dark:bg-[#1e1e2e] text-foreground text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-300 dark:focus:ring-amber-700 placeholder:text-muted-foreground/50"
+            className="w-full min-h-[100px] p-3 rounded-lg border border-amber-200 dark:border-amber-800/50 bg-white dark:bg-[#1e1e2e] text-foreground text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-300 dark:focus:ring-amber-700 placeholder:text-muted-foreground"
           />
           {note && (
             <div className="flex justify-end mt-2">

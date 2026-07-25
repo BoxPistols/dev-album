@@ -37,7 +37,7 @@ export default function ReferenceLinks({
                 className="mt-0.5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform"
               />
               <div className="min-w-0">
-                <span className="text-sm font-medium text-primary group-hover:underline">
+                <span className="text-sm font-medium text-primary underline underline-offset-2">
                   {link.title}
                 </span>
                 {link.description && (

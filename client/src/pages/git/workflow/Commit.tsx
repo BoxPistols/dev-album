@@ -171,7 +171,7 @@ export default function CommitWorkflow() {
                   <h4 className="font-semibold text-foreground mb-1">git add（ステージング）</h4>
                   <p className="text-muted-foreground text-sm">
                     変更したファイルを「ステージング」します。これは、どのファイルを Commit するかを指定する操作です。<br />
-                    <span className="text-foreground/60 text-xs">例：宅配便に入れる荷物を選ぶ作業に近いです。段ボールに入れたものだけが次のステップ（Commit）の対象になります。</span>
+                    <span className="text-foreground/80 text-xs">例：宅配便に入れる荷物を選ぶ作業に近いです。段ボールに入れたものだけが次のステップ（Commit）の対象になります。</span>
                   </p>
                 </div>
               </div>

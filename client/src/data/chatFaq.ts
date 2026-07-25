@@ -17,7 +17,7 @@ export const faqEntries: FaqEntry[] = [
     question: "このサイトは何ですか",
     keywords: ["サイト", "Dev Album", "概要", "何"],
     answer:
-      "Dev Album は Web 開発の実践リファレンスです。Git・React・Claude Code・Three.js の 4 領域を、コードを書きながら学べます。",
+      "Dev Album は Web 開発の実践リファレンスです。Git・React・Claude Code・Three.js から AI・ML、UX デザイン、API 設計、Vue / Nuxt、インフラ、開発フローまでの各領域を、コードを書きながら学べます。",
     relatedPages: ["/react", "/git", "/threejs", "/claude-mux"],
   },
   {

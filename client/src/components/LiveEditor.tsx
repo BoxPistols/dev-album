@@ -233,7 +233,7 @@ export default function LiveEditor({
               <Eye size={12} className="text-muted-foreground" />
               <span className="text-xs font-medium text-muted-foreground">プレビュー</span>
               {goalDescription && (
-                <span className="text-xs text-muted-foreground/60 ml-auto">
+                <span className="text-xs text-muted-foreground ml-auto">
                   目標: {goalDescription}
                 </span>
               )}

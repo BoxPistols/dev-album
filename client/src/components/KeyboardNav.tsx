@@ -155,14 +155,14 @@ export default function KeyboardNav() {
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))}
-            className="p-1.5 rounded-md text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors"
+            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             title={`設定 (${mod}+,)`}
           >
             <Settings size={14} />
           </button>
           <button
             onClick={() => document.dispatchEvent(new CustomEvent('open-help'))}
-            className="p-1.5 rounded-md text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors"
+            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             title="ヘルプ (?)"
           >
             <HelpCircle size={14} />

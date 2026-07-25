@@ -124,10 +124,18 @@ function getAllTsxFiles(dir: string): string[] {
 // 直前が英数・ハイフン・コロンでないものだけ拾う。
 // コロンを除くのは hover:/focus: 等の状態バリアントを外すため
 // （hover:bg-primary/90 は素の bg-primary の上に重なるので、下地は下の要素ではない）。
+// 文字色側の /50 等のアルファ修飾も取り込む。取りこぼすと text-primary/50 を
+// 全不透明の text-primary と誤読し、半透明で沈んだ文字を見逃す
+// （axe は Tailwind v4 の color-mix() を解決できず incomplete 扱いにするため、
+// この型の違反は E2E 側では一切検出されない）。
 const TEXT_CLASS =
-  /(?<![\w:-])text-(primary-foreground|accent-foreground|card-foreground|muted-foreground|primary|foreground|accent)(?![\w-])/g;
+  /(?<![\w:-])text-(primary-foreground|accent-foreground|card-foreground|muted-foreground|primary|foreground|accent)(?:\/(\d+))?(?![\w-])/g;
 const BG_CLASS =
   /(?<![\w:-])bg-(primary|accent|card|muted|background)(?:\/(\d+))?(?![\w-])/g;
+
+// 背景クラスを持たない要素の文字色は、ページの地（background / card / muted）の上に乗る。
+// *-foreground 系トークンは「対になる純色の上」で使う前提なので、この推定の対象外。
+const GROUND_TEXT = new Set(["primary", "accent", "foreground", "muted-foreground"]);
 
 /**
  * className の中身から「同時に適用され得るクラス列」を取り出す。
@@ -145,7 +153,7 @@ function classGroups(content: string): string[] {
   return groups;
 }
 
-type Pair = { text: string; bg: string; alpha: number };
+type Pair = { text: string; textAlpha: number; bg: string; alpha: number };
 
 /** ページのパスからそのファイルが描画されるマニュアルを判定する（共有部品は全マニュアル） */
 function manualsFor(file: string): (Manual | null)[] {
@@ -165,18 +173,40 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
   )) {
     for (const group of classGroups(attr[1] ?? attr[2] ?? attr[3] ?? "")) {
       const texts = [
-        ...new Set([...group.matchAll(TEXT_CLASS)].map((m) => m[1])),
+        ...new Map(
+          [...group.matchAll(TEXT_CLASS)].map((m) => [
+            `${m[1]}/${m[2] ?? ""}`,
+            { token: m[1], alpha: m[2] ? Number(m[2]) / 100 : 1 },
+          ]),
+        ).values(),
       ];
       const bgs = [...group.matchAll(BG_CLASS)].map((m) => ({
         token: m[1],
         alpha: m[2] ? Number(m[2]) / 100 : 1,
       }));
+      // 背景クラスが同居しない半透明文字は、ページの地の上に乗るものとして評価する
+      if (bgs.length === 0) {
+        for (const t of texts) {
+          if (t.alpha < 1 && GROUND_TEXT.has(t.token)) {
+            bgs.push(
+              { token: "background", alpha: 1 },
+              { token: "card", alpha: 1 },
+              { token: "muted", alpha: 1 },
+            );
+          }
+        }
+      }
       for (const text of texts) {
         for (const bg of bgs) {
-          const key = `${text}|${bg.token}|${bg.alpha}`;
+          const key = `${text.token}|${text.alpha}|${bg.token}|${bg.alpha}`;
           if (!occurrences.has(key)) {
             occurrences.set(key, {
-              pair: { text, bg: bg.token, alpha: bg.alpha },
+              pair: {
+                text: text.token,
+                textAlpha: text.alpha,
+                bg: bg.token,
+                alpha: bg.alpha,
+              },
               manuals: new Set(),
               file,
             });
@@ -221,9 +251,14 @@ describe("カラートークンのコントラスト", () => {
                   composite(parseHex(t[pair.bg]), base, pair.alpha),
                 );
           for (const surface of surfaces) {
-            const ratio = contrast(fg, surface);
+            // 半透明の文字は下地と合成された色で描画される
+            const effFg =
+              pair.textAlpha < 1
+                ? composite(fg, surface, pair.textAlpha)
+                : fg;
+            const ratio = contrast(effFg, surface);
             if (ratio < AA_MIN) {
-              const cls = `text-${pair.text} × bg-${pair.bg}${pair.alpha < 1 ? `/${pair.alpha * 100}` : ""}`;
+              const cls = `text-${pair.text}${pair.textAlpha < 1 ? `/${pair.textAlpha * 100}` : ""} × bg-${pair.bg}${pair.alpha < 1 ? `/${pair.alpha * 100}` : ""}`;
               failures.push(
                 `${ratio.toFixed(2)}:1  [${theme}/${manual ?? "既定"}] ${cls}  例: ${file.replace(/.*client\//, "client/")}`,
               );

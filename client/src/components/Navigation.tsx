@@ -18,7 +18,8 @@ import { useStreak } from '@/hooks/useStreak';
 import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
 
-// マニュアル別の色は現在すべて統一プライマリカラー（CLAUDE.md のバウハウス・ミニマル方針）。
+// マニュアル別の色分けはトークン層（index.css の [data-manual] が --primary 系を上書き）で行うため、
+// コンポーネント側のクラス名は全マニュアル共通でよい。
 // 以前はマニュアルごとの Record だったが全エントリ同一値のため定数化した。
 const MANUAL_TEXT = 'text-primary';
 const MANUAL_BG = 'bg-primary';

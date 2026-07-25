@@ -76,7 +76,7 @@ export default function DesignCodeSync() {
                   tokens.json として export し、CSS 変数や JS
                   定数に自動変換する。
                 </p>
-                <div className="space-y-1.5 text-sm text-foreground/70">
+                <div className="space-y-1.5 text-sm text-foreground/80">
                   <div className="flex items-start gap-2">
                     <span className="text-blue-500">&#9679;</span>
                     <span>デザインシステムが先にある場合</span>
@@ -112,7 +112,7 @@ export default function DesignCodeSync() {
                   の編集可能なレイヤーとして
                   自動生成する。スクリーンショットではなく、ベクターデータとして取り込む。
                 </p>
-                <div className="space-y-1.5 text-sm text-foreground/70">
+                <div className="space-y-1.5 text-sm text-foreground/80">
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
                     <span>
@@ -602,7 +602,7 @@ jobs:
                     <p className="font-medium text-foreground">
                       コンポーネントの構造解析
                     </p>
-                    <p className="text-sm text-foreground/70">
+                    <p className="text-sm text-foreground/80">
                       JSX / TSX のコンポーネントツリーを解析し、DOM
                       構造を取得する
                     </p>
@@ -616,7 +616,7 @@ jobs:
                     <p className="font-medium text-foreground">
                       スタイル情報のキャプチャ
                     </p>
-                    <p className="text-sm text-foreground/70">
+                    <p className="text-sm text-foreground/80">
                       CSS / Tailwind
                       のクラスを解決し、計算済みスタイル（色、サイズ、余白）を取得する
                     </p>
@@ -630,7 +630,7 @@ jobs:
                     <p className="font-medium text-foreground">
                       Figma レイヤーとして生成
                     </p>
-                    <p className="text-sm text-foreground/70">
+                    <p className="text-sm text-foreground/80">
                       Auto Layout
                       を適用したフレーム、編集可能なテキスト、コンポーネント分離された構造を生成する
                     </p>
@@ -644,7 +644,7 @@ jobs:
                     <p className="font-medium text-foreground">
                       Figma ファイルに配置
                     </p>
-                    <p className="text-sm text-foreground/70">
+                    <p className="text-sm text-foreground/80">
                       指定した Figma
                       ファイルのページに、生成したデザインを配置する
                     </p>
