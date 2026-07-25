@@ -46,7 +46,7 @@ PR には `.github/labeler.yml` により変更パスからラベルが自動付
 ## レビューとマージ
 
 - レビューを受けずに `main` へ入れない（自作自演マージをしない）。
-- CI（型 / テスト / ビルド）が緑であることを、マージの前提にする。
+- CI が緑であることを、マージの前提にする。`.github/workflows/ci.yml` は 2 ジョブ構成で、`verify`（型チェック / Unit テスト / ビルド）と `e2e`（Playwright 全スペック。axe-core による a11y 検査を 3 テーマぶん含む）の両方が対象。
 - `.github/CODEOWNERS` で指名された担当のレビューを尊重する。
 
 > 注意: これらを**技術的に強制**するには、GitHub 側で `main` のブランチ保護またはルールセットを別途設定する必要がある（`Require a pull request before merging` / `Require review from Code Owners` / CI を必須ステータスチェックに指定）。`.github/CODEOWNERS` はレビュー依頼を自動化するだけで、それ単体ではマージを止めない。この設定手順自体が教材「マージガバナンス」の題材。

@@ -225,7 +225,7 @@ export default function DesignSystem() {
               <div className="flex flex-col gap-4">
                 {/* Atoms */}
                 <div className="flex items-start gap-4">
-                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary w-8 text-center shrink-0">
                     1
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -238,8 +238,8 @@ export default function DesignSystem() {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 rounded-md bg-primary text-sm font-medium" style={{ color: 'var(--background)' }}>ボタン</span>
-                      <span className="px-3 py-1 rounded-md border border-border text-sm text-foreground/70">入力欄</span>
-                      <span className="text-sm text-foreground/70 flex items-center gap-1">
+                      <span className="px-3 py-1 rounded-md border border-border text-sm text-foreground/80">入力欄</span>
+                      <span className="text-sm text-foreground/80 flex items-center gap-1">
                         <span className="w-3 h-3 rounded-full bg-primary inline-block" />
                         アイコン
                       </span>
@@ -249,7 +249,7 @@ export default function DesignSystem() {
                 </div>
                 {/* Molecules */}
                 <div className="flex items-start gap-4">
-                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary w-8 text-center shrink-0">
                     2
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -269,7 +269,7 @@ export default function DesignSystem() {
                 </div>
                 {/* Organisms */}
                 <div className="flex items-start gap-4">
-                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary w-8 text-center shrink-0">
                     3
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -299,7 +299,7 @@ export default function DesignSystem() {
                 </div>
                 {/* Templates */}
                 <div className="flex items-start gap-4">
-                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary w-8 text-center shrink-0">
                     4
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">
@@ -315,7 +315,7 @@ export default function DesignSystem() {
                 </div>
                 {/* Pages */}
                 <div className="flex items-start gap-4">
-                  <div className="text-xl font-medium text-primary/50 w-8 text-center shrink-0">
+                  <div className="text-xl font-medium text-primary w-8 text-center shrink-0">
                     5
                   </div>
                   <div className="flex-1 rounded-lg bg-muted/30 border border-border p-4">

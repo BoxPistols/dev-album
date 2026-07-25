@@ -39,7 +39,7 @@ export default function VerifiedBox({
             href={officialDocs}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-primary hover:underline ml-auto"
+            className="inline-flex items-center gap-1 text-primary underline underline-offset-2 ml-auto"
           >
             {officialDocsLabel}
             <ExternalLink size={14} />

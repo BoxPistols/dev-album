@@ -16,7 +16,7 @@ export default function ClaudeCodeSetup() {
       {/* ヘッダーバナー */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 37 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -80,7 +80,7 @@ export default function ClaudeCodeSetup() {
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 a
               </div>
               <div>
@@ -91,7 +91,7 @@ export default function ClaudeCodeSetup() {
                     href="https://console.anthropic.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline font-medium"
+                    className="text-primary underline underline-offset-2 font-medium"
                   >
                     console.anthropic.com
                   </a>
@@ -101,7 +101,7 @@ export default function ClaudeCodeSetup() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 b
               </div>
               <div>
@@ -114,7 +114,7 @@ export default function ClaudeCodeSetup() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 c
               </div>
               <div>
@@ -166,7 +166,7 @@ node --version
 
           <InfoBox type="warning" title="Node.js が未インストールの場合">
             バージョンが表示されない、またはv18未満の場合は、
-            先に「<a href="/git/environment/nodejs" className="text-primary hover:underline">Node.js インストール</a>」ページの手順を完了してください。
+            先に「<a href="/git/environment/nodejs" className="text-primary underline underline-offset-2">Node.js インストール</a>」ページの手順を完了してください。
           </InfoBox>
         </div>
 
@@ -243,7 +243,7 @@ claude`}
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 a
               </div>
               <div>
@@ -255,7 +255,7 @@ claude`}
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 b
               </div>
               <div>
@@ -267,7 +267,7 @@ claude`}
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 c
               </div>
               <div>
@@ -329,8 +329,8 @@ claude`}
           </InfoBox>
 
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-            <p className="text-amber-600 dark:text-amber-400 font-medium mb-2">Claude Code の終了方法</p>
-            <p className="text-amber-600 dark:text-amber-400 text-sm">
+            <p className="text-amber-700 dark:text-amber-400 font-medium mb-2">Claude Code の終了方法</p>
+            <p className="text-amber-700 dark:text-amber-400 text-sm">
               対話を終了するには <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">/exit</code> と入力するか、
               <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">Ctrl + C</code> を押します。
             </p>

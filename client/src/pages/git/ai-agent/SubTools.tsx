@@ -16,7 +16,7 @@ export default function SubTools() {
       {/* ヘッダーバナー */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 40 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -99,8 +99,8 @@ gemini`}
             </div>
 
             <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-              <p className="text-amber-600 dark:text-amber-400 font-medium mb-1">終了方法</p>
-              <p className="text-amber-600 dark:text-amber-400 text-sm">
+              <p className="text-amber-700 dark:text-amber-400 font-medium mb-1">終了方法</p>
+              <p className="text-amber-700 dark:text-amber-400 text-sm">
                 <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">/exit</code> または{' '}
                 <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">Ctrl + C</code>
               </p>
@@ -145,7 +145,7 @@ gemini`}
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   1
                 </div>
                 <div>
@@ -155,7 +155,7 @@ gemini`}
                       href="https://www.warp.dev/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline font-medium"
+                      className="text-primary underline underline-offset-2 font-medium"
                     >
                       warp.dev
                     </a>
@@ -165,7 +165,7 @@ gemini`}
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   2
                 </div>
                 <div>
@@ -177,7 +177,7 @@ gemini`}
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   3
                 </div>
                 <div>
@@ -224,7 +224,7 @@ gemini`}
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   1
                 </div>
                 <div>
@@ -234,7 +234,7 @@ gemini`}
                       href="https://antigravity.google/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline font-medium"
+                      className="text-primary underline underline-offset-2 font-medium"
                     >
                       antigravity.google
                     </a>
@@ -244,7 +244,7 @@ gemini`}
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   2
                 </div>
                 <div>
@@ -256,7 +256,7 @@ gemini`}
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                   3
                 </div>
                 <div>

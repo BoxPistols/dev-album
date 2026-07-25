@@ -97,11 +97,11 @@ export default function AchievementToastContainer() {
             role="status"
             aria-live="polite"
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex-shrink-0">
+            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 flex-shrink-0">
               <Icon size={20} />
             </div>
             <div>
-              <p className="text-[12px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+              <p className="text-[12px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
                 実績解除
               </p>
               <p className="text-sm font-bold text-foreground">

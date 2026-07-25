@@ -78,7 +78,7 @@ export default function LlmBasics() {
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">彼は</span>
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">リンゴを</span>
                   <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground">食べた</span>
-                  <span className="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold border border-primary/30">それは</span>
+                  <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-bold border border-primary/30">それは</span>
                   <ArrowRight size={14} className="text-primary" />
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">リンゴ</span>
                   <span className="text-xs text-muted-foreground ml-1">（Attention が高い）</span>
@@ -401,7 +401,7 @@ print(message.content[0].text)`}
                   { step: '5', label: '回答生成', desc: 'LLM が文書に基づいて回答を生成' },
                 ].map((item, i) => (
                   <div key={item.step} className="flex items-start gap-3">
-                    <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0 mt-0.5">
+                    <div className="text-lg font-medium text-primary w-6 text-center shrink-0 mt-0.5">
                       <span className="text-primary font-bold text-sm">{item.step}</span>
                     </div>
                     <div className="flex-1">

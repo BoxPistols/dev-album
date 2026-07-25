@@ -16,7 +16,7 @@ export default function CursorCline() {
       {/* ヘッダーバナー */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 39 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -74,7 +74,7 @@ export default function CursorCline() {
           </div>
 
           <InfoBox type="info" title="Cursor のインストールがまだの方">
-            <a href="/git/environment/cursor" className="text-primary hover:underline font-medium">
+            <a href="/git/environment/cursor" className="text-primary underline underline-offset-2 font-medium">
               環境準備 → Cursor インストール
             </a>
             のページで、ダウンロードからアカウント作成までの手順を説明しています。先にそちらを完了してください。
@@ -181,7 +181,7 @@ export default function CursorCline() {
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 a
               </div>
               <div>
@@ -197,7 +197,7 @@ export default function CursorCline() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 b
               </div>
               <div>
@@ -209,7 +209,7 @@ export default function CursorCline() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold mt-0.5">
                 c
               </div>
               <div>
@@ -224,7 +224,7 @@ export default function CursorCline() {
 
           <InfoBox type="info" title="API キーはどこで取得する？">
             Claude Code 導入時に作った Anthropic アカウントの API キーをそのまま使えます。
-            <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium ml-1">
+            <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 font-medium ml-1">
               console.anthropic.com/settings/keys
             </a>
             {' '}で取得できます。

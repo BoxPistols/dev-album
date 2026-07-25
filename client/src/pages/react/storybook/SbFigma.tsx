@@ -1166,7 +1166,7 @@ jobs:
               </div>
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm">4</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 flex items-center justify-center font-bold text-sm">4</span>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">発展: Design Tokens の自動同期</h3>
                     <p className="text-sm text-foreground/80 leading-relaxed">

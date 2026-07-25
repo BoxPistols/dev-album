@@ -220,7 +220,7 @@ export default function TestingOverview() {
               <li>
                 <Link
                   href="/react/testing/vitest-unit"
-                  className="text-primary hover:underline font-medium"
+                  className="text-primary underline underline-offset-2 font-medium"
                 >
                   Vitest で単体テスト
                 </Link>{" "}
@@ -229,7 +229,7 @@ export default function TestingOverview() {
               <li>
                 <Link
                   href="/react/testing/rtl-components"
-                  className="text-primary hover:underline font-medium"
+                  className="text-primary underline underline-offset-2 font-medium"
                 >
                   React コンポーネントのテスト(RTL)
                 </Link>{" "}
@@ -239,7 +239,7 @@ export default function TestingOverview() {
               <li>
                 <Link
                   href="/react/testing/playwright-e2e"
-                  className="text-primary hover:underline font-medium"
+                  className="text-primary underline underline-offset-2 font-medium"
                 >
                   Playwright で E2E テスト
                 </Link>{" "}
@@ -248,7 +248,7 @@ export default function TestingOverview() {
               <li>
                 <Link
                   href="/react/testing/snapshot-visual"
-                  className="text-primary hover:underline font-medium"
+                  className="text-primary underline underline-offset-2 font-medium"
                 >
                   スナップショットとビジュアルリグレッション
                 </Link>{" "}

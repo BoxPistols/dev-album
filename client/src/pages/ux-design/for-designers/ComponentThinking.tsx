@@ -351,7 +351,7 @@ export default function ComponentThinking() {
                 ].map((name) => (
                   <span
                     key={name}
-                    className="px-2 py-1 rounded bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-[11px] text-foreground/70"
+                    className="px-2 py-1 rounded bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-[11px] text-foreground/80"
                   >
                     {name}
                   </span>

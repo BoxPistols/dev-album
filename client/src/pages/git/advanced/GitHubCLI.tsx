@@ -17,7 +17,7 @@ export default function GitHubCLI() {
         <div className="text-sm font-medium text-muted-foreground mb-4">STEP 32 / 40</div>
 
         <div className="mt-8 mb-12">
-          <div className="inline-block px-4 py-2 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 rounded-full text-sm font-medium mb-6">
+          <div className="inline-block px-4 py-2 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 rounded-full text-sm font-medium mb-6">
             生産性向上
           </div>
 

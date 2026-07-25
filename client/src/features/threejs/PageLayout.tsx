@@ -34,7 +34,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
                 onClick={() => toggle(pathname)}
                 className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs transition-colors ${
                   bookmarked
-                    ? "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
+                    ? "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
                 title={bookmarked ? "ブックマーク解除" : "ブックマークに追加"}

@@ -460,7 +460,7 @@ export default function CodingChallenge({
       {showHint && hints.length > 0 && (
         <div className="px-4 py-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 mb-4">
           <div className="flex items-center gap-2 mb-1">
-            <Lightbulb size={14} className="text-amber-600 dark:text-amber-400" />
+            <Lightbulb size={14} className="text-amber-700 dark:text-amber-400" />
             <span className="text-xs font-semibold text-amber-700 dark:text-amber-300">
               ヒント {hintIndex + 1} / {hints.length}
             </span>

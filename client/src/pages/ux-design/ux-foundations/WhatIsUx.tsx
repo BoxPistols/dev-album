@@ -307,7 +307,7 @@ export default function WhatIsUx() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="py-3 px-4 font-medium text-foreground" style={{ fontSize: '13px' }}>デザイン段階</td>
-                    <td className="py-3 px-4 text-center font-bold text-amber-600 dark:text-amber-400" style={{ fontSize: '13px' }}>5x</td>
+                    <td className="py-3 px-4 text-center font-bold text-amber-700 dark:text-amber-400" style={{ fontSize: '13px' }}>5x</td>
                     <td className="py-3 px-4" style={{ fontSize: '13px' }}>プロトタイプの画面遷移を変更</td>
                   </tr>
                   <tr className="border-b border-border">

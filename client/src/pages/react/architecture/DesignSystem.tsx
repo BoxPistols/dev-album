@@ -1109,7 +1109,7 @@ describe('Button', () => {
 
             <InfoBox type="info" title="参考: melta UI">
               <p>
-                melta UI (<a href="https://melta.tsubotax.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">melta.tsubotax.com</a>) は、
+                melta UI (<a href="https://melta.tsubotax.com/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">melta.tsubotax.com</a>) は、
                 AI と人間の両方が読めるデザインシステムの実践例。
                 CLAUDE.md をエントリーポイントとし、76 の禁止パターン、120+ のセマンティックトークン、
                 MCP サーバーによるトークン検証を備えている。

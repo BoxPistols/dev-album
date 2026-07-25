@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-07-26-manual-brand-color-contrast",
+    date: "2026-07-26",
+    title: "マニュアル別ブランドカラーのコントラストを全 8 マニュアル × 3 テーマで是正",
+    description:
+      "マニュアルごとに変わる primary 色が、ステップ番号バッジ（bg-primary/20 に text-primary）などの自己色ティントの上で WCAG AA 4.5:1 に届かない箇所があった。ティントの上限を bg-primary/10 に揃え、届かなかった 7 トークンを色相を保ったまま調整した。あわせて本文中のリンクを hover 時だけの下線から常時下線に変更し、色に依存せずリンクと分かるようにした。",
+    category: "fix",
+    link: "/ux-design/for-designers/design-tokens-for-designers",
+  },
+  {
     id: "2026-07-24-react-testing-overview",
     date: "2026-07-24",
     title: "React 編に「テスト戦略」セクションを新設（テストの全体像）",

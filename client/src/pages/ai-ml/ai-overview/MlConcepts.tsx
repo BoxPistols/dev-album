@@ -88,7 +88,7 @@ export default function MlConcepts() {
               {/* 強化学習 */}
               <div className="rounded-xl border border-border bg-card p-5 hover:shadow-sm transition-shadow">
                 <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center mb-3">
-                  <span className="text-amber-600 dark:text-amber-400 text-lg font-bold">3</span>
+                  <span className="text-amber-700 dark:text-amber-400 text-lg font-bold">3</span>
                 </div>
                 <h3 className="font-bold text-foreground mb-2" style={{ fontSize: '15px' }}>
                   強化学習
@@ -129,7 +129,7 @@ export default function MlConcepts() {
                   { num: 6, title: 'デプロイ', desc: 'API やバッチ処理として本番環境へ展開' },
                 ].map((step) => (
                   <div key={step.num} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                    <div className="text-lg font-medium text-primary/50 w-6 text-center shrink-0">
+                    <div className="text-lg font-medium text-primary w-6 text-center shrink-0">
                       <span className="text-primary text-sm font-bold">{step.num}</span>
                     </div>
                     <div className="min-w-0">

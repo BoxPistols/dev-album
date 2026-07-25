@@ -16,7 +16,7 @@ export default function ClaudeCodeBasics() {
       {/* ヘッダーバナー */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 38 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -308,8 +308,8 @@ pnpm dev`}
           </div>
 
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-            <p className="text-amber-600 dark:text-amber-400 font-medium mb-2">Claude Code の基本コマンド</p>
-            <div className="space-y-2 text-amber-600 dark:text-amber-400 text-sm">
+            <p className="text-amber-700 dark:text-amber-400 font-medium mb-2">Claude Code の基本コマンド</p>
+            <div className="space-y-2 text-amber-700 dark:text-amber-400 text-sm">
               <p><code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">claude</code> — Claude Code を起動</p>
               <p><code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">/exit</code> — Claude Code を終了</p>
               <p><code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">/help</code> — ヘルプを表示</p>

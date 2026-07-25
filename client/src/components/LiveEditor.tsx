@@ -169,7 +169,7 @@ export default function LiveEditor({
             <ol className="space-y-1">
               {steps.map((step, i) => (
                 <li key={i} className="flex items-start gap-2 text-xs text-[#cdd6f4]/70">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-[12px] font-bold flex items-center justify-center mt-0.5">
+                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary text-[12px] font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
                   <span className="leading-relaxed">{step}</span>
@@ -233,7 +233,7 @@ export default function LiveEditor({
               <Eye size={12} className="text-muted-foreground" />
               <span className="text-xs font-medium text-muted-foreground">プレビュー</span>
               {goalDescription && (
-                <span className="text-xs text-muted-foreground/60 ml-auto">
+                <span className="text-xs text-muted-foreground ml-auto">
                   目標: {goalDescription}
                 </span>
               )}

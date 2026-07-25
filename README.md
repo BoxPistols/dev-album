@@ -105,7 +105,7 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 ```
 
 - プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
-- iframe 内の CSP は `script-src 'self'` / `connect-src 'none'`。外部ホストのスクリプト読み込みと外部送信を構造的に封じる。
+- iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
 - `allow-same-origin` は同一オリジンの `/vendor/` を解決するために必要。緩めた分を CSP で多層防御する。
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）
@@ -153,7 +153,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 
 | トークン | Light | Dark | Dracula | 用途 |
 |---------|-------|------|---------|------|
-| `--primary` | #1F5CDB | #93C5FD | #BD93F9 | アクション、リンク |
+| `--primary` | #1F5CDB | #93C5FD | #CCABFA | アクション、リンク（マニュアル内では下記のブランド色に差し替わる） |
 | `--foreground` | #3F3F46 | #E4E4E7 | #F8F8F2 | 本文テキスト |
 | `--muted-foreground` | #67676F | #A8A8B3 | #B4BEDD | 補助テキスト |
 | `--background` | #FAFAFA | #09090B | #282A36 | ページ背景 |
@@ -163,9 +163,28 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 
 いずれも WCAG AA（4.5:1）を実測で満たす値。手計算せず検算ツールで確定する。
 
-### マニュアル別カラー
+### マニュアル別ブランドカラー
 
-マニュアルごとの色分けは**廃止**。全マニュアル共通で `text-primary` / `bg-primary` を使い、番号・アイコン・テキストで区別する（色だけで情報を伝えない）。
+マニュアルを開いている間は `<html data-manual="...">` が付き（`useManualTheme`）、`index.css` の `[data-manual="..."]` ブロックが `--primary` 系（`--primary` / `--accent` / `--ring` / `--sidebar-*`）だけを各ブランド色に差し替える。地の色（`--background` / `--card` / `--foreground`）は共通のまま変わらない。
+
+| マニュアル | Light | Dark | Dracula |
+|---|---|---|---|
+| `git` | #BE123C | #FB7185 | #FC9EAB |
+| `react` | #4F46E5 | #A5B4FC | #A5B4FC |
+| `claude-mux` | #6D28D9 | #C4B5FD | #C4B5FD |
+| `threejs` | #0E6F68 | #2DD4BF | #2DD4BF |
+| `ai-ml` | #A14A08 | #F59E0B | #F6A721 |
+| `ux-design` | #BE185D | #F9A8D4 | #F9A8D4 |
+| `api` | #047253 | #34D399 | #34D399 |
+| `vue` | #047253 | #42B883 | #50FA7B |
+
+`infra` / `devflow` は上書きを持たず、既定の `--primary` を使う。
+
+色は**情報を伝える手段ではなく、現在地の手がかり**として使う。マニュアルの識別は番号・アイコン・テキストで行い、色だけに依存しない（色覚多様性への配慮）。
+
+ブランド色は 8 マニュアル × 3 テーマ = 24 通りに分岐するため、目視や代表ページの抜き取りでは AA 未達を取りこぼす。`client/src/lib/theme-contrast.test.ts` がソースに実在する「文字色クラス × 背景色クラス」の組だけを全 24 通りで評価し、WCAG AA 4.5:1 を下回ったら失敗する。ここの色を変えるときはそのテストを通してから確定する。
+
+`text-primary` を重ねる自己色ティントは `bg-primary/10` を上限とする。`bg-primary/α` は下地を文字色そのものへ寄せるため、α を上げるほどコントラストの余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145 になる）。
 
 ### 禁止パターン
 
@@ -177,6 +196,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 | `duration-500` 以上 | `duration-150` ～ `200` |
 | `/* */` in CodingChallenge | `//` コメントを使用 |
 | 色だけで情報伝達 | アイコン + テキスト併用 |
+| `bg-primary/20` に `text-primary` | `bg-primary/10` まで（自己色ティントで AA を割る） |
 | プレビューに React 19 / Three.js 0.161+ | React 18.3.1 / Three.js 0.160.1（UMD 未配布のため） |
 
 ## テスト

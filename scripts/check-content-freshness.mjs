@@ -4,7 +4,7 @@
  *
  * npm registry の latest と、教材が表記/同梱しているバージョンを突き合わせ、
  * メジャーバージョンの乖離を警告する。ネットワークを使うため CI 必須にはせず、
- * `npm run freshness` で定期的に手動実行する想定。
+ * `pnpm freshness` で定期的に手動実行する想定。
  */
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";

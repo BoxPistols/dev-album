@@ -25,7 +25,7 @@ export default function VSCodeSetup() {
       {/* Header */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 34 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -106,7 +106,7 @@ export default function VSCodeSetup() {
                 </p>
                 <div className="bg-muted/50 border border-border rounded p-4">
                   <p className="text-lg text-foreground">
-                    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">
                       https://code.visualstudio.com/
                     </a>
                   </p>
@@ -179,7 +179,7 @@ export default function VSCodeSetup() {
                 </p>
                 <div className="bg-muted/50 border border-border rounded p-4">
                   <p className="text-lg text-foreground">
-                    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">
                       https://code.visualstudio.com/
                     </a>
                   </p>

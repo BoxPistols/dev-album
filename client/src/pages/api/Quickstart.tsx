@@ -284,7 +284,7 @@ export default function Quickstart() {
 
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/80 text-primary-foreground text-xs font-bold">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-bold">
                     Phase 2
                   </span>
                   <span className="text-sm font-bold text-foreground">
@@ -296,7 +296,7 @@ export default function Quickstart() {
 
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/60 text-primary-foreground text-xs font-bold">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-bold">
                     Phase 3
                   </span>
                   <span className="text-sm font-bold text-foreground">
@@ -374,7 +374,7 @@ curl -i https://api.example.com/v1/users/42
               の読み方）は{" "}
               <Link
                 href="/api/quality/debugging-tools"
-                className="text-primary font-medium hover:underline"
+                className="text-primary font-medium underline underline-offset-2"
               >
                 API のデバッグと GUI / CLI ツール
               </Link>{" "}

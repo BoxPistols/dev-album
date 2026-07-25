@@ -265,7 +265,7 @@ export default function Home() {
             {/* 画面設定 */}
             <div className="bg-background border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-accent/10 text-accent-foreground">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-accent/10 text-accent">
                   <Monitor className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground">
@@ -337,7 +337,7 @@ export default function Home() {
                   <p className="text-muted-foreground text-sm mb-4">
                     {step.description}
                   </p>
-                  <div className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent-foreground text-xs font-medium">
+                  <div className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">
                     {step.duration}
                   </div>
                 </div>

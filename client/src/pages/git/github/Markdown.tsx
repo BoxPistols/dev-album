@@ -21,7 +21,7 @@ export default function MarkdownGuide() {
       {/* Header */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 9 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -554,14 +554,14 @@ export default function MarkdownGuide() {
                   <tr className="border-b border-border">
                     <td className="px-4 py-3 font-medium text-foreground">テーブル</td>
                     <td className="px-4 py-3 text-center text-green-600 dark:text-green-400">対応</td>
-                    <td className="px-4 py-3 text-center text-amber-600 dark:text-amber-400">独自形式</td>
+                    <td className="px-4 py-3 text-center text-amber-700 dark:text-amber-400">独自形式</td>
                     <td className="px-4 py-3 text-center text-red-600 dark:text-red-400">非対応</td>
                     <td className="px-4 py-3 text-center text-green-600 dark:text-green-400">対応</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-4 py-3 font-medium text-foreground">チェックボックス</td>
                     <td className="px-4 py-3 text-center text-green-600 dark:text-green-400">対応</td>
-                    <td className="px-4 py-3 text-center text-amber-600 dark:text-amber-400">独自形式</td>
+                    <td className="px-4 py-3 text-center text-amber-700 dark:text-amber-400">独自形式</td>
                     <td className="px-4 py-3 text-center text-red-600 dark:text-red-400">非対応</td>
                     <td className="px-4 py-3 text-center text-green-600 dark:text-green-400">対応</td>
                   </tr>

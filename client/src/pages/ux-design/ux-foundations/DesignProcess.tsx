@@ -75,7 +75,7 @@ export default function DesignProcess() {
                       </div>
                     </div>
                     <div className="flex items-center justify-center">
-                      <ArrowRight size={16} className="text-primary/40 rotate-90" />
+                      <ArrowRight size={16} className="text-primary rotate-90" />
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function DesignProcess() {
                       </div>
                     </div>
                     <div className="flex items-center justify-center">
-                      <ArrowRight size={16} className="text-primary/40 rotate-90" />
+                      <ArrowRight size={16} className="text-primary rotate-90" />
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary flex items-center justify-center">

@@ -1,5 +1,5 @@
 ---
-title: "163ステップの無料フロントエンド教材「Dev Album」を作った"
+title: "無料フロントエンド教材「Dev Album」を作った"
 emoji: "📘"
 type: "idea"
 topics: ["react", "nextjs", "threejs", "frontend"]
@@ -8,13 +8,13 @@ published: false
 
 ## 作ったもの
 
-**Dev Album** — React・Git・Three.js・Claude Code の 4 つの技術領域を、ステップバイステップで体系的に学べる Web 教材です。
+**Dev Album** — Git・React・Claude Code・Three.js を起点に、AI・ML / UX デザイン / API 設計 / Vue・Nuxt / インフラ / 開発フローまで広がった技術領域を、ステップバイステップで体系的に学べる Web 教材です。
 
 https://dev-album.vercel.app
 
 ![Dev Album トップページ](スクショURL_1)
 
-全 163 ステップ、無料、アカウント不要。ブラウザだけで学習を始められます。
+無料・アカウント不要。ブラウザだけで学習を始められます。
 
 ---
 
@@ -35,7 +35,9 @@ Dev Album は、環境構築からデプロイ・チーム開発までの道筋�
 
 ---
 
-## 4 つのマニュアル
+## 主なマニュアル
+
+ここでは初期からある 4 つを紹介します（現在は AI・ML / UX デザイン / API 設計 / Vue・Nuxt / インフラ / 開発フローの各マニュアルも加わっています）。
 
 ### Git / GitHub 入門（27 ステップ）
 
@@ -89,7 +91,7 @@ AI を開発ワークフローに組み込むための実践ガイド。Claude C
 
 ![コードエディタとプレビューの左右分割](スクショURL_2)
 
-シンタックスハイライト付きで、コードの構造が視覚的にわかります。Sucrase でブラウザ内トランスパイルし、React 18 UMD を CDN から読み込んでプレビュー表示しています。
+シンタックスハイライト付きで、コードの構造が視覚的にわかります。Sucrase でブラウザ内トランスパイルし、セルフホストした React 18 UMD（`/vendor/`）でプレビュー表示しています。
 
 ### 3D プレビュー
 
@@ -153,7 +155,7 @@ Figma ユーザーのメンタルモデルから出発し、Storybook が「な�
 | wouter | 軽量ルーティング |
 | Vercel | ホスティング + SPA デプロイ |
 
-プレビューは `srcDoc` iframe + `sandbox="allow-scripts allow-same-origin"` で安全に分離。React は CDN（18.3.1 UMD）、Three.js は CDN（0.160.1 UMD）を使用しています（React 19・Three.js 0.161+ は UMD ビルドを廃止したため）。
+プレビューは `srcDoc` iframe + `sandbox="allow-scripts allow-same-origin"` で安全に分離。React（18.3.1 UMD）と Three.js（0.160.1 UMD）は `/vendor/` にセルフホストして読み込みます（React 19・Three.js 0.161+ は UMD ビルドを廃止したため。CSP の `script-src 'self'` で外部ホストのスクリプトは構造的に読み込みません）。
 
 ---
 
@@ -161,7 +163,7 @@ Figma ユーザーのメンタルモデルから出発し、Storybook が「な�
 
 Dev Album は、自分自身がフロントエンド開発を学ぶ中で「こういう教材がほしかった」と思ったものを形にしたプロジェクトです。
 
-- 163 ステップ、全て無料
+- 全ステップ無料
 - アカウント不要、ブラウザだけで学習開始
 - デザイナーもエンジニアも対象
 - ブックマーク・進捗管理機能付き

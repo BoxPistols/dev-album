@@ -196,10 +196,10 @@ export default function Summary() {
                   グローバルな状態管理の仕組みを学びましょう。
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Zustand</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Jotai</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">React Context（深掘り）</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">TanStack Query</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Zustand</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Jotai</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">React Context（深掘り）</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">TanStack Query</span>
                 </div>
               </div>
 
@@ -210,10 +210,10 @@ export default function Summary() {
                   コンポーネントのテストができると、安心してリファクタリングできます。
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Vitest</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">React Testing Library</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Playwright</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Storybook</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Vitest</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">React Testing Library</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Playwright</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Storybook</span>
                 </div>
               </div>
 
@@ -224,10 +224,10 @@ export default function Summary() {
                   Next.js と相性の良いツールが揃っています。
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Prisma</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Drizzle ORM</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">NextAuth.js (Auth.js)</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Supabase</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Prisma</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Drizzle ORM</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">NextAuth.js (Auth.js)</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Supabase</span>
                 </div>
               </div>
 
@@ -238,10 +238,10 @@ export default function Summary() {
                   アニメーションやマイクロインタラクションでユーザー体験を向上させます。
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Motion</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">CSS Animations</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">View Transitions API</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Lottie</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Motion</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">CSS Animations</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">View Transitions API</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Lottie</span>
                 </div>
               </div>
 
@@ -252,10 +252,10 @@ export default function Summary() {
                   アクセシビリティはデザインの品質を示す重要な指標です。
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">WAI-ARIA</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">キーボード操作</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">スクリーンリーダー</span>
-                  <span className="text-xs bg-muted text-foreground/70 px-2 py-0.5 rounded-full">Radix UI</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">WAI-ARIA</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">キーボード操作</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">スクリーンリーダー</span>
+                  <span className="text-xs bg-muted text-foreground/80 px-2 py-0.5 rounded-full">Radix UI</span>
                 </div>
               </div>
             </div>

@@ -532,21 +532,21 @@ const { data, error } = await client.GET('/todos', {
               <h4 className="text-sm font-bold text-muted-foreground mb-4 uppercase tracking-wider">API ファースト開発フロー</h4>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold mt-0.5">1</span>
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-bold mt-0.5">1</span>
                   <div>
                     <div className="text-sm font-bold text-foreground">OpenAPI 定義をチームで作成・レビュー</div>
                     <div className="text-xs text-muted-foreground">「/todos に GET すると Todo の配列が返る」などを YAML で合意</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold mt-0.5">2</span>
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-bold mt-0.5">2</span>
                   <div>
                     <div className="text-sm font-bold text-foreground">フロントとバックが並行開発</div>
                     <div className="text-xs text-muted-foreground">フロント: モックサーバーを使って UI を開発 / バック: 定義に沿って実装</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold mt-0.5">3</span>
+                  <span className="shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-bold mt-0.5">3</span>
                   <div>
                     <div className="text-sm font-bold text-foreground">統合テスト</div>
                     <div className="text-xs text-muted-foreground">モックを本番 API に切り替えて動作確認。定義が同じなので大きなズレが起きにくい</div>
@@ -770,14 +770,14 @@ if (import.meta.env.DEV) {
               契約テスト・セキュリティまで、API 設計そのものをゼロから体系的に学びたい場合は、{" "}
               <Link
                 href="/api"
-                className="text-primary font-medium hover:underline"
+                className="text-primary font-medium underline underline-offset-2"
               >
                 API 設計 / OpenAPI 入門マニュアル
               </Link>{" "}
               を参照してください。OpenAPI の書き方は{" "}
               <Link
                 href="/api/openapi/what-is-openapi"
-                className="text-primary font-medium hover:underline"
+                className="text-primary font-medium underline underline-offset-2"
               >
                 OpenAPI 仕様とは
               </Link>{" "}

@@ -26,7 +26,7 @@ export default function CommitWorkflow() {
       {/* Header */}
       <div className="bg-primary/5 border-b border-border">
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
-          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             STEP 11 / 40
           </div>
           <h1 className="text-4xl font-sans font-bold text-foreground mb-4">
@@ -171,7 +171,7 @@ export default function CommitWorkflow() {
                   <h4 className="font-semibold text-foreground mb-1">git add（ステージング）</h4>
                   <p className="text-muted-foreground text-sm">
                     変更したファイルを「ステージング」します。これは、どのファイルを Commit するかを指定する操作です。<br />
-                    <span className="text-foreground/60 text-xs">例：宅配便に入れる荷物を選ぶ作業に近いです。段ボールに入れたものだけが次のステップ（Commit）の対象になります。</span>
+                    <span className="text-foreground/80 text-xs">例：宅配便に入れる荷物を選ぶ作業に近いです。段ボールに入れたものだけが次のステップ（Commit）の対象になります。</span>
                   </p>
                 </div>
               </div>

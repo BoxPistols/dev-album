@@ -31,7 +31,7 @@ const steps = [
     label: 'Define',
     title: '問題定義',
     icon: <Target className="w-5 h-5" />,
-    color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800',
+    color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800',
     what: '共感で得たインサイトを整理し、解決すべき本質的な問題を明文化する段階。',
     why: '解くべき問題を間違えると、どんな優れた解決策も意味をなさないため。',
     how: 'ペルソナ作成、ユーザーストーリー、POV（Point of View）ステートメントの策定。',
