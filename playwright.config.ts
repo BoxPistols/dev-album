@@ -17,7 +17,7 @@ export default defineConfig({
     trace: process.env.CI ? 'on-first-retry' : 'off',
   },
   webServer: {
-    command: 'npm run dev',
+    command: 'pnpm dev',
     port: Number(process.env.PORT) || 3000,
     // CI では毎回クリーンな dev サーバを起動する（残留プロセスの再利用による flake を防ぐ）。
     // ローカルでは起動中の dev サーバを再利用して待ち時間を減らす。

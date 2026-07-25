@@ -2,9 +2,21 @@
 
 Web 開発の実践リファレンス。
 
-Git・React・Claude Code・Three.js の 4 領域を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
+Git・React・Claude Code・Three.js・AI/ML・UX デザイン・API 設計・Vue/Nuxt・インフラ/DevOps・開発フローの 10 マニュアルを、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
 
 https://dev-album.vercel.app
+
+## ドキュメント
+
+ルールと知識は 3 層 + 仕様で一元管理する（正本は各 1 箇所）。
+
+| ファイル | 役割 |
+|---|---|
+| [AGENTS.md](./AGENTS.md) | ツール非依存の共通規約（コーディング / テスト / PR / レビュー）の正本 |
+| [DESIGN.md](./DESIGN.md) | アーキテクチャ・意思決定・制約の正本 |
+| [CLAUDE.md](./CLAUDE.md) | Claude Code 固有の指示、プレビュー / 教材固有の詳細 |
+| [specs/](./specs/README.md) | 機能・教材セクションの自然言語仕様（スペック駆動） |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | 貢献ガイド |
 
 ## 技術スタック
 
@@ -17,25 +29,36 @@ https://dev-album.vercel.app
 | Sucrase | ブラウザ内 JSX トランスパイル（プレビュー） |
 | React Three Fiber | 3D プレビュー |
 | prism-react-renderer | シンタックスハイライト |
-| Vercel | ホスティング |
+| Vercel | ホスティング（静的配信 + `api/` の Functions） |
 
 ## セットアップ
 
+パッケージマネージャは **pnpm 固定**（`packageManager` フィールド）。npm / yarn を混在させない。
+
 ```bash
 pnpm install
-npm run dev
+pnpm dev
 # → http://localhost:3000
 ```
 
 ## コンテンツ構成
 
-| マニュアル | ステップ数 | 内容 |
-|-----------|:---------:|------|
-| Git / GitHub | 27 | 基本操作、ブランチ、PR、AI エージェント連携 |
-| React / Next.js | 69 | React 19、Next.js 15、CSS、Storybook、a11y、技術倫理 |
-| Claude Code | 44 | CLI、MCP、Agent Teams、tmux、Hooks、CI/CD |
-| Three.js | 23 | シーン構築、R3F、飛行シミュレーション |
-| UI トレーニング | 40問 | HTML/CSS/JS の実践チャレンジ（4レベル） |
+10 マニュアル・300 ページ超。ページ・セクション・ステップの単一の真実は `client/src/lib/navigation.ts` が持つ（件数は `navigation.test.ts` が固定している）。
+
+| マニュアル | 内容 |
+|-----------|------|
+| Git / GitHub 入門 | 基本操作、ブランチ、PR、AI エージェント連携 |
+| React / TypeScript / Next.js 入門 | React 19、Next.js 15、CSS、Storybook、a11y、アーキテクチャ |
+| Claude Code & 開発環境 | CLI、MCP、AI コーディングエージェント、Hooks、CI/CD |
+| Three.js / React Three Fiber 入門 | シーン構築、R3F、飛行シミュレーション |
+| AI / Python / 機械学習 | Python・機械学習・LLM・LMOps の基礎 |
+| UX デザイン入門 | ユーザーリサーチからプロトタイピング・評価まで |
+| API 設計 / OpenAPI 入門 | REST API 設計、OpenAPI/Swagger、API 検証 |
+| Vue 3 / Nuxt 入門 | Composition API、Pinia、Nuxt |
+| バックエンド / インフラ / DevOps 入門 | ホスティング、エッジ、BaaS、DB、BFF、CI/CD |
+| 開発フロー / チーム / DesignOps 入門 | アジャイル、スクラム、コードレビュー、DesignOps |
+
+別途、UI トレーニング（HTML/CSS/JS の実践チャレンジ）を持つ。
 
 ## アーキテクチャ
 
@@ -47,18 +70,18 @@ client/src/
 │   ├── CodingChallenge.tsx  チャレンジエディタ（ハイライト + プレビュー + 判定）
 │   ├── Navigation.tsx     サイドバーナビゲーション
 │   └── ...
-├── data/                トレーニングチャレンジデータ
+├── contexts/            ThemeContext, LayoutContext
+├── data/                トレーニングチャレンジ、お知らせ
 ├── features/threejs/    Three.js 専用（CodeWithPreview, ThreePreview）
 ├── hooks/               useBookmarks, useProgress
 ├── lib/
-│   ├── navigation.ts      ページ・セクション定義（全163ステップ）
+│   ├── navigation.ts      マニュアル・セクション・ページ定義（SSOT）
 │   ├── preview.ts         プレビュー HTML 生成（JSX / Three.js / Terminal / Config / Markdown）
 │   └── searchIndex.ts     全文検索インデックス
 └── pages/
-    ├── react/           React マニュアル（5部構成）
-    ├── git/             Git マニュアル
-    ├── threejs/         Three.js マニュアル
-    ├── claude-mux/      Claude Code マニュアル
+    ├── git/ react/ claude-mux/ threejs/     マニュアル別ページ
+    ├── ai-ml/ ux-design/ api/ vue/          〃
+    ├── infra/ devflow/                      〃
     ├── Training.tsx     UI トレーニング
     ├── Landing.tsx      LP
     └── BugReport.tsx    バグ報告ページ
@@ -72,15 +95,18 @@ CodingChallenge / CodePreview のライブプレビューは以下の仕組み�
 ユーザーのコード入力
   ↓
 resolvePreviewType() で自動判定
-  ├── jsx      → Sucrase トランスパイル → React 18.3.1 UMD (CDN) で描画
-  ├── threejs  → Three.js 0.160.1 UMD (CDN) で描画
+  ├── jsx      → Sucrase トランスパイル → React 18.3.1 UMD（セルフホスト）で描画
+  ├── threejs  → Three.js 0.160.1 UMD（セルフホスト）で描画
   ├── terminal → シンタックスハイライト付きターミナル表示
   ├── config   → JSON バリデーション + ハイライト
   └── markdown → Markdown パーサーで HTML 変換
   ↓
-srcDoc iframe（sandbox="allow-scripts allow-same-origin"）で表示
+srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 ```
 
+- プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
+- iframe 内の CSP は `script-src 'self'` / `connect-src 'none'`。外部ホストのスクリプト読み込みと外部送信を構造的に封じる。
+- `allow-same-origin` は同一オリジンの `/vendor/` を解決するために必要。緩めた分を CSP で多層防御する。
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）
 - Tab / Shift+Tab でインデント操作対応
@@ -104,7 +130,8 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin"）で表示
 |---------|------|
 | `/project:deploy-check` | デプロイ前最終チェック |
 | `/project:audit-previews` | 全プレビュー検証 |
-| `/project:fact-check` | Claude Code 教材のファクトチェック |
+| `/project:fact-check` | Claude Code 教材を公式ドキュメントと照合 |
+| `/project:fact-check-cmux` | cmux 教材を公式 README + 実機出力と照合 |
 
 ### Hooks
 
@@ -116,29 +143,29 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin"）で表示
 
 - 許可: ビルド、テスト、Git 操作、ファイル読み書き
 - 拒否: `rm -rf /`、`git push --force`
+- リポジトリに載せるのはプロジェクトスコープの最小限のみ。これは**セキュリティ境界ではなく**、実効的な防御は CI ゲートとレビューが担う（[DESIGN.md](./DESIGN.md) 参照）。
 
 ## デザインシステム
 
 ### カラートークン
 
-CSS 変数ベース。ライト / ダークモード自動切替。
+CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフトダーク）の 3 テーマ。正本は `client/src/index.css`。
 
-| トークン | ライト | ダーク | 用途 |
-|---------|--------|--------|------|
-| `--primary` | #2563EB | #7CB3E8 | アクション、リンク |
-| `--foreground` | #0F172A | #CDD5E0 | 本文テキスト |
-| `--muted-foreground` | #64748B | #8B99AD | 補助テキスト |
-| `--background` | #FFFFFF | #151D2B | ページ背景 |
-| `--border` | #E2E8F0 | #283545 | ボーダー |
+| トークン | Light | Dark | Dracula | 用途 |
+|---------|-------|------|---------|------|
+| `--primary` | #1F5CDB | #93C5FD | #BD93F9 | アクション、リンク |
+| `--foreground` | #3F3F46 | #E4E4E7 | #F8F8F2 | 本文テキスト |
+| `--muted-foreground` | #67676F | #A8A8B3 | #B4BEDD | 補助テキスト |
+| `--background` | #FAFAFA | #09090B | #282A36 | ページ背景 |
+| `--card` | #FFFFFF | #18181B | #313545 | カード背景 |
+| `--muted` | #F4F4F5 | #27272A | #44475A | セクション背景 |
+| `--border` | #E4E4E7 | #27272A | #44475A | ボーダー |
 
-### マニュアル別アクセントカラー
+いずれも WCAG AA（4.5:1）を実測で満たす値。手計算せず検算ツールで確定する。
 
-| マニュアル | カラー | Tailwind |
-|-----------|--------|----------|
-| Git | Rose | `rose-500` / `rose-300` |
-| React | Indigo | `indigo-500` / `indigo-300` |
-| Claude Code | Violet | `violet-500` / `violet-300` |
-| Three.js | Teal | `teal-500` / `teal-300` |
+### マニュアル別カラー
+
+マニュアルごとの色分けは**廃止**。全マニュアル共通で `text-primary` / `bg-primary` を使い、番号・アイコン・テキストで区別する（色だけで情報を伝えない）。
 
 ### 禁止パターン
 
@@ -148,22 +175,23 @@ CSS 変数ベース。ライト / ダークモード自動切替。
 | 角丸カードに 1 辺だけのボーダー | hover shadow + 全辺 border |
 | `shadow-lg` | `shadow-sm` |
 | `duration-500` 以上 | `duration-150` ～ `200` |
-| 色だけで情報伝達 | アイコン + テキスト併用 |
 | `/* */` in CodingChallenge | `//` コメントを使用 |
-| React 19 / Three.js 0.161+ CDN | React 18.3.1 / Three.js 0.160.1（UMD 廃止対応） |
+| 色だけで情報伝達 | アイコン + テキスト併用 |
+| プレビューに React 19 / Three.js 0.161+ | React 18.3.1 / Three.js 0.160.1（UMD 未配布のため） |
 
 ## テスト
 
 ```bash
-# Unit テスト（176 テスト）
-npx vitest run
-
-# E2E テスト（14 テスト、dev サーバー自動起動）
-npx playwright test
-
-# 全チャレンジコードのトランスパイル検証
-npx vitest run src/lib/editor-validation.test.ts
+pnpm check                       # 型チェック（tsc --noEmit）
+pnpm test                        # Unit テスト（Vitest）
+pnpm test:e2e                    # E2E 全スペック（Playwright, a11y 含む）
+pnpm test:a11y                   # a11y のみ（axe-core, 3 テーマ）
+pnpm test src/lib/editor-validation.test.ts   # 全チャレンジコードのトランスパイル検証
 ```
+
+ローカルで E2E を回すときは空きポートを明示する（`PORT=3400 pnpm test:e2e`）。既定の 3000 が他プロジェクトに使われていると、そのサーバを再利用して誤った結果になる。
+
+CI（`.github/workflows/ci.yml`）は `verify`（型 → 単体 → ビルド）と `e2e`（Playwright 全スペック）の 2 ジョブ。
 
 ## デプロイ
 
@@ -174,7 +202,10 @@ Vercel に自動デプロイ（main push で発火）。
 {
   "buildCommand": "vite build",
   "outputDirectory": "dist/public",
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
 ```
 

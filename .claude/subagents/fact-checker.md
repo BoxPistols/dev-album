@@ -32,8 +32,8 @@ tools:
 
 ## 要注意の頻出ミス
 
-- React 19: UMD ビルド廃止（CDN は React 18.3.1 を使用）
-- Three.js 0.161+: UMD ビルド廃止（CDN は 0.160.1 を使用）
+- React 19: UMD ビルド未配布（プレビューはセルフホストの React 18.3.1 を使用）
+- Three.js 0.161+: UMD ビルド未配布（プレビューはセルフホストの 0.160.1 を使用）
 - Claude Code: Skills は `.claude/skills/*/SKILL.md` 形式（旧 `.claude/commands/` ではない）
 - MCP スコープ: local → `.claude/settings.local.json`、user → `~/.claude/settings.json`
 

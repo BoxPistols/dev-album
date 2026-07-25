@@ -5,8 +5,8 @@ description: Unit テスト（vitest）と E2E テスト（Playwright）を実�
 
 ## 手順
 
-1. `npx vitest run` で Unit テストを実行
-2. `npx playwright test` で E2E テストを実行（dev サーバーが必要）
+1. `pnpm test` で Unit テストを実行
+2. `pnpm test:e2e` で E2E テストを実行（dev サーバーが必要）
 3. 失敗したテストがあれば:
    - エラーメッセージを分析
    - 原因を特定（コード変更 / テスト期待値の不整合 / 環境問題）
@@ -15,6 +15,6 @@ description: Unit テスト（vitest）と E2E テスト（Playwright）を実�
 
 ## テスト構成
 
-- Unit: `client/src/lib/*.test.ts`（176 テスト）
-- E2E: `e2e/*.spec.ts`（14 テスト）
-- E2E は dev サーバー（port 3000）が必要。`playwright.config.ts` で自動起動設定あり。
+- Unit: `client/src/lib/*.test.ts`
+- E2E: `e2e/*.spec.ts`（a11y 含む）
+- dev サーバーは `playwright.config.ts` が自動起動する。既定の 3000 が他プロジェクトに使われていると誤ったサーバを再利用するので、`PORT=3400 pnpm test:e2e` のように空きポートを明示する。

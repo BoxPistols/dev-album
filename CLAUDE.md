@@ -88,7 +88,7 @@ client/src/
 |---------|-----|------|
 | --primary | #93C5FD | アクション、リンク |
 | --foreground | #E4E4E7 | 本文テキスト |
-| --muted-foreground | #A1A1AA | 補助テキスト |
+| --muted-foreground | #A8A8B3 | 補助テキスト（card / muted 背景上で AA 4.5:1 を満たす実測値） |
 | --background | #09090B | ページ背景 |
 | --card | #18181B | カード背景 |
 | --muted | #27272A | セクション背景 |
@@ -100,7 +100,7 @@ client/src/
 |---------|-----|------|
 | --primary | #BD93F9 | アクション、リンク（Dracula パープル） |
 | --foreground | #F8F8F2 | 本文テキスト |
-| --muted-foreground | #6272A4 | 補助テキスト |
+| --muted-foreground | #B4BEDD | 補助テキスト（`#6272A4` / `#8595BD` は muted 背景上で AA 未達） |
 | --background | #282A36 | ページ背景 |
 | --card | #313545 | カード背景 |
 | --muted | #44475A | セクション背景 |
@@ -128,14 +128,14 @@ client/src/
 | `duration-500` 以上のアニメーション | 操作が鈍く感じる | `duration-150` ～ `duration-200` |
 | 色だけで情報を伝達 | 色覚多様性非対応 | アイコン + テキスト併用 |
 | `/* コメント */` in CodingChallenge initialCode | Sucrase が正規表現と誤認 | `// コメント` を使用 |
-| CDN で React 19 / Three.js 0.161+ を指定 | UMD ビルド廃止 | React 18.3.1 / Three.js 0.160.1 |
-| プレビュー iframe に `sandbox="allow-scripts"` のみ | CDN 読み込み失敗 | `allow-scripts allow-same-origin` |
+| プレビューに React 19 / Three.js 0.161+ を指定 | UMD ビルド未配布のためセルフホストできない | React 18.3.1 / Three.js 0.160.1 |
+| プレビュー iframe に `sandbox="allow-scripts"` のみ | 同一オリジンの `/vendor/` UMD を解決できない | `allow-scripts allow-same-origin` |
 | エモーショナルなコピー（「劇的に」「飛躍的に」） | 教材のトーンに合わない | フラットで実用的な表現 |
 
 ## プレビューシステム
 
-- JSX: Sucrase でトランスパイル → React 18.3.1 UMD (CDN) で描画
-- Three.js: three@0.160.1 UMD (CDN) で描画
+- JSX: Sucrase でトランスパイル → React 18.3.1 UMD（`/vendor/` にセルフホスト）で描画
+- Three.js: three@0.160.1 UMD（`/vendor/` にセルフホスト）で描画
 - Terminal/Config/Markdown: 専用レンダラー
 - `resolvePreviewType()` で自動判定: JSX / terminal / config / markdown / threejs
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
@@ -171,8 +171,9 @@ client/src/
 
 ## テスト
 
-- Unit: `npx vitest run`
-- E2E: `npx playwright test`（要 dev サーバー）
+- Unit: `pnpm test`
+- E2E: `pnpm test:e2e`（dev サーバーは Playwright が自動起動。ローカルでは `PORT=3400 pnpm test:e2e` のように空きポートを明示する）
+- a11y のみ: `pnpm test:a11y`
 - 全チャレンジコードのトランスパイル検証: `editor-validation.test.ts`
 
 ## Git ワークフロー
