@@ -88,7 +88,7 @@ client/src/
 |---------|-----|------|
 | --primary | #93C5FD | アクション、リンク |
 | --foreground | #E4E4E7 | 本文テキスト |
-| --muted-foreground | #A1A1AA | 補助テキスト |
+| --muted-foreground | #A8A8B3 | 補助テキスト（card / muted 背景上で AA 4.5:1 を満たす実測値） |
 | --background | #09090B | ページ背景 |
 | --card | #18181B | カード背景 |
 | --muted | #27272A | セクション背景 |
@@ -100,7 +100,7 @@ client/src/
 |---------|-----|------|
 | --primary | #BD93F9 | アクション、リンク（Dracula パープル） |
 | --foreground | #F8F8F2 | 本文テキスト |
-| --muted-foreground | #6272A4 | 補助テキスト |
+| --muted-foreground | #B4BEDD | 補助テキスト（`#6272A4` / `#8595BD` は muted 背景上で AA 未達） |
 | --background | #282A36 | ページ背景 |
 | --card | #313545 | カード背景 |
 | --muted | #44475A | セクション背景 |
@@ -171,8 +171,9 @@ client/src/
 
 ## テスト
 
-- Unit: `npx vitest run`
-- E2E: `npx playwright test`（要 dev サーバー）
+- Unit: `pnpm test`
+- E2E: `pnpm test:e2e`（dev サーバーは Playwright が自動起動。ローカルでは `PORT=3400 pnpm test:e2e` のように空きポートを明示する）
+- a11y のみ: `pnpm test:a11y`
 - 全チャレンジコードのトランスパイル検証: `editor-validation.test.ts`
 
 ## Git ワークフロー

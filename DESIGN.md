@@ -29,7 +29,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 - 理由: ビルドを挟まず「書いて即結果」を実現するのが教材の核。
 - 配信: プレビューが読む UMD は React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本を**すべて `client/public/vendor/` にセルフホスト**する（`client/src/lib/preview.ts`）。CDN を単一障害点にせず、オフライン・社内網でも動かすため。iframe の CSP は `script-src 'self'` のため、外部ホストのスクリプトは構造的に読み込めない。
 - 制約: プレビューの React は **18.3.1**、Three.js は **0.160.1**、MUI は **v5.18** に固定する。React 19 / Three.js 0.161+ / MUI v6+ は UMD ビルドを配布しておらず、セルフホストする成果物が存在しないため。
-- 版ずれ検知: `npm run freshness` で npm の最新版との乖離を検出する。
+- 版ずれ検知: `pnpm freshness` で npm レジストリの最新版との乖離を検出する。
 
 ### 採用: 3 テーマ + CSS 変数トークン
 - 理由: ダークモードと色覚多様性を教材自身が体現する。マニュアル別の色分けは廃止し、単一プライマリ（ブルー）で統一（番号・アイコン・テキストで区別）。
@@ -47,9 +47,11 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 ### 採用: syntax ハイライトの一部トークン色を AA 準拠へ差し替え
 - 理由: `CodeBlock` が使う prism `vsDark` の 3 トークン色（prolog/constant/punctuation）がコード背景 `#1e1e2e` で AA 未達だった。該当色のみ派生テーマで差し替え（色相は維持、他は不変）。
 
-### ハーネスの範囲: リポジトリに載せるのは Inform / Verify / Correct、Constrain は載せない
+### ハーネスの範囲: Inform / Verify / Correct を主軸に置き、Constrain はプロジェクト最小限にとどめる
 - 本リポジトリの「ハーネス」（AI・人間が正しく作業するための足場）は 4 象限で整理する: **Inform**（何をどう作るかを伝える = 3 層ドキュメント・specs）/ **Verify**（正しさを機械で確かめる = CI の型・単体・a11y）/ **Correct**（逸脱を正す基準 = レビュー規約）/ **Constrain**（危険な操作を機械的に封じる）。
-- このうち Constrain（Claude Code の permission 設定・hooks 等）は**意図的にリポジトリへコミットしない**。理由: 権限・hook はオペレータのローカル環境・信頼境界に強く依存し、リポジトリに固定すると環境差で壊れる／誤った安心を与える。運用者ごとにローカルで設定する範囲とし、非目標として明記する（欠落ではなく設計判断）。
+- 品質の主軸は Inform / Verify / Correct に置く。Constrain は Claude Code のプロジェクトスコープ設定（`.claude/settings.json` の permission 許可・拒否リストと整形 hook）に**最小限だけ**載せる。
+- オペレータ個人スコープの設定（`~/.claude/settings.json`、承認モード、外部ツール接続）は**リポジトリに載せない**。権限は個々の環境・信頼境界に依存し、リポジトリに固定すると環境差で壊れるか、誤った安心を与えるため。非目標として明記する（欠落ではなく設計判断）。
+- 重要な前提: リポジトリ内の Constrain は**セキュリティ境界ではない**。手元の設定で容易に上書きできるので、実効的な防御は Verify（CI ゲート）と Correct（レビュー）が担う。
 
 ## 既知の課題
 

@@ -13,5 +13,5 @@ description: 現在のブランチの PR または未コミット変更をコー
    - プロジェクト規約（CLAUDE.md の禁止パターン）への準拠
    - パフォーマンス影響
    - テストカバレッジ
-   - セキュリティ（iframe sandbox, CDN URL, XSS）
+   - セキュリティ（iframe sandbox, CSP, セルフホスト UMD の参照先, XSS）
 5. 結果をセクション分けで報告

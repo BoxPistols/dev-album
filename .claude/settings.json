@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // empty' | grep -E '\\.(tsx?|css)$' | xargs -I{} npx prettier --write {} 2>/dev/null || true"
+            "command": "jq -r '.tool_input.file_path // empty' | grep -E '\\.(tsx?|css)$' | xargs -I{} pnpm exec prettier --write {} 2>/dev/null || true"
           }
         ]
       }
@@ -25,12 +25,12 @@
   },
   "permissions": {
     "allow": [
-      "Bash(npm run build)",
-      "Bash(npm run dev)",
-      "Bash(npx vitest run*)",
-      "Bash(npx playwright test*)",
-      "Bash(npx vite build*)",
-      "Bash(npx tsc*)",
+      "Bash(pnpm build)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm check)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm exec playwright test*)",
+      "Bash(pnpm freshness)",
       "Bash(python3*)",
       "WebFetch(domain:figma.com)",
       "WebFetch(domain:fonts.google.com)",

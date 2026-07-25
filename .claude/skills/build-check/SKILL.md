@@ -5,8 +5,8 @@ description: ビルド + 型チェック + テストを一括実行し、デプ�
 
 ## 手順
 
-1. `npm run build` でプロダクションビルド
-2. `npx vitest run` で Unit テスト
+1. `pnpm build` でプロダクションビルド
+2. `pnpm test` で Unit テスト
 3. 結果を報告:
    - ビルド成功/失敗
    - テスト通過数/失敗数
