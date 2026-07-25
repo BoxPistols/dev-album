@@ -153,7 +153,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 
 | トークン | Light | Dark | Dracula | 用途 |
 |---------|-------|------|---------|------|
-| `--primary` | #1F5CDB | #93C5FD | #BD93F9 | アクション、リンク |
+| `--primary` | #1F5CDB | #93C5FD | #CCABFA | アクション、リンク（マニュアル内では下記のブランド色に差し替わる） |
 | `--foreground` | #3F3F46 | #E4E4E7 | #F8F8F2 | 本文テキスト |
 | `--muted-foreground` | #67676F | #A8A8B3 | #B4BEDD | 補助テキスト |
 | `--background` | #FAFAFA | #09090B | #282A36 | ページ背景 |
