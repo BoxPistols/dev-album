@@ -17,7 +17,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 ## 主要な制約
 
 - **アクセシビリティは必須要件**。WCAG AA（コントラスト 4.5:1）を満たす。色トークンは実測値で決める（手計算しない）。`text-black`/`text-white`/`bg-white` 直接使用は禁止（テーマ非対応になるため）。
-- プレビュー iframe は既定 `sandbox="allow-scripts allow-same-origin"`（CDN 読み込みのため両方必要）。
+- プレビュー iframe は既定 `sandbox="allow-scripts allow-same-origin"`。`allow-same-origin` はセルフホストした `/vendor/` の UMD を同一オリジンとして解決するために要る。緩めた分は iframe 内の CSP（`script-src 'self'` / `connect-src 'none'`）で多層防御する。
 - 教材のトーンはフラットで実用的。エモーショナルなコピー・ネガティブ訴求・クリシェを禁止。
 
 ## 意思決定の記録
@@ -25,10 +25,11 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 ### 採用: wouter（React Router ではない）
 - 理由: 教材 SPA にはフルルーターは過剰。軽量で `App.tsx` の宣言的ルートと相性が良い。
 
-### 採用: Sucrase によるブラウザ内トランスパイル + UMD CDN でプレビュー描画
+### 採用: Sucrase によるブラウザ内トランスパイル + セルフホスト UMD でプレビュー描画
 - 理由: ビルドを挟まず「書いて即結果」を実現するのが教材の核。
-- 制約: プレビューの React は **18.3.1**、Three.js は **0.160.1** に固定する。React 19 / Three.js 0.161+ は UMD ビルドを廃止しており CDN 描画で壊れるため。
-- プレビュー用外部ライブラリ（MUI/Tailwind/SC/Emotion 等）は CDN 依存をやめ**セルフホスト**（オフライン・社内網でも動くため）。
+- 配信: プレビューが読む UMD は React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本を**すべて `client/public/vendor/` にセルフホスト**する（`client/src/lib/preview.ts`）。CDN を単一障害点にせず、オフライン・社内網でも動かすため。iframe の CSP は `script-src 'self'` のため、外部ホストのスクリプトは構造的に読み込めない。
+- 制約: プレビューの React は **18.3.1**、Three.js は **0.160.1**、MUI は **v5.18** に固定する。React 19 / Three.js 0.161+ / MUI v6+ は UMD ビルドを配布しておらず、セルフホストする成果物が存在しないため。
+- 版ずれ検知: `npm run freshness` で npm の最新版との乖離を検出する。
 
 ### 採用: 3 テーマ + CSS 変数トークン
 - 理由: ダークモードと色覚多様性を教材自身が体現する。マニュアル別の色分けは廃止し、単一プライマリ（ブルー）で統一（番号・アイコン・テキストで区別）。

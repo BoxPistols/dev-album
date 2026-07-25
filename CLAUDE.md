@@ -128,14 +128,14 @@ client/src/
 | `duration-500` 以上のアニメーション | 操作が鈍く感じる | `duration-150` ～ `duration-200` |
 | 色だけで情報を伝達 | 色覚多様性非対応 | アイコン + テキスト併用 |
 | `/* コメント */` in CodingChallenge initialCode | Sucrase が正規表現と誤認 | `// コメント` を使用 |
-| CDN で React 19 / Three.js 0.161+ を指定 | UMD ビルド廃止 | React 18.3.1 / Three.js 0.160.1 |
-| プレビュー iframe に `sandbox="allow-scripts"` のみ | CDN 読み込み失敗 | `allow-scripts allow-same-origin` |
+| プレビューに React 19 / Three.js 0.161+ を指定 | UMD ビルド未配布のためセルフホストできない | React 18.3.1 / Three.js 0.160.1 |
+| プレビュー iframe に `sandbox="allow-scripts"` のみ | 同一オリジンの `/vendor/` UMD を解決できない | `allow-scripts allow-same-origin` |
 | エモーショナルなコピー（「劇的に」「飛躍的に」） | 教材のトーンに合わない | フラットで実用的な表現 |
 
 ## プレビューシステム
 
-- JSX: Sucrase でトランスパイル → React 18.3.1 UMD (CDN) で描画
-- Three.js: three@0.160.1 UMD (CDN) で描画
+- JSX: Sucrase でトランスパイル → React 18.3.1 UMD（`/vendor/` にセルフホスト）で描画
+- Three.js: three@0.160.1 UMD（`/vendor/` にセルフホスト）で描画
 - Terminal/Config/Markdown: 専用レンダラー
 - `resolvePreviewType()` で自動判定: JSX / terminal / config / markdown / threejs
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
