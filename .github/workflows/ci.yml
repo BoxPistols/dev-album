@@ -43,3 +43,32 @@ jobs:
 
       - name: ビルド
         run: pnpm build
+
+  # a11y 回帰ガード: axe-core で Light / Dark / Dracula の3テーマを検査し、
+  # critical / serious なアクセシビリティ違反（コントラスト等）を PR 段階でブロックする。
+  # 検査対象にはコードブロック（テンプレートリテラルの補間トークン）を含むページも入れ、
+  # シンタックス色・primary 色のコントラスト退行を捕捉する。
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 依存をインストール
+        run: pnpm install --frozen-lockfile
+
+      # Playwright のブラウザ本体と OS 依存を用意する（chromium のみ）
+      - name: Playwright ブラウザを準備
+        run: pnpm exec playwright install --with-deps chromium
+
+      # playwright.config の webServer が dev サーバを自動起動して検査する
+      - name: a11y 検査（axe-core / 3テーマ）
+        run: pnpm test:a11y
