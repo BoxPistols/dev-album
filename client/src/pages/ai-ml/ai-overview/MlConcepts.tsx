@@ -88,7 +88,7 @@ export default function MlConcepts() {
               {/* 強化学習 */}
               <div className="rounded-xl border border-border bg-card p-5 hover:shadow-sm transition-shadow">
                 <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center mb-3">
-                  <span className="text-amber-600 dark:text-amber-400 text-lg font-bold">3</span>
+                  <span className="text-amber-700 dark:text-amber-400 text-lg font-bold">3</span>
                 </div>
                 <h3 className="font-bold text-foreground mb-2" style={{ fontSize: '15px' }}>
                   強化学習

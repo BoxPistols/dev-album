@@ -413,7 +413,7 @@ export default function Home() {
             {/* 画面設定 */}
             <div className="rounded-xl border border-border bg-card p-6 card-hover">
               <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center mb-4">
-                <Settings size={20} className="text-amber-600 dark:text-amber-400" />
+                <Settings size={20} className="text-amber-700 dark:text-amber-400" />
               </div>
               <h3 className="text-base font-bold text-foreground mb-3">画面設定</h3>
               <ul className="text-sm text-muted-foreground space-y-2 leading-relaxed">

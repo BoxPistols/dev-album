@@ -311,7 +311,7 @@ export default function Home() {
             {/* 画面設定 */}
             <div className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400">
                   <Settings className="w-5 h-5" />
                 </div>
                 <h3 className="font-semibold text-foreground text-base">画面設定</h3>

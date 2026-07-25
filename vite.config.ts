@@ -17,8 +17,9 @@ export default defineConfig({
         name: "Dev Album — Web 開発の実践リファレンス",
         short_name: "Dev Album",
         description:
-          "Git・React・Claude Code・Three.js を、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。",
-        theme_color: "#2563EB",
+          "Git・React・Claude Code・Three.js から AI・ML、UX デザイン、API 設計、Vue / Nuxt、インフラ、開発フローまでを、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。",
+        // 既定テーマ（Light）の --primary。index.css を変えたらここも合わせる
+        theme_color: "#1F5CDB",
         background_color: "#FAFAFA",
         display: "standalone",
         start_url: "/",

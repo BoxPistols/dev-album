@@ -78,7 +78,7 @@ export default function LlmBasics() {
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">彼は</span>
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">リンゴを</span>
                   <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground">食べた</span>
-                  <span className="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold border border-primary/30">それは</span>
+                  <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-bold border border-primary/30">それは</span>
                   <ArrowRight size={14} className="text-primary" />
                   <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">リンゴ</span>
                   <span className="text-xs text-muted-foreground ml-1">（Attention が高い）</span>

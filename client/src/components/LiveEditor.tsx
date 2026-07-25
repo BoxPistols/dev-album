@@ -169,7 +169,7 @@ export default function LiveEditor({
             <ol className="space-y-1">
               {steps.map((step, i) => (
                 <li key={i} className="flex items-start gap-2 text-xs text-[#cdd6f4]/70">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-[12px] font-bold flex items-center justify-center mt-0.5">
+                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary text-[12px] font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
                   </span>
                   <span className="leading-relaxed">{step}</span>

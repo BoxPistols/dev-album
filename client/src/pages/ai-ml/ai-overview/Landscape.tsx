@@ -154,7 +154,7 @@ export default function Landscape() {
 
                   <div className="rounded-lg border-2 border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-4 ml-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                      <span className="text-sm font-bold text-amber-700 dark:text-amber-400">
                         LLM
                       </span>
                       <span className="text-xs text-muted-foreground">

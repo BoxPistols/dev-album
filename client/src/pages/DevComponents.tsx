@@ -43,7 +43,7 @@ export default function DevComponents() {
     <div className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-8">
-          <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded">
+          <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-1 rounded">
             DEV ONLY
           </span>
           <h1 className="text-4xl font-extrabold text-foreground mt-2">

@@ -276,7 +276,7 @@ export default function DesignCodeSync() {
                 href="https://tokens.studio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline"
+                className="text-primary underline underline-offset-2"
               >
                 Token Studio for Figma
               </a>{" "}
@@ -372,7 +372,7 @@ export default function DesignCodeSync() {
                 href="https://styledictionary.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline"
+                className="text-primary underline underline-offset-2"
               >
                 Style Dictionary
               </a>{" "}

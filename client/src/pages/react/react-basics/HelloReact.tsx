@@ -554,7 +554,7 @@ export default App`}
             <div className="space-y-4 mb-6">
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
                 <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-amber-600 dark:text-amber-400 text-xs font-bold">1</span>
+                  <span className="text-amber-700 dark:text-amber-400 text-xs font-bold">1</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">高速な起動</h4>
@@ -566,7 +566,7 @@ export default App`}
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
                 <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-amber-600 dark:text-amber-400 text-xs font-bold">2</span>
+                  <span className="text-amber-700 dark:text-amber-400 text-xs font-bold">2</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">エラーオーバーレイ</h4>
@@ -578,7 +578,7 @@ export default App`}
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
                 <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-amber-600 dark:text-amber-400 text-xs font-bold">3</span>
+                  <span className="text-amber-700 dark:text-amber-400 text-xs font-bold">3</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm mb-1">TypeScript サポート</h4>

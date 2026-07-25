@@ -128,7 +128,7 @@ export default function BugReport() {
 
         {/* フッター */}
         <p className="text-xs text-muted-foreground text-center">
-          問題の報告には <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub アカウント（無料）</a> が必要です
+          問題の報告には <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">GitHub アカウント（無料）</a> が必要です
         </p>
       </div>
     </div>

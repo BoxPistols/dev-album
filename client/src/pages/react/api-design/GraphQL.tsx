@@ -165,14 +165,14 @@ export default function GraphQL() {
                   <div className="text-sm font-bold text-foreground mb-3">REST（複数回リクエスト）</div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <span className="shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">1</span>
+                      <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-bold">1</span>
                       <code className="text-xs bg-muted px-2 py-1 rounded">GET /users/1</code>
                     </div>
                     <div className="ml-3 border-l-2 border-border pl-3 text-xs text-muted-foreground py-1">
                       名前 + メール + 住所 + 電話 + 会社...（全部返る）
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">2</span>
+                      <span className="shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-bold">2</span>
                       <code className="text-xs bg-muted px-2 py-1 rounded">GET /users/1/posts</code>
                     </div>
                     <div className="ml-3 border-l-2 border-border pl-3 text-xs text-muted-foreground py-1">
@@ -814,14 +814,14 @@ function UserList() {
             設計全般（リソース設計・エラー設計・認証認可・検証）をゼロから学びたい場合は、{" "}
             <Link
               href="/api"
-              className="text-primary font-medium hover:underline"
+              className="text-primary font-medium underline underline-offset-2"
             >
               API 設計 / OpenAPI 入門マニュアル
             </Link>{" "}
             を参照してください。REST 以外の選択肢の比較は{" "}
             <Link
               href="/api/advanced/beyond-rest"
-              className="text-primary font-medium hover:underline"
+              className="text-primary font-medium underline underline-offset-2"
             >
               GraphQL / gRPC
             </Link>{" "}

@@ -55,7 +55,7 @@ export default function AchievementBadge({
           flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0
           ${
             unlocked
-              ? "bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400"
+              ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400"
               : "bg-muted text-muted-foreground"
           }
         `}

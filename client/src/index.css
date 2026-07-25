@@ -121,11 +121,11 @@
 
 /* Dracula ベースのソフトダークテーマ */
 .dark-soft {
-  --primary: #BD93F9;
+  --primary: #CCABFA;
   --primary-foreground: #282A36;
-  --sidebar-primary: #BD93F9;
+  --sidebar-primary: #CCABFA;
   --sidebar-primary-foreground: #282A36;
-  --chart-1: #BD93F9;
+  --chart-1: #CCABFA;
   --chart-2: #8BE9FD;
   --chart-3: #50FA7B;
   --chart-4: #FF79C6;
@@ -140,26 +140,28 @@
   --secondary-foreground: #F8F8F2;
   --muted: #44475A;
   --muted-foreground: #B4BEDD; /* card/muted/kbd の全背景で AA を満たす（#8595BD/#A3B0D4 は muted 上で未達） */
-  --accent: #BD93F9;
+  --accent: #CCABFA;
   --accent-foreground: #282A36;
   --destructive: #FF5555;
   --destructive-foreground: #FEE2E2;
   --border: #44475A;
   --input: #313545;
-  --ring: #BD93F9;
+  --ring: #CCABFA;
   --sidebar: rgba(40, 42, 54, 0.95);
   --sidebar-foreground: #F8F8F2;
   --sidebar-accent: #44475A;
   --sidebar-accent-foreground: #F8F8F2;
   --sidebar-border: #44475A;
-  --sidebar-ring: #BD93F9;
+  --sidebar-ring: #CCABFA;
 }
 
 /* ── マニュアル別ブランドカラー ──
    <html data-manual="..."> のときだけ primary 系トークンを各ブランド色に上書きする（useManualTheme フックで付与）。
-   light / dark / dracula(.dark-soft) すべて WCAG AA（≥4.5:1）に加え、
-   ダークは APCA（WCAG 3 候補）の Lc も実測し、ハレーションを避けるため
-   明るく彩度の高い色は Lc が過大にならない範囲（概ね Lc 50〜75）に抑えている。他マニュアルは無影響。 */
+   マニュアル横断で色が変わるため、コントラストは「単色 × 地」だけでなく
+   bg-primary/5 や bg-primary/10 のような自己色ティントの上でも成立している必要がある。
+   その検証は client/src/lib/theme-contrast.test.ts が全 8 マニュアル × 3 テーマで機械的に行う
+   （ソースに実在するクラスの組だけを対象にし、WCAG AA 4.5:1 を下回ったら失敗する）。
+   ここの色を変えるときは、そのテストを通してから確定すること。他マニュアルへの影響はない。 */
 [data-manual="git"] {
   --primary: #BE123C;
   --primary-foreground: #F9FAFB;
@@ -181,14 +183,14 @@
   --sidebar-ring: #FB7185;
 }
 .dark-soft[data-manual="git"] {
-  --primary: #FB7185;
+  --primary: #FC9EAB;
   --primary-foreground: #282A36;
-  --sidebar-primary: #FB7185;
+  --sidebar-primary: #FC9EAB;
   --sidebar-primary-foreground: #282A36;
-  --accent: #FB7185;
+  --accent: #FC9EAB;
   --accent-foreground: #282A36;
-  --ring: #FB7185;
-  --sidebar-ring: #FB7185;
+  --ring: #FC9EAB;
+  --sidebar-ring: #FC9EAB;
 }
 [data-manual="react"] {
   --primary: #4F46E5;
@@ -251,14 +253,14 @@
   --sidebar-ring: #C4B5FD;
 }
 [data-manual="threejs"] {
-  --primary: #0F766E;
+  --primary: #0E6F68;
   --primary-foreground: #F9FAFB;
-  --sidebar-primary: #0F766E;
+  --sidebar-primary: #0E6F68;
   --sidebar-primary-foreground: #F9FAFB;
-  --accent: #0F766E;
+  --accent: #0E6F68;
   --accent-foreground: #F9FAFB;
-  --ring: #0F766E;
-  --sidebar-ring: #0F766E;
+  --ring: #0E6F68;
+  --sidebar-ring: #0E6F68;
 }
 .dark[data-manual="threejs"] {
   --primary: #2DD4BF;
@@ -281,14 +283,14 @@
   --sidebar-ring: #2DD4BF;
 }
 [data-manual="ai-ml"] {
-  --primary: #B45309;
+  --primary: #A14A08;
   --primary-foreground: #F9FAFB;
-  --sidebar-primary: #B45309;
+  --sidebar-primary: #A14A08;
   --sidebar-primary-foreground: #F9FAFB;
-  --accent: #B45309;
+  --accent: #A14A08;
   --accent-foreground: #F9FAFB;
-  --ring: #B45309;
-  --sidebar-ring: #B45309;
+  --ring: #A14A08;
+  --sidebar-ring: #A14A08;
 }
 .dark[data-manual="ai-ml"] {
   --primary: #F59E0B;
@@ -301,14 +303,14 @@
   --sidebar-ring: #F59E0B;
 }
 .dark-soft[data-manual="ai-ml"] {
-  --primary: #F59E0B;
+  --primary: #F6A721;
   --primary-foreground: #282A36;
-  --sidebar-primary: #F59E0B;
+  --sidebar-primary: #F6A721;
   --sidebar-primary-foreground: #282A36;
-  --accent: #F59E0B;
+  --accent: #F6A721;
   --accent-foreground: #282A36;
-  --ring: #F59E0B;
-  --sidebar-ring: #F59E0B;
+  --ring: #F6A721;
+  --sidebar-ring: #F6A721;
 }
 [data-manual="ux-design"] {
   --primary: #BE185D;
@@ -341,14 +343,14 @@
   --sidebar-ring: #F9A8D4;
 }
 [data-manual="api"] {
-  --primary: #047857;
+  --primary: #047253;
   --primary-foreground: #F9FAFB;
-  --sidebar-primary: #047857;
+  --sidebar-primary: #047253;
   --sidebar-primary-foreground: #F9FAFB;
-  --accent: #047857;
+  --accent: #047253;
   --accent-foreground: #F9FAFB;
-  --ring: #047857;
-  --sidebar-ring: #047857;
+  --ring: #047253;
+  --sidebar-ring: #047253;
 }
 .dark[data-manual="api"] {
   --primary: #34D399;
@@ -371,14 +373,14 @@
   --sidebar-ring: #34D399;
 }
 [data-manual="vue"] {
-  --primary: #047857;
+  --primary: #047253;
   --primary-foreground: #F9FAFB;
-  --sidebar-primary: #047857;
+  --sidebar-primary: #047253;
   --sidebar-primary-foreground: #F9FAFB;
-  --accent: #047857;
+  --accent: #047253;
   --accent-foreground: #F9FAFB;
-  --ring: #047857;
-  --sidebar-ring: #047857;
+  --ring: #047253;
+  --sidebar-ring: #047253;
 }
 .dark[data-manual="vue"] {
   --primary: #42B883;

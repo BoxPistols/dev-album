@@ -19,7 +19,7 @@ const styles: Record<InfoBoxType, { bg: string; border: string; icon: ReactNode;
   warning: {
     bg: 'bg-amber-50 dark:bg-amber-950/30',
     border: 'border-amber-200 dark:border-amber-800',
-    icon: <AlertTriangle className="text-amber-600 dark:text-amber-400" size={20} />,
+    icon: <AlertTriangle className="text-amber-700 dark:text-amber-400" size={20} />,
     title: '注意',
   },
   success: {

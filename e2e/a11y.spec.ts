@@ -17,6 +17,15 @@ const PAGES = [
   { path: "/training", name: "トレーニング" },
   // コードブロック（テンプレートリテラル ${} 補間を含む）のシンタックス色コントラスト回帰を捕捉する
   { path: "/react/testing/playwright-e2e", name: "テスト戦略（コードブロック多数）" },
+  // マニュアル別ブランドカラー（index.css の [data-manual] が primary 系を上書きする）は
+  // マニュアルごとに別の色値になる。1 マニュアルでも検査を欠くとその色だけコントラスト
+  // 未達を見逃すため、上書きを持つマニュアルすべてから代表 1 ページを取る。
+  { path: "/git/environment/prerequisites", name: "Git（ブランド色）" },
+  { path: "/claude-mux/getting-started/why-claude-code", name: "Claude Code（ブランド色）" },
+  { path: "/threejs/basics/scene", name: "Three.js（ブランド色）" },
+  { path: "/ai-ml/ai-overview/landscape", name: "AI・ML（ブランド色）" },
+  { path: "/api/quickstart", name: "API 設計（ブランド色）" },
+  { path: "/vue/basics/setup", name: "Vue / Nuxt（ブランド色）" },
 ] as const;
 
 // ThemeContext は html に付与するクラスでテーマを切り替える（dark / dark+dark-soft）
