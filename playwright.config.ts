@@ -11,7 +11,9 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     port: Number(process.env.PORT) || 3000,
-    reuseExistingServer: true,
+    // CI では毎回クリーンな dev サーバを起動する（残留プロセスの再利用による flake を防ぐ）。
+    // ローカルでは起動中の dev サーバを再利用して待ち時間を減らす。
+    reuseExistingServer: !process.env.CI,
   },
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
