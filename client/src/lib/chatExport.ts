@@ -35,8 +35,11 @@ export function deriveChatTitle(
 
   if (!source) return fallbackPageTitle?.trim() || "AI サポートの会話";
 
-  return source.length > TITLE_MAX_LENGTH
-    ? `${source.slice(0, TITLE_MAX_LENGTH)}…`
+  // slice はコードユニット単位で切るためサロゲートペア (絵文字など) を分断し、
+  // 孤立サロゲートがタイトルとファイル名に載る。コードポイント単位で数える
+  const chars = Array.from(source);
+  return chars.length > TITLE_MAX_LENGTH
+    ? `${chars.slice(0, TITLE_MAX_LENGTH).join("")}…`
     : source;
 }
 

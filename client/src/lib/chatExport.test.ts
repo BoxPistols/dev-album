@@ -51,6 +51,20 @@ describe("deriveChatTitle", () => {
     expect(title).toBe(`${"あ".repeat(40)}…`);
   });
 
+  it("切り詰め位置に絵文字が来ても孤立サロゲートを残さない", () => {
+    // 40 文字目が絵文字。コードユニットで切ると壊れた文字が残る
+    const title = deriveChatTitle([msg("user", `${"あ".repeat(39)}👍の件`)]);
+    expect(title).toBe(`${"あ".repeat(39)}👍…`);
+    // 👍 は正しいサロゲート「ペア」なので、壊れていないことは isWellFormed で見る
+    expect(title.isWellFormed()).toBe(true);
+  });
+
+  it("絵文字はコードポイント単位で数える", () => {
+    // 👍 は length 2 だが 1 文字として扱うので、40 個までは切り詰めない
+    const emoji = "👍".repeat(40);
+    expect(deriveChatTitle([msg("user", emoji)])).toBe(emoji);
+  });
+
   it("改行や連続空白は 1 つの空白に畳む", () => {
     expect(deriveChatTitle([msg("user", "前段\n\n  後段")])).toBe("前段 後段");
   });
@@ -88,6 +102,12 @@ describe("buildChatFilename", () => {
   it("切り詰めの … はファイル名に持ち込まない", () => {
     const name = buildChatFilename([msg("user", "あ".repeat(60))], AT);
     expect(name).toBe(`2026-08-11-${"あ".repeat(40)}.md`);
+  });
+
+  it("切り詰めた絵文字がファイル名に壊れて載らない", () => {
+    const name = buildChatFilename([msg("user", `${"あ".repeat(39)}👍の件`)], AT);
+    expect(name).toBe(`2026-08-11-${"あ".repeat(39)}👍.md`);
+    expect(name.isWellFormed()).toBe(true);
   });
 
   it("記号だけの発言でも空のファイル名にならない", () => {

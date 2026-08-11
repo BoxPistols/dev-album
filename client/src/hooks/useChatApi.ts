@@ -19,7 +19,6 @@ export interface QuotaInfo {
   resetEpoch: number | null;
   /** 現在の tier */
   tier: ChatTier;
-  /** 招待コード失敗理由 (yilmogxd と共通 enum) */
 }
 
 const INITIAL_QUOTA: QuotaInfo = {
