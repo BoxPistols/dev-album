@@ -8,7 +8,7 @@ import { useChatSettings } from "./useChatSettings";
 
 export type ChatMode = "ai" | "faq";
 
-export type ChatTier = "anonymous" | "invited" | "byok" | null;
+export type ChatTier = "anonymous" | "byok" | null;
 
 export interface QuotaInfo {
   /** 残り呼び出し回数 (null = ヘッダ未送信 = バックエンド未対応) */
@@ -19,8 +19,6 @@ export interface QuotaInfo {
   resetEpoch: number | null;
   /** 現在の tier */
   tier: ChatTier;
-  /** 招待コード失敗理由 (yilmogxd と共通 enum) */
-  inviteFail: string | null;
 }
 
 const INITIAL_QUOTA: QuotaInfo = {
@@ -28,13 +26,12 @@ const INITIAL_QUOTA: QuotaInfo = {
   limit: null,
   resetEpoch: null,
   tier: null,
-  inviteFail: null,
 };
 
 function parseQuotaHeaders(headers: Headers): QuotaInfo {
   const parseNum = (v: string | null) => (v === null ? null : Number(v));
   const tierRaw = headers.get("X-Chat-Tier");
-  const validTiers: ChatTier[] = ["anonymous", "invited", "byok"];
+  const validTiers: ChatTier[] = ["anonymous", "byok"];
   const tier = validTiers.includes(tierRaw as ChatTier)
     ? (tierRaw as ChatTier)
     : null;
@@ -43,7 +40,6 @@ function parseQuotaHeaders(headers: Headers): QuotaInfo {
     limit: parseNum(headers.get("X-RateLimit-Limit")),
     resetEpoch: parseNum(headers.get("X-RateLimit-Reset")),
     tier,
-    inviteFail: headers.get("X-Invite-Fail"),
   };
 }
 
@@ -63,9 +59,10 @@ export function useChatApi() {
       if (!text.trim() || isStreaming) return;
 
       setError(null);
-      addMessage("user", text);
 
       const ctx = getEnrichedPageContext(location);
+      // 履歴はページを跨いで残るので、どのページでの発言かを 1 件ごとに残す
+      addMessage("user", text, { path: ctx.path, title: ctx.title });
 
       try {
         setIsStreaming(true);
@@ -81,7 +78,7 @@ export function useChatApi() {
           .slice(-10)
           .map((m) => ({ role: m.role, content: m.content }));
 
-        const { selectedModel, userApiKey, inviteCode } = chatSettings;
+        const { selectedModel, userApiKey } = chatSettings;
 
         const response = await fetch("/api/chat", {
           method: "POST",
@@ -92,7 +89,6 @@ export function useChatApi() {
             model: selectedModel.id,
             provider: selectedModel.provider,
             ...(userApiKey ? { userApiKey } : {}),
-            ...(inviteCode ? { inviteCode } : {}),
           }),
           signal: controller.signal,
         });
@@ -121,7 +117,7 @@ export function useChatApi() {
           if (globalKill) {
             addMessage(
               "assistant",
-              "本日の全体枠が上限に達したため、匿名アクセスを停止しています。招待コードをお持ちの方か、設定から API キーを入れて BYOK で引き続きご利用いただけます。",
+              "本日の全体枠が上限に達したため、匿名アクセスを停止しています。設定から API キーを入れて BYOK で引き続きご利用いただけます。",
             );
             setIsStreaming(false);
             return;

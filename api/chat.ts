@@ -7,11 +7,9 @@ import {
   getRedis,
   nextUtcMidnightEpoch,
   QUOTA_POLICY_URL,
-  redeemInvite,
   sessionKey,
   TIER_CAPS,
   todayUtc,
-  type InviteFailCode,
   type Tier,
 } from "./lib/quota.js";
 
@@ -21,10 +19,22 @@ interface ChatRequestBody {
   model?: string;
   provider?: "openai" | "gemini";
   userApiKey?: string;
-  inviteCode?: string;
 }
 
-const PREMIUM_MODELS = ["gpt-5.4-mini"];
+/**
+ * サーバ側の API キーで呼べるモデルの許可リスト (provider ごと)。
+ * model はリクエストボディで指定できるため、検証しないと匿名クライアントが
+ * オーナーのキーで任意の高コストモデルを呼べてしまう。
+ * ここに無いモデルは BYOK (userApiKey) を必須にする。
+ * クライアントの MODEL_OPTIONS を増やしたら、こちらにも追加する。
+ */
+const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
+  openai: ["gpt-5.6-luna"],
+  gemini: ["gemini-2.5-flash"],
+};
+
+// 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする
+const COMPACT_MODELS = ["nano", "luna"];
 
 function getClient(
   provider: string,
@@ -45,7 +55,7 @@ function getClient(
   if (!apiKey) return null;
   return {
     client: new OpenAI({ apiKey }),
-    defaultModel: "gpt-5.4-nano",
+    defaultModel: "gpt-5.6-luna",
   };
 }
 
@@ -55,7 +65,6 @@ function setCommonHeaders(
   tier: Tier,
   remaining: number | null,
   limit: number | null,
-  inviteFail: InviteFailCode | null,
 ) {
   res.setHeader("X-Chat-Tier", tier);
   res.setHeader("X-Chat-Quota-Policy", QUOTA_POLICY_URL);
@@ -66,9 +75,6 @@ function setCommonHeaders(
   if (remaining !== null && Number.isFinite(remaining)) {
     res.setHeader("X-RateLimit-Remaining", String(remaining));
   }
-  if (inviteFail) {
-    res.setHeader("X-Invite-Fail", inviteFail);
-  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -76,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { messages, systemPrompt, model, provider, userApiKey, inviteCode } =
+  const { messages, systemPrompt, model, provider, userApiKey } =
     req.body as ChatRequestBody;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -85,7 +91,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const resolvedProvider = provider || "openai";
 
-  if (model && PREMIUM_MODELS.includes(model) && !userApiKey) {
+  // 許可リスト外のモデルはサーバのキーで実行させない (BYOK なら本人負担なので許可)
+  const allowedForServerKey = SERVER_KEY_ALLOWED_MODELS[resolvedProvider] ?? [];
+  if (model && !userApiKey && !allowedForServerKey.includes(model)) {
     return res
       .status(403)
       .json({ error: "このモデルの利用には API キーの設定が必要です" });
@@ -96,20 +104,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const ip = extractClientIp(req.headers["x-forwarded-for"]);
   const ua = String(req.headers["user-agent"] ?? "unknown");
 
-  let tier: Tier = userApiKey ? "byok" : "anonymous";
-  let inviteFail: InviteFailCode | null = null;
-
-  if (!userApiKey && inviteCode && redis) {
-    const sid = sessionKey(ip, ua, inviteCode);
-    const result = await redeemInvite(redis, inviteCode, sid);
-    if (result.ok) {
-      tier = "invited";
-    } else {
-      inviteFail = result.err;
-    }
-  }
-
-  const sid = sessionKey(ip, ua, tier === "invited" ? inviteCode : undefined);
+  const tier: Tier = userApiKey ? "byok" : "anonymous";
+  const sid = sessionKey(ip, ua);
   const day = todayUtc();
   const estimatedInput = messages.reduce(
     (sum, m) => sum + estimateTokens(m.content),
@@ -133,7 +129,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // ── ヘッダ設定 (エラー応答にも必須) ──
-  setCommonHeaders(res, tier, remaining, limit, inviteFail);
+  setCommonHeaders(res, tier, remaining, limit);
 
   // Global kill switch
   if (globalKill && tier !== "byok") {
@@ -146,7 +142,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Tier quota exhausted
   if (!allowed) {
-    res.setHeader("X-Invite-Fail", "exceeded_tier_rate_limit");
     return res.status(429).json({
       error: "quota_exhausted",
       tier,
@@ -166,7 +161,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Connection", "keep-alive");
 
   try {
-    const maxTokens = resolvedModel.includes("nano") ? 2048 : 4096;
+    const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
+      ? 2048
+      : 4096;
 
     const stream = await config.client.chat.completions.create({
       model: resolvedModel,

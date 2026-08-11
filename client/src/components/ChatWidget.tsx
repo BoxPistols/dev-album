@@ -11,12 +11,16 @@ import {
   Loader2,
   CheckCircle2,
   XCircle,
+  Copy,
+  Check,
+  Download,
 } from "lucide-react";
 import Markdown from "react-markdown";
 import { useChatApi } from "@/hooks/useChatApi";
 import { useChatResize } from "@/hooks/useChatResize";
 import { MODEL_OPTIONS } from "@/hooks/useChatSettings";
 import { getPageContext } from "@/lib/chatContext";
+import { buildChatFilename, buildChatMarkdown } from "@/lib/chatExport";
 import { useLocation } from "wouter";
 
 const IS_MAC =
@@ -33,6 +37,7 @@ export default function ChatWidget() {
     "idle" | "testing" | "ok" | "error"
   >("idle");
   const [testError, setTestError] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const [location] = useLocation();
   const {
     messages,
@@ -140,6 +145,44 @@ export default function ChatWidget() {
     }
   }, [confirmClear, clearHistory, isStreaming, cancelStream]);
 
+  // メッセージ単位のコピー
+  const handleCopyMessage = useCallback(async (id: string, content: string) => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedId(id);
+      setTimeout(
+        () => setCopiedId((prev) => (prev === id ? null : prev)),
+        2000,
+      );
+    } catch {
+      // クリップボードが使えない環境 (非セキュアコンテキスト等) では何もしない
+    }
+  }, []);
+
+  // 会話全体を Markdown でダウンロード
+  const handleDownload = useCallback(() => {
+    if (messages.length === 0) return;
+    const now = new Date();
+    const markdown = buildChatMarkdown(messages, {
+      exportedAt: now,
+      currentPagePath: pageContext.path,
+      currentPageTitle: pageContext.title,
+      modelLabel: chatSettings.selectedModel.label,
+      siteUrl: window.location.origin,
+    });
+    const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = buildChatFilename(messages, now, pageContext.title);
+    // download 属性を効かせるには DOM に繋いでから click する。
+    // revoke は click と同期に行うとダウンロード開始前に URL が消えることがある
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  }, [messages, pageContext, chatSettings.selectedModel.label]);
+
   // API 接続テスト
   const handleTestConnection = useCallback(async () => {
     setTestStatus("testing");
@@ -221,15 +264,17 @@ export default function ChatWidget() {
                 className={`w-1.5 h-1.5 rounded-full ${mode === "ai" ? "bg-green-500" : "bg-zinc-400"}`}
                 title={mode === "ai" ? "AI 接続中" : "FAQ モード"}
               />
-              {/* 残量バッジ: tier quota を消費する層 (anonymous / invited) でのみ表示 */}
-              {quota.remaining !== null && quota.tier && quota.tier !== "byok" && (
-                <span
-                  className="text-[12px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-medium"
-                  title={`tier: ${quota.tier}${quota.limit !== null ? ` / limit: ${quota.limit}` : ""}`}
-                >
-                  今日あと {quota.remaining} 回
-                </span>
-              )}
+              {/* 残量バッジ: tier quota を消費する層 (anonymous) でのみ表示 */}
+              {quota.remaining !== null &&
+                quota.tier &&
+                quota.tier !== "byok" && (
+                  <span
+                    className="text-[12px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-medium"
+                    title={`tier: ${quota.tier}${quota.limit !== null ? ` / limit: ${quota.limit}` : ""}`}
+                  >
+                    今日あと {quota.remaining} 回
+                  </span>
+                )}
               {pageContext.title && (
                 <span className="text-[12px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground truncate max-w-[140px]">
                   {pageContext.title}
@@ -245,6 +290,16 @@ export default function ChatWidget() {
               >
                 <Settings size={14} />
               </button>
+              {messages.length > 0 && (
+                <button
+                  onClick={handleDownload}
+                  className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                  aria-label="会話を Markdown でダウンロード"
+                  title="会話を .md でダウンロード"
+                >
+                  <Download size={14} />
+                </button>
+              )}
               {messages.length > 0 && (
                 <button
                   onClick={handleClear}
@@ -283,57 +338,49 @@ export default function ChatWidget() {
           {/* 設定パネル */}
           {showSettings && (
             <div className="px-4 py-3 border-b border-border bg-muted/50 space-y-3">
-              {/* モデル選択 */}
+              {/* モデル: 選択肢が 1 つのときは読み取り専用で表示する */}
               <div>
-                <label className="text-[12px] text-muted-foreground block mb-1">
+                <span className="text-[12px] text-muted-foreground block mb-1">
                   モデル
-                </label>
-                <select
-                  value={chatSettings.modelId}
-                  onChange={(e) => chatSettings.setModelId(e.target.value)}
-                  className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {MODEL_OPTIONS.map((opt) => (
-                    <option
-                      key={opt.id}
-                      value={opt.id}
-                      disabled={opt.requiresUserKey && !chatSettings.userApiKey}
-                    >
-                      {opt.label}
-                      {opt.requiresUserKey ? " (要キー)" : ""}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* 招待コード入力 */}
-              <div>
-                <label
-                  htmlFor="chat-invite-code"
-                  className="text-[12px] text-muted-foreground block mb-1"
-                >
-                  招待コード（任意）
-                </label>
-                <input
-                  id="chat-invite-code"
-                  type="text"
-                  value={chatSettings.inviteCode}
-                  onChange={(e) => chatSettings.setInviteCode(e.target.value)}
-                  placeholder="da-YYYY-xxxxxx"
-                  className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary font-mono"
-                />
-                <p className="text-[12px] text-muted-foreground mt-1">
-                  招待コードを入力すると 1 日の上限が緩和されます
-                </p>
+                </span>
+                {MODEL_OPTIONS.length > 1 ? (
+                  <select
+                    aria-label="モデル"
+                    value={chatSettings.selectedModel.id}
+                    onChange={(e) => chatSettings.setModelId(e.target.value)}
+                    className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {MODEL_OPTIONS.map((opt) => (
+                      <option
+                        key={opt.id}
+                        value={opt.id}
+                        disabled={
+                          opt.requiresUserKey && !chatSettings.userApiKey
+                        }
+                      >
+                        {opt.label}
+                        {opt.requiresUserKey ? " (要キー)" : ""}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <p className="text-xs text-foreground font-medium">
+                    {chatSettings.selectedModel.label}
+                  </p>
+                )}
               </div>
 
               {/* API キー入力 */}
               <div>
-                <label className="text-[12px] text-muted-foreground block mb-1">
-                  API キー（任意 / GPT-5.4 Mini は必須）
+                <label
+                  htmlFor="chat-api-key"
+                  className="text-[12px] text-muted-foreground block mb-1"
+                >
+                  API キー（任意）
                 </label>
                 <div className="flex gap-1">
                   <input
+                    id="chat-api-key"
                     type={showApiKey ? "text" : "password"}
                     value={chatSettings.userApiKey}
                     onChange={(e) => chatSettings.setUserApiKey(e.target.value)}
@@ -349,7 +396,8 @@ export default function ChatWidget() {
                   </button>
                 </div>
                 <p className="text-[12px] text-muted-foreground mt-1">
-                  キーはブラウザにのみ保存されます
+                  キーはブラウザにのみ保存されます。設定すると 1
+                  日の上限がなくなります
                 </p>
               </div>
 
@@ -395,53 +443,76 @@ export default function ChatWidget() {
               </div>
             ) : (
               messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm px-4 py-2 ml-8 text-sm"
-                      : "bg-muted text-foreground rounded-2xl rounded-bl-sm px-4 py-2 mr-8 text-sm"
-                  }
-                >
-                  {msg.role === "assistant" ? (
-                    <Markdown
-                      components={{
-                        a: ({ href, children }) => (
-                          <a
-                            href={href}
-                            className="text-primary underline underline-offset-2"
-                          >
-                            {children}
-                          </a>
-                        ),
-                        code: ({ children, className }) => {
-                          const isBlock = className?.includes("language-");
-                          return isBlock ? (
-                            <pre className="bg-background/50 rounded-lg p-2 my-1 overflow-x-auto text-xs">
-                              <code>{children}</code>
-                            </pre>
-                          ) : (
-                            <code className="bg-background/50 rounded px-1 py-0.5 text-xs">
+                <div key={msg.id} className="group relative">
+                  {/* コピーボタンは吹き出しの外側の余白に置く。hover だけに頼ると
+                      キーボード操作で到達できないため focus-visible でも表示する */}
+                  <button
+                    onClick={() => handleCopyMessage(msg.id, msg.content)}
+                    className={`absolute top-1 ${msg.role === "user" ? "left-0" : "right-0"} p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity`}
+                    aria-label={
+                      copiedId === msg.id
+                        ? "コピーしました"
+                        : msg.role === "user"
+                          ? "この質問をコピー"
+                          : "この回答をコピー"
+                    }
+                    title={copiedId === msg.id ? "コピーしました" : "コピー"}
+                  >
+                    {copiedId === msg.id ? (
+                      <Check size={12} />
+                    ) : (
+                      <Copy size={12} />
+                    )}
+                  </button>
+                  <div
+                    className={
+                      msg.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm px-4 py-2 ml-8 text-sm"
+                        : "bg-muted text-foreground rounded-2xl rounded-bl-sm px-4 py-2 mr-8 text-sm"
+                    }
+                  >
+                    {msg.role === "assistant" ? (
+                      <Markdown
+                        components={{
+                          a: ({ href, children }) => (
+                            <a
+                              href={href}
+                              className="text-primary underline underline-offset-2"
+                            >
                               {children}
-                            </code>
-                          );
-                        },
-                        p: ({ children }) => (
-                          <p className="mb-1 last:mb-0">{children}</p>
-                        ),
-                        ul: ({ children }) => (
-                          <ul className="list-disc pl-4 mb-1">{children}</ul>
-                        ),
-                        ol: ({ children }) => (
-                          <ol className="list-decimal pl-4 mb-1">{children}</ol>
-                        ),
-                      }}
-                    >
-                      {msg.content}
-                    </Markdown>
-                  ) : (
-                    msg.content
-                  )}
+                            </a>
+                          ),
+                          code: ({ children, className }) => {
+                            const isBlock = className?.includes("language-");
+                            return isBlock ? (
+                              <pre className="bg-background/50 rounded-lg p-2 my-1 overflow-x-auto text-xs">
+                                <code>{children}</code>
+                              </pre>
+                            ) : (
+                              <code className="bg-background/50 rounded px-1 py-0.5 text-xs">
+                                {children}
+                              </code>
+                            );
+                          },
+                          p: ({ children }) => (
+                            <p className="mb-1 last:mb-0">{children}</p>
+                          ),
+                          ul: ({ children }) => (
+                            <ul className="list-disc pl-4 mb-1">{children}</ul>
+                          ),
+                          ol: ({ children }) => (
+                            <ol className="list-decimal pl-4 mb-1">
+                              {children}
+                            </ol>
+                          ),
+                        }}
+                      >
+                        {msg.content}
+                      </Markdown>
+                    ) : (
+                      msg.content
+                    )}
+                  </div>
                 </div>
               ))
             )}

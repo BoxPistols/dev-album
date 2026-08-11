@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-11-git-slack-notifications",
+    date: "2026-08-11",
+    title: "Git 編のフロー自動化に「Slack 通知連携」ページを追加",
+    description:
+      "GitHub 公式 Slack アプリの購読コマンドとフィルタを、既定で有効なイベント（issues / pulls / commits / releases / deployments）と無効なイベント（reviews / comments / branches / workflows / discussions）の区別まで含めて整理した。開発・QA・PM の役割別チャンネル設定例に加え、チートシートに出回っている -label 除外や /github mute が公式アプリには存在しないことも明示している。",
+    category: "feature",
+    link: "/git/flow-automation/notifications",
+  },
+  {
     id: "2026-07-26-manual-brand-color-contrast",
     date: "2026-07-26",
     title: "マニュアル別ブランドカラーのコントラストを全 8 マニュアル × 3 テーマで是正",

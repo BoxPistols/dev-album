@@ -1147,6 +1147,14 @@ export const searchIndex: Record<string, string[]> = {
     'インシデント対応', 'ポストモーテム', '障害対応', '非難なきポストモーテム', 'RCA',
     '根本原因分析', 'インシデント指揮官', 'タイムライン', '再発防止',
   ],
+  '/git/flow-automation/notifications': [
+    'Slack 通知連携', 'Slack', 'GitHub Slack アプリ', '通知設計', '購読', 'subscribe',
+    'unsubscribe', '/github subscribe', '/github subscribe list features', '/github signin',
+    '/github settings', 'pulls', 'issues', 'commits', 'releases', 'deployments',
+    'reviews', 'comments', 'branches', 'workflows', 'discussions',
+    'ラベルフィルタ', '+label', 'ブランチフィルタ', 'commits:*', 'チャンネル設計',
+    'プライベートチャンネル', '/invite @github', '通知疲れ', 'コーディングチャレンジ',
+  ],
   '/git/flow-automation/templates': [
     'Issue / PR テンプレート', 'なぜ入口を標準化するのか', 'Issue テンプレート', 'PR テンプレート',
     'テンプレート', 'template', 'templates', 'Issue Forms', 'ISSUE_TEMPLATE', 'PULL_REQUEST_TEMPLATE',
