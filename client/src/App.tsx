@@ -150,6 +150,7 @@ const GitFlowAutoTestRefactor = lazy(() => import("./pages/git/flow-automation/A
 const GitFlowLabels = lazy(() => import("./pages/git/flow-automation/Labels"));
 const GitFlowAssignment = lazy(() => import("./pages/git/flow-automation/Assignment"));
 const GitFlowProjects = lazy(() => import("./pages/git/flow-automation/Projects"));
+const GitFlowNotifications = lazy(() => import("./pages/git/flow-automation/Notifications"));
 const GitFlowMergeGovernance = lazy(() => import("./pages/git/flow-automation/MergeGovernance"));
 
 // ── Three.js マニュアル (23ページ) ──
@@ -541,6 +542,7 @@ function App() {
                 <Route path="/git/flow-automation/labels" component={GitFlowLabels} />
                 <Route path="/git/flow-automation/assignment" component={GitFlowAssignment} />
                 <Route path="/git/flow-automation/projects" component={GitFlowProjects} />
+                <Route path="/git/flow-automation/notifications" component={GitFlowNotifications} />
                 <Route path="/git/flow-automation/merge-governance" component={GitFlowMergeGovernance} />
 
                 {/* === Three.js マニュアル === */}
