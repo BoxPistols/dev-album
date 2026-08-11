@@ -221,7 +221,7 @@ export default function ChatWidget() {
                 className={`w-1.5 h-1.5 rounded-full ${mode === "ai" ? "bg-green-500" : "bg-zinc-400"}`}
                 title={mode === "ai" ? "AI 接続中" : "FAQ モード"}
               />
-              {/* 残量バッジ: tier quota を消費する層 (anonymous / invited) でのみ表示 */}
+              {/* 残量バッジ: tier quota を消費する層 (anonymous) でのみ表示 */}
               {quota.remaining !== null && quota.tier && quota.tier !== "byok" && (
                 <span
                   className="text-[12px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-medium"
@@ -283,57 +283,49 @@ export default function ChatWidget() {
           {/* 設定パネル */}
           {showSettings && (
             <div className="px-4 py-3 border-b border-border bg-muted/50 space-y-3">
-              {/* モデル選択 */}
+              {/* モデル: 選択肢が 1 つのときは読み取り専用で表示する */}
               <div>
-                <label className="text-[12px] text-muted-foreground block mb-1">
+                <span className="text-[12px] text-muted-foreground block mb-1">
                   モデル
-                </label>
-                <select
-                  value={chatSettings.selectedModel.id}
-                  onChange={(e) => chatSettings.setModelId(e.target.value)}
-                  className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {MODEL_OPTIONS.map((opt) => (
-                    <option
-                      key={opt.id}
-                      value={opt.id}
-                      disabled={opt.requiresUserKey && !chatSettings.userApiKey}
-                    >
-                      {opt.label}
-                      {opt.requiresUserKey ? " (要キー)" : ""}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* 招待コード入力 */}
-              <div>
-                <label
-                  htmlFor="chat-invite-code"
-                  className="text-[12px] text-muted-foreground block mb-1"
-                >
-                  招待コード（任意）
-                </label>
-                <input
-                  id="chat-invite-code"
-                  type="text"
-                  value={chatSettings.inviteCode}
-                  onChange={(e) => chatSettings.setInviteCode(e.target.value)}
-                  placeholder="da-YYYY-xxxxxx"
-                  className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary font-mono"
-                />
-                <p className="text-[12px] text-muted-foreground mt-1">
-                  招待コードを入力すると 1 日の上限が緩和されます
-                </p>
+                </span>
+                {MODEL_OPTIONS.length > 1 ? (
+                  <select
+                    aria-label="モデル"
+                    value={chatSettings.selectedModel.id}
+                    onChange={(e) => chatSettings.setModelId(e.target.value)}
+                    className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {MODEL_OPTIONS.map((opt) => (
+                      <option
+                        key={opt.id}
+                        value={opt.id}
+                        disabled={
+                          opt.requiresUserKey && !chatSettings.userApiKey
+                        }
+                      >
+                        {opt.label}
+                        {opt.requiresUserKey ? " (要キー)" : ""}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <p className="text-xs text-foreground font-medium">
+                    {chatSettings.selectedModel.label}
+                  </p>
+                )}
               </div>
 
               {/* API キー入力 */}
               <div>
-                <label className="text-[12px] text-muted-foreground block mb-1">
-                  API キー（任意 / GPT-5.4 Mini は必須）
+                <label
+                  htmlFor="chat-api-key"
+                  className="text-[12px] text-muted-foreground block mb-1"
+                >
+                  API キー（任意）
                 </label>
                 <div className="flex gap-1">
                   <input
+                    id="chat-api-key"
                     type={showApiKey ? "text" : "password"}
                     value={chatSettings.userApiKey}
                     onChange={(e) => chatSettings.setUserApiKey(e.target.value)}
@@ -349,7 +341,8 @@ export default function ChatWidget() {
                   </button>
                 </div>
                 <p className="text-[12px] text-muted-foreground mt-1">
-                  キーはブラウザにのみ保存されます
+                  キーはブラウザにのみ保存されます。設定すると 1
+                  日の上限がなくなります
                 </p>
               </div>
 

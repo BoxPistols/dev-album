@@ -1,11 +1,10 @@
 import { Redis } from "@upstash/redis";
 import { createHash } from "node:crypto";
 
-export type Tier = "anonymous" | "invited" | "byok";
+export type Tier = "anonymous" | "byok";
 
 export const TIER_CAPS: Record<Tier, number> = {
   anonymous: Number(process.env.CHAT_CAP_ANONYMOUS ?? 10),
-  invited: Number(process.env.CHAT_CAP_INVITED ?? 50),
   byok: Number.POSITIVE_INFINITY,
 };
 
@@ -38,15 +37,11 @@ export function getRedis(): Redis | null {
   return cachedRedis;
 }
 
-export function sessionKey(ip: string, ua: string, invite?: string): string {
+export function sessionKey(ip: string, ua: string): string {
   const h = createHash("sha256");
   h.update(ip);
   h.update("|");
   h.update(ua);
-  if (invite) {
-    h.update("|");
-    h.update(invite);
-  }
   return h.digest("hex").slice(0, 32);
 }
 
@@ -66,74 +61,6 @@ export function extractClientIp(
   if (!xForwardedFor) return "unknown";
   const raw = Array.isArray(xForwardedFor) ? xForwardedFor[0] : xForwardedFor;
   return raw.split(",")[0].trim() || "unknown";
-}
-
-/**
- * Lua on Redis server (not JavaScript). Single script execution is atomic —
- * required for read-modify-write like invite redemption (yilmogxd が指摘した
- * race condition を回避)。Script は scriptLoad で cache してから evalsha で実行。
- */
-const REDEEM_INVITE_LUA = `
-local raw = redis.call('GET', KEYS[1])
-if not raw then return cjson.encode({err='not_found'}) end
-local ok, invite = pcall(cjson.decode, raw)
-if not ok then return cjson.encode({err='malformed'}) end
-if invite.valid == false then return cjson.encode({err='revoked'}) end
-if invite.expiresAt and tonumber(ARGV[2]) > invite.expiresAt then
-  return cjson.encode({err='expired'})
-end
-local sessionId = ARGV[1]
-if invite.usedBy then
-  for _, s in ipairs(invite.usedBy) do
-    if s == sessionId then return cjson.encode({ok=true}) end
-  end
-end
-if not invite.usedBy then invite.usedBy = {} end
-if #invite.usedBy >= (invite.maxUsers or 1) then
-  return cjson.encode({err='max_users_reached'})
-end
-table.insert(invite.usedBy, sessionId)
-redis.call('SET', KEYS[1], cjson.encode(invite))
-return cjson.encode({ok=true})
-`;
-
-let redeemScriptSha: string | null = null;
-
-async function getRedeemSha(redis: Redis): Promise<string> {
-  if (redeemScriptSha) return redeemScriptSha;
-  redeemScriptSha = await redis.scriptLoad(REDEEM_INVITE_LUA);
-  return redeemScriptSha;
-}
-
-export type InviteFailCode =
-  | "not_found"
-  | "expired"
-  | "revoked"
-  | "max_users_reached"
-  | "malformed"
-  | "kv_not_bound"
-  | "byok_format_invalid"
-  | "exceeded_tier_rate_limit";
-
-export type RedeemResult = { ok: true } | { ok: false; err: InviteFailCode };
-
-export async function redeemInvite(
-  redis: Redis,
-  code: string,
-  sid: string,
-): Promise<RedeemResult> {
-  const key = `invite:${code}`;
-  const nowMs = String(Date.now());
-  try {
-    const sha = await getRedeemSha(redis);
-    const raw = await redis.evalsha(sha, [key], [sid, nowMs]);
-    const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
-    if (parsed && parsed.ok) return { ok: true };
-    const err = (parsed?.err as InviteFailCode) || "malformed";
-    return { ok: false, err };
-  } catch {
-    return { ok: false, err: "malformed" };
-  }
 }
 
 export interface QuotaCheckResult {

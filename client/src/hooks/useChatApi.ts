@@ -8,7 +8,7 @@ import { useChatSettings } from "./useChatSettings";
 
 export type ChatMode = "ai" | "faq";
 
-export type ChatTier = "anonymous" | "invited" | "byok" | null;
+export type ChatTier = "anonymous" | "byok" | null;
 
 export interface QuotaInfo {
   /** 残り呼び出し回数 (null = ヘッダ未送信 = バックエンド未対応) */
@@ -20,7 +20,6 @@ export interface QuotaInfo {
   /** 現在の tier */
   tier: ChatTier;
   /** 招待コード失敗理由 (yilmogxd と共通 enum) */
-  inviteFail: string | null;
 }
 
 const INITIAL_QUOTA: QuotaInfo = {
@@ -28,13 +27,12 @@ const INITIAL_QUOTA: QuotaInfo = {
   limit: null,
   resetEpoch: null,
   tier: null,
-  inviteFail: null,
 };
 
 function parseQuotaHeaders(headers: Headers): QuotaInfo {
   const parseNum = (v: string | null) => (v === null ? null : Number(v));
   const tierRaw = headers.get("X-Chat-Tier");
-  const validTiers: ChatTier[] = ["anonymous", "invited", "byok"];
+  const validTiers: ChatTier[] = ["anonymous", "byok"];
   const tier = validTiers.includes(tierRaw as ChatTier)
     ? (tierRaw as ChatTier)
     : null;
@@ -43,7 +41,6 @@ function parseQuotaHeaders(headers: Headers): QuotaInfo {
     limit: parseNum(headers.get("X-RateLimit-Limit")),
     resetEpoch: parseNum(headers.get("X-RateLimit-Reset")),
     tier,
-    inviteFail: headers.get("X-Invite-Fail"),
   };
 }
 
@@ -81,7 +78,7 @@ export function useChatApi() {
           .slice(-10)
           .map((m) => ({ role: m.role, content: m.content }));
 
-        const { selectedModel, userApiKey, inviteCode } = chatSettings;
+        const { selectedModel, userApiKey } = chatSettings;
 
         const response = await fetch("/api/chat", {
           method: "POST",
@@ -92,7 +89,6 @@ export function useChatApi() {
             model: selectedModel.id,
             provider: selectedModel.provider,
             ...(userApiKey ? { userApiKey } : {}),
-            ...(inviteCode ? { inviteCode } : {}),
           }),
           signal: controller.signal,
         });
