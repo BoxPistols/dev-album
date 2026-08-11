@@ -60,9 +60,10 @@ export function useChatApi() {
       if (!text.trim() || isStreaming) return;
 
       setError(null);
-      addMessage("user", text);
 
       const ctx = getEnrichedPageContext(location);
+      // 履歴はページを跨いで残るので、どのページでの発言かを 1 件ごとに残す
+      addMessage("user", text, { path: ctx.path, title: ctx.title });
 
       try {
         setIsStreaming(true);

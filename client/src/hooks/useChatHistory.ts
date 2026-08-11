@@ -8,6 +8,10 @@ export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: number;
+  /** 発言時に開いていたページ。履歴はページを跨いで残るため 1 件ごとに記録する。
+   *  この項目より前に保存された履歴には無いので optional。 */
+  pagePath?: string;
+  pageTitle?: string | null;
 }
 
 function loadMessages(): ChatMessage[] {
@@ -27,12 +31,17 @@ export function useChatHistory() {
   const [messages, setMessages] = useState<ChatMessage[]>(loadMessages);
 
   const addMessage = useCallback(
-    (role: "user" | "assistant", content: string) => {
+    (
+      role: "user" | "assistant",
+      content: string,
+      page?: { path: string; title: string | null },
+    ) => {
       const msg: ChatMessage = {
         id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         role,
         content,
         timestamp: Date.now(),
+        ...(page ? { pagePath: page.path, pageTitle: page.title } : {}),
       };
       setMessages((prev) => {
         const next = [...prev, msg].slice(-MAX_MESSAGES);
