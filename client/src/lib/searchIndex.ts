@@ -1153,7 +1153,7 @@ export const searchIndex: Record<string, string[]> = {
     '/github settings', 'pulls', 'issues', 'commits', 'releases', 'deployments',
     'reviews', 'comments', 'branches', 'workflows', 'discussions',
     'ラベルフィルタ', '+label', 'ブランチフィルタ', 'commits:*', 'チャンネル設計',
-    '通知疲れ', 'コーディングチャレンジ',
+    'プライベートチャンネル', '/invite @github', '通知疲れ', 'コーディングチャレンジ',
   ],
   '/git/flow-automation/templates': [
     'Issue / PR テンプレート', 'なぜ入口を標準化するのか', 'Issue テンプレート', 'PR テンプレート',

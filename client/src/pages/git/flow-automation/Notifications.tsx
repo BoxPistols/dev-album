@@ -36,7 +36,7 @@ const commands = [
   {
     command: "/github settings",
     purpose:
-      "チャンネル単位の表示設定（スレッド化・リンクプレビュー）を切り替える。",
+      "チャンネル単位で、Issue / PR 通知のスレッド化を有効・無効にする。",
   },
   {
     command: "/github help",
@@ -213,8 +213,23 @@ export default function Notifications() {
               行います。購読はチャンネル単位
               なので、同じリポジトリでもチャンネルごとに別の設定を持てます。
             </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              <strong>プライベートチャンネルで使う場合</strong>は、その前に
+              チャンネルへアプリを招待します。ワークスペースへのインストールだけでは
+              プライベートチャンネルにアプリが入らないため、
+              <code>/invite @github</code>{" "}
+              を実行してから購読を設定してください。パブリックチャンネルでは
+              この手順は不要です。
+            </p>
 
-            <div className="rounded-xl border border-border bg-card overflow-hidden mb-6">
+            {/* 狭い画面ではコマンド列が収まらないため横スクロールさせる。
+                スクロール領域はキーボードでも到達できるよう focusable にする。 */}
+            <div
+              className="rounded-xl border border-border bg-card overflow-x-auto mb-6"
+              tabIndex={0}
+              role="region"
+              aria-label="基本コマンド一覧（横スクロールできます）"
+            >
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
@@ -279,7 +294,12 @@ export default function Notifications() {
               追加・解除できます。
             </p>
 
-            <div className="rounded-xl border border-border bg-card overflow-hidden mb-6">
+            <div
+              className="rounded-xl border border-border bg-card overflow-x-auto mb-6"
+              tabIndex={0}
+              role="region"
+              aria-label="購読できるイベントと既定値の一覧（横スクロールできます）"
+            >
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
@@ -365,12 +385,25 @@ export default function Notifications() {
               code={`# "urgent" ラベルが付いたものだけを受け取る
 /github subscribe your-org/your-repo +label:"urgent"
 
-# ラベルは複数指定できる（いずれかに一致したものが通知される）
-/github subscribe your-org/your-repo +label:"bug" +label:"incident"
+# 別のラベルを指定すると、前のフィルタは置き換えられる
+# （下を実行すると "urgent" ではなく "incident" で絞られる）
+/github subscribe your-org/your-repo +label:"incident"
 
 # 追加したラベルフィルタを取り消す
-/github unsubscribe your-org/your-repo +label:"urgent"`}
+/github unsubscribe your-org/your-repo +label:"incident"`}
             />
+
+            <InfoBox
+              type="warning"
+              title="ラベルフィルタは 1 リポジトリにつき 1 つ"
+            >
+              公式アプリが保持できるラベルフィルタは、リポジトリごとに
+              <strong>1 つだけ</strong>です。2 つ目を指定すると追加ではなく
+              <strong>置き換え</strong>になるため、
+              「bug または incident」のような OR 条件は組めません。
+              複数ラベルを追いたい場合は、ラベルごとにチャンネルを分けるか、
+              ラベル側を 1 つに寄せる運用にします。
+            </InfoBox>
 
             <InfoBox type="info" title="ラベルフィルタが効く範囲">
               ラベルフィルタは <code>pulls</code> / <code>issues</code> /{" "}
@@ -434,6 +467,20 @@ export default function Notifications() {
                       <code>/github unsubscribe ... +label:</code>{" "}
                       は「追加済みのフィルタを取り消す」であって
                       「そのラベルを弾く」ではありません。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 align-top">
+                      <code className="text-foreground font-medium">
+                        +label:
+                      </code>{" "}
+                      を並べて OR 条件にする
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground align-top">
+                      保持できるラベルフィルタはリポジトリごとに 1 つで、
+                      2 つ目を指定すると<strong>置き換え</strong>になります。
+                      並べて書いても「いずれかに一致」にはならず、
+                      最後に指定したラベルだけが有効です。
                     </td>
                   </tr>
                   <tr className="border-b border-border last:border-0">
