@@ -13,8 +13,8 @@ export interface ChatModelOption {
 
 export const MODEL_OPTIONS: ChatModelOption[] = [
   {
-    id: "gpt-5.4-nano",
-    label: "GPT-5.4 Nano",
+    id: "gpt-5.6-luna",
+    label: "GPT-5.6 Luna",
     provider: "openai",
     requiresUserKey: false,
   },
@@ -33,7 +33,7 @@ interface ChatSettings {
 }
 
 const DEFAULT_SETTINGS: ChatSettings = {
-  modelId: "gpt-5.4-nano",
+  modelId: "gpt-5.6-luna",
   userApiKey: "",
   inviteCode: "",
 };

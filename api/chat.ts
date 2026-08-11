@@ -26,6 +26,9 @@ interface ChatRequestBody {
 
 const PREMIUM_MODELS = ["gpt-5.4-mini"];
 
+// 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする
+const COMPACT_MODELS = ["nano", "luna"];
+
 function getClient(
   provider: string,
   userApiKey?: string,
@@ -45,7 +48,7 @@ function getClient(
   if (!apiKey) return null;
   return {
     client: new OpenAI({ apiKey }),
-    defaultModel: "gpt-5.4-nano",
+    defaultModel: "gpt-5.6-luna",
   };
 }
 
@@ -166,7 +169,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Connection", "keep-alive");
 
   try {
-    const maxTokens = resolvedModel.includes("nano") ? 2048 : 4096;
+    const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
+      ? 2048
+      : 4096;
 
     const stream = await config.client.chat.completions.create({
       model: resolvedModel,

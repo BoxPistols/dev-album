@@ -289,7 +289,7 @@ export default function ChatWidget() {
                   モデル
                 </label>
                 <select
-                  value={chatSettings.modelId}
+                  value={chatSettings.selectedModel.id}
                   onChange={(e) => chatSettings.setModelId(e.target.value)}
                   className="w-full px-2 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                 >
