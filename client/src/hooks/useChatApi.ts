@@ -117,7 +117,7 @@ export function useChatApi() {
           if (globalKill) {
             addMessage(
               "assistant",
-              "本日の全体枠が上限に達したため、匿名アクセスを停止しています。招待コードをお持ちの方か、設定から API キーを入れて BYOK で引き続きご利用いただけます。",
+              "本日の全体枠が上限に達したため、匿名アクセスを停止しています。設定から API キーを入れて BYOK で引き続きご利用いただけます。",
             );
             setIsStreaming(false);
             return;

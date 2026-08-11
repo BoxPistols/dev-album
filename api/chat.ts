@@ -21,8 +21,17 @@ interface ChatRequestBody {
   userApiKey?: string;
 }
 
-// BYOK 必須モデルのサーバ側ゲート (クライアントの requiresUserKey と対で使う)
-const PREMIUM_MODELS: string[] = [];
+/**
+ * サーバ側の API キーで呼べるモデルの許可リスト (provider ごと)。
+ * model はリクエストボディで指定できるため、検証しないと匿名クライアントが
+ * オーナーのキーで任意の高コストモデルを呼べてしまう。
+ * ここに無いモデルは BYOK (userApiKey) を必須にする。
+ * クライアントの MODEL_OPTIONS を増やしたら、こちらにも追加する。
+ */
+const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
+  openai: ["gpt-5.6-luna"],
+  gemini: ["gemini-2.5-flash"],
+};
 
 // 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする
 const COMPACT_MODELS = ["nano", "luna"];
@@ -82,7 +91,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const resolvedProvider = provider || "openai";
 
-  if (model && PREMIUM_MODELS.includes(model) && !userApiKey) {
+  // 許可リスト外のモデルはサーバのキーで実行させない (BYOK なら本人負担なので許可)
+  const allowedForServerKey = SERVER_KEY_ALLOWED_MODELS[resolvedProvider] ?? [];
+  if (model && !userApiKey && !allowedForServerKey.includes(model)) {
     return res
       .status(403)
       .json({ error: "このモデルの利用には API キーの設定が必要です" });
