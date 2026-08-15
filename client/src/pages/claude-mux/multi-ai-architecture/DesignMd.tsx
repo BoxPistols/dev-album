@@ -196,8 +196,16 @@ Architectural Minimalism meets Journalistic Gravitas.
               <code className="text-primary mx-1">lint</code>
               <code className="text-primary mx-1">diff</code>
               <code className="text-primary mx-1">export</code>
-              <code className="text-primary mx-1">spec</code>の 4
-              つで、出力は既定で JSON。
+              <code className="text-primary mx-1">spec</code>の 4 つ。
+              既定の出力形式はコマンドごとに違い、0.4.0 の
+              <code className="text-primary mx-1">--help</code>
+              では
+              <code className="text-primary mx-1">lint</code>と
+              <code className="text-primary mx-1">diff</code>が
+              <code className="text-primary mx-1">--format=&quot;json&quot;</code>、
+              <code className="text-primary mx-1">spec</code>が
+              <code className="text-primary mx-1">--format=&quot;markdown&quot;</code>、
+              <code className="text-primary mx-1">export</code>は既定を持たず必須指定になる。
             </p>
 
             <CodeBlock
@@ -213,6 +221,9 @@ npx @google/design.md export --format css-tailwind DESIGN.md > theme.css
 
 # W3C Design Tokens Format Module として書き出し
 npx @google/design.md export --format dtcg DESIGN.md > tokens.json
+
+# --format に指定できるのは css-tailwind / json-tailwind / tailwind / dtcg / css-vars
+# （css-vars は README のフォーマット表に無いが 0.4.0 の --help には出る）
 
 # 仕様そのものを出力（エージェントのプロンプトに流し込む用途）
 npx @google/design.md spec --rules`}

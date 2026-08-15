@@ -12,7 +12,7 @@ const toolData = [
   { tool: 'Cursor', config: '.cursor/rules/*.mdc\n.cursorrules', strength: '日常的なコーディング、ルールベースの差分編集', env: 'Cursor エディタ' },
   { tool: 'Gemini CLI', config: 'GEMINI.md\n.gemini/settings.json', strength: 'PR レビュー自動化、大規模コンテキスト処理', env: 'CLI / GitHub 連携' },
   { tool: 'GitHub Copilot', config: '.github/copilot-instructions.md', strength: 'インラインコード補完、Copilot Agent によるIssue対応', env: 'VS Code / JetBrains / CLI' },
-  { tool: 'OpenAI Codex', config: 'AGENTS.md\ncodex.md', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },
+  { tool: 'OpenAI Codex', config: 'AGENTS.md\nAGENTS.override.md\n~/.codex/config.toml', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },
 ];
 
 export default function MultiAICoexistence() {
@@ -234,14 +234,15 @@ export default function MultiAICoexistence() {
                   Claude Code で設計からコーディングまでを一貫して行い、Gemini による自動 PR レビューを品質ゲートとして活用。
                 </p>
                 <CodeBlock language="yaml" code={`# .gemini/config.yaml
-pull_request_opened:
-  code_review:
-    enabled: true
-    language: ja
-    focus:
-      - security
-      - performance
-      - coding_standards`} />
+code_review:
+  disable: false
+  comment_severity_threshold: MEDIUM
+  max_review_comments: -1
+  pull_request_opened:
+    help: false
+    summary: true
+    code_review: true
+    include_drafts: false`} />
                 <CodeBlock language="bash" code={`# Claude Code での開発フロー
 # ターミナルタブ 1: 実装
 claude "認証機能を実装して"
