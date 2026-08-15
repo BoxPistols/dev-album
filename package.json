@@ -17,7 +17,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "freshness": "node scripts/check-content-freshness.mjs",
-    "check:sources": "node scripts/verify-sources.mjs"
+    "check:sources": "node scripts/verify-sources.mjs",
+    "check:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.19",
