@@ -4,7 +4,7 @@ import PageNavigation from "@/components/PageNavigation";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
-import ReferenceLinks from "@/components/ReferenceLinks";
+import PageSources from "@/components/PageSources";
 
 export default function DesignMd() {
   return (
@@ -40,28 +40,7 @@ export default function DesignMd() {
               を実際に動かした結果に基づく。仕様の記述と実装の挙動が食い違う箇所は、
               そのことを明示する。
             </p>
-            <ReferenceLinks
-              links={[
-                {
-                  title: "google-labs-code/design.md",
-                  url: "https://github.com/google-labs-code/design.md",
-                  description:
-                    "フォーマット仕様と CLI の実装。Apache-2.0。docs/spec.md が仕様本体",
-                },
-                {
-                  title:
-                    "Stitch's DESIGN.md format is now open-source（公式アナウンス）",
-                  url: "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-design-md/",
-                  description: "2026-04-21 の公開告知",
-                },
-                {
-                  title: "実物 74 件を測った計測記録",
-                  url: "https://github.com/BoxPistols/design-md-docs",
-                  description:
-                    "このページの「実測」の出典。測定スクリプトと再現手順を含む",
-                },
-              ]}
-            />
+            <PageSources path="/claude-mux/multi-ai/design-md" />
           </section>
 
           {/* ── 何のファイルか ── */}

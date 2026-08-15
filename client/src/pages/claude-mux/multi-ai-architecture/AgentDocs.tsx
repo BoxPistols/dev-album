@@ -4,7 +4,7 @@ import PageNavigation from "@/components/PageNavigation";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
-import ReferenceLinks from "@/components/ReferenceLinks";
+import PageSources from "@/components/PageSources";
 
 export default function AgentDocs() {
   return (
@@ -36,22 +36,7 @@ export default function AgentDocs() {
               このページの挙動に関する記述は、以下の一次情報に基づく。
               記載のない挙動については「公式に記述がない」と明示する。
             </p>
-            <ReferenceLinks
-              links={[
-                {
-                  title: "Claude Code — How Claude remembers your project",
-                  url: "https://code.claude.com/docs/en/memory",
-                  description:
-                    "CLAUDE.md の置き場所・読み込み順・@import・.claude/rules/・compaction 時の挙動の一次情報",
-                },
-                {
-                  title: "AGENTS.md",
-                  url: "https://agents.md/",
-                  description:
-                    "AGENTS.md のオープンな取り決めと、対応を表明しているツールの一覧",
-                },
-              ]}
-            />
+            <PageSources path="/claude-mux/multi-ai/agent-docs" />
           </section>
 
           {/* ── 概要 ── */}
