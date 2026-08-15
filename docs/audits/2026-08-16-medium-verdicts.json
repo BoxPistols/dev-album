@@ -4012,5 +4012,914 @@
   "quote": "All variants within the component set should use the same properties and values, but each variant needs to be a unique combination of them. You don’t need to have a component for every possible combination of properties and values.",
   "correction": "",
   "evidence": "https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants を curl（HTTP 200）で取得して Variant properties and values 節を確認。Figma 公式に「定義 9 個」に相当する数値の記述は無く、真偽は「定義」が何を指すかで割れるため UNDETERMINED とした。(a) 軸の選択肢の宣言数と読むなら 3+3+3=9 で正しく、組み合わせ 3×3×3=27 も算術的に正しい（該当箇所直前の 3 枚のカードが 種類/大きさ/状態 に各 3 択を列挙しており、この読みが自然）。(b) Figma のバリアント定義（component set 内の variant）と読むと誤りで、Figma は組み合わせごとに 1 つの variant を持つ設計であり、公式の例も「We have a button component that has 24 unique variants.」（Type 2 × Size 2 × State 3 × Icon 2 = 24。値の宣言数は 2+2+3+2=9）と、宣言数 9 に対して variant は 24 個作られている。ページの文脈が Figma のバリアント設計節（「バリアントは『軸』で設計する」）である以上、読者が (b) で解釈すると「Figma でも 9 個作れば済む」と誤読しうる。「軸の宣言は 9 個」「実体としての組み合わせは 27 通り」を書き分けると曖昧さが消える。"
+ },
+ {
+  "file": "react/storybook/SbStructure.tsx",
+  "claim": "import { Meta, Canvas, Controls } from '@storybook/blocks';",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://raw.githubusercontent.com/storybookjs/storybook/next/MIGRATION.md",
+  "quote": "#### Consolidate `@storybook/blocks` into addon docs\n\nThe package `@storybook/blocks` is no longer published as of Storybook 9.\n\nAll exports can now be found in the export `@storybook/addon-docs/blocks`.\n\nPreviously, you were able to import all blocks from `@storybook/addon-docs`, this is no longer the case.\n\nThis is the only correct import path:\n\n```diff\n- import { Meta } from \"@storybook/addon-docs\";\n+ import { Meta } from \"@storybook/addon-docs/blocks\";\n```",
+  "correction": "現行 (Storybook 9 / 10) では `import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';`。`@storybook/blocks` は Storybook 9 以降公開されておらず、npm の latest は 8.6.14 で止まっている（コア本体は 10.5.8）。この import が正しいのは Storybook 8 以前のみ。",
+  "evidence": "1) storybookjs/storybook リポジトリの MIGRATION.md (next ブランチを raw で取得) の「Consolidate `@storybook/blocks` into addon docs」節を確認。2) 公式ドキュメントの版別比較を curl + grep で実測: https://storybook.js.org/docs/writing-docs/doc-blocks (v10.5) は `@storybook/addon-docs/blocks` が 15 箇所で `@storybook/blocks` は 0 箇所。https://storybook.js.org/docs/8/writing-docs/doc-blocks は `@storybook/blocks` が 13 箇所。https://storybook.js.org/docs/9/writing-docs/doc-blocks は `@storybook/addon-docs/blocks` が 11 箇所。3) `npm view @storybook/blocks version` → 8.6.14、`npm view @storybook/addon-docs version` → 10.5.8。"
+ },
+ {
+  "file": "react/storybook/SbStructure.tsx",
+  "claim": "Colocation が推奨される理由 / コンポーネントの移動・削除時に Story も一緒に扱える / import パスが短く済む / Storybook 公式でも推奨されているパターン",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://storybook.js.org/docs/writing-stories",
+  "quote": "A component’s stories are defined in a story file that lives alongside the component file. The story file is for development-only, and it won't be included in your production bundle. In your filesystem, it looks something like this:",
+  "correction": "",
+  "evidence": "https://storybook.js.org/docs/writing-stories (現行 v10 ドキュメント) を curl で取得し、HTML タグを除去して該当段落を逐語抽出（HTML 側と Next.js の RSC ペイロード側の両方に同一文があることを確認）。直後にコンポーネントと同一ディレクトリに `Button.stories.js` を置くディレクトリツリー例が続く。検証対象である「Storybook 公式でも推奨されているパターン」はこの記述で裏付けられる。ただし残り 2 つの理由（移動・削除時に Story も一緒に扱える / import パスが短く済む）は公式ドキュメントに記述がなく、著者の理由付けである（否定もされていない）。"
+ },
+ {
+  "file": "react/storybook/SbCss.tsx",
+  "claim": "CSS Modules（.module.css）は Vite ベースの Storybook では追加設定なしで動作します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://storybook.js.org/docs/configure/styling-and-css",
+  "quote": "Vite comes with CSS modules support out-of-the-box. If you have customized the CSS modules configuration in your vite.config.js this will automatically be applied to your Storybook as well.",
+  "correction": "",
+  "evidence": "https://storybook.js.org/docs/configure/styling-and-css を curl で取得し、CSS Modules 節の Vite 向け段落を逐語抽出（HTML 側と RSC ペイロード側の両方に同一文が含まれることを確認）。同ページの Webpack 向け記述は逆に追加設定を要求しており（`@storybook/addon-styling-webpack` の導入を推奨）、教材が「Vite ベースの」と限定を付けている点も一致する。"
+ },
+ {
+  "file": "react/storybook/SbAdvanced.tsx",
+  "claim": "Babel に代わって SWC をデフォルトのトランスパイラとして採用。TypeScript / JSX のコンパイルが高速化されています。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://raw.githubusercontent.com/storybookjs/storybook/next/MIGRATION.md",
+  "quote": "#### `framework.options.builder.useSWC` for Webpack5-based projects removed\n\nIn Storybook 8.0, we have removed the `framework.options.builder.useSWC` option. The `@storybook/builder-webpack5` package is now compiler-agnostic and does not depend on Babel or SWC.\n\nIf you want to use SWC, you can add the necessary addon:\n\n```sh\nnpx storybook@latest add @storybook/addon-webpack5-compiler-swc\n```",
+  "correction": "逆である。Storybook 8 は SWC を既定にしたのではなく、Babel にも SWC にも依存しない compiler-agnostic な構成になった。Webpack 5 ビルダーで SWC を使うには `npx storybook@latest add @storybook/addon-webpack5-compiler-swc`、Babel を使うには `@storybook/addon-webpack5-compiler-babel` を明示的に追加する。同 MIGRATION.md には「From version 8.0 onwards, Storybook is compiler-agnostic and does not depend on Babel or SWC if you use Webpack 5.」ともある。例外は `@storybook/nextjs` で、Next.js 14 以上かつ .babelrc が無い場合に自動で SWC を使う（同文書「Automatic SWC mode detection」）。なお Vite ビルダーは esbuild / Rollup で変換するため、そもそも Babel/SWC の選択の話ではない。",
+  "evidence": "1) storybookjs/storybook の MIGRATION.md (next ブランチを raw で取得) を `grep -i swc` したところ、本文での言及は「`framework.options.builder.useSWC` for Webpack5-based projects removed」「Removed `@babel/core` and `babel-loader` from `@storybook/builder-webpack5`」「Removed `sb babelrc` command」「Automatic SWC mode detection」の 4 箇所で、いずれも SWC 既定化を否定する内容。2) 公式リリースブログ https://storybook.js.org/blog/storybook-8/ を curl で全文取得し `grep -i` した結果、'swc' も 'babel' も出現回数 0。Storybook 8 の主要新機能として SWC は一切挙げられていない。"
+ },
+ {
+  "file": "react/storybook/SbAdvanced.tsx",
+  "claim": "@storybook/test パッケージに Vitest の expect と Testing Library の機能が統合されました。追加パッケージなしでインタラクションテストが書けます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://storybook.js.org/blog/storybook-8/",
+  "quote": "Storybook 8 also integrates Vite’s testing package, Vitest, as part of our new framework: @storybook/test. This new testing framework replaces two previous packages (@storybook/jest and @storybook/testing-library), enables the use of Vitest’s spy and expect, and has a smaller installation footprint.",
+  "correction": "",
+  "evidence": "1) 公式リリースブログ https://storybook.js.org/blog/storybook-8/ を curl で取得し、該当段落を逐語抽出。2) 裏取りとして storybookjs/storybook の release-8-6 ブランチにある当該パッケージの README (https://raw.githubusercontent.com/storybookjs/storybook/release-8-6/code/lib/test/README.md) を取得。「The test package exports instrumented versions of [@vitest/spy](https://vitest.dev/api/mock.html), [@vitest/expect](https://vitest.dev/api/expect.html) (based on [chai](https://www.chaijs.com/)), [@testing-library/dom](https://testing-library.com/docs/dom-testing-library/intro) and [@testing-library/user-event](https://testing-library.com/docs/user-event/intro).」とあり、Vitest の expect と Testing Library の両方が入っていることを確認した。注記 2 点: (a)「追加パッケージなし」は @storybook/jest / @storybook/testing-library を別途入れずに済むという意味では正しいが、README 自体は `npm install -D @storybook/test` の導入手順を示している。(b) `npm view @storybook/test version` → 8.6.15 で止まっており、Storybook 9 以降は MIGRATION.md の「Dropped support for legacy packages」表に従って `storybook/test` に移動している。この記述は「Storybook 8 の主要新機能」という文脈内では正しい。"
+ },
+ {
+  "file": "react/storybook/SbAdvanced.tsx",
+  "claim": "# 自動マイグレーションツール\nnpx storybook@latest upgrade\n\n# マイグレーション後のチェック\nnpx storybook doctor",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://storybook.js.org/docs/api/cli-options",
+  "quote": "Upgrades your Storybook instance to the specified version (e.g., @latest, @8, @next). Read more in the upgrade guide.",
+  "correction": "",
+  "evidence": "https://storybook.js.org/docs/api/cli-options（現行 v10 ドキュメント）を curl で取得し、`upgrade` と `doctor` の両サブコマンドが現役で実在することを確認した。doctor の説明も逐語で取得済み: 「Performs a health check on your Storybook project for common issues (e.g., duplicate dependencies, incompatible addons or mismatched versions) and provides suggestions on how to fix them.」。usage 表記 `storybook doctor [options]` がページ内に存在し、使用例として `storybook doctor --debug` / `storybook doctor --config-dir .storybook` / `storybook doctor --package-manager pnpm` が並ぶことを grep で確認。`storybook@latest upgrade` の形は同ページに `npx storybook@latest upgrade --dry-run` として、また https://storybook.js.org/docs/releases/upgrading に `npx storybook@latest upgrade` としてそのまま登場する（curl + grep で実測）。"
+ },
+ {
+  "file": "react/storybook/SbAdvanced.tsx",
+  "claim": "import { create } from '@storybook/theming/create';",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://storybook.js.org/docs/configure/user-interface/theming",
+  "quote": "import { create } from 'storybook/theming/create';",
+  "correction": "現行 (Storybook 9 / 10) では `import { create } from 'storybook/theming/create';`（スコープ無しのコアパッケージ `storybook` のサブパス）。`@storybook/theming` は Storybook 9 でコアへ統合され、npm の latest は 8.6.14 で止まっている。この import が正しいのは Storybook 8 以前のみ。",
+  "evidence": "1) 現行 v10 の公式テーマ設定ページ https://storybook.js.org/docs/configure/user-interface/theming を curl で取得し、コードブロックの raw フィールド（`\"filename\":\".storybook/YourTheme.js\"` のブロック）から 1 行目を逐語抽出。`storybook/theming` が 13 箇所、`storybook/theming/create` が 1 箇所で、`@storybook/theming` は 0 箇所。2) 対して https://storybook.js.org/docs/8/configure/user-interface/theming では `@storybook/theming` が 6 箇所、`@storybook/theming/create` が 1 箇所。3) storybookjs/storybook の MIGRATION.md「Dropped support for legacy packages」の表に「| `@storybook/theming`            | `storybook/theming`     |」の行がある。4) `npm view @storybook/theming version` → 8.6.14（コアは 10.5.8）。"
+ },
+ {
+  "file": "react/cdd-flow/DesignQA.tsx",
+  "claim": "    '@storybook/addon-essentials',",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://raw.githubusercontent.com/storybookjs/storybook/next/MIGRATION.md",
+  "quote": "#### Essentials Addon: Viewport, Controls, Interactions and Actions moved to core\n\nThe `@storybook/addon-essentials` package has been removed. The viewport, controls, interactions and actions addons have been moved from their respective packages (`@storybook/addon-viewport`, `@storybook/addon-controls`, `@storybook/addon-interactions`, `@storybook/addon-actions`) to Storybook core. You no longer need to install these separately or include them in your addons list.\n\nIf you have used `@storybook/addon-docs` as part of essentials, you need to manually install it:\n\n```bash\n$ npx storybook add @storybook/addon-docs\n```",
+  "correction": "現行 (Storybook 9 / 10) では `.storybook/main.ts` の addons 配列に `'@storybook/addon-essentials'` を書かない。viewport / controls / interactions / actions はコアに取り込まれたため記載不要で、docs 機能が必要な場合のみ `npx storybook add @storybook/addon-docs` で `@storybook/addon-docs` を明示的に追加する。この記述が正しいのは Storybook 8 以前のみ。",
+  "evidence": "1) storybookjs/storybook リポジトリの MIGRATION.md (next ブランチを raw で取得) の「Addon-specific Changes」→「Essentials Addon: Viewport, Controls, Interactions and Actions moved to core」を逐語取得。2) `npm view @storybook/addon-essentials dist-tags --json` → latest は 8.6.14で v9 / v10 のリリースが存在しない（コア `storybook` は 10.5.8）。3) 現行の https://storybook.js.org/docs/addons を curl して grep したところ 'addon-essentials' の出現は 0 件。対して https://storybook.js.org/docs/8/essentials では 19 件出現し、v8 では正当だったことも確認した。"
+ },
+ {
+  "file": "react/cdd-flow/DesignQA.tsx",
+  "claim": "    await checkA11y(page, '#storybook-root', {",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/abhinaba-ghosh/axe-playwright/master/README.md",
+  "quote": "await checkA11y(page, '#storybook-root', {\n  detailedReport: true,\n  detailedReportOptions: {\n    html: true,\n  },\n  verbose: false,\n  axeOptions: {\n    runOnly: ['wcag21aa', 'wcag22aa', 'best-practice', 'EN-301-549']\n  }\n}, true, 'v2');",
+  "correction": "",
+  "evidence": "二つの一次情報に分けて確認した。1) axe-playwright の API とセレクタの渡し方: 作者リポジトリ abhinaba-ghosh/axe-playwright の README (master, raw) の「Accessibility Standards」節に、教材と同じ `await checkA11y(page, '#storybook-root', {` で始まるコード例がそのまま載っている。同 README の checkA11y の項には「context (optional) ... Defines the scope of the analysis - the part of the DOM that you would like to analyze. This will typically be the document or a specific selector such as class name, ID, selector, etc.」とあり、第 2 引数にセレクタを渡す形も現行仕様と一致。`npm view axe-playwright version` → 2.2.2 で現行公開中。2) ルート要素 ID: storybookjs/storybook の next ブランチ code/builders/builder-vite/input/iframe.html を raw 取得し、65 行目に `<div id=\"storybook-root\"></div>` があることを確認。注記: Storybook 公式の v8 アクセシビリティテスト文書のサンプルは同じ位置に `'body'` を渡している（`await checkA11y(page, 'body', {`）ため、`#storybook-root` は誤りではなく走査範囲を絞る選択。なお現行ドキュメントでは test-runner 自体が「The test runner has been superseded by the Vitest addon」と案内されているが、これは本 claim の真偽とは別の問題。"
+ },
+ {
+  "file": "devflow/designops/Handoff.tsx",
+  "claim": "import type { Meta, StoryObj } from \"@storybook/react\";",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.npmjs.com/package/@storybook/react",
+  "quote": "export { AddMocks, type ArgTypes, type Args, Decorator, INTERNAL_DEFAULT_PROJECT_ANNOTATIONS, Loader, Meta, type Parameters, Preview, ReactMeta, ReactPreview, type ReactRenderer, ReactStory, type ReactTypes, StoryContext, StoryFn, StoryObj, type StrictArgs, __definePreview, composeStories, composeStory, setProjectAnnotations }",
+  "correction": "",
+  "evidence": "公開パッケージ本体で実測した。`npm pack @storybook/react@10.5.8` で最新版を取得・展開し、`package/dist/index.d.ts` の export 行を逐語抽出（上記 quote）。`Meta` と `StoryObj` は現行 v10.5.8 でも `@storybook/react` から export されており、package.json に deprecated フィールドも無い（`npm view @storybook/react version` → 10.5.8）。`npm view @storybook/react-vite@10.5.8 dependencies` で `@storybook/react: 10.5.8` を直接依存に持つことも確認したので、react-vite 利用時も解決自体は可能。ただし公式の推奨形は変わっている: storybookjs/storybook の MIGRATION.md「Moving from renderer-based to framework-based configuration」に `- import { Meta, StoryObj } from '@storybook/react';` → `+ import { Meta, StoryObj } from '@storybook/react-vite';` の diff があり「Remove `@storybook/react` from your package.json dependencies」と書かれている。現行 v10 の https://storybook.js.org/docs/writing-stories も `@storybook/react` を使わず `@storybook/your-framework` プレースホルダで記述している（curl + grep で実測、v8 ドキュメントでは `from '@storybook/react'` が 30 箇所、v10 では 0 箇所）。つまり「動かない」のではなく「文書上の推奨形ではなくなった」。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "claim": "ただし Windows ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、公式は @AGENTS.md の import を使うよう案内している。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "On Windows, creating a symlink requires Administrator privileges or Developer Mode, so use the `@AGENTS.md` import instead.",
+  "correction": "",
+  "evidence": "curl -sL 'https://docs.claude.com/en/docs/claude-code/memory.md' で公式ドキュメントの Markdown 原本を取得（200, 35973 bytes）。「AGENTS.md」セクション内、`ln -s AGENTS.md CLAUDE.md` を示した直後の行に上記文が存在する。HTML 版 https://docs.claude.com/en/docs/claude-code/memory も 200 で到達確認済み。管理者権限（Administrator privileges）/ 開発者モード（Developer Mode）の二択、および代替として @AGENTS.md import を案内する点まで一致。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "claim": "バッククォートで囲んだ `@README` は import されず、ただの文字列として扱われる。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "Import parsing skips Markdown code spans and fenced code blocks. To mention a path in your CLAUDE.md without importing it, wrap it in backticks: writing `` `@README` `` keeps the text literal, while `@README` outside backticks imports the file.",
+  "correction": "",
+  "evidence": "同じく memory.md の「Import additional files」セクション。`@README` という具体例まで公式原文と一致しており、バッククォート内は literal として扱われる（import されない）と明記されている。ページ内の直前行で「maximum depth of four hops」も確認でき、教材本文の「最大 4 ホップ」記述とも整合する。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "claim": "公式ドキュメントは「imports に分けるのは整理には役立つが、import されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "Splitting into [`@path` imports](#import-additional-files) helps organization but doesn't reduce context, since imported files load at launch.",
+  "correction": "",
+  "evidence": "memory.md 内に同趣旨の記述が 2 箇所ある。上記引用（トラブルシュート節）に加え、Size の項に「You can also split content into [imports](#import-additional-files) for organization, though imported files still load and enter the context window at launch.」がある。教材の日本語文は原文の逐語引用ではなく訳（鉤括弧で括られている）だが、内容は原文と一致する。原文引用を併記するのが望ましい。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "claim": "どのファイルが実際に読み込まれたかはセッション中に /context の Memory files で確認できる。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "To confirm the file loaded, run `/context` in a session and check the list under **Memory files**.",
+  "correction": "",
+  "evidence": "memory.md 内に同じ案内が複数回出る。上記のほか「Run `/context` and check the list under **Memory files** to verify your CLAUDE.md and CLAUDE.local.md files loaded. If a file is missing there, Claude can't see it.」、および /memory の説明末尾に「To check which files actually loaded into the current session, run `/context`.」。表示項目名が Memory files であることと、「実際に読み込まれたファイル」を確認する用途である点の両方が公式原文で確定する。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "claim": "Claude Code が読むのは CLAUDE.md、agents.md が定めているのは AGENTS.md であり、この第 3 のファイル名を規定した公開仕様は確認できていない。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "",
+  "correction": "",
+  "evidence": "前半 2 つは一次情報で裏が取れる。Claude Code 側は memory.md に「Claude Code reads `CLAUDE.md`, not `AGENTS.md`.」、agents.md 側は公式サイト本文に「Create an AGENTS.md file at the root of the repository.」「A simple, open format for guiding coding agents」（curl で https://agents.md/ を取得しタグ除去して確認、200）。しかし本主張の主眼は第 3 のファイル名（当該ページの文脈では ARCHITECTURE.md）について「規定した公開仕様は確認できていない」という否定的全称命題で、これは一次情報からの逐語引用で肯定できない性質のもの。WebSearch でも仕様書に相当する一次情報は見つからず（ヒットしたのは解説記事等の二次情報のみ）、逆に「存在しない」ことを示す一次情報も存在しない。よって CONFIRMED にはしない。なお同じ InfoBox の見出しは「第 3 層はどの仕様にも定義されていない」と断定形になっており、本文の「確認できていない」より強い。見出し側は根拠づけできないので本文と同じ強度に揃えるのが安全。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "claim": "公式 README はこう定義している。「A format specification for describing a visual identity to coding agents.」",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://github.com/google-labs-code/design.md",
+  "quote": "A format specification for describing a visual identity to coding agents. DESIGN.md gives agents a persistent, structured understanding of a design system.",
+  "correction": "",
+  "evidence": "curl -sL 'https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md' で README 原本を取得（200, 13148 bytes。master も同内容・同バイト数）。見出し `# DESIGN.md` の直後 1 行目が上記。引用文は原文の第 1 文と逐語一致。リポジトリ URL は npm view @google/design.md が返す homepage（https://github.com/google-labs-code/design.md#readme）と一致し、curl で 200 到達確認済み。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "claim": "出自は Google Labs の UI 生成ツール Stitch で、そこで使っていた内部フォーマットが 切り出された。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-design-md/",
+  "quote": "DESIGN.md in Stitch lets you export or import your design rules from project to project, so you don't have to reinvent the wheel every time you start a design in Stitch. This way, Stitch understands the reasoning behind your design system and can generate user interfaces that match your brand.\n\nToday, we're open-sourcing the draft specification for DESIGN.md, so it can be used across any single tool or platform.",
+  "correction": "",
+  "evidence": "Google 公式ブログ（blog.google、Google Labs カテゴリ、著者 Cassia Xu / Software Engineer、2026-04-21）を curl で取得（200, 373188 bytes）しタグ除去して本文全体を確認。記事タイトル自体が「Stitch's DESIGN.md format is now open-source so you can use it across platforms.」で、Stitch 由来のフォーマットを公開仕様として切り出した旨が本文で確定する。注意点として、公式は Stitch の export/import 機能としてユーザーに露出していた形式を open-source 化したと書いており、「内部フォーマット」という語（外部非公開だった含み）は原文にない。「Stitch のフォーマットが draft specification として公開された」と書く方が原文に忠実。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "claim": "公式アナウンスの表現も控えめで、検証できるものとして名前が挙がっているのは WCAG だけ（「can validate their choices against WCAG accessibility rules」）。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-design-md/",
+  "quote": "Instead of guessing intent, AI agents can know exactly what a color is for, and can validate their choices against WCAG accessibility rules.",
+  "correction": "",
+  "evidence": "上記ブログを curl 取得し、ナビゲーション・フッターを除いた記事本文（2 段落のみ）を全文確認した。引用句は原文と逐語一致。本文中で validate の対象として名前が挙がる標準は WCAG のみで、他の規格名は 1 つも出現しない（本文全体が短く、目視で全数確認できる）。「これだけ」という限定は成立する。ただし「表現も控えめで」は評価的な形容であり真偽判定の対象外として扱った。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "claim": "フォーマットは alpha 段階で、README 自身が「Expect changes to the format as it matures.」と 書いている。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://github.com/google-labs-code/design.md",
+  "quote": "The DESIGN.md format is at version `alpha`. The spec, token schema, and CLI are under active development. Expect changes to the format as it matures.",
+  "correction": "",
+  "evidence": "README 原本（raw.githubusercontent.com/google-labs-code/design.md/main/README.md）の `## Status` セクション。引用句「Expect changes to the format as it matures.」は逐語一致。alpha である点も同セクションの第 1 文で確定し、さらに README のフロントマター仕様例にも「version: <string>          # optional, current: \"alpha\"」がある。なお段階は変わりうる情報なので、確認時点は 2026-08-16（npm 上の最新は @google/design.md@0.4.0、2 週間前公開）。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "claim": "# W3C Design Tokens Format Module として書き出し\nnpx @google/design.md export --format dtcg DESIGN.md > tokens.json",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://github.com/google-labs-code/design.md",
+  "quote": "- **DTCG tokens.json** ([W3C Design Tokens Format Module](https://tr.designtokens.org/format/)) — `npx @google/design.md export --format dtcg DESIGN.md`",
+  "correction": "",
+  "evidence": "README の「Design Token Interoperability」節に上記行があり、コマンド文字列（npx @google/design.md export --format dtcg DESIGN.md）と `dtcg` = W3C Design Tokens Format Module という対応が公式に明記されている。同 README のオプション表にも「| `dtcg` | JSON | W3C Design Tokens Format Module |」がある。加えて実機検証として scratchpad に @google/design.md@0.4.0 を npm i して `design.md export --help` を実行し、「dtcg emits W3C Design Tokens」「--format (required) Output format: css-tailwind, json-tailwind, tailwind, dtcg, css-vars」を確認（教材が併記する 5 つの format 値も v0.4.0 の実出力と一致）。npm 上のパッケージ実在は npm view @google/design.md version → 0.4.0 で確認。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "claim": "Cursor / .cursor/rules/*.mdc\n.cursorrules",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://cursor.com/help/customization/rules",
+  "quote": "How do I migrate from .cursorrules?\nThe .cursorrules file in your project root is legacy and will be deprecated. To migrate:\nCreate a new rule using the command palette: search for \"New Cursor Rule\"\nCopy your .cursorrules content into the new rule file\nSet the rule type to Always Apply (this matches the old behavior)\nDelete the .cursorrules file from your project root",
+  "correction": "`.cursor/rules/*.mdc` は正しい（一次情報: 「Project rules live in .cursor/rules as .mdc files and are version-controlled.」）。しかし `.cursorrules` を並列の現行設定として並べるのは公式記述と食い違う。Cursor 公式ヘルプは `.cursorrules` を legacy と明記し「プロジェクトルートから削除する」ことを移行手順として案内している。また現行の docs（cursor.com/docs/context/rules）が挙げるルールの種類は Project Rules / User Rules / Team Rules / AGENTS.md の 4 つで、`.cursorrules` は一度も登場しない。教材では `.cursor/rules/*.mdc`（および平文 markdown を使うなら AGENTS.md）を現行とし、`.cursorrules` は「レガシー・非推奨」と注記するのが正確。",
+  "evidence": "curl で https://cursor.com/docs/context/rules （HTTP 200, 517568 bytes）と https://cursor.com/help/customization/rules （HTTP 200）を取得し、script/style を除去してテキスト抽出した。docs 側の本文には `cursorrules` の文字列が 0 件（`grep -o cursorrules` が無出力）、`.cursor/rules` と `alwaysApply` は複数ヒット。docs 本文には「Cursor supports four types of rules: Project Rules ... User Rules ... Team Rules ... AGENTS.md」「Project rules live in .cursor/rules as .mdc files and are version-controlled.」とある。help 側に上記 quote の legacy/deprecated 記述が存在。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "claim": "Gemini CLI / GEMINI.md\n.gemini/settings.json",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/reference/configuration.md",
+  "quote": "- **Project settings file:**\n  - **Location:** `.gemini/settings.json` within your project's root directory.\n  - **Scope:** Applies only when running Gemini CLI from that specific project.\n    Project settings override user settings and system defaults.",
+  "correction": "",
+  "evidence": "公式リポジトリ google-gemini/gemini-cli の main ブランチから raw で 2 ファイルを取得して確認した。(1) https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/reference/configuration.md （HTTP 200, 100393 bytes）の 48-51 行目に上記 quote。同ファイル 45 行目にはユーザースコープの `~/.gemini/settings.json` も記載。(2) https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md （HTTP 200）の冒頭に逐語で「Context files, which use the default name `GEMINI.md`, are a powerful feature for providing instructional context to the Gemini model.」とあり、GEMINI.md が既定のコンテキストファイル名であることを確認。docs/index.md でも「**[Project context (GEMINI.md)](./cli/gemini-md.md):** Technical hierarchy of context files.」と索引されている。両ファイル名・パスとも一次情報と一致。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "claim": "# タブ 2: Gemini CLI — 並行調査（無料枠を活用）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/resources/quota-and-pricing.md",
+  "quote": "## Free usage\n\nAccess to Gemini CLI begins with a generous free tier, perfect for\nexperimentation and light use.\n\nYour free usage is governed by the following limits, which depend on your\nauthorization type.\n\n### Log in with Google (Gemini Code Assist for individuals)\n\nFor users who authenticate by using their Google account to access Gemini Code\nAssist for individuals. This includes:\n\n- 1000 maximum model requests / user / day",
+  "correction": "",
+  "evidence": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/resources/quota-and-pricing.md を curl で取得（HTTP 200, 9148 bytes）し、「## Free usage」節を逐語確認。同ファイル冒頭にも「Gemini CLI offers a generous free tier that covers many individual developers' use cases.」とある。README.md（https://raw.githubusercontent.com/google-gemini/gemini-cli/main/README.md, HTTP 200）19 行目にも「- **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google」と記載。教材の主張は無料枠の存在のみで具体的な数値を書いていないため、現行の一次情報と矛盾しない。ただし quota-and-pricing.md の表では API キー経由の無料枠は 250 requests/day、Google アカウント経由は 1,000 requests/day と認証方式ごとに条件が異なり、提供条件は将来変わりうる点は claim の risk 指摘どおり。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "claim": "レビュー / Claude Code / /code-review スキルで品質チェック",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/skills",
+  "quote": "## Bundled skills\n\nClaude Code includes a set of bundled skills, such as `/doctor`, `/code-review`, `/batch`, `/debug`, `/loop`, and `/claude-api`. Bundled skills are prompt-based: they give Claude detailed instructions and let it orchestrate the work using its tools. Most built-in commands instead execute fixed logic directly.",
+  "correction": "",
+  "evidence": "https://docs.claude.com/en/docs/claude-code/skills.md を curl で取得（HTTP 200, 94693 bytes）。20-23 行目に上記 quote。同ファイル 14 行目にも「For built-in commands like `/help` and `/compact`, and bundled skills like `/debug` and `/code-review`, see the [commands reference](/docs/en/commands).」、127 行目に「For example, a `code-review` skill in your project's `.claude/skills/` replaces the bundled `/code-review`, and typing the bundled alias `/review` never runs your skill.」とあり、`/code-review` が Claude Code 標準提供（bundled）のスキルであること、およびプロジェクト側の `.claude/skills/code-review/SKILL.md` で上書きできること（教材 292 行目の例と整合）を確認。HTML 版 https://docs.claude.com/en/docs/claude-code/skills も HTTP 200 で到達。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "claim": "プロジェクト / CLAUDE.md\n.claude/rules/*.md",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
+  "quote": "#### Set up rules\n\nPlace markdown files in your project's `.claude/rules/` directory. Each file should cover one topic, with a descriptive filename like `testing.md` or `api-design.md`. All `.md` files are discovered recursively, so you can organize rules into subdirectories like `frontend/` or `backend/`:\n\n```text theme={null}\nyour-project/\n├── .claude/\n│   ├── CLAUDE.md           # Main project instructions\n│   └── rules/\n│       ├── code-style.md   # Code style guidelines\n│       ├── testing.md      # Testing conventions\n│       └── security.md     # Security requirements\n```",
+  "correction": "",
+  "evidence": "https://docs.claude.com/en/docs/claude-code/memory.md を curl で取得（HTTP 200, 35973 bytes）。177 行目に「### Organize rules with `.claude/rules/`」節があり、186-199 行目に上記 quote。拡張子が `.md`、配置がプロジェクトの `.claude/rules/` であることが逐語で確認できる。175 行目にも「This loads `CLAUDE.md`, `.claude/CLAUDE.md`, `.claude/rules/*.md`, and `CLAUDE.local.md` from the additional directory.」と `.claude/rules/*.md` の表記そのものが登場する。プロジェクトスコープのルールファイルとして CLAUDE.md と併記する教材の記述は一次情報と一致。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "claim": "Windows では管理者権限が必要な場合があります。Git では core.symlinks = true を確認してください。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/git/git/master/Documentation/config/core.adoc",
+  "quote": "core.symlinks::\n\tIf false, symbolic links are checked out as small plain files that\n\tcontain the link text. linkgit:git-update-index[1] and\n\tlinkgit:git-add[1] will not change the recorded type to regular\n\tfile. Useful on filesystems like FAT that do not support\n\tsymbolic links.\n+\nThe default is true, except linkgit:git-clone[1] or linkgit:git-init[1]\nwill probe and set core.symlinks false if appropriate when the repository\nis created.",
+  "correction": "",
+  "evidence": "2 つの主張を別々の一次情報で確認した。(1) Git 設定キー名: https://raw.githubusercontent.com/git/git/master/Documentation/config/core.adoc を curl で取得（HTTP 200, 36651 bytes）し、237-246 行目に上記 quote。`core.symlinks` は実在するキーで、既定は true だが clone / init 時に git が自動で false を設定しうるため「確認してください」という教材の書き方は妥当。(2) Windows の権限要件: https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-createsymboliclinkw の dwFlags 表に逐語で「SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE / 0x2 | Specify this flag to allow creation of symbolic links when the process is not elevated. Developer Mode must first be enabled on the machine before this option will function.」とあり、非昇格プロセスでの作成には Developer Mode の有効化が前提＝それ以外では昇格（管理者権限）が要ることを示す。Anthropic の公式ドキュメント https://docs.claude.com/en/docs/claude-code/memory.md 147 行目にも「On Windows, creating a symlink requires Administrator privileges or Developer Mode, so use the `@AGENTS.md` import instead.」と明記されており、教材の「必要な場合があります」という留保付きの記述と一致する。"
+ },
+ {
+  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "claim": "echo \"description: $name\"\n    echo \"alwaysApply: true\"",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://cursor.com/docs/context/rules",
+  "quote": "Each rule is an .mdc file that you can name anything you want. Project rules must use the .mdc extension. A plain .md file in .cursor/rules is ignored by the rules system because it has no frontmatter to specify description, globs, and alwaysApply. If you prefer plain markdown, use AGENTS.md instead.",
+  "correction": "",
+  "evidence": "https://cursor.com/docs/context/rules を curl で取得（HTTP 200, 517568 bytes）し、script/style を除去してテキスト抽出。「Rule file structure」節に上記 quote、続く「Rule anatomy」節に「Each rule is a markdown file with frontmatter metadata and content. Control how rules are applied from the type dropdown which changes properties description, globs, alwaysApply.」および「Under the hood, the three frontmatter fields interact to determine when a rule is included:」に続く alwaysApply / description / globs の対応表がある。教材が .mdc の frontmatter に書き出す `description:` と `alwaysApply: true` は、いずれも一次情報に記載された正式なキー名であり、alwaysApply: true は「Always Apply / Apply to every chat session」に対応する。なお同ページには globs という 3 つ目のキーもあり、パス限定のルールを書く場合はそちらが必要になる（教材の主張自体は否定されない）。"
+ },
+ {
+  "file": "api/quality/Observability.tsx",
+  "claim": "トレース情報をサービス間で受け渡す標準がW3C Trace Contextで、 traceparent ヘッダーを使います。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/trace-context/",
+  "quote": "This specification defines standard HTTP headers and a value format to propagate context information that enables distributed tracing scenarios. The specification standardizes how context information is sent and modified between services. […] The traceparent HTTP header field identifies the incoming request in a tracing system.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/trace-context/ (HTTP 200) を取得しタグ除去して全文検索。Abstract に「standard HTTP headers … propagate context information … sent and modified between services」、§3.2 Traceparent Header に「The traceparent HTTP header field identifies the incoming request in a tracing system.」、§3.2.1 Header Name に「Header name: traceparent」。教材の例 `traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01` は §3.2.3 の「Valid traceparent when caller sampled this request」の値と完全一致。なお現行 TR は 2021 年の編集更新版で、W3C Recommendation としての Trace Context Level 1 の位置づけ。"
+ },
+ {
+  "file": "api/quality/Observability.tsx",
+  "claim": "traceparent の値はversion-trace-id-parent-id-flagsの 4 つをハイフンで区切った形式です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/trace-context/",
+  "quote": "value = version \"-\" version-format […] version-format = trace-id \"-\" parent-id \"-\" trace-flags […] The dash (-) character is used as a delimiter between fields.",
+  "correction": "",
+  "evidence": "同上の取得物の §3.2.2 / §3.2.2.1 / §3.2.2.2 を参照。§3.2 の本文にも「It has four fields:」に続けて version / trace-id / parent-id / trace-flags の 4 項目が列挙されており、フィールド数・並び順・ハイフン区切りはいずれも仕様と一致する。1 点だけ表記のズレ: 仕様の 4 番目のフィールド名は `flags` ではなく `trace-flags`（§3.2.2.5 の見出しも「trace-flags」）。位置で決まる書式なので実装には影響しないが、フィールド名を書くなら trace-flags が正確。"
+ },
+ {
+  "file": "react/ui-patterns/DialogPatterns.tsx",
+  "claim": "※ ネイティブ <dialog> + showModal() なら role と aria-modal は自動的に付与される",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/html-aam-1.0/#att-open",
+  "quote": "If the open attribute is set via the showModal() method then aria-modal=\"true\" and aria-hidden=\"false\". Otherwise, if the open attribute is set via the show() method, or explicitly specified by an author, then aria-modal=\"false\" and aria-hidden=\"false\".",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/html-aam-1.0/ (HTTP 200) を取得しタグ除去して検索。§3.6.102 open（対象要素 dialog）に上記の WAI-ARIA マッピングが明記。ロール側は §3.5.33 dialog が HTML の dialog 要素を WAI-ARIA の「dialog role」へマップし、Computed Role を「Use WAI-ARIA mapping」としている。補足: これはアクセシビリティ API へ公開される計算値（暗黙のロール・状態）であって、DOM に role / aria-modal 属性が書き込まれるわけではない。教材の文脈（アクセシビリティツリー）としては正しい。また show() や display 変更で開いた場合は aria-modal=\"false\" になる点も同節に記載がある。"
+ },
+ {
+  "file": "react/ui-patterns/SnackbarPatterns.tsx",
+  "claim": "ホバー時のタイマー一時停止は WCAG の要件ではありませんが、ユーザビリティの観点から強く推奨されます。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG22/#timing-adjustable",
+  "quote": "",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/WCAG22/ (HTTP 200) の SC 2.2.1 Timing Adjustable / SC 2.2.2 Pause, Stop, Hide / SC 1.4.13 Content on Hover or Focus を全文確認したが、「ホバーでタイマーを一時停止せよ」という要件も「不要である」という記述もどこにも無い。仕様に無いことを一次情報で肯定的に立証できないため未確定とした。加えて後半「ユーザビリティの観点から強く推奨されます」は評価的な主張で真偽を確定できない。判断材料として 2 点: (1) SC 2.2.1 は『For each time limit that is set by the content, at least one of the following is true』で Turn off / Adjust / Extend を求めており、自動消滅する Snackbar は「コンテンツが設定した時間制限」に当たりうる。許容される手段はホバー一時停止ではなく turn off / adjust / extend。(2) W3C の ARIA APG Alert Pattern (https://www.w3.org/WAI/ARIA/apg/patterns/alert/, HTTP 200) は『It is also important to avoid designing alerts that disappear automatically. An alert that disappears too quickly can lead to failure to meet WCAG 2.0 success criterion 2.2.3.』と述べており、自動消滅そのものは WCAG と無関係ではない。「ホバー一時停止は WCAG の要件ではない」は文言としては成立しうるが、読者が「自動消滅タイマーは WCAG の対象外」と受け取る余地があるので、SC 2.2.1 / 2.2.3 への言及を添えるのが安全。"
+ },
+ {
+  "file": "react/ui-patterns/SnackbarPatterns.tsx",
+  "claim": "aria-live のコンテナは初回レンダリング時に DOM に存在している必要がある。動的に生成すると一部のスクリーンリーダーで認識されない",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "candidateSource の https://www.w3.org/WAI/ARIA/apg/practices/live-regions/ は curl -sL -o /dev/null -w '%{http_code}' で 404（現行 APG の Practices 一覧 https://www.w3.org/WAI/ARIA/apg/practices/ にも Live Regions の項目は存在しない）。代替として WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/, HTTP 200) の §aria-live / §aria-relevant / Live Regions 節を全文検索したが、「ライブリージョンのコンテナが初回レンダリング時に DOM に存在していなければならない」旨の規定は無い。支援技術側の実装依存の挙動という主張であり、W3C の一次情報では確定できないため未確定。関連する周辺情報（断定の根拠にはならない）: (a) aria-relevant の値 additions の定義は『Element nodes are added to the accessibility tree within the live region.』で、ライブリージョン「内部」への追加を対象としている。(b) WAI-ARIA 1.2 の aria-errormessage の Example 23 は、エラーメッセージ用の aria-live 要素を初期状態から DOM に置き visibility だけ切り替える書き方になっている。(c) APG Alert Pattern には『screen readers do not inform users of alerts that are present on the page before page load completes.』とあるが、これは初期表示済みアラートの話で本主張とは別。断定するなら実際のスクリーンリーダー（NVDA / JAWS / VoiceOver）での実測を出典にする必要がある。"
+ },
+ {
+  "file": "react/ui-patterns/FormGroup.tsx",
+  "claim": "role=\"alert\" を付けた要素が DOM に追加されると、スクリーンリーダーが即座にその内容を読み上げます（ライブリージョン）。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/wai-aria-1.2/#alert",
+  "quote": "Alerts are assertive live regions, which means they cause immediate notification for assistive technology users. If the operating system allows, the user agent SHOULD fire a system alert event through the accessibility API when the WAI-ARIA alert is created.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/wai-aria-1.2/ (HTTP 200) を取得しタグ除去、§alert role を確認。同節にはさらに『Elements with the role alert have an implicit aria-live value of assertive, and an implicit aria-atomic value of true.』ともあり、ライブリージョンである点・即時通知である点・alert が「created」された時に通知される点がいずれも仕様に一致する。裏取りとして W3C ARIA APG Alert Pattern (https://www.w3.org/WAI/ARIA/apg/patterns/alert/, HTTP 200) に『Dynamically rendered alerts are automatically announced by most screen readers』。ただし APG の表現は most screen readers であり全スクリーンリーダーを保証するものではないので、教材で「必ず」と書かない限りは整合する。"
+ },
+ {
+  "file": "react/web-quality/WebEthics.tsx",
+  "claim": "Web Content Accessibility Guidelines（WCAG）は、W3C が策定した Web アクセシビリティの国際標準です。WCAG 2.2 は 2023 年 10 月に勧告され、4 つの主要原則に基づいています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG22/",
+  "quote": "This section shows substantive changes incorporated into WCAG 2.2 since WCAG 2.1, as well as changes made to 2.2 since its original publication on 05 October 2023. […] Principles - At the top are four principles that provide the foundation for web accessibility: perceivable, operable, understandable, and robust.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/WCAG22/ (HTTP 200) を取得しタグ除去。Appendix A Change Log 冒頭に「its original publication on 05 October 2023」とあり、WCAG 2.2 の勧告（W3C Recommendation）が 2023 年 10 月であることが確定。4 原則は Introduction の WCAG 2 Layers of Guidance に上記のとおり明記され、本文の章立ても 1. Perceivable / 2. Operable / 3. Understandable / 4. Robust。注意点として、現在 /TR/WCAG22/ が返すのは『W3C Recommendation 12 December 2024』の改訂版であり、2023 年 10 月版はその初版。教材が「2023 年 10 月に勧告され」と書くのは初版の日付として正しいが、最新版の日付と混同されうるので初版である旨を添えると誤解が減る。「国際標準」は W3C 勧告としての位置づけを指す一般的な言い換えで、W3C 文書上の定義語ではない（WCAG 2.0 は ISO/IEC 40500 として発行されているが、2.2 についてはこの文書では触れられていない）。"
+ },
+ {
+  "file": "react/accessibility/FormA11y.tsx",
+  "claim": "多くのスクリーンリーダーは placeholder をラベルとして読み上げません。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://www.w3.org/WAI/tutorials/forms/instructions/",
+  "quote": "While placeholder text provides valuable guidance for many users, placeholder text is not a replacement for labels. Assistive technologies, such as screen readers, do not treat placeholder text as labels.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/WAI/tutorials/forms/instructions/ (HTTP 200) の Placeholder text 節に上記の記述があり、主張を支持する。ただし同じ W3C の HTML-AAM 1.0 (https://www.w3.org/TR/html-aam-1.0/, HTTP 200) §4.1.1 の Accessible Name Computation は、input type=text 等について『If the accessible name is still empty: use the value of the control's placeholder attribute.』と規定しており、label / title / aria-label が無い場合は placeholder がアクセシブル名（＝スクリーンリーダーが読み上げる名前）になる。HTML-AAM の Change Log にも『19-Feb-2019: Added placeholder attribute to accessible name computation for various input elements.』とあり、WAI チュートリアル側の記述（同ページは placeholder が『not broadly supported across assistive technologies』とも書いており記述時点が古い）と食い違う。さらに「多くの」という量的主張は実機のスクリーンリーダー検証なしには確定できない。よって未確定とした。教材の実務的な結論（placeholder をラベル代わりにしない）は HTML-AAM 側の読みでも変わらない（label が無い時だけ名前になるので、label があれば placeholder は名前にならない）ので、根拠の書き方を「placeholder はラベルの代替にならない」に寄せると両文書と整合する。"
+ },
+ {
+  "file": "react/accessibility/FormA11y.tsx",
+  "claim": "aria-errormessage: aria-invalid=\"true\" の時だけ読み上げられるエラー専用属性",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/wai-aria-1.2/#aria-errormessage",
+  "quote": "When the value of an object is not valid, aria-invalid is set to true, which indicates that the message contained by an element referenced by aria-errormessage is pertinent. […] User agents MUST NOT expose aria-errormessage for an object with an aria-invalid value of false.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/wai-aria-1.2/ (HTTP 200) の §aria-errormessage を確認。定義文は『Identifies the element that provides an error message for an object.』、加えて『Authors MUST use aria-invalid in conjunction with aria-errormessage.』とあり、aria-invalid と対で使うエラー専用の属性であること、aria-invalid=false では公開されないことが規定されている。細かい注記が 2 点: (1) 仕様の禁止は「aria-invalid の値が false のとき」であり、aria-invalid は true 以外に grammar / spelling も取りうる（これらも無効状態なので公開されうる）。厳密には「true の時だけ」より「無効状態のときだけ」が正確。(2) 仕様が述べるのはアクセシビリティ API への expose であり「読み上げ」そのものではない。同節は『Authors MAY call attention to a newly rendered error message with a live region』と、読み上げさせたい場合は aria-live / alert を併用する旨を別途書いている。"
+ },
+ {
+  "file": "react/accessibility/FormA11y.tsx",
+  "claim": "WCAG 2.1 の達成基準 1.3.5 でも要求されています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG21/#identify-input-purpose",
+  "quote": "Success Criterion 1.3.5 Identify Input Purpose […] (Level AA) The purpose of each input field collecting information about the user can be programmatically determined when: The input field serves a purpose identified in the Input Purposes for user interface components section; and The content is implemented using technologies with support for identifying the expected meaning for form input data.",
+  "correction": "",
+  "evidence": "curl -sL https://www.w3.org/TR/WCAG21/ (HTTP 200) を取得しタグ除去して §1.3.5 を確認。教材の該当箇所（FormA11y.tsx:709-713「autocomplete 属性の正しい使い方」）の文脈どおり、WCAG 2.1 で新設された達成基準 1.3.5 Identify Input Purpose（レベル AA）が入力欄の目的のプログラム的決定を要求している。HTML における実装手段が autocomplete 属性であることは §7 Input Purposes for User Interface Components の注記『The list of input type purposes is based on the control purposes defined in the HTML 5.2 Autofill field section』から裏付けられる。ただし正確を期すなら 2 点: (1) 対象は「ユーザー自身に関する情報を集める入力欄」に限られ、すべてのフォーム項目ではない。(2) 同 §7 は『The terms below are not keywords that must be used, but instead represent purposes that must be captured in the taxonomy adopted by a webpage.』と述べており、仕様が名指しで要求しているのは autocomplete 属性そのものではなく「目的がプログラム的に決定できること」。HTML では autocomplete がその手段。"
+ },
+ {
+  "file": "react/accessibility/FormA11y.tsx",
+  "claim": "aria-disabled=\"true\" ならフォーカスは残りつつ操作を無効化できますが、クリックイベントは発火するため JavaScript 側で重複送信を防ぐ必要があります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+  "quote": "Browsers remove HTML input elements with the disabled attribute from the tab sequence. However, there are some contexts where it is useful for an element to convey a disabled state while remaining focusable, especially inside of composite widgets. This can be accomplished by applying the state aria-disabled=\"true\".",
+  "correction": "",
+  "evidence": "1) フォーカスが残る点: ARIA APG「Developing a Keyboard Interface」の \"Focusability of disabled controls\" を curl で取得し上記を逐語確認。同ページに \"When a disabled element does need to remain discoverable, aria-disabled=\\\"true\\\" is applied so that it will remain focusable.\" もある。APG Toolbar Example (https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/examples/toolbar/) にも \"While they are HTML button elements, ... in order to remain focusable when disabled, they have aria-disabled instead of the HTML disabled attribute.\"。2) クリックが発火する点: WHATWG HTML (https://html.spec.whatwg.org/multipage/form-control-infrastructure.html) が \"A form control that is disabled must prevent any click events that are queued on the user interaction task source from being dispatched on the element.\" と規定し、その直前の \"A form control is disabled if any of the following are true\" の列挙は disabled 属性と fieldset[disabled] のみで aria-disabled を含まない。つまりクリック抑止は aria-disabled には適用されない。WAI-ARIA 1.2 (https://www.w3.org/TR/wai-aria-1.2/#aria-disabled) の注記も \"While aria-disabled and proper scripting can successfully disable an element with role link, fully disabling a host language equivalent can be problematic.\" とスクリプト併用を前提にしている。3) 実測: localhost に置いた probe ページを Chrome 151 (Playwright) で評価し {ariaDisabled_focusable:true, nativeDisabled_focusable:false, ariaDisabled_clickHandlerRuns:1, nativeDisabled_clickHandlerRuns:0} を確認。なお ARIA 1.2 本文には \"Disabled elements might not receive focus from the tab order.\" という一般記述があるが、これは host language の disabled も含む一般論で、aria-disabled 単体の挙動を否定するものではない。"
+ },
+ {
+  "file": "react/accessibility/SemanticAria.tsx",
+  "claim": "<section> は見出し（h2-h6）なしで使うとランドマークとして認識されない",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://www.w3.org/TR/html-aria/",
+  "quote": "section role=region if the section element has an accessible name Otherwise, role=generic",
+  "correction": "<section> が region ランドマークになる条件は「アクセシブルな名前を持つこと」であって、見出し要素の有無ではない。region ロールの Name From は author のみ（WAI-ARIA 1.2 の region role: 「Name From: author」「Accessible Name Required: True」）なので、<section><h2>…</h2></section> のように見出しを内包しただけでは名前は付かず region にならない。逆に <section aria-label=\"カート\"> は見出しがなくても region になる。正しくは「aria-label / aria-labelledby でアクセシブルな名前を与えないとランドマークにならない」。ARIA 1.2 は「Authors SHOULD include the label inside of a heading whenever possible.」と推奨するが、これは aria-labelledby で見出しを参照する形を指しており、見出しを置くだけで名前が付くという意味ではない。",
+  "evidence": "https://www.w3.org/TR/html-aria/ を curl で取得し section 行を抽出。条件は accessible name の有無で分岐しており、heading への言及は無い。加えて https://www.w3.org/TR/wai-aria-1.2/ を取得し region role の定義を確認: \"Authors MUST give each element with role region a brief label that describes the purpose of the content in the region. Authors SHOULD reference a visible label with aria-labelledby if a visible label is present. Authors SHOULD include the label inside of a heading whenever possible.\" および Characteristics の \"Name From: author\" / \"Accessible Name Required: True\"。Name From が author のみ＝内容（子孫の見出しテキスト）から名前は算出されない。なお同ファイル 430 行目のサンプル <section aria-labelledby=\"cart-heading\"> は正しい書き方で、誤っているのは 151-153 行の表（「region（見出し付き）」）と 196 行の注意書きのみ。"
+ },
+ {
+  "file": "react/design-tokens/WhyDarkMode.tsx",
+  "claim": "大きなテキスト (14pt bold / 18pt)",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG21/#dfn-large-scale",
+  "quote": "large scale (text) with at least 18 point or 14 point bold or font size that would yield equivalent size for Chinese, Japanese and Korean (CJK) fonts",
+  "correction": "",
+  "evidence": "https://www.w3.org/TR/WCAG21/ を curl で取得し id=\"dfn-large-scale\" の定義を抽出、上記を逐語確認。Understanding 文書 (https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) も同じ定義を引いている。ページの表見出し「大きなテキスト (14pt bold / 18pt)」は WCAG 2.1 の large scale (text) 定義と一致する。"
+ },
+ {
+  "file": "devflow/designops/DesignReview.tsx",
+  "claim": "本文は背景との比が 4.5:1 以上、大きな文字は 3:1 以上（WCAG AA）。色だけでなく明度差で読めるかを確認する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG21/#contrast-minimum",
+  "quote": "Success Criterion 1.4.3 Contrast (Minimum) ... (Level AA) The visual presentation of text and images of text has a contrast ratio of at least 4.5:1, except for the following: Large Text Large-scale text and images of large-scale text have a contrast ratio of at least 3:1;",
+  "correction": "",
+  "evidence": "https://www.w3.org/TR/WCAG21/ を curl で取得し id=\"contrast-minimum\" 周辺を抽出。数値（本文 4.5:1 / 大きな文字 3:1）と適合レベル（Level AA）が一致。「大きな文字」の定義も同文書の id=\"dfn-large-scale\" で \"with at least 18 point or 14 point bold ...\" と確認済み（本バッチの別 claim と同じ出典）。後半の「色だけでなく明度差で読めるかを確認する」はレビュー運用の助言で仕様の記述ではないが、SC 1.4.3 のコントラスト比が輝度比である以上、数値要件と矛盾しない。"
+ },
+ {
+  "file": "devflow/designops/DesignReview.tsx",
+  "claim": "ボタンやリンクのタップ範囲が十分か。一般に 44×44px 以上が目安で、隣の要素と近すぎて誤タップしないかも確認する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/WCAG21/#target-size",
+  "quote": "Success Criterion 2.5.5 Target Size ... (Level AAA) The size of the target for pointer inputs is at least 44 by 44 CSS pixels except when:",
+  "correction": "",
+  "evidence": "https://www.w3.org/TR/WCAG21/ を curl で取得し id=\"target-size\" を抽出、44 by 44 CSS pixels を逐語確認。Understanding 文書 (https://www.w3.org/WAI/WCAG21/Understanding/target-size.html, HTTP 200) も同文。注意点として、44×44 は WCAG 2.1 では Level AAA (SC 2.5.5) であり AA ではない。WCAG 2.2 (https://www.w3.org/TR/WCAG22/#target-size-minimum) が追加した Level AA の SC 2.5.8 Target Size (Minimum) は \"The size of the target for pointer inputs is at least 24 by 24 CSS pixels\" で、そこには Spacing 例外（24 CSS px 径の円が他ターゲットと交差しないこと）がある。教材の文は適合レベルを名乗らず「一般に…目安」と書いているため一次情報と矛盾しないが、AA 要件と誤読されないよう「44×44 は WCAG 2.1 AAA、2.2 の AA は 24×24＋間隔」と補記すると精度が上がる。なお「隣の要素と近すぎて誤タップしないか」は SC 2.5.8 の Spacing 例外の考え方と整合する。"
+ },
+ {
+  "file": "ux-design/for-designers/DesignTokensForDesigners.tsx",
+  "claim": "デザイントークンの標準仕様を策定しているコミュニティグループ。Figma や Adobe も参加",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/community/design-tokens/",
+  "quote": "The specification was developed by more than 20 editors and authors, with dozens more contributors participating through GitHub issues and community discussions. Organizations represented include Adobe, Amazon, Google, Baidu, Sony, Microsoft, Meta, Sketch, Salesforce, Shopify, Figma, Framer, Cisco, Intuit, New York Times, GM, Disney, Anima, Pinterest, Tokens Studio, Penpot, Knapsack, Supernova, zeroheight, and many others.",
+  "correction": "",
+  "evidence": "https://www.w3.org/community/design-tokens/ を curl で取得（HTTP 200）し全文から該当箇所を抽出。仕様策定については同ページに \"The Design Tokens Community Group is a W3C Community Group bringing together designers, developers, and tool makers to standardize how design tokens are defined and exchanged.\"、\"The Design Tokens Community Group's goal is to provide technology upon which products and design tools can rely for sharing stylistic pieces of a design system at scale.\"、2025-10-28 の Final reports に Design Tokens Format Module 2025.10 / Color Module 2025.10 / Resolver Module 2025.10 が掲載されている。Figma・Adobe の関与は上記引用に加え 2021 年のベンダーラウンドテーブル記事にも \"Here are companies which attended the event: Google (Material Design), Framer, Marvel, zeroheight, Figma, Sketch, Adobe (XD), ...\" とある。ただし同ページには \"Note: Community Groups are proposed and run by the community. Although W3C hosts these conversations, the groups do not necessarily represent the views of the W3C Membership or staff.\" があり、成果物は W3C 勧告（Recommendation）ではなく Community Group Final Report である点は補足したほうがよい。教材の文言は「W3C 標準」ではなく「標準仕様」なので矛盾はしない。"
+ },
+ {
+  "file": "react/accessibility/FormA11y.tsx",
+  "claim": "Cloudflare Turnstile: 非対話型でプライバシーも良好",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://developers.cloudflare.com/turnstile/",
+  "quote": "Turnstile [widget types](https://developers.cloudflare.com/turnstile/concepts/widget/) include:\n\n* **Managed** (recommended): Automatically decides whether to show a checkbox based on visitor risk level.\n* **Non-interactive**: Visitors never need to interact with the widget.\n* **Invisible**: The widget is completely hidden from the visitor.",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/turnstile/index.md で公式 Overview の原文を取得（HTTP 200、Last updated Aug 14, 2026）。「非対話型」は Turnstile 全体の性質ではなく 3 つある widget type のうちの 1 つ（Non-interactive）で、Cloudflare が推奨する既定の Managed は「Automatically decides whether to show a checkbox based on visitor risk level.」とありチェックボックス表示があり得るため、断定としては確認できない。プライバシー面は同ページの description に「Verify visitors are human with a CAPTCHA-free, privacy-preserving alternative.」、本文に「Turnstile does not access, store, or transmit user communications, form entries, or other page inputs.」があるが、これは Cloudflare 自身の自己記述であり、教材が reCAPTCHA v3 と並べて「良好」と評価する根拠になる一次情報は見つからなかった。"
+ },
+ {
+  "file": "infra/database/BeyondRelational.tsx",
+  "claim": "// R2 は S3 互換 API なので同じ SDK で扱える",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/r2/examples/aws/aws-sdk-js-v3/",
+  "quote": "JavaScript or TypeScript users may continue to use the @aws-sdk/client-s3 npm package as per normal. You must pass in the R2 configuration credentials when instantiating your S3 service client.",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/r2/examples/aws/aws-sdk-js-v3/index.md（HTTP 200）で原文を取得。同ページのサンプルコードは教材と同じく `new S3Client({ region: \"auto\", endpoint: ... })` 形式（原文コメント: `region: \"auto\", // Required by SDK but not used by R2`）。あわせて curl -sL https://developers.cloudflare.com/r2/api/s3/api/index.md（HTTP 200）で「R2 implements the S3 API to allow users and their applications to migrate with ease.」を確認。ただし同ページには未実装の S3 操作一覧もあり「S3 API 全機能が同一」ではないこと、wrangler dev のローカル開発では S3 互換 API を使えない Note があることは留意（教材の記述範囲『同じ SDK で扱える』自体は正しい）。"
+ },
+ {
+  "file": "infra/database/BeyondRelational.tsx",
+  "claim": "エッジに分散配置される KV。読み取りに最適化され、設定値や軽量データを世界中の近い拠点から返せる。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://developers.cloudflare.com/kv/concepts/how-kv-works/",
+  "quote": "KV is a global, low-latency, key-value data store. It stores data in a small number of centralized data centers, then caches that data in Cloudflare's data centers after access.",
+  "correction": "KV のデータは「エッジに分散配置」されるのではなく、少数の中央データセンターに保存され、アクセスされた後に各拠点でキャッシュされる。原文に「When you write to KV, your data is written to central data stores. Your data is not sent automatically to every location's cache.」「Initial reads from a location do not have a cached value.」とあり、初回（コールド）読み取りは中央ストアまで取りに行くため「世界中の近い拠点から返せる」のはキャッシュが温まった後に限られる。なお「読み取りに最適化」「設定値・軽量データ向き」の部分は正しい（原文: 「KV supports exceptionally high read volumes with low latency」「read-heavy, highly cacheable workloads such as: Serving static assets, Storing application configuration」）。",
+  "evidence": "curl -sL https://developers.cloudflare.com/kv/concepts/how-kv-works/index.md（HTTP 200、Last updated Apr 21, 2026）で原文全文を取得し、冒頭のアーキテクチャ記述と「Write data to KV and read data from KV」節を確認。frontmatter の description 自体が「Workers KV stores data centrally and caches it globally, optimizing for high-read, low-latency workloads.」となっており、保存モデルは「中央保存＋グローバルキャッシュ」であり「エッジに分散配置」ではない。同ページには「Requests which are not in cache and need to access the central stores can experience higher latencies.」ともある。"
+ },
+ {
+  "file": "infra/edge/CdnBasics.tsx",
+  "claim": "レスポンスの cf-cache-status や x-vercel-cache ヘッダで、HIT したか MISS したかを確認できます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/cache/concepts/cache-responses/",
+  "quote": "The `CF-Cache-Status` header output indicates whether a resource is cached or not. ... ## HIT\n\nThe resource was found in Cloudflare's cache.\n\n## MISS\n\nThe response is eligible for cache but was not present in Cloudflare's cache at request time, so it was served from the origin web server.",
+  "correction": "",
+  "evidence": "Cloudflare 側: curl -sL https://developers.cloudflare.com/cache/concepts/cache-responses/index.md（HTTP 200）で CF-Cache-Status の説明と HIT / MISS の節を確認。Vercel 側: WebFetch https://vercel.com/docs/headers/response-headers（curl で HTTP 200 を実測、last_updated 2026-07-08）に「The `x-vercel-cache` header indicates the cache status of static assets and responses from Vercel's CDN.」「`HIT`: the response was served from the cache.」「`MISS`: the response wasn't in the cache and was generated from your function or origin.」を確認。両ベンダー公式で HIT / MISS をヘッダから確認できると明記されている。"
+ },
+ {
+  "file": "infra/edge/CdnBasics.tsx",
+  "claim": "ドキュメント上はパージ後に古いキャッシュが消えますが、 実測では世界中の PoP すべてに反映が行き渡るまで数秒〜十数秒の幅があります。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://developers.cloudflare.com/cache/how-to/purge-cache/",
+  "quote": "Cloudflare's Instant Purge ensures that updates to your content are reflected immediately.",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/cache/how-to/purge-cache/index.md（HTTP 200、Last updated Aug 14, 2026）と https://developers.cloudflare.com/cache/how-to/purge-cache/purge-by-single-file/index.md（HTTP 200、原文「With purge by single-file, cached resources are instantly removed from the stored assets in your Content Delivery Network (CDN) across all data centers.」）を取得して grep で second / propagat / immediat を検索した。公式ドキュメントは「immediately」「instantly」と述べるのみで、全 PoP への伝播時間を数値で公開していない。したがって教材の「数秒〜十数秒」を裏付ける一次情報も、その幅を明確に否定する一次情報も存在せず、教材側も測定条件を示していないため確定できない。"
+ },
+ {
+  "file": "infra/edge/CdnBasics.tsx",
+  "claim": "curl -X POST \\\n  \"https://api.cloudflare.com/client/v4/zones/<ZONE_ID>/purge_cache\" \\\n  -H \"Authorization: Bearer <API_TOKEN>\" \\\n  -H \"Content-Type: application/json\" \\\n  --data '{\"files\":[\"https://example.com/style.css\"]}'",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/api/resources/cache/methods/purge/",
+  "quote": "## Purge Cached Content\n\n**post** `/zones/{zone_id}/purge_cache` ... Single file purge example with files:\n\n```\n{\"files\": [\"http://www.example.com/css/styles.css\", \"http://www.example.com/js/index.js\"]}\n```",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/api/resources/cache/methods/purge/index.md（HTTP 200）で API 仕様の原文を取得。メソッド（post）、パス（/zones/{zone_id}/purge_cache）、ボディ形式（`CachePurgeSingleFile object { files }` / `files: optional array of string`）が教材の例と一致。同ページの curl サンプルも `curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache -H 'Content-Type: application/json' -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" -d '{...}'` でヘッダ 2 種も一致（教材は -X POST を明示、公式サンプルは -d による暗黙 POST という差のみ）。"
+ },
+ {
+  "file": "infra/edge/Cloudflare.tsx",
+  "claim": "Flexible / 暗号化なし（HTTP） / オリジンまで平文。原則避ける",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/",
+  "quote": "[Flexible](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/flexible/): Traffic from visitors to Cloudflare can be encrypted via HTTPS, but traffic from Cloudflare to the origin server is not. This mode is common for origins that do not support TLS, though upgrading the origin configuration is recommended whenever possible.",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/index.md（HTTP 200、Last updated Apr 16, 2026）で原文を取得。教材の該当表の列見出しが「モード / エッジ⇄オリジン / 備考」であることを /Users/ai/dev/writing/dev-album/client/src/pages/infra/edge/Cloudflare.tsx の 255-273 行で確認し、Flexible 行の「暗号化なし（HTTP）」が Cloudflare→オリジン区間を指すことを確認した上で原文と照合。「原則避ける」は同ページの「If possible, Cloudflare strongly recommends using **Full** or **Full (strict)** modes to prevent malicious connections to your origin.」に対応。Flexible は現行でも Custom SSL/TLS の選択肢として提供されている（廃止されていない）。"
+ },
+ {
+  "file": "infra/edge/Cloudflare.tsx",
+  "claim": "wrangler deploy",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/workers/wrangler/commands/workers/",
+  "quote": "## `deploy`\n\nDeploy your Worker to Cloudflare. ... ```txt\nwrangler deploy [<PATH>] [OPTIONS]\n```",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/workers/wrangler/commands/workers/index.md（HTTP 200）で現行 Wrangler コマンド一覧を取得し、197-209 行目付近の `deploy` 節を確認。旧称 `wrangler publish` は現行ページに記載がなく、デプロイ用サブコマンドは `deploy` で確定。教材の CodingChallenge の正解（`wrangler deploy`）は現行仕様と一致。"
+ },
+ {
+  "file": "infra/edge/Cloudflare.tsx",
+  "claim": "Cloudflare の DNS 設定で「proxied」を有効にすると、その名前への通信がエッジを経由します。 逆に「DNS only（グレー雲）」にすると名前解決だけ担い、トラフィックはオリジンへ直行します。 CDN や WAF が効くのは proxied のときだけ、という点が混乱しやすいポイントです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/dns/proxy-status/",
+  "quote": "When a record is **Proxied**, Cloudflare sits between your visitors and your server — optimizing, caching, and protecting traffic along the way. When a record is **DNS-only**, Cloudflare responds with your server's actual IP address and does not route HTTP/HTTPS traffic through its network.",
+  "correction": "",
+  "evidence": "curl -sL https://developers.cloudflare.com/dns/proxy-status/index.md（HTTP 200、Last updated Apr 21, 2026）で原文を取得。Proxied の Benefits 節に「Apply your Cloudflare product configurations (such as [WAF] rules, [caching], and [redirect rules]) to incoming traffic.」、DNS-only 側に「This exposes your origin IP address to anyone who queries the record」「Cloudflare also cannot provide HTTP/HTTPS analytics on those requests (only DNS analytics).」があり、CDN / WAF が proxied 時のみ適用される点が裏付けられる。オレンジ雲＝Proxied、グレー雲＝DNS only の対応も同ページの「shown as an orange cloud icon in the dashboard, also known as \"orange-clouded\"」で確認。"
+ },
+ {
+  "file": "infra/hosting/CloudflarePages.tsx",
+  "claim": "Pages Functions は内部的に Workers の仕組みの上に乗っており、近年は両者が 統合される方向にあります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/pages/functions/",
+  "quote": "Pages Functions allows you to build full-stack applications by executing code on the Cloudflare network with [Cloudflare Workers](https://developers.cloudflare.com/workers/). ... [Workers runtime features](https://developers.cloudflare.com/workers/runtime-apis/) are configurable on Pages Functions",
+  "correction": "",
+  "evidence": "前半（Pages Functions が Workers の上で動く）: curl -sL https://developers.cloudflare.com/pages/functions/index.md（HTTP 200、Last updated Apr 21, 2026）で上記原文を確認。後半（統合の方向）: curl -sL https://developers.cloudflare.com/workers/best-practices/workers-best-practices/index.md（HTTP 200）の「### Use Workers Static Assets for new projects」節に「If you are starting a new project, use Workers instead of Pages. Pages continues to work, but new features and optimizations are focused on Workers.」という原文があり、Workers へ集約していく方針が公式に明記されている。加えて https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/（HTTP 200）が Pages→Workers の移行ガイドと互換性マトリクスを提供している。なお公式の表現は「両者を統合する」ではなく「新規は Workers 推奨、新機能と最適化は Workers に集中」という言い方である点は留意。"
+ },
+ {
+  "file": "infra/hosting/CloudflarePages.tsx",
+  "claim": "npx wrangler kv namespace create MY_KV",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/workers/wrangler/commands/kv/",
+  "quote": "### `kv namespace create`\n\nCreate a new namespace\n\nnpmyarnpnpm\n\n```\nnpx wrangler kv namespace create [NAMESPACE]\n```",
+  "correction": "",
+  "evidence": "curl -sL 'https://developers.cloudflare.com/workers/wrangler/commands/kv/index.md' の 31-39 行目に、スペース区切りの `npx wrangler kv namespace create [NAMESPACE]` が現行の usage として記載されている。`MY_KV` は required 引数 `[NAMESPACE]`（'The name of the new namespace'）を埋めたもので、教材の表記と一致する。コロン区切りの旧表記についても同ページ 29 行目に Caution として『Since version 3.60.0, Wrangler supports the `kv ...` syntax. If you are using versions below 3.60.0, the command follows the `kv:...` syntax.』とあり、現行 Wrangler ではスペース区切りが正であることが裏付けられる。HTML 版（同 URL、200）でも同一の文言を確認した。"
+ },
+ {
+  "file": "infra/hosting/CloudflarePages.tsx",
+  "claim": "Cloudflare は無料枠の範囲が広く、小〜中規模の個人プロジェクトなら 無料のまま運用できることが多いのが特徴です。Pages の ビルド回数や Workers の 1 日あたりリクエスト数などに上限はありますが、 学習や検証には十分な余裕があります。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://developers.cloudflare.com/workers/platform/limits/",
+  "quote": "",
+  "correction": "",
+  "evidence": "主張は3つの部分に分かれ、うち検証可能なのは中間部分のみ。(1)『無料枠の範囲が広く』『無料のまま運用できることが多い』『学習や検証には十分な余裕があります』は他社との相対評価および用途充足の主観判断であり、一次情報にそのような評価は存在しないため真偽を確定できない。Cloudflare の料金・制限ページは自社の数値を列挙するだけで、範囲の広狭や十分性を述べていない。(2)『Pages のビルド回数や Workers の 1 日あたりリクエスト数などに上限はあります』という事実部分は裏取りできた。https://developers.cloudflare.com/workers/platform/limits/ の Account plan limits 表で Workers Free の Requests が 100,000/day、https://developers.cloudflare.com/pages/platform/limits/ の Builds 節で Free の 'Builds per month' が 500 と確認（いずれも curl で取得、HTTP 200）。ただし claim 全体の主眼である評価部分が確定しないため UNDETERMINED とする。"
+ },
+ {
+  "file": "infra/hosting/CloudflarePages.tsx",
+  "claim": "compatibility_date = \"2026-06-01\"\n\n# Node.js 互換 API を有効化\ncompatibility_flags = [\"nodejs_compat\"]",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/workers/runtime-apis/nodejs/",
+  "quote": "For compatibility dates from `2024-09-23` through `2026-08-03`, add the `nodejs_compat` compatibility flag to your [Wrangler configuration file](https://developers.cloudflare.com/workers/wrangler/configuration/) to opt in:\n\n```toml\ncompatibility_date = \"2026-08-03\"\ncompatibility_flags = [ \"nodejs_compat\" ]\n```",
+  "correction": "",
+  "evidence": "2点を確認した。(a) TOML 形式の設定ファイルが現行でも有効であること: https://developers.cloudflare.com/workers/wrangler/configuration/index.md の 21 行目に『As of Wrangler v3.91.0 Wrangler supports both JSON (`wrangler.json` or `wrangler.jsonc`) and TOML (`wrangler.toml`) for its configuration file.』とあり、TOML はサポート対象。ただし 23 行目に『Cloudflare recommends using `wrangler.jsonc` for new projects』ともあるので、新規プロジェクトの推奨は jsonc 側である点は教材に補記の余地がある（TOML が誤りという意味ではない）。(b) 互換フラグの指定方法: https://developers.cloudflare.com/workers/runtime-apis/nodejs/index.md（curl で取得、HTTP 200、Last updated Aug 12, 2026）に quote の通りの TOML 例が掲載され、教材のキー名・配列表記と一致する。教材の compatibility_date '2026-06-01' は公式が示す 2024-09-23〜2026-08-03 の範囲に入るため、nodejs_compat フラグの明示が必要な区間であり、この組み合わせは正しい。なお同ページ冒頭に『For compatibility dates of `2026-08-04` or later, Workers enables both `nodejs_compat` and `nodejs_compat_v2` by default.』とあり、日付を 2026-08-04 以降に更新するとフラグは不要になる（既存の記述が誤りになるわけではないが、将来の更新時の注意点）。"
+ },
+ {
+  "file": "infra/hosting/CloudflarePages.tsx",
+  "claim": "S3 互換のオブジェクトストレージ。画像やファイルの保存に使い、外向き転送（egress）料金がかからないのが特徴。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developers.cloudflare.com/r2/pricing/",
+  "quote": "There are no charges for egress bandwidth for any storage class.",
+  "correction": "",
+  "evidence": "2つの構成要素を別々の一次情報で確認した。(1) egress 無料: https://developers.cloudflare.com/r2/pricing/ を curl で取得（HTTP 200）し、Overview に quote の一文を確認。料金表でも『Egress (data transfer to Internet)』が Standard / Infrequent Access の両方で 'Free' と記載され、脚注に『Egressing directly from R2, including via the Workers API, S3 API, and r2.dev domains does not incur data transfer (egress) charges and is free. If you connect other metered services to an R2 bucket, you may be charged by those services.』とある（他の従量サービスを繋いだ場合はそちら側で課金され得るという但し書き付き）。(2) S3 互換のオブジェクトストレージ: https://developers.cloudflare.com/r2/api/s3/api/index.md に『R2 implements the S3 API to allow users and their applications to migrate with ease. When comparing to AWS S3, Cloudflare has removed some API operations' features and added others.』とあり、S3 API 実装であること（および完全互換ではなく差分があること）を確認。https://developers.cloudflare.com/r2/index.md では『Object storage for all your data.』『Cloudflare R2 Storage allows developers to store large amounts of unstructured data without the costly egress bandwidth fees associated with typical cloud storage services.』と記載。教材の記述はいずれも一次情報の範囲内。"
+ },
+ {
+  "file": "infra/hosting/Comparison.tsx",
+  "claim": "広い無料枠 + 従量",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://developers.cloudflare.com/workers/platform/pricing/",
+  "quote": "",
+  "correction": "",
+  "evidence": "比較表のセル文言。『広い』は他社の無料枠との相対評価であり、Cloudflare の一次情報（料金ページ）は自社の数値を列挙するのみで無料枠の広狭に言及していないため、真偽を確定できない。後半の『従量』については https://developers.cloudflare.com/workers/platform/pricing/index.md（curl、HTTP 200）の 17-19 行目に『By default, users have access to the Workers Free plan.』『The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account. The plan includes increased initial usage allotments, with clear charges for usage that exceeds the base plan.』とあり、純粋な従量ではなく『月額 $5 の最低課金 + 含有枠超過分の従量』である。純従量と読める表記との差はあるが、セル文言が短く判定を分ける材料に乏しいため、全体として UNDETERMINED とする。"
+ },
+ {
+  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "claim": "Java のバージョンアップ（v8 / v11 / v17 / v21 → v17 / v21）や .NET Framework からクロスプラットフォーム .NET への移植を自動化する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/code-transformation.html",
+  "quote": "Amazon Q currently supports the following Java source code versions and target versions for transformations.\n\n**Supported Java upgrades**\n\n| Source code version | Supported target versions | \n| --- | --- | \n| Java 8  | Java 17 and Java 21 | \n| Java 11 | Java 17 and Java 21 | \n| Java 17 | Java 17 and Java 21  | \n| Java 21 | Java 21  |\n\n--- (https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/transform-app-dotnet.html より) ---\n\n\"Automated transformation of legacy .NET Framework applications to cross-platform .NET, email notifications, and a transformation summary report.\"\n\n\"During the porting of .NET Framework applications to cross-platform .NET, you may be requested to provide input or approvals in the following scenarios:\"",
+  "correction": "",
+  "evidence": "candidateSource の what-is.html には変換の対応バージョン記載がなかったため、同ユーザーガイドの code-transformation.html（Upgrading Java versions with Amazon Q Developer）を WebFetch。「Supported Java upgrades」表がソース Java 8 / 11 / 17 / 21、ターゲット Java 17 / 21 を明示しており claim と一致（ただし表ではソース Java 21 のターゲットは Java 21 のみ）。.NET は WebSearch（docs.aws.amazon.com 限定）で transform-app-dotnet.html を特定し WebFetch。同 URL は現在 AWS Transform 側の「Modernizing .NET with AWS Transform」を返し、.NET Framework → クロスプラットフォーム .NET の自動移植を明記する。教材ページ自体も「コード変換（Java / .NET）: サポート終了後は AWS Transform に移管」と書いており矛盾しない。URL 到達確認: curl -sL -o /dev/null -w '%{http_code}' で code-transformation.html / what-is.html / transform-net.html いずれも 200。なお AWS Transform 側の .NET 対応バージョンは .NET Framework 3.5+ / .NET Core 3.1 / .NET 5.x+ / .NET 8 → .NET 8 / .NET 10。"
+ },
+ {
+  "file": "infra/aws/StorageCdn.tsx",
+  "claim": "オブジェクトの入れ物。リージョン単位で作り、名前は全世界で一意",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html",
+  "quote": "General purpose buckets exist in a global namespace, which means that each bucket name must be unique across all AWS accounts in all the AWS Regions within a partition. A partition is a grouping of Regions. AWS currently has four partitions: `aws` (Standard Regions), `aws-cn` (China Regions), `aws-us-gov` (AWS GovCloud (US)), and `aws-eusc` (European Sovereign Cloud).",
+  "correction": "「リージョン単位で作る」は正しい（同ページ: \"When you create a general purpose bucket, you choose its name and the AWS Region to create it in. After you create a general purpose bucket, you can't change its name or Region.\"）。誤っているのは一意性の範囲で、「全世界」ではなく同一パーティション内。AWS には aws / aws-cn / aws-us-gov / aws-eusc の 4 パーティションがあり、バケット名は同一パーティション内の全 AWS アカウント・全リージョンに対して一意であることが要求される（別パーティションでは同名が併存しうる）。「名前は同一パーティション内（全リージョン・全アカウント）で一意」と書くのが正確。",
+  "evidence": "candidateSource（bucketnamingrules.html）を WebFetch。Important ブロックが一意性のスコープを partition 単位と明示しており、\"global namespace\" という語は使うものの範囲は全世界ではないと自ら定義している。教材該当箇所は client/src/pages/infra/aws/StorageCdn.tsx:92。リージョン単位で作る点は同ページの CreateBucket 説明で裏取り済み。"
+ },
+ {
+  "file": "infra/aws/StorageCdn.tsx",
+  "claim": "保管料金が最も安い代わりに、取り出しに時間（数分〜数時間）と料金がかかる。法定保存などに使う。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/glacier-storage-classes.html",
+  "quote": "| S3 Glacier storage class | Minimum storage duration | Recommended access frequency | Average retrieval times | Archival? | \n| --- | --- | --- | --- | --- | \n| S3 Glacier Instant Retrieval | 90 days | Quarterly | Milliseconds | No | \n| S3 Glacier Flexible Retrieval | 90 days | Semi-annually | Minutes to 12 hours | Yes | \n| S3 Glacier Deep Archive | 180 days | Annually | 9 to 48 hours | Yes |\n\n\"S3 Glacier Instant Retrieval storage class offers real-time access to your objects with the same latency and throughput performance as the S3 Standard-IA storage class.\"\n\n\"S3 Glacier Deep Archive is the lowest-cost storage option in AWS.\"",
+  "correction": "教材は「S3 Glacier 系」を一括りにして「取り出しに数分〜数時間」としているが、Glacier 系 3 クラスのうち S3 Glacier Instant Retrieval は平均取り出し時間がミリ秒でリアルタイムアクセス可能（アーカイブ扱いではない）。数分〜時間単位なのは S3 Glacier Flexible Retrieval（Minutes to 12 hours。Expedited 1–5 分 / Standard 3–5 時間 / Bulk 5–12 時間）と S3 Glacier Deep Archive（9 to 48 hours。Standard は 12 時間以内、Bulk は 48 時間以内）。また「保管料金が最も安い」のは Glacier 系全体ではなく S3 Glacier Deep Archive（\"S3 Glacier Deep Archive is the lowest-cost storage option in AWS\"）。行を「S3 Glacier Flexible Retrieval / Deep Archive」に限定するか、3 クラスを分けて書くのが正確。",
+  "evidence": "candidateSource（storage-class-intro.html）を WebFetch し、比較表で S3 Glacier Flexible Retrieval = \"retrieval times of minutes to hours\"、Deep Archive = \"retrieval times of hours\"、Glacier Instant Retrieval = \"Use for long-term data that's rarely accessed and requires milliseconds retrieval. Data in this storage class is available for real-time access.\" を確認。さらに詳細ページ glacier-storage-classes.html を WebFetch し、3 クラスの平均取り出し時間表と Deep Archive の最安記述を取得。教材該当箇所は client/src/pages/infra/aws/StorageCdn.tsx:26-31（title: \"S3 Glacier 系\"）。「取り出し料金がかかる」部分は \"These storage classes require minimum storage durations and retrieval fees\" で裏取り済みで正しい。"
+ },
+ {
+  "file": "infra/aws/NetworkVpc.tsx",
+  "claim": "仕様上のアドレス数と、実際に使える数はわずかにずれます。各サブネットでは AWS が予約する 5 個のアドレスがあるため、/24 の 256 個のうち利用できるのは 251 個です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html",
+  "quote": "The first four IP addresses and the last IP address in each subnet CIDR block are not available for your use, and they cannot be assigned to a resource, such as an EC2 instance. For example, in a subnet with CIDR block `10.0.0.0/24`, the following five IP addresses are reserved: \n+ 10.0.0.0: Network address.\n+ 10.0.0.1: Reserved by AWS for the VPC router.\n+ 10.0.0.2: Reserved by AWS. The IP address of the DNS server is the base of the VPC network range plus two.\n+ 10.0.0.3: Reserved by AWS for future use.\n+ 10.0.0.255: Network broadcast address. We do not support broadcast in a VPC, therefore we reserve this address.",
+  "correction": "",
+  "evidence": "candidateSource（subnet-sizing.html）を WebFetch。予約数 5 個と /24 の内訳が逐語で明示されている。同ページ冒頭に \"if you create a VPC with CIDR block `10.0.0.0/24`, it supports 256 IP addresses\" とあり、256 − 5 = 251 という教材の算出と一致する。「251」という数値そのものは公式ページに直接は書かれていないが、予約 5 個と総数 256 個は逐語で確認できるため差は一意に決まる。"
+ },
+ {
+  "file": "infra/aws/NetworkVpc.tsx",
+  "claim": "VPC は 1 つのリージョン内に作られ、その中の複数の AZ にまたがってサブネットを配置できます。リージョンをまたぐ VPC は作れないため、地理的に分散させたい場合は リージョンごとに VPC を用意し、必要に応じて接続します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-subnet-basics.html",
+  "quote": "A VPC spans all of the Availability Zones in a Region. After you create a VPC, you can add one or more subnets in each Availability Zone.",
+  "correction": "",
+  "evidence": "candidateSource（what-is-amazon-vpc.html）には「Region をまたげない」旨の直接記述がなかったため、同ユーザーガイドの VPC basics（vpc-subnet-basics.html）を WebFetch し上記の逐語文を取得。補強として configure-your-vpc.html に \"Your AWS account contains a default VPC for each AWS Region.\"、what-is-amazon-vpc.html に \"A subnet must reside in a single Availability Zone.\" \"Your AWS account includes a default VPC in each AWS Region.\" を確認。なお「リージョンをまたぐ VPC は作れない」という否定形は公式に逐語では存在せず、\"A VPC spans all of the Availability Zones in a Region\"（単数の a Region）と「リージョンごとに default VPC がある」からの含意として判定した。リージョン間の接続手段（VPC peering / transit gateway）も what-is ページの Features に記載があり、後半の記述と整合する。"
+ },
+ {
+  "file": "infra/aws/NetworkVpc.tsx",
+  "claim": "セキュリティグループはリソース単位・ステートフルで、許可ルールのみを書きます（戻りの通信は自動で許可）。ネットワーク ACL はサブネット単位・ステートレスで、許可と拒否の両方を書け、戻りの通信も明示が必要です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html",
+  "quote": "| Characteristic | Security group | Network ACL | \n| --- | --- | --- | \n| Level of operation | Instance level | Subnet level | \n| Scope | Applies to all instances associated with the security group | Applies to all instances in the associated subnets | \n| Rule type | Allow rules only | Allow and deny rules | \n| Rule evaluation | Evaluates all rules before deciding whether to allow traffic | Evaluates rules in ascending order until a match for the traffic is found | \n| Return traffic | Automatically allowed (stateful) | Must be explicitly allowed (stateless) |",
+  "correction": "",
+  "evidence": "candidateSource（vpc-security-groups.html）を WebFetch し \"Security groups are stateful. For example, if you send a request from an instance, the response traffic for that request is allowed to reach the instance regardless of the inbound security group rules.\" と \"A security group controls the traffic that is allowed to reach and leave the resources that it is associated with.\" を確認。ただし「許可ルールのみ」「サブネット単位」等の対比は同ページからリンクされる Compare security groups and network ACLs（infrastructure-security.html#VPC_Security_Comparison）にあるため、そちらを WebFetch して比較表を逐語取得した。claim の 4 要素（適用単位 / ステートフル性 / ルール種別 / 戻り通信）がすべて表と一致する。claim の「リソース単位」は表の \"Instance level\" と本文の \"the resources that it is associated with\" の双方に対応する。"
+ },
+ {
+  "file": "infra/aws/CostOps.tsx",
+  "claim": "無料枠の使用量アラート（Free Tier usage alerts）を有効にし、 さらに少額（例: 数 USD）の Budgets を併用しておくと、 「無料のつもりが課金されていた」に早く気づけます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html",
+  "quote": "You can use AWS Free Tier usage alerts to track and take action on your cost and usage.\n\nAWS Free Tier usage alerts automatically notifies you over email when you exceed 85 percent of your Free Tier limit for each service. For additional tracking, you can configure AWS Budgets to track your usage to 100% of the Free Tier limit by setting a `zero spend budget` using the template. You can also filter your budget to track individual services.\n\n**To opt in or out of AWS Free Tier usage alerts**\n\n1. Sign in to the AWS Management Console and open the Billing console at [https://console.aws.amazon.com/billing/](https://console.aws.amazon.com/billing/).\n\n1. Under **Preferences** in the navigation pane, choose ** Billing preferences**.\n\n1. For **Alert preferences**, choose **Edit**.\n\n1. Select **Receive AWS Free Tier alerts** to opt in to Free Tier usage alerts.",
+  "correction": "",
+  "evidence": "candidateSource（what-is-costmanagement.html）は概要ページで機能名を持たないため、AWS Billing ユーザーガイドの Tracking your AWS Free Tier usage を WebFetch。「AWS Free Tier usage alerts」という機能名、Billing preferences > Alert preferences での有効化手順、AWS Budgets との併用がいずれも現行ドキュメントに実在することを逐語で確認した。教材該当箇所は client/src/pages/infra/aws/CostOps.tsx:303-309。注意点が 2 つある: (1) 同ページは \"AWS Budgets usage alerts for 85 percent of the Free Tier limit are automatically activated for all individual AWS accounts, but not for a management account in an AWS Organizations.\" と述べており、個人アカウントでは既定で有効（明示的な有効化操作が必要なのは AWS Organizations の management account）。(2) 公式が例示する併用予算は「数 USD」ではなく zero spend budget テンプレートで、金額の例示は教材側の助言であり公式の推奨値ではない。機能名・有効化手順・Budgets 併用という事実部分はいずれも裏取れたため CONFIRMED とした。"
+ },
+ {
+  "file": "infra/aws/CostOps.tsx",
+  "claim": "\"Notification\": {\n    \"ComparisonOperator\": \"GREATER_THAN\",\n    \"NotificationType\": \"ACTUAL\",\n    \"Threshold\": 80,\n    \"ThresholdType\": \"PERCENTAGE\"\n  }",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_CreateBudget.html",
+  "quote": "   \"NotificationsWithSubscribers\": [ \n      { \n         \"Notification\": { \n            \"ComparisonOperator\": \"GREATER_THAN\",\n            \"NotificationType\": \"ACTUAL\",\n            \"Threshold\": 80,\n            \"ThresholdType\": \"PERCENTAGE\"\n         },\n         \"Subscribers\": [ \n            { \n               \"Address\": \"budget-alerts@example.com\",\n               \"SubscriptionType\": \"EMAIL\"\n            }\n         ]\n      },",
+  "correction": "",
+  "evidence": "candidateSource（API_budgets_CreateBudget.html）を WebFetch。Request Syntax と Sample Request（Example 2 / Example 4）に claim と同一のキー名・値（ComparisonOperator=GREATER_THAN, NotificationType=ACTUAL, Threshold=80, ThresholdType=PERCENTAGE）が逐語で存在し、キー名は実 API 定義と完全一致する（Request Syntax では NotificationState も任意キーとして存在）。ただし構造上の注意点として、実 API では Notification はトップレベルキーではなく NotificationsWithSubscribers 配列の要素内に Subscribers と対で入り、BudgetName / BudgetType / TimeUnit / BudgetLimit は Budget オブジェクトの中に入る。教材（client/src/pages/infra/aws/CostOps.tsx:155-169 および 187-198 の CodingChallenge）は Notification をトップレベルに並べているため CreateBudget にそのまま送れるリクエスト本体ではないが、タイトルで「（概念例）」と明示されている。今回の claim は通知オブジェクトのキー名の実在性照合なので CONFIRMED とした。"
+ },
+ {
+  "file": "infra/aws/Compute.tsx",
+  "claim": "仕様上は「イベントで起動」でも、実測では初回に数百ミリ秒以上かかる場合がある、という点をレイテンシが重要な処理では考慮します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html",
+  "quote": "In this diagram, the first two steps of downloading the code and setting up the environment are frequently referred to as a \"cold start\". You are charged for this time, and it adds latency to your overall invocation duration.\n\nCold starts typically occur in under 1% of invocations. The duration of a cold start varies from under 100 ms to over 1 second. In general, cold starts are typically more common in development and test functions than production workloads.",
+  "correction": "",
+  "evidence": "candidateSource（lambda-runtime-environment.html）を WebFetch。「Cold starts and latency」節に公式の数値レンジがあり、\"varies from under 100 ms to over 1 second\" は claim の「初回に数百ミリ秒以上かかる場合がある」（ヘッジ付きの存在主張）を包含する。教材該当箇所は client/src/pages/infra/aws/Compute.tsx:252-258。なお公式レンジの下限は 100 ms 未満もあるため「常に数百ミリ秒以上」ではない点、及び発生率が \"under 1% of invocations\" である点を添えるとより正確になる。"
+ },
+ {
+  "file": "infra/aws/Database.tsx",
+  "claim": "RDS（Relational Database Service）は、MySQL / PostgreSQL / MariaDB / Oracle / SQL Server といったリレーショナルデータベースをマネージドで提供するサービスです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+  "quote": "A *DB engine* is the specific relational database software that runs on your DB instance. Amazon RDS supports the following database engines:\n+ IBM Db2\n+ MariaDB\n+ Microsoft SQL Server\n+ MySQL\n+ Oracle Database\n+ PostgreSQL",
+  "correction": "",
+  "evidence": "candidateSource（Welcome.html）を WebFetch。claim が挙げる 5 エンジン（MySQL / PostgreSQL / MariaDB / Oracle Database / Microsoft SQL Server）はいずれも公式の対応エンジン一覧に含まれる。claim は「といった」という非網羅の列挙形なので、記載外のエンジンがあることは矛盾しない。補足: 公式一覧には IBM Db2 も含まれ、Amazon Aurora は本ガイドの対象外（\"This guide covers Amazon RDS database engines other than Amazon Aurora.\"）として別ガイドに分離されている。網羅列挙に見せたい場合は Db2 の追記を検討する余地がある。"
+ },
+ {
+  "file": "infra/aws/Database.tsx",
+  "claim": "マルチ AZ のスタンバイは通常は読み取りに使わず、あくまで障害時の切り替え先です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html",
+  "quote": "The high availability option isn't a scaling solution for read-only scenarios. You can't use a standby replica to serve read traffic. To serve read-only traffic, use a Multi-AZ DB cluster or a read replica instead.",
+  "correction": "",
+  "evidence": "WebFetch で https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html を取得し、Note ブロックの上記文を確認（curl 実測 200）。あわせて候補ソースの https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html も取得し、『A Multi-AZ DB instance deployment has one standby DB instance that provides failover support, but doesn't serve read traffic.』および『A Multi-AZ DB cluster deployment has standby DB instances that provide failover support and can also serve read traffic.』を確認した。つまり Multi-AZ DB cluster 構成のスタンバイは読み取りを受けるため、claim の「通常は」という限定が無ければ誤りになる。既定的な Multi-AZ DB instance 構成についての記述としては公式と一致するので CONFIRMED とするが、教材側で「Multi-AZ DB cluster 構成では読み取り可能なスタンバイになる」例外に触れておく方が安全。"
+ },
+ {
+  "file": "infra/aws/Database.tsx",
+  "claim": "ElastiCache は Redis / Memcached をマネージドで提供する、インメモリのデータストアです。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html",
+  "quote": "Amazon ElastiCache works with the Valkey, Memcached, and Redis OSS engines.",
+  "correction": "現行の公式表記では ElastiCache が対応するエンジンは Valkey / Memcached / Redis OSS の 3 種類。claim は Valkey を落としており、また AWS は 2024 年の Redis ライセンス変更以降「Redis」ではなく「Redis OSS」と表記している。「ElastiCache は Valkey / Memcached / Redis OSS をマネージドで提供するインメモリのデータストア」が正しい。なお「インメモリのデータストア」「マネージド」という性格づけ自体は公式と一致する（'Amazon ElastiCache is a web service that makes it easy to set up, manage, and scale a distributed in-memory data store or cache environment in the cloud.'）。",
+  "evidence": "WebFetch で ElastiCache User Guide の What is Amazon ElastiCache? (https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html、候補ソース https://docs.aws.amazon.com/elasticache/ の実体) を取得（curl 実測 200）。冒頭の Note に上記エンジン一覧があり、本文でも『ElastiCache Serverless is compatible with Valkey 7.2 and higher, Memcached 1.6.22 and above, and Redis OSS 7.1.』『you can choose to create a node-based Valkey, Memcached, or Redis OSS cluster』と 3 エンジンが繰り返し明示されている。claim の列挙（Redis / Memcached）は公式の列挙と一致しない。"
+ },
+ {
+  "file": "infra/aws/IamAccount.tsx",
+  "claim": "IAM の基本姿勢は「明示的に許可したものだけが許される（デフォルト拒否）」です。書いていない操作は自動的にできません。さらに、どこかに明示的な Deny があれば Allow より優先されます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-denyallow.html",
+  "quote": "By default, all requests are implicitly denied with the exception of the AWS account root user, which has full access.\nRequests must be explicitly allowed by a policy or set of policies following the evaluation logic below to be allowed.\nAn explicit deny overrides an explicit allow.",
+  "correction": "",
+  "evidence": "候補ソース https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html を WebFetch で取得したところ、評価ロジックの本体は子ページ『How AWS enforcement code logic evaluates requests to allow or deny access』にあったのでそちらを取得（curl 実測 200）。summary of the AWS policy evaluation logic の 3 箇条がそのまま claim の 3 点（デフォルト拒否 / 明示的な Allow が必要 / 明示的な Deny が Allow に優先）に対応する。さらに『Deny evaluation – By default, all requests are denied. This is called an implicit deny.』『If the enforcement code finds even one explicit deny that applies, the enforcement code returns a final decision of Deny.』も確認。親ページ側にも『An explicit deny in either of these policies overrides the allow.』が identity-based / resource-based、permissions boundary、SCP/RCP の各節に繰り返し記載されている。補足として、公式は「デフォルト拒否」に AWS アカウントルートユーザーの例外を明記しているので、教材で厳密を期すならその一言があるとよい。"
+ },
+ {
+  "file": "infra/aws/IamAccount.tsx",
+  "claim": "アカウント作成直後に、ルートユーザーへ MFA（多要素認証）を設定し、日常作業用の IAM ユーザーまたは IAM Identity Center のユーザーを別途用意します。ルートのアクセスキーは作らない（あれば削除する）のが鉄則です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html",
+  "quote": "Instead of accessing the root user, create an administrative user for everyday tasks.\nBecause a root user can perform privileged actions, it's crucial to add MFA for the root user as a second authentication factor in addition to the email address and password as sign-in credentials.\nWe strongly recommend that you do not create access keys for your root user because the root user has full access to all AWS services and resources in the account, including billing information.",
+  "correction": "",
+  "evidence": "候補ソース https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html を WebFetch で取得したところ、ルートユーザー固有の指針は『Follow best practices to protect your root user credentials』から https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html に委譲されていたので同ページを取得（curl 実測 200）。見出し『Don't create access keys for the root user』『Secure your root user sign-in with multi-factor authentication (MFA)』と上記本文を確認した。「あれば削除する」に相当する記述も同ページにあり、Security Hub CSPM の説明として『such as having MFA on the root user and not having root user access keys』、AWS Config について『AWS Config can also identify access keys for the root user』、Organizations メンバーアカウントについて『Remove the root user credentials, access keys, signing certificates, and deactivate and delete multi-factor authentication (MFA).』と記載されている。あわせて https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-account-iam.html の『To secure your AWS account root user』手順に『Turn on multi-factor authentication (MFA) for your root user.』があり、アカウント作成直後の手順であることも確認。ただし『日常作業用の IAM ユーザー』については、公式は同ページで『For a single, standalone AWS account, use IAM roles to create identities in your account with specific permissions.』『Where possible, best practices recommend relying on temporary credentials instead of creating IAM users who have long-term credentials such as passwords and access keys.』とし、IAM ユーザーより IAM ロール / IAM Identity Center を優先するよう書いている。claim は誤りではないが、IAM ユーザーを第一候補に読ませない書き方（ロール / Identity Center を推奨、IAM ユーザーは例外用途）にする方が現行の公式姿勢に近い。"
+ },
+ {
+  "file": "infra/aws/Overview.tsx",
+  "claim": "一方で、後述の IAM のような一部のサービスや料金表示は us-east-1 が基準になることがあり、リージョンの概念は「全サービス一律」ではない点に注意します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html",
+  "quote": "Now, events created by Amazon CloudFront, AWS Identity and Access Management, and AWS STS are recorded in the Region in which they were created, the US East (N. Virginia) Region, us-east-1.",
+  "correction": "",
+  "evidence": "候補ソース https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html を WebFetch で取得したが、そこには『IAM and AWS STS each have a single global endpoint: (IAM) https://iam.amazonaws.com』とあるだけで us-east-1 への言及はなかった。そこで一次情報を 3 本追加で確認した。(1) AWS General Reference の AWS service endpoints (https://docs.aws.amazon.com/general/latest/gr/rande.html、curl 実測 200) に『The following services each have a global endpoint that spans AWS Regions:』としてリストの中に『AWS Identity and Access Management (IAM)』があり、リージョンの扱いが全サービス一律でないことが明記されている。同ページには『When you use a general endpoint, AWS routes the API request to US East (N. Virginia) (us-east-1), which is the default Region for API calls.』ともある。(2) CloudTrail concepts の Global service events 節 (https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html、curl 実測 200) に quote の一文があり、IAM が us-east-1 基準で扱われることを公式が明言している（同節には『For most global services, events are logged as occurring in US East (N. Virginia) Region』もある）。(3) 料金側は AWS Billing and Cost Management endpoints and quotas (https://docs.aws.amazon.com/general/latest/gr/billing.html、curl 実測 200) のエンドポイント表で、AWS Cost Explorer / AWS Cost Optimization Hub / AWS Data Exports / AWS Free Tier がいずれも『US East (N. Virginia) | us-east-1』の 1 行のみ、AWS Budgets も endpoint が budgets.amazonaws.com / budgets.us-east-1.api.aws であることを確認した。なお AWS Price List Service だけは us-east-1 / ap-south-1 / eu-central-1 の 3 リージョンに endpoint があるため、料金系がすべて us-east-1 のみというわけではない。claim は『ことがあり』と限定しているので公式と矛盾しない。"
+ },
+ {
+  "file": "react/mui/MuiIntro.tsx",
+  "claim": "<code>@mui/x-data-grid</code> - データグリッド（オプション）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/x/react-data-grid/",
+  "quote": "import { DataGrid } from '@mui/x-data-grid';",
+  "correction": "",
+  "evidence": "curl -sL https://mui.com/x/react-data-grid/ → 200。ページの「Community version (free forever)」節に上記 import 文がそのまま載る。整形前の原文も https://raw.githubusercontent.com/mui/mui-x/master/docs/data/data-grid/overview/overview.md（front matter に packageName: '@mui/x-data-grid'）で確認。実在確認: npm view @mui/x-data-grid version → 9.11.0（dist-tags latest=9.11.0）。@mui/material 9.3.1 の dependencies / peerDependencies には含まれないため「オプション（別パッケージ）」も一致。"
+ },
+ {
+  "file": "react/mui/MuiIntro.tsx",
+  "claim": "<code>CssBaseline</code> は CSS リセット（normalize.css に相当）です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://mui.com/material-ui/react-css-baseline/",
+  "quote": "You might be familiar with [normalize.css](https://github.com/necolas/normalize.css), a collection of HTML element and attribute style-normalizations.",
+  "correction": "",
+  "evidence": "レンダリング済みページ（curl 200）と原文 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/components/css-baseline/css-baseline.md の両方を全文確認。normalize.css への言及は「Global reset」節の上記 1 文だけで、CssBaseline が normalize.css に相当する／同等であるという記述はどこにもない。むしろ「Approach」節は normalize にとどまらない Material Design 固有の既定値を挙げている（'The default Material Design background color is applied. It's using theme.palette.background.default'）。同節には 'The margin in all browsers is removed.' 'box-sizing is set globally on the <html> element to border-box.' もあり、教材の後続文（余白リセット・box-sizing 統一）は裏が取れるが、「normalize.css に相当」という同等性の主張自体に一次情報が触れていないため判定不能。"
+ },
+ {
+  "file": "react/mui/MuiIntro.tsx",
+  "claim": "{/* 基本的なスタイリング: p: 2 は padding 16px（8px × 2） */}",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/material-ui/customization/spacing/",
+  "quote": "Material UI uses a recommended 8px scaling factor by default.\n\ntheme.spacing(2); // `${8 * 2}px` = '16px'",
+  "correction": "",
+  "evidence": "curl -sL https://mui.com/material-ui/customization/spacing/ → 200、原文 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/spacing/spacing.md でコードブロックを逐語確認。p→padding が spacing テーマキー経由であることは https://mui.com/system/spacing/ の API 表（'p | padding | spacing'）と Transformation 節（'input: number & theme: number : the prop value is multiplied by the theme value.' に続くコード `const theme = { spacing: 8, }` / `<Box sx={{ m: 2 }} /> // margin: 16px;`）で確認。既定テーマでの p: 2 = padding 16px（8 × 2）は一致する。"
+ },
+ {
+  "file": "react/mui/MuiComponents.tsx",
+  "claim": "<code>{'<Grid item xs={12} md={8}>'}</code> は「モバイルでは全幅、md（900px）以上で 8 カラム」。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/material-ui/customization/breakpoints/",
+  "quote": "- **md,** medium: 900px",
+  "correction": "",
+  "evidence": "ブレークポイント値は https://mui.com/material-ui/customization/breakpoints/ （curl 200）と原文 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/breakpoints/breakpoints.md の Default breakpoints 一覧で確認（xs 0px / sm 600px / md 900px / lg 1200px / xl 1536px）。プロップの意味は https://mui.com/material-ui/react-grid-legacy/ に 'For example, xs={12} sizes a component to occupy the full width of its parent container, regardless of the viewport size.' 'Width values given to larger breakpoints override those given to smaller breakpoints.' とあり、xs={12}=全幅、md={8}=md 以上で 12 カラム中 8 カラム、と一致する。注意点: この item / xs / md のプロップ構文は現行版では GridLegacy のもので、同ページに 'The GridLegacy component has been deprecated. Please use Grid instead.' と明記されている。現行 Grid は https://mui.com/material-ui/react-grid/ の通り size={{ xs: 12, md: 8 }} 形式（'a component with size={{ xs: 12, sm: 6 }} occupies the entire viewport width when the viewport is less than 600 pixels wide'）。意味の説明としては正しいが API は旧世代。"
+ },
+ {
+  "file": "react/mui/MuiCustomization.tsx",
+  "claim": "// スペーシングの基準値（デフォルト: 8px）\n  spacing: 8,",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/material-ui/customization/spacing/",
+  "quote": "Material UI uses a recommended 8px scaling factor by default.",
+  "correction": "",
+  "evidence": "curl -sL https://mui.com/material-ui/customization/spacing/ → 200。冒頭に上記の 1 文があり、直後のコードで `const theme = createTheme(); theme.spacing(2); // `${8 * 2}px` = '16px'` と既定値 8 を示している。カスタム側の例（`createTheme({ spacing: 4 })` → `theme.spacing(2); // '8px'`）から、spacing に数値を渡す形式と既定 8 の両方が確認できる。原文は https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/spacing/spacing.md。"
+ },
+ {
+  "file": "react/mui/MuiCustomization.tsx",
+  "claim": "<code>mode: 'dark'</code> を設定するだけで、MUI の全コンポーネントがダークモードに対応します。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://mui.com/material-ui/customization/dark-mode/",
+  "quote": "Setting the dark mode this way only works if you are using [the default palette](/material-ui/customization/default-theme/). If you have a custom palette, make sure that you have the correct values based on the `mode`. The next section explains how to do this.",
+  "correction": "「設定するだけで」は成立しない。公式ドキュメントは (1) この方法が有効なのはデフォルトパレットを使っている場合だけで、カスタムパレットを持つ場合は mode に応じた値を自分で用意する必要があると warning で明記し、(2) アプリの背景をダークにするには CssBaseline の併用が必要（'Adding `<CssBaseline />` inside of the `<ThemeProvider>` component will also enable dark mode for the app's background.'）と書いている。公式が説明しているのは palette 値（text / action / background / divider）の書き換えであり、「全コンポーネントが対応する」という全称の記述は一次情報に存在しない。",
+  "evidence": "curl -sL https://mui.com/material-ui/customization/dark-mode/ → 200 でページ本文を確認し、原文 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/dark-mode/dark-mode.md の 37 行（CssBaseline の一文）と 39-41 行の :::warning ブロック（引用した 40 行）を逐語確認。mode: 'dark' の効果として公式が列挙するのは palette.text.* / palette.action.* / palette.background.* / palette.divider の値変更で、「全コンポーネントが対応」という表現はページ内にない。"
+ },
+ {
+  "file": "react/mui/MuiCustomization.tsx",
+  "claim": "MUI のデフォルトではボタンのテキストがすべて大文字（<code>SUBMIT</code>）になります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://github.com/mui/material-ui/blob/master/packages/mui-material/src/styles/createTypography.js",
+  "quote": "const caseAllCaps = {\n  textTransform: 'uppercase',\n};",
+  "correction": "",
+  "evidence": "ベンダー公式リポジトリの実装で確認。https://raw.githubusercontent.com/mui/material-ui/master/packages/mui-material/src/styles/createTypography.js の 7-9 行が上記、72 行が `button: buildVariant(fontWeightMedium, 14, 1.75, 0.4, caseAllCaps),`。Button 側は https://raw.githubusercontent.com/mui/material-ui/master/packages/mui-material/src/Button/Button.js の 102 行が `...theme.typography.button,` で、この既定値をそのまま展開している。配布物でも同一で、npm pack @mui/material@9.3.1 を展開した styles/createTypography.js に textTransform: 'uppercase'、Button/Button.js 98 行に ...theme.typography.button, を確認。"
+ },
+ {
+  "file": "react/nextjs-css/CssModulesSc.tsx",
+  "claim": "<td className=\"p-3 font-medium text-foreground\">MUI</td>\n                    <td className=\"p-3 text-red-600 font-medium\">非対応</td>\n                    <td className=\"p-3 text-foreground/80\">CacheProvider 必要</td>",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://mui.com/material-ui/integrations/nextjs/",
+  "quote": "While it's not required to use the `AppRouterCacheProvider` component, it's recommended to use it to ensure that the styles are appended to the `<head>` and not rendering in the `<body>`.",
+  "correction": "「Server Component: 非対応」は MUI 公式の記述（RSC としては使えないが SSR は可能）と一致するが、「設定: CacheProvider 必要」は誤り。AppRouterCacheProvider は必須ではなく推奨で、未使用でも動作する（その場合 CSS が <head> ではなく <body> 側に入る）。正しくは「AppRouterCacheProvider は推奨（必須ではない）」。Pages Router 側の AppCacheProvider についても同じ文言で 'not required ... recommended' と書かれている。",
+  "evidence": "curl -sL https://mui.com/material-ui/integrations/nextjs/ → 200 で全文を確認し、原文 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/integrations/nextjs/nextjs.md の 58 行（App Router）と 307 行（Pages Router）で逐語一致を確認。「非対応」の側の根拠は https://mui.com/blog/mui-next-js-app-router/ の 'although no Material UI, Base UI, Joy UI, or MUI System components can be used as React Server Components (RSCs) at this time, they do support server-side rendering (SSR)'。現行 9.3.1 でも Emotion が既定のまま（npm pack した package.json の peerDependencies に @emotion/react ^11.5.0 / @emotion/styled ^11.3.0）で、RSC 対応の発表は見当たらない。"
+ },
+ {
+  "file": "react/nextjs-css/TailwindMui.tsx",
+  "claim": "MUI のコンポーネントは内部で React の hooks やイベントハンドラを使用しているため、\n                Client Component でのみ使用できます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/blog/mui-next-js-app-router/",
+  "quote": "A note on terminology: although no Material UI, Base UI, Joy UI, or MUI System components can be used as React Server Components (RSCs) at this time, they do support server-side rendering (SSR).",
+  "correction": "",
+  "evidence": "MUI 公式ブログ（curl -sL https://mui.com/blog/mui-next-js-app-router/ → 200）で上記を確認。同記事に 'we've updated all Material UI, Base UI, Joy UI, and MUI System components to ship with the \"use client\" directive, to let your apps know that these are Client Components' もある。配布物でも裏取り: npm pack @mui/material@9.3.1 を展開し、js 655 ファイル中 220 が 'use client' を含み、主要コンポーネント（Button/Button.js、Box/Box.js、Typography/Typography.js、styles/ThemeProvider.js 等）はすべて 2 行目が 'use client'。補足 3 点: (1) 理由付けは公式と異なる。公式が挙げるのは hooks ではなく CSS-in-JS で、'\"traditional\" CSS-in-JS poses a serious challenge that may require us to move beyond Emotion' と書かれている。(2) v5.14.0 以降 MUI 側が 'use client' を出荷しているので、利用側のファイルに自分で 'use client' を書く必要はない（教材の続きの一文はこの点で現行仕様と合わない）。(3) 例外が 1 つあり、InitColorSchemeScript だけは 'use client' なしで出荷され、公式ドキュメント https://mui.com/material-ui/react-init-color-scheme-script/ は Next.js App Router の src/app/layout.tsx（サーバー側）に置く例を示している。"
+ },
+ {
+  "file": "react/storybook/SbCss.tsx",
+  "claim": "API はほぼ同じですが、Emotion は MUI v5 の内部でも使われているため、MUI と併用する場合は Emotion を選ぶのが自然です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/blog/mui-next-js-app-router/",
+  "quote": "Emotion, which is the default styling solution for Material UI and Joy UI in v5",
+  "correction": "",
+  "evidence": "MUI 公式ブログ（curl 200）の 'What comes next' 節に上記の句があり、v5 の既定スタイリングが Emotion であることを名指しで確認。現行版の一次情報でも https://mui.com/material-ui/integrations/styled-components/ に 'By default, Material UI uses Emotion to generate CSS styles. All components rely on the styled() API to inject CSS into the page.' および 'We strongly recommend using Emotion for SSR projects.' があり、MUI と併用するなら Emotion という推奨まで公式の記述と一致する。配布物でも npm pack @mui/material@9.3.1 の peerDependencies が @emotion/react ^11.5.0 / @emotion/styled ^11.3.0 で、既定エンジンが Emotion のままであることを確認。なお「API はほぼ同じ」は、公式が @mui/styled-engine と @mui/styled-engine-sc について 'These two packages implement the same interface, making them interchangeable.' と述べている範囲での裏付け。"
+ },
+ {
+  "file": "react/ui-patterns/SnackbarPatterns.tsx",
+  "claim": "  z-index: 1400; /* MUI の Snackbar と同じ z-index */",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/material-ui/customization/z-index/",
+  "quote": "The `z-index` values start at an arbitrary number, high and specific enough to ideally avoid conflicts:\n\n- mobile stepper: 1000\n- fab: 1050\n- speed dial: 1050\n- app bar: 1100\n- drawer: 1200\n- modal: 1300\n- snackbar: 1400\n- tooltip: 1500",
+  "correction": "",
+  "evidence": "公式ドキュメント https://mui.com/material-ui/customization/z-index/ を WebFetch で取得（curl で HTTP 200 を実測）。さらに一次ソースであるリポジトリの原稿 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/z-index/z-index.md を curl で取得し、`- snackbar: 1400` が既定値として列挙されていることを逐語で確認した。同ページには \"These values can always be customized. You will find them in the theme under the `zIndex` key of the theme.\" とあり、1400 はカスタマイズ可能な既定値である点も一致する。"
+ },
+ {
+  "file": "react/css-basics/CssInJs.tsx",
+  "claim": "MUI（Material UI）v5 を使う場合は Emotion がデフォルトのスタイリングエンジンとして内蔵されています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v5.x/docs/data/material/getting-started/installation/installation.md",
+  "quote": "Material UI uses [Emotion](https://emotion.sh/docs/introduction) as its default styling engine.\nIf you want to use [styled-components](https://styled-components.com/) instead, run one of the following commands:",
+  "correction": "",
+  "evidence": "mui/material-ui リポジトリの v5.x ブランチ原稿を curl で取得。Installation ドキュメントに \"Material UI uses Emotion as its default styling engine.\" と明記。同ブランチの migration-v4 ドキュメント（https://raw.githubusercontent.com/mui/material-ui/v5.x/docs/data/material/migration/migration-v4/migration-v4.md）にも \"One of the biggest changes in v5 is the replacement of JSS for [Emotion](https://emotion.sh/docs/introduction) as a default styling solution.\" とあり、v5 の既定が Emotion であることは一次情報で確定。補足（判定には影響しないが記述の精度に関わる）: 同 Installation ドキュメントの既定インストール手順は `npm install @mui/material@^5.0.0 @emotion/react @emotion/styled` であり、Emotion は別途インストールする peer dependency として扱われる。「デフォルトのスタイリングエンジン」は正しいが、「内蔵（同梱）されている」という語感は実際のインストール手順とはややズレる。"
+ },
+ {
+  "file": "react/css-basics/EmotionPage.tsx",
+  "claim": "MUI v4 で代替オプション（デフォルトは JSS）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://v4.mui.com/guides/interoperability/",
+  "quote": "# Style Library Interoperability\n\n<p class=\"description\">While you can use the JSS based styling solution provided by Material-UI to style your application, you can also use the one you already know and love (from plain CSS to styled-components).</p>",
+  "correction": "",
+  "evidence": "v4 公式ドキュメント https://v4.mui.com/guides/interoperability/ を curl で HTTP 200 実測。逐語引用は同ページの一次原稿 https://raw.githubusercontent.com/mui/material-ui/v4.x/docs/src/pages/guides/interoperability/interoperability.md から取得したもので、Material-UI 提供のスタイリングは JSS ベースであること、styled-components は代替の選択肢として公式に案内されていること（対応セクション \"- [Styled Components](#styled-components)\" が列挙されている）が確認できる。JSS が既定である点は https://raw.githubusercontent.com/mui/material-ui/v4.x/docs/src/pages/styles/basics/basics.md の \"It uses [JSS](https://github.com/cssinjs/jss) at its core\" と、v5 migration ドキュメントの \"the replacement of JSS for Emotion as a default styling solution\" の両方で裏取りした。この表は styled-components 列の記述であり、styled-components が v5 のようなスタイリングエンジン差し替え（@mui/styled-engine-sc）として v4 でサポートされていたわけではなく、あくまで interoperability（併用・代替のスタイリング手段）として案内されていた点は補足。"
+ },
+ {
+  "file": "react/css-basics/EmotionPage.tsx",
+  "claim": "MUI のテーマでもこのパターンが採用されています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://mui.com/material-ui/customization/spacing/",
+  "quote": "# Spacing\n\n<p class=\"description\">Use the theme.spacing() helper to create consistent spacing between the elements of your UI.</p>\n\nMaterial UI uses [a recommended 8px scaling factor](https://m2.material.io/design/layout/understanding-layout.html) by default.\n\n```js\nconst theme = createTheme();\n\ntheme.spacing(2); // `${8 * 2}px` = '16px'\n```",
+  "correction": "",
+  "evidence": "https://mui.com/material-ui/customization/spacing/ を curl で HTTP 200 実測し、一次原稿 https://raw.githubusercontent.com/mui/material-ui/master/docs/data/material/customization/spacing/spacing.md を curl で取得。`theme.spacing(factor)` という「数値の係数を受け取る関数でスペーシングを定義する」パターンが MUI のテーマに実在することは逐語で確認できる（`theme.spacing(2)` → '16px'）。ただし本文の直前にある例示スケール（spacing(1) = 4px、spacing(2) = 8px）は MUI の既定値ではない。MUI の既定は 8px スケールで spacing(1) = '8px'、spacing(2) = '16px'（4px にするには `createTheme({ spacing: 4 })` の明示指定が必要で、公式にも `theme.spacing(2); // ${4 * 2}px = '8px'` として別途カスタム例が載っている）。「このパターン」を関数パターンの意味に取れば正しいが、直前の 4px スケールごと MUI が採用していると読まれうる書き方なので、既定は 8px である旨を追記するのが安全。"
+ },
+ {
+  "file": "api/basics/Http.tsx",
+  "claim": "ブラウザは http://localhost を「安全なコンテキスト」として扱います。 そのため、ローカル開発では HTTPS を立てなくても多くの機能が動きます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts",
+  "quote": "Locally-delivered resources such as those with http://127.0.0.1 , http://localhost , and http://*.localhost URLs (for example, http://dev.whatever.localhost/ ) are not delivered using HTTPS, but they can be considered to have been delivered securely because they are on the same device as the browser. They are therefore potentially trustworthy. This is convenient for developers testing applications locally.",
+  "correction": "",
+  "evidence": "MDN Web Docs「Secure contexts」を curl で取得し、HTML タグを除去した本文を正規表現 'potentially trustworthy' で検索して該当段落を逐語取得した (https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)。同ページには 'Note: Firefox 84 and later support http://localhost and http://*.localhost URLs as trustworthy origins' との但し書きもあり、Firefox 83 以前は例外である点だけ主張と差がある。"
+ },
+ {
+  "file": "api/basics/Http.tsx",
+  "claim": "ブラウザの多くの機能（Service Worker など）も、安全なオリジン（HTTPS または localhost）でしか動きません。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+  "quote": "Service workers are only available in secure contexts : this means that their document is served over HTTPS, although browsers also treat http://localhost as a secure context, to facilitate local development.",
+  "correction": "",
+  "evidence": "MDN「Service Worker API」を curl で取得し、本文を 'secure contexts' で検索して該当文を逐語取得した (https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。同ページには Firefox の DevTools 設定 'Enable Service Workers over HTTP (when toolbox is open)' で HTTP でもテスト実行できるという注記があるが、これはテスト用の明示的なオプトインであり、既定挙動としての主張は成立する。"
+ },
+ {
+  "file": "api/rest-design/Idempotency.tsx",
+  "claim": "// 操作の開始時に 1 回だけ生成する（crypto.randomUUID は UUID v4 を返す）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID",
+  "quote": "The randomUUID() method of the Crypto interface is used to generate a v4 UUID using a cryptographically secure random number generator. […] Return value A string containing a randomly generated, 36 character long v4 UUID.",
+  "correction": "",
+  "evidence": "MDN「Crypto: randomUUID() method」を curl で取得し、本文を '36 character' / 'UUID using a cryptographically' で検索して説明文と Return value を逐語取得した (https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)。同ページの Specifications 欄は Web Cryptography Level 2 の Crypto-method-randomUUID を参照している。なお引用中の […] は説明文と戻り値欄の間の見出し (Syntax / Parameters) を省略した箇所。"
+ },
+ {
+  "file": "api/Quickstart.tsx",
+  "claim": "CORS はブラウザだけが強制する。curl では通る。サーバの許可オリジン設定の問題。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS",
+  "quote": "セキュリティ上の理由から、ブラウザーは、スクリプトによって開始されるオリジン間 HTTP リクエストを制限しています。例えば、 fetch() や XMLHttpRequest は 同一オリジンポリシー (same-origin policy) に従います。つまり、これらの API を使用するウェブアプリケーションは、そのアプリケーションが読み込まれたのと同じオリジンに対してのみリソースのリクエストを行うことができ、それ以外のオリジンからの場合は正しい CORS ヘッダーを含んでいることが必要で",
+  "correction": "",
+  "evidence": "MDN 日本語版 CORS ページ (candidateSource の https://developer.mozilla.org/ja/docs/Web/HTTP/CORS は 200 で /ja/docs/Web/HTTP/Guides/CORS へリダイレクト) を curl で取得し本文から逐語引用。全称の「ブラウザだけ」については 2 点で裏取りした: (1) Deno 公式ドキュメント https://docs.deno.com/runtime/reference/web_platform_apis/ が 'Deno does not follow the same-origin policy, because the Deno user agent currently does not have the concept of origins… Because of this Deno does not implement the following sections of the WHATWG fetch specification: Section 3.1. Origin header. Section 3.2. CORS protocol.' と明記しており、fetch を持つ非ブラウザランタイムでも CORS は強制されない。(2) curl -H 'Origin: https://evil.example' で MDN の CORS ページを取得したところ HTTP/2 200 が返り Access-Control-* ヘッダーは 1 つも返らなかった（curl 側は何も検査しない）。「サーバの許可オリジン設定の問題」も上記引用の「正しい CORS ヘッダーを含んでいることが必要」に対応する。"
+ },
+ {
+  "file": "react/practice-app/Api.tsx",
+  "claim": "エラーハンドリング / fetch: HTTP エラーは throw しない / axios: 4xx/5xx を自動的にエラーとして扱う",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch",
+  "quote": "A fetch() promise does not reject if the server responds with HTTP status codes that indicate errors ( 404 , 504 , etc.). Instead, a then() handler must check the Response.ok and/or Response.status properties.",
+  "correction": "",
+  "evidence": "fetch 側: MDN「Window: fetch() method」を curl で取得し本文から逐語引用 (https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch)。axios 側: リポジトリ実装 https://raw.githubusercontent.com/axios/axios/v1.x/lib/defaults/index.js の既定値が逐語で 'validateStatus: function validateStatus(status) { return status >= 200 && status < 300; },' であり、2xx 以外は既定で reject される。公式ドキュメント https://axios.rest/pages/advanced/error-handling (axios-http.com/docs/handling_errors から 301) も 'The default behaviour of axios is to reject the promise if the request fails.' と記載。quote 欄には自分で逐語確認できた MDN の一文のみを入れ、axios の逐語ソース行は本欄に記載した。"
+ },
+ {
+  "file": "react/ui-patterns/DialogPatterns.tsx",
+  "claim": "<dialog> 要素は、ブラウザが以下の機能を自動的に提供します: (1) ESC キーによるクローズ、(2) フォーカストラップ（Modal の場合）、(3) ::backdrop 擬似要素、(4) top layer への配置（z-index 問題の解消）。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog",
+  "quote": "Modal dialogs can also be closed by pressing the Esc key. […] Modal dialog boxes block interaction with other UI elements, making the rest of the page inert , while non-modal dialog boxes allow interaction with the rest of the page. […] When implementing modal dialogs, everything other than the <dialog> and its contents should be rendered inert using the inert attribute. When using <dialog> along with the HTMLDialogElement.showModal() method, this behavior is provided by the browser. […] The CSS ::backdrop pseudo-element can be used to style the backdrop of a modal dialog, which is displayed behind the <dialog> element when the dialog is displayed using the HTMLDialogElement.showModal() method. […] <dialog> s are set to display: none; when hidden and display: block; when shown, as well as being removed from / added to the top layer and the accessibility tree .",
+  "correction": "",
+  "evidence": "MDN「<dialog>」(candidateSource の /ja/docs/Web/HTML/Element/dialog は 200 で /en-US/docs/Web/HTML/Reference/Elements/dialog に解決) を curl で取得し、'Esc key' / 'inert' / 'top layer' / '::backdrop' で本文検索して 4 項目すべての該当文を逐語取得した。[…] は別々の段落を連結した箇所を示す。(2) の「フォーカストラップ」は MDN がその語を使っていないが、showModal() でダイアログ以外が inert 化される（inert 要素はフォーカス不可）挙動をブラウザが提供すると明記されており、実質的に一致する。(4) の「z-index 問題の解消」は MDN Glossary「Top layer」の 'The top layer is a specific layer that spans the entire width and height of the viewport and sits on top of all other layers displayed in a web document.' が裏付ける (https://developer.mozilla.org/en-US/docs/Glossary/Top_layer)。ただし (1) は closedby=\"none\" を指定した場合は無効になる点が補足として必要。"
+ },
+ {
+  "file": "react/ui-patterns/DialogPatterns.tsx",
+  "claim": "// 3. backdrop クリックで閉じる\\n// ※ ネイティブでは未サポート。自前で実装が必要",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog",
+  "quote": "closedby Specifies the types of user actions that can be used to close the <dialog> element. This attribute distinguishes three methods by which a dialog might be closed: A light dismiss user action , in which the <dialog> is closed when the user clicks or taps outside it. This is equivalent to the \"light dismiss\" behavior of \"auto\" state popovers . […] Possible values are: any The dialog can be dismissed using any of the three methods.",
+  "correction": "backdrop クリックで閉じる挙動（light dismiss）は現在ネイティブでサポートされている。<dialog closedby=\"any\"> を指定すればブラウザが自前実装なしで閉じる。ただし対応は Chrome / Edge 134 以降、Firefox 141 以降、Safari は Technology Preview のみ（安定版未対応）なので、Safari を含むクロスブラウザ対応が要る場合はフォールバックの自前実装が依然必要、という書き方が正確。closedby を指定しない場合は showModal() なら closerequest 相当（Esc は効くが backdrop クリックでは閉じない）として扱われる。",
+  "evidence": "MDN「<dialog>」を curl で取得し 'Esc key' 検索で closedby 属性の定義段落を逐語取得 (https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)。同ページには 'If the <dialog> element does not have a valid closedby value specified, then if it was opened using showModal(), it behaves as if the value was \"closerequest\"' との既定挙動の記述もある。対応状況は MDN browser-compat-data の一次データ https://raw.githubusercontent.com/mdn/browser-compat-data/main/html/elements/dialog.json を取得し html.elements.dialog.closedby.__compat.support を JSON でパースして確認した: chrome 134 / firefox 141 / safari \"preview\"、edge・opera 等は mirror、status は experimental:false, standard_track:true。caniuse.com/mdn-html_elements_dialog_closedby でもグローバル 71.54%、Safari は Technology Preview のみと一致。"
+ },
+ {
+  "file": "react/accessibility/TableDesign.tsx",
+  "claim": "/* text-overflow: ellipsis は不要（line-clamp が自動で付ける） */",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp",
+  "quote": "In most cases you will also want to set overflow to hidden , otherwise the contents won't be clipped but an ellipsis will still be shown after the specified number of lines.",
+  "correction": "",
+  "evidence": "candidateSource の https://developer.mozilla.org/docs/Web/CSS/-webkit-line-clamp を curl -sL で辿ると 200 で https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp に解決される。同ページを curl で取得し 'ellipsis' で本文検索して該当文を逐語取得した。text-overflow を併用しなくても省略記号が付くことが明記されており、主張と一致する。同ページには '-webkit-line-clamp property only works in combination with the display property set to -webkit-box or -webkit-inline-box and the -webkit-box-orient property set to vertical' との併用条件も記載されている。"
+ },
+ {
+  "file": "react/accessibility/TableDesign.tsx",
+  "claim": "-webkit-overflow-scrolling: touch;  /* iOS のスムーズスクロール */",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://webkit.org/blog/9674/new-webkit-features-in-safari-13/",
+  "quote": "Accelerated scrolling the main frame has always been available with WebKit on iOS. In addition, developers could use a CSS property called -webkit-overflow-scrolling to opt-in to fast scrolling for overflow scroll. None of that is necessary with iPadOS and iOS 13. Subframes are no longer extended to the size of their contents and are now scrollable, and overflow: scroll; and iframe always get accelerated scrolling. Fast scrolling emulation libraries are no longer needed and -webkit-overflow-scrolling: touch; is a no-op on iPad. On iPhone, it still has the side-effect of creating a CSS stacking context on scrollable elements.",
+  "correction": "iOS / iPadOS 13 以降、overflow: scroll と iframe は常にアクセラレーテッドスクロールになるため -webkit-overflow-scrolling: touch は不要。iPad では no-op で、iPhone ではスクロール可能要素に CSS スタッキングコンテキストを作る副作用だけが残る。現行 iOS 向けにスムーズスクロールを得る目的でこの宣言を書く必要はなく、削除してよい（惰性スクロールの制御が必要なら overscroll-behavior / scroll-behavior を使う）。",
+  "evidence": "WebKit 公式ブログ「New WebKit Features in Safari 13」を curl で取得し、HTML タグ除去後の本文を 'overflow-scrolling' で検索して該当段落を逐語取得した (https://webkit.org/blog/9674/new-webkit-features-in-safari-13/)。MDN の該当ページはすでに削除されており、https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling および .../Reference/Properties/-webkit-overflow-scrolling は curl で 404、フランス語版 /fr/docs/Web/CSS/-webkit-overflow-scrolling は overflow ページへリダイレクトされる（= MDN 上でドキュメントとして維持されていない）。"
+ },
+ {
+  "file": "react/accessibility/TableDesign.tsx",
+  "claim": "/* デメリット: すべてのセルを読むまで描画が始まらない（大量行で遅延） */",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/TR/CSS21/tables.html",
+  "quote": "This algorithm may be inefficient since it requires the user agent to have access to all the content in the table before determining the final layout and may demand more than one pass.",
+  "correction": "",
+  "evidence": "CSS 2.1 勧告 17.5.2.2 Automatic table layout を w3.org から curl で取得し、本文を 'inefficient' で検索して逐語取得した (https://www.w3.org/TR/CSS21/tables.html)。対比として同ページ 17.5.2.1 Fixed table layout に 'In this manner, the user agent can begin to lay out the table once the entire first row has been received. Cells in subsequent rows do not affect column widths.' があり、fixed のみ先頭行到達時点でレイアウト開始できることが明記されている。MDN の table-layout ページ (https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout) も fixed について 'With this algorithm the entire table can be rendered once the first table row has been downloaded and analyzed. This can speed up rendering time over the \"automatic\" layout method' と記載しており整合する。なお仕様が述べているのは「最終レイアウト確定に全内容へのアクセスが必要」であり、実ブラウザの逐次描画の具体的挙動までは規定していない点は留意。"
+ },
+ {
+  "file": "threejs/basics/animation.tsx",
+  "claim": "ブラウザでは requestAnimationFrame を使って、毎フレーム（通常 60fps）描画を更新します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+  "quote": "The frequency of calls to the callback function will generally match the display refresh rate. The most common refresh rate is 60hz, (60 cycles/frames per second), though 75hz, 120hz, and 144hz are also widely used.",
+  "correction": "",
+  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame を取得（HTTP 200）し、article 要素の本文から該当段落を逐語抽出。教材の「通常 60fps」は MDN の 'The most common refresh rate is 60hz' に対応し、固定値ではなく最頻値としての記述なので一致する。なお同ページには 'The frequency of calls ... will generally match the display refresh rate' と '75hz, 120hz, and 144hz are also widely used'、さらに 'the animation will run faster on high refresh-rate screens' の警告があるため、60fps 固定を前提にした実装（フレーム数で移動量を決める書き方）は誤りになる点は教材側で補足する価値がある。"
+ },
+ {
+  "file": "threejs/applied/responsive.tsx",
+  "claim": "window.devicePixelRatio はデバイスの物理ピクセルと CSS ピクセルの比率です。 Retina ディスプレイでは 2 以上、最新スマートフォンでは 3 になることもあります。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
+  "quote": "A double-precision floating-point value indicating the ratio of the display's resolution in physical pixels to the resolution in CSS pixels. A value of 1 indicates a classic 96 DPI display, while a value of 2 is expected for HiDPI/Retina displays. Other values may be returned in the case of unusually low resolution displays or, more often, when a screen has a higher pixel density than double the standard resolution of 96 DPI. Modern mobile device screens - which offer high display resolutions at small physical sizes - often yield a devicePixelRatio value greater than 2.",
+  "correction": "",
+  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio （HTTP 200）と CSSOM View 仕様 https://drafts.csswg.org/cssom-view/ （HTTP 200）を取得。定義部分は一致する（MDN: 'The devicePixelRatio of Window interface returns the ratio of the resolution in physical pixels to the resolution in CSS pixels for the current display device.' / 仕様: 'The devicePixelRatio attribute must return the result of the following determine the device pixel ratio algorithm' … 'Return the result of dividing CSS pixel size by device pixel size.'）。一方で数値の主張は一次情報と厳密に照合できなかった。MDN は Retina について 'a value of 2 is expected'（＝2 が想定値）と書いており「2 以上」とは書いていない。またモバイルは 'greater than 2' としか書かれておらず、'3' という具体値は MDN・CSSOM View 仕様のいずれにも出現しない（取得したページ本文を grep して 3 / 3x の記載が 0 件であることを確認）。Apple の Human Interface Guidelines（https://developer.apple.com/design/human-interface-guidelines/images, HTTP 200）は JS レンダリングで本文が取得できず @3x の逐語引用も取れなかった。よって定義は確認できるが、数値部分（2 以上 / 3）は未確定として UNDETERMINED とする。"
+ },
+ {
+  "file": "threejs/game-dev/aircraft.tsx",
+  "claim": "e.key ではなく e.code を使う - キーボード配列（QWERTY / AZERTY 等）に依存しない",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code",
+  "quote": "The KeyboardEvent.code property represents a physical key on the keyboard (as opposed to the character generated by pressing the key). In other words, this property returns a value that isn't altered by keyboard layout or the state of the modifier keys.",
+  "correction": "",
+  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code を取得（HTTP 200）し、冒頭定義を逐語抽出。'isn't altered by keyboard layout' が教材の「キーボード配列に依存しない」に直接対応する。教材側の実コード（client/src/pages/threejs/game-dev/aircraft.tsx:202,205 の keys.current[e.code]）も e.code を使っており記述と整合している。"
+ },
+ {
+  "file": "threejs/game-dev/hud-gameloop.tsx",
+  "claim": "モバイル対応 - デバイスの傾きセンサー（DeviceOrientation API）で スマートフォンを傾けて操作",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent",
+  "quote": "The DeviceOrientationEvent interface of the Device Orientation Events provides web developers with information from the physical orientation of the device running the web page.",
+  "correction": "",
+  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent を取得（HTTP 200）。API が端末の物理的な向きの情報を提供することは冒頭定義で確認できる（Baseline 表記は 'Widely available ... available across browsers since September 2023'）。該当箇所は client/src/pages/threejs/game-dev/hud-gameloop.tsx:613-616 の「発展のアイデア」一覧の 1 項目で、制約の有無には言及していないため一次情報と矛盾しない。ただし同ページには 'Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.' と静的メソッド 'DeviceOrientationEvent.requestPermission()' — 'Requests the user's permission to access device orientation data. Returns a Promise that resolves with a string of \"granted\" or \"denied\".' が明記されている。HTTPS 必須かつ iOS Safari ではユーザー操作起点の権限要求が要るので、実装を促す文脈なら教材側に注記を足すのが望ましい（主張自体の誤りではない）。"
  }
 ]
