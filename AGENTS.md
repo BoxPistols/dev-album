@@ -1,7 +1,7 @@
 # AGENTS.md
 
 AI コーディングツール（Claude Code / Cursor / Copilot 等）**共通**の規約の正本（SSOT）。
-ツール固有の指示は [CLAUDE.md](./CLAUDE.md)、アーキテクチャと設計判断は [DESIGN.md](./DESIGN.md)、
+ツール固有の指示は [CLAUDE.md](./CLAUDE.md)、アーキテクチャと設計判断は [ARCHITECTURE.md](./ARCHITECTURE.md)、
 機能仕様は [specs/](./specs/) を参照。ここに書いた規約は全ツール・人間の共通基準とする。
 
 ## プロジェクト概要

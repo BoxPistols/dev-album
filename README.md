@@ -13,7 +13,7 @@ https://dev-album.vercel.app
 | ファイル | 役割 |
 |---|---|
 | [AGENTS.md](./AGENTS.md) | ツール非依存の共通規約（コーディング / テスト / PR / レビュー）の正本 |
-| [DESIGN.md](./DESIGN.md) | アーキテクチャ・意思決定・制約の正本 |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | アーキテクチャ・意思決定・制約の正本 |
 | [CLAUDE.md](./CLAUDE.md) | Claude Code 固有の指示、プレビュー / 教材固有の詳細 |
 | [specs/](./specs/README.md) | 機能・教材セクションの自然言語仕様（スペック駆動） |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | 貢献ガイド |
@@ -143,7 +143,7 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 
 - 許可: ビルド、テスト、Git 操作、ファイル読み書き
 - 拒否: `rm -rf /`、`git push --force`
-- リポジトリに載せるのはプロジェクトスコープの最小限のみ。これは**セキュリティ境界ではなく**、実効的な防御は CI ゲートとレビューが担う（[DESIGN.md](./DESIGN.md) 参照）。
+- リポジトリに載せるのはプロジェクトスコープの最小限のみ。これは**セキュリティ境界ではなく**、実効的な防御は CI ゲートとレビューが担う（[ARCHITECTURE.md](./ARCHITECTURE.md) 参照）。
 
 ## デザインシステム
 

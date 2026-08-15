@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-design-md-spec",
+    date: "2026-08-16",
+    title: "Google Labs の DESIGN.md を扱うページを追加",
+    description:
+      "Stitch から切り出されたビジュアルアイデンティティ記述フォーマットを、公式仕様と @google/design.md@0.4.0 の実挙動で解説した。8 セクションの順序制約、コンポーネントに書ける 8 プロパティ、11 個の lint ルールに加え、クォートしない数値が lint 無警告・exit 0 のまま export から消える挙動を再現手順つきで載せている。",
+    category: "feature",
+    link: "/claude-mux/multi-ai/design-md",
+  },
+  {
+    id: "2026-08-16-agent-docs-rename",
+    date: "2026-08-16",
+    title: "3 層ドキュメントの第 3 層を ARCHITECTURE.md に改め、公式記述で裏を取り直した",
+    description:
+      "DESIGN.md は Google Labs の公開フォーマット名として実在し内容も別物のため、アーキテクチャ決定記録の層を ARCHITECTURE.md に改名した。あわせて「Claude Code は AGENTS.md を自動では読まない」「@import ではコンテキストは減らない」「compact 後の再読込指示は不要」の 3 点を公式ドキュメントの記述に沿って訂正している。",
+    category: "fix",
+    link: "/claude-mux/multi-ai/agent-docs",
+  },
+  {
     id: "2026-08-11-git-slack-notifications",
     date: "2026-08-11",
     title: "Git 編のフロー自動化に「Slack 通知連携」ページを追加",

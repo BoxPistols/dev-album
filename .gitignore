@@ -13,3 +13,6 @@ storybook-static/
 # Claude Code のみ
 .claude/skills/ui-ux-pro-max/
 
+
+# Playwright MCP のセッション出力（スナップショット・コンソールログ）
+.playwright-mcp/

@@ -200,6 +200,7 @@ const CmAmazonQDeveloper = lazy(() => import("./pages/claude-mux/ai-coding-agent
 const CmChoosingTools = lazy(() => import("./pages/claude-mux/ai-coding-agents/ChoosingTools"));
 const CmContextEngineering = lazy(() => import("./pages/claude-mux/claude-core/ContextEngineering"));
 const CmHarnessEngineering = lazy(() => import("./pages/claude-mux/best-practices/HarnessEngineering"));
+const CmAgentDocs = lazy(() => import("./pages/claude-mux/multi-ai-architecture/AgentDocs"));
 const CmDesignMd = lazy(() => import("./pages/claude-mux/multi-ai-architecture/DesignMd"));
 const CmCmuxIntro = lazy(() => import("./pages/claude-mux/cmux/CmuxIntro"));
 const CmCmuxSetup = lazy(() => import("./pages/claude-mux/cmux/CmuxSetup"));
@@ -613,6 +614,7 @@ function App() {
                 </Route>
                 <Route path="/claude-mux/claude-core/context-engineering" component={CmContextEngineering} />
                 <Route path="/claude-mux/best-practices/harness-engineering" component={CmHarnessEngineering} />
+                <Route path="/claude-mux/multi-ai/agent-docs" component={CmAgentDocs} />
                 <Route path="/claude-mux/multi-ai/design-md" component={CmDesignMd} />
                 <Route path="/claude-mux/cmux/cmux-intro" component={CmCmuxIntro} />
                 <Route path="/claude-mux/cmux/cmux-setup" component={CmCmuxSetup} />

@@ -24,7 +24,7 @@ Web 開発の実践リファレンス。Git / React / Claude Code / Three.js / A
 |---|---|---|
 | **CLAUDE.md**（本ファイル） | Claude Code 固有の指示・プレビュー/教材固有の詳細 | Claude Code |
 | **[AGENTS.md](./AGENTS.md)** | ツール非依存の共通規約（コーディング/テスト/PR/レビュー）の正本 | 全 AI ツール + 人間 |
-| **[DESIGN.md](./DESIGN.md)** | アーキテクチャ・意思決定・制約の正本 | 人間 + AI（参照） |
+| **[ARCHITECTURE.md](./ARCHITECTURE.md)** | アーキテクチャ・意思決定・制約の正本 | 人間 + AI（参照） |
 | **[specs/](./specs/)** | 機能・教材セクションの自然言語仕様（スペック駆動） | 人間 + AI |
 
 共通のコーディング/テスト/PR 規約の正本は **AGENTS.md**。本ファイルは Claude Code 固有の運用とプレビュー/教材固有の詳細に集中する。新機能・新セクションは `specs/` に仕様を書いてから実装する（適用判断は `specs/README.md`）。

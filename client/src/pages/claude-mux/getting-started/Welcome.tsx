@@ -43,7 +43,7 @@ export default function Welcome() {
                 { title: 'Claude Code を体系的に学びたい', desc: 'スラッシュコマンド、MCP、Subagents 等の機能を網羅的に理解したい方' },
                 { title: 'AIエージェントの開発効率を最大化したい', desc: 'コンテキスト管理、トークン最適化、権限設定でエージェントを使いこなしたい方' },
                 { title: 'コンテキストスイッチを減らしたい', desc: 'AIへの指示、ログ監視、テスト実行を一つの画面で完結させたい方' },
-                { title: '開発環境を再現可能にしたい', desc: 'CLAUDE.md / AGENTS.md / DESIGN.md と .mcp.json で、ハーネスごと環境をコード化したい方' },
+                { title: '開発環境を再現可能にしたい', desc: 'CLAUDE.md / AGENTS.md / ARCHITECTURE.md と .mcp.json で、ハーネスごと環境をコード化したい方' },
               ].map(item => (
                 <div key={item.title} className="flex gap-3">
                   <div className="text-[var(--claude-primary)] font-bold mt-1">&#10003;</div>
