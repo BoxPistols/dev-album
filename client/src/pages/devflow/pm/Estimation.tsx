@@ -445,7 +445,7 @@ export default function Estimation() {
                 },
                 {
                   title: "Mountain Goat Software - Velocity",
-                  url: "https://www.mountaingoatsoftware.com/blog/why-i-prefer-velocity-over-other-measures",
+                  url: "https://www.mountaingoatsoftware.com/agile/know-exactly-what-velocity-means-to-your-scrum-team",
                   description: "ベロシティの考え方と、誤用しないための注意点",
                 },
                 {

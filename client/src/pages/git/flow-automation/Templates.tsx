@@ -169,7 +169,7 @@ body:
               code={`blank_issues_enabled: false
 contact_links:
   - name: 質問・相談
-    url: https://github.com/BoxPistols/dev-album/discussions
+    url: https://github.com/your-org/your-repo/discussions
     about: バグ報告ではない質問はこちら`}
             />
 

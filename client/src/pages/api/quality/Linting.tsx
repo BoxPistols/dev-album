@@ -477,7 +477,7 @@ jobs:
               links={[
                 {
                   title: "Spectral 公式ドキュメント",
-                  url: "https://docs.stoplight.io/docs/spectral",
+                  url: "https://docs.stoplight.io/docs/spectral/674b27b261c3c-overview",
                   description:
                     "Stoplight 製 Spectral の公式ドキュメント。CLI・ルールセット・カスタムルールの書き方を網羅",
                 },
@@ -489,7 +489,7 @@ jobs:
                 },
                 {
                   title: "Spectral - 組み込み関数リファレンス",
-                  url: "https://docs.stoplight.io/docs/spectral/8719b32fab2bf-core-functions",
+                  url: "https://docs.stoplight.io/docs/spectral/cb95cf0d26b83-core-functions",
                   description:
                     "truthy / pattern / casing / schema など、then で使える組み込み関数の一覧",
                 },

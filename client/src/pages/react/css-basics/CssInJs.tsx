@@ -1132,9 +1132,9 @@ export const card = style({
             <ReferenceLinks
               links={[
                 {
-                  title: 'State of CSS 2024 - CSS-in-JS セクション',
-                  url: 'https://2024.stateofcss.com/en-US/css-in-js/',
-                  description: '毎年実施される大規模調査による CSS-in-JS ライブラリの利用率・満足度データ',
+                  title: 'State of CSS 2024 - Libraries & Tools（CSS-in-JS）',
+                  url: 'https://2024.stateofcss.com/en-US/tools/#css_in_js',
+                  description: '毎年実施される大規模調査による CSS-in-JS ライブラリの利用率データ',
                 },
                 {
                   title: 'vanilla-extract 公式ドキュメント',

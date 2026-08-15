@@ -360,9 +360,9 @@ export default function WhatIsUx() {
           <ReferenceLinks
             links={[
               {
-                title: 'The Elements of UX — NNGroup',
-                url: 'https://www.nngroup.com/articles/elements-user-experience-design/',
-                description: 'UX の 5 要素モデルの原典',
+                title: 'The Elements of User Experience — Jesse James Garrett',
+                url: 'http://www.jjg.net/elements/',
+                description: 'UX の 5 要素モデルの原典（著者本人のサイト。HTTPS 非対応）',
               },
               {
                 title: 'Nielsen Norman Group - UX の定義',

@@ -354,7 +354,7 @@ prism proxy openapi.yaml http://localhost:3000
               links={[
                 {
                   title: "Prism 公式ドキュメント",
-                  url: "https://docs.stoplight.io/docs/prism/",
+                  url: "https://docs.stoplight.io/docs/prism/674b27b261c3c-prism-overview",
                   description:
                     "Stoplight 製モックサーバ Prism の公式ガイド。mock / proxy モードや Prefer ヘッダーの使い方を網羅",
                 },

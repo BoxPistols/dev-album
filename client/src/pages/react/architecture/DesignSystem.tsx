@@ -1169,7 +1169,7 @@ describe('Button', () => {
                 },
                 {
                   title: 'Style Dictionary',
-                  url: 'https://amzn.github.io/style-dictionary/',
+                  url: 'https://styledictionary.com/',
                   description: 'デザイントークン管理ツール',
                 },
                 {

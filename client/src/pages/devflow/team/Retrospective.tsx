@@ -342,7 +342,7 @@ export default function Retrospective() {
                 },
                 {
                   title: "Atlassian - 心理的安全性",
-                  url: "https://www.atlassian.com/blog/teamwork/how-to-build-psychological-safety",
+                  url: "https://www.atlassian.com/blog/teamwork/what-does-psychological-safety-mean-anyway",
                   description: "率直な議論を支える心理的安全性の作り方",
                 },
                 {

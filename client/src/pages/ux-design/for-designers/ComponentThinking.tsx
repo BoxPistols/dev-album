@@ -553,7 +553,7 @@ export default function ComponentThinking() {
                 },
                 {
                   title: "Figma: デザインシステムガイド",
-                  url: "https://help.figma.com/hc/en-us/articles/14552950499351-Guide-to-design-systems-in-Figma",
+                  url: "https://help.figma.com/hc/en-us/articles/14552901442839-Overview-Introduction-to-design-systems",
                   description:
                     "Figma でデザインシステムを構築するための公式ガイド",
                 },

@@ -549,8 +549,8 @@ await callApi<Memo>('/memos', { method: 'POST', body: { title, body } }) // 送�
                     "server/api のファイル命名規則（.get / .post 等）とハンドラの書き方",
                 },
                 {
-                  title: "Nitro - API Routes",
-                  url: "https://nitro.build/guide/routing",
+                  title: "Nitro v2 - API Routes",
+                  url: "https://v2.nitro.build/guide/routing",
                   description:
                     "Nuxt のサーバエンジン Nitro のルーティングとイベントハンドラ",
                 },

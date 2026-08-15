@@ -547,11 +547,6 @@ CREATE TABLE user (
                     "erDiagram 記法とカーディナリティ記号（||--o{ 等）の公式仕様",
                 },
                 {
-                  title: "MDN - データベース正規化（用語集）",
-                  url: "https://developer.mozilla.org/en-US/docs/Glossary/Database_normalization",
-                  description: "正規化の目的と更新異常の考え方を簡潔に解説",
-                },
-                {
                   title: "Wikipedia - Database normalization",
                   url: "https://en.wikipedia.org/wiki/Database_normalization",
                   description: "1NF / 2NF / 3NF と関数従属の定義をまとめた解説",

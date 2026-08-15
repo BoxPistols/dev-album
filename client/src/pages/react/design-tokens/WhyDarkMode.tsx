@@ -1025,10 +1025,10 @@ mediaQuery.addEventListener('change', (e) => {
                   description: "メディアクエリの仕様と対応ブラウザ一覧",
                 },
                 {
-                  title: "Material Design 3: Dark theme",
-                  url: "https://m3.material.io/styles/color/dark-theme",
+                  title: "Material Design 3: Color roles",
+                  url: "https://m3.material.io/styles/color/roles",
                   description:
-                    "Material Design 3 のダークテーマ設計ガイドライン",
+                    "ライト / ダーク両テーマのカラーロール定義（M3 にダークテーマ単独ページは無い）",
                 },
                 {
                   title: "Apple HIG: Dark Mode",

@@ -720,7 +720,7 @@ jobs:
               },
               {
                 title: "Storybook Test Runner",
-                url: "https://storybook.js.org/docs/writing-tests/test-runner",
+                url: "https://storybook.js.org/docs/writing-tests/integrations/test-runner",
                 description:
                   "テストランナーの公式ドキュメント。a11y テストとの連携方法。",
               },

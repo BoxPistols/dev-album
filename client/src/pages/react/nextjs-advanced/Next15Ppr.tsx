@@ -585,20 +585,29 @@ export default function ArticlePage({
               Suspense の外側にある場合にビルドエラーが発生し、PPR の最適な設計を強制します。
             </p>
 
+            <InfoBox type="warning" title="Next.js 16 で cacheComponents に統合された">
+              公式ドキュメントの Version History は「16.0.0 で <code>cacheComponents</code> を導入。
+              このフラグが <code>ppr</code> / <code>useCache</code> / <code>dynamicIO</code> を単一の設定として制御する」としています。
+              16 では <code>experimental.ppr</code> と <code>experimental.dynamicIO</code> は削除されており、
+              設定は <code>experimental</code> の下ではなく<strong>トップレベル</strong>に書きます。
+              15 の記法のままでは動きません。
+            </InfoBox>
+
             <CodeBlock
-              code={`// next.config.ts
+              code={`// next.config.ts（Next.js 16 以降）
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    ppr: 'incremental',
-    dynamicIO: true, // dynamicIO を有効化
-  },
+  // ppr / useCache / dynamicIO を統合した単一フラグ。experimental の下ではない
+  cacheComponents: true,
 };
 
-export default nextConfig;`}
+export default nextConfig;
+
+// Next.js 15 では experimental 配下の個別フラグだった（16 で削除）
+// experimental: { ppr: 'incremental', dynamicIO: true }`}
               language="typescript"
-              title="dynamicIO の有効化"
+              title="Cache Components の有効化"
             />
 
             <CodeBlock
@@ -936,9 +945,9 @@ export default nextConfig;
                   description: 'PPR の公式ドキュメント。設定方法と仕組みの詳細',
                 },
                 {
-                  title: 'dynamicIO - Next.js Docs',
-                  url: 'https://nextjs.org/docs/app/api-reference/config/next-config-js/dynamicIO',
-                  description: 'dynamicIO の設定と use cache ディレクティブのリファレンス',
+                  title: 'cacheComponents（旧 dynamicIO） - Next.js Docs',
+                  url: 'https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents',
+                  description: 'ppr / useCache / dynamicIO を統合した設定と use cache ディレクティブのリファレンス',
                 },
                 {
                   title: 'Next.js 16 RC ブログ',

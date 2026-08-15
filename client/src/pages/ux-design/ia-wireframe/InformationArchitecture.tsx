@@ -483,10 +483,10 @@ export default function InformationArchitecture() {
                 },
                 {
                   title:
-                    "NNGroup: Information Architecture",
-                  url: "https://www.nngroup.com/articles/information-architecture/",
+                    "NNGroup: Information Architecture Study Guide",
+                  url: "https://www.nngroup.com/articles/ia-study-guide/",
                   description:
-                    "IA の定義と基本原則を解説した NNGroup の記事",
+                    "IA の基本原則から調査手法・ナビゲーション設計までを辿れる NN/g の学習ガイド",
                 },
                 {
                   title: "Optimal Workshop",

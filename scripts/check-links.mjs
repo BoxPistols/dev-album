@@ -117,7 +117,14 @@ async function head(url) {
       signal: controller.signal,
       headers: { "user-agent": UA },
     });
-    if (res.status === 405 || res.status === 501 || res.status === 403) {
+    // HEAD にだけ 404 を返すサイトがある（kaggle.com など）。
+    // HEAD の結果だけで「切れている」と断じると、生きているページを殺す。
+    if (
+      res.status === 405 ||
+      res.status === 501 ||
+      res.status === 403 ||
+      res.status === 404
+    ) {
       res = await fetch(url, {
         method: "GET",
         redirect: "follow",
