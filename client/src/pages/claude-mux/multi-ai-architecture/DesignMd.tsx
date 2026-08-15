@@ -321,7 +321,7 @@ $ echo $?
                 を「error / 解決しないトークン参照」と説明している。
                 しかし colors の中に
                 <code className="text-primary mx-1">
-                  accent: &quot;&#123;colors.nope&#125;&#125;&quot;
+                  accent: &quot;&#123;colors.nope&#125;&quot;
                 </code>
                 と書いて 0.4.0 で試すと、lint の findings に broken-ref は現れず
                 errors は 0、export では

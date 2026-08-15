@@ -168,17 +168,16 @@ pnpm lint     # リンター
 
               <div>
                 <h3 className="text-lg md:text-xl font-bold mb-3">各ツールでの参照設定</h3>
-                <CodeBlock language="json" code={`// VS Code settings.json
+                <CodeBlock language="json" code={`// VS Code settings.json（GitHub Copilot）
 {
-  "github.copilot.chat.useAgentsMdFile": true
+  "chat.useAgentsMdFile": true
 }
-// Claude Code は AGENTS.md を自動認識`} />
+// Claude Code は AGENTS.md を自動では読まない。
+// CLAUDE.md に @AGENTS.md と書いて import する`} />
                 <CodeBlock language="markdown" code={`<!-- CLAUDE.md -->
+@AGENTS.md
+
 # Claude Code 固有設定
-
-AGENTS.md の規約に従ってください。
-
-## 追加コンテキスト
 - Subagents で並列調査
 - 拡張思考をレビュー時に有効化
 - 編集前に必ず Read で確認`} />
