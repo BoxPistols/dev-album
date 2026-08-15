@@ -346,9 +346,12 @@ curl https://api.example.com/v1/me \\
             </p>
 
             <InfoBox type="warning" title="WWW-Authenticate は自動では付かない">
-              RFC 7235 は 401 応答に <code>WWW-Authenticate</code>{" "}
-              ヘッダー（どの認証方式が必要かを示す）を付けるべき（SHOULD）と
-              定めています。しかし多くのフレームワークは既定で付与しません。
+              RFC 7235 §3.1 は 401 応答に <code>WWW-Authenticate</code>{" "}
+              ヘッダー（どの認証方式が必要かを示す）を、少なくとも 1 つのチャレンジを含めて
+              送ることを <strong>MUST</strong> として定めています。RFC 7235 自体は 2022 年の
+              RFC 9110（HTTP Semantics, STD 97）に置き換えられており、現行の規定は RFC 9110
+              §15.5.2 と §11.6.1 で、こちらも同じく MUST です。
+              しかし多くのフレームワークは既定で付与しません。
               たとえば FastAPI の <code>HTTPException(401)</code> は{" "}
               <code>WWW-Authenticate</code> を自動付与しないため、{" "}
               <code>{'headers={"WWW-Authenticate": "Bearer"}'}</code>{" "}
@@ -516,14 +519,19 @@ HTTP/1.1 401 Unauthorized
 
             <InfoBox type="warning" title="既定では WWW-Authenticate が付かない / 弱い鍵に注意（実測）">
               実測では 3 ケースとも <code>WWW-Authenticate</code>{" "}
-              ヘッダーが付きませんでした（FastAPI 既定）。RFC 7235
-              的には付けるべきなので、必要なら{" "}
+              ヘッダーが付きませんでした（FastAPI 既定）。RFC 9110（RFC 7235 の後継）は
+              MUST と定めているので、必要なら{" "}
               <code>{'HTTPException(401, headers={"WWW-Authenticate": "Bearer"})'}</code>{" "}
               で手動付与します。body を problem+json
               に寄せたい場合は、エラー設計の章の Problem ハンドラを 401
-              にも適用します。 また PyJWT は HMAC 鍵が 32 バイト未満だと{" "}
-              <code>InsecureKeyLengthWarning</code> を出します（RFC 7518 §3.2:
-              HS256 は鍵長 32 バイト以上が推奨）。弱い秘密鍵は実害につながります。
+              にも適用します。 また PyJWT は HMAC
+              鍵がハッシュ出力長（HS256 なら 32 バイト、HS384 なら 48、HS512 なら 64）未満だと{" "}
+              <code>InsecureKeyLengthWarning</code> を出します（RFC 7518 §3.2 は
+              「ハッシュ出力と同じサイズ以上の鍵、たとえば HS256 なら 256 ビット」を{" "}
+              <strong>MUST</strong> として要求）。<code>options</code> に{" "}
+              <code>enforce_minimum_key_length=True</code> を渡すと{" "}
+              <code>InvalidKeyError</code> を送出します（PyJWT v2.11.0 以降）。
+              弱い秘密鍵は実害につながります。
             </InfoBox>
           </section>
 

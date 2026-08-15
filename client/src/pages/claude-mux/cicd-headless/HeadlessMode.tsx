@@ -135,8 +135,9 @@ claude -p "reports/ 内の全レポートを集約して要約して"`} />
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['--dangerously-skip-permissions', '全権限チェックをスキップ', 'CI/CD 専用'],
-                    ['--allowedTools "tool1,tool2"', '指定ツールのみ許可', '限定的な自動化'],
-                    ['settings.json の allowedTools', '設定ファイルで許可を永続化', 'プロジェクト設定'],
+                    ['--allowedTools "tool1,tool2"', '許可プロンプトなしで実行できるツールを指定', '限定的な自動化'],
+                    ['--tools "tool1,tool2"', '利用可能なツール自体を絞る', 'ツールの制限'],
+                    ['settings.json の permissions.allow', '設定ファイルで許可を永続化', 'プロジェクト設定'],
                   ].map(([method, desc, usage]) => (
                     <tr key={method} className="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                       <td className="px-4 py-3 font-mono text-xs font-bold text-[var(--claude-primary)]">{method}</td>
@@ -198,39 +199,40 @@ CMD ["claude", "-p", "--dangerously-skip-permissions", "コードを分析して
               SDK によるプログラム的な利用
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Code SDK を使うと、TypeScript / Python からプログラム的に Claude Code を呼び出せます。カスタムツールの定義やワークフローの構築が可能です。
+              Claude Agent SDK（TypeScript は <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">@anthropic-ai/claude-agent-sdk</code>）を使うと、TypeScript / Python からプログラム的に Claude Code を呼び出せます。カスタムツールの定義やワークフローの構築が可能です。
             </p>
 
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold mb-3">TypeScript SDK</h3>
-                <CodeBlock language="typescript" code={`import { claude } from "@anthropic-ai/claude-code";
+                <CodeBlock language="typescript" code={`import { query } from "@anthropic-ai/claude-agent-sdk";
 
-// 基本的な呼び出し
-const result = await claude({
+// 基本的な呼び出し。query() は非同期イテラブルを返す
+for await (const message of query({
   prompt: "src/index.ts のバグを修正して",
   options: {
     maxTurns: 5,
     allowedTools: ["Read", "Edit", "Write"],
   },
-});
-
-console.log(result.text);`} />
+})) {
+  if (message.type === "result" && message.subtype === "success") {
+    console.log(message.result);
+  }
+}`} />
               </div>
 
               <div>
                 <h3 className="text-xl font-bold mb-3">ストリーミング処理</h3>
-                <CodeBlock language="typescript" code={`import { claude } from "@anthropic-ai/claude-code";
+                <CodeBlock language="typescript" code={`import { query } from "@anthropic-ai/claude-agent-sdk";
 
-// ストリーミングで結果を逐次受信
-const stream = claude({
+// 途中経過のメッセージも逐次受信できる
+const stream = query({
   prompt: "プロジェクト全体をリファクタリングして",
-  options: { stream: true },
 });
 
-for await (const event of stream) {
-  if (event.type === "assistant") {
-    process.stdout.write(event.content);
+for await (const message of stream) {
+  if (message.type === "assistant") {
+    console.log(message.message.content);
   }
 }`} />
               </div>
@@ -274,7 +276,8 @@ claude mcp serve
                     ['--output-format <fmt>', '出力形式: text / json / stream-json'],
                     ['--max-turns <n>', 'エージェントの最大ターン数'],
                     ['--model <name>', '使用モデルの指定'],
-                    ['--allowedTools "t1,t2"', '許可するツールのリスト'],
+                    ['--allowedTools "t1,t2"', '許可プロンプトなしで実行できるツールのリスト'],
+                    ['--tools "t1,t2"', '利用可能なツール自体を絞る'],
                     ['--dangerously-skip-permissions', '全権限を自動承認（CI用）'],
                     ['--verbose', '詳細ログの出力'],
                   ].map(([opt, desc]) => (

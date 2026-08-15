@@ -88,7 +88,9 @@ export default function TokenOptimization() {
               </div>
             </div>
             <CodeBlock code={`# 自動コンパクションの発動閾値（1-100%）を変更。低い値ほど早めに圧縮
-$ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80`} language="bash" />
+# 閾値を上げることはできず、既定値を上回る値は無視される
+# 有効なのは、モデルのコンテキスト上限より前にコンパクションするセッション
+$ export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50`} language="bash" />
           </section>
 
           {/* Effort Level */}

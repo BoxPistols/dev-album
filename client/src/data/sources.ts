@@ -38,8 +38,10 @@ export interface Source {
   reproduce?: string;
   /** kind が "secondary" の場合に、何を根拠に信頼するかを書く */
   note?: string;
-  /** この出典に依拠している教材ページのパス (navigation.ts の path) */
-  usedBy: string[];
+  /** この出典に依拠している教材ページのパス (navigation.ts の path)。ページに出典欄を出す用 */
+  usedBy?: string[];
+  /** この出典に依拠しているファイル (リポジトリ相対)。監査から機械生成した分で使う */
+  usedByFiles?: string[];
 }
 
 const AGENT_DOCS = "/claude-mux/multi-ai/agent-docs";
@@ -47,7 +49,10 @@ const DESIGN_MD = "/claude-mux/multi-ai/design-md";
 const MULTI_AI = "/claude-mux/multi-ai/multi-ai-coexistence";
 const SSOT = "/claude-mux/multi-ai/single-source-of-truth";
 
-export const SOURCES: Source[] = [
+import { GENERATED_SOURCES } from "./sources.generated";
+
+/** 手で書いた出典。ページの出典欄に出す */
+export const CURATED_SOURCES: Source[] = [
   {
     id: "claude-code-memory",
     title: "Claude Code — How Claude remembers your project",
@@ -154,6 +159,9 @@ export const SOURCES: Source[] = [
   },
 ];
 
+/** 手書き + 監査から機械生成した分をあわせたもの。check:sources はこれを照合する */
+export const SOURCES: Source[] = [...CURATED_SOURCES, ...GENERATED_SOURCES];
+
 export function getSourcesForPage(path: string): Source[] {
-  return SOURCES.filter((s) => s.usedBy.includes(path));
+  return CURATED_SOURCES.filter((s) => s.usedBy?.includes(path));
 }

@@ -106,7 +106,7 @@ export default function Welcome() {
             </h2>
 
             <InfoBox type="info" title="前提条件">
-              ターミナルの基本的なコマンド（ls, cd, mkdir 等）の知識があることを前提としています。Node.js 18 以上と Git がインストールされている環境を推奨します。
+              ターミナルの基本的なコマンド（ls, cd, mkdir 等）の知識があることを前提としています。公式のシステム要件は OS・4GB 以上のメモリ・ネットワーク接続・シェル・対応国で、Node.js は含まれません。標準のインストーラはネイティブバイナリを入れるため Node.js なしで動きます（npm で入れる場合は <code>@anthropic-ai/claude-code</code> の engines が Node.js 22 以上。その場合もインストールされた <code>claude</code> バイナリ自体は Node を呼びません）。Git も必須ではなく、Windows で Bash ツールを使う場合に Git for Windows の導入が推奨されます。
             </InfoBox>
 
             <p className="text-foreground mt-8 leading-relaxed">

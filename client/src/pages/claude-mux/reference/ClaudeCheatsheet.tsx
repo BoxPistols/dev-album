@@ -194,7 +194,7 @@ export default function ClaudeCheatsheet() {
             />
             <div className="mt-4 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">読み込み順:</strong> グローバル → プロジェクトルート → サブディレクトリ（深い階層が優先）。
+                <strong className="text-foreground">読み込み順:</strong> 起動時に全文読み込まれるのは、作業ディレクトリとその上位階層にある CLAUDE.md / CLAUDE.local.md です。管理ポリシー → ユーザー（<code>~/.claude/CLAUDE.md</code>）→ プロジェクト → ローカルの順に、ファイルシステムのルート側から作業ディレクトリ側へ連結されます（上書きではないので優先順位はなく、作業ディレクトリに近いものが最後に読まれます）。サブディレクトリの CLAUDE.md は起動時ではなく、Claude がそのディレクトリのファイルを読んだ時点で遅延読み込みされます。
                 <code className="mx-1">CLAUDE.local.md</code> はプロジェクトの <code>.gitignore</code> に追加して個人設定を管理します。
               </p>
             </div>

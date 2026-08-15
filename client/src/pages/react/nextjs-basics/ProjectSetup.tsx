@@ -37,14 +37,20 @@ export default function ProjectSetup() {
               code={`# 最新の Next.js プロジェクトを作成
 npx create-next-app@latest my-next-app
 
-# 対話形式で聞かれる質問と推奨設定:
+# 最初に既定を使うかどうかを聞かれる:
+# ✔ Would you like to use the recommended Next.js defaults? → No, customize settings
+
+# No, customize settings を選んだときだけ、個別の質問が続く:
 # ✔ Would you like to use TypeScript? → Yes
 # ✔ Would you like to use ESLint? → Yes
 # ✔ Would you like to use Tailwind CSS? → Yes
 # ✔ Would you like your code inside a \`src/\` directory? → Yes
 # ✔ Would you like to use App Router? (recommended) → Yes
-# ✔ Would you like to use Turbopack for next dev? → Yes
-# ✔ Would you like to customize the import alias? → No（デフォルトの @ でOK）`}
+# ✔ Would you like to customize the import alias? → No（デフォルトの @ でOK）
+
+# バンドラーは対話では聞かれない。Turbopack が既定で、フラグで切り替える
+npx create-next-app@latest my-next-app --turbopack   # 既定と同じ（明示指定）
+npx create-next-app@latest my-next-app --webpack     # webpack を使う`}
               language="bash"
               title="プロジェクト作成コマンド"
             />
@@ -55,7 +61,7 @@ npx create-next-app@latest my-next-app
                 <strong>Tailwind CSS</strong>: Next.js との相性が抜群。設定不要で使える。<br />
                 <strong>src/ ディレクトリ</strong>: プロジェクトのルートをきれいに保てる。<br />
                 <strong>App Router</strong>: 最新の推奨アーキテクチャ。<br />
-                <strong>Turbopack</strong>: Rust ベースの高速バンドラー。開発サーバーの起動が速い。
+                <strong>Turbopack</strong>: 既定のバンドラー。対話では聞かれず、<code className="text-sm bg-muted px-1 py-0.5 rounded">--turbopack</code> / <code className="text-sm bg-muted px-1 py-0.5 rounded">--webpack</code> で切り替える。
               </p>
             </InfoBox>
           </section>

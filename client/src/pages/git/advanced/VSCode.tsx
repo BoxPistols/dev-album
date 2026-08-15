@@ -266,7 +266,7 @@ export default function VSCodeSetup() {
               </div>
 
               <div className="border-l-4 border-primary pl-4">
-                <h3 className="text-xl font-semibold text-foreground mb-2">Remote - WSL (Windows のみ)</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-2">WSL（Windows のみ / 旧称 Remote - WSL）</h3>
                 <p className="text-lg text-muted-foreground">WSL2 内のプロジェクトを VSCode で直接編集できます。Windows ユーザーにおすすめです。</p>
               </div>
             </div>
@@ -290,9 +290,10 @@ export default function VSCodeSetup() {
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-4">手順 1: Remote - WSL 拡張機能をインストール</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">手順 1: WSL 拡張機能をインストール</h3>
                   <p className="text-lg text-muted-foreground mb-4">
-                    VSCode の拡張機能マーケットプレイスから「Remote - WSL」を検索してインストールします。
+                    VSCode の拡張機能マーケットプレイスから「WSL」（発行元 Microsoft、旧称 Remote - WSL）を検索してインストールします。
+                    識別子で確実に入れるなら <code className="bg-muted px-1.5 py-0.5 rounded text-sm">code --install-extension ms-vscode-remote.remote-wsl</code> を実行します。
                   </p>
                 </div>
 

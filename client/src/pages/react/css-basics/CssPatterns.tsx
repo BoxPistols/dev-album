@@ -565,12 +565,12 @@ function Layout() {
               language="css"
               title="@layer でサードパーティ CSS を管理"
               code={`/* サードパーティのリセット CSS を低優先度レイヤーに */
+/* レイヤー宣言文（@layer vendor, base; の形）は @import より前に置ける */
 @layer reset, vendor, app;
 
-@layer vendor {
-  /* サードパーティライブラリの CSS を @import で読み込み */
-  @import url('react-datepicker/dist/react-datepicker.css');
-}
+/* @layer { ... } のブロック内に @import は書けない（ブラウザに無視される）。
+   レイヤーに入れて読み込むには、スタイルシート先頭で layer() 付きの @import を使う */
+@import url('react-datepicker/dist/react-datepicker.css') layer(vendor);
 
 @layer app {
   /* アプリのスタイルは常にサードパーティより優先 */
@@ -595,7 +595,9 @@ function Layout() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">CSS ネスティング</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              CSS ネスティングは、2024年に全モダンブラウザでサポートされた新機能です。
+              CSS ネスティングは、2023年に全モダンブラウザで出揃った機能です。
+              Chrome 112 と Safari 16.5 が先行実装し、Firefox は 117 で対応しました。
+              型セレクタを &amp; なしでネストできる緩和構文まで含めても、Chrome 120 / Safari 17.2 と 2023 年内に完了しています。
               SCSS や styled-components でお馴染みのネスト記法が、ネイティブ CSS でも使えるようになりました。
               プリプロセッサなしで、親子関係のあるスタイルを簡潔に書けます。
             </p>

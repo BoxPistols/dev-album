@@ -89,8 +89,11 @@ export default async function PostsPage() {
             </p>
 
             <CodeBlock
-              code={`// 1. デフォルト: キャッシュなし（Next.js 15 以降）
-// Next.js 15 では fetch はデフォルトでキャッシュされない（no-store 相当）
+              code={`// 1. デフォルト: auto no cache（Next.js 15 以降）
+// Next.js 15 以降、fetch はデフォルトではキャッシュされない。
+// 公式リファレンスはこの既定を auto no cache と呼び、no-store とは別に定義している。
+// ルートが静的プリレンダリングされる場合は next build 時に 1 回だけ取得され、以後は再取得されない。
+// リクエストごとに必ず取得したい場合は no-store を明示する。
 const res = await fetch('https://api.example.com/data');
 
 // 2. 明示的にキャッシュする（静的データに推奨）
@@ -126,8 +129,13 @@ const res4 = await fetch('https://api.example.com/products', {
                 </thead>
                 <tbody className="text-foreground/80">
                   <tr className="border-b border-border/50">
-                    <td className="py-3 px-4 font-medium">デフォルト（no-store）</td>
-                    <td className="py-3 px-4">常に最新データを取得（Next.js 15 以降）</td>
+                    <td className="py-3 px-4 font-medium">デフォルト（auto no cache）</td>
+                    <td className="py-3 px-4">キャッシュしない既定（Next.js 15 以降）。静的プリレンダリングされるルートではビルド時に 1 回取得</td>
+                    <td className="py-3 px-4">通常の一覧・詳細データ</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">no-store</td>
+                    <td className="py-3 px-4">リクエストごとに必ず最新データを取得</td>
                     <td className="py-3 px-4">ダッシュボード、在庫数</td>
                   </tr>
                   <tr className="border-b border-border/50">

@@ -181,7 +181,7 @@ export default function LmopsWorkflow() {
 
             <h3 className="text-xl font-bold text-foreground mb-4">1. 必要なパッケージのインストール</h3>
             <CodeBlock
-              code={`pip install langchain langchain-anthropic langchain-community
+              code={`pip install langchain langchain-anthropic langchain-chroma langchain-huggingface
 pip install chromadb sentence-transformers`}
               language="bash"
               title="RAG に必要なパッケージ"
@@ -214,8 +214,8 @@ chunks = splitter.split_documents(documents)`}
 
             <h3 className="text-xl font-bold text-foreground mb-4">3. ベクトル DB に保存</h3>
             <CodeBlock
-              code={`from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+              code={`from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
 
 # Embedding モデルの初期化
 embeddings = HuggingFaceEmbeddings(

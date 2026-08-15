@@ -600,7 +600,7 @@ export default function MarkdownGuide() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">3</span>
-                  <span><strong className="text-foreground">Slack は独自の記法</strong>を持っており、標準の Markdown とは書き方が異なる部分がある（例：太字は <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono">*テキスト*</code> ではなく独自の方式）</span>
+                  <span><strong className="text-foreground">Slack は mrkdwn という独自の記法</strong>を持っており、標準の Markdown とは書き方が異なる部分がある（例：太字は <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono">**テキスト**</code> ではなく <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono">*テキスト*</code>、斜体は <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono">*テキスト*</code> ではなく <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono">_テキスト_</code>）</span>
                 </li>
               </ul>
             </div>

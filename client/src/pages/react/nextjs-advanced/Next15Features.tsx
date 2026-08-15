@@ -69,17 +69,20 @@ export default function Next15Features() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>開発サーバー起動が最大 76% 高速化</span>
+                    <span>ローカルサーバー起動が最大 76.7% 高速化</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>HMR（Hot Module Replacement）が最大 96% 高速化</span>
+                    <span>Fast Refresh によるコード更新が最大 96.3% 高速化</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
                     <span>インクリメンタルコンパイルで必要なモジュールだけ処理</span>
                   </div>
                 </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  高速化の数値は公式ブログが示す vercel.com（大規模な Next.js アプリ）での計測値。一般的な値ではなく、プロジェクトの規模や構成で変わる。
+                </p>
               </div>
             </div>
 
@@ -238,8 +241,9 @@ export async function setTheme(formData: FormData) {
             <h2 className="text-2xl font-bold text-foreground mb-4">キャッシングのデフォルト変更</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               Next.js 15 では、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">fetch</code> のデフォルト挙動が大きく変わりました。
-              以前はデフォルトで <code className="text-sm bg-muted px-1.5 py-0.5 rounded">force-cache</code>（キャッシュ優先）でしたが、
-              Next.js 15 からは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-store</code>（キャッシュなし）がデフォルトになりました。
+              Next.js 14 まではデフォルトが <code className="text-sm bg-muted px-1.5 py-0.5 rounded">force-cache</code>（キャッシュ優先）でしたが、
+              Next.js 15 からはデフォルトではキャッシュされなくなりました。
+              キャッシュしたい fetch には <code className="text-sm bg-muted px-1.5 py-0.5 rounded">cache: 'force-cache'</code> を明示します。
             </p>
 
             <div className="grid gap-4 md:grid-cols-2 mb-6">
@@ -262,20 +266,26 @@ const data = await fetch(
               <div className="rounded-lg border border-green-500/30 bg-green-500/5 p-4">
                 <h4 className="font-semibold text-green-600 dark:text-green-400 text-sm mb-2">Next.js 15 のデフォルト</h4>
                 <CodeBlock
-                  code={`// デフォルトで no-store
-// 毎回最新のデータを取得する
+                  code={`// デフォルトではキャッシュされない
 const data = await fetch(
   'https://api.example.com/data'
 );
-// 上記は以下と同じ:
-const data = await fetch(
+// キャッシュしたい場合は明示する:
+const cached = await fetch(
   'https://api.example.com/data',
-  { cache: 'no-store' }
+  { cache: 'force-cache' }
 );`}
                   language="tsx"
                 />
               </div>
             </div>
+
+            <p className="text-foreground/80 mb-6 leading-relaxed">
+              このデフォルトを公式ドキュメントは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">auto no cache</code> と呼び、
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-store</code> とは挙動が異なります。
+              デフォルトのままなら、Request-time API を使わないルートでは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build</code> 時に一度だけ取得して静的にプリレンダされます。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-store</code> を明示した場合は、そのルートでも毎リクエスト取得します。
+            </p>
 
             <CodeBlock
               code={`// キャッシュしたい場合は明示的に指定する
@@ -393,6 +403,9 @@ export async function createOrder(formData: FormData) {
 // middleware.ts
 import { NextResponse } from 'next/server';
 import { after } from 'next/server';
+// request.ip は Next.js 15 で削除された。
+// Vercel では @vercel/functions の ipAddress() を使う
+import { ipAddress } from '@vercel/functions';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -402,7 +415,7 @@ export function middleware(request: NextRequest) {
     await logAccess({
       path: request.nextUrl.pathname,
       method: request.method,
-      ip: request.ip,
+      ip: ipAddress(request),
     });
   });
 
@@ -411,6 +424,18 @@ export function middleware(request: NextRequest) {
               language="tsx"
               title="Server Action / Middleware での after()"
             />
+
+            <InfoBox type="warning" title="request.ip は Next.js 15 で削除された">
+              <p>
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">request.ip</code> は Next.js 15 で削除されているため、
+                そのまま書くと TypeScript ではプロパティ不在の型エラーになります。
+                Vercel にデプロイする場合は <code className="text-sm bg-muted px-1.5 py-0.5 rounded">@vercel/functions</code> の
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">ipAddress(request)</code> を使います。
+                それ以外のホスティングでは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">x-forwarded-for</code> などのヘッダを、
+                ホスティング側の仕様に合わせて読みます。
+                既存コードの一括変換には <code className="text-sm bg-muted px-1.5 py-0.5 rounded">npx @next/codemod@latest next-request-geo-ip .</code> が使えます。
+              </p>
+            </InfoBox>
 
             <InfoBox type="info" title="after() vs waitUntil()">
               <p>
@@ -713,7 +738,7 @@ export default nextConfig;`}
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium">キャッシュ</td>
-                    <td className="py-3 px-4">デフォルトが no-store に</td>
+                    <td className="py-3 px-4">デフォルトでキャッシュしない</td>
                     <td className="py-3 px-4 text-red-600 dark:text-red-400">破壊的変更</td>
                   </tr>
                   <tr className="border-b border-border/50">
@@ -746,12 +771,12 @@ export default nextConfig;`}
             <Quiz
               question="Next.js 15 で fetch() のデフォルトのキャッシュ挙動はどのように変更されましたか？"
               options={[
-                { label: 'force-cache から no-store に変更された（毎回最新データを取得）', correct: true },
-                { label: 'no-store から force-cache に変更された（キャッシュ優先）' },
+                { label: 'force-cache がデフォルトではなくなり、デフォルトではキャッシュされなくなった', correct: true },
+                { label: 'デフォルトが force-cache に変更された（キャッシュ優先）' },
                 { label: 'stale-while-revalidate がデフォルトになった' },
                 { label: 'キャッシュの挙動は変更されていない' },
               ]}
-              explanation="Next.js 15 では、開発者の混乱を避けるために fetch のデフォルトが force-cache（キャッシュ優先）から no-store（毎回取得）に変更されました。キャッシュが必要な場合は、明示的に cache: 'force-cache' や next: { revalidate: 秒数 } を指定します。"
+              explanation="Next.js 15 では、開発者の混乱を避けるために fetch のデフォルトが force-cache（キャッシュ優先）からキャッシュしない挙動に変わりました。公式ドキュメントはこのデフォルトを auto no cache と呼び、no-store の明示とは区別しています。キャッシュが必要な場合は、明示的に cache: 'force-cache' や next: { revalidate: 秒数 } を指定します。"
             />
           </section>
 

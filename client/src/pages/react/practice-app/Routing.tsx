@@ -32,12 +32,15 @@ export default function Routing() {
             <h2 className="text-2xl font-bold text-foreground mb-4">インストールとセットアップ</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               React Router v7 をインストールし、基本的なルーティングを設定しましょう。
+              バージョンを指定しないと npm の latest（v8 系）が入るため、ここでは v7 を明示します。
+              v7 で <code>react-router-dom</code> は <code>react-router</code> に統合されたので、
+              package.json に必要なのは <code>react-router</code> だけです。
             </p>
 
             <CodeBlock
               language="bash"
               title="インストール"
-              code={`pnpm add react-router`}
+              code={`pnpm add react-router@7`}
             />
 
             <div className="mt-4" />
@@ -62,6 +65,9 @@ createRoot(document.getElementById('root')!).render(
                 <code>BrowserRouter</code> は、ブラウザの History API を使って URL を管理します。
                 アプリ全体を <code>BrowserRouter</code> で囲むことで、
                 その中のすべてのコンポーネントで React Router の機能が使えるようになります。
+                <code>BrowserRouter</code> は v8 でもルートからのエクスポートに残っているため、
+                この import はそのまま解決します（v8 で <code>react-router/dom</code> へ移ったのは
+                <code>RouterProvider</code> などの一部の DOM API です）。
               </p>
             </InfoBox>
           </section>

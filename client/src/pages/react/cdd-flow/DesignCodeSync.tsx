@@ -281,8 +281,13 @@ export default function DesignCodeSync() {
                 Token Studio for Figma
               </a>{" "}
               は、 Figma Variables を JSON 形式で export し、GitHub
-              リポジトリに直接 push できるプラグインです。 Figma
-              上でトークンを変更すると、自動的に Pull Request が作成されます。
+              リポジトリに直接 push できるプラグインです。push
+              はコミットメッセージを入力して「Push changes」を選ぶ明示操作で、Pull
+              Request が自動生成されるわけではありません。push
+              が完了するとプラグインが「Create a Pull Request」を提案することがあり、
+              このボタンを押すと sync provider の Web ページがブラウザで開いて、
+              そこで Pull Request を作成します。押さずに閉じて、
+              複数のコミットをまとめてから Pull Request にすることもできます。
             </p>
 
             <CodeBlock
@@ -355,11 +360,13 @@ export default function DesignCodeSync() {
 
             <InfoBox type="warning" title="Token Studio の GitHub 連携設定">
               <p>
-                Token Studio の Pro プランでは、GitHub
-                リポジトリとの直接連携がサポートされています。
-                無料プランの場合は手動で JSON を export する必要があります。
-                チームで運用する場合は、Pro プランの導入を検討してください。
-                連携設定では、対象リポジトリ、ブランチ、出力先ディレクトリを指定します。
+                GitHub リポジトリとの直接連携（Git sync provider）は有料ライセンス限定ではなく、
+                無料ライセンスでも使えます。公式ドキュメントは、無料版を使っている場合の保存先として
+                単一 JSON ファイル（File path）の指定を挙げています。
+                フォルダを指定する複数ファイル同期、Themes、ブランチ切り替えには有料ライセンスが必要で、
+                無料ライセンスは既存フォルダに対して読み取り専用になります。
+                プラン名と適用条件は変わるため、公式の料金ページで確認してください。
+                連携設定では、対象リポジトリ、ブランチ、出力先を指定します。
               </p>
             </InfoBox>
 
@@ -1148,7 +1155,7 @@ jobs:
                   </h4>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  Token Studio Pro で GitHub 連携を設定し、GitHub Actions
+                  Token Studio の GitHub 連携を設定し、GitHub Actions
                   でトークンのビルドと PR 作成を自動化する。 Chromatic
                   を導入してビジュアルリグレッションテストを CI に組み込む。
                 </p>
@@ -1244,10 +1251,7 @@ await Promise.all([
 
             <InfoBox type="success" title="自動化の効果">
               <p>
-                この仕組みを導入したチームでは、デザイン変更のコード反映にかかる時間が
-                「数時間～数日」から「PR
-                マージの数分」に短縮されたという報告があります。
-                特にダークモード対応やマルチブランド対応のプロジェクトで、
+                ダークモード対応やマルチブランド対応のプロジェクトで、
                 手作業の排除による品質向上の効果が顕著です。
               </p>
             </InfoBox>
@@ -1262,7 +1266,7 @@ await Promise.all([
               { label: "YAML ファイル（.yml）" },
               { label: "Figma のバイナリファイル（.fig）" },
             ]}
-            explanation="Token Studio は Design Tokens を JSON 形式（tokens.json）で export します。この JSON を Style Dictionary などの変換ツールで CSS 変数や JavaScript 定数に変換するのが一般的なフローです。CSS や YAML に直接 export する機能はありません。"
+            explanation="Token Studio は Design Tokens を JSON 形式（tokens.json）で export します。この JSON を Style Dictionary などの変換ツールで CSS 変数や JavaScript 定数に変換するのが一般的なフローです。"
           />
 
           {/* Quiz 2 */}

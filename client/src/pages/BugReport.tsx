@@ -109,11 +109,11 @@ export default function BugReport() {
           <div className="space-y-4 text-sm">
             <div className="pb-4 border-b border-border">
               <h3 className="font-semibold text-foreground mb-1">プレビューに何も表示されない</h3>
-              <p className="text-muted-foreground">ページをリロード（F5 / Cmd+R）してみてください。CDN からの読み込みに時間がかかる場合があります。</p>
+              <p className="text-muted-foreground">ページをリロード（F5 / Cmd+R）してみてください。プレビュー用のライブラリは同一オリジンの <code className="text-xs bg-muted px-1.5 py-0.5 rounded">/vendor/</code> から読み込まれるため、キャッシュが無い初回は表示まで少し時間がかかることがあります。</p>
             </div>
             <div className="pb-4 border-b border-border">
               <h3 className="font-semibold text-foreground mb-1">「React is not defined」と表示される</h3>
-              <p className="text-muted-foreground">インターネット接続を確認してください。プレビューは外部 CDN から React を読み込みます。</p>
+              <p className="text-muted-foreground">プレビューの React は同一オリジンの <code className="text-xs bg-muted px-1.5 py-0.5 rounded">/vendor/</code> にセルフホストされたものを読み込みます。この表示が出るときはトランスパイルの失敗やコンポーネント名の検出失敗が原因なので、コードの構文と、描画対象のコンポーネント名（<code className="text-xs bg-muted px-1.5 py-0.5 rounded">App</code> など）を確認してください。</p>
             </div>
             <div className="pb-4 border-b border-border">
               <h3 className="font-semibold text-foreground mb-1">コードを編集してもプレビューが変わらない</h3>

@@ -126,7 +126,7 @@ if: |
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-2">pull_request_target — 自動レビュー</h3>
                 <p className="text-sm text-muted-foreground mb-3">
-                  PR のオープンや更新時に自動でコードレビューを実行します。<code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">direct_prompt</code> パラメータでレビュー指示を渡せます。
+                  PR のオープンや更新時に自動でコードレビューを実行します。<code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">prompt</code> パラメータでレビュー指示を渡せます。
                 </p>
                 <CodeBlock language="yaml" code={`on:
   pull_request_target:
@@ -136,7 +136,7 @@ steps:
   - uses: anthropics/claude-code-action@v1
     with:
       anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
-      direct_prompt: |
+      prompt: |
         このPRの変更をレビューしてください。
         コードの品質、潜在的なバグ、改善点を指摘してください。`} />
               </div>
@@ -175,13 +175,12 @@ if: |
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
-                    ['anthropic_api_key', 'Anthropic API キー（必須）'],
-                    ['direct_prompt', '直接プロンプトを指定して実行（レビュー指示など）'],
-                    ['allowed_tools', '許可するツールのカンマ区切りリスト'],
-                    ['disallowed_tools', '禁止するツールのカンマ区切りリスト'],
-                    ['max_turns', 'エージェントの最大ターン数（デフォルト: 制限なし）'],
-                    ['custom_instructions', 'CLAUDE.md に追加する独自指示'],
-                    ['timeout_minutes', 'アクション実行のタイムアウト（分）'],
+                    ['anthropic_api_key', 'Anthropic API キー（直接 API を使う場合に指定。Bedrock / Vertex / Foundry 経由なら不要）'],
+                    ['prompt', '直接プロンプトを指定して実行（レビュー指示など）。指定すると automation モードで即時実行される'],
+                    ['claude_args', 'Claude Code CLI へ渡す引数を複数行で指定（--max-turns / --model / --allowedTools / --disallowedTools / --append-system-prompt / --mcp-config など）'],
+                    ['settings', '環境変数や設定を JSON で指定'],
+                    ['track_progress', '進捗コメント付きの tag モードで実行する'],
+                    ['use_bedrock / use_vertex', 'AWS Bedrock / Google Vertex AI を利用する'],
                   ].map(([param, desc]) => (
                     <tr key={param} className="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                       <td className="px-4 py-3 font-mono font-bold text-[var(--claude-primary)] whitespace-nowrap">{param}</td>
@@ -192,8 +191,20 @@ if: |
               </table>
             </div>
 
-            <InfoBox type="info" title="direct_prompt と use_claude_code">
-              <code>direct_prompt</code> を指定すると、Issue/PR の内容とは別にプロンプトを直接渡せます。自動レビューなど定型処理に活用できます。
+            <InfoBox type="info" title="prompt と claude_args">
+              <code>prompt</code> を指定すると、Issue/PR の内容とは別にプロンプトを直接渡せます。自動レビューなど定型処理に活用できます。細かい実行条件は <code>claude_args</code> に CLI 引数の形でまとめます。
+            </InfoBox>
+
+            <InfoBox type="warning" title="v0 系パラメータからの移行">
+              <code>direct_prompt</code> / <code>custom_instructions</code> / <code>max_turns</code> / <code>allowed_tools</code> / <code>disallowed_tools</code> / <code>timeout_minutes</code> は v1 の <code>action.yml</code> には存在しません。置き換え先は次の通りです。
+              <ul className="mt-2 space-y-1 text-sm list-disc pl-5">
+                <li><code>direct_prompt</code> → <code>prompt</code></li>
+                <li><code>custom_instructions</code> → <code>claude_args: --append-system-prompt</code></li>
+                <li><code>max_turns</code> → <code>claude_args: --max-turns</code></li>
+                <li><code>allowed_tools</code> → <code>claude_args: --allowedTools</code></li>
+                <li><code>disallowed_tools</code> → <code>claude_args: --disallowedTools</code></li>
+                <li><code>timeout_minutes</code> → ジョブレベルの <code>timeout-minutes</code></li>
+              </ul>
             </InfoBox>
           </section>
 
@@ -223,15 +234,21 @@ if: |
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-3">ツール制限による安全性向上</h3>
                 <p className="text-sm text-muted-foreground mb-3">
-                  <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">allowed_tools</code> や <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">disallowed_tools</code> でエージェントが使えるツールを制限できます。
+                  <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">claude_args</code> の <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">--allowedTools</code> / <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-xs">--disallowedTools</code> でエージェントが使えるツールを制限できます。
                 </p>
-                <CodeBlock language="yaml" code={`- uses: anthropics/claude-code-action@v1
+                <CodeBlock language="yaml" code={`# Bash ツールを禁止（コード変更のみ許可）
+- uses: anthropics/claude-code-action@v1
   with:
     anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
-    # Bash ツールを禁止（コード変更のみ許可）
-    disallowed_tools: "Bash"
-    # または許可ツールのみ指定
-    allowed_tools: "Read,Glob,Grep"`} />
+    claude_args: |
+      --disallowedTools Bash
+
+# または許可ツールのみ指定
+- uses: anthropics/claude-code-action@v1
+  with:
+    anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
+    claude_args: |
+      --allowedTools Read,Glob,Grep`} />
               </div>
             </div>
           </section>
@@ -264,13 +281,14 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             この PR の差分をレビューしてください:
             - コードの品質と可読性
             - 潜在的なバグやエッジケース
             - セキュリティ上の懸念
             - テストの充足度
-          max_turns: 3`} />
+          claude_args: |
+            --max-turns 3`} />
               </div>
 
               <div>
@@ -295,9 +313,8 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
-          custom_instructions: |
-            修正は最小限にし、テストを追加してください。
-            コミットメッセージは日本語で書いてください。`} />
+          claude_args: |
+            --append-system-prompt "修正は最小限にし、テストを追加してください。コミットメッセージは日本語で書いてください。"`} />
               </div>
             </div>
 

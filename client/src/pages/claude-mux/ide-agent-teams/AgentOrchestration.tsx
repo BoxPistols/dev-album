@@ -34,7 +34,7 @@ export default function AgentOrchestration() {
               Agent Teams とは
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Agent Teams は、複数の Claude Code インスタンスを協調動作させる公式機能。2026年2月5日に Opus 4.6 と同時にリリースされた。最新版の Claude Code で利用できる。
+              Agent Teams は、複数の Claude Code インスタンスを協調動作させる公式機能。2026年2月5日に Opus 4.6 と同時に research preview として公開された。現在も experimental 扱いで既定は無効なので、使うには <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> を環境変数または settings.json に設定して有効化する。設定していない場合、セッション開始時にチームは作られず、Claude はチームメイトを spawn することも提案することもない。
             </p>
             <p className="leading-relaxed mb-6 text-muted-foreground">
               1つのセッションが<strong>チームリード</strong>として機能し、他のセッション（チームメイト）にタスクを割り当てる。チームメイトはそれぞれ独立したコンテキストウィンドウを持ち、互いに直接通信しながら作業を進める。
@@ -55,7 +55,7 @@ export default function AgentOrchestration() {
             </div>
 
             <InfoBox type="info" title="要件">
-              Agent Teams を使うには 最新版の Claude Code が必要。<code>claude --version</code> でバージョンを確認し、古い場合は <code>npm update -g @anthropic-ai/claude-code</code> でアップデートする。
+              <code>claude --version</code> でバージョンを確認し、古い場合は <code>npm update -g @anthropic-ai/claude-code</code> でアップデートする。そのうえで <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> を設定して有効化する。なお非対話モード（<code>-p</code> / Agent SDK）ではチームメイトは spawn されないため、対話セッションで使う。
             </InfoBox>
           </section>
 
@@ -73,13 +73,14 @@ export default function AgentOrchestration() {
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-3">In-process モード（デフォルト）</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  全チームメイトがメインターミナル内で動作する。<code>Shift+Up</code> / <code>Shift+Down</code> でチームメイト間を切り替えて、各メイトの進捗をリアルタイムに確認できる。追加ツール不要で使える。
+                  全チームメイトがメインターミナル内で動作する。agent panel 上で修飾キーなしの上下矢印キーでチームメイトを選択し、<code>Enter</code> でそのトランスクリプトを開いて直接メッセージを送れる。選択中に <code>x</code> で停止、<code>Ctrl+T</code> でタスクリストを表示する。追加ツール不要で使える。
                 </p>
                 <CodeBlock language="bash" code={`# デフォルトの in-process モードで起動（特別なオプション不要）
 claude
 
 # チームリードに指示を出すと、チームメイトが同じターミナル内で起動する
-# Shift+Up / Shift+Down でチームメイトを選択・切り替え`} />
+# agent panel 上で上下矢印キーで選択し、Enter でトランスクリプトを開く
+# 選択中に x で停止、Ctrl+T でタスクリストを表示`} />
               </div>
 
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -97,18 +98,19 @@ claude --teammate-mode tmux`} />
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-3">cmux ネイティブ split（macOS）</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  macOS で cmux を使う場合、<code>cmux claude-teams</code> でチームメイトを cmux のネイティブ split として起動できる。tmux も iTerm2 も介さず、サイドバーのメタデータと通知リングで状態を可視化できる。
+                  macOS で cmux を使う場合、<code>cmux claude-teams</code> でチームメイトを cmux のネイティブ split として起動できる。内部では tmux shim（<code>~/.cmuxterm/claude-teams-bin/tmux</code>）を用意し、<code>TMUX</code> / <code>TMUX_PANE</code> を設定して Claude Code に「tmux の中にいる」と認識させ、Claude が発行する tmux コマンドを cmux の socket API 呼び出しへ翻訳している。実体としての tmux / iTerm2 のインストールは不要だが、tmux 互換レイヤーを経由する仕組みである点は押さえておく。teammate mode は auto に設定され、サイドバーのメタデータと通知で状態を可視化できる。
                 </p>
-                <CodeBlock language="bash" code={`# cmux ネイティブのチーム起動
+                <CodeBlock language="bash" code={`# cmux ネイティブのチーム起動（teammate mode は auto に設定される）
 cmux claude-teams
 
 # サイドバーに親 + teammate が並び、各 split に独立した Claude Code が走る
+# tmux 本体は不要だが、tmux shim 経由で cmux の socket API に翻訳される
 # 詳細は「cmux と Agent Teams」ページを参照`} />
               </div>
             </div>
 
             <InfoBox type="info" title="どちらを選ぶか">
-              2〜3 人なら in-process で十分。macOS ローカルで通知リング込みの可視化が欲しいなら cmux ネイティブ split が向く。iTerm2（または tmux）ユーザーは split panes モードも選べる。
+              2〜3 人なら in-process で十分。macOS ローカルで通知込みの可視化が欲しいなら cmux ネイティブ split が向く。iTerm2（または tmux）ユーザーは split panes モードも選べる。
             </InfoBox>
           </section>
 
@@ -144,7 +146,7 @@ claude
 #  2人目は認証ミドルウェアと API ルート、
 #  3人目はテストを担当。"
 
-# Shift+Up / Shift+Down でチームメイト間を切り替え
+# agent panel 上で上下矢印キーでチームメイトを選択、Enter でトランスクリプトを開く
 # 各チームメイトの進捗をリアルタイムで確認できる`} />
               </div>
             </div>
@@ -172,11 +174,11 @@ claude
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {[
                     ['動作範囲', '単一セッション内', '複数の独立セッション間'],
-                    ['コンテキスト', '親セッションのコンテキストを継承', '各チームメイトが独立したコンテキスト'],
+                    ['コンテキスト', '独立したコンテキストウィンドウで開始し、結果を呼び出し元に返す（会話履歴を継承するのは subagent_type: "fork" のみ）', '各チームメイトが独立したコンテキストを持ち、互いに直接通信する'],
                     ['通信', '親セッションを介して結果を返す', 'チームメイト同士が直接通信'],
                     ['起動方法', 'Claude が自動的に Task ツールで起動', 'チームリードが指示に基づいて起動'],
                     ['適したタスク', '調査・分析・小規模な部分実装', '大規模な並列開発・複数機能の同時実装'],
-                    ['可視性', 'メインセッションに結果のみ表示', 'Shift+Up/Down または個別ペインで進捗監視可能'],
+                    ['可視性', 'メインセッションに結果のみ表示', 'agent panel の上下矢印キー選択または個別ペインで進捗監視可能'],
                   ].map(([feature, sub, teams]) => (
                     <tr key={feature} className="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                       <td className="px-4 py-3 font-bold text-foreground whitespace-nowrap">{feature}</td>

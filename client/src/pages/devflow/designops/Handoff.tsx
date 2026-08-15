@@ -82,7 +82,7 @@ export default function Handoff() {
     participant E as "エンジニア"
     D->>DM: "デザインを Dev Mode で公開"
     E->>DM: "余白・色・サイズを読む"
-    DM->>TK: "Variables を書き出し"
+    DM->>TK: "トークンを書き出し"
     TK->>E: "CSS 変数として取り込み"
     E->>D: "実装を Storybook で共有"
     D->>E: "デザイン QA で差分を指摘"
@@ -123,9 +123,9 @@ export default function Handoff() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               ギャップを根本から減らす一番の方法は、
-              デザインと実装が同じトークンを参照することです。 Figma の
-              Variables で定義した値を書き出し、 コード側の CSS
-              変数や設定に取り込むことで、値の二重管理をなくせます。
+              デザインと実装が同じトークンを参照することです。
+              トークンの定義をひとつの正本に置き、コード側の CSS
+              変数や設定はそこから生成する形にすると、値の二重管理がなくなります。
               色をひとつ変えれば、デザインとコードの両方が同じ方向に揃います。
             </p>
 

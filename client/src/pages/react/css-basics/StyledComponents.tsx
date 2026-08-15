@@ -377,26 +377,36 @@ function App() {
               </div>
 
               <div className="bg-muted/30 border border-border rounded-lg p-5">
-                <h3 className="font-semibold text-foreground mb-2">3. スタイルの注入方法の変更</h3>
+                <h3 className="font-semibold text-foreground mb-2">3. スタイルの注入方法は v5 から変わっていない</h3>
                 <p className="text-sm text-foreground/80">
-                  v6 では <code className="bg-muted px-1 rounded">CSSOM（insertRule）</code> ではなく
-                  テキストノードベースの注入に変更されました。React の Concurrent Mode との互換性が向上しています。
+                  注入方式の既定は v5.3 と v6.0 で同一で、
+                  <code className="bg-muted px-1 rounded">{`useCSSOMInjection: !DISABLE_SPEEDY`}</code> です。
+                  本番ビルドでは <code className="bg-muted px-1 rounded">CSSOM（insertRule）</code>、
+                  開発ビルドではテキストノードが使われます（この分岐は v5 の時点で存在します）。
+                  v6 系の現行コードではテキストノード実装そのものが削除され、ブラウザビルドは常に CSSOM（insertRule）です。
                 </p>
               </div>
 
               <div className="bg-muted/30 border border-border rounded-lg p-5">
                 <h3 className="font-semibold text-foreground mb-2">4. .attrs() の仕様変更</h3>
                 <p className="text-sm text-foreground/80">
-                  <code className="bg-muted px-1 rounded">.attrs()</code> にオブジェクトを直接渡す書き方が非推奨になり、
-                  関数形式（<code className="bg-muted px-1 rounded">{`.attrs((props) => ({ ... }))`}</code>）が推奨されます。
+                  オブジェクト形式（<code className="bg-muted px-1 rounded">{`.attrs({ ... })`}</code>）は v6 でも現行の API です。
+                  v6 での変更点は 2 つで、attrs が値を与える props がコンポーネントの型上で optional になること、
+                  <code className="bg-muted px-1 rounded">{`.attrs((props) => ...)`}</code> のコールバックが受け取る props が
+                  イミュータブルなスナップショットになり、<code className="bg-muted px-1 rounded">{`props.type = 'button'`}</code> のような
+                  書き換えが no-op になることです（値はコールバックの戻り値で返します）。
+                  なお、オブジェクトの値に関数を書くサブ関数形式（<code className="bg-muted px-1 rounded">{`.attrs({ prop: (props) => ... })`}</code>）は
+                  v4 で非推奨になり v5 で削除済みです。
                 </p>
               </div>
 
               <div className="bg-muted/30 border border-border rounded-lg p-5">
-                <h3 className="font-semibold text-foreground mb-2">5. Node.js 16+ / React 18+ が必須</h3>
+                <h3 className="font-semibold text-foreground mb-2">5. Node.js 16 以上が必須</h3>
                 <p className="text-sm text-foreground/80">
-                  v6 は Node.js 16 以上、React 18 以上を要求します。
-                  古い環境では v5 を継続使用する必要があります。
+                  v6 は Node.js 16 以上を要求します（package.json の
+                  <code className="bg-muted px-1 rounded">{`engines: { node: '>= 16' }`}</code>）。
+                  React 側の peer 要件は <code className="bg-muted px-1 rounded">{`react / react-dom >= 16.8.0`}</code> で、
+                  v6.0.0 から現行の 6.5.3 まで同じです。React 17 の環境でもそのまま v6 を使えます。
                 </p>
               </div>
             </div>
@@ -412,10 +422,10 @@ const Box = styled.div.withConfig({
   opacity: \${(p) => (p.isActive ? 1 : 0.5)};
 \`;
 
-// .attrs() にオブジェクトを渡していた
-const Input = styled.input.attrs({
-  type: 'text',
-  placeholder: '入力してください',
+// .attrs() のコールバック引数を直接書き換えていた
+const Input = styled.input.attrs((props) => {
+  props.type = 'text';
+  return props;
 })\`
   padding: 8px;
 \`;
@@ -427,11 +437,19 @@ const Box = styled.div<{ $isActive: boolean }>\`
   opacity: \${(p) => (p.$isActive ? 1 : 0.5)};
 \`;
 
-// .attrs() は関数形式を使う
+// コールバック引数はイミュータブル。値は戻り値で返す
 const Input = styled.input.attrs(() => ({
   type: 'text',
   placeholder: '入力してください',
 }))\`
+  padding: 8px;
+\`;
+
+// オブジェクト形式も v6 の現行 API（v5 から変わらず使える）
+const SearchInput = styled.input.attrs({
+  type: 'search',
+  placeholder: '検索',
+})\`
   padding: 8px;
 \`;`}
             />

@@ -154,9 +154,16 @@ npx @stoplight/prism-cli mock openapi.yaml
             <p className="text-muted-foreground mt-6 leading-relaxed">
               レスポンスの中身は契約から決まります。 Prism は、対象のパスに
               <strong>example が定義されていればそれを優先して返し</strong>、
-              example がなければ <strong>スキーマから値を動的に生成</strong>
-              して返します。 つまり契約さえあれば、データを 1
-              件も書かなくてもモックは成立します。
+              example がなければ既定の <strong>static 生成</strong>{" "}
+              でスキーマを辿って静的な値を組み立てます（<code>default</code> 値 →{" "}
+              <code>examples</code> 配列の先頭 → nullable なら{" "}
+              <code>null</code> → <code>format</code>{" "}
+              指定があればその format に応じた固定値 → いずれも無ければ string は{" "}
+              <code>"string"</code>、number は <code>0</code>）。 つまり契約さえあれば、データを 1
+              件も書かなくてもモックは成立します。 リクエストごとにランダムな値を返す
+              dynamic モードを使う場合は、起動時に{" "}
+              <code>prism mock -d openapi.yaml</code> とするか、リクエストに{" "}
+              <code>Prefer: dynamic=true</code> を付けます。
             </p>
           </section>
 

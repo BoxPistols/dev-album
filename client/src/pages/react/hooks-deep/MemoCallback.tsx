@@ -628,8 +628,10 @@ function Parent() {
                   コンパイラが自動的にメモ化してくれる
                 </li>
                 <li>
-                  <strong>React 19 以降で利用可能</strong>: 既に Meta 社内（Instagram など）で使われており、
-                  段階的にオープンソースとして公開されている
+                  <strong>React 17 / 18 / 19 で利用可能</strong>: React 19 は追加のランタイム不要、
+                  React 17・18 では <code className="bg-muted px-1 rounded">target</code> オプション（'17' / '18'）を指定し
+                  <code className="bg-muted px-1 rounded">react-compiler-runtime</code> パッケージを追加する。
+                  Meta 社内（Instagram、Quest Store、Facebook、Threads）で本番利用されており、オープンソースとして公開されている
                 </li>
                 <li>
                   <strong>既存のコードと互換性あり</strong>: 手動で書いた useMemo/useCallback があっても問題なく動作する
@@ -977,7 +979,7 @@ function ProductCatalog({ products }: { products: Product[] }) {
                 },
                 {
                   question: 'React Compiler はいつ使えるようになりますか？',
-                  answer: 'React Compiler は React 19 以降で利用可能で、既にオープンソースとして公開されています。babel-plugin-react-compiler をインストールすることで導入できます。ただし安定版としての成熟度はプロジェクトによって判断が必要です。React 公式ブログやドキュメントで最新の状況を確認してください。',
+                  answer: 'React Compiler は React 17 / 18 / 19 に対応していて、既にオープンソースとして公開されています。babel-plugin-react-compiler をインストールすることで導入できます。React 17・18 では target オプション（\'17\' / \'18\'）の指定と react-compiler-runtime パッケージの追加が必要で、React 19 では追加のランタイムは不要です。React 公式ブログやドキュメントで最新の状況を確認してください。',
                 },
               ]}
             />

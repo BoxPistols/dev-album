@@ -273,15 +273,15 @@ export default function WhatIsUx() {
             </div>
           </section>
 
-          {/* UX の ROI */}
+          {/* 発見フェーズと修正の対象 */}
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
               <TrendingUp className="text-primary" />
-              UX の ROI
+              発見フェーズと修正の対象
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              UX リサーチへの投資は、開発後の手戻りコストと比較すると合理的な選択になる。
-              問題の発見タイミングが遅れるほど修正コストは増大する。
+              同じ問題でも、見つけたタイミングによって手を入れる対象が変わる。
+              フェーズごとに何を直すことになるかを並べておくと、リサーチをどこに置くかを判断しやすい。
             </p>
 
             <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -291,33 +291,26 @@ export default function WhatIsUx() {
                     <th className="text-left py-3 px-4 font-bold text-foreground" style={{ fontSize: '13px' }}>
                       発見フェーズ
                     </th>
-                    <th className="text-center py-3 px-4 font-bold text-foreground" style={{ fontSize: '13px' }}>
-                      相対コスト
-                    </th>
                     <th className="text-left py-3 px-4 font-bold text-foreground" style={{ fontSize: '13px' }}>
-                      具体例
+                      修正の対象
                     </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr className="border-b border-border">
                     <td className="py-3 px-4 font-medium text-foreground" style={{ fontSize: '13px' }}>リサーチ段階</td>
-                    <td className="py-3 px-4 text-center font-bold text-green-600 dark:text-green-400" style={{ fontSize: '13px' }}>1x</td>
                     <td className="py-3 px-4" style={{ fontSize: '13px' }}>インタビューで要件を修正</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="py-3 px-4 font-medium text-foreground" style={{ fontSize: '13px' }}>デザイン段階</td>
-                    <td className="py-3 px-4 text-center font-bold text-amber-700 dark:text-amber-400" style={{ fontSize: '13px' }}>5x</td>
                     <td className="py-3 px-4" style={{ fontSize: '13px' }}>プロトタイプの画面遷移を変更</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="py-3 px-4 font-medium text-foreground" style={{ fontSize: '13px' }}>開発段階</td>
-                    <td className="py-3 px-4 text-center font-bold text-orange-600 dark:text-orange-400" style={{ fontSize: '13px' }}>10x</td>
                     <td className="py-3 px-4" style={{ fontSize: '13px' }}>実装済みの画面構成を再設計</td>
                   </tr>
                   <tr>
                     <td className="py-3 px-4 font-medium text-foreground" style={{ fontSize: '13px' }}>リリース後</td>
-                    <td className="py-3 px-4 text-center font-bold text-red-600 dark:text-red-400" style={{ fontSize: '13px' }}>30-100x</td>
                     <td className="py-3 px-4" style={{ fontSize: '13px' }}>既存ユーザーへの影響を含む全面改修</td>
                   </tr>
                 </tbody>

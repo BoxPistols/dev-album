@@ -179,8 +179,7 @@ useGLTF.preload('/models/house.glb');`}
       <div className="mt-8">
         <InfoBox type="info" title="DRACO 圧縮とモデル最適化">
           <p>
-            DRACO は Google が開発した 3D メッシュの圧縮ライブラリです。
-            glTF モデルに適用すると、ファイルサイズを大幅に削減できます（通常 60〜90% 減）。
+            DRACO 圧縮された glTF を読み込むときは、DRACOLoader を GLTFLoader に設定します。
           </p>
           <pre className="mt-2 text-xs bg-black/10 dark:bg-white/10 p-2 rounded">
 {`import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
@@ -316,7 +315,7 @@ renderer.render(scene, camera);`}
           <ul className="list-disc list-inside space-y-1">
             <li>glTF (.glb) は Web 3D の標準フォーマット</li>
             <li>GLTFLoader または useGLTF でモデルを読み込む</li>
-            <li>DRACO 圧縮でファイルサイズを大幅に削減できる</li>
+            <li>DRACO 圧縮された glTF は DRACOLoader を設定して読み込む</li>
             <li>ポリゴン数・テクスチャサイズの最適化がパフォーマンスに重要</li>
             <li>大きなモデルにはローディング表示を入れる</li>
           </ul>

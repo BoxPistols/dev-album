@@ -409,7 +409,11 @@ export default function SwaggerUi() {
 npx @redocly/cli build-docs openapi.json -o docs/index.html
 
 # プレビュー用にローカルサーバで開く（実行機能はない）
-npx @redocly/cli preview-docs openapi.json`}
+# 現行の 2.x では preview を使う
+npx @redocly/cli preview
+
+# preview-docs は CLI 1.x のコマンド。使うならメジャーを固定する
+npx @redocly/cli@1 preview-docs openapi.json`}
             />
 
             <p className="text-muted-foreground mt-6 leading-relaxed">

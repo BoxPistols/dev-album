@@ -59,9 +59,11 @@ export default function Vercel() {
 
             <InfoBox type="info" title="無料プラン">
               <p>
-                Vercel の Hobby プラン（無料）で、個人プロジェクトやポートフォリオサイトを十分に運用できます。
-                月間 100GB の帯域幅、無制限のデプロイ、自動 HTTPS が含まれます。
-                チームで使う場合は Pro プラン（月 $20/メンバー）が必要です。
+                Vercel の Hobby プラン（無料）で、個人プロジェクトやポートフォリオサイトを運用できます。
+                月間 100GB の Fast Data Transfer と自動 HTTPS が含まれます。
+                デプロイ回数には上限があり、1 日 100 デプロイ、1 時間 100 ビルド、同時デプロイは 1 件までです。
+                また Hobby は fair use guidelines により非商用・個人利用に限られます。
+                チームで使う場合や商用利用では Pro プラン（月 $20/メンバー）が必要です。
               </p>
             </InfoBox>
           </section>

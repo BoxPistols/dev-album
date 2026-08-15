@@ -201,7 +201,7 @@ export default function ReactSetup() {
               />
 
               <p className="text-muted-foreground mt-4">
-                サーバーが起動すると、自動的にブラウザが開いて、React アプリが表示されます。
+                サーバーが起動すると、ターミナルに Local の URL（例: http://localhost:5173/）が表示されます。この URL をブラウザで開いてください。Vite の dev サーバーは既定ではブラウザを自動で開きません。自動で開かせたい場合は <code className="text-sm">npm run dev -- --open</code> を実行するか、vite.config に <code className="text-sm">server: {'{'} open: true {'}'}</code> を書きます。
               </p>
 
               <InfoBox type="info">
@@ -224,7 +224,7 @@ export default function ReactSetup() {
               </p>
 
               <p className="text-muted-foreground">
-                「Learn React」というテキストが表示されれば、成功です。
+                Vite + React のスターター画面（「Edit src/App.jsx and save to test HMR」というテキストを含む画面）が表示されれば、成功です。
               </p>
 
               <InfoBox type="success">
@@ -245,7 +245,7 @@ export default function ReactSetup() {
             </p>
 
             <CodeBlock
-              code={`my-react-app/\n├── node_modules/        # インストールされたライブラリ\n├── public/              # 静的ファイル（HTML など）\n│   └── index.html       # メインの HTML ファイル\n├── src/                 # React コンポーネント（ここを編集）\n│   ├── App.js           # メインコンポーネント\n│   ├── App.css          # スタイル\n│   └── index.js         # エントリーポイント\n├── package.json         # プロジェクト設定\n└── README.md            # プロジェクト説明`}
+              code={`my-react-app/\n├── node_modules/        # インストールされたライブラリ\n├── public/              # 静的ファイル（favicon.svg, icons.svg）\n├── src/                 # React コンポーネント（ここを編集）\n│   ├── App.jsx          # メインコンポーネント\n│   ├── App.css          # スタイル\n│   ├── index.css        # 全体のスタイル\n│   ├── main.jsx         # エントリーポイント\n│   └── assets/          # 画像などのアセット\n├── index.html           # メインの HTML（ルート直下）\n├── vite.config.js       # Vite の設定\n├── package.json         # プロジェクト設定\n└── README.md            # プロジェクト説明`}
               language="bash"
               title="React プロジェクトの基本構造"
             />
@@ -260,7 +260,13 @@ export default function ReactSetup() {
               <div>
                 <h4 className="font-semibold text-foreground mb-1">public/</h4>
                 <p className="text-muted-foreground text-sm">
-                  静的ファイル（HTML、画像など）を配置するフォルダです。
+                  そのまま配信される静的ファイル（favicon などの画像）を配置するフォルダです。
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground mb-1">index.html</h4>
+                <p className="text-muted-foreground text-sm">
+                  メインの HTML ファイルです。Vite ではプロジェクトのルート直下に置かれ、<code className="text-xs">src/main.jsx</code> を読み込みます。
                 </p>
               </div>
               <div>

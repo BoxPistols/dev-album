@@ -297,8 +297,8 @@ export default function Reference() {
                   "放置された Issue / PR にラベル付け・自動クローズ",
                 ],
                 [
-                  "actions/add-to-project@v1",
-                  "Issue / PR を GitHub Projects へ自動追加",
+                  "actions/add-to-project@v2",
+                  "Issue / PR を GitHub Projects へ自動追加（v1 系は @v1.0.2 のようにパッチ版まで指定する。@v1 という浮動タグは存在しない）",
                 ],
                 [
                   "dependabot/fetch-metadata@v2",
@@ -381,9 +381,9 @@ export default function Reference() {
             <CheatTable
               headers={["ラベル", "OS", "無料枠の消費倍率"]}
               rows={[
-                ["ubuntu-latest（22.04 相当）", "Linux", "1 倍"],
+                ["ubuntu-latest（24.04 相当）", "Linux", "1 倍"],
                 [
-                  "ubuntu-22.04 / ubuntu-24.04",
+                  "ubuntu-22.04 / ubuntu-24.04 / ubuntu-26.04（public preview）",
                   "Linux（バージョン固定）",
                   "1 倍",
                 ],

@@ -43,7 +43,7 @@ export default function HooksGuide() {
                   { label: '確定的な実行', desc: 'LLM の判断を介さずルールベースで実行される。毎回同じ条件で同じ処理が走る。' },
                   { label: '低遅延', desc: 'シェルコマンドとして直接実行されるため、LLM のターンを消費しない。' },
                   { label: '制御フロー', desc: 'exit code で処理の続行・ブロックを制御できる。安全ガードとして機能する。' },
-                  { label: 'プロンプト注入', desc: 'Hook の出力を Claude の次のターンに注入できる。動的コンテキストの追加に使用。' },
+                  { label: 'プロンプト注入', desc: 'UserPromptSubmit / UserPromptExpansion / SessionStart では Hook の出力をコンテキストとして渡せる。動的コンテキストの追加に使用。' },
                 ].map(item => (
                   <div key={item.label} className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <h5 className="font-bold text-xs text-[var(--claude-primary)] mb-1">{item.label}</h5>
@@ -90,15 +90,20 @@ export default function HooksGuide() {
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
               <Boxes className="text-[var(--claude-primary)]" />
-              3つの Hook タイプ
+              Hook タイプ
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Hook のアクションは3種類のタイプから選択します。用途に応じて使い分けます。
+              Hook のアクションは <code>type</code> フィールドで指定します。取りうる値は <code>command</code> / <code>http</code> / <code>mcp_tool</code> / <code>prompt</code> / <code>agent</code> です。ここでは <code>command</code> / <code>prompt</code> / <code>agent</code> を取り上げます。
             </p>
+            <div className="mb-6">
+              <InfoBox type="warning" title="イベントごとに使えるタイプが違う">
+                <code>agent</code> タイプは experimental で、仕様が変わる可能性があります。また <code>SessionStart</code> と <code>Setup</code> がサポートするのは <code>command</code> と <code>mcp_tool</code> だけで、<code>http</code> / <code>prompt</code> / <code>agent</code> は使えません。すべてのイベントで全タイプが選べるわけではない点に注意してください。
+              </InfoBox>
+            </div>
             <div className="grid grid-cols-1 gap-6">
               <div className="p-5 rounded-r-xl border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-3">command タイプ</h4>
-                <p className="text-xs text-muted-foreground mb-3">シェルコマンドを直接実行します。最も基本的なタイプで、フォーマッタの実行やファイル操作に使います。</p>
+                <p className="text-xs text-muted-foreground mb-3">シェルコマンドを直接実行します。最も基本的なタイプで、フォーマッタの実行やファイル操作に使います。対象ファイルのパスは stdin で渡される JSON から取り出します。</p>
                 <CodeBlock
                   code={`{
   "hooks": {
@@ -108,7 +113,7 @@ export default function HooksGuide() {
         "hooks": [
           {
             "type": "command",
-            "command": "prettier --write $CLAUDE_FILE_PATH"
+            "command": "jq -r '.tool_input.file_path' | xargs prettier --write"
           }
         ]
       }
@@ -250,9 +255,9 @@ export default function HooksGuide() {
                 <h4 className="font-bold text-sm mb-3 text-[var(--claude-primary)]">出力</h4>
                 <p className="text-xs text-muted-foreground mb-3">exit code と stdout で動作を制御します。</p>
                 <ul className="space-y-1 text-xs text-muted-foreground">
-                  <li>- <code>exit 0</code>: 許可（処理を続行）</li>
-                  <li>- <code>exit 2</code>: ブロック（操作を中止）</li>
-                  <li>- <code>stdout</code>: Claude への注入テキスト</li>
+                  <li>- <code>exit 0</code>: 成功（報告する判断なし）。通常の permission flow がそのまま進む。許可を明示するなら JSON の <code>permissionDecision</code> を使う</li>
+                  <li>- <code>exit 2</code>: ブロッキングエラー。ブロックできるイベントでは JSON を出力するかどうかに関わらず操作を中止する</li>
+                  <li>- <code>stdout</code>: 既定ではデバッグログに書かれ、トランスクリプトには出ない。プレーンテキストがコンテキストとして Claude に渡るのは <code>UserPromptSubmit</code> / <code>UserPromptExpansion</code> / <code>SessionStart</code> のみ</li>
                 </ul>
               </div>
             </div>
@@ -268,17 +273,17 @@ export default function HooksGuide() {
 }
 
 # exit code による制御
-# exit 0 → 操作を許可
-# exit 2 → 操作をブロック（Claude にブロック理由を通知）
+# exit 0 → 成功（報告する判断なし）。通常の permission flow に進む
+# exit 2 → ブロッキングエラー。ブロックできるイベントでは操作を中止する
 # その他 → エラーとして扱われる
 
-# stdout の出力は Claude の次のターンに注入される
-echo "注意: このファイルは保護対象です"
+# stdout は既定でデバッグログ行き。ブロック理由や警告は stderr に書くと Claude に届く
+echo "注意: このファイルは保護対象です" >&2
 exit 2`}
               language="bash"
             />
             <InfoBox type="warning" title="exit code の注意点">
-              exit code 2 は PreToolUse でのみ「ブロック」として機能します。PostToolUse や他のイベントでは exit code 2 はエラーとして扱われます。
+              exit code 2 でブロックできるイベントは PreToolUse だけではありません。公式リファレンスの &quot;Exit code 2 behavior per event&quot; で Can block? = Yes とされているのは <code>PreToolUse</code> / <code>UserPromptSubmit</code> / <code>UserPromptExpansion</code> / <code>Stop</code> / <code>SubagentStop</code> / <code>TeammateIdle</code> / <code>TaskCreated</code> / <code>TaskCompleted</code> / <code>ConfigChange</code> / <code>PostToolBatch</code> / <code>PreCompact</code> / <code>Elicitation</code> / <code>ElicitationResult</code> / <code>WorktreeCreate</code> です。PostToolUse はツールが既に実行済みのためブロックはできませんが、exit 2 で stderr を Claude に見せられるので、<code>PostToolUse</code> / <code>PostToolUseFailure</code> から警告を届けたいときはこちらを使います。
             </InfoBox>
           </section>
 
@@ -344,11 +349,11 @@ exit 2`}
             previewType="terminal"
             title="Hook 設定を書いてみよう"
             description="settings.json の hooks セクションに、Write ツール実行後に prettier で自動フォーマットし、かつ .env ファイルへの書き込みをブロックする Hook を設定してください。"
-            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（実行後フック）\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "prettier --write $CLAUDE_FILE_PATH"\n          }\n        ]\n      }\n    ],\n    "___": [  // ← ここを埋める（実行前フック）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if echo $CLAUDE_FILE_PATH | grep -q '.env'; then echo '.env ファイルは保護されています'; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
-            answer={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "prettier --write $CLAUDE_FILE_PATH"\n          }\n        ]\n      }\n    ],\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if echo $CLAUDE_FILE_PATH | grep -q '.env'; then echo '.env ファイルは保護されています'; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（実行後フック）\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "jq -r '.tool_input.file_path' | xargs prettier --write"\n          }\n        ]\n      }\n    ],\n    "___": [  // ← ここを埋める（実行前フック）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if jq -r '.tool_input.file_path' | grep -q '.env'; then echo '.env ファイルは保護されています' >&2; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            answer={`{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "jq -r '.tool_input.file_path' | xargs prettier --write"\n          }\n        ]\n      }\n    ],\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "if jq -r '.tool_input.file_path' | grep -q '.env'; then echo '.env ファイルは保護されています' >&2; exit 2; fi"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             hints={[
               'PostToolUse の matcher に "Write" を指定して、ファイル書き込み後に発火させます',
-              'prettier のパスは $CLAUDE_FILE_PATH 環境変数で取得できます',
+              "対象ファイルのパスは stdin の JSON から jq -r '.tool_input.file_path' で取り出します",
               'PreToolUse で exit 2 を返すと操作をブロックできます',
             ]}
             keywords={['PostToolUse', 'PreToolUse', 'Write']}
@@ -363,7 +368,7 @@ exit 2`}
                 '冪等性: 同じ Hook が複数回実行されても安全であること',
                 '高速性: Hook の実行時間は短く保つ（ワークフローをブロックしないため）',
                 'エラーハンドリング: 予期しないエラーでもセッションが中断しないよう配慮する',
-                'ログ出力: デバッグ用にログを stderr に出力する（stdout は Claude に注入される）',
+                'ログ出力: Claude に届けたいメッセージは stderr に出力する（stdout は既定でデバッグログ行き）',
                 'スコープの適切な選択: チーム共有 vs 個人用を明確に区別する',
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 p-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">

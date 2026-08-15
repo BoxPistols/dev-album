@@ -1111,8 +1111,9 @@ describe('Button', () => {
               <p>
                 melta UI (<a href="https://melta.tsubotax.com/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">melta.tsubotax.com</a>) は、
                 AI と人間の両方が読めるデザインシステムの実践例。
-                CLAUDE.md をエントリーポイントとし、76 の禁止パターン、120+ のセマンティックトークン、
-                MCP サーバーによるトークン検証を備えている。
+                AI が最初に読む入口は <code>DESIGN.md</code>（デザイン憲法）で、<code>CLAUDE.md</code> は Claude Code の作業手順書という位置づけ。
+                <code>rules.json</code> に 106 ルールの禁止パターン registry、<code>tokens.json</code> と <code>contracts/</code> に 101 トークン + 40 contract の機械可読仕様を持ち、
+                MCP サーバー + Harness がトークン検索・ルール検証・drift 検出を自動実行する。
               </p>
             </InfoBox>
           </section>

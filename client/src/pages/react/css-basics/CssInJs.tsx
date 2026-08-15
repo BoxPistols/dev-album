@@ -442,7 +442,6 @@ const Box = styled.div\`
               <p>
                 大量のコンポーネントが頻繁に再レンダリングされるアプリケーション（データテーブル、アニメーションなど）では、
                 ランタイム CSS-in-JS がボトルネックになることがあります。
-                ベンチマークでは、CSS Modules や Tailwind と比べて数倍遅いケースも報告されています。
               </p>
             </InfoBox>
 
@@ -452,13 +451,15 @@ const Box = styled.div\`
             </p>
 
             <div className="bg-muted/30 border border-border rounded-lg p-6">
-              <h4 className="font-semibold text-foreground mb-3">ライブラリサイズの目安（gzip 圧縮後）</h4>
+              <h4 className="font-semibold text-foreground mb-3">ライブラリサイズの考え方</h4>
               <ul className="space-y-2 text-foreground/80 text-sm">
-                <li><strong>styled-components:</strong> 約 12.7 kB</li>
-                <li><strong>@emotion/react + @emotion/styled:</strong> 約 11.2 kB</li>
+                <li><strong>styled-components / @emotion/react + @emotion/styled:</strong> ランタイムライブラリ本体がバンドルに加算される</li>
                 <li><strong>CSS Modules:</strong> 0 kB（ビルド時に処理）</li>
                 <li><strong>Tailwind CSS:</strong> 0 kB（CSS のみ、JS ライブラリ不要）</li>
               </ul>
+              <p className="text-muted-foreground text-sm mt-3">
+                ランタイムライブラリのサイズはバージョンごとに変わります。導入するバージョンで実測してください。
+              </p>
             </div>
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">3. 学習コスト</h3>
@@ -709,14 +710,14 @@ function App() {
                     <td className="border border-border px-3 py-2">ランタイム</td>
                     <td className="border border-border px-3 py-2">やや遅い</td>
                     <td className="border border-border px-3 py-2">遅い場合あり</td>
-                    <td className="border border-border px-3 py-2">約 11.2 kB</td>
+                    <td className="border border-border px-3 py-2">ランタイム分が加算</td>
                   </tr>
                   <tr className="bg-muted/20">
                     <td className="border border-border px-3 py-2 font-medium">styled-components</td>
                     <td className="border border-border px-3 py-2">ランタイム</td>
                     <td className="border border-border px-3 py-2">やや遅い</td>
                     <td className="border border-border px-3 py-2">遅い場合あり</td>
-                    <td className="border border-border px-3 py-2">約 12.7 kB</td>
+                    <td className="border border-border px-3 py-2">ランタイム分が加算</td>
                   </tr>
                 </tbody>
               </table>

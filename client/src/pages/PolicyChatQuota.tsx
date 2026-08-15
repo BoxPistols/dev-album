@@ -82,13 +82,18 @@ export default function PolicyChatQuota() {
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
             利用カウントは{" "}
             <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
-              SHA-256(IP + UserAgent + 招待コード?)
+              SHA-256(IP + UserAgent)
             </code>{" "}
-            で 計算したセッション ID
-            単位で集計されます。同じネットワーク・同じブラウザからの複数タブは同一セッション扱いです。
+            の先頭 32 桁をセッション ID
+            として集計されます。招待コードなどの区分はセッション ID
+            ではなくカウンタのキー側に含まれます。同じネットワーク・同じブラウザからの複数タブは同一セッション扱いです。
           </p>
           <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-6">
-            <li>IP アドレス自体は 1 日のリセット後に消去されます</li>
+            <li>
+              IP アドレスは保存せず、上記のセッション ID
+              だけを使います。カウンタは最終アクセスから 48
+              時間で自動失効します
+            </li>
             <li>個人を特定する情報 (氏名・メール等) は記録しません</li>
             <li>
               会話履歴はブラウザの localStorage

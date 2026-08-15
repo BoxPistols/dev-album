@@ -24,7 +24,7 @@ export default function ClaudeCodeSetup() {
           </h1>
           <p className="text-lg text-muted-foreground">
             AIエージェント「Claude Code」をインストールして、ターミナルからAIと対話できる環境を作ります。
-            まずは無料プランで始めましょう。
+            利用には Pro / Max / Team / Enterprise / Console のいずれかのアカウントが必要です。
           </p>
         </div>
       </div>
@@ -58,8 +58,8 @@ export default function ClaudeCodeSetup() {
               </div>
               <div className="bg-primary/5 rounded-lg p-4">
                 <CreditCard className="w-8 h-8 text-primary mb-2" />
-                <h4 className="font-semibold text-foreground mb-1">無料で開始可能</h4>
-                <p className="text-sm text-muted-foreground">無料プランでも十分な機能を体験できる</p>
+                <h4 className="font-semibold text-foreground mb-1">対象プラン</h4>
+                <p className="text-sm text-muted-foreground">Pro / Max / Team / Enterprise / Console のいずれかのアカウントで利用できる</p>
               </div>
             </div>
           </div>
@@ -126,10 +126,14 @@ export default function ClaudeCodeSetup() {
             </div>
           </div>
 
-          <InfoBox type="info" title="無料プランについて">
-            Claude Code は Anthropic のAPIを利用します。新規登録すると無料クレジットが付与されるため、
-            まずは無料で始められます。クレジットが尽きた場合でも、
-            使った分だけ課金される従量課金制です（最初は $5 程度のクレジット追加で十分使えます）。
+          <InfoBox type="info" title="プランと支払いについて">
+            Claude Code の利用には Pro / Max / Team / Enterprise / Console のいずれかのアカウントが必要です
+            （無料の Claude.ai プランには Claude Code のアクセスが含まれません）。
+            Console（Claude API）で使う場合は前払いの usage credits 制で、API を呼ぶ前にクレジットを購入します。
+            新規登録時には少額のクレジットが付与されます。残高が尽きると API も Workbench も呼び出せなくなるため、
+            残高が下限を割ったときに自動購入する auto-reload を設定しておくと安定して使えます。
+            このほか、Amazon Bedrock / Google Cloud の Agent Platform / Microsoft Foundry といった
+            サードパーティ API プロバイダ経由で利用する方法もあります。
           </InfoBox>
         </div>
 
@@ -139,10 +143,12 @@ export default function ClaudeCodeSetup() {
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
               2
             </div>
-            <h3 className="text-2xl font-semibold text-foreground">Node.js がインストール済みか確認する</h3>
+            <h3 className="text-2xl font-semibold text-foreground">npm で入れる場合は Node.js を確認する</h3>
           </div>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Claude Code は Node.js（v18 以上）が必要です。
+            公式の System requirements（OS / Hardware / Network / Shell / Location）に Node.js の項目はありません。
+            npm 版も、インストール時にネイティブバイナリを取得して実行時はそれを使う作りです。
+            Node.js が要るのは npm 経由でインストールする場合だけで、その要件は v2.1.198 以降 Node.js 22 以上です。
             このマニュアルの「環境準備」で既にインストール済みの方はそのままでOKです。
           </p>
 
@@ -150,7 +156,7 @@ export default function ClaudeCodeSetup() {
             <CodeBlock
               code={`# Node.js のバージョンを確認
 node --version
-# v18.0.0 以上が表示されればOK`}
+# v22.0.0 以上が表示されればOK`}
               language="bash"
               title="ターミナル"
             />
@@ -158,14 +164,14 @@ node --version
             <CodeBlock
               code={`# Node.js のバージョンを確認
 node --version
-# v18.0.0 以上が表示されればOK`}
+# v22.0.0 以上が表示されればOK`}
               language="powershell"
               title="PowerShell"
             />
           )}
 
           <InfoBox type="warning" title="Node.js が未インストールの場合">
-            バージョンが表示されない、またはv18未満の場合は、
+            バージョンが表示されない、またはv22未満の場合は、次のステップのネイティブインストーラを使うか、
             先に「<a href="/git/environment/nodejs" className="text-primary underline underline-offset-2">Node.js インストール</a>」ページの手順を完了してください。
           </InfoBox>
         </div>
@@ -179,7 +185,19 @@ node --version
             <h3 className="text-2xl font-semibold text-foreground">Claude Code をインストールする</h3>
           </div>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            npm（Node.js に付属するパッケージマネージャー）を使って、Claude Code をグローバルインストールします。
+            公式が推奨するのはネイティブインストーラです。bash で次の 1 行を実行します。
+          </p>
+
+          <CodeBlock
+            code={`# ネイティブインストーラ（公式推奨）
+curl -fsSL https://claude.ai/install.sh | bash`}
+            language="bash"
+            title="bash"
+          />
+
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            npm（Node.js に付属するパッケージマネージャー）でグローバルインストールする方法もあります。
+            この場合もインストール時にネイティブバイナリを取得するため、実行時に Node.js は使われません。
           </p>
 
           {selectedOS === 'mac' ? (
@@ -363,8 +381,8 @@ claude`}
             <div className="space-y-3">
               {[
                 'Anthropic アカウントを作成した',
-                'Node.js v18 以上がインストールされていることを確認した',
-                'npm で Claude Code をインストールした',
+                'npm で入れる場合に必要な Node.js 22 以上を確認した',
+                'ネイティブインストーラまたは npm で Claude Code をインストールした',
                 '初回認証（ブラウザでログイン）を完了した',
                 'Claude Code と「Hello World」の対話ができた',
               ].map((item, index) => (

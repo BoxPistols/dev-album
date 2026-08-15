@@ -101,9 +101,11 @@ export default function Next15Ppr() {
 
             <InfoBox type="info" title="PPR は実験的機能">
               <p>
-                PPR は Next.js 15 時点ではまだ実験的（experimental）な機能です。
-                本番利用は可能ですが、API が将来変更される可能性があります。
+                PPR は Next.js 15 時点では実験的（experimental）な機能でした。当時の公式ドキュメントは
+                「It is not ready for production use.」と明記し、安定版ではなく canary チャンネルでのみ利用できるとしていました。
                 <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next.config.ts</code> で明示的に有効化する必要があります。
+                Next.js 16 では <code className="text-sm bg-muted px-1.5 py-0.5 rounded">experimental.ppr</code> フラグ自体が削除され、
+                トップレベルの <code className="text-sm bg-muted px-1.5 py-0.5 rounded">cacheComponents</code> に置き換わっています。
               </p>
             </InfoBox>
           </section>
@@ -579,11 +581,6 @@ export default function ArticlePage({
           {/* セクション 5: dynamicIO */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">dynamicIO</h2>
-            <p className="text-foreground/80 mb-4 leading-relaxed">
-              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">dynamicIO</code> は Next.js 15 で導入された実験的な機能で、
-              データ取得の動的・静的判別をより厳密に制御します。有効にすると、キャッシュされていないデータアクセスが
-              Suspense の外側にある場合にビルドエラーが発生し、PPR の最適な設計を強制します。
-            </p>
 
             <InfoBox type="warning" title="Next.js 16 で cacheComponents に統合された">
               公式ドキュメントの Version History は「16.0.0 で <code>cacheComponents</code> を導入。
@@ -717,17 +714,21 @@ export async function addProduct(formData: FormData) {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">Next.js 16 の主な変更点</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              Next.js 16 は、React Compiler のデフォルト有効化や Node.js ランタイムの改善など、
-              パフォーマンスと開発者体験のさらなる向上が予定されています。主な変更点をプレビューしましょう。
+              Next.js 16 は 2025 年 10 月 21 日にリリース済みです。公式ブログが主な変更点として挙げているのは、
+              Cache Components、Turbopack のデフォルト化とファイルシステムキャッシュ、DevTools MCP、
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">middleware.ts</code> から
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">proxy.ts</code> への移行、ルーティングの刷新、
+              新しいキャッシュ API（<code className="text-sm bg-muted px-1.5 py-0.5 rounded">updateTag</code> /
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">refresh</code>）、React 19.2 への対応です。
             </p>
 
             <div className="grid gap-4 md:grid-cols-2 mb-6">
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-5">
-                <h3 className="font-bold text-foreground mb-3">React Compiler デフォルト有効化</h3>
+                <h3 className="font-bold text-foreground mb-3">React Compiler が stable に昇格</h3>
                 <div className="space-y-2 text-sm text-foreground/80">
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>useMemo / useCallback / React.memo が不要に</span>
+                    <span>useMemo / useCallback / React.memo の手書きを減らせる</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
@@ -735,7 +736,11 @@ export async function addProduct(formData: FormData) {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>既存コードの変更なしで恩恵を受けられる</span>
+                    <span>既定では無効。reactCompiler: true を書いて有効化する</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-primary">&#9679;</span>
+                    <span>babel-plugin-react-compiler を devDependency に追加する</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
@@ -745,23 +750,23 @@ export async function addProduct(formData: FormData) {
               </div>
 
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-5">
-                <h3 className="font-bold text-foreground mb-3">Node.js ランタイムの改善</h3>
+                <h3 className="font-bold text-foreground mb-3">公式が挙げるその他の変更</h3>
                 <div className="space-y-2 text-sm text-foreground/80">
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>ストリーミングの改善でレスポンス速度向上</span>
+                    <span>Turbopack がデフォルトに。ファイルシステムキャッシュを搭載</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>コールドスタートの高速化</span>
+                    <span>middleware.ts が proxy.ts になり Node.js ランタイムで動く</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>メモリ使用量の最適化</span>
+                    <span>新しいキャッシュ API（updateTag / refresh）</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary">&#9679;</span>
-                    <span>Edge Runtime との API 統一が進む</span>
+                    <span>React 19.2 に対応</span>
                   </div>
                 </div>
               </div>
@@ -845,31 +850,30 @@ function ExpensiveList({
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // React Compiler はデフォルトで有効
-  // 無効にしたい場合のみ設定
-  // reactCompiler: false,
+  // reactCompiler は experimental から stable に昇格した。
+  // ただし既定では無効なので、使う側が明示的に true を書く。
+  // あわせて babel-plugin-react-compiler を devDependency に入れる。
+  reactCompiler: true,
 
-  experimental: {
-    // PPR がより安定化（将来的にデフォルトになる可能性）
-    ppr: 'incremental',
+  // オブジェクトも受け取る。annotation は opt-in モード
+  // reactCompiler: { compilationMode: 'annotation' },
 
-    // dynamicIO の安定化
-    dynamicIO: true,
-  },
+  // ppr / useCache / dynamicIO を統合した単一フラグ。experimental の下ではない
+  cacheComponents: true,
 };
 
 export default nextConfig;
 
-// Turbopack のビルドサポートも進行中
-// next build --turbopack が将来的に安定版に`}
+// Turbopack は Next.js 16 でデフォルトになった`}
               language="typescript"
               title="Next.js 16 の設定例"
             />
 
             <InfoBox type="info" title="段階的なアップグレード">
               <p>
-                Next.js 16 への移行は段階的に行えます。React Compiler はデフォルトで有効になりますが、
-                既存の <code className="text-sm bg-muted px-1.5 py-0.5 rounded">useMemo</code> や
+                Next.js 16 への移行は段階的に行えます。React Compiler は既定では無効で、
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">reactCompiler: true</code> を書いたときだけ有効になります。
+                有効にしても既存の <code className="text-sm bg-muted px-1.5 py-0.5 rounded">useMemo</code> や
                 <code className="text-sm bg-muted px-1.5 py-0.5 rounded">useCallback</code> はそのまま動作します。
                 コンパイラは手動のメモ化と共存するため、徐々にコードを簡素化していけます。
                 PPR についても <code className="text-sm bg-muted px-1.5 py-0.5 rounded">incremental</code> モードで
@@ -950,9 +954,9 @@ export default nextConfig;
                   description: 'ppr / useCache / dynamicIO を統合した設定と use cache ディレクティブのリファレンス',
                 },
                 {
-                  title: 'Next.js 16 RC ブログ',
-                  url: 'https://nextjs.org/blog/next-15-3',
-                  description: 'React Compiler、Turbopack ビルドなどの最新アップデート',
+                  title: 'Next.js 16 ブログ',
+                  url: 'https://nextjs.org/blog/next-16',
+                  description: 'Cache Components、Turbopack のデフォルト化、proxy.ts などの発表記事',
                 },
                 {
                   title: 'Rendering - Next.js Docs',
@@ -977,7 +981,7 @@ export default nextConfig;
                 },
                 {
                   question: 'React Compiler を有効にすると既存コードが壊れることはありますか？',
-                  answer: 'React の公式ルール（Hooks のルール、純粋なレンダリング、イミュータブルな props/state）に従っている場合は問題ありません。React Compiler はこれらのルールを前提に最適化を行います。ルール違反のコード（例: レンダリング中の副作用、ミュータブルな操作）がある場合は、コンパイラが警告を出すか最適化をスキップします。Next.js 16 ではコンパイラを無効にするオプションも用意されています。',
+                  answer: 'React の公式ルール（Hooks のルール、純粋なレンダリング、イミュータブルな props/state）に従っている場合は問題ありません。React Compiler はこれらのルールを前提に最適化を行います。ルール違反のコード（例: レンダリング中の副作用、ミュータブルな操作）がある場合は、コンパイラが警告を出すか最適化をスキップします。Next.js 16 では reactCompiler が未指定なら既定でオフのままなので、有効化のタイミングは自分で選べます。',
                 },
               ]}
             />

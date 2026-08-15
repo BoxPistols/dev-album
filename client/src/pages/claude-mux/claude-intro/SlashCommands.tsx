@@ -66,8 +66,8 @@ export default function SlashCommands() {
               <div className="grid grid-cols-1 gap-4">
                 {[
                   { cmd: '/resume [session]', desc: 'ID または名前で過去セッションを再開。引数なしでピッカー表示。エイリアス: /continue。CLI からは claude --continue / claude --resume <id> でも復帰可能。' },
-                  { cmd: '/branch [name]', desc: '現在の会話の分岐ポイントを作成。分岐後も元セッションは /resume から戻れる。/fork は別コマンド（会話を引き継いだ background subagent を起動）。' },
-                  { cmd: '/rewind', desc: '会話・コードを以前のポイントへ復元、または途中以降を要約。Esc×2 でも起動。restore code / conversation / both / summarize from here の 4 アクション。エイリアス: /checkpoint, /undo。' },
+                  { cmd: '/branch [name]', desc: '現在の会話の分岐ポイントを作成。分岐後も元セッションは /resume から戻れる。/fork は別コマンド（会話を複製した background session を起動し、呼び出し元はその場で作業を続ける。agent view を無効にしている場合は forked subagent の起動にフォールバック）。結果がこの会話に戻ってくる側タスクを渡すのは /subtask。' },
+                  { cmd: '/rewind', desc: '会話・コードを以前のポイントへ復元、または前後いずれかを要約に圧縮。Esc×2 でも起動。Restore code and conversation / Restore conversation / Restore code / Summarize from here / Summarize up to here / Never mind から選ぶ（コード復元の 2 つは、選択したチェックポイントに追跡済みのファイル変更がある場合のみ表示）。エイリアス: /checkpoint, /undo。' },
                   { cmd: '/rename [name]', desc: 'セッションに識別名を付与。引数なしで会話履歴から自動生成。プロンプトバーに表示。' },
                   { cmd: '/export [filename]', desc: '対話履歴をプレーンテキストで書き出し。引数なしでクリップボード/ファイル選択ダイアログ。' },
                   { cmd: '/copy [N]', desc: '最後のアシスタント応答をクリップボードへ。N で N 番目以前を指定可能（例: /copy 2 で 2 つ前）。コードブロック単位の選択も可能。' },
@@ -130,7 +130,7 @@ export default function SlashCommands() {
                   { cmd: '/status', desc: 'バージョン / モデル / アカウント / 接続を Status タブに表示。応答中でも開ける。' },
                   { cmd: '/theme', desc: 'カラーテーマを変更。auto / light / dark / 色覚サポート / ANSI / カスタムテーマから選択。' },
                   { cmd: '/keybindings', desc: 'キーバインド設定ファイルを開く（または新規作成）。' },
-                  { cmd: '/terminal-setup', desc: 'Shift+Enter 等のキーバインドをターミナルへインストール。VS Code / Cursor / Windsurf / Alacritty / Zed のみ表示。' },
+                  { cmd: '/terminal-setup', desc: 'Shift+Enter 等のキーバインドをターミナルへインストール。設定が必要なターミナルでのみ表示される（VS Code / Cursor / Devin Desktop（旧 Windsurf）/ Kitty / Alacritty / Zed / Warp / WezTerm など）。' },
                   { cmd: '/heapdump', desc: 'JS ヒープスナップショットとメモリ内訳を ~/Desktop に書き出し（高メモリ使用時の診断用）。' },
                 ].map(item => (
                   <div key={item.cmd} className="flex items-start gap-4 pb-4 border-b border-slate-100 dark:border-slate-800 last:border-0 last:pb-0">
@@ -183,7 +183,7 @@ export default function SlashCommands() {
                   { cmd: '/teleport', desc: 'Claude Code on the web のセッションを現在のターミナルへ取り込み、ブランチと会話を取得。エイリアス: /tp。要 claude.ai サブスク。' },
                   { cmd: '/remote-control', desc: 'claude.ai からこのセッションを遠隔操作可能に。エイリアス: /rc。' },
                   { cmd: '/ide', desc: 'IDE 統合の管理とステータス表示。' },
-                  { cmd: '/add-dir <path>', desc: '現セッションのファイルアクセス対象ディレクトリを追加。.claude/skills/ は読み込まれるが他の .claude/ 設定は対象外。' },
+                  { cmd: '/add-dir <path>', desc: '現セッションのファイルアクセス対象ディレクトリを追加。大半の .claude/ 設定は読み込まれないが、.claude/skills/（ライブリロード付き）・.claude/commands/（同名はプロジェクト側が優先）・.claude/agents/ などは例外として読み込まれる。' },
                   { cmd: '/recap', desc: '現セッションの 1 行サマリをオンデマンド生成。' },
                   { cmd: '/feedback (/bug)', desc: 'Claude Code に関するフィードバックを送信。' },
                   { cmd: '/release-notes', desc: 'チェンジログをバージョンピッカー UI で表示。' },
@@ -289,7 +289,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   モデルの effort level（adaptive reasoning の強度）を切替。引数なしでスライダー、<code>auto</code> でモデル既定値にリセット。<strong>応答完了を待たず即時反映</strong>。<code>/model</code> 内でも左右キーで調整可能。
                 </p>
                 <p className="text-xs text-muted-foreground mb-3">
-                  対応モデル: Fable 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（既定は <code>high</code>、Fable 5・Opus 4.7 以降は <code>xhigh</code> が既定）
+                  対応モデル: Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（effort に対応する全モデルで既定は <code>high</code>。<code>xhigh</code> が既定なのは Opus 4.7 のみ）
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -319,7 +319,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">xhigh</td>
                         <td className="p-2">より深い推論を高トークン消費で。Opus 4.7 の既定</td>
-                        <td className="p-2">Fable 5 / Opus 4.8 / 4.7</td>
+                        <td className="p-2">Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7（Opus 4.6・Sonnet 4.6 は非対応）</td>
                       </tr>
                       <tr>
                         <td className="p-2 font-mono">max</td>
@@ -332,7 +332,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5 mb-3">
                   <li><code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> はセッション越しに永続化、<code>max</code> はセッション限り。</li>
                   <li>未対応 level を指定すると、対応モデルでサポートされる最高 level に自動降格（例: Opus 4.6 で <code>xhigh</code> → <code>high</code>）。</li>
-                  <li>1 ターンだけ深く考えさせたい場合は、<strong>level を上げず</strong>プロンプトに「ultrathink」を含める（API には effort 値を送らずプロンプトレベルで指示）。</li>
+                  <li>1 ターンだけ深く考えさせたい場合は、<strong>level を上げず</strong>プロンプトに「ultrathink」を含める（API に送られる effort 値は変わらないまま、Claude Code がキーワードを認識して in-context の指示を追加する）。「think」「think hard」「think more」は通常のプロンプトテキストとして扱われ、キーワードとしては認識されない。</li>
                   <li>優先順位: 環境変数 <code>CLAUDE_CODE_EFFORT_LEVEL</code> &gt; 設定値 &gt; モデル既定。skill / subagent frontmatter の <code>effort</code> はその skill / subagent 実行時のみ上書き。</li>
                 </ul>
                 <pre className="text-xs bg-slate-100 dark:bg-slate-950 rounded p-3 overflow-x-auto"><code>{`/effort              # スライダー UI
@@ -380,6 +380,10 @@ claude --effort xhigh
                         <td className="p-2 font-mono whitespace-nowrap">Summarize from here</td>
                         <td className="p-2">選択メッセージ以降のみ要約に圧縮（前半は full text 保持）。/compact のターゲット版</td>
                       </tr>
+                      <tr className="border-b border-slate-100 dark:border-slate-900">
+                        <td className="p-2 font-mono whitespace-nowrap">Summarize up to here</td>
+                        <td className="p-2">選択メッセージより前を要約に圧縮し、以降のメッセージはそのまま残す</td>
+                      </tr>
                       <tr>
                         <td className="p-2 font-mono whitespace-nowrap">Never mind</td>
                         <td className="p-2">何もせず一覧に戻る</td>
@@ -387,6 +391,9 @@ claude --effort xhigh
                     </tbody>
                   </table>
                 </div>
+                <p className="text-xs text-muted-foreground mb-3">
+                  コード復元の 2 つ（Restore code and conversation / Restore code）は、選択したチェックポイントに追跡済みのファイル変更がある場合のみ表示される。変更が記録されていない場合のメニューは Restore conversation と要約系、Never mind になる。
+                </p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5">
                   <li><strong>制約</strong>: bash コマンド経由のファイル変更（<code>rm</code> / <code>mv</code> / <code>cp</code> 等）は追跡されない。Claude のファイル編集ツール経由の編集のみ。</li>
                   <li>外部からの変更（手動編集、別セッションの編集）は同じファイルに触れた場合を除き取り込まれない。</li>

@@ -327,38 +327,49 @@ export async function handler() {
               ハンズオン: エッジで動かす関数を設定する
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Vercel
-              の関数は、設定ファイルで「どの実行モデルで動かすか」を指定できます。
-              低レイテンシを優先してユーザーに近い拠点で動かしたいとき、 `runtime`
-              に何を指定すればよいかを埋めてください。
+              Vercel で関数を Edge ランタイムで動かす指定は、関数ファイル側に書きます。
+              低レイテンシを優先してユーザーに近い拠点で動かしたいとき、{" "}
+              <code>runtime</code> に何を指定すればよいかを埋めてください。
             </p>
 
             <CodingChallenge
-              preview
-              previewType="config"
               title="関数をエッジランタイムで動かす設定を書こう"
-              description="vercel.json で api/geo の関数を、ユーザーに近い拠点で動くランタイムに指定してください。"
-              initialCode={`{
-  "functions": {
-    "api/geo.ts": {
-      "runtime": "___",
-      "memory": 128
-    }
-  }
+              description="api/geo.ts を、ユーザーに近い拠点で動くランタイムに指定してください。"
+              initialCode={`// api/geo.ts
+export const config = { runtime: '___' };
+
+export default function handler() {
+  return new Response('ok');
 }`}
-              answer={`{
-  "functions": {
-    "api/geo.ts": {
-      "runtime": "edge",
-      "memory": 128
-    }
-  }
+              answer={`// api/geo.ts
+export const config = { runtime: 'edge' };
+
+export default function handler() {
+  return new Response('ok');
 }`}
               hints={[
                 "ユーザーに近い拠点で V8 isolate として動かすランタイムは edge",
               ]}
               keywords={["edge"]}
             />
+
+            <InfoBox type="warning" title="vercel.json の runtime とは別物">
+              <p className="mb-2">
+                vercel.json の <code>functions.&lt;glob&gt;.runtime</code>{" "}
+                は、ランタイムの npm パッケージ名（バージョン込み。公式の用例は{" "}
+                <code>"vercel-php@0.5.2"</code> のようなコミュニティランタイム）を指定する項目で、
+                <code>"edge"</code> は有効な値ではありません。Edge ランタイムは上のように関数ファイル側で指定します。
+              </p>
+              <p className="mb-2">
+                <code>memory</code> は Fluid compute
+                が有効な場合 vercel.json では設定できず、ダッシュボードの Functions
+                セクションで既定のメモリ / CPU サイズを設定します。
+              </p>
+              <p>
+                なお Vercel は現在、edge から Node.js への移行を推奨しています。Next.js 16.3
+                以降では <code>runtime = 'edge'</code> 自体がサポートされません。
+              </p>
+            </InfoBox>
           </section>
 
           {/* Reference Links */}

@@ -29,11 +29,6 @@ const commands = [
     purpose: "このチャンネルが購読中のリポジトリを一覧する。",
   },
   {
-    command: "/github subscribe list features",
-    purpose:
-      "購読中のリポジトリを、有効なイベントとフィルタ付きで一覧する。設定の答え合わせに使う。",
-  },
-  {
     command: "/github settings",
     purpose:
       "チャンネル単位で、Issue / PR 通知のスレッド化を有効・無効にする。",

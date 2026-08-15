@@ -149,10 +149,8 @@ export default function WhatIsNuxt() {
               プロジェクトを作って起動する
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              公式のスキャフォールディングで作成します。
-              <code>npm create nuxt@latest</code> が現在の入口で、内部では
-              <code>nuxi</code>（Nuxt の CLI）が動きます。既存ディレクトリに
-              初期化したい場合は <code>npx nuxi init</code> も使えます。
+              公式のスキャフォールディングで作成します。作成コマンドの最新の形は
+              Nuxt 公式の Installation ガイド（このページ末尾の参考リンク）で確認してください。
             </p>
 
             <CodeBlock
@@ -160,9 +158,6 @@ export default function WhatIsNuxt() {
               title="Nuxt プロジェクトを作成して起動する"
               code={`# 対話形式でプロジェクトを作成（パッケージマネージャを選択）
 npm create nuxt@latest my-nuxt-app
-
-# あるいは nuxi で初期化する
-# npx nuxi init my-nuxt-app
 
 # 依存をインストールして開発サーバーを起動
 cd my-nuxt-app
@@ -359,8 +354,7 @@ const doubled = computed(() => count.value * 2)
                 {
                   title: "Nuxt 公式 - Installation",
                   url: "https://nuxt.com/docs/getting-started/installation",
-                  description:
-                    "npm create nuxt@latest / nuxi init でのプロジェクト作成手順",
+                  description: "プロジェクト作成手順の公式ガイド",
                 },
                 {
                   title: "Nuxt 公式 - Directory Structure",

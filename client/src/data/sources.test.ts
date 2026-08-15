@@ -1,9 +1,14 @@
+import { existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { SOURCES, getSourcesForPage, type Source } from "./sources";
 import { pages } from "../lib/navigation";
 
 // ネットワークを使わない決定的チェックだけをここに置く。
 // 実際に URL を取得して引用を照合するのは scripts/verify-sources.mjs（pnpm check:sources）。
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -98,11 +103,19 @@ describe("出典レジストリ", () => {
     }
   });
 
+  it("どの出典も、依拠しているページかファイルを必ず指している", () => {
+    for (const s of SOURCES) {
+      const n = (s.usedBy?.length ?? 0) + (s.usedByFiles?.length ?? 0);
+      expect(n, `${s.id} が usedBy / usedByFiles のどちらも持たない`).toBeGreaterThan(
+        0,
+      );
+    }
+  });
+
   it("usedBy のパスはすべて navigation.ts に実在する", () => {
     const known = new Set(pages.map((p) => p.path));
     for (const s of SOURCES) {
-      expect(s.usedBy.length, `${s.id} の usedBy が空`).toBeGreaterThan(0);
-      for (const path of s.usedBy) {
+      for (const path of s.usedBy ?? []) {
         expect(
           known.has(path),
           `${s.id} が存在しないパス ${path} を指している`,
@@ -111,11 +124,22 @@ describe("出典レジストリ", () => {
     }
   });
 
+  it("usedByFiles のファイルはすべて実在する", () => {
+    // 監査から機械生成した分。ページが消えたのに出典だけ残る状態を検知する
+    for (const s of SOURCES) {
+      for (const f of s.usedByFiles ?? []) {
+        expect(existsSync(resolve(REPO_ROOT, f)), `${s.id} が指す ${f} が無い`).toBe(
+          true,
+        );
+      }
+    }
+  });
+
   it("getSourcesForPage が該当ページの出典を返す", () => {
     const found = getSourcesForPage("/claude-mux/multi-ai/design-md");
     expect(found.length).toBeGreaterThan(0);
     expect(
-      found.every((s) => s.usedBy.includes("/claude-mux/multi-ai/design-md")),
+      found.every((s) => s.usedBy?.includes("/claude-mux/multi-ai/design-md")),
     ).toBe(true);
     expect(getSourcesForPage("/does/not/exist")).toHaveLength(0);
   });

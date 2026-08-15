@@ -22,13 +22,12 @@ const TIMEOUT_MS = 20000;
  * sources.ts をトランスパイルせずに読むため、Node の実行時に解釈できる形へ削る。
  * 型注釈と import/export を落として関数として評価する。
  */
-function loadSources() {
-  const src = readFileSync(SOURCES_TS, "utf8");
-  const start = src.indexOf("export const SOURCES");
-  if (start === -1) throw new Error("SOURCES の定義が見つからない");
+function loadArray(src, exportName) {
+  const start = src.indexOf(`export const ${exportName}`);
+  if (start === -1) return [];
   // 型注釈の `Source[]` にも `[` が含まれるので、代入の `=` より後ろから探す
   const assign = src.indexOf("=", start);
-  if (assign === -1) throw new Error("SOURCES の代入が見つからない");
+  if (assign === -1) throw new Error(`${exportName} の代入が見つからない`);
   const arrayStart = src.indexOf("[", assign);
   // 対応する閉じ括弧を数える（文字列リテラル内の括弧は無視する）
   let depth = 0;
@@ -54,7 +53,7 @@ function loadSources() {
       }
     }
   }
-  if (end === -1) throw new Error("SOURCES の配列を閉じられない");
+  if (end === -1) throw new Error(`${exportName} の配列を閉じられない`);
 
   // usedBy が参照している定数（AGENT_DOCS 等）も一緒に渡す
   const constBlock = src
@@ -64,13 +63,29 @@ function loadSources() {
 
   const literal = src.slice(arrayStart, end + 1);
   // eslint-disable-next-line no-new-func
-  const parsed = new Function(`${constBlock}\nreturn ${literal};`)();
+  return new Function(`${constBlock}\nreturn ${literal};`)();
+}
+
+function loadSources() {
+  const curatedSrc = readFileSync(SOURCES_TS, "utf8");
+  const generatedPath = resolve(HERE, "../client/src/data/sources.generated.ts");
+  let generatedSrc = "";
+  try {
+    generatedSrc = readFileSync(generatedPath, "utf8");
+  } catch {
+    // 生成ファイルが無い構成もありうる
+  }
+
+  const parsed = [
+    ...loadArray(curatedSrc, "CURATED_SOURCES"),
+    ...loadArray(generatedSrc, "GENERATED_SOURCES"),
+  ];
 
   // 解析に失敗して空配列を返すと「何も照合していないのに成功」になる。
   // 0 件は成果ではなく事故として扱う。
   if (!Array.isArray(parsed) || parsed.length === 0) {
     throw new Error(
-      "SOURCES を解析できたが 0 件だった。sources.ts の書式が変わった可能性がある",
+      "出典を解析できたが 0 件だった。sources.ts の書式が変わった可能性がある",
     );
   }
   return parsed;
@@ -129,14 +144,18 @@ function normalize(s) {
   );
 }
 
-async function fetchText(url) {
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
+  "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 dev-album-source-verifier";
+
+async function get(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
     const res = await fetch(url, {
       signal: controller.signal,
       redirect: "follow",
-      headers: { "user-agent": "dev-album-source-verifier" },
+      headers: { "user-agent": UA },
     });
     const contentType = res.headers.get("content-type") ?? "";
     const body = await res.text();
@@ -144,6 +163,40 @@ async function fetchText(url) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * 可能なら Markdown 版を取りに行く。
+ *
+ * 描画後の HTML では表の `|` 区切りやコードブロックの体裁が失われ、
+ * 原文に実在する引用でも文字列一致しない。Markdown 原文なら逐語のまま照合できる。
+ * 多くのドキュメントサイト（code.claude.com 等）が `<path>.md` を配信している。
+ */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchText(url) {
+  // 429 は連続アクセスで起こる。待って 1 度やり直す（生きている出典を落とさない）
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const res = await fetchOnce(url);
+    if (res.status !== 429) return res;
+    await sleep(4000);
+  }
+  return fetchOnce(url);
+}
+
+async function fetchOnce(url) {
+  if (!/\.(md|txt|json)$/.test(url) && !url.includes("?")) {
+    const mdUrl = url.replace(/\/$/, "") + ".md";
+    try {
+      const md = await get(mdUrl);
+      if (md.status === 200 && /markdown|plain/.test(md.contentType)) {
+        return { ...md, usedMarkdown: true };
+      }
+    } catch {
+      // Markdown 版が無いのは普通のこと。HTML へ落とす
+    }
+  }
+  return get(url);
 }
 
 async function main() {
@@ -173,6 +226,7 @@ async function main() {
 
     let fetched;
     try {
+      await sleep(250);
       fetched = await fetchText(s.url);
     } catch (err) {
       console.log(`  ✗ 取得できない: ${err.message}`);
@@ -185,7 +239,7 @@ async function main() {
       failures++;
       continue;
     }
-    console.log(`  ✓ HTTP 200`);
+    console.log(`  ✓ HTTP 200${fetched.usedMarkdown ? " (markdown)" : ""}`);
     if (fetched.finalUrl && fetched.finalUrl !== s.url) {
       console.log(`  ! リダイレクト先: ${fetched.finalUrl}`);
     }

@@ -853,10 +853,10 @@ export default styles;`}
 
             <InfoBox type="info" title="Vite プラグインによる代替手段">
               <p>
-                <code className="bg-muted px-1.5 py-0.5 rounded text-sm">vite-plugin-css-modules-dts</code> を使えば、
-                Vite のビルドプロセスに統合して型定義を自動生成することもできます。
-                <code className="bg-muted px-1.5 py-0.5 rounded text-sm">typed-css-modules</code> の代わりに
-                こちらを選ぶプロジェクトも増えています。
+                <code className="bg-muted px-1.5 py-0.5 rounded text-sm">vite-plugin-sass-dts</code> は、
+                CSS Modules を型安全に扱うための型定義ファイルを自動生成する Vite プラグインです。
+                <code className="bg-muted px-1.5 py-0.5 rounded text-sm">typed-css-modules</code> を別コマンドとして走らせる代わりに、
+                Vite のビルドプロセスに統合する構成も選べます。
               </p>
             </InfoBox>
           </section>

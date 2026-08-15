@@ -262,9 +262,12 @@ export default function InformationArchitecture() {
               />
             </div>
 
-            <InfoBox type="info" title="深さは 3 階層以内が目安">
-              トップから目的のページまで 3 クリック以内で到達できる構造が理想的とされる。
-              階層が深くなるほどユーザーの離脱率が上がるため、カテゴリの分け方を工夫して階層を浅く保つ。
+            <InfoBox type="info" title="クリック数そのものは指標にならない">
+              「トップから 3 クリック以内で到達できる構造が理想」という 3 クリックルールは、
+              データの裏付けのない経験則。NN/g は、3 クリックを超えても離脱は増えず満足度も下がらなかったと報告している。
+              評価するのは、次にどこを押せばよいかが分かる手がかり（情報の匂い）、ラベルの明確さ、
+              1 ステップごとの操作コスト。クリック数の上限にこだわると、
+              主ナビゲーションを浅く広げすぎる方向に引っ張られる点にも注意する。
             </InfoBox>
           </section>
 
@@ -473,6 +476,12 @@ export default function InformationArchitecture() {
                   url: "https://www.nngroup.com/articles/ia-vs-navigation/",
                   description:
                     "情報アーキテクチャとナビゲーションの違いと関係性",
+                },
+                {
+                  title: "NNGroup: The 3-Click Rule for Navigation Is False",
+                  url: "https://www.nngroup.com/articles/3-click-rule/",
+                  description:
+                    "3 クリックルールに裏付けがないことを調査データで示した記事",
                 },
                 {
                   title:

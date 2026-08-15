@@ -221,7 +221,6 @@ function App() {
             <InfoBox type="info" title="ライブプレビューの実行環境">
               <p>
                 このページのプレビューは CDN 配信（UMD ビルド）の MUI をブラウザ内で直接実行しています。
-                UMD 配布は v5 系が最終ですが、ここで扱う Button / Typography / Box などの基本 API は v5 以降のバージョンで共通です。
                 ボタンをクリックすると、MUI 本来のリップルエフェクトも確認できます。
                 手元のプロジェクトでは npm でインストールしたバージョンを使ってください。
               </p>
@@ -387,7 +386,9 @@ function App() {
             <InfoBox type="info" title="Container の maxWidth">
               <p>
                 <code>Container</code> はコンテンツを中央寄せし、指定した幅で頭打ちにします。
-                ブレイクポイント値は xs: 444px / sm: 600px / md: 900px / lg: 1200px / xl: 1536px です。
+                <code>maxWidth</code> ごとの幅は xs: 444px / sm: 600px / md: 900px / lg: 1200px / xl: 1536px です。
+                このうち xs だけがブレイクポイント値と異なります。既定のブレイクポイント値は xs: 0 / sm: 600 / md: 900 / lg: 1200 / xl: 1536（px）で、
+                Container の実装が <code>Math.max(theme.breakpoints.values.xs, 444)</code> としているため、xs のときだけ 444px が使われます。
                 上のプレビューはヘッダー右上の拡大アイコンで全幅表示にすると、maxWidth ごとのカラム幅の差がはっきり分かります。
               </p>
             </InfoBox>

@@ -67,7 +67,7 @@ export default function SecurityPermissions() {
                 { mode: 'default', desc: '各ツール初回使用時にパーミッション確認を表示。標準的な開発に推奨。', color: 'text-emerald-600' },
                 { mode: 'acceptEdits', desc: 'ファイル編集と mkdir / mv 等の基本ファイル操作コマンドを自動承認。その他の Bash コマンドは引き続き確認。', color: 'text-blue-600' },
                 { mode: 'plan', desc: '調査と計画の作成に専念するモード。ファイル編集は行わず、読み取りや探索でプランを提示する。', color: 'text-purple-600' },
-                { mode: 'auto', desc: '分類器モデルが各操作を安全確認しつつ、ルーチンの確認プロンプトを省略。長時間タスク向け（research preview）。', color: 'text-cyan-600' },
+                { mode: 'auto', desc: '分類器モデルが各操作を安全確認しつつ、ルーチンの確認プロンプトを省略。長時間タスク向け。Pro / Max / Team プランでは既定の開始モード。', color: 'text-cyan-600' },
                 { mode: 'dontAsk', desc: '事前に許可されたツール以外は自動拒否。CI/CD環境向け。', color: 'text-amber-600' },
                 { mode: 'bypassPermissions', desc: '全パーミッション確認をスキップ。隔離されたコンテナ / VM でのみ使用。', color: 'text-red-600' },
               ].map(item => (

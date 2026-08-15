@@ -282,9 +282,8 @@ export function Card({ title, description, image, featured }: CardProps) {
             </p>
 
             <CodeBlock
-              code={`# インストール
-npm install styled-components
-npm install -D @types/styled-components`}
+              code={`# インストール（v6 以降は型定義を同梱しているので @types は不要）
+npm install styled-components`}
               language="bash"
               title="styled-components のインストール"
             />

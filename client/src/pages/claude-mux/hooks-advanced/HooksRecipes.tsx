@@ -177,7 +177,7 @@ export default function HooksRecipes() {
         "hooks": [
           {
             "type": "command",
-            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\"; exit 2;; esac"
+            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\" >&2; exit 2;; esac"
           }
         ]
       }
@@ -208,7 +208,7 @@ export default function HooksRecipes() {
         "hooks": [
           {
             "type": "command",
-            "command": "CMD=$(jq -r '.tool_input.command'); case \\"$CMD\\" in *rm\\ -rf*|*DROP\\ TABLE*|*format*) echo \\"危険なコマンドをブロックしました: $CMD\\"; exit 2;; esac"
+            "command": "CMD=$(jq -r '.tool_input.command'); case \\"$CMD\\" in *rm\\ -rf*|*DROP\\ TABLE*|*format*) echo \\"危険なコマンドをブロックしました: $CMD\\" >&2; exit 2;; esac"
           }
         ]
       }
@@ -218,7 +218,7 @@ export default function HooksRecipes() {
               language="json"
             />
             <InfoBox type="info" title="exit 2 の動作">
-              PreToolUse で exit 2 を返すと、ツールの実行がブロックされ、stdout の内容がブロック理由として Claude に通知されます。Claude はブロック理由を踏まえて別のアプローチを試みます。
+              PreToolUse で exit 2 を返すと、ツールの実行がブロックされ、<strong>stderr</strong> の内容がブロック理由として Claude に通知されます（exit 2 によるブロックは <code>deny</code> と同じ経路を通り、Claude は stderr のメッセージを拒否理由として受け取ります）。理由を伝えたいときは <code>echo &quot;...&quot; &gt;&amp;2</code> のように stderr へ出力してください。stdout は JSON 出力の読み取り経路なので、JSON で返す場合は <code>{'{"hookSpecificOutput":{"permissionDecision":"deny","permissionDecisionReason":"..."}}'}</code> を stdout に出力します。Claude はブロック理由を踏まえて別のアプローチを試みます。
             </InfoBox>
           </section>
 
@@ -367,6 +367,9 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
             <p className="leading-relaxed mb-6 text-muted-foreground">
               agent タイプの Hook はサブエージェントを生成して複雑な検証を実行します。テストの実行、結果の分析、必要に応じた修正までを自動化できます。
             </p>
+            <InfoBox type="warning" title="agent Hook は experimental">
+              公式ドキュメントは「Agent hooks are experimental. Behavior and configuration may change in future releases.」と明記しています。挙動と設定キーは今後のリリースで変わる可能性があるため、導入時は最新のリファレンスで確認してください。
+            </InfoBox>
             <CodeBlock
               code={`// .claude/settings.json
 {
@@ -376,8 +379,7 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
         "hooks": [
           {
             "type": "agent",
-            "prompt": "以下の手順で変更を検証してください:\\n1. git diff --name-only で変更されたファイルを特定\\n2. 変更されたファイルに関連するテストを実行\\n3. テストが失敗する場合は原因を報告（修正はしない）",
-            "tools": ["Bash", "Read", "Glob", "Grep"]
+            "prompt": "以下の手順で変更を検証してください:\\n1. git diff --name-only で変更されたファイルを特定\\n2. 変更されたファイルに関連するテストを実行\\n3. テストが失敗する場合は原因を報告（修正はしない）"
           }
         ]
       }
@@ -388,8 +390,8 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
             />
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-xs mb-2 text-[var(--claude-primary)]">tools の制限</h4>
-                <p className="text-xs text-muted-foreground">agent Hook に許可するツールを明示的に指定できます。検証用途では Read と Bash のみに制限するのが安全です。</p>
+                <h4 className="font-bold text-xs mb-2 text-[var(--claude-primary)]">設定できるキー</h4>
+                <p className="text-xs text-muted-foreground">agent Hook が持つ設定キーは <code>type</code> / <code>prompt</code> / <code>model</code> / <code>timeout</code>（共通フィールドは <code>type</code> / <code>if</code> / <code>timeout</code> / <code>statusMessage</code> / <code>once</code>）。使えるツールは設定ではなく仕様側で決まり、公式は「サブエージェントは Read / Grep / Glob などのツールを使って調査できる」と説明しています。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-xs mb-2 text-[var(--claude-primary)]">コンテキスト分離</h4>
@@ -416,8 +418,7 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
         "hooks": [
           {
             "type": "agent",
-            "prompt": "変更内容の最終チェック:\\n1. npm test を実行してテスト結果を確認\\n2. npx tsc --noEmit で型チェック\\n3. 結果をサマリーとして報告",
-            "tools": ["Bash", "Read"]
+            "prompt": "変更内容の最終チェック:\\n1. npm test を実行してテスト結果を確認\\n2. npx tsc --noEmit で型チェック\\n3. 結果をサマリーとして報告"
           }
         ]
       }
@@ -452,7 +453,7 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
         "hooks": [
           {
             "type": "command",
-            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in *.lock|*.env*|*/migrations/*) echo \\"保護対象: $FILEPATH\\"; exit 2;; esac"
+            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in *.lock|*.env*|*/migrations/*) echo \\"保護対象: $FILEPATH\\" >&2; exit 2;; esac"
           }
         ]
       }
@@ -501,8 +502,8 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
             previewType="config"
             title="保護ファイルへの編集ブロック Hook を書こう"
             description="PreToolUse Hook で特定のファイル（.env、ロックファイル、マイグレーション）への書き込みをブロックする設定を書いてください。"
-            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（イベント名）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\"; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
-            answer={`{\n  "hooks": {\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\"; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            initialCode={`{\n  "hooks": {\n    "___": [  // ← ここを埋める（イベント名）\n      {\n        "matcher": "___",  // ← ここを埋める（対象ツール）\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\" >&2; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
+            answer={`{\n  "hooks": {\n    "PreToolUse": [\n      {\n        "matcher": "Write",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "FILEPATH=$(jq -r '.tool_input.file_path'); case \\"$FILEPATH\\" in */migrations/*|*.lock|*.env*) echo \\"保護対象ファイルです: $FILEPATH\\" >&2; exit 2;; esac"\n          }\n        ]\n      }\n    ]\n  }\n}`}
             hints={[
               'matcher に "Write" を指定してファイル書き込み操作にのみ反応させます',
               'exit 2 を返すとツール実行がブロックされます',

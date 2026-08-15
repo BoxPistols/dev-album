@@ -57,7 +57,8 @@ export default function CursorCline() {
                 <Download className="w-8 h-8 text-primary mb-2" />
                 <h4 className="font-semibold text-foreground mb-1">無料プランあり</h4>
                 <p className="text-sm text-muted-foreground">
-                  月50回のプレミアムリクエスト + コード補完が無料で使える
+                  Hobby プランならクレジットカード登録なしで、限られた回数の Agent
+                  リクエストと Composer を試せる
                 </p>
               </div>
             </div>
@@ -262,7 +263,7 @@ index.html の内容を確認して`}
 
           <InfoBox type="warning" title="API利用料に注意">
             Cline は API キーで直接 AI を呼び出すため、使った分だけ課金されます。
-            Gemini の API キーを設定すれば、無料枠（1日1,000リクエスト）の範囲で無料で使えます。
+            無料枠の有無や上限はモデルごとに異なるので、使う前に各社のレート制限のページで確認しておくと安心です。
           </InfoBox>
         </div>
 
@@ -284,7 +285,7 @@ index.html の内容を確認して`}
                 <tbody>
                   {[
                     ['導入の手軽さ', 'エディタごとインストール', 'VS Code に拡張追加するだけ'],
-                    ['無料枠', '月50回のプレミアムリクエスト', '拡張は無料（API キーが必要）'],
+                    ['無料枠', 'Hobby プラン（Agent リクエストは制限あり）', '拡張は無料（API キーが必要）'],
                     ['操作感', 'チャット + インライン編集', 'チャット中心'],
                     ['おすすめの人', '新しくエディタを入れてOKな人', '既に VS Code を使っている人'],
                   ].map(([item, cursor, cline], index) => (

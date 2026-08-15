@@ -108,9 +108,17 @@ $ claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp
                 Language Server Protocol（LSP）を活用し、30+言語に対してシンボルレベルのコード理解を提供します。ファイル全体を読まずにシンボル単位で精密にコードを操作可能。
               </p>
               <CodeBlock code={`# セットアップ（uvが必要）
-$ claude mcp add serena -- uvx \\
-    --from git+https://github.com/oraios/serena \\
-    serena start-mcp-server --context claude-code --project "$(pwd)"`} language="bash" />
+$ uv tool install -p 3.13 serena-agent
+$ serena init
+$ serena setup claude-code
+
+# 手動で登録する場合（プロジェクト単位）
+$ claude mcp add serena -- \\
+    serena start-mcp-server --context claude-code --project "$(pwd)"
+
+# ユーザースコープに登録する場合
+$ claude mcp add --scope user serena -- \\
+    serena start-mcp-server --context claude-code --project-from-cwd`} language="bash" />
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs text-muted-foreground">
                   <code className="text-[var(--claude-primary)]">find_symbol</code>
@@ -282,7 +290,7 @@ $ claude mcp add serena -- uvx \\
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
                 <h4 className="font-bold mb-2">Tool Search（遅延ロード）を活用する</h4>
                 <p className="text-xs text-muted-foreground mb-3">
-                  ツール数が多い場合、Claude Codeは自動的にTool Searchを使用します。全ツールを事前にロードせず、必要なときだけオンデマンドで検索・取得するため、コンテキストを節約できます。
+                  Claude Codeは既定でTool Searchを使います。ツール数に関係なくMCPツールは遅延ロードされ、全ツールを事前にロードせず必要なときだけオンデマンドで検索・取得するため、コンテキストを節約できます。ツール定義の合計がコンテキストウィンドウの10%に達したら切り替える閾値モードは既定ではなく、<code>ENABLE_TOOL_SEARCH=auto</code> でのオプトインです。
                 </p>
                 <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs text-muted-foreground font-mono">
                   例: 200以上のツールが登録されていても、実際に使う5-10個だけがロードされる

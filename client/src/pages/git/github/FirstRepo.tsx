@@ -153,7 +153,7 @@ export default function FirstRepo() {
                     リポジトリの名前を入力します。例：「my-first-project」
                   </p>
                   <InfoBox type="info">
-                    リポジトリ名は英数字、ハイフン、アンダースコアのみ使用可能です。
+                    リポジトリ名に使えるのは ASCII の英字・数字と、ピリオド（.）・ハイフン（-）・アンダースコア（_）の 3 記号です。長さは 100 文字以内です。
                   </InfoBox>
                 </div>
 
@@ -393,11 +393,16 @@ export default function FirstRepo() {
             <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
               <li>リポジトリの「Settings」→「Pages」を開く</li>
               <li>「Build and deployment」の「Source」で「GitHub Actions」を選択</li>
-              <li>テンプレートから「Vite」を選び、デフォルトのビルド手順を使う</li>
+              <li>提示されるワークフローテンプレート（Astro / Gatsby / Hugo / Jekyll / GitHub Pages Jekyll / mdBook / Next.js / NuxtJS / Static HTML）から「Static HTML」を選ぶ</li>
+              <li>ビルド手順（actions/checkout → ビルド → actions/upload-pages-artifact → actions/deploy-pages）を Vite の構成に合わせて書く</li>
             </ol>
 
+            <InfoBox type="info" title="Vite 用のテンプレートはない">
+              Source に「GitHub Actions」を選んだときに提示されるテンプレートに Vite はありません。Static HTML テンプレートを起点にビルド手順を自分で書くか、カスタムワークフローを作ります。
+            </InfoBox>
+
             <InfoBox type="info" title="公開フォルダの指定">
-              この環境のビルド出力は「dist/public」なので、GitHub Actions の公開パスも「dist/public」に設定します。
+              この環境のビルド出力は「dist/public」なので、actions/upload-pages-artifact に渡すパスも「dist/public」に設定します。
             </InfoBox>
 
             <p className="text-muted-foreground">
