@@ -168,17 +168,16 @@ pnpm lint     # リンター
 
               <div>
                 <h3 className="text-lg md:text-xl font-bold mb-3">各ツールでの参照設定</h3>
-                <CodeBlock language="json" code={`// VS Code settings.json
+                <CodeBlock language="json" code={`// VS Code settings.json（GitHub Copilot）
 {
-  "github.copilot.chat.useAgentsMdFile": true
+  "chat.useAgentsMdFile": true
 }
-// Claude Code は AGENTS.md を自動認識`} />
+// Claude Code は AGENTS.md を自動では読まない。
+// CLAUDE.md に @AGENTS.md と書いて import する`} />
                 <CodeBlock language="markdown" code={`<!-- CLAUDE.md -->
+@AGENTS.md
+
 # Claude Code 固有設定
-
-AGENTS.md の規約に従ってください。
-
-## 追加コンテキスト
 - Subagents で並列調査
 - 拡張思考をレビュー時に有効化
 - 編集前に必ず Read で確認`} />
@@ -194,13 +193,17 @@ AGENTS.md の規約に従ってください。
           <section>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3">
               <FolderTree className="text-[var(--claude-primary)] shrink-0" />
-              <span>DESIGN.md で設計の SSOT を分離する</span>
+              <span>ARCHITECTURE.md で設計の SSOT を分離する</span>
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
               CLAUDE.md（ツール固有指示）と AGENTS.md（共通規約）に加え、
-              <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded mx-1">DESIGN.md</code>
+              <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded mx-1">ARCHITECTURE.md</code>
               を 3 つ目の SSOT として置く構成。アーキテクチャ・意思決定・制約のような「事実」を、
-              指示や規約とは別ファイルで管理することで、各ファイルが薄く保たれます。
+              指示や規約とは別ファイルで管理すると、編集者と更新頻度がファイル単位で揃います。
+              なお第 3 層の名前は公式に決まったものではなく、ここでは
+              <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded mx-1">DESIGN.md</code>
+              が Google Labs の公開したデザイントークン記述フォーマットの名前として実在するため、
+              衝突を避けて ARCHITECTURE.md としています。
             </p>
 
             <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800 mb-6">
@@ -224,7 +227,7 @@ AGENTS.md の規約に従ってください。
                     <td className="px-4 py-3 text-muted-foreground">中</td>
                   </tr>
                   <tr className="bg-white dark:bg-slate-900">
-                    <td className="px-4 py-3 font-mono text-xs text-foreground">DESIGN.md</td>
+                    <td className="px-4 py-3 font-mono text-xs text-foreground">ARCHITECTURE.md</td>
                     <td className="px-4 py-3 text-muted-foreground">アーキテクチャ・意思決定・制約</td>
                     <td className="px-4 py-3 text-muted-foreground">低</td>
                   </tr>
@@ -234,16 +237,25 @@ AGENTS.md の規約に従ってください。
 
             <CodeBlock language="markdown" code={`# CLAUDE.md（最小構成）
 
-このプロジェクトの基本ルールは以下を参照:
-- @AGENTS.md
-- @DESIGN.md
+@AGENTS.md
+
+設計判断は ARCHITECTURE.md に記録している。
+アーキテクチャに関わる変更を提案する前に読むこと。
 
 # Claude Code 固有
-- /compact 後は AGENTS.md と DESIGN.md を再読込
-- Skills は .claude/skills/ 配下を参照`} />
+- Skills は .claude/skills/ 配下を参照
+- パススコープのルールは .claude/rules/ に置く`} />
+
+            <InfoBox type="info" title="「compact 後に再読込せよ」は書かなくてよい">
+              Claude Code の公式ドキュメントは、プロジェクトルートの CLAUDE.md は compaction を
+              生き延び、ディスクから再読込されて再注入されるとしています。再読込を指示する行は不要です。
+              自動で戻らないのはサブディレクトリの CLAUDE.md と <code>paths:</code> 付きのルールで、
+              これらは該当するファイルを次に読んだ時に読み込まれます。
+            </InfoBox>
 
             <InfoBox type="info" title="詳細は専用ページ">
-              DESIGN.md の書き方・内容例・3 層運用の具体例は「CLAUDE.md / AGENTS.md / DESIGN.md」ページにまとめています。
+              3 層の書き方・内容例・運用の具体例は「CLAUDE.md / AGENTS.md / ARCHITECTURE.md」ページに、
+              同名の別仕様である Google Labs の DESIGN.md は「DESIGN.md」ページにまとめています。
             </InfoBox>
           </section>
 

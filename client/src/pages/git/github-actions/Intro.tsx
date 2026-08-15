@@ -214,11 +214,15 @@ export default function Intro() {
             >
               パブリックリポジトリでの GitHub ホストランナーは基本的に無料です。
               プライベートリポジトリには毎月の無料実行時間（分）が用意されていますが、
-              これは<strong>仕様上の上限値</strong>で、実測の消費は OS
-              係数で変わります。 Linux は 1 倍ですが、Windows は 2 倍、macOS は
-              10 倍の速さで 分を消費します。同じ 10 分のジョブでも、macOS では
-              100 分ぶん減ります。 無料枠の残量を気にするときは「実行時間 × OS
-              係数」で見積もります。
+              これは<strong>仕様上の上限値</strong>で、実測の消費は使うランナーで変わります。
+              現行のドキュメントは OS 別の倍率ではなく
+              <strong>ランナーごとの分単価（USD）</strong>
+              を公開しており、無料枠の消費もこの単価に基づきます。 Linux
+              が最も安く、現行レートでは Linux 比で Windows が約 1.7 倍、macOS が約
+              10.3 倍です。同じ 10 分のジョブでも、macOS なら Linux 換算で約 103
+              分に相当します。 単価は改定されるため（2026-01-01
+              の値下げで、かつて 2 倍 / 10 倍ちょうどだった比率は崩れました）、
+              見積もるときは Actions runner pricing の最新値を確認します。
             </InfoBox>
           </section>
 
@@ -278,8 +282,12 @@ export default function Intro() {
                 {
                   title: "About billing for GitHub Actions",
                   url: "https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions",
-                  description:
-                    "無料枠の分数と OS 別の消費係数の公式リファレンス",
+                  description: "無料枠の分数と課金の考え方の公式リファレンス",
+                },
+                {
+                  title: "Actions runner pricing",
+                  url: "https://docs.github.com/en/billing/reference/actions-runner-pricing",
+                  description: "ランナーごとの分単価（USD）の公式リファレンス",
                 },
               ]}
             />

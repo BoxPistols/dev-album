@@ -34,7 +34,7 @@ export default function MCPSetup() {
               アーキテクチャの理解
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              MCPは「クライアント（Claude Code）」「サーバ（MCPサーバ）」「ホスト（あなたのPC）」の三者間で通信を行います。
+              MCPは「ホスト（Claude Code や Claude Desktop などの AI アプリ本体）」「クライアント（ホストが MCP サーバ 1 つにつき 1 つ生成し、そのサーバと 1:1 の接続を維持する内部コンポーネント）」「サーバ（MCPサーバ）」の三者で構成されます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -252,8 +252,8 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
           previewType="config"
           title="MCP サーバの設定 JSON を書いてみよう"
           description="プロジェクトの .mcp.json ファイルに GitHub と Figma の MCP サーバを設定する JSON を書いてください。"
-          initialCode={`{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "type": "___",  // ← ここを埋める（通信方式）\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "___",\n      "command": "npx",\n      "args": ["-y", "@anthropic/mcp-server-figma"]\n    }\n  }\n}`}
-          answer={`{\n  "mcpServers": {\n    "github": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@anthropic/mcp-server-figma"]\n    }\n  }\n}`}
+          initialCode={`{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "type": "___",  // ← ここを埋める（通信方式）\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "___",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
+          answer={`{\n  "mcpServers": {\n    "github": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
           keywords={['mcpServers', 'stdio']}
           hints={[
             'MCPサーバは "type", "command", "args" の3プロパティで構成されます',

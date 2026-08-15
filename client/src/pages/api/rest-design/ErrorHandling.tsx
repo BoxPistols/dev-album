@@ -321,9 +321,19 @@ export default function ErrorHandling() {
 
             <CodeBlock
               language="json"
-              title="FastAPI の既定 401（トークン無し、実測）"
+              title="サンプルアプリの 401（既定の detail 形式、実測）"
               code={`{ "detail": "invalid or missing token" }`}
             />
+
+            <p className="text-muted-foreground mt-3 leading-relaxed text-sm">
+              フレームワークの既定と呼べるのは{" "}
+              <code>{'{ "detail": <文字列> }'}</code> という形までで、
+              <code>invalid or missing token</code> はアプリが{" "}
+              <code>HTTPException</code> に渡した文字列です。
+              <code>detail</code> を省略したときの既定本文は、HTTP の reason
+              phrase が入った <code>{'{ "detail": "Unauthorized" }'}</code>{" "}
+              になります。
+            </p>
 
             <p className="text-muted-foreground mt-6 leading-relaxed">
               注目すべきは、同じ <code>detail</code> キーでも 422 では
@@ -392,9 +402,10 @@ content-type: application/problem+json
             />
             <p className="text-muted-foreground mt-3 leading-relaxed text-sm">
               対比: FastAPI 既定は <code>content-type: application/json</code> +{" "}
-              <code>{'{ "detail": "not found" }'}</code>。problem+json
-              は media type と標準フィールドを持つ点が違います。出典: FastAPI +
-              Nuxt sandbox で実測。
+              <code>{'{ "detail": "Not Found" }'}</code>（<code>detail</code> を
+              渡せば任意の文字列に変わります）。problem+json は media type と
+              標準フィールドを持つ点が違います。出典: FastAPI + Nuxt sandbox
+              で実測。
             </p>
           </section>
 

@@ -480,10 +480,10 @@ Then  背景が暗色に切り替わり、設定が次回も保持される`}
                   description: "バックログを継続的に整える活動の進め方と狙い",
                 },
                 {
-                  title: "Mike Cohn - INVEST in Good Stories",
-                  url: "https://www.mountaingoatsoftware.com/blog/invest-in-good-stories",
+                  title: "Bill Wake - INVEST in Good Stories, and SMART Tasks",
+                  url: "https://xp123.com/invest-in-good-stories-and-smart-tasks/",
                   description:
-                    "INVEST 原則の提唱に近い文脈での解説（ストーリー分割の考え方）",
+                    "INVEST 原則の初出（2003）。提唱者本人による定義",
                 },
                 {
                   title: "Scrum Guide - Product Backlog",

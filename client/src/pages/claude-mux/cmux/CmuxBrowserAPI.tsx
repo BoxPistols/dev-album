@@ -177,8 +177,14 @@ export default function CmuxBrowserAPI() {
               code={`# 1. dev サーバーを起動（左ペイン）
 npm run dev
 
-# 2. ブラウザペインを右に分割して URL に移動
-cmux browser open-split right
+# 2. ブラウザペインを右に分割して URL を開く
+#    open-split の位置引数は方向ではなく URL。方向を指定するなら new-pane を使う
+cmux new-pane --type browser --direction right --url http://localhost:5173
+
+# 方向を問わないなら open-split に URL を渡すだけでよい
+# cmux browser open-split http://localhost:5173
+
+# 開いたあとに別の URL へ移動する
 cmux browser goto http://localhost:5173
 
 # 3. アクセシビリティツリーを取得（compact で要点だけ）

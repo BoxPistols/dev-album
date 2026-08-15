@@ -116,22 +116,24 @@ export default function ModifyReact() {
         {/* Edit App Component */}
         <section className="mb-12">
           <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
-            App.js を編集してデザイン変更
+            App.jsx を編集してデザイン変更
           </h2>
 
           <div className="space-y-8">
-            {/* Step 1: Open App.js */}
+            {/* Step 1: Open App.jsx */}
             <div className="bg-card border border-border rounded-lg p-8">
               <div className="flex gap-4 mb-6">
                 <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold flex-shrink-0">
                   1
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground self-center">
-                  App.js を開く
+                  App.jsx を開く
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Cursor の左パネルで、「src/App.js」をクリックして開いてください。
+                Cursor の左パネルで、「src/App.jsx」をクリックして開いてください。
+                Vite の react テンプレートでは、メインコンポーネントは
+                src/App.jsx というファイル名で生成されます。
               </p>
             </div>
 
@@ -146,20 +148,21 @@ export default function ModifyReact() {
                 </h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                App.js の内容を以下のように編集してください。
+                App.jsx の内容を以下のように編集してください。 テンプレートのロゴは
+                src/assets/ に置かれているので、そこから読み込みます。
               </p>
 
               <CodeBlock
-                code={`import logo from './logo.svg';\nimport './App.css';\n\nfunction App() {\n  return (\n    <div className="App">\n      <header className="App-header">\n        <img src={logo} className="App-logo" alt="logo" />\n        <p>\n          Welcome to My React App!\n        </p>\n        <p style={{fontSize: '18px', color: '#10B981'}}>\n          I'm learning React and Git!\n        </p>\n        <a\n          className="App-link"\n          href="https://reactjs.org"\n          target="_blank"\n          rel="noopener noreferrer"\n        >\n          Learn React\n        </a>\n      </header>\n    </div>\n  );\n}\n\nexport default App;`}
+                code={`import { useState } from 'react'\nimport reactLogo from './assets/react.svg'\nimport './App.css'\n\nfunction App() {\n  const [count, setCount] = useState(0)\n\n  return (\n    <section id="center">\n      <img src={reactLogo} width="80" height="80" alt="React logo" />\n      <h1>Welcome to My React App!</h1>\n      <p style={{ fontSize: '18px', color: '#10B981' }}>\n        I'm learning React and Git!\n      </p>\n      <button\n        type="button"\n        className="counter"\n        onClick={() => setCount(count + 1)}\n      >\n        Count is {count}\n      </button>\n    </section>\n  )\n}\n\nexport default App`}
                 language="jsx"
-                title="App.js の編集例"
+                title="App.jsx の編集例"
               />
 
               <p className="text-muted-foreground mt-4">
                 編集内容：
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                <li>テキストを「Welcome to My React App!」に変更</li>
+                <li>見出しを「Welcome to My React App!」に変更</li>
                 <li>新しいメッセージを追加</li>
                 <li>テキストの色をエメラルドグリーン（#10B981）に変更</li>
               </ul>
@@ -243,7 +246,7 @@ export default function ModifyReact() {
               />
 
               <p className="text-muted-foreground mt-4">
-                「modified: src/App.js」のように、変更されたファイルが表示されます。
+                「modified: src/App.jsx」のように、変更されたファイルが表示されます。
               </p>
             </div>
 
@@ -283,7 +286,7 @@ export default function ModifyReact() {
               </p>
 
               <CodeBlock
-                code={`git add src/App.js\ngit commit -m "Update welcome message and styling"`}
+                code={`git add src/App.jsx\ngit commit -m "Update welcome message and styling"`}
                 language={selectedOS === 'mac' ? 'bash' : 'powershell'}
                 title="ファイルを Commit"
               />
@@ -437,8 +440,8 @@ export default function ModifyReact() {
           <CodingChallenge
             title="React プロジェクトの Git ワークフローを書いてみよう"
             description="ブランチを作成し、ファイルをステージング・コミットして、GitHub に Push するまでの一連のコマンドを書いてください。"
-            initialCode={`# 1. 新しいブランチを作成して切り替え\ngit ___ -b feature/update-welcome-message  # ← ここを埋める\n\n# 2. 変更したファイルをステージング\ngit ___ src/App.js  # ← ここを埋める\n\n# 3. コミット\ngit ___ -m "Update welcome message and styling"  # ← ここを埋める\n\n# 4. GitHub に Push\ngit push -u origin feature/update-welcome-message`}
-            answer={`# 1. 新しいブランチを作成して切り替え\ngit checkout -b feature/update-welcome-message\n\n# 2. 変更したファイルをステージング\ngit add src/App.js\n\n# 3. コミット\ngit commit -m "Update welcome message and styling"\n\n# 4. GitHub に Push\ngit push -u origin feature/update-welcome-message`}
+            initialCode={`# 1. 新しいブランチを作成して切り替え\ngit ___ -b feature/update-welcome-message  # ← ここを埋める\n\n# 2. 変更したファイルをステージング\ngit ___ src/App.jsx  # ← ここを埋める\n\n# 3. コミット\ngit ___ -m "Update welcome message and styling"  # ← ここを埋める\n\n# 4. GitHub に Push\ngit push -u origin feature/update-welcome-message`}
+            answer={`# 1. 新しいブランチを作成して切り替え\ngit checkout -b feature/update-welcome-message\n\n# 2. 変更したファイルをステージング\ngit add src/App.jsx\n\n# 3. コミット\ngit commit -m "Update welcome message and styling"\n\n# 4. GitHub に Push\ngit push -u origin feature/update-welcome-message`}
             keywords={['checkout', 'add', 'commit']}
             hints={[
               'git checkout -b でブランチ作成と切り替えを同時に行います',

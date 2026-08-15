@@ -930,11 +930,13 @@ export default config;`}
 
             <div className="space-y-4 mb-6">
               <div className="rounded-lg border border-border p-5">
-                <h3 className="font-bold text-foreground mb-2">Vite ファーストの設計</h3>
+                <h3 className="font-bold text-foreground mb-2">Vite サポートの再設計</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  Storybook 8 は Vite をデフォルトのビルドツールとして採用。
-                  起動時間とリビルド速度が大幅に改善されました。
-                  Webpack も引き続きサポートされますが、新規プロジェクトでは Vite が推奨です。
+                  Storybook 8 では Vite サポートが作り直され、Vite 5 に対応しました。
+                  どのビルダーで動くかは init 時に選ぶ framework パッケージ
+                  （<code>@storybook/react-vite</code> / <code>@storybook/react-webpack5</code> など）で決まり、
+                  CLI が既存プロジェクトを検出して選びます。
+                  v8 のドキュメントでは Webpack builder が既定のビルダーと記載されています。
                 </p>
               </div>
               <div className="rounded-lg border border-border p-5">
@@ -1023,11 +1025,11 @@ npx storybook doctor`}
                 <div className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">3</span>
                   <div>
-                    <p className="font-semibold text-foreground">Lazy compilation を活用する</p>
+                    <p className="font-semibold text-foreground">Webpack builder なら lazy compilation を有効にする</p>
                     <p className="text-sm text-foreground/80">
-                      Storybook 8 + Vite では、表示中のストーリーだけをコンパイルする
-                      Lazy compilation がデフォルトで有効です。
-                      ストーリー数が多くても起動時間への影響を最小限に抑えます。
+                      lazy compilation は Webpack の実験的機能で、Storybook では Webpack builder の
+                      <code>lazyCompilation</code> オプションとして明示的に有効にします（既定は無効）。
+                      Vite builder のドキュメントに lazy compilation の記載はありません。
                     </p>
                   </div>
                 </div>

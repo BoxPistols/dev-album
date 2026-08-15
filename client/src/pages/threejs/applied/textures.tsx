@@ -209,8 +209,12 @@ const material = new THREE.MeshStandardMaterial({
       <div className="mt-8">
         <InfoBox type="warning" title="テクスチャサイズの注意点">
           <p>
-            テクスチャのサイズは 2 のべき乗（256, 512, 1024, 2048 など）が推奨です。
-            2 のべき乗でないサイズを使うと、GPU がリサイズ処理を行うためパフォーマンスに影響します。
+            現行の three.js は WebGL2 専用です（r163 で WebGL1 サポートを削除）。
+            WebGL 2.0 では 2 のべき乗でないサイズ（NPOT）のテクスチャにも特別な制限はなく、
+            ミップマップもすべてのラップモードも使えます。
+            2 のべき乗が実質必須だったのは WebGL1 のときで、その制約は
+            「ミップマップを生成できず、ラップモードを CLAMP_TO_EDGE にする必要がある」というものでした
+            （three.js の WebGL1 バックエンドは canvas 経由で CPU 側のリサイズを行っていました）。
           </p>
           <p className="mt-2">
             また、大きなテクスチャはメモリを大量に消費します。
@@ -300,7 +304,7 @@ renderer.render(scene, camera);`}
             <li>UV マッピングで 2D テクスチャを 3D 表面に貼り付ける</li>
             <li>CanvasTexture でプロシージャルなテクスチャを生成できる</li>
             <li>Diffuse, Normal, Roughness など複数のマップを組み合わせてリアルな質感を表現</li>
-            <li>テクスチャサイズは 2 のべき乗が推奨</li>
+            <li>WebGL2 では NPOT テクスチャも制限なく扱える。サイズはメモリ消費で決める</li>
           </ul>
         </InfoBox>
       </div>

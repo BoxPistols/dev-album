@@ -227,13 +227,19 @@ export default function ServerlessDb() {
               HTTP・エッジ対応ドライバ
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Cloudflare Workers のようなエッジランタイムは、生の TCP
-              ソケットを扱えないことがあります。 そこで Neon などは、SQL を HTTP
-              や WebSocket で送る専用ドライバを用意しています。これを使うと、
+              Neon などは、SQL を HTTP や WebSocket で送る専用ドライバを用意しています。これを使うと、
               接続のたびに TCP/TLS ハンドシェイクを張り直す代わりに、軽い HTTP
               リクエストとしてクエリを投げられます。単発クエリの多い
               サーバーレス関数と特に相性がよい方式です。
             </p>
+
+            <InfoBox type="info" title="Cloudflare Workers と TCP ソケット">
+              Cloudflare Workers は <code>connect()</code> API で外向きの生 TCP
+              ソケットを扱えます（データベースのワイヤプロトコルも想定用途に挙げられています）。 一方で、外部から Worker
+              への inbound TCP 接続は未対応、Cloudflare の IP レンジ宛の outbound
+              TCP はブロック、port 25 は既定で使用不可、TCP ソケットはグローバルスコープで作ってリクエスト間で共有できない、という制約があります。
+              PostgreSQL については Hyperdrive の利用が推奨されています。
+            </InfoBox>
 
             <CodeBlock
               language="ts"
@@ -244,7 +250,7 @@ export default function ServerlessDb() {
 const sql = neon(process.env.DATABASE_URL!);
 
 export async function getUser(id: number) {
-  // TCP ソケット不要。HTTP でクエリを送れる
+  // 接続を保持せず、HTTP リクエストとしてクエリを送れる
   const rows = await sql\`SELECT id, name FROM users WHERE id = \${id}\`;
   return rows[0];
 }`}
@@ -253,7 +259,8 @@ export async function getUser(id: number) {
             <p className="text-muted-foreground mt-6 leading-relaxed">
               タグ付きテンプレートでパラメータを渡すと、値は自動でプレースホルダ化され、
               SQL インジェクションを防げます。エッジで動かす場合は、 この HTTP
-              ドライバを選ぶことで TCP 制約を回避できます。
+              ドライバを選ぶことで、リクエストごとの TCP/TLS
+              ハンドシェイクとコネクション管理のコストを避けられます。
             </p>
 
             <div className="mt-8">
@@ -342,13 +349,13 @@ neonctl branches delete preview/pr-123`}
                 },
                 {
                   label:
-                    "生の TCP ソケットを使えない環境でも、HTTP でクエリを送れるから",
+                    "リクエストごとの TCP/TLS ハンドシェイクとコネクション管理を避けて、HTTP でクエリを送れるから",
                   correct: true,
                 },
                 { label: "データが自動で正規化されるから" },
                 { label: "課金が必ず無料になるから" },
               ]}
-              explanation="Cloudflare Workers のようなエッジ環境は生の TCP ソケットを扱えないことがあります。HTTP/WebSocket 対応ドライバは SQL を HTTP リクエストとして送れるため、こうした環境でも DB にアクセスでき、単発クエリの多いサーバーレス関数とも相性がよくなります。"
+              explanation="エッジやサーバーレスでは実行環境が短命で、リクエストのたびに接続を張り直すコストが効いてきます。HTTP/WebSocket 対応ドライバは SQL を HTTP リクエストとして送れるため、TCP/TLS ハンドシェイクとコネクション管理を毎回やり直さずに済み、単発クエリの多いサーバーレス関数と相性がよくなります。"
             />
           </section>
 

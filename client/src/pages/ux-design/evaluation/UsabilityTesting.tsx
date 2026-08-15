@@ -101,7 +101,7 @@ export default function UsabilityTesting() {
                 {
                   step: 2,
                   title: '参加者リクルート',
-                  desc: 'ターゲットユーザーに近い人を集める。Jakob Nielsen の研究によると、5人のテストで約80%のユーザビリティ問題を発見できる。',
+                  desc: 'ターゲットユーザーに近い人を集める。Nielsen と Landauer のモデルでは、サイトを似た使い方をするユーザー 5 人のテストでユーザビリティ問題の約 85% を発見できるとされる。ユーザー層が明確に分かれるサイトでは層ごとにテストする。',
                 },
                 {
                   step: 3,
@@ -131,16 +131,16 @@ export default function UsabilityTesting() {
               ))}
             </div>
 
-            {/* 5人で80%のビジュアル */}
+            {/* 5人テストの発見率のビジュアル */}
             <div className="bg-muted/30 border border-border rounded-xl p-6 mb-6">
               <h3 className="font-semibold text-foreground mb-3">5人テストの発見率</h3>
               <div className="flex items-end gap-2 h-32 mb-3">
                 {[
                   { n: 1, pct: 31 },
                   { n: 2, pct: 52 },
-                  { n: 3, pct: 68 },
-                  { n: 4, pct: 75 },
-                  { n: 5, pct: 80 },
+                  { n: 3, pct: 67 },
+                  { n: 4, pct: 77 },
+                  { n: 5, pct: 84 },
                 ].map((item) => (
                   <div key={item.n} className="flex flex-col items-center flex-1">
                     <span className="text-xs font-bold text-primary mb-1">{item.pct}%</span>
@@ -153,7 +153,7 @@ export default function UsabilityTesting() {
                 ))}
               </div>
               <p className="text-xs text-muted-foreground text-center">
-                参加者数と問題発見率の関係（Nielsen/Landauer モデル）
+                参加者数と問題発見率の関係（Nielsen/Landauer モデル 1-(1-L)^n に L=31% を入れた値）
               </p>
             </div>
           </section>
@@ -300,7 +300,7 @@ export default function UsabilityTesting() {
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   指定されたタスクを正しく完了できたユーザーの割合。
-                  最も基本的な指標で、78%以上が一般的な合格ラインとされている。
+                  最も基本的な指標で、改善前後の比較に使う。
                 </p>
               </div>
 
@@ -437,14 +437,14 @@ export default function UsabilityTesting() {
 
           {/* Quiz 1 */}
           <Quiz
-            question="Jakob Nielsen の研究によると、ユーザビリティテストで約80%の問題を発見するために必要な参加者数は何人ですか？"
+            question="Nielsen と Landauer のモデルによると、ユーザビリティテストで約85%の問題を発見するために必要な参加者数は何人ですか？"
             options={[
               { label: '3人' },
               { label: '5人', correct: true },
               { label: '10人' },
               { label: '20人' },
             ]}
-            explanation="Nielsen と Landauer の研究では、5人のユーザーでユーザビリティ問題の約80%を発見できることが示されています。参加者を増やしても発見率の上昇は緩やかになるため、まず5人でテストし、改善後にまた5人でテストする方がコスト効率が良いとされています。"
+            explanation="Nielsen と Landauer のモデルでは、似た使い方をするユーザー5人のテストでユーザビリティ問題の約85%を発見できるとされています。参加者を増やしても発見率の上昇は緩やかになるため、まず5人でテストし、改善後にまた5人でテストする方がコスト効率が良いとされています。"
           />
 
           {/* Quiz 2 */}

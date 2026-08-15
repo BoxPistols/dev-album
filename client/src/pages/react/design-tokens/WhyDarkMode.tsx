@@ -281,9 +281,6 @@ mediaQuery.addEventListener('change', (e) => {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   OLED
                   ディスプレイでは、黒いピクセルは文字通り発光しないため、電力を消費しません。
-                  Google の調査によると、YouTube
-                  アプリでダークモードを使用した場合、 OLED 画面の最大輝度時で約
-                  60% のバッテリー節約になるとされています。
                   スマートフォンの大半が OLED
                   を採用する現在、これは実用的な利点です。
                 </p>
@@ -304,16 +301,6 @@ mediaQuery.addEventListener('change', (e) => {
                 </p>
               </div>
             </div>
-
-            <InfoBox type="info" title="数値で見るダークモード普及率">
-              <p>
-                Android
-                の設定データによると、ダークモードを有効にしているユーザーは 80%
-                以上です（2023 年時点）。 macOS / iOS
-                でも過半数がダークモードを使用しているとされています。
-                ダークモードは「一部のこだわり派の機能」ではなく、大多数のユーザーが日常的に使う標準機能です。
-              </p>
-            </InfoBox>
           </section>
 
           {/* セクション 3: 誰が作り、誰が使うか */}
@@ -405,7 +392,7 @@ mediaQuery.addEventListener('change', (e) => {
                   で奥行きを表現しますが、
                   暗い背景の上に暗い影を落としても視認できません。 Material
                   Design 3 では、ダークモードのエレベーションを影ではなく
-                  surface の明度差（tonal overlay）で表現します。
+                  surface container 系ロールの明度差で表現します。
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
@@ -473,15 +460,18 @@ mediaQuery.addEventListener('change', (e) => {
                   </li>
                   <li>
                     <strong>Surface tones:</strong> ダークモードの背景は純黒
-                    (#000000) ではなく、 微妙に色味を持たせた暗色（#1C1B1F
-                    など）を推奨する
+                    (#000000) ではなく、 微妙に色味を持たせた暗色（現行ベースラインの
+                    surface は #141218）を採る
                   </li>
                   <li>
-                    <strong>Elevation with tonal overlay:</strong>{" "}
+                    <strong>Elevation と surface container:</strong>{" "}
                     ダークモードではシャドウの代わりに、
-                    エレベーションが高い要素ほど surface を明るくする。
-                    Elevation 0 = #1C1B1F、Elevation 1 = #2B2930
-                    のように段階的に変化する
+                    エレベーションが高い要素ほど面を明るくする。 エレベーションは
+                    0〜5 のレベルトークンで表し、面の色は Surface Container
+                    Lowest / Low / High / Highest
+                    といったサーフェスロールで段階的に持つ（Surface Container High
+                    = #2B2930）。 surface tint
+                    を重ねて着色する方式は非推奨になり、エレベーションのレベルトークンを使う
                   </li>
                   <li>
                     <strong>カラーロール:</strong> Primary, Secondary, Tertiary,
@@ -1025,10 +1015,10 @@ mediaQuery.addEventListener('change', (e) => {
                   description: "メディアクエリの仕様と対応ブラウザ一覧",
                 },
                 {
-                  title: "Material Design 3: Dark theme",
-                  url: "https://m3.material.io/styles/color/dark-theme",
+                  title: "Material Design 3: Color roles",
+                  url: "https://m3.material.io/styles/color/roles",
                   description:
-                    "Material Design 3 のダークテーマ設計ガイドライン",
+                    "ライト / ダーク両テーマのカラーロール定義（M3 にダークテーマ単独ページは無い）",
                 },
                 {
                   title: "Apple HIG: Dark Mode",

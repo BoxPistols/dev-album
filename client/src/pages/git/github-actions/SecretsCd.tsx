@@ -69,10 +69,13 @@ export default function SecretsCd() {
 
             <InfoBox type="warning" title="マスクされる。でも加工すると漏れる">
               ログに出た秘密情報は、Actions が自動でマスク（<code>***</code>
-              ）します。
-              ただしこれは「登録した値と完全一致する文字列」に対してだけです。
-              仕様では「secrets はマスクされる」ですが、実測では Base64
-              化したり一部を切り出して <code>echo</code> すると、
+              ）します。対象は登録したシークレットだけではなく、Azure
+              の各種キーやデータベース接続文字列のように、
+              登録していなくても機微と認識される値も伏せ字化されます。
+              逆に、登録済みのシークレットでも伏せ字化は保証されません。
+              値が変形されうる経路が複数あることに加え、
+              ランナーが伏せ字化できるのは現在のジョブ内で使われたシークレットに限られます。
+              実測でも Base64 化したり一部を切り出して <code>echo</code> すると、
               マスクをすり抜けて平文で残ることがあります。
               秘密情報は加工して出力せず、必要な step でだけ使うのが基本です。
             </InfoBox>
@@ -84,8 +87,12 @@ export default function SecretsCd() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               ワークフローには <code>GITHUB_TOKEN</code> という一時トークンが
-              自動で渡されます。これでコメント投稿やリリース作成などができますが、
-              既定の権限は広めです。<code>permissions</code> を明示して、
+              自動で渡されます。これでコメント投稿やリリース作成などができます。
+              既定の権限は Enterprise / Organization の作成時期で分かれ、2023 年 2 月 2
+              日以降に作成されたものは全スコープ read-only、それ以前に作成されたものは全スコープ
+              read and write が既定です（個人アカウントの新規リポジトリは{" "}
+              <code>contents</code> と <code>packages</code> の read のみ）。
+              どちらの既定であっても <code>permissions</code> を明示して、
               そのワークフローに必要な権限だけへ絞るのが安全側の設計です。
             </p>
 

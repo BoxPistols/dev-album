@@ -158,7 +158,7 @@ body:
               <code>.github/ISSUE_TEMPLATE/config.yml</code> で、テンプレートを
               使わない白紙の Issue の導線を絞れます。
               <code>blank_issues_enabled: false</code> にすると、Read / Triage
-              権限の投稿者には「空の Issue を作成」リンクが表示されなくなり、
+              権限の投稿者にはテンプレート選択画面の <code>Blank issue</code> の選択肢が表示されなくなり、
               用意したテンプレートから起票することになります。質問など Issue
               以外へ誘導したいときは <code>contact_links</code> を使います。
             </p>
@@ -169,7 +169,7 @@ body:
               code={`blank_issues_enabled: false
 contact_links:
   - name: 質問・相談
-    url: https://github.com/BoxPistols/dev-album/discussions
+    url: https://github.com/your-org/your-repo/discussions
     about: バグ報告ではない質問はこちら`}
             />
 
@@ -180,7 +180,9 @@ contact_links:
               <code>blank_issues_enabled: false</code>{" "}
               が白紙起票を隠すのは、Read / Triage 権限の投稿者に対してです。
               <strong>Write 以上の権限を持つメンテナー</strong>{" "}
-              には「メンテナーは空の Issue を作成できます」という導線が残ります。
+              には、テンプレート選択画面に <strong>Blank issue</strong>{" "}
+              の選択肢が残ります。この選択肢には <strong>Maintainers only</strong>
+              （日本語版ドキュメントの表記は「メンテナンスのみ」）というラベルが付きます。
               外部からの雑多な起票を型に沿わせる用途では十分効きますが、
               「誰も白紙 Issue を作れなくなる」わけではない点を押さえます。
             </InfoBox>
@@ -241,7 +243,7 @@ Closes #
             </p>
 
             <Quiz
-              question="外部からの雑多な起票を減らすため、Read / Triage 権限の投稿者に「空の Issue」を出さず、テンプレートから選ばせたい。どこで設定する？"
+              question="外部からの雑多な起票を減らすため、Read / Triage 権限の投稿者に Blank issue の選択肢を出さず、テンプレートから選ばせたい。どこで設定する？"
               options={[
                 {
                   label:
@@ -252,7 +254,7 @@ Closes #
                 { label: ".github/labeler.yml" },
                 { label: ".github/workflows/ci.yml" },
               ]}
-              explanation="config.yml の blank_issues_enabled を false にすると、Read / Triage 権限の投稿者からは「空の Issue を作成」リンクが消え、用意したテンプレート（Issue Form）に沿って起票されます。ただし Write 以上のメンテナーには白紙 Issue の導線が残ります。PR テンプレート・labeler・CI はいずれも別の役割で、この設定はできません。"
+              explanation="config.yml の blank_issues_enabled を false にすると、Read / Triage 権限の投稿者からはテンプレート選択画面の Blank issue の選択肢が消え、用意したテンプレート（Issue Form）に沿って起票されます。ただし Write 以上のメンテナーには Maintainers only ラベル付きの Blank issue が残ります。PR テンプレート・labeler・CI はいずれも別の役割で、この設定はできません。"
             />
           </section>
 

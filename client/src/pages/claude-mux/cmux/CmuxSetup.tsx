@@ -78,10 +78,13 @@ cmux 0.63.2 (79) [179b16ce6]
 $ which cmux
 /usr/local/bin/cmux
 
-# Homebrew リンクが効いていない場合（CLI が見つからない）
+# CLI が見つからない場合
 $ which cmux
 cmux not found
-# → 対処: brew link --overwrite cmux  もしくは brew reinstall --cask cmux`}
+# → 対処: brew reinstall --cask cmux
+#    cmux は cask として配布されており、CLI は cask の binary artifact
+#    （$APPDIR/cmux.app/Contents/Resources/bin/cmux → $HOMEBREW_PREFIX/bin/cmux）
+#    として貼られる。brew link は formula 専用のため cask には使えない`}
             />
 
             <div className="mt-6">
@@ -122,19 +125,20 @@ cmux not found
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">新規ワークスペース</td>
                     <td className="p-3 text-muted-foreground">
-                      <code className="text-primary">Cmd+Shift+N</code>
+                      <code className="text-primary">Cmd+N</code>（
+                      <code className="text-primary">Cmd+Shift+N</code> は新規ウィンドウ）
                     </td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">右ペイン分割</td>
                     <td className="p-3 text-muted-foreground">
-                      <code className="text-primary">Cmd+Shift+D</code>
+                      <code className="text-primary">Cmd+D</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">下ペイン分割</td>
                     <td className="p-3 text-muted-foreground">
-                      <code className="text-primary">Cmd+Shift+J</code>
+                      <code className="text-primary">Cmd+Shift+D</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -146,20 +150,24 @@ cmux not found
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">通知パネル</td>
                     <td className="p-3 text-muted-foreground">
-                      <code className="text-primary">Cmd+Shift+I</code>
+                      <code className="text-primary">Cmd+I</code>
                     </td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="p-3 text-foreground">ビルトインブラウザ</td>
+                    <td className="p-3 text-foreground">
+                      ビルトインブラウザを分割で開く
+                    </td>
                     <td className="p-3 text-muted-foreground">
-                      <code className="text-primary">Opt+Cmd+D</code>
+                      <code className="text-primary">Cmd+Shift+L</code>（
+                      <code className="text-primary">Opt+Cmd+D</code> は Split Browser Right の割り当て）
                     </td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">ワークスペース切替</td>
                     <td className="p-3 text-muted-foreground">
                       <code className="text-primary">Cmd+1</code> 〜{" "}
-                      <code className="text-primary">Cmd+9</code>
+                      <code className="text-primary">Cmd+8</code> が 1〜8 番、
+                      <code className="text-primary">Cmd+9</code> は最後のワークスペースへ
                     </td>
                   </tr>
                 </tbody>
@@ -197,10 +205,10 @@ cmux not found
 cmux
 
 # 新しいワークスペースを追加
-# Cmd+Shift+N
+# Cmd+N
 
 # ワークスペースの切り替え
-# Cmd+1, Cmd+2, ... Cmd+9`}
+# Cmd+1 〜 Cmd+8 が 1〜8 番、Cmd+9 は最後のワークスペースへ`}
             />
 
             <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
@@ -217,7 +225,7 @@ cmux
 cd ~/projects/my-app
 claude
 
-# 右ペインに分割して dev サーバーを起動（Cmd+Shift+D で分割後）
+# 右ペインに分割して dev サーバーを起動（Cmd+D で分割後）
 npm run dev
 
 # 左ペインに戻る（Cmd+[ または Cmd+] でペイン間を移動）`}
@@ -233,7 +241,7 @@ npm run dev
 
             <CodeBlock
               language="bash"
-              code={`# Cmd+Shift+N で新しいワークスペースを作成
+              code={`# Cmd+N で新しいワークスペースを作成
 cd ~/projects/my-app
 
 # 別のタスクで Claude Code を起動
@@ -254,13 +262,11 @@ claude
 
             <CodeBlock
               language="bash"
-              code={`# Opt+Cmd+D でビルトインブラウザを表示
+              code={`# Cmd+Shift+L でビルトインブラウザを分割表示
 # ターミナルとブラウザが左右に並ぶ
 
 # GitHub Issue を開きながら Claude Code に指示を出す
-# 例: 「Issue #42 の内容を確認して修正してください」
-
-# ブラウザを閉じる: もう一度 Opt+Cmd+D`}
+# 例: 「Issue #42 の内容を確認して修正してください」`}
             />
 
             <div className="mt-6">
@@ -489,27 +495,27 @@ claude
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              cmux は libghostty ベースのため、クリップボードに保持した画像（スクリーンショット等）を Claude Code のプロンプト欄に
+              cmux は 0.62.0（2026-03-12）でターミナルへの
               <code className="text-primary mx-1">Cmd+V</code>
-              で直接貼り付けることができない。iTerm2 では OSC 1337 などの独自プロトコルで画像転送が可能だが、Ghostty 系はテキスト中心の設計でこれをサポートしていない。
+              によるクリップボード画像ペーストに対応した。クリップボードの画像を Mac 上の一時ファイルに書き出し、そのパスをターミナル入力として注入する方式で、実行中の TUI（Claude Code など）がそのパスから画像を読み込む。iTerm2 の OSC 1337 のような画像転送プロトコルとは仕組みが異なる。
             </p>
 
             <div className="mb-6">
-              <InfoBox type="warning" title="現象">
-                スクショを撮影してクリップボードに保持した状態で
-                <code className="text-primary mx-1">Cmd+V</code>
-                を押しても、Claude Code に画像が渡らない。iTerm2 では同じ操作で画像が添付される。
+              <InfoBox type="info" title="対応バージョン">
+                この挙動は 0.62.0 で追加されたもの。
+                <code className="text-primary mx-1">cmux --version</code>
+                でバージョンを確認し、これより前を使っている場合は更新する。
               </InfoBox>
             </div>
 
             <h3 className="text-xl font-semibold text-foreground mb-4">
-              回避策
+              ファイルパスで渡す手段
             </h3>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              いったんファイルとして保存し、ファイルパスを
+              画像がすでにファイルとして手元にある場合や、渡すパスを自分で決めたい場合は、
               <code className="text-primary mx-1">@パス</code>
-              形式で渡すのが基本方針。手段は 3 つある。
+              形式で渡す手段もある。
             </p>
 
             <div className="overflow-x-auto mb-8">
@@ -544,7 +550,7 @@ claude
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 text-foreground">
-                      シェル関数で自動化（推奨）
+                      シェル関数で自動化
                     </td>
                     <td className="p-3 text-muted-foreground">
                       <code className="text-primary">Cmd+Shift+Ctrl+4</code> でクリップボードに撮影 →{" "}

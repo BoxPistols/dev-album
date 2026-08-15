@@ -296,7 +296,7 @@ export default function FigmaPrototype() {
                 {[
                   {
                     title: 'Dev Mode でスペック確認',
-                    desc: '要素を選択 → CSS / Tailwind クラスを取得。カラーコード、フォントサイズ、スペーシングを正確に読み取る。',
+                    desc: '要素を選択 → CSS を取得（Tailwind 形式は codegen プラグイン導入時）。カラーコード、フォントサイズ、スペーシングを正確に読み取る。',
                   },
                   {
                     title: 'コンポーネント構造の把握',
@@ -324,11 +324,11 @@ export default function FigmaPrototype() {
               </div>
             </div>
 
-            <InfoBox type="info" title="Tailwind CSS の出力オプション">
+            <InfoBox type="info" title="Tailwind CSS の出力にはプラグインが必要">
               <p>
-                Figma の Dev Mode では、CSS の他に Tailwind CSS のクラス名を直接出力できます。
-                プロジェクトで Tailwind を使っている場合は、この出力をそのまま活用すると効率的です。
-                ただし、プロジェクト固有のデザイントークン（CSS 変数）がある場合は、
+                Dev Mode が標準の Language ドロップダウンで出力できるのは、CSS（Web）/ SwiftUI・UIKit（iOS）/ Compose・XML（Android）です。
+                Tailwind CSS のクラス名で出力するには、codegen プラグイン（Dev Mode プラグイン）を導入します。
+                また、プロジェクト固有のデザイントークン（CSS 変数）がある場合は、
                 Figma の生の値をトークンに読み替える必要があります。
               </p>
             </InfoBox>

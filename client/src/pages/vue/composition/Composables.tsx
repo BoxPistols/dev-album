@@ -109,13 +109,6 @@ export default function Composables() {
                 React のカスタムフック（<code>useXxx</code>）と Vue の
                 composable は、
                 「状態を持つロジックを関数として共有する」という目的が同じです。
-                大きな違いは、Vue の composable には{" "}
-                <strong>
-                  React の Hooks
-                  ルール（トップレベルでのみ呼ぶ・条件分岐の中で呼ばない）が原則ない
-                </strong>
-                こと。 Vue
-                のリアクティビティはコンポーネントのレンダー回数に依存しないためです。
               </p>
             </div>
           </section>

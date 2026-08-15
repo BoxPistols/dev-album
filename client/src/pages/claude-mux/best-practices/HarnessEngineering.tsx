@@ -195,7 +195,8 @@ export default function HarnessEngineering() {
                       Verify
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      hooks（25 lifecycle）/ Bash テスト実行 / Plan Mode
+                      hooks（lifecycle イベントの一覧は公式リファレンスの Hook
+                      lifecycle 表を参照）/ Bash テスト実行 / Plan Mode
                     </td>
                   </tr>
                   <tr className="border-b border-border">

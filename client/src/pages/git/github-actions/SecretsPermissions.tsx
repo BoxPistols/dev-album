@@ -207,9 +207,12 @@ export default function SecretsPermissions() {
             <div className="mt-6" />
             <InfoBox type="info" title="Fine-grained と classic の違い">
               classic トークンは <code>repo</code> のような粗いスコープで、 1
-              つで多くの操作ができてしまい強力すぎます。fine-grained は
-              リポジトリと権限を個別に絞れ、期限も必須です。特別な理由が
-              なければ fine-grained を選びます。
+              つで多くの操作ができてしまい強力すぎます（アクセスできる組織の全
+              リポジトリと、個人アカウントの全リポジトリに効きます）。fine-grained
+              は対象を 1 ユーザーまたは 1 組織に限定でき、そこからさらに個別の
+              リポジトリと権限を絞れます。有効期限は無期限も選べ、組織や
+              エンタープライズが最大有効期間のポリシーを設けている場合だけ
+              上限が課されます。特別な理由がなければ fine-grained を選びます。
             </InfoBox>
           </section>
 
@@ -222,8 +225,10 @@ export default function SecretsPermissions() {
               <strong>シークレット</strong>として登録します。登録場所は
               リポジトリの{" "}
               <strong>Settings → Secrets and variables → Actions</strong> → New
-              repository secret。名前（大文字英数と <code>_</code>）と値を
-              入れて保存します。参照はワークフローから行います。
+              repository secret。名前（英数字と <code>_</code>。数字始まりと{" "}
+              <code>GITHUB_</code> 始まりは使えません）と値を入れて保存します。
+              小文字で入力しても大文字に変換して保存され、参照時に大文字小文字は
+              区別されません。参照はワークフローから行います。
             </p>
             <CodeBlock
               language="yaml"

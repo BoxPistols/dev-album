@@ -1,8 +1,17 @@
-# DESIGN.md
+# ARCHITECTURE.md
 
 アーキテクチャ・意思決定・制約の正本（SSOT）。**コードを読めば分かることは書かない**。
 「なぜこう作ったか」「何が前提か」だけを残す。日々の操作規約は [AGENTS.md](./AGENTS.md)、
 Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs/](./specs/) にある。
+
+<!-- 2026-08-16: DESIGN.md から改名。DESIGN.md は Google Labs が Stitch から切り出した
+     ビジュアルアイデンティティ記述フォーマットの名前として実在する（YAML front matter の
+     デザイントークン + Markdown の根拠、Apache-2.0、draft）。本ファイルの内容は
+     アーキテクチャ決定記録であり、その仕様とは別物なので名前の衝突を解消した。
+     https://github.com/google-labs-code/design.md -->
+
+> **UI のビジュアル仕様はここには書かない。** 色・書体・角丸・余白などのデザイントークンは
+> `client/src/index.css` が正本（[CLAUDE.md](./CLAUDE.md) のカラートークン節を参照）。
 
 このリポジトリは「Web 開発の実践リファレンス教材」であると同時に、**教材が説く実践（3 層ドキュメント・SSOT・スペック駆動・a11y ゲート）を自ら体現する**ことを設計方針とする。
 

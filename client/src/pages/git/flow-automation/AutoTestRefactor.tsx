@@ -233,35 +233,9 @@ jobs:
             <p className="text-muted-foreground mb-6 leading-relaxed">
               近年は、AI
               エージェントを開発フローに組み込む構成も現実的になりました。
-              例えば <strong>Claude Code の GitHub Action</strong>（
-              <code>anthropics/claude-code-action</code>）は、Issue や PR で{" "}
-              <code>@claude</code> とメンションすると、内容に沿って修正を実装し
-              PR を作る、といった使い方ができます。Copilot の autofix のように、
+              Copilot の autofix のように、
               検出した問題に対して修正案を提示する仕組みもあります。
             </p>
-
-            <CodeBlock
-              language="yaml"
-              title=".github/workflows/claude.yml（AI に修正を任せる例）"
-              code={`name: Claude
-
-on:
-  issue_comment:
-    types: [created]
-
-jobs:
-  claude:
-    if: contains(github.event.comment.body, '@claude')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}`}
-            />
 
             <InfoBox type="warning" title="AI が作った変更も、ゲートは同じ">
               AI が生成した PR も、人の PR とまったく同じ検査・レビュー・
@@ -345,7 +319,7 @@ updates:
                 {
                   title: "Claude Code GitHub Actions",
                   url: "https://docs.claude.com/en/docs/claude-code/github-actions",
-                  description: "@claude メンションで修正・PR 作成を任せる連携",
+                  description: "GitHub Actions と組み合わせる方法の公式ドキュメント",
                 },
               ]}
             />

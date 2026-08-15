@@ -482,8 +482,9 @@ export default function CssGrid() {
 
             <InfoBox type="success" title="subgrid のブラウザ対応">
               <p>
-                2024年以降、主要ブラウザ（Chrome 117+, Firefox 71+, Safari 16+, Edge 117+）で
-                subgrid がサポートされています。
+                2023年9月以降、主要ブラウザ（Chrome 117+, Firefox 71+, Safari 16+, Edge 117+）で
+                subgrid がサポートされています（Firefox 71 は 2019年12月、Safari 16 は 2022年9月、
+                最後発の Chrome / Edge 117 が 2023年9月）。
                 Can I Use で最新の対応状況を確認しつつ、実務で積極的に採用できる段階に入っています。
               </p>
             </InfoBox>

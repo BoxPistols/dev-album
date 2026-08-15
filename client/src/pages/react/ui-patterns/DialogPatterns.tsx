@@ -1470,8 +1470,12 @@ function AccessibleDialog({
                 <code>showModal()</code> を使うのが最も確実です。
                 <code>role="dialog"</code>、<code>aria-modal="true"</code>、フォーカストラップ、
                 ESC キーハンドリングがブラウザによって自動的に提供されます。
-                ライブラリを使う場合でも、内部で <code>&lt;dialog&gt;</code> を使っているもの
-                （Radix UI Dialog など）を選ぶことを推奨します。
+                ライブラリを選ぶ場合は、ネイティブ <code>&lt;dialog&gt;</code> を使っているかどうかではなく、
+                フォーカス管理・ARIA 属性・ESC / 外側クリックの扱いが実装されているかで判断します。
+                たとえば Radix UI Dialog はネイティブ <code>&lt;dialog&gt;</code> を使わず、
+                <code>role="dialog"</code> と <code>aria-labelledby</code> /{' '}
+                <code>aria-describedby</code> を付けた要素を Portal で描画し、
+                フォーカストラップを自前で実装しています。
               </p>
             </InfoBox>
           </section>

@@ -170,7 +170,6 @@ claude /terminal-setup
                 {[
                   'ネイティブウィンドウとして独立して動作',
                   'キーボードショートカットでの素早い呼び出し',
-                  'システムトレイからの常駐起動',
                   '複数プロジェクトの同時管理',
                 ].map(item => (
                   <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">

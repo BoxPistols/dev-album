@@ -763,8 +763,8 @@ function UserList() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">軽量な代替: urql</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Apollo Client は高機能ですが、バンドルサイズが大きめです（gzip 約 40-50KB）。
-              より軽量な <code>urql</code>（gzip 約 10KB）という選択肢もあります。
+              Apollo Client は正規化キャッシュや DevTools を備えた高機能なクライアントです。
+              もっと軽量な構成を選びたい場合は <code>urql</code> という選択肢もあります。
               使い方は Apollo Client とほぼ同じです。
             </p>
 
@@ -778,11 +778,6 @@ function UserList() {
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
-                  <tr className="border-b border-border/50">
-                    <td className="py-3 px-4 font-medium text-foreground">サイズ</td>
-                    <td className="py-3 px-4">約 40-50 KB (gzip)</td>
-                    <td className="py-3 px-4">約 10 KB (gzip)</td>
-                  </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium text-foreground">キャッシュ</td>
                     <td className="py-3 px-4">正規化キャッシュ（高機能）</td>

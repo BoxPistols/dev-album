@@ -407,10 +407,10 @@ Service Service  Service`}
                     "マイクロサービスにおける API Gateway の役割と設計を整理した公式ガイド",
                 },
                 {
-                  title: "AWS - API Gateway とは",
-                  url: "https://aws.amazon.com/jp/what-is/api-gateway/",
+                  title: "AWS - Amazon API Gateway とは何ですか?",
+                  url: "https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/welcome.html",
                   description:
-                    "API Gateway の機能（ルーティング・認証・レート制限など）をクラウド公式が概観",
+                    "API Gateway の認証・監視・デプロイを公式開発者ガイドが概観",
                 },
                 {
                   title: "Sam Newman - Backends For Frontends",

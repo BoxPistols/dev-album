@@ -79,7 +79,7 @@ export default function TailwindIntro() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">Vite プロジェクトへのインストール</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Tailwind CSS v4 は Vite との統合がさらに簡単になりました。以下の手順でセットアップできます。
+              Vite プロジェクトでは、以下の手順で Tailwind CSS v4 をセットアップできます。
             </p>
 
             <CodeBlock

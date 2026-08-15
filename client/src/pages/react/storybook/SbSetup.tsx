@@ -239,7 +239,7 @@ const config: StorybookConfig = {
 
   // TypeScript の設定
   typescript: {
-    // react-docgen で Props の型情報を抽出
+    // 既定は react-docgen。react-docgen-typescript を使う場合は明示する
     reactDocgen: 'react-docgen-typescript',
   },
 };
@@ -390,8 +390,6 @@ export default preview;`}
                 <p className="text-sm text-muted-foreground">
                   <code className="text-sm bg-muted px-1 py-0.5 rounded">globalTypes</code> でツールバーの切り替え項目を定義し、
                   <code className="text-sm bg-muted px-1 py-0.5 rounded">initialGlobals</code> で初期値を設定します。
-                  Storybook 8 では <code className="text-sm bg-muted px-1 py-0.5 rounded">defaultValue</code> は非推奨となり、
-                  <code className="text-sm bg-muted px-1 py-0.5 rounded">initialGlobals</code> での指定が推奨されています。
                 </p>
               </div>
             </div>
@@ -873,9 +871,10 @@ export const Default: Story = {
 
             <InfoBox type="info" title="react-docgen-typescript について">
               <p>
-                Storybook は <code>react-docgen-typescript</code> を使って
-                TypeScript のインターフェースから Props テーブルを自動生成します。
-                Props に JSDoc コメントをつけておくと、Docs ページの説明文として表示されます。
+                Storybook 8 の既定の docgen は <code>react-docgen</code>（<code>@storybook/react</code> がインストールされている場合）です。
+                このページの <code>main.ts</code> のように <code>typescript.reactDocgen: 'react-docgen-typescript'</code> を明示すると、
+                <code>react-docgen-typescript</code> が TypeScript のインターフェースから Props テーブルを生成します。
+                どちらの場合も Props に JSDoc コメントをつけておくと、Docs ページの説明文として表示されます。
                 <code>/** ボタンのラベル */</code> のようなコメントを積極的に書きましょう。
               </p>
             </InfoBox>

@@ -1169,7 +1169,6 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
                 <li><strong>eslint-plugin-jsx-a11y</strong>: JSX 記述時にリアルタイムで問題を警告</li>
                 <li><strong>Lighthouse</strong>: Chrome DevTools でアクセシビリティスコアを測定</li>
                 <li><strong>Storybook addon-a11y</strong>: Story ごとにアクセシビリティチェックを実行</li>
-                <li>自動ツールで検出できるのは全体の約30%。残りは手動テストが必要</li>
               </ul>
             </InfoBox>
           </section>

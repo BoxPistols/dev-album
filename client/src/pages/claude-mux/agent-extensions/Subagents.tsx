@@ -34,7 +34,7 @@ export default function Subagents() {
               マルチエージェント・オーケストレーション
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Codeは <code>Agent</code> ツールを使用してサブエージェントを動的に生成します。各サブエージェントは独自のコンテキストウィンドウで実行されるため、メインの会話コンテキストを消費しません。
+              Claude Codeは <code>Agent</code> ツールを使用してサブエージェントを動的に生成します。各サブエージェントは独自のコンテキストウィンドウで実行されるため、ファイル読み込み・検索結果・ログといった途中の作業はメインの会話コンテキストを消費しません。メインが消費するのは、返ってくる最終応答と、トークン数・所要時間のメタデータの分だけです。
             </p>
             <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
               <h4 className="font-bold mb-4">並列化の構造</h4>

@@ -132,10 +132,13 @@ export default function WhatIsOpenApi() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               ここが最も混同されやすい点です。歴史的な経緯を押さえると整理できます。
-              元々この仕様は「Swagger 仕様」と呼ばれていました。 2015 年に仕様が
-              OpenAPI Initiative（Linux Foundation 傘下）に寄贈され、 バージョン
-              3.0 から名称が「OpenAPI Specification」に改称されました。 つまり
-              2.0 までが Swagger、3.0 以降が OpenAPI という同じ系譜の仕様です。
+              元々この仕様は「Swagger 仕様」と呼ばれていました。2015 年に SmartBear
+              Software が仕様を OpenAPI Initiative（Linux Foundation
+              のプロジェクト）へ寄贈し、名称が「OpenAPI Specification」に改称されました。
+              改称は既存の 2.0 にも遡って適用され、2.0 は現在 OAI の公式サイトで
+              「OpenAPI Specification v2.0」として公開されています。
+              バージョン境界で名前が切り替わるわけではなく、3.0.0 のリリース（2017
+              年）は改称とは別の出来事です。
             </p>
 
             <div className="rounded-xl border border-border bg-card p-5 mb-6 overflow-x-auto">
@@ -156,8 +159,10 @@ export default function WhatIsOpenApi() {
                     <td className="py-2 pr-4 font-medium text-foreground">
                       Swagger 2.0
                     </td>
-                    <td className="py-2 pr-4">旧称時代の仕様バージョン</td>
-                    <td className="py-2">現在の OpenAPI 3.x の前身</td>
+                    <td className="py-2 pr-4">旧称で広まった仕様バージョン</td>
+                    <td className="py-2">
+                      改称後は「OpenAPI Specification v2.0」として公開
+                    </td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="py-2 pr-4 font-medium text-foreground">
@@ -314,7 +319,7 @@ paths:
                 },
                 {
                   label:
-                    "2.0 までが「Swagger 仕様」、3.0 から「OpenAPI 仕様」に改称された同じ系譜で、現在の Swagger は SmartBear のツール群の名前",
+                    "「Swagger 仕様」が OpenAPI Initiative への寄贈を経て「OpenAPI Specification」に改称された同じ系譜で、現在の Swagger は SmartBear のツール群の名前",
                   correct: true,
                 },
                 {
@@ -326,7 +331,7 @@ paths:
                     "OpenAPI はフロントエンド用、Swagger はバックエンド用という用途の違いを指す",
                 },
               ]}
-              explanation="元は「Swagger 仕様」と呼ばれ、3.0 から「OpenAPI Specification」に改称されました。両者は同じ系譜の仕様です。現在「Swagger」と言うと、SmartBear が提供する Swagger UI / Swagger Editor などのツール群を指します。記述形式（YAML / JSON）はどちらの名称とも無関係です。"
+              explanation="元は「Swagger 仕様」と呼ばれ、OpenAPI Initiative への寄贈を経て「OpenAPI Specification」に改称されました。改称は既存の 2.0 にも遡って適用され、2.0 は現在「OpenAPI Specification v2.0」として公開されています。バージョン境界で名前が切り替わるわけではありません。現在「Swagger」と言うと、SmartBear が提供する Swagger UI / Swagger Editor などのツール群を指します。記述形式（YAML / JSON）はどちらの名称とも無関係です。"
             />
           </section>
 

@@ -357,10 +357,11 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  // データを取得（fetch はデフォルトでキャッシュされるため、
-  // ページコンポーネントでの fetch と重複しても問題ない）
+  // データを取得（Next.js 15 以降、fetch はデフォルトではキャッシュされない。
+  // ページコンポーネントと同じデータを取るので force-cache を明示する）
   const post = await fetch(
-    \`https://api.example.com/posts/\${slug}\`
+    \`https://api.example.com/posts/\${slug}\`,
+    { cache: 'force-cache' }
   ).then((res) => res.json());
 
   return {
@@ -394,7 +395,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
   const post = await fetch(
-    \`https://api.example.com/posts/\${slug}\`
+    \`https://api.example.com/posts/\${slug}\`,
+    { cache: 'force-cache' }
   ).then((res) => res.json());
 
   return (
@@ -410,12 +412,15 @@ export default async function BlogPost({ params }: Props) {
               showLineNumbers
             />
 
-            <InfoBox type="success" title="fetch の自動メモ化（Request Memoization）">
+            <InfoBox type="success" title="同じ fetch を 2 回書くときの扱い">
               <p>
-                Next.js では同一レンダリングパス内で同じ URL への fetch は自動的にメモ化（重複排除）されます。
-                generateMetadata とページコンポーネントの両方で同じ fetch を呼んでも、
-                実際のリクエストは1回だけ実行されるため、パフォーマンスの心配は不要です。
-                ※ これはキャッシュとは異なり、同一リクエスト内でのみ有効です。
+                Next.js 15 以降、fetch はデフォルトではキャッシュされません。
+                generateMetadata とページコンポーネントで同じデータを取るときは、
+                上の例のように <code>cache: 'force-cache'</code> を明示して Data Cache に載せるか、
+                セグメント設定の <code>export const fetchCache = 'default-cache'</code> を使います。
+                同一レンダリングパス内で同じ URL・同じオプションの GET fetch をまとめる
+                Request Memoization もありますが、公式リファレンスが対象として挙げているのは
+                Server Components、layout、page、generateStaticParams、generateViewport です。
               </p>
             </InfoBox>
           </section>

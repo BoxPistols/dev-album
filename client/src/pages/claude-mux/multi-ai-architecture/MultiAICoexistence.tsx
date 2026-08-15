@@ -12,7 +12,7 @@ const toolData = [
   { tool: 'Cursor', config: '.cursor/rules/*.mdc\n.cursorrules', strength: '日常的なコーディング、ルールベースの差分編集', env: 'Cursor エディタ' },
   { tool: 'Gemini CLI', config: 'GEMINI.md\n.gemini/settings.json', strength: 'PR レビュー自動化、大規模コンテキスト処理', env: 'CLI / GitHub 連携' },
   { tool: 'GitHub Copilot', config: '.github/copilot-instructions.md', strength: 'インラインコード補完、Copilot Agent によるIssue対応', env: 'VS Code / JetBrains / CLI' },
-  { tool: 'OpenAI Codex', config: 'AGENTS.md\ncodex.md', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },
+  { tool: 'OpenAI Codex', config: 'AGENTS.md\nAGENTS.override.md\n~/.codex/config.toml', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },
 ];
 
 export default function MultiAICoexistence() {
@@ -117,8 +117,20 @@ export default function MultiAICoexistence() {
               </table>
             </div>
 
-            <InfoBox type="info" title="AGENTS.md の台頭">
-              AGENTS.md はプロジェクトルートに配置するマークダウンファイルで、OpenAI Codex・GitHub Copilot・Cursor・Claude Code など複数ツールが自動的に読み取る「ツール横断型コンテキストファイル」として標準化が進んでいます。既存の各ツール固有ファイルと併用できます。
+            <InfoBox type="info" title="AGENTS.md はツール横断の取り決め">
+              AGENTS.md はプロジェクトルートに配置するマークダウンファイルで、公式サイトはこれを
+              「エージェント向けの README」と説明しています。Codex・Cursor・Gemini CLI・GitHub Copilot・
+              Zed・opencode など多数のツールが対応を表明しており、既存のツール固有ファイルと併用できます。
+              モノレポではパッケージごとに置け、ディレクトリツリー上で最も近いものが優先されます。
+            </InfoBox>
+
+            <InfoBox type="warning" title="Claude Code は AGENTS.md を自動では読まない">
+              Claude Code の公式ドキュメントは
+              <span className="font-semibold">「Claude Code reads CLAUDE.md, not AGENTS.md.」</span>
+              と明記しています。読ませたい場合は CLAUDE.md に <code>@AGENTS.md</code> と書いて
+              import するか、<code>ln -s AGENTS.md CLAUDE.md</code> でシンボリックリンクを張ります
+              （Windows はシンボリックリンクに管理者権限が要るため import が推奨）。
+              「置けばどのツールも読んでくれる」と考えると、規約が効いていないことに気づけません。
             </InfoBox>
           </section>
 
@@ -222,14 +234,15 @@ export default function MultiAICoexistence() {
                   Claude Code で設計からコーディングまでを一貫して行い、Gemini による自動 PR レビューを品質ゲートとして活用。
                 </p>
                 <CodeBlock language="yaml" code={`# .gemini/config.yaml
-pull_request_opened:
-  code_review:
-    enabled: true
-    language: ja
-    focus:
-      - security
-      - performance
-      - coding_standards`} />
+code_review:
+  disable: false
+  comment_severity_threshold: MEDIUM
+  max_review_comments: -1
+  pull_request_opened:
+    help: false
+    summary: true
+    code_review: true
+    include_drafts: false`} />
                 <CodeBlock language="bash" code={`# Claude Code での開発フロー
 # ターミナルタブ 1: 実装
 claude "認証機能を実装して"
@@ -382,12 +395,11 @@ cd ~/project && claude "/code-review"
             previewType="terminal"
             title="マルチ AI ハイブリッド環境を構築しよう"
             description="Claude Code と他の AI ツールを共存させるディレクトリ構成と、共通コンテキストファイルの設定を書いてください。"
-            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\nEOF`}
-            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\nAGENTS.md の規約に従ってください。\n## 追加コンテキスト\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
+            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\nEOF`}
+            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
             hints={[
-              'AGENTS.md は全 AI ツールが自動認識する共通コンテキストファイルです',
-              'CLAUDE.md には Claude Code 固有の指示のみ記述します',
-              '.agents/rules/ に共通ルールソースを集約する構成が推奨されます',
+              'AGENTS.md は対応を表明した各ツールが読むツール横断のファイルです',
+              'Claude Code は AGENTS.md を自動では読まないので、CLAUDE.md から @AGENTS.md で import します',
             ]}
             keywords={['AGENTS.md', 'CLAUDE.md']}
           />

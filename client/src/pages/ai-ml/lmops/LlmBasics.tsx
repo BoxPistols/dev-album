@@ -154,7 +154,7 @@ export default function LlmBasics() {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Claude は最大 200K トークンのコンテキストウィンドウに対応しており、長い文書全体を入力に含めることが可能です。
+                  コンテキストウィンドウの大きさはモデルごとに異なります。Claude Opus 5 や Claude Sonnet 5 は 1M トークンに対応し（ベータヘッダーなしで 1M が既定値）、Claude Sonnet 4.5 や Claude Haiku 4.5 は 200K トークンです。世代で変わる値なので、使うモデルのドキュメントで確認してください。
                 </p>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function LlmBasics() {
 client = anthropic.Anthropic()
 
 message = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-5",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "Pythonの特徴を3つ教えて"}
@@ -257,6 +257,7 @@ print(message.content[0].text)`}
             <p className="text-muted-foreground mt-3 mb-8 leading-relaxed">
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">messages.create()</code> にモデル名、最大トークン数、メッセージを渡すだけで応答が得られます。
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">max_tokens</code> は出力の最大長を制御するパラメータです。
+              モデル ID は世代交代にともなって retire され、retire 後の ID へのリクエストは失敗します。公式のモデル一覧で有効な ID を確認してください。
             </p>
 
             <h3 className="text-xl font-bold text-foreground mb-4">3. システムプロンプトの活用</h3>
@@ -265,7 +266,7 @@ print(message.content[0].text)`}
             </p>
             <CodeBlock
               code={`message = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-5",
     max_tokens=1024,
     system="あなたはシニアのWeb開発エンジニアです。初心者にも分かりやすく、具体的なコード例を交えて回答してください。",
     messages=[

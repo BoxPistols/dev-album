@@ -102,14 +102,18 @@ curl https://pyenv.run | bash`}
             />
 
             <h3 className="text-xl font-bold text-foreground mt-8 mb-4">2. シェル設定の追加</h3>
-            <CodeBlock
-              code={`# ~/.zshrc または ~/.bashrc に追加
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"`}
-              language="bash"
-              title="シェル設定（.zshrc / .bashrc）"
-            />
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              pyenv はシェルの設定を追加してから使います。書く内容はシェル（bash / zsh / fish）とインストール方法で変わるため、
+              公式 README の「Set up your shell environment for pyenv」の手順をそのまま参照してください。
+            </p>
+            <a
+              href="https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+            >
+              pyenv README: Set up your shell environment for pyenv
+            </a>
 
             <h3 className="text-xl font-bold text-foreground mt-8 mb-4">3. Python のインストールと設定</h3>
             <CodeBlock
@@ -295,7 +299,8 @@ plt.show()`}
               <div className="rounded-xl border border-border bg-card p-5">
                 <h4 className="font-bold text-foreground text-sm mb-2">注意点</h4>
                 <ul className="text-xs text-muted-foreground space-y-1.5 leading-relaxed">
-                  <li>セッションは一定時間で切断される（無料枠: 約90分）</li>
+                  <li>アイドル状態が続くと切断されることがある（公式は具体的な時間を公表していない）</li>
+                  <li>無料枠のノートブックの実行は、利用状況により最大 12 時間</li>
                   <li>ランタイムを再起動するとインストールしたパッケージが消える</li>
                   <li>大規模データの処理にはローカル環境のほうが安定する</li>
                   <li>本番運用には向かない（学習・実験用途向き）</li>

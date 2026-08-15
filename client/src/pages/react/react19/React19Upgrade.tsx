@@ -95,6 +95,9 @@ npx codemod@latest react/19/migration-recipe
 npx codemod@latest react/prop-types-typescript
 
 # forwardRef の解除
+npx codemod react/19/remove-forward-ref --target <path>
+
+# ReactDOM.render() を createRoot(node).render() に置き換え
 npx codemod@latest react/19/replace-reactdom-render
 
 # 変更後、必ず差分を確認
@@ -419,11 +422,14 @@ const root = hydrateRoot(
             />
 
             <div className="mt-6 mb-6">
-              <InfoBox type="info" title="render コールバックの削除">
+              <InfoBox type="info" title="render コールバックの扱い">
                 <p>
-                  React 18 で非推奨だった <code>createRoot().render()</code> の第2引数（コールバック）が
-                  React 19 で完全に削除されました。レンダリング後の処理には
-                  <code>useEffect</code> や <code>requestIdleCallback</code> を使用してください。
+                  レンダリング完了後に呼ばれるコールバックは、旧 <code>ReactDOM.render(element, container, callback)</code> の
+                  第3引数として渡すものでした。React 18 で <code>createRoot()</code> に移行した時点でこの引数は無くなっており、
+                  <code>createRoot().render()</code> は当初からコールバック引数を持ちません。
+                  React 19 で削除されたのは <code>ReactDOM.render</code> / <code>ReactDOM.hydrate</code> /
+                  <code>unmountComponentAtNode</code> / <code>ReactDOM.findDOMNode</code> といった API 本体です。
+                  レンダリング後の処理には <code>useEffect</code> を使用してください。
                 </p>
               </InfoBox>
             </div>

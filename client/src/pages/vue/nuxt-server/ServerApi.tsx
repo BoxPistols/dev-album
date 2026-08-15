@@ -489,8 +489,8 @@ async function createArticle(title: string) {
                   description: "サーバー専用シークレットと public 値の扱い方",
                 },
                 {
-                  title: "Nitro 公式 - Routing",
-                  url: "https://nitro.build/guide/routing",
+                  title: "Nitro v2 公式 - Routing",
+                  url: "https://v2.nitro.build/guide/routing",
                   description:
                     "Nuxt が内部で使うサーバーエンジン Nitro のルーティング",
                 },

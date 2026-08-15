@@ -473,10 +473,12 @@ jobs:
 
             <InfoBox type="info" title="レビュー権限の設計">
               <p>
-                Chromatic のレビュー権限は「Developer」と「Reviewer」の 2
-                種類があります。 デザイナーには Reviewer 権限を付与し、Accept /
-                Reject の操作のみを許可します。
-                これにより、ビルドの再実行やベースラインの強制更新といった操作を制限できます。
+                Chromatic の権限は組織（organization）とプロジェクト（project）の 2
+                層に分かれています。プロジェクトロールは Owner / Developer / Reviewer / Viewer の 4
+                種類で、レビューと承認に関わるのは Owner・Developer・Reviewer、Viewer
+                は読み取り専用です。組織ロールは Enterprise プランの Teams を使う場合を除き member
+                のみです。 デザイナーには Reviewer を付与し、Accept / Reject
+                を担当してもらう構成にできます。
               </p>
             </InfoBox>
           </section>
@@ -720,7 +722,7 @@ jobs:
               },
               {
                 title: "Storybook Test Runner",
-                url: "https://storybook.js.org/docs/writing-tests/test-runner",
+                url: "https://storybook.js.org/docs/writing-tests/integrations/test-runner",
                 description:
                   "テストランナーの公式ドキュメント。a11y テストとの連携方法。",
               },

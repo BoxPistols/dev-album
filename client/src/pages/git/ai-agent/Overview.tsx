@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, DollarSign, Layers, CheckCircle, Terminal, Code, Globe } from 'lucide-react';
+import { ArrowRight, Sparkles, DollarSign, Layers, CheckCircle, Terminal, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InfoBox from '@/components/InfoBox';
 import { useLocation } from 'wouter';
@@ -17,8 +17,8 @@ export default function AIAgentOverview() {
             AI コーディング環境の全体像
           </h1>
           <p className="text-lg text-muted-foreground">
-            無料〜月1,000円以下で、AIと一緒にコーディングできる環境を構築します。
-            複数のツールを組み合わせて、トークン切れでも作業が止まらない体制を作りましょう。
+            AI と一緒にコーディングできる環境を構築します。
+            ツールごとの特徴と料金プランを見比べて、自分の使い方に合う組み合わせを選びましょう。
           </p>
         </div>
       </div>
@@ -114,16 +114,16 @@ export default function AIAgentOverview() {
             <div className="bg-card border border-border rounded-lg p-6">
               <div className="flex items-center gap-4 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Globe className="w-5 h-5 text-primary" />
+                  <Layers className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground">クラウド IDE 型</h3>
-                  <p className="text-sm text-muted-foreground">ブラウザで完結する AI 開発環境</p>
+                  <h3 className="text-xl font-semibold text-foreground">エージェント並列型</h3>
+                  <p className="text-sm text-muted-foreground">複数の AI エージェントをまとめて動かす</p>
                 </div>
               </div>
               <p className="text-muted-foreground leading-relaxed mb-3">
-                ブラウザ上で動く開発環境。インストール不要で始められるのが利点。
-                複数の AI エージェントを同時に動かせるものもあります。
+                OS ごとのインストーラで導入するデスクトップアプリ。
+                エージェントは手元のフォルダ上で動作し、複数のエージェントを並列に動かせます。
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full font-medium">Google Antigravity</span>
@@ -140,9 +140,11 @@ export default function AIAgentOverview() {
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              各ツールには<strong className="text-foreground">無料枠</strong>があります。
+              無料で使い始められるのは <strong className="text-foreground">Gemini CLI / Antigravity / Cursor（Hobby プラン）</strong>です。
               1つのツールの無料枠を使い切ったら別のツールに切り替える
-              「<strong className="text-foreground">ローテーション戦略</strong>」で、ほぼ無料〜最小限のコストで運用できます。
+              「<strong className="text-foreground">ローテーション戦略</strong>」で、無料の範囲を広く使えます。
+              一方 Claude Code は Pro / Max / Team / Enterprise のいずれかのプランか Console でのクレジット購入が前提、
+              Cline は自分の API キー（別途課金）が必要、Warp の Free プランには AI の利用枠が含まれません。
             </p>
 
             {/* 比較表 */}
@@ -152,18 +154,18 @@ export default function AIAgentOverview() {
                   <tr className="bg-muted">
                     <th className="border border-border px-3 py-2.5 text-left text-foreground font-semibold">ツール</th>
                     <th className="border border-border px-3 py-2.5 text-left text-foreground font-semibold">タイプ</th>
-                    <th className="border border-border px-3 py-2.5 text-left text-foreground font-semibold">無料枠</th>
+                    <th className="border border-border px-3 py-2.5 text-left text-foreground font-semibold">料金プラン</th>
                     <th className="border border-border px-3 py-2.5 text-left text-foreground font-semibold">対応 OS</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ['Claude Code', 'ターミナル', '初回クレジット付与（$5相当）', 'Mac / Win / Linux'],
+                    ['Claude Code', 'ターミナル', 'Pro / Max / Team / Enterprise または Console のクレジットが必要', 'Mac / Win / Linux'],
                     ['Gemini CLI', 'ターミナル', '1日1,000リクエスト無料', 'Mac / Win / Linux'],
-                    ['Cursor', 'エディタ', '月50回のプレミアムリクエスト + 補完', 'Mac / Win / Linux'],
+                    ['Cursor', 'エディタ', 'Hobby プランで制限付きのエージェントリクエスト', 'Mac / Win / Linux'],
                     ['Cline', 'VS Code 拡張', '拡張自体は無料（APIキー必要）', 'Mac / Win / Linux'],
-                    ['Warp', 'ターミナル', '月75回のAIリクエスト', 'Mac / Win / Linux'],
-                    ['Antigravity', 'クラウド IDE', 'プレビュー期間中は無料', 'ブラウザ（OS不問）'],
+                    ['Warp', 'ターミナル', 'Free プランに AI 利用枠なし（有料プラン / クレジット購入 / BYOK）', 'Mac / Win / Linux'],
+                    ['Antigravity', 'エージェント並列型', '個人向け $0/month プラン（週単位のレート制限あり）', 'Mac / Win / Linux'],
                   ].map(([tool, type, free, os], index) => (
                     <tr key={index} className={index % 2 === 0 ? 'bg-card' : 'bg-muted/50'}>
                       <td className="border border-border px-3 py-2.5 font-medium text-foreground">{tool}</td>
@@ -176,11 +178,10 @@ export default function AIAgentOverview() {
               </table>
             </div>
 
-            <InfoBox type="success" title="コスト例：月0〜750円">
-              <strong>完全無料パターン:</strong> Gemini CLI（無料枠大）+ Cursor 無料枠 + Antigravity（プレビュー無料）を組み合わせれば月0円。
+            <InfoBox type="success" title="組み合わせの例">
+              <strong>無料で揃えるパターン:</strong> Gemini CLI（1日1,000リクエスト）+ Cursor の Hobby プラン + Antigravity の個人向け $0/month プランを組み合わせる。
               <br />
-              <strong>少し課金パターン:</strong> Claude Code のAPIクレジットを $5（約750円）だけ追加。
-              使った分だけの従量課金なので、ライトな使い方なら月数百円で収まります。
+              <strong>Claude Code を使うパターン:</strong> Pro / Max / Team / Enterprise のいずれかのプランに加入するか、Console でクレジットを購入してから使い始める。
             </InfoBox>
           </div>
         </section>
@@ -202,7 +203,7 @@ export default function AIAgentOverview() {
                 {
                   step: 'STEP 1',
                   title: 'Claude Code を導入する（メインツール）',
-                  desc: 'まずはこれ。ターミナルから AI と対話でき、Git操作もお任せできる。コード理解の精度が最も高い。',
+                  desc: 'ターミナルから AI と対話でき、Git 操作もまとめて任せられる。',
                   link: '/ai-agent/claude-code-setup',
                 },
                 {
@@ -220,7 +221,7 @@ export default function AIAgentOverview() {
                 {
                   step: 'STEP 4',
                   title: '予備ツールを揃える（Gemini CLI / Warp / Antigravity）',
-                  desc: 'トークン切れ対策の予備ツール。全部入れても無料。',
+                  desc: 'メインツールを使い切ったときの予備。Gemini CLI と Antigravity は無料枠から始められる。',
                   link: '/ai-agent/sub-tools',
                 },
               ].map((item, index) => (
@@ -253,7 +254,7 @@ export default function AIAgentOverview() {
                 'Claude Code をインストールして AI と対話できる',
                 '自分のリポジトリに接続して fetch / pull できる',
                 'ブラウザで画面を確認できる',
-                '複数ツールの無料枠を活用して、月1,000円以下で運用できる',
+                '各ツールの無料枠と料金プランを把握して、自分に合う組み合わせを選べる',
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />

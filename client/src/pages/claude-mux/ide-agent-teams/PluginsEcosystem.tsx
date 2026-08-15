@@ -34,7 +34,7 @@ export default function PluginsEcosystem() {
               プラグインの概要
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              プラグインは、スラッシュコマンド・サブエージェント・MCP サーバー・Hooks をバンドルした軽量パッケージ。Agent Skills オープンスタンダードに準拠しており、CLI と VS Code 拡張の両方で管理できる。一方でインストールしたプラグインはもう一方でも自動的に利用可能になる。
+              プラグインは、スラッシュコマンド・サブエージェント・MCP サーバー・Hooks をバンドルした軽量パッケージ。パッケージ形式は <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">.claude-plugin/plugin.json</code> マニフェストを持つ Claude Code 固有のもので、その中の <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">skills/</code> が Agent Skills オープンスタンダードに従う。CLI と VS Code 拡張の両方で管理でき、一方でインストールしたプラグインはもう一方でも利用できる。
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -52,7 +52,7 @@ export default function PluginsEcosystem() {
             </div>
 
             <InfoBox type="info" title="Agent Skills オープンスタンダード">
-              プラグインは Agent Skills オープンスタンダードに従って構成される。これにより、Claude Code だけでなく対応する他のツールでもプラグインを再利用できる仕組みになっている。
+              Agent Skills オープンスタンダードが定めているのは skill の形式（SKILL.md を含むフォルダ）であり、プラグインのパッケージ形式ではない。プラグインの skills/ 配下をこの形式で書いておくと、Claude Code 以外の対応ツールでも同じスキルを再利用できる。プラグインそのものの形式（.claude-plugin/plugin.json）は Claude Code 固有。
             </InfoBox>
           </section>
 
@@ -92,7 +92,7 @@ export default function PluginsEcosystem() {
             </div>
 
             <InfoBox type="info" title="CLI と VS Code の同期">
-              VS Code 拡張でインストールしたプラグインは CLI でも利用でき、逆も同様。プラグインの設定はグローバルに管理されるため、どちらの環境で操作しても同じ状態になる。
+              VS Code 拡張でインストールしたプラグインは CLI でも利用でき、逆も同様。同じプロジェクトで見れば CLI と VS Code は同じ設定ファイルを読むので、どちらで操作しても状態が一致する。ただしプラグインはインストール時に選んだスコープ（user / project / local、および managed）の単位で管理されるので、project / local スコープで入れたものは他のプロジェクトには現れない。
             </InfoBox>
           </section>
 
@@ -107,9 +107,11 @@ export default function PluginsEcosystem() {
               <div>
                 <h3 className="text-xl font-bold mb-3">設定ファイル</h3>
                 <p className="leading-relaxed mb-4 text-muted-foreground">
-                  プラグインの有効/無効はグローバル設定ファイルで管理される。
+                  プラグインの有効/無効は、インストール時に選んだスコープに対応する settings ファイルで管理される。
                 </p>
-                <CodeBlock language="json" code={`// ~/.claude/settings.json
+                <CodeBlock language="json" code={`// user スコープ:    ~/.claude/settings.json
+// project スコープ: .claude/settings.json
+// local スコープ:   .claude/settings.local.json
 {
   "enabledPlugins": {
     "plugin-name": true
@@ -117,20 +119,24 @@ export default function PluginsEcosystem() {
 }
 
 // ~/.claude/plugins/installed_plugins.json
+// キーは plugin@marketplace 形式。値はインストールエントリの配列
 {
   "version": 2,
   "plugins": {
-    "plugin-name": {
-      "source": "npm:plugin-name",
-      "version": "1.0.0"
-    }
+    "plugin-name@marketplace-name": [
+      {
+        "scope": "user",
+        "installPath": "/path/to/plugin",
+        "version": "1.0.0"
+      }
+    ]
   }
 }`} />
               </div>
             </div>
 
             <InfoBox type="info" title="プラグインのスコープ">
-              プラグインはグローバルにインストールされ、すべてのプロジェクトで利用可能。特定のプロジェクトでのみ使用したい場合は、CLAUDE.md でプラグインの Skills を参照する運用が推奨される。
+              インストール時にスコープを選ぶ。user スコープは自分のすべてのプロジェクトで使え、project スコープはそのプロジェクトの共同作業者と共有され、local スコープは自分のそのリポジトリだけで有効になる。installed_plugins.json の scope フィールドが取る値は managed / user / project / local。
             </InfoBox>
           </section>
 
@@ -233,8 +239,8 @@ $ARGUMENTS
 - 全体的な目的と役割
 - 主要な関数・クラスの説明
 - データフローの概要`} />
-                <CodeBlock language="bash" code={`# 使用例
-/project:explain src/lib/navigation.ts`} />
+                <CodeBlock language="bash" code={`# 使用例（ファイル名がそのままコマンド名になる）
+/explain src/lib/navigation.ts`} />
               </div>
             </div>
           </section>
@@ -270,7 +276,8 @@ $ARGUMENTS
 
               <div>
                 <h3 className="text-xl font-bold mb-3">MCP サーバーの設定方法</h3>
-                <CodeBlock language="json" code={`// .claude/settings.json（プロジェクトスコープ）
+                <CodeBlock language="json" code={`// .mcp.json（プロジェクトスコープ、プロジェクトルート）
+// ユーザー / ローカルスコープは ~/.claude.json
 {
   "mcpServers": {
     "github": {
@@ -297,42 +304,38 @@ $ARGUMENTS
               プラグイン開発の基本
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              独自のプラグインを作成してチームやコミュニティと共有できる。プラグインは Agent Skills オープンスタンダードに準拠したディレクトリ構成で作る。
+              独自のプラグインを作成してチームやコミュニティと共有できる。プラグインは <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">.claude-plugin/plugin.json</code> マニフェストと、機能ごとのサブディレクトリで構成する。
             </p>
 
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold mb-3">プラグインのディレクトリ構成</h3>
                 <p className="leading-relaxed mb-4 text-muted-foreground">
-                  プラグインのルートに <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">PLUGIN.md</code> を配置し、メタデータを記述する。各機能は対応するサブディレクトリに配置する。
+                  プラグインのルート直下に <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">.claude-plugin/</code> ディレクトリを作り、その中の <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">plugin.json</code> にメタデータを記述する。各機能は対応するサブディレクトリに配置する。
                 </p>
                 <CodeBlock language="text" code={`my-plugin/
-├── PLUGIN.md          # プラグインのメタデータ（名前、説明、バージョン）
+├── .claude-plugin/
+│   └── plugin.json    # プラグインのメタデータ（名前、説明、バージョン）
 ├── skills/
 │   └── my-skill/
 │       └── SKILL.md   # スキル定義（スラッシュコマンドとして公開される）
-├── subagents/
+├── agents/
 │   └── my-agent.md    # サブエージェント定義
 └── hooks/
-    └── settings.json  # Hook の設定`} />
+    └── hooks.json     # Hook の設定`} />
               </div>
 
               <div>
-                <h3 className="text-xl font-bold mb-3">PLUGIN.md の例</h3>
-                <CodeBlock language="markdown" code={`---
-name: my-review-plugin
-version: 1.0.0
-description: コードレビューを自動化するプラグイン
----
-
-# My Review Plugin
-
-このプラグインはコードレビューのワークフローを自動化します。
-
-## 提供する機能
-
-- /my-review-plugin:review - 現在の差分をレビュー
-- review-agent サブエージェント - レビュー専門のエージェント`} />
+                <h3 className="text-xl font-bold mb-3">plugin.json の例</h3>
+                <CodeBlock language="json" code={`// .claude-plugin/plugin.json
+{
+  "name": "my-review-plugin",
+  "version": "1.0.0",
+  "description": "コードレビューを自動化するプラグイン"
+}`} />
+                <p className="leading-relaxed mt-4 text-muted-foreground">
+                  このプラグインの <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">skills/review/SKILL.md</code> は <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/my-review-plugin:review</code> として呼び出せる。プラグインが提供するスキルには <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/plugin-name:skill-name</code> の名前空間が付く。
+                </p>
               </div>
 
               <div>
@@ -353,19 +356,23 @@ description: 現在のブランチの差分をレビューする
 
               <div>
                 <h3 className="text-xl font-bold mb-3">Hook 設定の例</h3>
-                <CodeBlock language="json" code={`// hooks/settings.json
+                <CodeBlock language="json" code={`// hooks/hooks.json
 {
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "command": "echo 'Tool execution starting...'"
+        "hooks": [
+          { "type": "command", "command": "echo 'Tool execution starting...'" }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Bash",
-        "command": "echo 'Tool execution completed.'"
+        "hooks": [
+          { "type": "command", "command": "echo 'Tool execution completed.'" }
+        ]
       }
     ]
   }
@@ -383,15 +390,15 @@ description: 現在のブランチの差分をレビューする
             preview
             previewType="config"
             title="プラグインのディレクトリ構成と MCP 設定を書こう"
-            description="プラグインの PLUGIN.md とスキル定義の作成、および MCP サーバーの設定を書いてください。"
-            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   ___.md        // ← ここを埋める（プラグイン定義ファイル）\n//   ___/review/   // ← ここを埋める（スキルフォルダ名）\n//     SKILL.md       - レビュースキル定義\n//   subagents/\n//     reviewer.md    - サブエージェント定義\n\n// MCP サーバーの設定\n// .claude/settings.json\n{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    }\n  }\n}`}
-            answer={`// プラグインのディレクトリ構成\n// my-plugin/\n//   PLUGIN.md        - name, version, description\n//   skills/review/\n//     SKILL.md       - レビュースキル定義\n//   subagents/\n//     reviewer.md    - サブエージェント定義\n//   hooks/\n//     settings.json  - Hook 設定\n\n// MCP サーバーの設定\n// .claude/settings.json\n{\n  "mcpServers": {\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    },\n    "filesystem": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]\n    }\n  }\n}`}
+            description="プラグインの plugin.json とスキル定義の作成、および MCP サーバーの設定を書いてください。"
+            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     ___.json     // ← ここを埋める（マニフェストファイル名）\n//   ___/review/    // ← ここを埋める（スキルフォルダ名）\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    }\n  }\n}`}
+            answer={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     plugin.json  - name, version, description\n//   skills/review/\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n//   hooks/\n//     hooks.json     - Hook 設定\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "mcpServers": {\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    },\n    "filesystem": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]\n    }\n  }\n}`}
             hints={[
-              'PLUGIN.md にはプラグインの名前、バージョン、説明を記述します',
+              'マニフェストは .claude-plugin/plugin.json で、名前・バージョン・説明を記述します',
               'skills/ ディレクトリ内のサブディレクトリに SKILL.md を配置するとスラッシュコマンドになります',
-              'MCP サーバーは mcpServers キーに command と args を指定します',
+              'MCP サーバーは .mcp.json の mcpServers キーに command と args を指定します',
             ]}
-            keywords={['PLUGIN', 'skills', 'mcpServers']}
+            keywords={['plugin.json', 'skills', 'mcpServers']}
           />
 
         <PageNavigation />

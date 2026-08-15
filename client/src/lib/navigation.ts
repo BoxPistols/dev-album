@@ -441,7 +441,8 @@ export const pages: PageInfo[] = [
   { step: 37, path: '/claude-mux/ide-agent-teams/plugins-ecosystem', title: 'プラグインとエコシステム', sectionId: 'ide-agent-teams', manualId: 'claude-mux' },
   { step: 38, path: '/claude-mux/multi-ai/multi-ai-coexistence', title: 'マルチAIツールの共存戦略', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
   { step: 39, path: '/claude-mux/multi-ai/single-source-of-truth', title: 'シングルソースオブトゥルース設計', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
-  { step: 40, path: '/claude-mux/multi-ai/design-md', title: 'CLAUDE.md / AGENTS.md / DESIGN.md', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+  { step: 40, path: '/claude-mux/multi-ai/agent-docs', title: 'CLAUDE.md / AGENTS.md / ARCHITECTURE.md', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
+  { step: 41, path: '/claude-mux/multi-ai/design-md', title: 'DESIGN.md', sectionId: 'multi-ai-architecture', manualId: 'claude-mux' },
 
   // ===========================
   // AI / Python / 機械学習マニュアル (8ページ)

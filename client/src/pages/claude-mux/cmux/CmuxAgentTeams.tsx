@@ -23,7 +23,7 @@ export default function CmuxAgentTeams() {
           </h1>
 
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Claude Code の teammate モードを cmux のネイティブ split で扱う。
+            Claude Code の agent teams を cmux のネイティブ split で扱う。
             tmux なしで並列タスク分割を構成する。
           </p>
 
@@ -43,9 +43,11 @@ export default function CmuxAgentTeams() {
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              Claude Code の teammate モードは、1
-              つの親セッションから複数の子セッション（teammate）を起動して、
+              Claude Code の agent teams（エージェントチーム）は、1 つのセッションが
+              team lead となり、複数の teammate を起動して
               タスクを並列に進めるための仕組み。レビュー担当・実装担当・テスト担当のようにロールを分けて運用する。
+              teammate は lead の子セッションではなく独立した Claude Code
+              インスタンスで、lead を介さずに直接やり取りできる。この点が subagent との違い。
             </p>
 
             <p className="text-foreground mb-6 leading-relaxed">
@@ -55,10 +57,20 @@ export default function CmuxAgentTeams() {
               tmux 不要で並列ワークフローが組める点が特徴。
             </p>
 
-            <InfoBox type="info" title="前提">
-              teammate モードは Claude Code
-              の機能。利用可能なバージョン・契約プランは公式ドキュメントを確認する。
-              cmux はそれを「どう表示・操作するか」を担う層。
+            <InfoBox type="warning" title="前提: experimental で既定は無効">
+              agent teams は Claude Code の機能で、experimental
+              かつ既定で無効。settings.json か環境変数に{" "}
+              <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code>{" "}
+              を設定しない限り teammate は起動しない。詳細は{" "}
+              <a
+                href="https://code.claude.com/docs/en/agent-teams"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline"
+              >
+                公式ドキュメント
+              </a>
+              を確認する。cmux はそれを「どう表示・操作するか」を担う層。
             </InfoBox>
           </section>
 

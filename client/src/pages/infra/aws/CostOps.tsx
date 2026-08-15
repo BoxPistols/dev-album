@@ -279,15 +279,25 @@ aws ec2 create-tags \\
               ただし「無料」と書かれていても、条件を外れると課金される点を理解しておく必要があります。
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              <strong>仕様では</strong>「12 か月無料」「毎月一定量まで無料」
-              といった枠が定義されています。
-              <strong>実測では</strong>、12 か月の期限を過ぎた、
+              <strong>仕様では</strong> Free Plan / Paid Plan の 2 つが定義され、Free Plan は
+              アカウント開設から 6 か月、または Free Tier Credits を使い切るまでの
+              どちらか早い方で終了します。加えて、プランを問わず
+              「毎月一定量まで無料」で使えるサービス群（always free）があります。
+              <strong>実測では</strong>、Free Plan の期間が終わった、
               無料枠の上限（時間・容量・転送量）を超えた、
               あるいはそもそも無料枠の対象外サービスを使った、
               といった理由で請求が発生することがあります。
               <strong>理由は</strong>
               、無料枠はあくまで「特定の条件下での割引」であり、
               使用量や期間という前提を外れると通常料金に切り替わるためです。
+            </p>
+
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              「12 か月無料」という枠は現行の Terms には定義されていません。
+              いま 12 か月が出てくるのは Free Tier Credits の有効期限
+              （アカウント開設から 12 か月）で、無料枠の期間ではありません。
+              「12 Month Free Tier」は Legacy Free Tier Terms として、
+              12-month free tier offers を持つ既存顧客向けにのみ残っています。
             </p>
 
             <InfoBox type="info" title="無料枠を安心して使うために">

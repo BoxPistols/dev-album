@@ -1,7 +1,7 @@
 # Design System Master File
 
 > **⚠️ 廃止（2026-07）:** このファイルは初期に外部ツールが生成したスナップショットで、現在の実装とは一致しない（色は zinc ベース + マニュアル別ブランドカラー、フォントも下記とは異なる）。
-> カラートークンの正本は `client/src/index.css`、設計方針は `CLAUDE.md` / `DESIGN.md` を参照すること。このファイルの値を新規実装に使わない。
+> カラートークンの正本は `client/src/index.css`、設計方針は `CLAUDE.md` / `ARCHITECTURE.md` を参照すること。このファイルの値を新規実装に使わない。
 
 > **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
 > If that file exists, its rules **override** this Master file.

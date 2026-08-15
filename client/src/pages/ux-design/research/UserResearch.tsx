@@ -50,7 +50,7 @@ const researchMethods = [
     desc: '2つのバリエーションを同時に公開し、どちらがより良い成果を出すかを統計的に検証する手法。',
     detail:
       'ボタンの色やコピーの変更など、1回のテストで検証する変数は1つに絞る。十分なサンプルサイズを確保し、統計的有意差を確認する。',
-    tools: 'Google Optimize / Optimizely / LaunchDarkly',
+    tools: 'Optimizely / VWO / LaunchDarkly',
   },
   {
     icon: <BarChart3 className="w-5 h-5" />,

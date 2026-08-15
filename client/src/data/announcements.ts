@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-claim-audit",
+    date: "2026-08-16",
+    title: "全 342 ページの事実主張を一次情報と照合し、152 件を修正した",
+    description:
+      "外部の一次情報で真偽が確定する主張を全ページから抽出し、高リスクに分類した 466 件をベンダー公式ドキュメント・仕様書・公式リポジトリと照合した。3 分の 1 にあたる 152 件が食い違っており、削除済み API を使ったコード例、デフォルト値が逆の説明、古くなった設定キー名などを修正した。一次情報に当たっても確定しなかった 34 件は本文から削除している。判定の全記録は docs/audits/2026-08-16-claim-audit.md にある。",
+    category: "fix",
+    link: "/claude-mux/multi-ai/agent-docs",
+  },
+  {
+    id: "2026-08-16-design-md-spec",
+    date: "2026-08-16",
+    title: "Google Labs の DESIGN.md を扱うページを追加",
+    description:
+      "Stitch から切り出されたビジュアルアイデンティティ記述フォーマットを、公式仕様と @google/design.md@0.4.0 の実挙動で解説した。8 セクションの順序制約、コンポーネントに書ける 8 プロパティ、11 個の lint ルールに加え、クォートしない数値が lint 無警告・exit 0 のまま export から消える挙動を再現手順つきで載せている。",
+    category: "feature",
+    link: "/claude-mux/multi-ai/design-md",
+  },
+  {
+    id: "2026-08-16-agent-docs-rename",
+    date: "2026-08-16",
+    title: "3 層ドキュメントの第 3 層を ARCHITECTURE.md に改め、公式記述で裏を取り直した",
+    description:
+      "DESIGN.md は Google Labs の公開フォーマット名として実在し内容も別物のため、アーキテクチャ決定記録の層を ARCHITECTURE.md に改名した。あわせて「Claude Code は AGENTS.md を自動では読まない」「@import ではコンテキストは減らない」「compact 後の再読込指示は不要」の 3 点を公式ドキュメントの記述に沿って訂正している。",
+    category: "fix",
+    link: "/claude-mux/multi-ai/agent-docs",
+  },
+  {
     id: "2026-08-11-git-slack-notifications",
     date: "2026-08-11",
     title: "Git 編のフロー自動化に「Slack 通知連携」ページを追加",

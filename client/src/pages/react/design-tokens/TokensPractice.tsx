@@ -102,7 +102,6 @@ export default function TokensPractice() {
                 title="Apple HIG セマンティックカラーの例"
                 code={`名前                    Light        Dark         用途
 ───────────────────────────────────────────────────────
-label                   #000000      #FFFFFF      主要テキスト
 secondaryLabel          #3C3C43/60%  #EBEBF5/60%  補助テキスト
 systemBackground        #FFFFFF      #000000      画面背景
 secondarySystemBg       #F2F2F7      #1C1C1E      グループ化背景
@@ -356,8 +355,9 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
                 </h3>
               </div>
               <p className="text-sm text-foreground/80 mb-4">
-                Material Design では、要素の「高さ（Elevation）」を 0dp から
-                24dp のスケールで表現します。 Elevation
+                Material Design 3 では、要素の「高さ（Elevation）」をレベル 0〜5
+                で表し、対応する DP は 0dp / 1dp / 3dp / 6dp / 8dp / 12dp です（0dp
+                〜24dp のスケールは Material Design 2 のもの）。 Elevation
                 が高いほど、ユーザーの注意を引き、操作対象であることを示します。
               </p>
               <CodeBlock
@@ -591,10 +591,15 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
               Tailwind CSS v4 では <code>@theme</code> ディレクティブを使って
               CSS 変数を Tailwind
               のユーティリティクラスに直接マッピングできます。
-              <code>:root</code> で定義したトークンを <code>@theme</code>{" "}
+              <code>:root</code> で定義したトークンを <code>@theme inline</code>{" "}
               内で参照することで、
               <code>bg-surface</code> や <code>text-primary</code>{" "}
-              のようなクラス名が生成されます。
+              のようなクラス名が生成されます。参照元は
+              <code>--brand-*</code> のように別名にし、<code>inline</code>{" "}
+              を付けます。<code>inline</code> なしの <code>@theme</code>{" "}
+              で他の変数を参照するのは避けてください。とくに同名の自己参照（
+              <code>{`--color-primary: var(--color-primary)`}</code>）は、その宣言がそのまま{" "}
+              <code>:root, :host</code> に出力されて循環参照になります。
             </p>
 
             <CodeBlock
@@ -603,14 +608,33 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
               code={`/* src/index.css */
 @import "tailwindcss";
 
-@theme {
-  /* カラー: CSS 変数を参照して Tailwind クラスを生成 */
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-  --color-surface: var(--color-surface);
-  --color-background: var(--color-background);
-  --color-error: var(--color-error);
+/* 実値は Tailwind が読む名前とは別名で持つ */
+:root {
+  --brand-primary: #2563EB;
+  --brand-secondary: #7C3AED;
+  --brand-surface: #FFFFFF;
+  --brand-background: #F8FAFC;
+  --brand-error: #DC2626;
+}
 
+.dark {
+  --brand-primary: #60A5FA;
+  --brand-secondary: #A78BFA;
+  --brand-surface: #1E1E2E;
+  --brand-background: #0F172A;
+  --brand-error: #F87171;
+}
+
+@theme inline {
+  /* カラー: bg-primary → background-color: var(--brand-primary) */
+  --color-primary: var(--brand-primary);
+  --color-secondary: var(--brand-secondary);
+  --color-surface: var(--brand-surface);
+  --color-background: var(--brand-background);
+  --color-error: var(--brand-error);
+}
+
+@theme {
   /* スペーシング: spacing-* クラスが使えるようになる */
   --spacing-1: 4px;
   --spacing-2: 8px;

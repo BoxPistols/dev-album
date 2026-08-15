@@ -326,17 +326,18 @@ export default function VisualDesign() {
               <p className="text-sm text-foreground/80 mb-4 leading-relaxed">
                 Web Content Accessibility Guidelines（WCAG）では、テキストと背景のコントラスト比に最低基準を定めています。
                 色を選ぶ際は、見た目の美しさだけでなくこの基準を満たすことが必要です。
+                大きなテキストの定義は「18 ポイント以上、または 14 ポイント以上の太字」で、CSS の px に換算すると 18pt ≒ 24px、14pt 太字 ≒ 18.5px 太字にあたります。
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">4.5 : 1</p>
                   <p className="text-sm text-muted-foreground">通常テキスト（AA）</p>
-                  <p className="text-[12px] text-muted-foreground mt-1">18px 未満のテキスト</p>
+                  <p className="text-[12px] text-muted-foreground mt-1">24px 未満（太字なら 18.5px 未満）</p>
                 </div>
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">3 : 1</p>
                   <p className="text-sm text-muted-foreground">大きなテキスト（AA）</p>
-                  <p className="text-[12px] text-muted-foreground mt-1">18px 以上 or 14px 太字</p>
+                  <p className="text-[12px] text-muted-foreground mt-1">24px 以上 or 18.5px 以上の太字</p>
                 </div>
                 <div className="rounded-lg bg-muted/50 p-4 border border-border text-center">
                   <p className="text-2xl font-bold text-foreground mb-1">7 : 1</p>
@@ -631,7 +632,7 @@ export default function VisualDesign() {
                 { label: '7 : 1' },
                 { label: '2 : 1' },
               ]}
-              explanation="WCAG の AA レベルでは、通常テキスト（18px 未満）に 4.5:1 以上のコントラスト比が必要です。3:1 は大きなテキスト向け、7:1 は AAA レベル（最も厳格）の基準です。"
+              explanation="WCAG の AA レベルでは、通常テキスト（24px 未満、太字なら 18.5px 未満）に 4.5:1 以上のコントラスト比が必要です。3:1 は大きなテキスト向け、7:1 は AAA レベル（最も厳格）の基準です。"
             />
           </section>
 

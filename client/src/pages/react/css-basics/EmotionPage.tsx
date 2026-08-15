@@ -767,7 +767,7 @@ export default defineConfig({
                   </tr>
                   <tr className="bg-muted/20">
                     <td className="border border-border px-4 py-2 font-medium">css prop</td>
-                    <td className="border border-border px-4 py-2">v6 で対応（限定的）</td>
+                    <td className="border border-border px-4 py-2">v4 で対応（Babel / SWC プラグインが必要）</td>
                     <td className="border border-border px-4 py-2">完全対応（主要機能）</td>
                   </tr>
                   <tr>
@@ -788,7 +788,7 @@ export default defineConfig({
                   <tr className="bg-muted/20">
                     <td className="border border-border px-4 py-2 font-medium">SSR</td>
                     <td className="border border-border px-4 py-2">ServerStyleSheet が必要</td>
-                    <td className="border border-border px-4 py-2">extractCritical が必要</td>
+                    <td className="border border-border px-4 py-2">追加設定なしで動作（必要なら createEmotionServer + extractCriticalToChunks）</td>
                   </tr>
                 </tbody>
               </table>

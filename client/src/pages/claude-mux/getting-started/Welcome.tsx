@@ -43,7 +43,7 @@ export default function Welcome() {
                 { title: 'Claude Code を体系的に学びたい', desc: 'スラッシュコマンド、MCP、Subagents 等の機能を網羅的に理解したい方' },
                 { title: 'AIエージェントの開発効率を最大化したい', desc: 'コンテキスト管理、トークン最適化、権限設定でエージェントを使いこなしたい方' },
                 { title: 'コンテキストスイッチを減らしたい', desc: 'AIへの指示、ログ監視、テスト実行を一つの画面で完結させたい方' },
-                { title: '開発環境を再現可能にしたい', desc: 'CLAUDE.md / AGENTS.md / DESIGN.md と .mcp.json で、ハーネスごと環境をコード化したい方' },
+                { title: '開発環境を再現可能にしたい', desc: 'CLAUDE.md / AGENTS.md / ARCHITECTURE.md と .mcp.json で、ハーネスごと環境をコード化したい方' },
               ].map(item => (
                 <div key={item.title} className="flex gap-3">
                   <div className="text-[var(--claude-primary)] font-bold mt-1">&#10003;</div>
@@ -106,7 +106,7 @@ export default function Welcome() {
             </h2>
 
             <InfoBox type="info" title="前提条件">
-              ターミナルの基本的なコマンド（ls, cd, mkdir 等）の知識があることを前提としています。Node.js 18 以上と Git がインストールされている環境を推奨します。
+              ターミナルの基本的なコマンド（ls, cd, mkdir 等）の知識があることを前提としています。公式のシステム要件は OS・4GB 以上のメモリ・ネットワーク接続・シェル・対応国で、Node.js は含まれません。標準のインストーラはネイティブバイナリを入れるため Node.js なしで動きます（npm で入れる場合は <code>@anthropic-ai/claude-code</code> の engines が Node.js 22 以上。その場合もインストールされた <code>claude</code> バイナリ自体は Node を呼びません）。Git も必須ではなく、Windows で Bash ツールを使う場合に Git for Windows の導入が推奨されます。
             </InfoBox>
 
             <p className="text-foreground mt-8 leading-relaxed">

@@ -455,8 +455,9 @@ export default defineConfig({
             <div className="mt-6 mb-6">
               <InfoBox type="warning" title="React Compiler の現状">
                 <p>
-                  React Compiler は React 19 とともにリリースされましたが、
-                  v1.0 安定版がリリースされています。小規模なプロジェクトから段階的に導入し、
+                  React Compiler は React 19 とは別のリリースサイクルで進んでいます。
+                  React 19 の一般提供は 2024-12-05、React Compiler はその時点ではベータで、
+                  v1.0 安定版は 2025-10-07 に単独でリリースされました。小規模なプロジェクトから段階的に導入し、
                   動作を検証しながら範囲を広げることを推奨します。
                   既存の useMemo / useCallback はそのまま残しても問題なく、
                   コンパイラが自動的に最適化します。

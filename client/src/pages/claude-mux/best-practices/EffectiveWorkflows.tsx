@@ -196,7 +196,7 @@ $ git diff HEAD~3 | claude "この変更をレビューして"
                 },
                 {
                   cmd: 'チェックポイント',
-                  desc: 'Claude Code は自動的にチェックポイントを作成。git diff で変更前の状態に戻れる。',
+                  desc: 'Claude Code は自動的にチェックポイントを作成。/rewind（または入力が空の状態で Esc を 2 回）で rewind メニューを開き、Restore code / Restore code and conversation を選んで戻す。bash コマンドによるファイル変更とサブエージェントの編集はチェックポイントの対象外で、これらは git で戻す。',
                 },
                 {
                   cmd: 'セッション復帰',
@@ -230,11 +230,11 @@ $ claude --continue        # 最後のセッションを即座に継続`}
               Fast Mode の活用
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Shift+Tab でパーミッションモードを切り替える際に、Fast Mode（Haiku）を選択できます。単純なタスクには高速・低コストのモデルを使い、複雑な設計にはデフォルトの Sonnet を使う、という切り替えが効率的です。
+              Fast Mode は <code>/fast</code> コマンド、Option+O（macOS）/ Alt+O（Windows・Linux）、または設定の <code>"fastMode": true</code> で切り替えます。Opus を高速な API 構成で動かすもので、対応モデルは Opus 5 / Opus 4.8 です。トークン単価は通常より高く（Opus 5 / Opus 4.8 で入力 $10 / 出力 $50 per MTok）、応答速度を優先したい場面で使います。軽量なモデルに切り替えたい場合は <code>/model</code> でモデルを選びます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-3">Fast Mode が適するタスク</h4>
+                <h4 className="font-bold text-sm mb-3">Fast Mode が向く場面（応答速度を優先）</h4>
                 <ul className="space-y-2 text-xs text-muted-foreground">
                   <li>- ファイル名の一括リネーム</li>
                   <li>- 簡単な文字列置換</li>
@@ -243,17 +243,15 @@ $ claude --continue        # 最後のセッションを即座に継続`}
                 </ul>
               </div>
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h4 className="font-bold text-sm mb-3">デフォルトモードが適するタスク</h4>
+                <h4 className="font-bold text-sm mb-3">通常モードが向く場面（トークン単価を優先）</h4>
                 <ul className="space-y-2 text-xs text-muted-foreground">
-                  <li>- アーキテクチャの設計・判断</li>
-                  <li>- 複雑なバグの調査</li>
-                  <li>- リファクタリングの計画</li>
-                  <li>- セキュリティに関わる変更</li>
+                  <li>- 長時間まわす作業で単価を抑えたいとき</li>
+                  <li>- Opus 以外のモデル（Sonnet・Haiku）を使うとき</li>
                 </ul>
               </div>
             </div>
-            <InfoBox type="info" title="モデル切替のショートカット">
-              セッション中に <code>Shift+Tab</code> を押すとモード選択メニューが表示されます。Fast Mode は同じ Claude Opus モデルを高速出力モードで使用するため、モデル自体は変わりません。
+            <InfoBox type="info" title="Shift+Tab と Fast Mode は別の切り替え">
+              <code>Shift+Tab</code> はパーミッションモードを順に巡回するキーです。対象は default（表示上は Manual）/ acceptEdits / plan /（利用できる環境では）bypassPermissions / auto。Fast Mode はこの巡回に含まれず、<code>/fast</code>（macOS は Option+O、Windows・Linux は Alt+O、settings.json なら <code>"fastMode": true</code>）で切り替えます。Fast Mode は同じ Claude Opus モデルを高速出力モードで使用するため、モデル自体は変わりません。
             </InfoBox>
           </section>
 

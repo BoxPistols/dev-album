@@ -79,12 +79,14 @@ my-app/
               title="middleware.ts の配置場所"
             />
 
-            <InfoBox type="warning" title="ミドルウェアの実行環境">
+            <InfoBox type="warning" title="実行環境はバージョンで変わる">
               <p>
-                ミドルウェアは Edge Runtime で実行されます。
-                Node.js のすべての API が使えるわけではありません。
-                ファイルシステムアクセスや一部の Node.js モジュールは使用できないため注意してください。
-                ただし、Web 標準の API（fetch、Response、URL など）は使用可能です。
+                Edge Runtime 固定だったのは Next.js 15.2 より前です。15.2 で Node.js ランタイムが experimental として選べるようになり、15.5 で stable になりました。
+                さらに 16.0 で <code className="text-sm bg-muted px-1.5 py-0.5 rounded">middleware</code> は非推奨となり
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">proxy</code> に改称され、既定が Node.js ランタイムになっています
+                （移行は <code className="text-sm bg-muted px-1.5 py-0.5 rounded">npx @next/codemod@canary middleware-to-proxy .</code>）。
+                Edge Runtime を選ぶ場合は Node.js のすべての API が使えるわけではなく、ファイルシステムアクセスや一部の Node.js モジュールは対象外です。
+                Web 標準の API（fetch、Response、URL など）は使用可能です。
               </p>
             </InfoBox>
           </section>
@@ -157,6 +159,10 @@ export function middleware(request: NextRequest) {
             <CodeBlock
               code={`import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+// NextRequest の geo / ip は Next.js 15 で削除された
+// Vercel では @vercel/functions の geolocation() / ipAddress() を使う
+// 他のホスティングではプロバイダが付与するヘッダを読む
+import { geolocation } from '@vercel/functions';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -183,7 +189,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 地域ベースのリダイレクト
-  const country = request.geo?.country || 'JP';
+  const { country } = geolocation(request);
   if (pathname === '/' && country === 'US') {
     return NextResponse.rewrite(new URL('/en', request.url));
   }
@@ -492,7 +498,7 @@ export const config = {
                 <ul className="space-y-2 text-sm text-foreground/80">
                   <li className="flex items-start gap-2">
                     <span className="text-amber-500 mt-1">&#9679;</span>
-                    <span>Edge Runtime の制約がある</span>
+                    <span>Edge Runtime を選んだ場合は API の制約がある</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-amber-500 mt-1">&#9679;</span>
@@ -508,7 +514,7 @@ export const config = {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-amber-500 mt-1">&#9679;</span>
-                    <span>データベースアクセスは不可</span>
+                    <span>Edge Runtime では直接のデータベースアクセスは不可</span>
                   </li>
                 </ul>
               </div>

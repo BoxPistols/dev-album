@@ -190,9 +190,11 @@ gemini`}
               </div>
             </div>
 
-            <InfoBox type="info" title="Warp 無料プランの AI 回数">
-              無料プランでは月75回のAIリクエストが使えます（初月は150回）。
-              ターミナルの基本機能（コマンド実行、タブ管理など）は全て無料で制限なく使えます。
+            <InfoBox type="info" title="Warp 無料プランで使える範囲">
+              無料プランには Warp Agent 用の AI 利用枠が含まれないため、AI 機能を使うには
+              クレジットを購入するか BYOK（自分の API キーを設定）で回します。
+              ターミナルの基本機能（コマンド実行、タブ管理など）は無料プランに含まれます。
+              一方で Warp Drive やコラボレーション機能、クラウド上の会話履歴には制限があります。
             </InfoBox>
           </div>
         </section>
@@ -204,18 +206,21 @@ gemini`}
             <h2 className="text-3xl font-sans font-bold text-foreground">
               Google Antigravity
             </h2>
-            <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">クラウド IDE</span>
+            <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">デスクトップ IDE</span>
           </div>
 
           <div className="bg-card border border-border rounded-lg p-8 mb-6 space-y-4">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Google が提供する<strong className="text-foreground">ブラウザで動く AI 開発環境</strong>です。
-              インストール不要で、ブラウザさえあればどの PC からでもアクセスできます。
-              複数の AI エージェントを同時に動かせる「Manager View」が特徴です。
+              Google が提供する<strong className="text-foreground">デスクトップ型の AI 開発環境</strong>です。
+              macOS / Windows / Linux 向けにインストーラが配布され、使う PC ごとにインストールします。
+              複数の AI エージェントを並べて管理する役割は、以前は Agent Manager が担い、
+              現在はスタンドアロンの Antigravity 2.0 が引き継いでいます。
             </p>
-            <InfoBox type="success" title="プレビュー期間中は無料">
-              現在パブリックプレビュー中のため、個人利用は無料です。
-              Gemini 3 モデルが使えるほか、Claude や GPT も選択可能です。
+            <InfoBox type="success" title="個人利用は無料（一般提供中）">
+              料金ページは個人向けプランを Generally Available として案内しており、
+              個人利用は $0/month で使えます（無料枠には週単位のレート制限が付きます）。
+              モデルは Gemini 3.x 系に加え、Claude Sonnet 4.6 (thinking) / Claude Opus 4.6 (thinking) /
+              GPT-OSS-120b が無料枠でも選べます。OpenAI 系で選べるのは open-weight の GPT-OSS-120b です。
             </InfoBox>
           </div>
 
@@ -228,7 +233,7 @@ gemini`}
                   1
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">公式サイトにアクセス</p>
+                  <p className="text-foreground font-medium">ダウンロードしてインストール</p>
                   <p className="text-muted-foreground">
                     <a
                       href="https://antigravity.google/"
@@ -238,7 +243,7 @@ gemini`}
                     >
                       antigravity.google
                     </a>
-                    {' '}にアクセスします。
+                    {' '}のダウンロードページで OS（macOS / Windows / Linux）を選び、インストーラを実行します。
                   </p>
                 </div>
               </div>
@@ -262,16 +267,17 @@ gemini`}
                 <div>
                   <p className="text-foreground font-medium">プロジェクトを開くまたは作成</p>
                   <p className="text-muted-foreground">
-                    GitHub リポジトリを接続するか、新しいプロジェクトを作成して始めます。
-                    エディタ画面は VS Code とほぼ同じ操作感です。
+                    ローカルフォルダか Git リポジトリを追加してプロジェクトを作ります。
+                    エージェントはそのローカルフォルダ上で動きます。
                   </p>
                 </div>
               </div>
             </div>
 
-            <InfoBox type="info" title="ローカルインストール不要">
-              Antigravity はブラウザで完結するため、PC に何もインストールする必要がありません。
-              出先や別の PC からでもすぐに作業を再開できるのが強みです。
+            <InfoBox type="info" title="ローカルにインストールして動く">
+              Antigravity は各 PC にインストールして使うデスクトップアプリで、処理はその PC 上で走ります
+              （実行中はマシンのスリープを抑止します）。別の PC で作業を続けるときは、その PC にも
+              Antigravity をインストールします。
             </InfoBox>
           </div>
         </section>
@@ -290,12 +296,12 @@ gemini`}
 
             <div className="space-y-3">
               {[
-                { tool: 'Claude Code', reason: 'コード理解の精度が最も高い。メインとして使う' },
+                { tool: 'Claude Code', reason: 'メインとして使う。無料枠はなく、Pro 等の契約か Console でのクレジット購入が必要' },
                 { tool: 'Gemini CLI', reason: '無料枠が大きい（1日1,000回）。Claude の代替として最適' },
                 { tool: 'Cursor', reason: 'エディタ内で AI を使いたい時。月50回のプレミアムリクエスト' },
                 { tool: 'Cline + Gemini API', reason: 'VS Code 内で Gemini の無料枠を活用できる' },
-                { tool: 'Warp', reason: 'ターミナル自体のAI補助。コマンドが思い出せない時に' },
-                { tool: 'Antigravity', reason: 'ブラウザで完結。PC を問わず作業できる' },
+                { tool: 'Warp', reason: 'ターミナル自体のAI補助。AI 利用にはクレジット購入か BYOK が必要' },
+                { tool: 'Antigravity', reason: '各 PC にインストールして使う。個人利用は無料（週単位のレート制限つき）' },
               ].map((item, index) => (
                 <div key={index} className="flex items-start gap-3 bg-card rounded-lg p-4 border border-border">
                   <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0">
@@ -309,9 +315,11 @@ gemini`}
               ))}
             </div>
 
-            <InfoBox type="success" title="月1,000円以下で運用完了">
-              上記を全て無料枠で回せば月0円。Claude Code に $5（約750円）だけ課金しても月750円。
-              どちらにしても<strong>月1,000円以下</strong>で、本格的な AI コーディング環境が手に入ります。
+            <InfoBox type="success" title="無料枠と課金の切り分け">
+              Gemini CLI / Antigravity / Cursor の Hobby プランのように無料枠を持つツールだけで回すなら
+              <strong>月0円</strong>で運用できます。Claude Code を使う場合は Pro などの契約か、
+              Console でのクレジット購入（事前購入したクレジットを従量で消費）が別途必要です。
+              Warp の AI 機能もクレジット購入か BYOK が前提になります。
             </InfoBox>
           </div>
         </section>
@@ -342,9 +350,9 @@ gemini`}
               {[
                 'Gemini CLI をインストールして動作確認した',
                 'Warp をインストールして AI 機能を試した',
-                'Antigravity にアクセスしてプロジェクトを開いた',
+                'Antigravity をインストールしてプロジェクトを開いた',
                 'トークン切れ時のローテーション戦略を理解した',
-                '月1,000円以下の AI コーディング環境が完成した',
+                '無料枠で回せるツールと、課金が要るツールを切り分けられた',
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />

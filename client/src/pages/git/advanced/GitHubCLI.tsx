@@ -40,14 +40,17 @@ export default function GitHubCLI() {
               </h2>
 
               <p className="text-foreground mb-6 leading-relaxed">
-                WSL2 のターミナルで以下のコマンドを実行して、GitHub CLI をインストールします。
+                WSL2 のターミナルには、GitHub CLI の Linux 向け手順でインストールします。ディストリビューションごとのコマンドは公式のインストールガイドに載っているので、使っているディストリビューションの手順に従ってください。
               </p>
 
-              <CodeBlock
-                code={`sudo apt update
-sudo apt install gh`}
-                language="bash"
-              />
+              <a
+                href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors mb-6"
+              >
+                GitHub CLI Linux インストールガイド
+              </a>
 
               <InfoBox
                 type="info"

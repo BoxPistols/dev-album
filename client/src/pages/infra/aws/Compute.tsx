@@ -8,7 +8,6 @@ import StepIndicator from "@/components/StepIndicator";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import MermaidDiagram from "@/components/MermaidDiagram";
-import CodingChallenge from "@/components/CodingChallenge";
 
 const ec2Concepts = [
   {
@@ -127,48 +126,10 @@ export default function Compute() {
             </div>
 
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              起動時の初期化は user-data
-              スクリプトで自動化できます。下は、起動と同時に Web
-              サーバーを立ち上げる例です。
+              起動時の初期化は user-data スクリプトで自動化できます。Web
+              サーバーの導入やアプリの配置を手作業なしで再現でき、同じ構成のサーバーを何台でも同じ手順で立ち上げられます。
+              実際に書くコマンドは、利用する AMI の公式ドキュメントで確認します。
             </p>
-
-            <CodeBlock
-              language="bash"
-              title="EC2 起動時に実行する user-data（例）"
-              code={`#!/bin/bash
-# パッケージを更新して nginx をインストール・起動する
-yum update -y
-yum install -y nginx
-systemctl enable nginx
-systemctl start nginx
-
-# 動作確認用のページを配置
-echo "<h1>Hello from EC2</h1>" > /usr/share/nginx/html/index.html`}
-            />
-
-            <CodingChallenge
-              preview
-              previewType="terminal"
-              title="EC2 起動時の user-data スクリプトを完成させよう"
-              description="起動と同時に nginx をインストールして起動する user-data スクリプトを完成させてください。1 行目の shebang と、インストール・起動のコマンドを埋めます。"
-              initialCode={`___
-# パッケージを更新して nginx をインストール・起動する
-yum update -y
-yum install -y nginx
-systemctl enable nginx
-systemctl ___ nginx`}
-              answer={`#!/bin/bash
-# パッケージを更新して nginx をインストール・起動する
-yum update -y
-yum install -y nginx
-systemctl enable nginx
-systemctl start nginx`}
-              hints={[
-                "スクリプトの 1 行目は実行するシェルを示す shebang（#!/bin/bash）",
-                "サービスを今すぐ起動する systemctl のサブコマンドは start",
-              ]}
-              keywords={["#!/bin/bash", "start"]}
-            />
           </section>
 
           {/* Auto Scaling と ALB */}

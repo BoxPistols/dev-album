@@ -312,10 +312,6 @@ function Scene() {
             <li>モバイルデバイスでは一部エフェクトを無効にすることを検討</li>
             <li>Bloom の半径（radius）を大きくしすぎると負荷が増える</li>
             <li>SSAO は特に重いので、品質設定を適切に調整する</li>
-            <li>
-              <code>@react-three/postprocessing</code> は複数エフェクトを
-              1 つのシェーダーパスに統合するため、Three.js の生 EffectComposer より効率的
-            </li>
           </ul>
         </InfoBox>
       </div>
