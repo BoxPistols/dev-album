@@ -131,7 +131,7 @@ export default function Handoff() {
 
             <CodeBlock
               language="json"
-              title="書き出したデザイントークンの例（W3C 形式）"
+              title="書き出したデザイントークンの例（DTCG 形式 / Design Tokens Community Group）"
               code={`{
   "color": {
     "primary": { "$value": "#2563EB", "$type": "color" },
@@ -143,6 +143,14 @@ export default function Handoff() {
   }
 }`}
             />
+
+            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+              DTCG は W3C の Community Group ですが、この <code>$value</code> /{" "}
+              <code>$type</code>{" "}
+              の仕様は W3C 標準でも標準化トラックでもありません（Design Tokens
+              Format Module 2025.10
+              の時点でドラフト）。「W3C 形式」ではなく「DTCG 形式」と呼ぶのが正確です。
+            </p>
 
             <CodeBlock
               language="ts"
@@ -163,8 +171,8 @@ const css = \`:root {\\n\${toCssVariables(tokens.color, "color")}\\n}\`;`}
               <CodingChallenge
                 preview
                 previewType="config"
-                title="W3C 形式のデザイントークンを完成させよう"
-                description="color.primary トークンを W3C デザイントークン形式で定義します。色を表す $type の値を埋めてください。"
+                title="DTCG 形式のデザイントークンを完成させよう"
+                description="color.primary トークンを DTCG（Design Tokens Community Group）形式で定義します。色を表す $type の値を埋めてください。"
                 initialCode={`{
   "color": {
     "primary": { "$value": "#2563EB", "$type": "___" }

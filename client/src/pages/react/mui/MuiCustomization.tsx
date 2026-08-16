@@ -170,8 +170,10 @@ function App() {
 
             <InfoBox type="info" title="light / dark の自動対応">
               <p>
-                <code>mode: 'dark'</code> を設定するだけで、MUI の全コンポーネントがダークモードに対応します。
-                背景色、テキスト色、ボーダー色などが自動的に調整されます。
+                デフォルトパレットを使っている場合、<code>mode: 'dark'</code> を設定すると
+                <code>palette.text</code> / <code>palette.action</code> / <code>palette.background</code> / <code>palette.divider</code> の値がダーク向けに切り替わります。
+                アプリ全体の背景もダークにするには、<code>ThemeProvider</code> の内側に <code>CssBaseline</code> を置きます。
+                独自のパレットを持つ場合は、<code>mode</code> に応じた値を自分で用意します。
               </p>
             </InfoBox>
           </section>

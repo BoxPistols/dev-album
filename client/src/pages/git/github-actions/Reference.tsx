@@ -434,7 +434,7 @@ export default function Reference() {
                 ["gh pr edit <number> --add-assignee @me", "PR に担当者を追加"],
                 [
                   "gh api graphql -f query=...",
-                  "Projects v2 など REST 未対応の操作を GraphQL で実行",
+                  "REST に対応する endpoint が無い操作や、複数リソースを 1 リクエストで取得したい場合に GraphQL で実行",
                 ],
               ]}
             />

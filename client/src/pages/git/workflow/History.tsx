@@ -242,7 +242,7 @@ export default function HistoryWorkflow() {
             {/* Explanation */}
             <div className="bg-card border border-border rounded-lg p-8">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                git diff コマンドは、現在のファイルと前の Commit の差分を表示します。「何が追加され、何が削除されたか」を確認できます。
+                引数なしの git diff コマンドは、作業ツリーとインデックス（ステージングエリア）の差分を表示します。「何が追加され、何が削除されたか」を確認できます。直前の Commit との差分は git diff HEAD、ステージ済みの差分は git diff --cached で確認します。
               </p>
             </div>
 

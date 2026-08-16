@@ -329,11 +329,13 @@ function DeleteConfirmDialog() {
 }`}
             />
 
-            <InfoBox type="info" title="Radix UI のアクセシビリティ">
+            <InfoBox type="info" title="ヘッドレスプリミティブのアクセシビリティ">
               <p>
-                shadcn/ui の Dialog は内部で Radix UI を使っており、
-                Escape キーで閉じる、フォーカストラップ、スクリーンリーダー対応などが
-                自動的に組み込まれています。自分で実装する必要はありません。
+                shadcn/ui の Dialog は内部でヘッドレスプリミティブを使っています。2026 年 7 月以降の既定は Base UI で、
+                <code>npx shadcn init -b radix</code> で Radix UI も選べます。
+                Base UI の Dialog は開いたときにフォーカスをダイアログ内へ移し、Tab / Shift+Tab を内側でループさせ、Esc で閉じる要求を受け取ります。
+                スクリーンリーダー向けのラベルは <code>Dialog.Title</code> と <code>Dialog.Description</code> で与えます。
+                具体的な保証内容は、採用したプリミティブの公式ドキュメントで確認してください。
               </p>
             </InfoBox>
           </section>

@@ -79,8 +79,9 @@ code --install-extension anthropic.claude-code
                     </thead>
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                       {[
-                        ['Cmd+Esc (macOS)', 'Claude Code パネルを開く / 閉じる'],
-                        ['Ctrl+Esc (Windows/Linux)', 'Claude Code パネルを開く / 閉じる'],
+                        ['Cmd+Esc (macOS)', 'Focus Input: エディタと Claude の間でフォーカスを切り替える'],
+                        ['Ctrl+Esc (Windows/Linux)', 'Focus Input: エディタと Claude の間でフォーカスを切り替える'],
+                        ['Cmd+Shift+Esc / Ctrl+Shift+Esc', 'Open in New Tab: 新しい会話をエディタタブとして開く'],
                         ['Cmd+Shift+P → "Claude"', 'Claude Code コマンドの一覧を表示'],
                       ].map(([key, desc]) => (
                         <tr key={key} className="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
@@ -122,6 +123,7 @@ code --install-extension anthropic.claude-code
                     { label: 'ツールウィンドウ統合', desc: 'Claude Code をサイドパネルのツールウィンドウとして表示。コード編集と並行して利用可能。' },
                     { label: 'プロジェクト構造の認識', desc: 'JetBrains のプロジェクトモデルを活用し、モジュール構成やビルド設定を自動認識。' },
                     { label: '統合ターミナル', desc: 'JetBrains の統合ターミナルで Claude Code セッションを直接起動。' },
+                    { label: 'Cmd+Esc / Ctrl+Esc', desc: 'JetBrains ではクイック起動に割り当てられ、エディタから Claude Code を直接開く。VS Code の同じキー（Focus Input）とは動作が異なる。' },
                   ].map(item => (
                     <div key={item.label} className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                       <h5 className="font-bold text-xs text-[var(--claude-primary)] mb-1">{item.label}</h5>
@@ -143,14 +145,25 @@ code --install-extension anthropic.claude-code
               IDE の拡張機能を使わず、統合ターミナルから直接 Claude Code を使う場合のセットアップ手順です。
             </p>
 
-            <CodeBlock language="bash" code={`# ターミナル統合のセットアップ（Shift+Enter で改行入力を有効化）
+            <CodeBlock language="bash" code={`# ターミナルに合わせた設定を書き込む
 claude /terminal-setup
 
-# iTerm2 / Terminal.app / VS Code ターミナルそれぞれに
-# 対応した設定が自動で適用される`} />
+# 実行内容はターミナルごとに異なる
+# - VS Code / Cursor / Devin Desktop / Alacritty / Zed
+#   → Shift+Enter のキーバインドを設定ファイルに書き込む
+# - iTerm2 → クリップボードアクセスの許可（/copy 用）
+# - Apple Terminal → Option as Meta の有効化とベルの無効化`} />
 
-            <InfoBox type="info" title="Shift+Enter の設定">
-              デフォルトでは Enter でプロンプトが送信されます。<code>/terminal-setup</code> を実行すると、ターミナルに合わせた Shift+Enter による改行入力の設定が行われます。
+            <InfoBox type="info" title="Shift+Enter の対応状況">
+              <p className="mb-2">
+                デフォルトでは Enter でプロンプトが送信されます。改行を入れるには Ctrl+J、または <code>\</code> を打ってから Enter。この 2 つはどのターミナルでも設定なしで動きます。
+              </p>
+              <p className="mb-2">
+                Shift+Enter はターミナルによって対応が分かれます。Ghostty / Kitty / iTerm2 / WezTerm / Warp / Apple Terminal / Windows Terminal は設定なしで動作。VS Code / Cursor / Devin Desktop / Alacritty / Zed は <code>/terminal-setup</code> を 1 度実行します。
+              </p>
+              <p>
+                gnome-terminal と JetBrains IDE（PyCharm / Android Studio 等）のターミナルでは Shift+Enter を使えないため、Ctrl+J か <code>\</code> + Enter を使います。
+              </p>
             </InfoBox>
           </section>
 

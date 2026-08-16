@@ -69,17 +69,28 @@ export default function TriggersJobs() {
     - cron: "0 0 * * 1"   # 毎週月曜 00:00 UTC に実行`}
             />
 
-            <InfoBox type="warning" title="cron は UTC。JST とは 9 時間ずれる">
-              <code>schedule</code> の cron は<strong>常に UTC</strong>で
+            <InfoBox type="warning" title="cron の既定は UTC。JST とは 9 時間ずれる">
+              <code>schedule</code> の cron は<strong>既定で UTC</strong>で
               評価されます。日本時間の平日朝 9 時は UTC では同日 0 時に
               なるため <code>0 0 * * 1-5</code> で正しく表現できますが、
               JST 9 時より前の時刻を指定する場合は UTC では「前日」に
-              ずれるため、曜日を 1 日前にずらす必要があります。仕様は「UTC で解釈」ですが、
-              実測では「思ったより 9 時間早い /
+              ずれるため、曜日を 1 日前にずらす必要があります。 各
+              schedule に <code>timezone</code>（IANA タイムゾーン文字列）を
+              添えると、そのタイムゾーンで評価させることもできます。 仕様は
+              「既定は UTC で解釈」ですが、 実測では「思ったより 9 時間早い /
               遅い」とズレて驚くことが多い箇所です。 加えて、GitHub
               全体の負荷が高い時刻は数分〜遅延することがあり、 cron
               は「おおよその時刻」と捉えるのが安全です。
             </InfoBox>
+
+            <CodeBlock
+              language="yaml"
+              title="タイムゾーンを指定する（夏時間のある地域では繰り上がりに注意）"
+              code={`on:
+  schedule:
+    - cron: "30 5 * * 1-5"
+      timezone: "America/New_York"   # 指定したタイムゾーンで評価される`}
+            />
           </section>
 
           <section>
@@ -255,9 +266,12 @@ export default function TriggersJobs() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               同じブランチに続けて push すると、古い実行と新しい実行が
-              二重に走ります。<code>concurrency</code> を使うと、
-              同じグループの古い実行を自動でキャンセルし、最新の 1 本だけを
-              残せます。CI の待ち時間と無駄な消費を減らせます。
+              二重に走ります。<code>concurrency</code> だけを付けた場合に
+              自動でキャンセルされるのは<strong>待機中（pending）の実行</strong>
+              までで、すでに走っている実行はそのまま続きます。
+              <code>cancel-in-progress: true</code> を足すと実行中のものも
+              打ち切られ、最新の 1 本だけが残ります。CI
+              の待ち時間と無駄な消費を減らせます。
             </p>
 
             <CodeBlock

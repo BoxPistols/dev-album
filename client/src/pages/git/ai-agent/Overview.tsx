@@ -163,7 +163,7 @@ export default function AIAgentOverview() {
                     ['Claude Code', 'ターミナル', 'Pro / Max / Team / Enterprise または Console のクレジットが必要', 'Mac / Win / Linux'],
                     ['Gemini CLI', 'ターミナル', '1日1,000リクエスト無料', 'Mac / Win / Linux'],
                     ['Cursor', 'エディタ', 'Hobby プランで制限付きのエージェントリクエスト', 'Mac / Win / Linux'],
-                    ['Cline', 'VS Code 拡張', '拡張自体は無料（APIキー必要）', 'Mac / Win / Linux'],
+                    ['Cline', 'VS Code 拡張', '拡張自体は無料。モデル利用は Cline アカウント（従量課金 / 定額）か自前の API キー、またはローカルモデルから選ぶ', 'Mac / Win / Linux'],
                     ['Warp', 'ターミナル', 'Free プランに AI 利用枠なし（有料プラン / クレジット購入 / BYOK）', 'Mac / Win / Linux'],
                     ['Antigravity', 'エージェント並列型', '個人向け $0/month プラン（週単位のレート制限あり）', 'Mac / Win / Linux'],
                   ].map(([tool, type, free, os], index) => (

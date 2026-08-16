@@ -69,7 +69,7 @@ export default function BranchWorkflow() {
             </p>
             <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-400 p-4 rounded-r-lg">
               <p className="text-sm text-foreground/80">
-                <strong>例：</strong> Word の「名前を付けて保存」で別ファイルを作る操作に近いです。ただし Git のブランチは差分だけを管理するため、元のファイルのコピーではありません。作業が完了したら main に取り込めます（マージ）。
+                <strong>例：</strong> Word の「名前を付けて保存」で別ファイルを作る操作に近いです。ただし Git のブランチはコミットを指す軽量なポインタなので、元のファイルのコピーではありません。作業が完了したら main に取り込めます（マージ）。
               </p>
             </div>
 

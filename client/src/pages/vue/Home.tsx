@@ -71,7 +71,7 @@ const sectionCards = [
     title: "最新と総まとめ",
     steps: "STEP 22",
     description:
-      "Vue 3.5 / Nuxt 4 の最新機能（reactive props destructure・defineModel・useId 等）と、全体の振り返り。",
+      "Vue 3.5 / Nuxt 4 の新機能（reactive props destructure・useId・useTemplateRef 等）と、全体の振り返り。",
     href: "/vue/advanced/latest-features",
     icon: <Sparkles className="w-6 h-6" />,
   },

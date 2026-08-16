@@ -165,10 +165,9 @@ $ npm run dev 2>&1 | claude "このエラーの根本原因を調査して修正
               code={`# .claude/agents/security-reviewer.md
 
 ---
-tools:
-  - Read
-  - Glob
-  - Grep
+name: security-reviewer
+description: セキュリティ観点でコードをレビューするときに使う
+tools: Read, Glob, Grep
 model: sonnet
 ---
 
@@ -190,13 +189,20 @@ model: sonnet
             />
             <CodeBlock
               code={`# セッション内でカスタムエージェントを呼び出す
-> @security-reviewer で src/auth/ 配下のコードをレビューして
+# 手入力するときは agent- プレフィックスを付ける
+> @agent-security-reviewer で src/auth/ 配下のコードをレビューして
+
+# @ のタイプアヘッドから選ぶとこの形になる
+> @"security-reviewer (agent)" で src/auth/ 配下のコードをレビューして
 
 # 複数の観点でレビューを並列実行
-> @security-reviewer と @performance-reviewer で
+> @agent-security-reviewer と @agent-performance-reviewer で
 > 今回の変更（git diff HEAD~1）をレビューして`}
               language="bash"
             />
+            <InfoBox type="info" title="@ メンションの記法">
+              <code>@</code> を打ってタイプアヘッドから選ぶと <code>@"security-reviewer (agent)"</code> の形が挿入されます。手入力する場合は <code>@agent-</code> プレフィックスが必要です。プレフィックスなしの <code>@security-reviewer</code> はファイル参照の @ メンションとして扱われ、サブエージェント名として解決されません。
+            </InfoBox>
           </section>
 
           {/* スクリーンショットベースの UI デバッグ */}
@@ -317,8 +323,8 @@ $ cd ../migration-settings && claude
             previewType="markdown"
             title="セキュリティレビュー用のカスタムエージェントを作ろう"
             description=".claude/agents/ に配置するセキュリティレビュー専用のカスタムエージェント定義を書いてください。チェック項目と出力形式を明確に定義しましょう。"
-            initialCode={`# .claude/agents/security-reviewer.md\n\n---\ntools:\n  - ___  # ← ここを埋める（ファイル読み取りツール）\n  - Glob\n  - Grep\nmodel: sonnet\n---\n\nセキュリティ観点でコードをレビューするエージェントです。\n\n## チェック項目\n1. 入力バリデーションの漏れ\n2. SQLインジェクション/XSSの可能性\n3. 認証・認可の不備\n4. 機密情報のハードコーディング\n5. 依存パッケージの既知の脆弱性\n\n## 出力形式\n- ___（Critical/High/Medium/Low）  # ← ここを埋める\n- 対象ファイルと行番号\n- 問題の説明\n- 修正案`}
-            answer={`# .claude/agents/security-reviewer.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---\n\nセキュリティ観点でコードをレビューするエージェントです。\n\n## チェック項目\n1. 入力バリデーションの漏れ\n2. SQLインジェクション/XSSの可能性\n3. 認証・認可の不備\n4. 機密情報のハードコーディング\n5. 依存パッケージの既知の脆弱性\n\n## 出力形式\n- 重要度（Critical/High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明\n- 修正案`}
+            initialCode={`# .claude/agents/security-reviewer.md\n\n---\nname: security-reviewer\ndescription: セキュリティ観点でコードをレビューするときに使う\ntools: ___, Glob, Grep  # ← ここを埋める（ファイル読み取りツール）\nmodel: sonnet\n---\n\nセキュリティ観点でコードをレビューするエージェントです。\n\n## チェック項目\n1. 入力バリデーションの漏れ\n2. SQLインジェクション/XSSの可能性\n3. 認証・認可の不備\n4. 機密情報のハードコーディング\n5. 依存パッケージの既知の脆弱性\n\n## 出力形式\n- ___（Critical/High/Medium/Low）  # ← ここを埋める\n- 対象ファイルと行番号\n- 問題の説明\n- 修正案`}
+            answer={`# .claude/agents/security-reviewer.md\n\n---\nname: security-reviewer\ndescription: セキュリティ観点でコードをレビューするときに使う\ntools: Read, Glob, Grep\nmodel: sonnet\n---\n\nセキュリティ観点でコードをレビューするエージェントです。\n\n## チェック項目\n1. 入力バリデーションの漏れ\n2. SQLインジェクション/XSSの可能性\n3. 認証・認可の不備\n4. 機密情報のハードコーディング\n5. 依存パッケージの既知の脆弱性\n\n## 出力形式\n- 重要度（Critical/High/Medium/Low）\n- 対象ファイルと行番号\n- 問題の説明\n- 修正案`}
             hints={[
               'レビュー用エージェントは Read, Glob, Grep のみで十分です',
               'チェック項目を具体的にリストアップすると精度が向上します',

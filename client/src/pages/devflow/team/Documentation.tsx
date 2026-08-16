@@ -102,7 +102,9 @@ export default function Documentation() {
               ファイルで記録する形式です。 「データベースに PostgreSQL
               を採用した」「状態管理は外部ライブラリを使わない」といった、
               後から効いてくる決定を、理由とトレードオフ込みで残します。
-              基本の構成は Context・Decision・Status・Consequences の 4 つです。
+              原典（Michael Nygard, 2011）が挙げる構成は
+              Title・Context・Decision・Status・Consequences の 5 項目です。
+              Title は ADR の見出しにあたるため、本文として書き分けるのは下の 4 節になります。
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -351,7 +353,7 @@ React 標準の Context と hooks で対応する。
                   title: "Michael Nygard - Documenting Architecture Decisions",
                   url: "https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions",
                   description:
-                    "ADR の原典となった記事。4 セクション構造の背景がわかる",
+                    "ADR の原典となった記事。Title / Context / Decision / Status / Consequences の 5 項目構造の背景がわかる",
                 },
                 {
                   title: "Google SRE Workbook - On-Call とランブック",

@@ -736,7 +736,7 @@ export default meta;
               <div className="p-4 rounded-lg border border-border bg-card">
                 <h3 className="font-bold text-foreground mb-2">Storybook 8 の主な改善点</h3>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4">
-                  <li>ビルド速度の大幅改善（SWC ベース）</li>
+                  <li>ビルド・起動の高速化（--test フラグによるテストビルド、React の docgen を react-docgen に変更）</li>
                   <li>React Server Components 対応</li>
                   <li>ビジュアルテストの組み込みサポート</li>
                   <li>モバイル UI の改善</li>

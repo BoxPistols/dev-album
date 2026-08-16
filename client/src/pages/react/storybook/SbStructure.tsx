@@ -1028,6 +1028,8 @@ export const NoDescription: Story = {
               language="tsx"
               title="MDX でカスタムドキュメントを書くことも可能"
               code={`// Button.mdx
+// Storybook 8 での import。9 以降は @storybook/blocks が公開されなくなり、
+// '@storybook/addon-docs/blocks' に統合された
 import { Meta, Canvas, Controls } from '@storybook/blocks';
 import * as ButtonStories from './Button.stories';
 

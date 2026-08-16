@@ -271,8 +271,10 @@ export default function DesignThinking() {
               ブレインストーミングのルール
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Ideate フェーズの代表的な手法であるブレインストーミングには、
-              IDEO が提唱する基本ルールがある。これを守ることで、心理的安全性を確保しながら
+              Ideate フェーズの代表的な手法であるブレインストーミングについて、
+              IDEO は 7 つの基本ルールを公開している。ここではそのうち代表的な 4
+              つを取り上げる（残る 3 つは「テーマから外れない」「一度に 1 つの会話」
+              「絵で伝える」）。これを守ることで、心理的安全性を確保しながら
               アイデアの量と多様性を最大化できる。
             </p>
 
@@ -381,9 +383,10 @@ export default function DesignThinking() {
             <ReferenceLinks
               links={[
                 {
-                  title: 'Stanford d.school: An Introduction to Design Thinking',
-                  url: 'https://dschool.stanford.edu/resources/getting-started-with-design-thinking',
-                  description: 'デザイン思考の原典。5ステップの詳細なプロセスガイド。',
+                  title: 'Stanford d.school: Get Started With Design',
+                  url: 'https://dschool.stanford.edu/innovate/tools/get-started-with-design',
+                  description:
+                    'd.school がデザインを始める人向けに公開しているツール集。Design Thinking Bootleg や Starter Kit など、プロセスを実際に回すための教材が並ぶ。',
                 },
                 {
                   title: 'IDEO Design Thinking',

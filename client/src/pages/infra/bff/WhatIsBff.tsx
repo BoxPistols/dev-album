@@ -415,7 +415,7 @@ export async function GET() {
                   title: "Sam Newman - Backends For Frontends",
                   url: "https://samnewman.io/patterns/architectural/bff/",
                   description:
-                    "BFF パターンの定義と背景を提唱者本人が解説した記事。出発点として最適",
+                    "BFF パターンを文書化した Sam Newman の解説記事。名称は元 SoundCloud の Phil Calçado によるものと記事内で明記されている",
                 },
                 {
                   title: "Next.js - Route Handlers",

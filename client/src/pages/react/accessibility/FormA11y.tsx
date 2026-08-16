@@ -325,7 +325,8 @@ export default function FormA11y() {
             <h3 className="text-lg font-semibold text-foreground mb-3">placeholder 依存の危険性</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               placeholder をラベル代わりに使うパターンは多いですが、(1) 入力開始で消えてしまう、
-              (2) デフォルトの薄いグレーが WCAG コントラスト比を満たさない、
+              (2) 既定の文字色がエンジンによって違い、白背景・黒文字でも Safari（WebKit）は 2.35:1 と AA を割る
+              （Chromium / Firefox は実効 #757575 で 4.61:1。文字色を黒より薄くするとこの 2 つも割る）、
               (3) ブラウザの自動翻訳が placeholder を翻訳しない場合がある、
               という理由から推奨されません。必ず label と併用してください。
             </p>

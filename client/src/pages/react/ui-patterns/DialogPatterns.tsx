@@ -295,8 +295,10 @@ dialog.addEventListener('cancel', (e) => {
   console.log('ESC キーで閉じられました');
 });
 
-// 3. backdrop クリックで閉じる
-// ※ ネイティブでは未サポート。自前で実装が必要
+// 3. backdrop クリックで閉じる（light dismiss）
+// closedby="any" を付ければブラウザが閉じてくれる（Chrome / Edge 134+、Firefox 141+）
+// Safari は Technology Preview のみの対応なので、下のフォールバックを併用する
+// closedby を省いた showModal() は closerequest 相当（ESC は効くが backdrop では閉じない）
 dialog.addEventListener('click', (e) => {
   // dialog 要素自体がクリックされた場合（= backdrop 領域）
   if (e.target === dialog) {
@@ -626,7 +628,7 @@ function DeleteButton() {
                 { label: 'アニメーション付きの表示・非表示' },
                 { label: 'レスポンシブなサイズ調整' },
               ]}
-              explanation="showModal() で表示した dialog は、ブラウザが ESC キーによる閉じ機能（cancel イベント）とフォーカストラップ（Tab キーが dialog 内に閉じ込められる）を自動的に提供します。backdrop クリックによる閉じ機能は自前で実装する必要があります。"
+              explanation="showModal() で表示した dialog は、ブラウザが ESC キーによる閉じ機能（cancel イベント）とフォーカストラップ（Tab キーが dialog 内に閉じ込められる）を自動的に提供します。backdrop クリックによる閉じ機能は、closedby='any' を指定するとブラウザ側で提供されます（Safari は Technology Preview のみの対応なので、当面はフォールバックの自前実装を併用します）。"
             />
           </section>
 

@@ -174,3 +174,44 @@ describe("searchIndex の整合性", () => {
     expect(missingPaths).toEqual([]);
   });
 });
+
+describe("announcements の整合性", () => {
+  // お知らせの link は TOP から踏まれる導線なので、リンク先の実在を検査する。
+  // navigation に無いが App.tsx に直接生えているルート（/announcements 等）も
+  // 正当な行き先なので、両方を突き合わせ先にする。
+  const APP_TSX = join(import.meta.dirname, "..", "App.tsx");
+  const routePaths = new Set(
+    [...readFileSync(APP_TSX, "utf8").matchAll(/<Route\s+path="([^"]+)"/g)].map(
+      (m) => m[1],
+    ),
+  );
+
+  it("お知らせのリンク先が実在する", async () => {
+    const { ANNOUNCEMENTS } = await import("../data/announcements");
+    const links = ANNOUNCEMENTS.map((a) => a.link).filter(
+      (l): l is string => typeof l === "string",
+    );
+    // 0 件でも成功する検査を作らない
+    expect(links.length).toBeGreaterThan(0);
+    expect(routePaths.size).toBeGreaterThan(0);
+
+    const missing = links.filter(
+      (l) => !validPaths.has(l) && !routePaths.has(l),
+    );
+    expect(missing).toEqual([]);
+  });
+
+  it("お知らせの id が重複せず、規定の書式に沿っている", async () => {
+    const { ANNOUNCEMENTS } = await import("../data/announcements");
+    const ids = ANNOUNCEMENTS.map((a) => a.id);
+    expect(new Set(ids).size).toBe(ids.length);
+
+    const badIds = ids.filter((id) => !/^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/.test(id));
+    expect(badIds).toEqual([]);
+
+    const badDates = ANNOUNCEMENTS.filter(
+      (a) => !/^\d{4}-\d{2}-\d{2}$/.test(a.date) || !a.id.startsWith(a.date),
+    ).map((a) => a.id);
+    expect(badDates).toEqual([]);
+  });
+});

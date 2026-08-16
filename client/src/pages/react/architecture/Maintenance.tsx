@@ -221,7 +221,9 @@ pnpm install               # インストール
 pnpm add react@latest react-dom@latest
 
 # Renovate / Dependabot を設定して自動 PR を受け取る
-# → GitHub の Settings > Security > Dependabot で有効化`}
+# → Dependabot version updates は .github/dependabot.yml をコミットして有効化する
+# → 雛形を GitHub 上で開くなら Settings > サイドバーの Security > Advanced Security
+#    > Dependabot の見出しの下で「Dependabot version updates」を Enable`}
             />
 
             <InfoBox type="warning" title="アップデートの頻度">

@@ -20,6 +20,60 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-git-snapshot-model",
+    date: "2026-08-16",
+    title: "Git マニュアルの「差分を保存する」という説明を訂正した",
+    description:
+      "コミットはスナップショットであり、ブランチはコミットを指す軽量なポインタである、という Pro Git の記述に合わせて 3 ページを直した。引数なしの git diff が指すのは作業ツリーとインデックスの差分で、直前のコミットとの差分ではない点も併せて明記している。user.name / user.email を設定しなくても commit 自体は成功し、ホスト名から推測した値が記録されることも実機で確認して反映した。",
+    category: "fix",
+    link: "/git/workflow/branch",
+  },
+  {
+    id: "2026-08-16-react-measured-values",
+    date: "2026-08-16",
+    title: "React マニュアルの数値・挙動の記述を実測値に合わせた",
+    description:
+      "React.memo の比較は === ではなく Object.is、Server Component と Client Component の間で関数を渡せる向きが逆、といった挙動の誤りを直した。lodash と moment のサイズは minified 値を gzip として書いていたので両方を併記し、placeholder のコントラストはエンジンごとに異なる実測値（WebKit 2.35:1、Chromium / Firefox 4.61:1）に置き換えている。Tailwind v4 の sr-only、section が region になる条件、flex の折り返し条件も現行仕様に合わせた。",
+    category: "fix",
+    link: "/react/hooks-deep/memo-callback",
+  },
+  {
+    id: "2026-08-16-claude-mux-verified-behavior",
+    date: "2026-08-16",
+    title: "Claude Code マニュアルのコマンド仕様を実機で確認して更新した",
+    description:
+      "実機 2.1.233 で確認し、/doctor の f キー（v2.1.205 より前の挙動）、/fork を /branch のエイリアスとする記述、サブエージェント起動を Task ツールとする記述を現行仕様に直した。MCP のツールが deferred として登録される条件について、MCPSetup と MCPPractical が別のことを書いていた食い違いも解消している。",
+    category: "fix",
+    link: "/claude-mux/reference/claude-cheatsheet",
+  },
+  {
+    id: "2026-08-16-infra-devflow-versioned-values",
+    date: "2026-08-16",
+    title: "インフラ / 開発フローの版で変わる値に、どの版かを明記した",
+    description:
+      "DORA の Four Keys は 2024 年に deployment rework rate が加わって 5 指標になっているため、指標数とベンチマークの数値を 2024 年版で取り直した。Design Tokens は W3C 形式ではなく DTCG 形式、WinterCG は WinterTC への改称、ADR の原典は Title を含む 5 項目、という帰属と名称の誤りも直している。Lambda の課金対象、S3 バケット名の一意性の範囲、Glacier の 3 クラスも公式の記述に合わせた。",
+    category: "fix",
+    link: "/devflow/devops/dora",
+  },
+  {
+    id: "2026-08-16-api-license-and-standards",
+    date: "2026-08-16",
+    title: "API / AI・ML マニュアルの標準化状況とライセンス表記を実態に合わせた",
+    description:
+      "Idempotency-Key の IETF ドラフトは 2026-04-18 に期限切れでアーカイブ済みのため「標準化を進めている」という現在形の記述を改めた。Llama は Meta 独自のコミュニティライセンスで公開されたオープンウェイトであってオープンソースではない、TensorFlow 2 は Eager 実行が既定、PATCH は RFC 5789 が安全でも冪等でもないと明記している、といった点を直している。",
+    category: "fix",
+    link: "/api/rest-design/idempotency",
+  },
+  {
+    id: "2026-08-16-medium-claim-audit",
+    date: "2026-08-16",
+    title: "medium リスクの主張 933 件を一次情報と照合し、142 件を修正した",
+    description:
+      "高リスク 466 件に続いて、残る medium 933 件を一次情報と照合した。CONFIRMED 695 / REFUTED 149 / UNDETERMINED 89 で、反証率は高リスクの半分だが件数はほぼ同じだった。判定に書いた引用が原文に実在するかを機械照合する検査も追加し、pnpm check:verdicts で回せるようにしている。判定の全記録は docs/audits/2026-08-16-medium-verdicts.json にある。",
+    category: "fix",
+    link: "/git/workflow/branch",
+  },
+  {
     id: "2026-08-16-claim-audit",
     date: "2026-08-16",
     title: "全 342 ページの事実主張を一次情報と照合し、152 件を修正した",

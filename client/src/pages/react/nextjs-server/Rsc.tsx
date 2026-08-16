@@ -107,8 +107,8 @@ export default function Rsc() {
                 </p>
                 <CodeBlock
                   code={`// Server Component - marked はブラウザに送られない
-import { marked } from 'marked';         // 50KB のライブラリ
-import sanitizeHtml from 'sanitize-html'; // 200KB のライブラリ
+import { marked } from 'marked';         // 約 42KB（minified / marked 18 系）
+import sanitizeHtml from 'sanitize-html'; // 約 147KB（minified / sanitize-html 2.17 系）
 
 export default async function BlogPost({ slug }: { slug: string }) {
   const post = await getPost(slug);
@@ -117,7 +117,7 @@ export default async function BlogPost({ slug }: { slug: string }) {
   // ブラウザには HTML 文字列だけが送られる
   return <article dangerouslySetInnerHTML={{ __html: html }} />;
 }
-// → ユーザーのブラウザには 250KB のライブラリが送られない！`}
+// → ユーザーのブラウザには合計 190KB 前後（minified）のライブラリが送られない`}
                   language="tsx"
                   title="バンドルサイズの削減"
                 />

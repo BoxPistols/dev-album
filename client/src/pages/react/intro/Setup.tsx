@@ -223,7 +223,8 @@ Ctrl + C`}
                   </h3>
                   <div className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-primary/10 mb-4">
                     <p className="text-sm text-muted-foreground mb-4">
-                      公式サイトからインストーラーをダウンロードして実行します。
+                      公式が推奨する方法は winget です。PowerShell で <code>winget install Volta.Volta</code> を実行します。
+                      インストーラーをダウンロードして実行する方法も公式に用意されています。
                     </p>
                     <a
                       href="https://volta.sh/"
@@ -234,7 +235,7 @@ Ctrl + C`}
                       Volta 公式サイト (volta.sh)
                     </a>
                     <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
-                      "Windows Installer" をダウンロードして実行し、完了後に<strong>PCを再起動</strong>してください。
+                      インストーラーを使う場合は "Windows Installer" をダウンロードして実行します。完了後は、必要に応じてターミナルを開き直してください。
                     </p>
                   </div>
                 </div>

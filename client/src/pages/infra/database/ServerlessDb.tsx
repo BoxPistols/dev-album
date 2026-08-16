@@ -132,9 +132,16 @@ export default function ServerlessDb() {
               それぞれが接続を開こうとします。
             </p>
 
-            <InfoBox type="warning" title="仕様では十分、実測では足りなくなる">
-              仕様では、PostgreSQL の <code>max_connections</code> は
-              数百まで設定でき、一見十分に見えます。実測では、
+            <InfoBox
+              type="warning"
+              title="仕様の上限より、1 接続あたりのコストが効く"
+            >
+              仕様では、PostgreSQL の <code>max_connections</code>{" "}
+              の既定値は 100 で、公式ドキュメントに上限値の記載はありません。
+              先に効いてくるのは設定できる数ではなく、接続 1
+              本ごとにプロセスと共有メモリを確保するコストのほうです（公式も
+              「<code>max_connections</code>{" "}
+              の値に応じて共有メモリを含む資源が確保される」と説明しています）。実測では、
               サーバーレス関数が同時起動するたびに接続を1つずつ開くため、
               トラフィックのスパイク時に上限へ達し
               <code>too many connections</code>{" "}
@@ -268,16 +275,30 @@ export async function getUser(id: number) {
                 preview
                 previewType="config"
                 title="プール済みエンドポイントを指す接続文字列を書こう"
-                description="サーバーレス関数の接続枯渇を避けるには、ダイレクト接続ではなくプーラー(PgBouncer)経由のホストを指定します。pgbouncer=true を付けてプールモードを有効にした接続文字列を完成させてください。"
-                initialCode={`# .env — プール経由の接続文字列
+                description="サーバーレス関数の接続枯渇を避けるには、ダイレクト接続ではなくプーラー(PgBouncer)経由のホストを指定します。ここでは Prisma Client を使う前提で、Prisma が解釈する pgbouncer=true を付けた接続文字列を完成させてください。"
+                initialCode={`# .env — Prisma Client からプール経由で接続する
 # ダイレクト接続ではなく、プーラー経由のホストを指定する
 DATABASE_URL="postgres://user:pass@db.pooler.example.com:6543/app?___=true"`}
-                answer={`# .env — プール経由の接続文字列
+                answer={`# .env — Prisma Client からプール経由で接続する
 # ダイレクト接続ではなく、プーラー経由のホストを指定する
 DATABASE_URL="postgres://user:pass@db.pooler.example.com:6543/app?pgbouncer=true"`}
-                hints={["プーラー経由を示すクエリパラメータは pgbouncer"]}
+                hints={["Prisma にプーラー経由だと伝えるクエリパラメータは pgbouncer"]}
                 keywords={["pgbouncer=true"]}
               />
+
+              <div className="mt-6">
+                <InfoBox
+                  type="info"
+                  title="pgbouncer=true は Prisma が解釈するフラグ"
+                >
+                  <code>pgbouncer=true</code> は PostgreSQL や PgBouncer
+                  共通の接続パラメータではなく、Prisma Client
+                  が読むフラグです。他のドライバや ORM
+                  では設定の書き方が変わります。 また Prisma は PgBouncer{" "}
+                  <code>1.21.0</code> 以降を使う場合、このフラグを
+                  <strong>付けないこと</strong>を推奨しています。
+                </InfoBox>
+              </div>
             </div>
           </section>
 

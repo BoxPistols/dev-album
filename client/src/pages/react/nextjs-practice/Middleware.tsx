@@ -514,7 +514,7 @@ export const config = {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-amber-500 mt-1">&#9679;</span>
-                    <span>Edge Runtime では直接のデータベースアクセスは不可</span>
+                    <span>Edge Runtime での DB アクセスは HTTP ベースのドライバに限られる（公式は middleware での直接の DB 操作を推奨していない）</span>
                   </li>
                 </ul>
               </div>

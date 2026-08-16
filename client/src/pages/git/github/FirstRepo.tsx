@@ -406,7 +406,7 @@ export default function FirstRepo() {
             </InfoBox>
 
             <p className="text-muted-foreground">
-              GitHub Pages はリポジトリ名のパスで公開されるため、Vite の base パスをリポジトリ名に合わせます。
+              リポジトリ名が「ユーザー名.github.io」以外の通常のリポジトリ（プロジェクトサイト）は「https://ユーザー名.github.io/リポジトリ名/」で公開されるため、Vite の base パスをリポジトリ名に合わせます。リポジトリ名が「ユーザー名.github.io」の場合やカスタムドメインを設定した場合はルートで公開されるので、base は既定のままで構いません。
             </p>
 
             <CodeBlock

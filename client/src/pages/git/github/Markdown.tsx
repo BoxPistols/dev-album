@@ -515,7 +515,7 @@ export default function MarkdownGuide() {
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Markdown には「標準の記法」と「拡張記法」があります。基本的な見出し・リスト・リンク・コードブロックはどこでも使えますが、一部の記法はプラットフォームによって対応状況が異なります。
+              Markdown には「標準の記法」と「拡張記法」があります。太字・斜体・リンク・コードブロックはほぼどこでも使えますが、見出しやリストのように対応状況がプラットフォームによって変わる記法もあります（Slack の mrkdwn には見出しとリストに対応する記法がありません）。
             </p>
 
             <div className="overflow-x-auto">
@@ -592,7 +592,7 @@ export default function MarkdownGuide() {
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">1</span>
-                  <span><strong className="text-foreground">基本記法（見出し・リスト・太字・リンク・コードブロック）はほぼどこでも使える</strong>ので、迷わず使ってOK</span>
+                  <span><strong className="text-foreground">基本記法（太字・斜体・リンク・コードブロック）はほぼどこでも使える</strong>ので、迷わず使ってOK。見出しとリストは GitHub・Notion・Qiita/Zenn で使える</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">2</span>

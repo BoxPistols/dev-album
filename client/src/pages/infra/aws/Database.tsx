@@ -252,7 +252,7 @@ aws dynamodb create-table \\
               ElastiCache — インメモリのキャッシュ層
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              ElastiCache は<strong>Redis / Memcached</strong>{" "}
+              ElastiCache は<strong>Valkey / Memcached / Redis OSS</strong>{" "}
               をマネージドで提供する、
               インメモリのデータストアです。データをメモリ上に持つため、 RDS や
               DynamoDB へのアクセスより一段速い応答が得られます。
@@ -260,9 +260,11 @@ aws dynamodb create-table \\
               セッションやランキングのような一時的なデータを保持したりするのに使われます。
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Redis
+              Valkey と Redis OSS
               はデータ構造（リスト・セット・ソート済みセットなど）や永続化、
-              レプリケーションに対応し、用途が広いのが特徴です。Memcached
+              レプリケーションに対応し、用途が広いのが特徴です（Valkey は Linux
+              Foundation 傘下の BSD ライセンスの key/value
+              データストアで、Redis OSS 互換をうたっています）。Memcached
               はシンプルなキャッシュに特化しています。 「DB
               の手前に置いて読み取りを速くする層」と捉えると役割を掴みやすくなります。
             </p>
@@ -467,7 +469,7 @@ const result = await pool.query(
                   title: "Amazon ElastiCache ドキュメント",
                   url: "https://docs.aws.amazon.com/elasticache/",
                   description:
-                    "Redis / Memcached をマネージドで使う ElastiCache の公式ドキュメント",
+                    "Valkey / Memcached / Redis OSS をマネージドで使う ElastiCache の公式ドキュメント",
                 },
               ]}
             />

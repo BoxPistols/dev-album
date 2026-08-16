@@ -157,7 +157,7 @@ export default function MiddlewarePlugins() {
               language="ts"
               title="app/middleware/auth.ts — 未ログインなら /login へ飛ばす"
               code={`export default defineNuxtRouteMiddleware((to, from) => {
-  // useUserSession は自前 or @nuxtjs/* 系のログイン状態 composable を想定
+  // useUserSession は自前 or nuxt-auth-utils 等のログイン状態 composable を想定
   const { loggedIn } = useUserSession()
 
   // すでにログインページにいるなら何もしない（無限リダイレクト防止）

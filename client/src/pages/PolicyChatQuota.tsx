@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Shield, Key, Users, Activity, ArrowLeft } from "lucide-react";
+import { Shield, Key, Activity, ArrowLeft } from "lucide-react";
 
 export default function PolicyChatQuota() {
   return (
@@ -46,15 +46,6 @@ export default function PolicyChatQuota() {
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-foreground font-medium">
-                    招待コード
-                  </td>
-                  <td className="px-4 py-3 text-foreground">50 回</td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    上記 + 招待コード
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 text-foreground font-medium">
                     BYOK
                   </td>
                   <td className="px-4 py-3 text-foreground">無制限</td>
@@ -65,6 +56,14 @@ export default function PolicyChatQuota() {
               </tbody>
             </table>
           </div>
+          <p className="text-sm text-muted-foreground mt-3">
+            匿名の上限はデプロイ時の設定値で、現在は 15 回です。実際に適用されている値は
+            ChatWidget のヘッダの「今日あと N 回」と、レスポンスの{" "}
+            <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
+              X-RateLimit-Limit
+            </code>{" "}
+            ヘッダで確認できます。
+          </p>
           <p className="text-sm text-muted-foreground mt-3">
             リセット時刻は{" "}
             <strong className="text-foreground">UTC 0 時 (JST 9 時)</strong>。
@@ -85,7 +84,7 @@ export default function PolicyChatQuota() {
               SHA-256(IP + UserAgent)
             </code>{" "}
             の先頭 32 桁をセッション ID
-            として集計されます。招待コードなどの区分はセッション ID
+            として集計されます。区分 (匿名 / BYOK) はセッション ID
             ではなくカウンタのキー側に含まれます。同じネットワーク・同じブラウザからの複数タブは同一セッション扱いです。
           </p>
           <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-6">
@@ -100,23 +99,6 @@ export default function PolicyChatQuota() {
               にのみ保存され、サーバー側に残しません
             </li>
           </ul>
-        </section>
-
-        <section className="mb-10">
-          <div className="flex items-center gap-2 mb-3">
-            <Users size={18} className="text-primary" />
-            <h2 className="text-xl font-semibold text-foreground">
-              招待コード
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            運営者から個別に発行された招待コード (
-            <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
-              da-YYYY-xxxxxx
-            </code>{" "}
-            形式) を ChatWidget の設定パネルに入力すると、1
-            日上限が緩和されます。コードには使用人数の上限・有効期限が設定される場合があります。
-          </p>
         </section>
 
         <section className="mb-10">
@@ -147,8 +129,8 @@ export default function PolicyChatQuota() {
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
             利用枠カウンタが障害で読めない場合は、サービス継続を優先してチャット機能はそのまま動作します
-            (fail-open)。全体枠の上限に達した場合は匿名利用を一時停止し、招待コードまたは
-            BYOK の利用者のみ継続できます。
+            (fail-open)。全体枠の上限に達した場合は匿名利用を一時停止し、BYOK
+            の利用者のみ継続できます。
           </p>
         </section>
       </div>

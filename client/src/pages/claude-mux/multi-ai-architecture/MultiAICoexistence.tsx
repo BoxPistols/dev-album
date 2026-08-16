@@ -9,7 +9,7 @@ import CodingChallenge from '@/components/CodingChallenge';
 
 const toolData = [
   { tool: 'Claude Code', config: 'CLAUDE.md\n.claude/settings.json', strength: 'ゼロからの実装・レビュー・調査、Subagents による並列処理', env: 'CLI / VS Code / JetBrains' },
-  { tool: 'Cursor', config: '.cursor/rules/*.mdc\n.cursorrules', strength: '日常的なコーディング、ルールベースの差分編集', env: 'Cursor エディタ' },
+  { tool: 'Cursor', config: '.cursor/rules/*.mdc\nAGENTS.md\n（.cursorrules はレガシー・非推奨）', strength: '日常的なコーディング、ルールベースの差分編集', env: 'Cursor エディタ' },
   { tool: 'Gemini CLI', config: 'GEMINI.md\n.gemini/settings.json', strength: 'PR レビュー自動化、大規模コンテキスト処理', env: 'CLI / GitHub 連携' },
   { tool: 'GitHub Copilot', config: '.github/copilot-instructions.md', strength: 'インラインコード補完、Copilot Agent によるIssue対応', env: 'VS Code / JetBrains / CLI' },
   { tool: 'OpenAI Codex', config: 'AGENTS.md\nAGENTS.override.md\n~/.codex/config.toml', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },

@@ -167,7 +167,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: チェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Node のセットアップ
         uses: actions/setup-node@v4
@@ -194,6 +194,12 @@ jobs:
               アクションの再利用、<code>run</code>{" "}
               はシェルコマンドの実行を指します。 この粒度で書いておくと、どの
               step で落ちたかがログから一目で分かります。
+            </p>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              <code>uses</code> に書くアクションのメジャーバージョンは更新されます。
+              ここでの <code>actions/checkout@v7</code> は 2026 年 8
+              月時点で公式 README が使用例に採用している版です。
+              採用時は各アクションの README で現行の版を確認してください。
             </p>
           </section>
 
@@ -239,7 +245,7 @@ jobs:
       matrix:
         node-version: [18, 20, 22]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: \${{ matrix.node-version }}
@@ -282,7 +288,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: デプロイ
         run: ./scripts/deploy.sh
         env:
@@ -309,7 +315,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -326,7 +332,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20

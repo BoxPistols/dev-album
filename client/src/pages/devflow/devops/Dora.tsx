@@ -57,8 +57,9 @@ export default function Dora() {
           </h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             DORA（DevOps Research and Assessment）は、ソフトウェア開発組織の
-            パフォーマンスを継続調査してきたチームで、その成果が Four Keys
-            と呼ばれる 4 つの指標です。 ここでは Four Keys
+            パフォーマンスを継続調査してきたチームです。その成果が Four Keys
+            と呼ばれた 4 指標で、2024 年に 1 つ加わって現在は 5 指標になっています。
+            ここでは Four Keys
             の中身とベンチマーク、スループットと安定性が両立すること、 補完的な
             SPACE フレームワーク、そして指標を目標化する危険までを
             一通り整理します。
@@ -154,6 +155,18 @@ export default function Dora() {
               「デプロイ（変更）が原因の障害から復旧するまでの時間」に対象を絞った点が変更のポイントです。
               MTTR は広く知られた旧称として併記しています。
             </p>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              さらに DORA は 2024 年に{" "}
+              <strong>deployment rework rate</strong>
+              （デプロイ後の手直しの割合）を加え、指標は 4 つから 5
+              つになりました。現行の分類は
+              <strong>Software Delivery Throughput</strong>
+              （変更リードタイム / デプロイ頻度 / 変更障害復旧時間）と
+              <strong>Software Delivery Instability</strong>
+              （変更失敗率 / deployment rework rate）の 2
+              グループです。上の表は、拡張前の Four Keys にあたる 4
+              指標を扱っています。
+            </p>
 
             <MermaidDiagram
               title="図: Four Keys の 2 軸（スループットと安定性）"
@@ -174,7 +187,9 @@ export default function Dora() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               DORA は調査結果をもとに、組織を Elite / High / Medium / Low の 4
-              段階に分類します。下の表はおおまかな目安です。
+              段階に分類します。下の表は
+              <strong>Accelerate State of DevOps Report 2024（v.2024.3）</strong>
+              のクラスタ分析の値です。
               年次調査ごとに区分やクラスタリングは見直されるため、
               <strong>正確なしきい値より、各段階の桁感の違い</strong>
               を掴むことが大切です。
@@ -228,8 +243,8 @@ export default function Dora() {
                       Low
                     </td>
                     <td className="py-3 px-3">1か月〜半年に1回</td>
-                    <td className="py-3 px-3">1か月以上</td>
-                    <td className="py-3 px-3">1日〜1週間</td>
+                    <td className="py-3 px-3">1か月〜半年</td>
+                    <td className="py-3 px-3">1週間〜1か月</td>
                   </tr>
                 </tbody>
               </table>

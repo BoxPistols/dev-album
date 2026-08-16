@@ -342,7 +342,7 @@ export default function TestingOverview() {
                 title: "Martin Fowler「TestPyramid」",
                 url: "https://martinfowler.com/bliki/TestPyramid.html",
                 description:
-                  "テストピラミッドという用語と各層の配分の考え方の出典。",
+                  "テストピラミッドの考え方の解説。用語の出自は Mike Cohn『Succeeding with Agile』(2009) と同記事の Etymology 節に記されている。",
               },
               {
                 title:

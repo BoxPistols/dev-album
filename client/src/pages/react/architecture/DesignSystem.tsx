@@ -418,7 +418,7 @@ module.exports = {
             <InfoBox type="info" title="Figma Variables との連携">
               <p>
                 Figma の Variables 機能を使えば、Figma 上でデザイントークンを定義し、
-                プラグイン（Token Studio for Figma など）で JSON に出力できます。
+                プラグイン（Tokens Studio for Figma など）で JSON に出力できます。
                 この JSON を Style Dictionary で変換すれば、デザイナーが Figma で変更した値が
                 自動的にコードに反映されるワークフローが実現します。
                 小規模チームではここまで自動化する必要はありませんが、仕組みを知っておくと
@@ -1047,8 +1047,10 @@ describe('Button', () => {
 
             <h3 className="text-lg font-semibold text-foreground mb-3">CLAUDE.md をエントリーポイントにする</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              プロジェクトルートの <code>CLAUDE.md</code> に、デザインシステムの要約・トークン一覧・コンポーネント命名規則を記述する。
-              AI はこのファイルを最初に読むため、システム全体の制約を伝える最も効率的な方法になる。
+              プロジェクトルートの <code>CLAUDE.md</code> に、デザインシステムの要約とコンポーネント命名規則を記述する。
+              Claude Code はこのファイルをセッション開始時に読み込むため、システム全体の制約を伝える起点になる。
+              一方で常時読み込まれるぶんコンテキストを消費するので、トークンの全量のような長い参照資料は
+              必要なときだけ読み込まれる skill 側に置くほうが効率がよい、と公式ドキュメントは案内している。
             </p>
             <CodeBlock title="CLAUDE.md の例（デザインシステム抜粋）" language="markdown" code={`## デザインシステム
 

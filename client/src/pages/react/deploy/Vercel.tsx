@@ -333,8 +333,10 @@ git push origin feature/new-header
 # 2. ドメインを入力（例: example.com）
 
 # 3. DNS 設定を行う（ドメイン管理サービスで設定）
-#    方法 A: CNAME レコード
-#    www.example.com → cname.vercel-dns.com
+#    方法 A: CNAME レコード（サブドメイン）
+#    CNAME のターゲットはプロジェクトごとに固有。
+#    ダッシュボードの Domains カードに出る値をそのまま設定する
+#    www.example.com → d1d4fc829fe7bc7c.vercel-dns-017.com（例）
 #
 #    方法 B: A レコード（apex ドメインの場合）
 #    example.com → 76.76.21.21

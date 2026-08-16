@@ -145,7 +145,10 @@ export default function CmuxIntro() {
                     <td className="p-3 text-muted-foreground">
                       対応（SSH 永続化）
                     </td>
-                    <td className="p-3 text-muted-foreground">非対応</td>
+                    <td className="p-3 text-muted-foreground">
+                      対応（cmux ssh でリモート用ワークスペース、リモート tmux
+                      へのアタッチは beta）
+                    </td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-semibold text-foreground">
@@ -154,7 +157,10 @@ export default function CmuxIntro() {
                     <td className="p-3 text-muted-foreground">
                       tmux.conf テキスト
                     </td>
-                    <td className="p-3 text-muted-foreground">GUI 設定</td>
+                    <td className="p-3 text-muted-foreground">
+                      ~/.config/ghostty/config と ~/.config/cmux/cmux.json
+                      のテキスト設定 + GUI の Settings
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -262,11 +268,12 @@ export default function CmuxIntro() {
 
               <div className="p-4 rounded-lg border border-border bg-card">
                 <p className="font-semibold text-foreground mb-1">
-                  リモートサーバーや Linux 環境
+                  Linux 環境やセッション永続化が必要な場面
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  tmux を推奨。SSH セッションの永続化が必要な場面では tmux
-                  が適している。
+                  tmux を推奨。cmux も cmux ssh
+                  でリモート用ワークスペースを作れるが、cmux 自体は macOS
+                  専用で、接続が切れてもプロセスを残す用途は tmux が適している。
                 </p>
               </div>
 

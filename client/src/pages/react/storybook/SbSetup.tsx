@@ -767,7 +767,7 @@ export default config;`}
                   <tr className="border-b border-border">
                     <td className="p-3">next/image</td>
                     <td className="p-3">使用不可</td>
-                    <td className="p-3">自動的にモック化される</td>
+                    <td className="p-3">設定なしでそのまま使える</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3">next/link</td>

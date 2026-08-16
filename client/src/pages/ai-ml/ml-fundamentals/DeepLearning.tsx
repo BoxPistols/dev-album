@@ -305,7 +305,7 @@ for epoch in range(100):
                   <tr className="bg-card">
                     <td className="px-4 py-3 font-medium text-foreground">計算グラフ</td>
                     <td className="px-4 py-3 text-muted-foreground">動的（Define-by-Run）</td>
-                    <td className="px-4 py-3 text-muted-foreground">静的（Eager mode で動的も可）</td>
+                    <td className="px-4 py-3 text-muted-foreground">動的（TF2 は Eager 実行が既定。tf.function を付けた範囲がグラフ化される）</td>
                   </tr>
                   <tr className="bg-card">
                     <td className="px-4 py-3 font-medium text-foreground">デバッグ</td>

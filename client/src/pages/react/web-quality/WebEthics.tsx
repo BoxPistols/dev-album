@@ -51,8 +51,9 @@ export default function WebEthics() {
                 2022 年の EU デジタルサービス法（DSA）はダークパターンを明示的に禁止しました。
                 米国 FTC もダークパターンに対する取り締まりを強化しており、
                 2023 年には大手企業に対して数百万ドル規模の制裁金を科しています。
-                日本でも 2022 年の特定商取引法改正により、
-                通信販売における誤認させるような表示が規制対象となりました。
+                日本でも令和 3 年（2021 年）改正の特定商取引法（令和三年法律第七十二号）が
+                2022 年 6 月 1 日に施行され、通信販売の最終確認画面での表示義務と、
+                誤認させるような表示の禁止が新設されました。
                 技術者も「言われた通りに実装しただけ」では責任を免れない時代です。
               </p>
             </InfoBox>
@@ -371,7 +372,8 @@ function EthicalCookieBanner() {
             <h3 className="text-xl font-semibold text-foreground mb-3">アクセシビリティは権利であり、オプションではない</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               Web アクセシビリティは「あると嬉しい機能」ではなく、すべてのユーザーがデジタル情報にアクセスするための基本的な権利です。
-              世界人口の約 15%（約 10 億人）が何らかの障害を持っているとされ、高齢化社会においてその重要性は増す一方です。
+              WHO の推計（Disability ファクトシート、2023 年 3 月）では、世界人口の約 16%（約 13 億人、6 人に 1 人）が
+              重度の障害とともに生活しているとされ、高齢化社会においてその重要性は増す一方です。
             </p>
 
             <h3 className="text-xl font-semibold text-foreground mb-3 mt-8">WCAG 2.2 準拠の意義</h3>
@@ -482,7 +484,7 @@ function EthicalCookieBanner() {
 
             <h3 className="text-xl font-semibold text-foreground mb-3">多言語対応と低速回線への配慮</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              日本に住む外国籍の住民は約 300 万人（2024 年時点）であり、
+              出入国在留管理庁の公表値では、日本の在留外国人数は約 377 万人（2024 年末時点）であり、
               公共サービスが日本語のみで提供されていることは大きな障壁です。
               また、地方のモバイル回線や古いデバイスを使用しているユーザーにとって、重いページは事実上アクセス不能になります。
             </p>
@@ -527,25 +529,33 @@ function OptimizedImage({ src, alt }: { src: string; alt: string }) {
               パフォーマンスバジェットとは、ページの読み込み速度に関する上限値をチームで事前に設定する手法です。
               「JavaScript の合計サイズは 200KB 以下」「LCP は 2.5 秒以内」のように具体的な数値で上限を定め、
               それを超える変更は差し戻す仕組みを作ります。
+              CI で運用するなら Lighthouse CI の <code className="px-1 py-0.5 rounded bg-muted text-sm">lighthouserc.json</code> に
+              上限を宣言し、超えたビルドを失敗させられます。<code className="px-1 py-0.5 rounded bg-muted text-sm">maxNumericValue</code> の単位は
+              サイズがバイト、時間がミリ秒です。
             </p>
 
             <CodeBlock
               language="json"
-              title="パフォーマンスバジェットの設定例"
+              title="パフォーマンスバジェットの設定例（lighthouserc.json）"
               code={`{
-  "budgets": [
-    { "resourceType": "script", "budget": 200, "unit": "KB" },
-    { "resourceType": "image", "budget": 500, "unit": "KB" },
-    { "metric": "largest-contentful-paint", "budget": 2500, "unit": "ms" },
-    { "metric": "cumulative-layout-shift", "budget": 0.1 },
-    { "metric": "total-blocking-time", "budget": 300, "unit": "ms" }
-  ]
+  "ci": {
+    "assert": {
+      "assertions": {
+        "resource-summary:script:size": ["error", { "maxNumericValue": 204800 }],
+        "resource-summary:image:size": ["error", { "maxNumericValue": 512000 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 300 }]
+      }
+    }
+  }
 }`}
             />
 
             <InfoBox type="info" title="Web は公共インフラである">
               <p>
-                Tim Berners-Lee（Web の発明者）は「Web は人類全体のためのもの」と繰り返し述べています。
+                Web の発明者 Tim Berners-Lee は、2012 年ロンドン五輪の開会式で
+                「This is for Everyone（これはみんなのためのもの）」というメッセージを掲げました（日本語は訳）。
                 行政手続きのオンライン化が進む中、Web サイトのパフォーマンスやアクセシビリティの問題は
                 「デジタルデバイド（情報格差）」に直結します。
               </p>
@@ -766,8 +776,8 @@ function OptimizedImage({ src, alt }: { src: string; alt: string }) {
               title="バンドルサイズを意識した実装"
               showLineNumbers
               code={`// 悪い例: 巨大ライブラリをまるごとインポート
-import _ from 'lodash';           // ~70KB gzipped
-import moment from 'moment';      // ~67KB gzipped
+import _ from 'lodash';           // min 約 71KB / gzip 約 26KB
+import moment from 'moment';      // min 約 59KB / gzip 約 19KB
 const formatted = moment().format('YYYY-MM-DD');
 
 // 倫理的な実装: ネイティブ API で代替

@@ -378,14 +378,14 @@ export default function FigmaPrototype() {
 
           {/* Quiz 1 */}
           <Quiz
-            question="Figma のオートレイアウトは、CSS のどのプロパティに対応しますか？"
+            question="Figma のオートレイアウトの Vertical / Horizontal フローは、CSS のどのプロパティに対応しますか？"
             options={[
               { label: 'display: grid' },
               { label: 'display: flex', correct: true },
               { label: 'position: absolute' },
               { label: 'float: left' },
             ]}
-            explanation="Figma のオートレイアウトは CSS の Flexbox に対応しています。direction は flex-direction、Item spacing は gap、Padding はそのまま padding に変換されます。Grid レイアウトに対応する機能は、Figma では別途「Grid layout」として提供されています。"
+            explanation="Figma のオートレイアウトの Vertical / Horizontal フローは CSS の Flexbox に対応しています。direction は flex-direction、Item spacing は gap、Padding はそのまま padding に変換されます。CSS Grid に相当する二次元レイアウトは、オートレイアウトの 3 つ目のフロー「Grid」として提供されています。"
           />
 
           {/* Quiz 2 */}

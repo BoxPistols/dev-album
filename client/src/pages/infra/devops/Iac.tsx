@@ -195,7 +195,7 @@ export default function Iac() {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.0"
     }
   }
 }
@@ -219,6 +219,13 @@ resource "aws_s3_bucket" "assets" {
               ブロックが「このバケットがあってほしい」という宣言です。
               実行する手順は書きません。Terraform が現状と比べ、
               足りなければ作成、設定が違えば更新、定義から消えれば削除します。
+            </p>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              <code>version</code>{" "}
+              の制約はプロバイダのメジャー更新に追随します。上の{" "}
+              <code>~&gt; 6.0</code> は 2026 年 8 月時点の hashicorp/aws
+              の最新メジャー（6 系）に合わせた指定です。
+              採用時は Terraform Registry で現行の版を確認してください。
             </p>
 
             <CodingChallenge

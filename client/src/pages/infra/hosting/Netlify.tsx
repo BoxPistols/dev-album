@@ -13,7 +13,7 @@ import CodingChallenge from "@/components/CodingChallenge";
 const featureCards = [
   {
     title: "Netlify Functions",
-    examples: "AWS Lambda ベース",
+    examples: "リージョン実行",
     description:
       "リージョンで動くサーバレス関数。Node.js などのランタイムでバックエンド処理を書ける。長めの処理やデータベース接続に向く。",
   },
@@ -79,11 +79,13 @@ export default function Netlify() {
               Netlify の基本は、ビルドした静的ファイルを CDN
               から配信することです。そこへ Netlify Functions
               を組み合わせると、サーバレス関数でバックエンド処理を足せます。
-              Functions は AWS Lambda
-              をベースにしたリージョン実行で、データベースアクセスや 外部 API
-              の中継など、少し重めの処理に向きます。関数は
+              Functions はリージョンを選べるサーバレス実行環境で、データベースアクセスや
+              外部 API の中継など、少し重めの処理に向きます。関数は
               <code>netlify/functions/</code> に置くと自動でデプロイされ、URL
-              が払い出されます。
+              が払い出されます。AWS Lambda
+              のハンドラ形式で書く互換モードも残っていますが、公式ドキュメント（2026 年
+              8 月時点）では非推奨で、2027 年 7 月 1
+              日以降はこのモードを含むデプロイを受け付けないと案内されています。
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -293,9 +295,12 @@ export default async (request: Request, context: Context) => {
               実物を触って確認でき、レビューに非エンジニアも参加できます。
             </p>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              <strong>Forms</strong> は、HTML フォームに{" "}
-              <code>data-netlify="true"</code>{" "}
-              属性を付けるだけで送信内容を収集できる機能です。バックエンドを
+              <strong>Forms</strong> は、Netlify UI の Forms で{" "}
+              <strong>form detection を有効にした上で</strong>、HTML フォームに{" "}
+              <code>data-netlify="true"</code>（または{" "}
+              <code>netlify</code>）属性を付けると送信内容を収集できる機能です。
+              属性だけでは収集は始まらないので、
+              先に UI 側の設定を済ませます。バックエンドを
               書かずに問い合わせフォームを設置でき、送信通知やスパム対策も
               用意されています。
             </p>

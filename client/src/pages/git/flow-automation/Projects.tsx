@@ -139,7 +139,7 @@ jobs:
   add-to-project:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v1
+      - uses: actions/add-to-project@v2
         with:
           project-url: https://github.com/orgs/your-org/projects/1
           github-token: \${{ secrets.ADD_TO_PROJECT_PAT }}`}
@@ -233,7 +233,7 @@ jobs:
   add:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v1
+      - uses: actions/add-to-project@v2
         with:
           project-url: https://github.com/orgs/your-org/projects/1
           github-token: \${{ ___.ADD_TO_PROJECT_PAT }}`}
@@ -245,7 +245,7 @@ jobs:
   add:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v1
+      - uses: actions/add-to-project@v2
         with:
           project-url: https://github.com/orgs/your-org/projects/1
           github-token: \${{ secrets.ADD_TO_PROJECT_PAT }}`}

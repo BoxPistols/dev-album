@@ -147,7 +147,7 @@ export default function CursorCline() {
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
               Cline は、<strong className="text-foreground">VS Code に追加できる無料の AI 拡張機能</strong>です。
-              VS Code を既に使っている方は、拡張機能を入れるだけですぐに使えます。
+              VS Code を既に使っている方は、拡張機能を入れてモデルの提供元を 1 つ設定すれば使い始められます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-primary/5 rounded-lg p-4">
@@ -224,11 +224,11 @@ export default function CursorCline() {
           </div>
 
           <InfoBox type="info" title="API キーはどこで取得する？">
-            Claude Code 導入時に作った Anthropic アカウントの API キーをそのまま使えます。
-            <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 font-medium ml-1">
-              console.anthropic.com/settings/keys
+            Anthropic の API キーは
+            <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 font-medium ml-1">
+              platform.claude.com/settings/keys
             </a>
-            {' '}で取得できます。
+            {' '}で取得します。Claude Code は Pro / Max / Team / Enterprise / Console のいずれのアカウントでも使えますが、Pro / Max のサブスクリプションには API キーが付きません。Cursor や Cline から呼び出すには、Console（Developer Platform）側で API キーと従量課金を用意します。
             Gemini の API キーを使えば、無料枠でも利用可能です。
           </InfoBox>
         </div>
@@ -258,7 +258,7 @@ index.html の内容を確認して`}
           <p className="text-muted-foreground leading-relaxed">
             Cline はファイルの作成・編集、ターミナルコマンドの実行など、
             Claude Code と同じようなことが VS Code の中でできます。
-            操作の前に必ず確認画面が出るので、内容を確認して「Accept」で許可します。
+            既定ではファイルの編集とターミナルコマンドの実行ごとに承認を求められるので、内容を確認してから許可します。auto-approve を有効にすると、確認なしで実行が進みます（Cursor にも同種の自動実行モードがあります）。
           </p>
 
           <InfoBox type="warning" title="API利用料に注意">

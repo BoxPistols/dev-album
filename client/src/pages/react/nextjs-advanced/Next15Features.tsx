@@ -832,7 +832,7 @@ export default nextConfig;`}
                 },
                 {
                   question: 'Turbopack は webpack のプラグインと互換性がありますか？',
-                  answer: 'いいえ、Turbopack は webpack とは異なるアーキテクチャのため、webpack プラグインとの直接的な互換性はありません。ただし、Next.js が標準で提供する機能（CSS Modules、PostCSS、画像最適化など）はすべてサポートされています。カスタム webpack 設定に依存している場合は、開発時に Turbopack を使わず webpack を使い続けることもできます（next dev で --turbopack フラグを省略するだけ）。',
+                  answer: 'いいえ、Turbopack は webpack とは異なるアーキテクチャのため、webpack プラグインとの直接的な互換性はありません。ただし、CSS Modules・PostCSS・静的アセットのインポートといった主要機能は設定なしで動作します。一方で App Router の root layout 自動生成や、CSS Modules の一部レガシー機能（単独の :local / :global、@value ルールなど）、sassOptions.functions、Yarn PnP は未対応と公式に明記されています。カスタム webpack 設定に依存している場合は、開発時に Turbopack を使わず webpack を使い続けることもできます（next dev で --turbopack フラグを省略するだけ）。',
                 },
                 {
                   question: 'after() API はセルフホスティングでも使えますか？',

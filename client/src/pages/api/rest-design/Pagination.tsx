@@ -491,7 +491,7 @@ Link: <https://api.example.com/v1/users?limit=20&cursor=eyJpZCI6MTAyfQ>; rel="ne
                   title: "Slack API - Cursor-based pagination",
                   url: "https://api.slack.com/apis/pagination",
                   description:
-                    "カーソル方式を採用した実 API のドキュメント。nextCursor の受け渡しと不透明カーソルの考え方が掴める",
+                    "カーソル方式を採用した実 API のドキュメント。response_metadata.next_cursor の受け渡しと不透明カーソルの考え方が掴める",
                 },
               ]}
             />
