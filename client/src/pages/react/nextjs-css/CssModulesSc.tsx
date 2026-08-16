@@ -278,7 +278,7 @@ export function Card({ title, description, image, featured }: CardProps) {
             <p className="text-foreground/80 mb-4 leading-relaxed">
               styled-components は CSS-in-JS ライブラリの代表格です。
               JavaScript 内で CSS を記述し、スタイル付きのコンポーネントを作成します。
-              Next.js App Router で使うには SSR の設定が必要です。
+              Next.js App Router では、v6.2 以前は SSR 用のレジストリが必要でした。v6.3.0 以降はゼロ設定で RSC に対応します（詳細は下の InfoBox）。
             </p>
 
             <CodeBlock
@@ -357,6 +357,8 @@ export default function StyledComponentsRegistry({
 
             <CodeBlock
               code={`// styled-components の使用例
+// v6.3.0 以降は 'use client' なしでも動く。イベントハンドラや state を
+// 使うコンポーネントでは従来どおり 'use client' が必要
 'use client';
 
 import styled from 'styled-components';
@@ -542,7 +544,7 @@ export function EmotionExample() {
 
             <InfoBox type="info" title="デザイナーへのおすすめ">
               <p>
-                <strong>最初に学ぶなら</strong>: Tailwind CSS。最も使われており、App Router との相性も最高です。<br />
+                <strong>最初に学ぶなら</strong>: Tailwind CSS。<br />
                 <strong>コンポーネント集も欲しいなら</strong>: shadcn/ui（Tailwind ベース）。<br />
                 <strong>既存プロジェクトで使う場合</strong>: プロジェクトの既存の手法に合わせましょう。<br />
                 CSS Modules は「CSS を普通に書きたい」場合の良い選択肢です。

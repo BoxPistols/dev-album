@@ -25,8 +25,8 @@ export default function RendererPage() {
       <h2 className="text-2xl font-bold mb-4">WebGLRenderer とは</h2>
 
       <p className="text-muted-foreground mb-6 leading-relaxed">
-        <code>WebGLRenderer</code> は Three.js のメインのレンダラーです。
-        ブラウザの WebGL API を使い、GPU で高速に 3D
+        <code>WebGLRenderer</code> は WebGL 2 を使ってシーンを表示するレンダラーです。
+        ブラウザの WebGL API を通して、GPU で 3D
         グラフィックスを描画します。 HTML の{" "}
         <code>&lt;canvas&gt;</code> 要素に描画結果を出力します。
       </p>
@@ -158,8 +158,8 @@ const renderer = new THREE.WebGLRenderer({ canvas });`}
           <p>
             <code>setPixelRatio</code>{" "}
             の値が大きいと描画ピクセル数が増え、GPU の負荷が高くなります。
-            モバイル端末では <code>Math.min(window.devicePixelRatio, 2)</code>{" "}
-            で上限を 2 に制限するのが一般的です。
+            このページのデモでは <code>Math.min(window.devicePixelRatio, 2)</code>{" "}
+            で上限を 2 に制限しています。
           </p>
         </InfoBox>
       </div>

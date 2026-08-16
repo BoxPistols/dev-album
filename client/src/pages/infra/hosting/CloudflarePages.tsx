@@ -291,9 +291,10 @@ npx wrangler kv namespace create MY_KV`}
               無料枠の上限と nodejs_compat 互換フラグ
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              無料プランには上限があります。公式のドキュメントでは Workers Free
-              のリクエスト数が 1 日あたり 100,000、Pages Free のビルド回数が 1
-              か月あたり 500 と示されています（
+              無料プランには上限があります。2026 年 8
+              月時点の公式ドキュメントでは Workers Free のリクエスト数が 1
+              日あたり 100,000、Pages Free のビルド回数が 1 か月あたり 500
+              と示されています（
               <a
                 href="https://developers.cloudflare.com/workers/platform/limits/"
                 target="_blank"

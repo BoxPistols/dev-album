@@ -134,9 +134,7 @@ export default function Kanban() {
                   リードタイム
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  計測の起点から完了までの全体時間。待ち時間も含む。Kanban
-                  Guide
-                  は起点をコミットメントポイント（着手すると決めて作業がシステムに入った時点）に置いている。
+                  依頼が発生してから完了までの全体時間。着手前の待ち時間も含む。起点の置き方は標準で決まっていないため、このページでは起点を「依頼発生」と定義する（後述のハンズオンも同じ定義）。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-5">
@@ -144,7 +142,9 @@ export default function Kanban() {
                   サイクルタイム
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  実際に着手してから完了するまでの時間。チームが手を動かしている区間を測る。
+                  実際に着手してから完了するまでの時間。チームが手を動かしている区間を測る。Kanban
+                  Guide が必須のフロー指標として定義する Cycle Time
+                  は、この「開始から完了までの経過時間」を指す。
                 </p>
               </div>
             </div>

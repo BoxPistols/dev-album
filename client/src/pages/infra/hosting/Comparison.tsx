@@ -131,7 +131,7 @@ export default function Comparison() {
                     </td>
                     <td className="p-3">無料枠 + 従量</td>
                     <td className="p-3">無料枠 + 従量</td>
-                    <td className="p-3">無料枠 + 従量（有料は最低 $5/月）</td>
+                    <td className="p-3">無料枠 + 従量</td>
                     <td className="p-3">サーバ定額が中心</td>
                   </tr>
                   <tr className="border-b border-border">
@@ -160,6 +160,12 @@ export default function Comparison() {
               どのマネージドサービスも「Git にプッシュすれば配信される」
               開発体験は共通です。差が出るのはエッジの扱い・価格の伸び方・
               特定機能への依存度です。
+            </p>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              価格の行は課金の<strong>体系</strong>だけを示しています。無料枠の上限や
+              有料プランの金額（たとえば Cloudflare の Workers Paid は 2026 年 8
+              月時点で月額 $5 から）は各社が随時見直すため、金額で判断するときは
+              公式の料金ページで確認してください。
             </p>
           </section>
 

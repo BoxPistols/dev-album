@@ -284,13 +284,13 @@ GET    /users        # ユーザー一覧`}
             </p>
           </section>
 
-          {/* 仕様値 vs 実測 */}
+          {/* 「REST API」という呼称と成熟度モデルの関係 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
               「REST API」と呼ばれるものの段階を見分ける
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              ここは先に明示しておきます。 Fielding が定義した本来の REST は
+              Fielding が定義した本来の REST は
               HATEOAS（Level 3）を含み、Fowler の記事も「Level 3 は REST
               の前提条件だと Fielding が明言している」と記しています。
               一方で同じ記事は、Richardson 成熟度モデル自体は

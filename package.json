@@ -18,7 +18,8 @@
     "build-storybook": "storybook build",
     "freshness": "node scripts/check-content-freshness.mjs",
     "check:sources": "node scripts/verify-sources.mjs",
-    "check:verdicts": "node scripts/verify-verdicts.mjs",
+    "check:verdicts": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-medium-verdicts.json",
+    "check:verdicts:low": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-low-verdicts.json",
     "check:links": "node scripts/check-links.mjs"
   },
   "dependencies": {

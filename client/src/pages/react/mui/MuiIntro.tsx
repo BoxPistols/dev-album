@@ -12,7 +12,7 @@ export default function MuiIntro() {
         <div className="mb-4">
           <span className="step-badge">STEP 28</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">MUI 7 入門</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">MUI 入門</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
           Material UI（MUI）は Google の Material Design をベースにした、世界で最も利用されている React コンポーネントライブラリです。
           豊富なコンポーネントと強力なテーマ機能を学びましょう。

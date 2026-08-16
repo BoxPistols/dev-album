@@ -311,8 +311,10 @@ export default function DesignProcess() {
               リーン UX
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Eric Ries の Lean Startup の考え方を UX に適用したアプローチ。
-              仮説を素早く検証し、学びを得ることを最優先にする。
+              Lean Startup と Agile の考え方を UX に適用したアプローチ。提唱者の
+              Jeff Gothelf 自身が「lean startup thinking along with Agile philosophies served as
+              inspiration for the Lean UX methodologies and practices」と述べている（訳: リーンスタートアップの
+              考え方と Agile の思想が Lean UX の着想源になった）。仮説を素早く検証し、学びを得ることを最優先にする。
             </p>
 
             {/* Build-Measure-Learn ループ */}
@@ -460,6 +462,11 @@ export default function DesignProcess() {
                 title: 'Jeff Gothelf - Lean UX (O\'Reilly)',
                 url: 'https://www.oreilly.com/library/view/lean-ux-3rd/9781098116293/',
                 description: 'リーン UX の定番書籍（第 3 版）',
+              },
+              {
+                title: 'Jeff Gothelf - Lean UX is not just for lean startups',
+                url: 'https://jeffgothelf.com/blog/lean-ux-is-not-just-for-lean-startups/',
+                description: '著者本人が Lean UX の着想源を述べている記事',
               },
               {
                 title: 'SVPG - Dual-Track Agile',

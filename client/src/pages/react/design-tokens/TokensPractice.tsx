@@ -225,7 +225,7 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
               </p>
               <CodeBlock
                 language="css"
-                title="スペーシングトークン（4px grid system）"
+                title="スペーシングトークン（8dp ベースライン / 4dp 刻み）"
                 code={`:root {
   --spacing-0: 0px;
   --spacing-1: 4px;    /* 極小（アイコンと文字の間） */
@@ -242,8 +242,10 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
                 <p>
                   8px
                   を基本単位にすることで、要素間のリズムが揃い、視覚的な調和が生まれます。
-                  Material Design のガイドラインでもこの 4dp / 8dp
-                  グリッドが推奨されています。
+                  4px は、アイコンやタイポグラフィのようにレイアウトより細かい要素を
+                  8px グリッドの中間に揃えるための刻みです。Material Design（M2）も
+                  8dp のベースライングリッドを基本とし、一部の要素を 4dp
+                  グリッドに揃える形を示しています。
                 </p>
               </InfoBox>
             </div>
@@ -687,18 +689,18 @@ Dark                          .dark { ... }`}
 
             <div className="rounded-lg border border-border p-5 mb-6">
               <h3 className="font-bold text-foreground mb-3">
-                Token Studio for Figma でのエクスポート
+                Tokens Studio for Figma でのエクスポート
               </h3>
               <p className="text-sm text-foreground/80 mb-4">
-                Token Studio（旧 Figma Tokens）は、Figma
+                Tokens Studio（旧 Figma Tokens）は、Figma
                 内でデザイントークンを管理し、 JSON
                 形式でエクスポートできるプラグインです。 エクスポートした JSON
                 を Style Dictionary などのツールで CSS 変数に変換します。
               </p>
               <CodeBlock
                 language="tsx"
-                title="Token Studio からエクスポートされた JSON の例"
-                code={`// tokens.json（Token Studio のエクスポート形式）
+                title="Tokens Studio からエクスポートされた JSON の例"
+                code={`// tokens.json（Tokens Studio のエクスポート形式）
 {
   "color": {
     "primary": {
@@ -1109,7 +1111,7 @@ Dark                          .dark { ... }`}
                     "@theme ディレクティブによる CSS 変数とユーティリティクラスの統合",
                 },
                 {
-                  title: "Token Studio for Figma",
+                  title: "Tokens Studio for Figma",
                   url: "https://tokens.studio/",
                   description:
                     "Figma 内でデザイントークンを管理・エクスポートするプラグイン",

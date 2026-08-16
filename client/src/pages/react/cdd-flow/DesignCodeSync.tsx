@@ -26,7 +26,7 @@ export default function DesignCodeSync() {
           tags={[
             "Design Tokens",
             "Style Dictionary",
-            "Token Studio",
+            "Tokens Studio",
             "generate_figma_design",
             "CI/CD",
             "Figma Variables",
@@ -169,7 +169,7 @@ export default function DesignCodeSync() {
                 </div>
                 <span className="text-muted-foreground font-bold">&#8594;</span>
                 <div className="px-3 py-2 rounded-lg bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 font-medium">
-                  Token Studio
+                  Tokens Studio
                 </div>
                 <span className="text-muted-foreground font-bold">&#8594;</span>
                 <div className="px-3 py-2 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium">
@@ -267,9 +267,9 @@ export default function DesignCodeSync() {
               </div>
             </div>
 
-            {/* ステップ 2: Token Studio */}
+            {/* ステップ 2: Tokens Studio */}
             <h3 className="text-lg font-semibold text-foreground mb-3">
-              2. Token Studio for Figma で tokens.json を GitHub に export
+              2. Tokens Studio for Figma で tokens.json を GitHub に export
             </h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               <a
@@ -278,7 +278,7 @@ export default function DesignCodeSync() {
                 rel="noopener noreferrer"
                 className="text-primary underline underline-offset-2"
               >
-                Token Studio for Figma
+                Tokens Studio for Figma
               </a>{" "}
               は、 Figma Variables を JSON 形式で export し、GitHub
               リポジトリに直接 push できるプラグインです。push
@@ -292,7 +292,7 @@ export default function DesignCodeSync() {
 
             <CodeBlock
               language="json"
-              title="tokens/global.json - Token Studio が出力する JSON"
+              title="tokens/global.json - Tokens Studio が出力する JSON"
               code={`{
   "colors": {
     "primary": {
@@ -358,7 +358,7 @@ export default function DesignCodeSync() {
 }`}
             />
 
-            <InfoBox type="warning" title="Token Studio の GitHub 連携設定">
+            <InfoBox type="warning" title="Tokens Studio の GitHub 連携設定">
               <p>
                 GitHub リポジトリとの直接連携（Git sync provider）は有料ライセンス限定ではなく、
                 無料ライセンスでも使えます。公式ドキュメントは、無料版を使っている場合の保存先として
@@ -499,7 +499,7 @@ export const FontSizesXl = '20px';`}
               4. GitHub Actions で PR を自動生成する
             </h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              Token Studio が tokens.json を push したら、GitHub Actions で
+              Tokens Studio が tokens.json を push したら、GitHub Actions で
               Style Dictionary のビルドを実行し、 生成された CSS / TS
               ファイルを含む Pull Request を自動作成します。
             </p>
@@ -1072,7 +1072,7 @@ jobs:
                         タイプミスで微妙な色ズレが発生
                       </td>
                       <td className="py-3 px-4">
-                        Token Studio + Style Dictionary
+                        Tokens Studio + Style Dictionary
                       </td>
                     </tr>
                     <tr className="border-b border-border/50">
@@ -1155,7 +1155,7 @@ jobs:
                   </h4>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  Token Studio の GitHub 連携を設定し、GitHub Actions
+                  Tokens Studio の GitHub 連携を設定し、GitHub Actions
                   でトークンのビルドと PR 作成を自動化する。 Chromatic
                   を導入してビジュアルリグレッションテストを CI に組み込む。
                 </p>
@@ -1259,14 +1259,14 @@ await Promise.all([
 
           {/* Quiz 1 */}
           <Quiz
-            question="Token Studio for Figma が GitHub リポジトリに push する主なファイル形式は何ですか？"
+            question="Tokens Studio for Figma が GitHub リポジトリに push する主なファイル形式は何ですか？"
             options={[
               { label: "CSS ファイル（.css）" },
               { label: "JSON ファイル（tokens.json）", correct: true },
               { label: "YAML ファイル（.yml）" },
               { label: "Figma のバイナリファイル（.fig）" },
             ]}
-            explanation="Token Studio は Design Tokens を JSON 形式（tokens.json）で export します。この JSON を Style Dictionary などの変換ツールで CSS 変数や JavaScript 定数に変換するのが一般的なフローです。"
+            explanation="Tokens Studio は Design Tokens を JSON 形式（tokens.json）で export します。この JSON を Style Dictionary などの変換ツールで CSS 変数や JavaScript 定数に変換するのが一般的なフローです。"
           />
 
           {/* Quiz 2 */}
@@ -1295,7 +1295,7 @@ await Promise.all([
                   "Design Tokens の変換ツール。tokens.json から CSS、JS、iOS、Android 向けの出力を生成する。",
               },
               {
-                title: "Token Studio for Figma",
+                title: "Tokens Studio for Figma",
                 url: "https://tokens.studio/",
                 description:
                   "Figma Variables を JSON で export し、GitHub リポジトリに直接 push できるプラグイン。",

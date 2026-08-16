@@ -32,7 +32,7 @@ const routeMap = [
   },
   {
     file: "app/pages/[...slug].vue",
-    route: "/* （未マッチの全パス）",
+    route: "/* （置いたディレクトリ配下すべて）",
     role: "キャッチオール。そのパス配下の全ルートにマッチする",
   },
 ];

@@ -43,7 +43,8 @@ export default function CameraPage() {
           </h4>
           <p className="text-sm text-muted-foreground">
             カメラの視野の広さを度数で指定します。値が大きいほど広い範囲が映り、
-            小さいほどズームインしたように見えます。一般的に 50〜75 を使います。
+            小さいほどズームインしたように見えます。PerspectiveCamera の既定値は 50
+            で、このページのデモでは 75 を使っています。
           </p>
         </div>
         <div className="bg-card border border-border rounded-lg p-4">

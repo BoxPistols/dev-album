@@ -82,10 +82,10 @@ export default function RequestResponse() {
               リクエストボディの基本
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              データを送る POST / PUT / PATCH では、ボディを JSON で送るのが
-              現代の Web API の標準です。このとき、送る側は
+              データを送る POST / PUT / PATCH では、ボディの形式を
+              Content-Type ヘッダーで宣言します。JSON で送るなら{" "}
               <code>Content-Type: application/json</code> を付けて「中身は JSON
-              だ」と宣言します。
+              だ」と伝えます。
               サーバはこのヘッダーを見てパース方法を決めます。RFC 9110 は、
               Content-Type が無いときの扱いを受信側の裁量とし、{" "}
               <code>application/octet-stream</code>

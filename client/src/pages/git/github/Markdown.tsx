@@ -76,7 +76,7 @@ export default function MarkdownGuide() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-secondary font-bold">✓</span>
-                  <span><strong className="text-foreground">覚えることが極めて少ない</strong> ─ 基本記法は 10 個程度。15 分で一通り使えるようになります</span>
+                  <span><strong className="text-foreground">覚えることが少ない</strong> ─ 見出し・リスト・リンク・コードブロックを覚えれば書き始められます</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-secondary font-bold">✓</span>

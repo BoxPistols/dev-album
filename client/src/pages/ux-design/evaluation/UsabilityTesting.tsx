@@ -260,11 +260,10 @@ export default function UsabilityTesting() {
               <h3 className="font-semibold text-foreground mb-3">SUS スコアの目安</h3>
               <div className="flex items-end gap-1 h-24 mb-4">
                 {[
-                  { label: '〜50', color: 'bg-red-400 dark:bg-red-500', height: '25%', grade: 'F' },
-                  { label: '51-67', color: 'bg-orange-400 dark:bg-orange-500', height: '45%', grade: 'D' },
-                  { label: '68-73', color: 'bg-yellow-400 dark:bg-yellow-500', height: '65%', grade: 'C' },
-                  { label: '74-80', color: 'bg-green-400 dark:bg-green-500', height: '85%', grade: 'B' },
-                  { label: '80.3〜', color: 'bg-primary', height: '100%', grade: 'A' },
+                  { label: '51 未満', color: 'bg-red-400 dark:bg-red-500', height: '25%', grade: 'F' },
+                  { label: '68（平均）', color: 'bg-yellow-400 dark:bg-yellow-500', height: '55%', grade: 'C' },
+                  { label: '74', color: 'bg-green-400 dark:bg-green-500', height: '75%', grade: 'B−' },
+                  { label: '80.3 超', color: 'bg-primary', height: '100%', grade: 'A' },
                 ].map((item) => (
                   <div key={item.label} className="flex flex-col items-center flex-1">
                     <span className="text-xs font-bold text-foreground mb-1">{item.grade}</span>
@@ -278,8 +277,9 @@ export default function UsabilityTesting() {
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 平均スコアは 68 点で、これがちょうど C にあたります。これを上回れば「平均以上の使いやすさ」と判断できます。
-                MeasuringU の解説では A は 80.3 点超（上位 10%）、F は 51 点未満（下位 15%）とされています。
-                グレードは絶対評価ではなく、過去の調査データに対する相対位置で決まる点に注意してください。
+                MeasuringU の解説では A は 80.3 点超（上位 10%）、74 点は B−、F は 51 点未満（下位 15%）とされています。
+                グレードは絶対評価ではなく、過去の調査データに対する相対位置（パーセンタイル）で決まります。
+                上のグラフは出典に明記された代表点だけを並べたもので、点と点の間のスコアはパーセンタイル換算で決まる点に注意してください。
               </p>
             </div>
           </section>

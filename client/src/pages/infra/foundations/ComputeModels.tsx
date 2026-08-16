@@ -189,6 +189,11 @@ export default function ComputeModels() {
                 </tbody>
               </table>
             </div>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              表中の具体値（AWS Lambda の実行時間上限 15 分）は 2026 年 8
+              月時点の公式ドキュメントの値です。上限は改定されることがあるため、
+              設計の前提に置くときは各サービスの制限ページで確認してください。
+            </p>
           </section>
 
           {/* コールドスタート */}

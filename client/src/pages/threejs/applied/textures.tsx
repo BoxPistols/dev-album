@@ -217,8 +217,8 @@ const material = new THREE.MeshStandardMaterial({
             （three.js の WebGL1 バックエンドは canvas 経由で CPU 側のリサイズを行っていました）。
           </p>
           <p className="mt-2">
-            また、大きなテクスチャはメモリを大量に消費します。
-            モバイル端末では 1024x1024 以下に抑えることを推奨します。
+            また、テクスチャが使う GPU メモリは幅 × 高さに比例します（辺を 2 倍にすると 4 倍）。
+            必要な表示サイズに対して過剰な解像度になっていないかを確認します。
           </p>
         </InfoBox>
       </div>
