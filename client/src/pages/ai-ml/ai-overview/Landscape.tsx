@@ -438,13 +438,14 @@ export default function Landscape() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="py-3 px-4 text-muted-foreground">
-                      1987 年〜
+                      1987 年頃〜
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       第二次 AI の冬
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      LISP マシン市場の崩壊とエキスパートシステムの限界
+                      LISP マシン市場の崩壊とエキスパートシステムの限界。
+                      終期は資料によって分かれ、2000 年頃までとする区分もある
                     </td>
                   </tr>
                   <tr className="border-b border-border">
