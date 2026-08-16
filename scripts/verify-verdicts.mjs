@@ -192,7 +192,23 @@ async function main() {
         `\n判定そのものを読み直すこと。引用を通すために正規化を緩めない。`,
     );
   }
-  if (mismatched.length || problems.length) process.exitCode = 1;
+  // 取得できなかったものを緑にしない。ネットワーク断・サイト移転・レート制限の
+  // いずれでも「1 件も照合していないのに成功」になるのが一番まずい。
+  // 一時的な失敗と恒久的な失敗はここでは区別できないので、落として人に見せる。
+  if (fetchFailed.length || notExtracted.length) {
+    console.log(
+      `\n照合できなかった出典がある。一時的な障害なら再実行で通る。` +
+        `\n通らないなら出典が動いたということなので、取得できる一次情報へ差し替える。`,
+    );
+  }
+  if (
+    mismatched.length ||
+    problems.length ||
+    fetchFailed.length ||
+    notExtracted.length
+  ) {
+    process.exitCode = 1;
+  }
 }
 
 main().catch((err) => {

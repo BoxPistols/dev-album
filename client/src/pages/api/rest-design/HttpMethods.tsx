@@ -134,7 +134,7 @@ export default function HttpMethods() {
               CRUD 操作を一覧にします。PATCH だけは RFC 9110 ではなく RFC 5789
               が定義しており、同仕様が「安全でも冪等でもない」と明記しています。
               ただし patch document の作り方次第で、個々の PATCH
-              リクエストを冪等に構成することはできます。この違いが後で重要になります。
+              リクエストを冪等に構成することはできます。
             </p>
 
             <div className="rounded-xl border border-border bg-card overflow-x-auto">

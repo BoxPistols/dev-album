@@ -258,12 +258,12 @@ claude /terminal-setup
             previewType="terminal"
             title="IDE 連携のセットアップコマンドを書こう"
             description="VS Code 拡張機能のインストールとターミナル統合のセットアップコマンドを書いてください。"
-            initialCode={`# IDE 連携セットアップ\n\n# 1. VS Code に Claude Code 拡張機能をインストール:\ncode ___ anthropic.claude-code  # ← ここを埋める\n\n# 2. ターミナル統合のセットアップ（Shift+Enter有効化）:\nclaude ___  # ← ここを埋める\n\n# 3. VS Code でパネルを開くショートカット（macOS）:\n# Cmd+Esc\n\n# 4. VS Code コマンドパレットから Claude を検索:\n# Cmd+Shift+P → "Claude"`}
-            answer={`# IDE 連携セットアップ\n\n# 1. VS Code に Claude Code 拡張機能をインストール:\ncode --install-extension anthropic.claude-code\n\n# 2. ターミナル統合のセットアップ（Shift+Enter有効化）:\nclaude /terminal-setup\n\n# 3. VS Code でパネルを開くショートカット（macOS）:\n# Cmd+Esc\n\n# 4. VS Code コマンドパレットから Claude を検索:\n# Cmd+Shift+P → "Claude"`}
+            initialCode={`# IDE 連携セットアップ\n\n# 1. VS Code に Claude Code 拡張機能をインストール:\ncode ___ anthropic.claude-code  # ← ここを埋める\n\n# 2. ターミナル統合のセットアップ（Shift+Enter有効化）:\nclaude ___  # ← ここを埋める\n\n# 3. VS Code でフォーカスを切り替えるショートカット（macOS）:\n# Cmd+Esc（Focus Input）\n\n# 4. VS Code コマンドパレットから Claude を検索:\n# Cmd+Shift+P → "Claude"`}
+            answer={`# IDE 連携セットアップ\n\n# 1. VS Code に Claude Code 拡張機能をインストール:\ncode --install-extension anthropic.claude-code\n\n# 2. ターミナル統合のセットアップ（Shift+Enter有効化）:\nclaude /terminal-setup\n\n# 3. VS Code でフォーカスを切り替えるショートカット（macOS）:\n# Cmd+Esc（Focus Input）\n\n# 4. VS Code コマンドパレットから Claude を検索:\n# Cmd+Shift+P → "Claude"`}
             hints={[
               'code --install-extension で VS Code 拡張機能をCLIからインストールできます',
               '/terminal-setup で Shift+Enter による改行入力を有効化します',
-              'macOS では Cmd+Esc でパネルを開閉します',
+              'macOS では Cmd+Esc（Focus Input）でエディタと Claude の間のフォーカスを切り替えます',
             ]}
             keywords={['--install-extension', '/terminal-setup']}
           />

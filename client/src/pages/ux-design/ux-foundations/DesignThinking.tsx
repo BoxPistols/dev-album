@@ -123,7 +123,7 @@ export default function DesignThinking() {
           解決策を導くフレームワークを理解する。
         </p>
 
-        <WhyNowBox tags={['デザイン思考', 'Stanford d.school', 'HMW', 'ブレインストーミング']}>
+        <WhyNowBox tags={['デザイン思考', 'HMW', 'ブレインストーミング']}>
           <p>
             デザイン思考は、ユーザーへの共感を起点に課題を定義し、
             アイデアを出して試作と検証を繰り返す進め方をまとめたものである。
@@ -139,7 +139,7 @@ export default function DesignThinking() {
               デザイン思考の5ステップ
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Stanford d.school が提唱する5つのフェーズを順に見ていく。
+              ここでは Stanford d.school が公開する Process Guide の5フェーズを順に見ていく。
               各ステップは直線的に進むのではなく、必要に応じて前のステップに戻る
               反復的なプロセスである点が重要になる。
             </p>

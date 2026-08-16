@@ -27,7 +27,7 @@ const storageClasses = [
     title: "S3 Glacier 系",
     use: "アーカイブ・長期保管",
     description:
-      "3 クラスあり、取り出し時間が違う。Instant Retrieval はミリ秒、Flexible Retrieval は数分〜12時間、Deep Archive は 9〜48時間。AWS で最も保管料金が安いのは Deep Archive。いずれも最低保管期間と取り出し料金がある。",
+      "3 クラスあり、取り出し時間が違う。Instant Retrieval はミリ秒、Flexible Retrieval は数分〜12時間、Deep Archive は Standard で 12 時間以内・Bulk で 48 時間以内（AWS ドキュメント記載の代表値）。AWS で最も保管料金が安いのは Deep Archive。いずれも最低保管期間と取り出し料金がある。",
   },
 ];
 

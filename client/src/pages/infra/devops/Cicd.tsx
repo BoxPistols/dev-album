@@ -170,9 +170,9 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Node のセットアップ
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: 依存をインストール
@@ -197,8 +197,10 @@ jobs:
             </p>
             <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
               <code>uses</code> に書くアクションのメジャーバージョンは更新されます。
-              ここでの <code>actions/checkout@v7</code> は 2026 年 8
+              ここでの <code>actions/checkout@v7</code> と{" "}
+              <code>actions/setup-node@v7</code> は 2026 年 8
               月時点で公式 README が使用例に採用している版です。
+              Node は 20 が 2026-04-30 に EOL のため、サポート中の LTS（22）を指定しています。
               採用時は各アクションの README で現行の版を確認してください。
             </p>
           </section>
@@ -243,10 +245,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: \${{ matrix.node-version }}
           cache: npm
@@ -316,9 +318,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
       // ここに依存インストールとテストの step を書く
       - name: Install
         run: ___
@@ -333,9 +335,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
       - name: Install
         run: npm ci
       - name: Test

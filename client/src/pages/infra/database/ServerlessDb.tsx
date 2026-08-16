@@ -134,7 +134,7 @@ export default function ServerlessDb() {
 
             <InfoBox
               type="warning"
-              title="仕様の上限より、1 接続あたりのコストが効く"
+              title="接続数はアプリの規模ではなく同時起動した関数の数に比例する"
             >
               仕様では、PostgreSQL の <code>max_connections</code>{" "}
               の既定値は 100 で、公式ドキュメントに上限値の記載はありません。

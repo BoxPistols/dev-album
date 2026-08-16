@@ -354,22 +354,14 @@ print(response.content)`}
                 入力トークンと出力トークンそれぞれに料金が発生し、一般に出力トークンの方が高価です。
               </p>
               <div className="rounded-lg border border-border bg-muted p-5">
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-3">
-                    <span className="text-muted-foreground w-28 flex-shrink-0">英語 100 単語</span>
-                    <span className="text-foreground font-mono">≈ 130 トークン</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-muted-foreground w-28 flex-shrink-0">日本語 100 文字</span>
-                    <span className="text-foreground font-mono">≈ 100〜200 トークン</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-muted-foreground w-28 flex-shrink-0">コード 100 行</span>
-                    <span className="text-foreground font-mono">≈ 500〜1000 トークン</span>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground mt-3">
-                  ※ 実際のトークン数はモデルのトークナイザによって異なります。日本語は英語より多くのトークンを消費する傾向があります。
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  言語ごとの換算比を目安として覚えるより、
+                  <strong className="text-foreground">実際に数える</strong>
+                  ほうが確実です。提供元がトークン数を数える API
+                  を用意しているので、送信前に入力トークン数を見積もれます。
+                  数えるときは system プロンプトやツール定義も含めた実際のリクエストで測ってください。
+                  プロンプトキャッシュなどの影響で見積もりと請求対象は一致しないことがあるため、
+                  実際の使用量はレスポンスの <code>usage</code> と料金表で確認します。
                 </p>
               </div>
             </div>

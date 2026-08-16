@@ -607,12 +607,7 @@ pnpm add @next/bundle-analyzer
 # https://bundlephobia.com/ にパッケージ名を入力
 
 # import のコストを VS Code で確認
-# 拡張機能: Import Cost（インストールするだけ）
-
-# バンドルサイズの目標値（目安）
-# - 初期ロード: < 200KB（gzip後）
-# - ルートごとの JS: < 50KB（gzip後）
-# - 画像を含む合計: < 1MB`}
+# 拡張機能: Import Cost（インストールするだけ）`}
             />
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">React.memo / lazy / Suspense の適切な使用</h3>

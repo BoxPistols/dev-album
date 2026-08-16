@@ -295,11 +295,11 @@ Content-Type: application/json
               401 と 403 の違い
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              最も取り違えられるのがこの 2 つです。違いは
+              最も取り違えられるのがこの 2 つです。まずは
               <strong>
-                「あなたが誰か分からない」のか「あなたが誰かは分かるが許可しない」のか
+                「認証が足りない（401）」のか「リクエスト自体を拒否する（403）」のか
               </strong>
-              という一点に集約されます。
+              で見分けます。403 は権限不足に限らず、資格情報とは無関係な理由による拒否も含みます（RFC 9110 15.5.4）。
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -319,12 +319,14 @@ Content-Type: application/json
                   403 Forbidden
                 </p>
                 <p className="font-bold text-foreground mb-2 text-sm">
-                  権限なし
+                  リクエストを拒否
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  本人確認は済んでいるが、この操作は許可されていない。
-                  再認証しても結果は変わらない。権限を持つアカウントが
-                  必要、という状況。
+                  サーバはリクエストを理解したうえで実行を拒否する。
+                  典型は権限不足だが、IP 制限や機能の停止など、
+                  資格情報と無関係な理由での拒否も含む。
+                  RFC 9110 は同じ資格情報での自動的な再試行を避けるよう述べており、
+                  別の資格情報での再試行は認めている。
                 </p>
               </div>
             </div>

@@ -28,9 +28,9 @@ export default function CmuxWorktrees() {
           </p>
 
           <VerifiedBox
-            verifiedAt="2026-04-27"
-            cmuxVersion="cmux 0.63.2"
-            platform="macOS 15.4 (Apple Silicon)"
+            verifiedAt="2026-08-16"
+            cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
+            platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
           />
         </div>
@@ -102,9 +102,12 @@ git worktree remove ../my-app-feature`}
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              cmux のサイドバーは各ワークスペースのカレントディレクトリと git
-              ブランチを表示する。 「ワークスペース ＝
+              cmux はワークスペースごとにカレントディレクトリを持つ。「ワークスペース ＝
               worktree」で揃えると、視覚的にも論理的にも分離が明確になる。
+              <code className="text-primary mx-1">cmux new-workspace</code>
+              は <code className="text-primary">--cwd</code> と{" "}
+              <code className="text-primary">--name</code> を取るので、worktree
+              を作った直後にそのままワークスペースを開ける。
             </p>
 
             <CodeBlock
@@ -116,10 +119,12 @@ cmux  # WS 1: main ブランチ
 # 2. 機能 A 用 worktree を追加
 git worktree add -b feature/a ../my-app-a
 
-# 3. cmux で新規ワークスペース
-# Cmd+Shift+N
+# 3. cmux で新規ワークスペース（Cmd+N。Cmd+Shift+N は新規ウインドウ）
 cd ~/projects/my-app-a
 claude  # WS 2: feature/a で作業
+
+# CLI から作業ツリーを指定して開くこともできる
+cmux new-workspace --name feature/a --cwd ~/projects/my-app-a
 
 # 4. 機能 B 用 worktree も同様
 git worktree add -b feature/b ../my-app-b
@@ -127,8 +132,10 @@ git worktree add -b feature/b ../my-app-b
             />
 
             <p className="text-foreground mt-6 leading-relaxed">
-              この構成だと、サイドバーには「main」「feature/a」「feature/b」の 3
-              つのワークスペースが並び、
+              ワークスペース名を{" "}
+              <code className="text-primary">cmux rename-workspace</code>{" "}
+              や作成時の <code className="text-primary">--name</code>{" "}
+              でブランチ名に揃えておくと、サイドバーに「main」「feature/a」「feature/b」が並び、
               それぞれが別の作業ツリーで動く。エージェント同士が干渉しない。
             </p>
           </section>
@@ -251,7 +258,11 @@ git worktree remove ../my-app-a
 git worktree remove --force ../my-app-a
 
 # 一覧から消えていない孤立 worktree を整理
-git worktree prune`}
+git worktree prune
+
+# cmux 側のワークスペースも閉じる
+cmux list-workspaces
+cmux close-workspace --workspace workspace:2`}
             />
 
             <p className="text-foreground mt-6 leading-relaxed">

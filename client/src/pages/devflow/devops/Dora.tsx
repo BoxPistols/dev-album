@@ -58,7 +58,8 @@ export default function Dora() {
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             DORA（DevOps Research and Assessment）は、ソフトウェア開発組織の
             パフォーマンスを継続調査してきたチームです。その成果が Four Keys
-            と呼ばれた 4 指標で、2024 年に 1 つ加わって現在は 5 指標になっています。
+            と呼ばれた 4 指標で、2024 年版で 1 つ加わり 5 指標になりました
+            （指標の構成は年次の調査ごとに見直されます）。
             ここでは Four Keys
             の中身とベンチマーク、スループットと安定性が両立すること、 補完的な
             SPACE フレームワーク、そして指標を目標化する危険までを
@@ -85,8 +86,8 @@ export default function Dora() {
               Four Keys — DORA の 4 指標
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Four Keys は「スループット（速さ）」を測る 2 指標と、
-              「安定性」を測る 2 指標で構成されます。
+              拡張前の Four Keys は「スループット（速さ）」を測る 2 指標と、
+              「安定性」を測る 2 指標で構成されます（現行の分類は後述）。
               デプロイ頻度と変更リードタイムが速さ、変更失敗率と
               平均復旧時間（MTTR）が安定性です。 この 4
               つをセットで見ることで、片方だけを追って
@@ -169,14 +170,15 @@ export default function Dora() {
             </p>
 
             <MermaidDiagram
-              title="図: Four Keys の 2 軸（スループットと安定性）"
+              title="図: 現行 DORA の 2 軸（スループットと不安定性）"
               chart={`flowchart TD
-    K["Four Keys"] --> T["スループット(速さ)"]
-    K --> S["安定性"]
+    K["DORA の 5 指標"] --> T["スループット"]
+    K --> S["不安定性"]
     T --> T1["デプロイ頻度"]
     T --> T2["変更リードタイム"]
+    T --> T3["変更障害復旧時間"]
     S --> S1["変更失敗率"]
-    S --> S2["変更障害復旧時間"]`}
+    S --> S2["deployment rework rate"]`}
             />
           </section>
 
@@ -263,17 +265,17 @@ export default function Dora() {
           {/* Quiz 1 */}
           <section>
             <Quiz
-              question="Four Keys のうち「安定性」を測る指標の組み合わせはどれ？"
+              question="現行の DORA で「不安定性（Instability）」を測る指標の組み合わせはどれ？"
               options={[
                 { label: "デプロイ頻度 と 変更リードタイム" },
                 {
-                  label: "変更失敗率 と 平均復旧時間（MTTR）",
+                  label: "変更失敗率 と deployment rework rate",
                   correct: true,
                 },
                 { label: "デプロイ頻度 と 変更失敗率" },
-                { label: "変更リードタイム と 平均復旧時間（MTTR）" },
+                { label: "変更リードタイム と 変更障害復旧時間" },
               ]}
-              explanation="Four Keys は速さ（デプロイ頻度・変更リードタイム）と安定性（変更失敗率・平均復旧時間）の 2 軸 × 2 指標で構成されます。安定性を測るのは、失敗の割合を表す変更失敗率と、復旧の速さを表す MTTR です。"
+              explanation="現行の DORA は 5 指標を 2 グループに分けます。スループットはデプロイ頻度・変更リードタイム・変更障害復旧時間、不安定性は変更失敗率・deployment rework rate です。変更障害復旧時間（旧 MTTR）は、拡張前は安定性側に置かれていましたが、現行ではスループット側に分類されます（出典: dora.dev の指標ガイド、2026 年 8 月時点）。"
             />
           </section>
 

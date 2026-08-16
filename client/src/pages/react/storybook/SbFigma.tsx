@@ -612,20 +612,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0  # 全履歴が必要（差分比較のため）
 
       # cache: 'pnpm' は pnpm コマンドを呼ぶので、先に pnpm を入れる
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: 9
+          version: 10
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -638,6 +638,16 @@ jobs:
           exitZeroOnChanges: true  # 変更があっても CI を失敗させない
           exitOnceUploaded: true   # アップロード完了後に終了（高速化）`}
             />
+
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              アクションのメジャーバージョンと Node のバージョンは 2026 年 8
+              月時点の値です。Node 20 は 2026-04-30 に EOL のため、サポート中の LTS（22）を指定しています。
+              採用時は各アクションの README と{' '}
+              <a href="https://nodejs.org/en/about/previous-releases" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                Node.js のリリース一覧
+              </a>
+              で現行の版を確認してください。
+            </p>
 
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">UI レビューワークフロー</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
@@ -934,16 +944,16 @@ jobs:
       url: \${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # cache: 'pnpm' は pnpm コマンドを呼ぶので、先に pnpm を入れる
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          version: 9
+          version: 10
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile

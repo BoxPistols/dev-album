@@ -1133,6 +1133,7 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
                   <li><kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">VO + Right Arrow</kbd> で次の要素へ</li>
                   <li><kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">VO + U</kbd> でローター（ランドマーク、見出し、リンク一覧）を表示</li>
                   <li>VO キーは <kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">Ctrl + Option</kbd></li>
+                  <li>ブラウザは Safari との組み合わせが一般的</li>
                 </ul>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
@@ -1142,7 +1143,7 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
                   <li><kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">Insert + F7</kbd> で要素リストを表示</li>
                   <li><kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">H</kbd> で次の見出しへジャンプ</li>
                   <li><kbd className="bg-muted px-1.5 py-0.5 rounded border text-xs">D</kbd> で次のランドマークへジャンプ</li>
-                  <li>Firefox / Chrome との組み合わせが推奨される</li>
+                  <li>ブラウザは Firefox / Chrome との組み合わせが一般的</li>
                 </ul>
               </div>
             </div>

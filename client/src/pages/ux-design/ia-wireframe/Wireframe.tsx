@@ -384,6 +384,12 @@ export default function Wireframe() {
               ワイヤーフレームの段階からレスポンシブ対応を考慮する。
               モバイルファーストとは、最小画面から設計を始め、画面が広がるにつれて要素を追加するアプローチです。
             </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              区切りの値は CSS の仕様が定めているものではなく、フレームワークごとに違います。
+              下の 768px / 1024px は Tailwind CSS の <code>md</code>（48rem = 768px）と{" "}
+              <code>lg</code>（64rem = 1024px）に合わせたものです。
+              Bootstrap は 576 / 768 / 992 / 1200px を採るなど、採用する体系によって変わります。
+            </p>
 
             {/* Device breakpoints visual */}
             <div className="flex flex-col sm:flex-row gap-4 mb-6">

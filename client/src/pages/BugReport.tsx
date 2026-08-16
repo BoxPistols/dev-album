@@ -121,7 +121,7 @@ export default function BugReport() {
             </div>
             <div>
               <h3 className="font-semibold text-foreground mb-1">3D プレビュー（Three.js）が真っ暗</h3>
-              <p className="text-muted-foreground">WebGL に対応したブラウザ（Chrome / Firefox 推奨）をご利用ください。</p>
+              <p className="text-muted-foreground">WebGL に対応したブラウザをご利用ください。Chrome / Firefox / Safari / Edge はいずれも対応しています。</p>
             </div>
           </div>
         </div>

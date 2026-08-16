@@ -347,7 +347,7 @@ export const handler = async (event) => {
                   label: "Edge Functions は静的ファイルの配信専用",
                 },
               ]}
-              explanation="Functions は Lambda ベースのリージョン実行で、データベース接続や重めの処理に向きます。Edge Functions は Deno ベースでエッジ実行され、リクエスト書き換えや認証チェックなど低レイテンシで素早く判断したい処理に向きます。役割が異なるため用途で使い分けます。"
+              explanation="Functions はリージョンを選んで動くサーバレス実行環境で、データベース接続や重めの処理に向きます。Edge Functions は Deno ベースでエッジ実行され、リクエスト書き換えや認証チェックなど低レイテンシで素早く判断したい処理に向きます。役割が異なるため用途で使い分けます。"
             />
           </section>
 

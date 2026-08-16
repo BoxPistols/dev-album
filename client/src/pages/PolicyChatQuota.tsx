@@ -39,7 +39,9 @@ export default function PolicyChatQuota() {
                   <td className="px-4 py-3 text-foreground font-medium">
                     匿名
                   </td>
-                  <td className="px-4 py-3 text-foreground">15 回</td>
+                  <td className="px-4 py-3 text-foreground">
+                    デプロイ時の設定値（下記の方法で確認）
+                  </td>
                   <td className="px-4 py-3 text-muted-foreground">
                     IP + ブラウザ
                   </td>
@@ -57,7 +59,7 @@ export default function PolicyChatQuota() {
             </table>
           </div>
           <p className="text-sm text-muted-foreground mt-3">
-            匿名の上限はデプロイ時の設定値で、現在は 15 回です。実際に適用されている値は
+            匿名の上限はデプロイ時の設定値で決まるため、このページには具体的な回数を書きません。実際に適用されている値は
             ChatWidget のヘッダの「今日あと N 回」と、レスポンスの{" "}
             <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
               X-RateLimit-Limit

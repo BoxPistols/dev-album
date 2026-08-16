@@ -311,8 +311,8 @@ $ claude mcp add --scope user serena -- \\
 $ MCP_TIMEOUT=15000 MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               </div>
             </div>
-            <InfoBox type="warning" title="サーバ数の目安">
-              同時に接続するMCPサーバは10個程度までが実用的です。それ以上はTool Searchがあっても起動時間やメモリ使用量に影響します。不要なサーバは <code>claude mcp remove</code> で整理しましょう。
+            <InfoBox type="warning" title="使わないサーバは外す">
+              登録したMCPサーバは Claude Code の起動ごとに立ち上がります。使っていないサーバは <code>claude mcp remove</code> で整理しましょう。
             </InfoBox>
           </section>
           <CodingChallenge

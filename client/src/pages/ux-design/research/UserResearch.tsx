@@ -31,7 +31,7 @@ const researchMethods = [
     category: '定量',
     desc: '大量のユーザーからデータを収集し、傾向や分布を把握する手法。',
     detail:
-      '選択式の質問で量的データを、自由記述で質的データを取得できる。回答率を上げるには質問数を10〜15問以内に抑え、所要時間を明示する。',
+      '選択式の質問で量的データを、自由記述で質的データを取得できる。設問数を絞り、所要時間を明示すると回答の負担が下がる。',
     tools: 'Google Forms / Typeform / SurveyMonkey',
   },
   {
@@ -445,7 +445,7 @@ export default function UserResearch() {
                 {
                   title: 'Google Design Library',
                   url: 'https://design.google/library',
-                  description: 'Google のデザインチームのリソースとガイド',
+                  description: 'Google のデザインサイト（design.google）が公開する記事ライブラリ',
                 },
                 {
                   title: 'Steve Portigal: Interviewing Users',

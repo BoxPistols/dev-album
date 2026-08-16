@@ -208,6 +208,13 @@ export default function Notifications() {
               購読の設定はその後です。
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
+              公式 README は、ワークスペースにインストールした時点で
+              <strong>パブリックチャンネルではアプリが有効</strong>
+              になり、<strong>プライベートチャンネルでは明示的に</strong>{" "}
+              <code>/invite @github</code>{" "}
+              が必要だと記しています。どちらの場合も先に招待しておけば設定の順序で迷いません。
+            </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
               以降の設定は、すべて
               <strong>そのチャンネルの中で</strong>
               行います。購読はチャンネル単位

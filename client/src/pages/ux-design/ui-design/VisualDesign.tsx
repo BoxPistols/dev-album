@@ -450,8 +450,8 @@ export default function VisualDesign() {
                   <tbody className="divide-y divide-border">
                     <tr>
                       <td className="px-4 py-3 font-medium text-foreground">行間（line-height）</td>
-                      <td className="px-4 py-3 text-foreground/80">1.5 ~ 1.8</td>
-                      <td className="px-4 py-3 text-foreground/80">本文の可読性を確保する。日本語は 1.7 ~ 1.8 が読みやすい</td>
+                      <td className="px-4 py-3 text-foreground/80">1.5 以上</td>
+                      <td className="px-4 py-3 text-foreground/80">WCAG 2.2 の達成基準 1.4.12 は、行間を文字サイズの 1.5 倍にしても内容が失われないことを求める</td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 font-medium text-foreground">見出し行間</td>
@@ -465,8 +465,8 @@ export default function VisualDesign() {
                     </tr>
                     <tr>
                       <td className="px-4 py-3 font-medium text-foreground">1 行の文字数</td>
-                      <td className="px-4 py-3 text-foreground/80">40 ~ 70 文字</td>
-                      <td className="px-4 py-3 text-foreground/80">長すぎると視線の移動で疲れる。max-width で制御する</td>
+                      <td className="px-4 py-3 text-foreground/80">80 文字以内（CJK は 40 文字）</td>
+                      <td className="px-4 py-3 text-foreground/80">WCAG 2.2 の達成基準 1.4.8 が定める上限。max-width で制御する</td>
                     </tr>
                   </tbody>
                 </table>

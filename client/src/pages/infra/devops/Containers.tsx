@@ -111,9 +111,11 @@ export default function Containers() {
                     <td className="p-3 text-foreground font-medium">
                       起動速度
                     </td>
-                    <td className="p-3 text-muted-foreground">数十秒〜分</td>
                     <td className="p-3 text-muted-foreground">
-                      秒以下のことが多い
+                      ゲスト OS の起動を伴う
+                    </td>
+                    <td className="p-3 text-muted-foreground">
+                      ゲスト OS の起動が不要
                     </td>
                   </tr>
                   <tr>

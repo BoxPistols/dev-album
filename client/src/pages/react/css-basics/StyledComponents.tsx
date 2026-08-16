@@ -595,8 +595,8 @@ export default class MyDocument extends Document {
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">Next.js App Router での注意点</h3>
             <CodeBlock
               language="tsx"
-              title="app/layout.tsx での設定（概要）"
-              code={`// Next.js App Router では styled-components は Client Component でのみ動作する
+              title="app/layout.tsx での設定（概要・v6.2 以前向け）"
+              code={`// v6.2 以前の App Router では styled-components は Client Component でのみ動作する
 // lib/registry.tsx
 'use client';
 
@@ -627,12 +627,16 @@ export default function StyledComponentsRegistry({
 }`}
             />
 
-            <InfoBox type="warning" title="App Router での制約">
+            <InfoBox type="info" title="v6.3.0 以降はレジストリ不要">
               <p>
-                Next.js App Router では styled-components は Client Component（<code className="bg-muted px-1 rounded">'use client'</code>）
-                でのみ使用できます。Server Components 内では直接使えないため、
-                スタイリングの適用範囲に注意が必要です。
-                この制約が、Next.js プロジェクトで Tailwind CSS や CSS Modules が好まれる理由の一つです。
+                上のレジストリが必要なのは v6.2 以前です。v6.3.0 以降は RSC
+                をゼロ設定でサポートし、<code className="bg-muted px-1 rounded">'use client'</code>
+                もレジストリも不要になりました。ただし RSC では{' '}
+                <code className="bg-muted px-1 rounded">ThemeProvider</code> が何もしないため、
+                テーマは CSS 変数で用意します。既存の{' '}
+                <code className="bg-muted px-1 rounded">ServerStyleSheet</code>{' '}
+                を使う構成もそのまま動きます。（出典: styled-components v6.3.0
+                リリースノート、2026 年 8 月時点）
               </p>
             </InfoBox>
           </section>
@@ -1259,7 +1263,7 @@ function App() {
                 },
                 {
                   question: 'styled-components は React Server Components で使えますか？',
-                  answer: 'いいえ、styled-components はランタイムで JavaScript を実行してスタイルを生成するため、Server Components 内では直接使えません。"use client" を付けた Client Component 内でのみ使用できます。Next.js App Router を使う場合は、CSS Modules や Tailwind CSS の方がシンプルに統合できます。',
+                  answer: 'v6.3.0 以降は使えます。RSC 環境を自動検出し、"use client" もレジストリもなしで動きます（inline の style タグを React 19 が巻き上げて重複排除する仕組み）。ただし ThemeProvider と StyleSheetManager は RSC では何もしないため、テーマは CSS 変数でビルド時に用意します。v6.2 以前は Client Component 内でのみ使用できました。（出典: styled-components v6.3.0 リリースノート、2026 年 8 月時点）',
                 },
                 {
                   question: 'styled-components のスタイルはどこに出力されますか？',

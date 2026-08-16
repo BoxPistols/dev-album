@@ -311,8 +311,8 @@ Closes #
             </div>
 
             <p className="text-muted-foreground mt-6 leading-relaxed">
-              迷ったら squash から始めるチームが多いです。PR
-              単位で履歴が1行になり、 リバートやレビューの単位がそろうためです。
+              squash は PR
+              単位で履歴が1行になり、 リバートやレビューの単位がそろいます。
               一方、コミットを意味のある単位で丁寧に積む文化なら rebase
               が活きます。
             </p>

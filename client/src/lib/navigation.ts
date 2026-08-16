@@ -269,7 +269,7 @@ export const pages: PageInfo[] = [
   { step: 25, path: '/react/tailwind/intro', title: 'Tailwind CSS 入門', sectionId: 'tailwind', manualId: 'react' },
   { step: 26, path: '/react/tailwind/responsive-dark', title: 'レスポンシブとダークモード', sectionId: 'tailwind', manualId: 'react' },
   { step: 27, path: '/react/tailwind/shadcn', title: 'shadcn/ui', sectionId: 'tailwind', manualId: 'react' },
-  { step: 28, path: '/react/mui/intro', title: 'MUI 7 入門', sectionId: 'mui', manualId: 'react' },
+  { step: 28, path: '/react/mui/intro', title: 'MUI 入門', sectionId: 'mui', manualId: 'react' },
   { step: 29, path: '/react/mui/components', title: 'MUI コンポーネント活用', sectionId: 'mui', manualId: 'react' },
   { step: 30, path: '/react/mui/customization', title: 'MUI カスタマイズ', sectionId: 'mui', manualId: 'react' },
   { step: 31, path: '/react/practice-app/api', title: 'API 連携', sectionId: 'practice-app', manualId: 'react' },

@@ -105,10 +105,6 @@ export default function OrbitControlsPage() {
           自由に探索できるようにするカメラコントロールです。
           ドラッグで回転、スクロールでズーム、右クリックドラッグで平行移動ができます。
         </p>
-        <p>
-          3D ビューワーやポートフォリオなど、ほとんどの 3D Web アプリで使われる
-          最も基本的なカメラコントロールです。
-        </p>
       </WhyNowBox>
 
       <h2 className="text-2xl font-bold mb-4">OrbitControls の機能</h2>

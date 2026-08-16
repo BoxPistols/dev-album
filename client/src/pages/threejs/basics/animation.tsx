@@ -50,7 +50,6 @@ export default function AnimationPage() {
 
       <p className="text-muted-foreground mb-6 leading-relaxed">
         アニメーションは「1秒間に何十回も画面を書き換える」ことで実現します。
-        映画が 1 秒間に 24 コマの静止画を高速で切り替えるのと同じ原理です。
         ブラウザでは <code>requestAnimationFrame</code>{" "}
         を使って、毎フレーム（通常 60fps）描画を更新します。
       </p>

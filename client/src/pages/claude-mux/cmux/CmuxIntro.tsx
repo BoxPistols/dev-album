@@ -28,9 +28,9 @@ export default function CmuxIntro() {
           </p>
 
           <VerifiedBox
-            verifiedAt="2026-04-27"
-            cmuxVersion="cmux 0.63.2"
-            platform="macOS 15.4 (Apple Silicon)"
+            verifiedAt="2026-08-16"
+            cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
+            platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
           />
         </div>
@@ -52,8 +52,8 @@ export default function CmuxIntro() {
             <p className="text-foreground mb-8 leading-relaxed">
               設計思想は「1 エージェント = 1
               ワークスペース」。各ワークスペースが独立したターミナル環境を持ち、Claude
-              Code・Codex・Aider など主要な AI
-              コーディングエージェントに対応する。エージェントの状態（実行中・入力待ち・完了）を通知リングで可視化し、複数のエージェントを並行して運用できる。
+              Code・Codex・OpenCode・Gemini CLI など主要な AI
+              コーディングエージェントに hook 連携を持つ。エージェントの状態（実行中・入力待ち・完了）を通知リングで可視化し、複数のエージェントを並行して運用できる。
             </p>
 
             <CodeBlock
@@ -61,8 +61,10 @@ export default function CmuxIntro() {
               code={`# cmux の基本情報
 # - macOS ネイティブアプリ（Swift + AppKit）
 # - Ghostty (libghostty) ベースのターミナルレンダリング
-# - 対応エージェント: Claude Code, Codex, Aider 等
-# - ライセンス: オープンソース（無料）`}
+# - hook 連携のあるエージェント: Claude Code（ラッパー経由）, codex, grok,
+#   opencode, pi, omp, campfire, amp, cursor, gemini, kiro, rovodev,
+#   copilot, codebuddy, factory, qoder 等
+# - ライセンス: GPL-3.0-or-later（リポジトリの LICENSE より）`}
             />
           </section>
 
@@ -146,8 +148,9 @@ export default function CmuxIntro() {
                       対応（SSH 永続化）
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      対応（cmux ssh でリモート用ワークスペース、リモート tmux
-                      へのアタッチは beta）
+                      対応（cmux ssh でリモート用ワークスペース、cmux ssh-tmux
+                      でリモートの tmux へ接続、ssh-session-list /
+                      ssh-session-attach でセッションを管理）
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -203,9 +206,11 @@ export default function CmuxIntro() {
                   垂直タブ
                 </h3>
                 <p className="text-muted-foreground">
-                  サイドバーにワークスペースの一覧が垂直表示される。各タブには
-                  git
-                  ブランチ名、カレントディレクトリ、使用中のポート番号が表示されるため、ワークスペースの識別が容易になる。
+                  サイドバーにワークスペースの一覧が垂直表示される。各ワークスペースには名前・説明・ステータスを設定でき、
+                  <code className="text-primary">cmux rename-workspace</code> /{" "}
+                  <code className="text-primary">cmux workspace status</code> /{" "}
+                  <code className="text-primary">cmux set-status</code>{" "}
+                  で CLI からも更新できるため、用途ごとの識別がしやすい。
                 </p>
               </div>
 
@@ -219,10 +224,13 @@ export default function CmuxIntro() {
                 <CodeBlock
                   language="bash"
                   code={`# 右方向に分割
-# Cmd+Shift+D
+# Cmd+D
 
 # 下方向に分割
-# Cmd+Shift+J`}
+# Cmd+Shift+D
+
+# ペイン間のフォーカス移動
+# Opt+Cmd+← / → / ↑ / ↓`}
                 />
               </div>
 
@@ -236,8 +244,16 @@ export default function CmuxIntro() {
                 </p>
                 <CodeBlock
                   language="bash"
-                  code={`# ビルトインブラウザの表示/非表示を切り替え
-# Opt+Cmd+D`}
+                  code={`# ブラウザを開く
+# Cmd+Shift+L
+
+# 右にブラウザ分割
+# Opt+Cmd+D
+
+# ブラウザ機能そのものの有効・無効と状態確認
+cmux browser status
+cmux browser disable
+cmux browser enable`}
                 />
               </div>
             </div>

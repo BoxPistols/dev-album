@@ -170,7 +170,8 @@ scene.add(cube);`}
         <p>
           ジオメトリの分割数を増やすと形が滑らかになりますが、
           頂点数が増えるためパフォーマンスに影響します。
-          球体なら 32 分割、トーラスなら 16〜32 分割が一般的な目安です。
+          three.js の既定値は SphereGeometry が横 32 / 縦 16、TorusGeometry が
+          radialSegments 12 / tubularSegments 48 です。このページのデモは既定より細かい値を使っています。
         </p>
       </InfoBox>
 

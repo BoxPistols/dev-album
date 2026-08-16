@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-audit-self-review",
+    date: "2026-08-16",
+    title: "照合作業そのものを見直し、自分が入れた誤りを直した",
+    description:
+      "誤りを直す過程で持ち込んでしまった記述を洗い出して訂正した。Kanban Guide に無い定義を同ガイドに帰属させていた点、Glacier の取り出し時間で通常経路の代表値が消えていた点、SUS のグラフだけ出典に無い区分になっていた点、裏づけの取れない記述を落とす作業の中で /rewind に未確認の説明を足していた点など。あわせて low リスク層の未確定な主張の処理漏れを埋め、本文だけ直して Quiz や図が古いまま残っていた箇所を揃えた。",
+    category: "fix",
+    link: "/devflow/agile/kanban",
+  },
+  {
+    id: "2026-08-16-cmux-reverified",
+    date: "2026-08-16",
+    title: "cmux のページを実機 0.64.20 で照合し直した",
+    description:
+      "Claude Code の hook は cmux の Claude ラッパーが自動注入する方式に変わっており、cmux claude-hook コマンドは無くなっていた。~/.claude/settings.json を手で編集する手順を載せていたので削除し、他のエージェント向けの cmux hooks setup / <agent> install に置き換えた。分割やワークスペース選択のショートカット、ビルトインブラウザの操作、ライセンス表記（GPL-3.0-or-later）も実機の出力とショートカット定義に合わせて直している。アプリ未起動で確認できない UI の挙動は断定を外した。",
+    category: "fix",
+    link: "/claude-mux/cmux/cmux-setup",
+  },
+  {
+    id: "2026-08-16-responsive-breakpoints-source",
+    date: "2026-08-16",
+    title: "ワイヤーフレームのブレークポイントに、どの体系の値かを明記した",
+    description:
+      "区切りの値は CSS の仕様が定めているものではなく、フレームワークごとに異なる。掲載していた 768px / 1024px は Tailwind CSS の md（48rem）と lg（64rem）に一致するため、公式ドキュメントを出典として明示し、Bootstrap は別の値を採ることも添えた。",
+    category: "update",
+    link: "/ux-design/ia-wireframe/wireframe",
+  },
+  {
     id: "2026-08-16-drop-unsourced-claims",
     date: "2026-08-16",
     title: "裏づけの取れなかった主張を本文から落とした",
