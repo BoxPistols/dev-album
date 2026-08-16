@@ -467,9 +467,12 @@ export default function TableDesign() {
               code={`/* 横スクロールのラッパー */
 .table-scroll-wrapper {
   overflow-x: auto;        /* 横スクロールを有効化 */
-  -webkit-overflow-scrolling: touch;  /* iOS のスムーズスクロール */
   max-width: 100%;
 }
+
+/* iOS / iPadOS 13 以降は overflow: scroll が常にアクセラレーテッドスクロールになるため、
+   -webkit-overflow-scrolling: touch は不要（iPad では no-op、
+   iPhone ではスタッキングコンテキストを作る副作用だけが残る） */
 
 /* テーブル本体には最小幅を設定 */
 .table-scroll-wrapper table {
@@ -742,7 +745,9 @@ export default function TableDesign() {
             <InfoBox type="info" title="border-collapse と sticky の互換性">
               <p>
                 <code>border-collapse: collapse</code> と <code>position: sticky</code> を
-                組み合わせると、ブラウザによっては sticky が正しく機能しません。
+                組み合わせても、位置の固定自体は現行ブラウザで機能します。崩れるのはボーダーで、
+                collapse ではボーダーがセル間のグリッド線としてテーブル側に描かれるため、
+                固定したセルに追従せず消えて見えます。
                 固定カラムを使う場合は <code>border-collapse: separate; border-spacing: 0;</code>
                 に設定し、ボーダーは個別のセルに適用してください。
               </p>

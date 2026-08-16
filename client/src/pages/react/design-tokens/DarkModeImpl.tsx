@@ -899,9 +899,10 @@ grep -rn 'text-\\[#' src/`}
 <head>
   <meta charset="UTF-8" />
   <!--
-    このスクリプトは CSS より前に実行される。
-    React の hydration を待たずにクラスを付与することで
-    FOUC を完全に防止する。
+    スタイルシートの <link> より前に置くことで、CSS の読み込みを
+    待たずに実行される（<link> より後ろに置くと、その読み込み完了まで
+    実行が待たされる）。React の hydration を待たずにクラスを付与でき、
+    本文が描画される前にテーマが確定する。
   -->
   <script>
     (function() {
@@ -975,7 +976,7 @@ grep -rn 'text-\\[#' src/`}
                 },
                 { label: "Service Worker で行う" },
               ]}
-              explanation="React の useEffect はコンポーネントのマウント後（=画面描画後）に実行されるため、一瞬ライトモードが見えてしまう。<head> 内のインラインスクリプトは CSS の解析前に同期的に実行されるため、FOUC を完全に防止できる。"
+              explanation="React の useEffect はコンポーネントのマウント後（=画面描画後）に実行されるため、一瞬ライトモードが見えてしまう。<head> 内のインラインスクリプトはパーサをブロックして同期的に走るので、本文が描画される前にクラスを付与できる。ただし HTML Standard 上、スクリプトより前に <link rel=stylesheet> があると、その読み込みが終わるまで実行が待たされる。スタイルシートの <link> より前に置くことが条件になる。"
             />
           </section>
 

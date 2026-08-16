@@ -438,8 +438,6 @@ export default async function BlogPost({ params }: Props) {
               code={`// app/blog/[slug]/opengraph-image.tsx
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
-
 export const alt = 'ブログ記事のOG画像';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -514,7 +512,12 @@ export default async function Image(props: {
             <p className="text-foreground/80 mb-4 leading-relaxed">
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next/font</code> を使うと、
               Google Fonts やローカルフォントを最適化して読み込めます。
-              外部リクエストなしでフォントが配信され、FOUT（Flash of Unstyled Text）を防止できます。
+              フォントファイルはビルド時に取得してセルフホストされるため、ブラウザから外部への
+              リクエストが発生しません。公式が挙げる効果はレイアウトシフト（CLS）が起きないことで、
+              代替フォントのメトリクスを合わせる <code className="text-sm bg-muted px-1.5 py-0.5 rounded">adjustFontFallback</code>{" "}
+              が既定で有効になっています。<code className="text-sm bg-muted px-1.5 py-0.5 rounded">display</code> の既定値は{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">swap</code> なので、
+              フォント読み込み中は代替フォントで先に描画され、読み込み後に差し替わります。
             </p>
 
             <CodeBlock

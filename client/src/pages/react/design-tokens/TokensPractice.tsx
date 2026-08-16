@@ -219,8 +219,9 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
                 <h3 className="font-bold text-foreground">スペーシング</h3>
               </div>
               <p className="text-sm text-foreground/80 mb-4">
-                Material Design では 4px グリッドシステムを採用しています。 8
-                の倍数を基本とすることで、要素間の余白が視覚的にリズムを持ちます。
+                Material Design（M2）は 8dp
+                の正方ベースライングリッドを基本とし、アイコンやタイポグラフィなど一部の要素が 4dp
+                グリッドに揃います。8 の倍数を基本とすることで、要素間の余白が視覚的にリズムを持ちます。
               </p>
               <CodeBlock
                 language="css"
@@ -660,7 +661,8 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
               Figma Variables との対応
             </h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              Figma の Variable Collections は CSS 変数と 1:1 で対応します。
+              Figma の Variable が CSS 変数 1 個に対応し、Mode がテーマごとの値の切り替えに対応します。
+              Collection は「変数と Mode の集合」なので、対応するのは Collection ではなく個々の Variable です。
               Figma 側でトークンを管理し、コードに自動エクスポートすることで、
               デザインと実装の値の乖離を防ぎます。
             </p>
@@ -668,7 +670,7 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
             <CodeBlock
               language="text"
               title="Figma Variables → CSS 変数の対応"
-              code={`Figma Variable Collection     CSS 変数                  値 (Light)   値 (Dark)
+              code={`Figma Collection / Variable   CSS 変数                  値 (Light)   値 (Dark)
 ────────────────────────────────────────────────────────────────────────────
 Colors / Primary              --color-primary           #2563EB      #60A5FA
 Colors / Surface              --color-surface           #FFFFFF      #1E1E2E
@@ -768,7 +770,9 @@ Dark                          .dark { ... }`}
                   アニメーショントークン（<code>--duration-fast</code>、
                   <code>--ease-out</code>）で統一することで、
                   「今、何が起きているか」を一貫した速度と動きで伝えられます。
-                  150ms 以下であれば「即座に反応した」とユーザーは認知します。
+                  Nielsen の応答時間の 3 つの限界では、「システムが即座に反応している」と感じる境目は 0.1 秒（100ms）、
+                  「思考の流れが途切れない」境目は 1 秒とされています。150ms は 100ms をわずかに超えますが 1 秒には遠く、
+                  操作の流れを保ったまま動きを知覚できる範囲に収まります。
                 </p>
               </div>
 

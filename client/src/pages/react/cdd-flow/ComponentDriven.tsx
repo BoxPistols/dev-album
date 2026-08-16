@@ -707,17 +707,19 @@ interface ButtonProps {
               language="text"
               title="トークン自動変換の全体像"
               code={`┌──────────────┐     ┌────────────────────┐     ┌──────────────┐
-│   Figma      │     │  Token Studio /    │     │  React /     │
+│   Figma      │     │  Tokens Studio /   │     │  React /     │
 │              │────▶│  Style Dictionary  │────▶│  CSS 変数    │
 │  デザイン    │     │                    │     │              │
 │  トークン    │     │  JSON → CSS/TS     │     │  コンポーネ  │
 │  を管理      │     │  自動変換          │     │  ントで参照  │
 └──────────────┘     └────────────────────┘     └──────────────┘
 
-Token Studio for Figma:
+Tokens Studio for Figma:
   Figma プラグイン。Figma 内でトークンを管理し、
   JSON 形式でエクスポートできる。
-  GitHub と連携して自動 PR を作成することも可能。
+  GitHub 等の同期先へ push した後、プラグインの
+  Create a Pull Request を押すとブラウザで
+  PR 作成画面が開く。
 
 Style Dictionary:
   Amazon が開発した OSS。JSON 形式のトークン定義を

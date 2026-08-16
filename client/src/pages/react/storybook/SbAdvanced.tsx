@@ -330,12 +330,18 @@ export const ActiveFocus: Story = {
             </p>
 
             <h3 className="text-lg font-semibold text-foreground mb-3">カスタムテーマの作成</h3>
+            <p className="text-foreground/80 mb-4 leading-relaxed">
+              テーマ生成の <code className="text-sm bg-muted px-1.5 py-0.5 rounded">create</code> は、
+              Storybook 9 でコアパッケージへ統合されました。現行版では
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">storybook/theming/create</code> から import します
+              （<code className="text-sm bg-muted px-1.5 py-0.5 rounded">@storybook/theming</code> は Storybook 8 以前の入口です）。
+            </p>
 
             <CodeBlock
               language="ts"
               title=".storybook/customTheme.ts"
               showLineNumbers
-              code={`import { create } from '@storybook/theming/create';
+              code={`import { create } from 'storybook/theming/create';
 
 export default create({
   base: 'light',  // 'light' or 'dark' をベースに選択
@@ -405,7 +411,7 @@ addons.setConfig({
               language="ts"
               title=".storybook/customTheme.ts - ダークテーマ版"
               showLineNumbers
-              code={`import { create } from '@storybook/theming/create';
+              code={`import { create } from 'storybook/theming/create';
 
 export default create({
   base: 'dark',
@@ -956,10 +962,14 @@ export default config;`}
                 </p>
               </div>
               <div className="rounded-lg border border-border p-5">
-                <h3 className="font-bold text-foreground mb-2">SWC によるトランスパイル高速化</h3>
+                <h3 className="font-bold text-foreground mb-2">コンパイラ非依存の構成</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  Babel に代わって SWC をデフォルトのトランスパイラとして採用。
-                  TypeScript / JSX のコンパイルが高速化されています。
+                  Webpack 5 ビルダーが Babel にも SWC にも依存しない構成になりました。
+                  SWC を使うなら <code>@storybook/addon-webpack5-compiler-swc</code>、
+                  Babel なら <code>@storybook/addon-webpack5-compiler-babel</code> を
+                  <code>storybook add</code> で明示的に足します。
+                  <code>@storybook/nextjs</code> は例外で、Next.js 14 以上かつ <code>.babelrc</code> が無い場合は
+                  自動で SWC を使います。Vite ビルダーは esbuild / Rollup で変換するため、この選択自体が不要です。
                 </p>
               </div>
               <div className="rounded-lg border border-border p-5">

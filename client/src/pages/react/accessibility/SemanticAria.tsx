@@ -149,8 +149,8 @@ export default function SemanticAria() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3"><code className="bg-muted px-1.5 py-0.5 rounded">{'<section>'}</code></td>
-                    <td className="p-3">region（見出し付き）</td>
-                    <td className="p-3">テーマ別のコンテンツグループ。必ず見出しを伴うこと</td>
+                    <td className="p-3">region（アクセシブルな名前がある場合）</td>
+                    <td className="p-3">テーマ別のコンテンツグループ。aria-label / aria-labelledby で名前を与えると region になる</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3"><code className="bg-muted px-1.5 py-0.5 rounded">{'<article>'}</code></td>
@@ -193,7 +193,7 @@ export default function SemanticAria() {
               <ul className="list-disc pl-4 space-y-1">
                 <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">{'<main>'}</code> はページに1つだけ。複数配置するとスクリーンリーダーが混乱する</li>
                 <li>同じ種類のランドマークが複数ある場合（nav が2つ等）は <code className="bg-muted px-1.5 py-0.5 rounded text-sm">aria-label</code> で区別する</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">{'<section>'}</code> は見出し（h2-h6）なしで使うとランドマークとして認識されない</li>
+                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">{'<section>'}</code> が region ランドマークになる条件はアクセシブルな名前を持つこと。<code className="bg-muted px-1.5 py-0.5 rounded text-sm">aria-label</code> / <code className="bg-muted px-1.5 py-0.5 rounded text-sm">aria-labelledby</code> で名前を与える（見出しを内側に置くだけでは名前は付かない）</li>
                 <li>ランドマーク要素を過剰にネストしない。ページの大枠の構造を示すために使う</li>
               </ul>
             </InfoBox>
@@ -850,11 +850,13 @@ function Dialog({ isOpen, onClose, children }) {
   );
 }
 
-/* Tailwind の sr-only クラス:
+/* Tailwind v4 の sr-only が出力する宣言:
    position: absolute; width: 1px; height: 1px;
-   overflow: hidden; clip: rect(0, 0, 0, 0);
+   padding: 0; margin: -1px; overflow: hidden;
+   clip-path: inset(50%); white-space: nowrap; border-width: 0;
 
-   focus:not-sr-only: フォーカス時にこれらを解除して表示する */`}
+   focus:not-sr-only: フォーカス時に clip-path: none 等で解除して表示する
+   （v3 までは clip: rect(0, 0, 0, 0) を使っていた） */`}
             />
           </section>
 

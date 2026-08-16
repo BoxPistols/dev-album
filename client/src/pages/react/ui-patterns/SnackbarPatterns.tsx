@@ -166,7 +166,9 @@ export default function SnackbarPatterns() {
             />
 
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              <code>cubic-bezier(0.4, 0, 0.2, 1)</code> は Material Design が推奨する標準的なイージング関数です。
+              <code>cubic-bezier(0.4, 0, 0.2, 1)</code> は Material Design 2 の standard easing で、MUI の既定
+              <code>easeInOut</code> と同じ値です（Material Design 3 の standard easing は
+              <code>cubic-bezier(0.2, 0, 0, 1)</code>）。
               exit アニメーションは enter より短く設定するのが定石です（消える動きはユーザーが待たなくて良い）。
             </p>
           </section>
@@ -922,8 +924,8 @@ function EmailList() {
                 <h3 className="font-bold text-foreground mb-2">3. 折りたたみスタック</h3>
                 <p className="text-sm text-muted-foreground mb-2">
                   最新の通知のみフル表示し、過去の通知は縮小表示（カードが重なっているように見せる）。
-                  sonner や react-hot-toast で採用されているパターン。
-                  ホバーすると全件が展開される。
+                  sonner が採用しているパターンで、ホバーすると全件が展開される
+                  （<code>expand</code> / <code>visibleToasts</code> で既定の挙動を調整できる）。
                 </p>
               </div>
             </div>

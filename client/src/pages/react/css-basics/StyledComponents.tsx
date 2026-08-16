@@ -17,7 +17,7 @@ export default function StyledComponents() {
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">styled-components</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-          最も人気のある CSS-in-JS ライブラリ「styled-components」を実践的に学びます。
+          代表的な CSS-in-JS ライブラリのひとつ「styled-components」を実践的に学びます。
           インストールから、動的スタイル、テーマ、アニメーションまで幅広くカバーします。
         </p>
 

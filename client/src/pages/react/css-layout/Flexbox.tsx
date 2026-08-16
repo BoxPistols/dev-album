@@ -103,7 +103,10 @@ export default function Flexbox() {
             <InfoBox type="info" title="column + wrap の注意点">
               <p>
                 <code>flex-direction: column</code> と <code>flex-wrap: wrap</code> を組み合わせると、
-                縦方向に並べた後に横に折り返しますが、Container に明示的な高さを設定しないと折り返しが発生しません。
+                縦方向に並べた後に横に折り返します。折り返しの条件はコンテナの主軸サイズ（column なら高さ）が
+                制約されていることで、<code>height</code> だけでなく <code>max-height</code> や、
+                親から伸ばされて高さが決まる場合も折り返します。高さが <code>auto</code> のときは
+                コンテナの自動高さが max-content になり、全アイテムが 1 列に収まるため折り返しません。
                 横並びの折り返し（<code>row wrap</code>）の方が直感的で、実務でもよく使われます。
               </p>
             </InfoBox>

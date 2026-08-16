@@ -711,8 +711,8 @@ function App() {
                   <p className="ml-4 mt-1">不要な空白や改行を除去し、CSS 文字列を圧縮します。</p>
                 </div>
                 <div>
-                  <strong className="text-foreground">4. 静的スタイルの事前評価</strong>
-                  <p className="ml-4 mt-1">props に依存しない静的なスタイルをビルド時に事前計算し、ランタイムのオーバーヘッドを削減します。</p>
+                  <strong className="text-foreground">4. デッドコードの除去</strong>
+                  <p className="ml-4 mt-1"><code className="bg-muted px-1 rounded">css</code> / <code className="bg-muted px-1 rounded">styled</code> のブロックに <code className="bg-muted px-1 rounded">#__PURE__</code> フラグのコメントを付与し、未使用のスタイル定義をミニファイア側で落とせるようにします。</p>
                 </div>
               </div>
             </div>

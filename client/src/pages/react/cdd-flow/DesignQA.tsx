@@ -512,7 +512,8 @@ jobs:
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
+    // viewport / controls / interactions / actions は Storybook 9 でコアに入ったため記載不要
+    // docs が必要なら npx storybook add @storybook/addon-docs
     '@storybook/addon-a11y',  // 追加
   ],
   framework: '@storybook/react-vite',

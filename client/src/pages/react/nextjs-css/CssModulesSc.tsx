@@ -351,7 +351,7 @@ export default function StyledComponentsRegistry({
 //   );
 // }`}
               language="tsx"
-              title="SSR 対応レジストリ"
+              title="SSR 対応レジストリ（styled-components v6.0〜v6.2 向け）"
               showLineNumbers
             />
 
@@ -409,12 +409,18 @@ export function StyledPage() {
               title="styled-components の使用例"
             />
 
-            <InfoBox type="warning" title="styled-components は Client Component のみ">
+            <InfoBox type="info" title="Server Component での styled-components">
               <p>
-                styled-components は JavaScript のランタイムで CSS を生成するため、
-                Server Component では使用できません。
-                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code> が必須です。
-                パフォーマンスの観点から、App Router では CSS Modules や Tailwind CSS が推奨されています。
+                styled-components は v6.3.0 以降、React Server Components をゼロ設定でサポートします。
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code> もレジストリも不要で、
+                CSS はインラインの <code className="text-sm bg-muted px-1.5 py-0.5 rounded">{'<style>'}</code> タグとして注入されます。
+                ただし RSC ではコンテキストが使えないため
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">ThemeProvider</code> は pass-through になり、
+                テーマ値は CSS カスタムプロパティで渡します。
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">{'<style>'}</code> タグが兄弟要素として入るので、
+                子要素の選択には <code className="text-sm bg-muted px-1.5 py-0.5 rounded">:nth-child()</code> ではなく
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">:nth-of-type()</code> を使います。
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code> とレジストリが必要だったのは v6.0〜v6.2 です。
               </p>
             </InfoBox>
           </section>
@@ -508,8 +514,8 @@ export function EmotionExample() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-medium text-foreground">styled-components</td>
-                    <td className="p-3 text-red-600 font-medium">非対応</td>
-                    <td className="p-3 text-foreground/80">Registry 必要</td>
+                    <td className="p-3 text-green-600 font-medium">対応（v6.3.0 以降）</td>
+                    <td className="p-3 text-foreground/80">不要（ゼロ設定）</td>
                     <td className="p-3 text-foreground/80">やや大きい</td>
                   </tr>
                   <tr className="border-b border-border">
@@ -520,8 +526,8 @@ export function EmotionExample() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-medium text-foreground">MUI</td>
-                    <td className="p-3 text-red-600 font-medium">非対応</td>
-                    <td className="p-3 text-foreground/80">CacheProvider 必要</td>
+                    <td className="p-3 text-red-600 font-medium">非対応（SSR は可）</td>
+                    <td className="p-3 text-foreground/80">AppRouterCacheProvider 推奨（必須ではない）</td>
                     <td className="p-3 text-foreground/80">大きい</td>
                   </tr>
                   <tr>

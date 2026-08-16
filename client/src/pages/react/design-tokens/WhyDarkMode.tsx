@@ -291,10 +291,10 @@ mediaQuery.addEventListener('change', (e) => {
                   ユーザーの選択権
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Apple Human Interface Guidelines は「ユーザーの好みを尊重する
-                  (Respect user preferences)」を 基本原則として掲げています。OS
-                  で設定したテーマがアプリに反映されないことは、
-                  この原則に反します。
+                  Apple Human Interface Guidelines は、利用者がダークモードを既定の外観として選ぶことが多く、
+                  すべてのアプリやゲームがその設定を尊重することを期待している、と述べています。
+                  Best practices でも「アプリ独自の外観設定を用意しない」ことを推奨しており、OS
+                  で設定したテーマにアプリが追従することが前提です。
                   ニールセンのユーザビリティヒューリスティック
                   #4「一貫性と標準」の観点からも、 OS
                   のテーマ設定にアプリが追従することは、ユーザーの期待に沿う振る舞いです。
@@ -391,8 +391,8 @@ mediaQuery.addEventListener('change', (e) => {
                   ライトモードでは <code>box-shadow</code>{" "}
                   で奥行きを表現しますが、
                   暗い背景の上に暗い影を落としても視認できません。 Material
-                  Design 3 では、ダークモードのエレベーションを影ではなく
-                  surface container 系ロールの明度差で表現します。
+                  Design 3 は、ライト / ダークを問わずエレベーションを影ではなく
+                  surface container 系ロールの明度差（tonal difference）で表現します。
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
@@ -553,7 +553,7 @@ mediaQuery.addEventListener('change', (e) => {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-medium">エレベーション表現</td>
-                    <td className="p-3">明度差 (tonal overlay)</td>
+                    <td className="p-3">明度差 (tonal difference)</td>
                     <td className="p-3">Vibrancy / Materials</td>
                   </tr>
                 </tbody>
