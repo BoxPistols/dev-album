@@ -1001,11 +1001,11 @@
  {
   "file": "ux-design/ia-wireframe/Wireframe.tsx",
   "claim": "Mobile 〜767px 1列 / Tablet 768px〜1023px 2列 / Desktop 1024px〜 3〜4列",
-  "verdict": "UNDETERMINED",
-  "sourceUrl": "",
-  "quote": "",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://tailwindcss.com/docs/responsive-design",
+  "quote": "There are five breakpoints by default, inspired by common device resolutions: Breakpoint prefix Minimum width CSS sm 40rem (640px) @media (width >= 40rem) {... } md 48rem (768px) @media (width >= 48rem) {... } lg 64rem (1024px) @media (width >= 64rem) {... }",
   "correction": "",
-  "evidence": "767px / 768px / 1024px という区切りを定めた一次情報が無い。CSS のメディアクエリ仕様は具体的な breakpoint を定義せず、フレームワークごとに値が異なる（Bootstrap は 576/768/992/1200）。"
+  "evidence": "区切りの値は CSS 仕様が定めていないが、教材の 768px / 1024px は Tailwind CSS の md (48rem) / lg (64rem) と一致する。公式の Responsive design ページを取得して確認した。本文にも、仕様の規定ではなくフレームワーク依存であることと、どの体系に合わせた値かを明記した。"
  },
  {
   "file": "ux-design/ia-wireframe/Wireframe.tsx",

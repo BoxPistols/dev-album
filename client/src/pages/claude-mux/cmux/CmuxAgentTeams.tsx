@@ -28,9 +28,9 @@ export default function CmuxAgentTeams() {
           </p>
 
           <VerifiedBox
-            verifiedAt="2026-04-27"
-            cmuxVersion="cmux 0.63.2"
-            platform="macOS 15.4 (Apple Silicon)"
+            verifiedAt="2026-08-16"
+            cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
+            platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
           />
         </div>
@@ -97,13 +97,20 @@ cd ~/projects/my-app
 cmux claude-teams
 
 # teammate のロールを後から追加
-# 親セッションのプロンプトで teammate を spawn`}
+# 親セッションのプロンプトで teammate を spawn
+
+# 他エージェント向けの同種のラッパーも用意されている
+# cmux codex-teams / cmux omo / cmux omx / cmux omc`}
             />
 
             <p className="text-foreground mt-6 leading-relaxed">
               起動後はサイドバーに「親」と「各
-              teammate」が並ぶ。それぞれが独立した split を持ち、 git
-              ブランチ・ポート・最新の通知テキストがメタデータとして表示される。
+              teammate」が並び、それぞれが独立した split を持つ。
+              ワークスペース側の表示は{" "}
+              <code className="text-primary">cmux rename-workspace</code> /{" "}
+              <code className="text-primary">cmux set-status</code> /{" "}
+              <code className="text-primary">cmux set-progress</code>{" "}
+              で CLI からも書き換えられるため、役割名や進捗を明示しておくと識別しやすい。
             </p>
           </section>
 
@@ -246,7 +253,8 @@ cmux claude-teams
                     </td>
                     <td className="p-3 text-muted-foreground">可</td>
                     <td className="p-3 text-muted-foreground">
-                      不可（macOS ローカル）
+                      アプリは macOS ローカル（cmux ssh
+                      でリモート用ワークスペースは作れる）
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -254,7 +262,10 @@ cmux claude-teams
                       セッション永続化
                     </td>
                     <td className="p-3 text-muted-foreground">tmux で永続</td>
-                    <td className="p-3 text-muted-foreground">アプリ依存</td>
+                    <td className="p-3 text-muted-foreground">
+                      hook が記録したセッション ID を使い、再起動時に各エージェントの
+                      resume コマンドで復元（cmux restore-session）
+                    </td>
                   </tr>
                 </tbody>
               </table>

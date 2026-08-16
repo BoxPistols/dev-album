@@ -28,9 +28,9 @@ export default function CmuxBrowserAPI() {
           </p>
 
           <VerifiedBox
-            verifiedAt="2026-04-27"
-            cmuxVersion="cmux 0.63.2"
-            platform="macOS 15.4 (Apple Silicon)"
+            verifiedAt="2026-08-16"
+            cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
+            platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
           />
         </div>
@@ -145,6 +145,22 @@ export default function CmuxBrowserAPI() {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-semibold text-foreground">
+                      browser find
+                    </td>
+                    <td className="p-3 text-muted-foreground">
+                      role / text / label / placeholder / alt / title / testid で要素を探す（意味ベースの指定）
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="p-3 font-semibold text-foreground">
+                      browser console / errors
+                    </td>
+                    <td className="p-3 text-muted-foreground">
+                      コンソール出力とページエラーの一覧取得・クリア
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="p-3 font-semibold text-foreground">
                       browser goto / wait
                     </td>
                     <td className="p-3 text-muted-foreground">
@@ -238,9 +254,11 @@ cmux browser screenshot --out /tmp/result.png`}
             />
 
             <p className="text-foreground mt-6 leading-relaxed">
-              アクセシビリティツリー経由で操作させることで、 CSS セレクタの
-              fragility（クラス名変更で壊れる）を避けられる。
-              意味（「メール入力欄」「ログインボタン」）で要素を指定できる。
+              <code className="text-primary">click</code> / <code className="text-primary">fill</code> は CSS selector を取るため、
+              クラス名の変更で壊れやすい。役割やラベルで指定したい場合は{" "}
+              <code className="text-primary">browser find</code>（role / text / label / testid 等）を使う。
+              引数の形は <code className="text-primary">cmux --help</code> で確認する。
+              <code className="text-primary">snapshot</code> で構造を把握してから selector を決める流れも取れる。
             </p>
           </section>
 

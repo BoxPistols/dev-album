@@ -27,9 +27,9 @@ export default function CmuxSetup() {
           </p>
 
           <VerifiedBox
-            verifiedAt="2026-04-27"
-            cmuxVersion="cmux 0.63.2"
-            platform="macOS 15.4 (Apple Silicon)"
+            verifiedAt="2026-08-16"
+            cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
+            platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
           />
         </div>
@@ -71,7 +71,7 @@ $ which cmux
 /opt/homebrew/bin/cmux
 
 $ cmux --version
-cmux 0.63.2 (79) [179b16ce6]
+cmux 0.64.20 (100) [14e3400b9]
 # 末尾の (ビルド番号) [コミット ID] は環境・バージョンにより変わる
 
 # Intel Mac の場合
@@ -81,10 +81,12 @@ $ which cmux
 # CLI が見つからない場合
 $ which cmux
 cmux not found
-# → 対処: brew reinstall --cask cmux
-#    cmux は cask として配布されており、CLI は cask の binary artifact
-#    （$APPDIR/cmux.app/Contents/Resources/bin/cmux → $HOMEBREW_PREFIX/bin/cmux）
-#    として貼られる。brew link は formula 専用のため cask には使えない`}
+# CLI の実体はアプリバンドルの中にあるので、まずそちらで動くか確かめる
+$ /Applications/cmux.app/Contents/Resources/bin/cmux --version
+cmux 0.64.20 (100) [14e3400b9]
+# → 動くなら PATH の問題。cask 経由で入れた場合は brew reinstall --cask cmux で
+#    binary artifact（$APPDIR/cmux.app/Contents/Resources/bin/cmux → $HOMEBREW_PREFIX/bin/cmux）
+#    が貼り直される。brew link は formula 専用のため cask には使えない`}
             />
 
             <div className="mt-6">
@@ -142,6 +144,15 @@ cmux not found
                     </td>
                   </tr>
                   <tr className="border-b border-border">
+                    <td className="p-3 text-foreground">ペイン間のフォーカス移動</td>
+                    <td className="p-3 text-muted-foreground">
+                      <code className="text-primary">Opt+Cmd+←</code> /{" "}
+                      <code className="text-primary">→</code> /{" "}
+                      <code className="text-primary">↑</code> /{" "}
+                      <code className="text-primary">↓</code>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
                     <td className="p-3 text-foreground">未読通知にジャンプ</td>
                     <td className="p-3 text-muted-foreground">
                       <code className="text-primary">Cmd+Shift+U</code>
@@ -166,8 +177,7 @@ cmux not found
                     <td className="p-3 text-foreground">ワークスペース切替</td>
                     <td className="p-3 text-muted-foreground">
                       <code className="text-primary">Cmd+1</code> 〜{" "}
-                      <code className="text-primary">Cmd+8</code> が 1〜8 番、
-                      <code className="text-primary">Cmd+9</code> は最後のワークスペースへ
+                      <code className="text-primary">Cmd+9</code> で 1〜9 番目を選択
                     </td>
                   </tr>
                 </tbody>
@@ -208,7 +218,7 @@ cmux
 # Cmd+N
 
 # ワークスペースの切り替え
-# Cmd+1 〜 Cmd+8 が 1〜8 番、Cmd+9 は最後のワークスペースへ`}
+# Cmd+1 〜 Cmd+9 で 1〜9 番目を選択`}
             />
 
             <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
@@ -228,7 +238,8 @@ claude
 # 右ペインに分割して dev サーバーを起動（Cmd+D で分割後）
 npm run dev
 
-# 左ペインに戻る（Cmd+[ または Cmd+] でペイン間を移動）`}
+# 左ペインに戻る（Opt+Cmd+← / → / ↑ / ↓ でペイン間のフォーカス移動）
+# Cmd+[ / Cmd+] はブラウザペイン外ではフォーカス履歴の戻る・進むに割り当てられている`}
             />
 
             <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
@@ -283,119 +294,127 @@ claude
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              cmux には Claude Code 用の専用コマンド <code className="text-primary">cmux claude-hook</code> が
-              用意されている。<code className="text-primary">~/.claude/settings.json</code> の hooks に直接登録するだけで、
-              タスク完了・通知・プロンプト送信が cmux サイドバーと連動する。個別のシェルスクリプトを書く必要はない。
+              Claude Code は Settings で cmux 連携を有効にすると、cmux の Claude ラッパーが hook を自動で注入する。
+              <code className="text-primary mx-1">~/.claude/settings.json</code>
+              を手で編集する手順は不要になった。
             </p>
 
+            <div className="mb-6">
+              <InfoBox type="info" title="Claude Code はラッパー経由で扱われる">
+                <p className="mb-2">
+                  <code className="text-primary">cmux hooks --help</code> の Agents 一覧に claude は含まれず、
+                  「Claude Code hooks are injected automatically by the cmux Claude wrapper.」と説明されている。
+                  公式の <code>docs/agent-hooks.md</code> でも Claude Code の行は「<code>claude</code> through wrapper /
+                  wrapper-injected settings」と記載されている。
+                </p>
+                <p>
+                  <code className="text-primary">cmux claude-hook</code>{" "}
+                  を settings.json に登録する古い手順を見かけたら、そのコマンドが現在のヘルプに存在するかを
+                  <code className="text-primary mx-1">cmux --help</code>
+                  で確認する。
+                </p>
+              </InfoBox>
+            </div>
+
             <h3 className="text-xl font-semibold text-foreground mb-4">
-              cmux claude-hook のサブコマンド
+              Claude Code 以外のエージェントを繋ぐ
             </h3>
+
+            <p className="text-foreground mb-4 leading-relaxed">
+              codex / opencode / gemini などは <code className="text-primary">cmux hooks</code> で設定ファイルを生成する。
+              <code className="text-primary mx-1">cmux hooks setup</code>
+              は PATH にある対応エージェントだけを対象にし、見つからないものはスキップして結果を表示する。
+            </p>
+
+            <CodeBlock
+              language="bash"
+              code={`# PATH にある対応エージェントをまとめて設定
+cmux hooks setup
+
+# エージェントを指定して設定
+cmux hooks setup --agent codex
+cmux hooks codex install
+
+# opencode はプロジェクト単位の設定にも対応
+cmux hooks opencode install --project
+
+# 解除
+cmux hooks uninstall
+cmux hooks codex uninstall`}
+            />
+
+            <p className="text-foreground mt-6 mb-4 leading-relaxed">
+              生成されるファイルはエージェントごとに異なる。書き込み先はホームディレクトリ配下なので、
+              実行前に <code className="text-primary">cmux hooks --help</code> で対象を確認しておく。
+            </p>
 
             <div className="overflow-x-auto mb-6">
               <table className="w-full text-sm border-collapse">
                 <thead>
                   <tr className="bg-muted border-b border-border">
-                    <th className="p-3 text-left font-semibold text-foreground">サブコマンド</th>
-                    <th className="p-3 text-left font-semibold text-foreground">対応する Claude Code Hook</th>
+                    <th className="p-3 text-left font-semibold text-foreground">エージェント</th>
+                    <th className="p-3 text-left font-semibold text-foreground">生成されるファイル</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-border">
-                    <td className="p-3 font-mono text-foreground">session-start</td>
-                    <td className="p-3 text-muted-foreground">SessionStart（セッション開始）</td>
+                    <td className="p-3 font-mono text-foreground">opencode</td>
+                    <td className="p-3 text-muted-foreground font-mono text-xs">
+                      ~/.config/opencode/plugins/cmux-session.js
+                      <br />
+                      ~/.config/opencode/plugins/cmux-feed.js
+                    </td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="p-3 font-mono text-foreground">stop</td>
-                    <td className="p-3 text-muted-foreground">Stop（タスク完了 → 通知リング点灯）</td>
+                    <td className="p-3 font-mono text-foreground">pi</td>
+                    <td className="p-3 text-muted-foreground font-mono text-xs">
+                      ~/.pi/agent/extensions/cmux-session.ts
+                    </td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="p-3 font-mono text-foreground">notification</td>
-                    <td className="p-3 text-muted-foreground">Notification（権限確認等の通知転送）</td>
+                    <td className="p-3 font-mono text-foreground">amp</td>
+                    <td className="p-3 text-muted-foreground font-mono text-xs">
+                      ~/.config/amp/plugins/cmux-session.ts
+                    </td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="p-3 font-mono text-foreground">prompt-submit</td>
-                    <td className="p-3 text-muted-foreground">UserPromptSubmit（入力時に通知をクリア）</td>
+                    <td className="p-3 font-mono text-foreground">kiro</td>
+                    <td className="p-3 text-muted-foreground font-mono text-xs">
+                      ~/.kiro/agents/cmux.json
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
-              settings.json への登録
-            </h3>
-
             <div className="mb-6">
-              <InfoBox type="warning" title="副作用: マシン全体の Claude Code 設定を変更します">
+              <InfoBox type="warning" title="副作用: ホームディレクトリ配下の設定を変更します">
                 <p className="mb-2">
-                  この手順は <code className="text-primary">~/.claude/settings.json</code> を書き換えます。
-                  影響は <strong>このマシンで動く全ての Claude Code セッション</strong>（全プロジェクト共通）に及びます。
-                </p>
-                <p className="mb-2">
-                  <strong>事前バックアップ:</strong>{" "}
-                  <code className="text-primary">cp ~/.claude/settings.json ~/.claude/settings.json.bak</code>
+                  <code className="text-primary">cmux hooks setup</code> は上の表のようなファイルを作成・更新します。
+                  影響は <strong>このマシンのそのエージェント全体</strong>（全プロジェクト共通）に及びます。
                 </p>
                 <p>
-                  <strong>元に戻す:</strong> バックアップを書き戻すか、<code>hooks</code> セクションから
-                  <code className="text-primary mx-1">cmux claude-hook</code> を含む行を削除して保存。
-                  <code className="text-primary">[ -n "$CMUX_SURFACE_ID" ]</code> ガードがあるので、cmux 外では hook が no-op になる設計ではあるが、設定ファイル自体は残るため明示的なクリーンアップが必要。
+                  <strong>元に戻す:</strong>{" "}
+                  <code className="text-primary">cmux hooks uninstall</code> または{" "}
+                  <code className="text-primary">cmux hooks &lt;agent&gt; uninstall</code>。
+                  既存の設定ファイルに追記される種類のもの（<code>~/.gemini/settings.json</code> 等）は、
+                  実行前に控えを取っておくと差分を確認できます。
                 </p>
               </InfoBox>
             </div>
 
+            <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
+              cmux ターミナルの環境変数
+            </h3>
+
             <p className="text-foreground mb-4 leading-relaxed">
-              <code className="text-primary">~/.claude/settings.json</code> の <code>hooks</code> に追記する。
-              <code className="text-primary">$CMUX_SURFACE_ID</code> は cmux 内ターミナルでのみ自動設定されるため、
-              <code className="text-primary">[ -n "$CMUX_SURFACE_ID" ]</code> ガードを入れておけば cmux 外のセッションでは無害（hook がスキップされる）。
+              cmux 内のターミナルでは <code className="text-primary">CMUX_WORKSPACE_ID</code> と{" "}
+              <code className="text-primary">CMUX_SURFACE_ID</code> が自動で設定される
+              （<code className="text-primary">cmux --help</code> の Environment セクションに記載）。
+              CLI コマンドの <code className="text-primary">--workspace</code> /{" "}
+              <code className="text-primary">--surface</code> の既定値として使われるため、
+              自作スクリプトで「cmux 内で動いているか」を判定する材料にもなる。
             </p>
-
-            <CodeBlock
-              language="json"
-              code={`{
-  "hooks": {
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \\"$CMUX_SURFACE_ID\\" ] && command -v cmux >/dev/null 2>&1 && cmux claude-hook stop || true"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \\"$CMUX_SURFACE_ID\\" ] && command -v cmux >/dev/null 2>&1 && cmux claude-hook notification || true"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \\"$CMUX_SURFACE_ID\\" ] && command -v cmux >/dev/null 2>&1 && cmux claude-hook prompt-submit || true"
-          }
-        ]
-      }
-    ]
-  }
-}`}
-            />
-
-            <div className="mt-6">
-              <InfoBox type="info" title="既存 hook と並列実行する場合">
-                memory-sync など他の hook がすでにある場合は、上書きせず同じ <code>hooks</code> 配列に並べて追加する。
-                配列内の hook は並列実行されるので、cmux 連携は「追加」する形で安全に共存できる。
-              </InfoBox>
-            </div>
 
             <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
               連携で起こること
@@ -405,14 +424,16 @@ claude
               <div className="p-4 rounded-lg border border-border bg-card">
                 <p className="font-semibold text-foreground mb-1">タスク完了で通知リングが点灯</p>
                 <p className="text-sm text-muted-foreground">
-                  Stop イベントで <code className="text-primary">cmux claude-hook stop</code> が呼ばれ、
-                  サイドバーに青いリングと未読バッジが表示される。<code className="text-primary">Cmd+Shift+U</code> で即ジャンプできる。
+                  エージェントが入力待ちになるとサイドバーに未読の印が付く。
+                  <code className="text-primary">Cmd+Shift+U</code> で最新の未読へジャンプできる。
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
-                <p className="font-semibold text-foreground mb-1">プロンプト送信でリングが消える</p>
+                <p className="font-semibold text-foreground mb-1">セッションの復元</p>
                 <p className="text-sm text-muted-foreground">
-                  ユーザーが入力すると <code className="text-primary">prompt-submit</code> が発火し、Running 状態に戻る。
+                  hook はセッション ID とワークスペース・サーフェスの対応を記録する。
+                  アプリを開き直すと、各エージェント自身の resume コマンド（Claude Code なら{" "}
+                  <code className="text-primary">claude --resume &lt;id&gt;</code>）でセッションが再開される。
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
@@ -658,6 +679,17 @@ pbimg
               <div className="p-4 rounded-lg border border-border bg-card">
                 <p className="font-semibold text-foreground">公式サイト</p>
                 <p className="text-sm text-muted-foreground">cmux.com</p>
+              </div>
+
+              <div className="p-4 rounded-lg border border-border bg-card">
+                <p className="font-semibold text-foreground">
+                  手元から一次情報を引く
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <code className="text-primary">cmux docs [settings|shortcuts|api|browser|agents|dock|sidebars]</code>{" "}
+                  で、その版に対応するドキュメントの URL と取得用の curl コマンドが表示される。
+                  記事の記述と食い違ったらこちらを優先する。
+                </p>
               </div>
             </div>
 
