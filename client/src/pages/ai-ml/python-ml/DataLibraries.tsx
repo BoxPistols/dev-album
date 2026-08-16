@@ -166,7 +166,7 @@ print(x * y)          # [10 40 90]
 # 統計関数
 data = np.array([85, 92, 78, 95, 88])
 print(np.mean(data))   # 87.6  -- 平均
-print(np.std(data))    # 5.85  -- 標準偏差
+print(np.std(data))    # 5.885575587824865  -- 標準偏差（母標準偏差）
 print(np.max(data))    # 95    -- 最大値
 print(np.argmax(data)) # 3     -- 最大値のインデックス`}
               language="python"

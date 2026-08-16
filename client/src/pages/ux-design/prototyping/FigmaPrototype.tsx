@@ -205,7 +205,7 @@ export default function FigmaPrototype() {
                   </div>
                   <span className="text-muted-foreground">→</span>
                   <div className="bg-muted text-foreground px-3 py-2 rounded-lg border border-border">
-                    On Click / On Hover / On Drag / While Pressing
+                    On click / While hovering / On drag / While pressing
                   </div>
                   <span className="text-muted-foreground">→</span>
                   <div className="bg-primary/10 text-primary font-medium px-3 py-2 rounded-lg border border-primary/20">

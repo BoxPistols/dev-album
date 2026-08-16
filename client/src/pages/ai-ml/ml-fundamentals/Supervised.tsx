@@ -191,7 +191,7 @@ y_pred = model.predict(X_test)
 # 正解率を計算
 accuracy = accuracy_score(y_test, y_pred)
 print(f"テスト精度: {accuracy:.2f}")
-# => テスト精度: 0.97（97%）
+# => テスト精度: 0.93（93%）
 
 # 個別の予測結果を確認
 for i in range(5):

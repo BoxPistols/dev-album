@@ -121,7 +121,7 @@ export default function ReactSetup() {
               )}
 
               <p className="text-muted-foreground mt-4">
-                このコマンドは、「my-react-app」という名前の React プロジェクトを作成します。初回は少し時間がかかります（3～5分程度）。
+                このコマンドは、「my-react-app」という名前の React プロジェクトを作成します。テンプレートの生成自体はすぐ終わり、時間がかかるのは後続の依存インストールです（回線とマシン次第）。
               </p>
 
               <InfoBox type="info">

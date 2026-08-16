@@ -367,7 +367,7 @@ export default function DesignSystem() {
                     </tr>
                     <tr>
                       <td className="px-4 py-3 font-medium text-foreground">Ant Design</td>
-                      <td className="px-4 py-3 text-foreground/80">Alibaba</td>
+                      <td className="px-4 py-3 text-foreground/80">Ant Group</td>
                       <td className="px-4 py-3 text-foreground/80">エンタープライズ Web</td>
                       <td className="px-4 py-3 text-foreground/80">ビジネスアプリケーション向け。テーブル・フォーム・チャートなどデータ表示に強い。React 向け実装が豊富</td>
                     </tr>

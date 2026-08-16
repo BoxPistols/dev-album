@@ -258,8 +258,9 @@ export default function CursorInstall() {
               <ol className="space-y-3 text-muted-foreground list-decimal list-inside">
                 <li>Cursor を起動する</li>
                 <li>
-                  メニューから「Help」→「About Cursor」を選択
-                  {selectedOS === 'windows' && '（または「Help」→「About」）'}
+                  {selectedOS === 'windows'
+                    ? 'メニューから「Help」→「About」を選択'
+                    : 'メニューバーの「Cursor」→「About Cursor」を選択'}
                 </li>
                 <li>バージョン情報が表示されれば、インストール成功です</li>
               </ol>

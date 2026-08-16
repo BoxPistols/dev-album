@@ -440,7 +440,7 @@ export default function UserResearch() {
                 {
                   title: 'NNGroup: When to Use Which User-Experience Research Methods',
                   url: 'https://www.nngroup.com/articles/which-ux-research-methods/',
-                  description: '20以上のリサーチ手法を「態度 vs 行動」「定性 vs 定量」の2軸で分類した解説。',
+                  description: '20 のリサーチ手法を「態度 vs 行動」「定性 vs 定量」「利用文脈」の 3 次元で位置づけた解説。',
                 },
                 {
                   title: 'Google Design Library',

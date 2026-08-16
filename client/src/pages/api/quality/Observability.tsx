@@ -426,7 +426,7 @@ X-Request-Id: f47ac10b-58cc-4372-a567-0e02b2c3d479`}
                   title: "Google SRE Book — Monitoring Distributed Systems",
                   url: "https://sre.google/sre-book/monitoring-distributed-systems/",
                   description:
-                    "SLI / SLO・パーセンタイル・アラート設計の考え方を体系的に解説（無料公開）",
+                    "四大シグナル・パーセンタイル・アラート設計を解説した章（無料公開）。SLO そのものは同書の別章 Service Level Objectives が扱う",
                 },
                 {
                   title: "MDN - HTTP ヘッダー一覧",
