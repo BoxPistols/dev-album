@@ -174,7 +174,8 @@ export default function ApiGateway() {
                       認証・認可
                     </td>
                     <td className="py-2 pr-4 text-muted-foreground align-top">
-                      標準では持たない（設定で一部可能）
+                      基本的な仕組みは標準で持つ（nginx の Basic 認証、Envoy の
+                      JWT 認証・外部認可フィルタ）。API 単位のポリシー管理までは担わない
                     </td>
                     <td className="py-2 text-muted-foreground align-top">
                       入口で一括して担うのが前提

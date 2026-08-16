@@ -57,8 +57,8 @@ export default function EdgeFunctions() {
             のエッジ上で短いコードを実行する仕組みです。利用者に近い場所で
             認証やリライトといった処理を挟めるのが特徴です。
             このページでは、エッジランタイム（V8 isolate）と Node
-            ランタイムの違い、 Web 標準 API に寄せる WinterCG
-            の流れ、そして制約とユースケースを整理します。
+            ランタイムの違い、 Web 標準 API に寄せる
+            WinterTC（旧 WinterCG）の流れ、そして制約とユースケースを整理します。
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default function EdgeFunctions() {
           tags={[
             "エッジ関数",
             "V8 isolate",
-            "WinterCG",
+            "WinterTC",
             "Middleware",
             "Web標準",
           ]}
@@ -148,10 +148,10 @@ export default function EdgeFunctions() {
             </InfoBox>
           </section>
 
-          {/* WinterCG と Web 標準 */}
+          {/* WinterTC と Web 標準 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              WinterCG と Web 標準 API
+              WinterTC と Web 標準 API
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               エッジランタイムが Node API
@@ -161,7 +161,10 @@ export default function EdgeFunctions() {
               <code>Headers</code>・<code>crypto.subtle</code>{" "}
               といった、ブラウザでも使える API がエッジでも使えます。
               この「ランタイム間で共通の最小 API」を揃えようとする取り組みが
-              <strong>WinterCG</strong>（後の Min Common API 仕様）です。
+              <strong>WinterTC</strong>（Ecma International の技術委員会 TC55、旧
+              WinterCG）で、その成果物が
+              <strong>Minimum common web API</strong>{" "}
+              仕様です（2026 年 7 月 31 日付ドラフト）。
             </p>
 
             <CodeBlock
@@ -400,7 +403,7 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
                     "Workers が提供する Web 標準ベースのランタイム API 一覧",
                 },
                 {
-                  title: "WinterCG - Minimum Common Web Platform API",
+                  title: "WinterTC（TC55）- Minimum common web API",
                   url: "https://min-common-api.proposal.wintertc.org/",
                   description:
                     "ランタイム横断で共通化を目指す Web 標準 API の仕様提案",

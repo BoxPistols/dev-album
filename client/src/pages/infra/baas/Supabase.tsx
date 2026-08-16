@@ -297,9 +297,13 @@ const { data: posts } = await supabase
 
             <p className="text-muted-foreground leading-relaxed">
               Edge Functions が <strong>Deno</strong>{" "}
-              ランタイムである点は実装に影響します。npm
-              パッケージの一部はそのまま動かないことがあり、 標準 Web API や
-              Deno 互換のモジュールを前提に書くと安定します。
+              ランタイムである点は実装に影響します。公式には{" "}
+              <code>npm:</code> 指定子（例{" "}
+              <code>npm:@supabase/supabase-js@2</code>）で npm パッケージを、
+              <code>node:</code> 指定子（例 <code>node:process</code>）で Node
+              組み込み API を読み込めます。 ただし Node
+              固有の挙動に依存するライブラリはそのまま動かないことがあるため、標準 Web
+              API 寄りに書くと安定します。
             </p>
           </section>
 

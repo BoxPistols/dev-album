@@ -85,8 +85,11 @@ export default function WhatIsDesignOps() {
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Nielsen Norman Group は DesignOps を
-              「デザインの実践をスケールさせ、その価値を最大化するための、
-              役割・プロセス・技術の編成」と整理しています。
+              「人・プロセス・クラフトを編成し最適化することで、デザインの価値とインパクトをスケールに応じて増幅すること」
+              と整理しています（原文
+              &quot;The orchestration and optimization of people, processes, and
+              craft in order to amplify design&rsquo;s value and impact at
+              scale.&quot; の訳）。
               つまり個々のデザイナーの腕前ではなく、チーム全体が安定して良い結果を出せる土台づくりが主役です。
             </p>
 

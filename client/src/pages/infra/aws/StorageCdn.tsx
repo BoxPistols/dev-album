@@ -27,7 +27,7 @@ const storageClasses = [
     title: "S3 Glacier 系",
     use: "アーカイブ・長期保管",
     description:
-      "保管料金が最も安い代わりに、取り出しに時間（数分〜数時間）と料金がかかる。法定保存などに使う。",
+      "3 クラスあり、取り出し時間が違う。Instant Retrieval はミリ秒、Flexible Retrieval は数分〜12時間、Deep Archive は 9〜48時間。AWS で最も保管料金が安いのは Deep Archive。いずれも最低保管期間と取り出し料金がある。",
   },
 ];
 
@@ -89,7 +89,8 @@ export default function StorageCdn() {
                 <div className="rounded-lg bg-primary/5 border border-primary/20 p-4">
                   <p className="font-bold text-primary mb-1">バケット</p>
                   <p className="text-muted-foreground">
-                    オブジェクトの入れ物。リージョン単位で作り、名前は全世界で一意
+                    オブジェクトの入れ物。リージョン単位で作り、名前は同一パーティション（
+                    <code>aws</code> / <code>aws-cn</code> など）内の全アカウント・全リージョンで一意
                   </p>
                 </div>
                 <div className="rounded-lg bg-primary/5 border border-primary/20 p-4">

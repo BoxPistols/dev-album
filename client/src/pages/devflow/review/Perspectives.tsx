@@ -359,7 +359,7 @@ export default function Perspectives() {
                   title: "Conventional Comments",
                   url: "https://conventionalcomments.org/",
                   description:
-                    "nit や suggestion など、指摘の種類を明示するコメント記法の標準",
+                    "nitpick や suggestion など、指摘の種類を明示するコメント記法の標準（ラベル名は nit ではなく nitpick）",
                 },
               ]}
             />
