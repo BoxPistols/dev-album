@@ -391,8 +391,9 @@ mediaQuery.addEventListener('change', (e) => {
                   ライトモードでは <code>box-shadow</code>{" "}
                   で奥行きを表現しますが、
                   暗い背景の上に暗い影を落としても視認できません。 Material
-                  Design 3 は、ライト / ダークを問わずエレベーションを影ではなく
-                  surface container 系ロールの明度差（tonal difference）で表現します。
+                  Design 3 は、ライト / ダークを問わず、影に加えて色調のオーバーレイ
+                  （tonal color overlay）でエレベーションを表します。値が大きいほど
+                  はっきりした色調になり、ダークテーマのオーバーレイもこの方式に変わりました。
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border bg-card">
@@ -553,7 +554,7 @@ mediaQuery.addEventListener('change', (e) => {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="p-3 font-medium">エレベーション表現</td>
-                    <td className="p-3">明度差 (tonal difference)</td>
+                    <td className="p-3">色調のオーバーレイ (tonal color overlay)</td>
                     <td className="p-3">Vibrancy / Materials</td>
                   </tr>
                 </tbody>
