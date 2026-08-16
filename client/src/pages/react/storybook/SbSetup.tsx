@@ -316,17 +316,16 @@ const preview: Preview = {
 
     // 背景色のプリセット
     backgrounds: {
-      default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#1a1a2e' },
-        { name: 'gray', value: '#f5f5f5' },
-      ],
+      options: {
+        light: { name: 'Light', value: '#ffffff' },
+        dark: { name: 'Dark', value: '#1a1a2e' },
+        gray: { name: 'Gray', value: '#f5f5f5' },
+      },
     },
 
     // ビューポートのプリセット
     viewport: {
-      viewports: {
+      options: {
         mobile: { name: 'Mobile', styles: { width: '375px', height: '667px' } },
         tablet: { name: 'Tablet', styles: { width: '768px', height: '1024px' } },
         desktop: { name: 'Desktop', styles: { width: '1440px', height: '900px' } },
@@ -356,9 +355,12 @@ const preview: Preview = {
     },
   },
 
-  // グローバルの初期値（Storybook 8 推奨）
+  // グローバルの初期値。背景色・ビューポートの初期選択もここで指定する
+  // （globalTypes の defaultValue は 9 で撤去されたため initialGlobals を使う）
   initialGlobals: {
     locale: 'ja',
+    backgrounds: { value: 'light' },
+    viewport: { value: 'mobile', isRotated: false },
   },
 };
 

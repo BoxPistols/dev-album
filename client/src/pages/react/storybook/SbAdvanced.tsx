@@ -212,8 +212,12 @@ const customViewports = {
 const preview: Preview = {
   parameters: {
     viewport: {
-      viewports: customViewports,
+      options: customViewports,
     },
+  },
+  // 初期表示のビューポート
+  initialGlobals: {
+    viewport: { value: 'iPhoneSE', isRotated: false },
   },
 };
 
@@ -242,14 +246,17 @@ export default preview;`}
               code={`const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#1a1a2e' },
-        { name: 'gray', value: '#f3f4f6' },
-        { name: 'brand', value: '#3b82f6' },
-      ],
+      options: {
+        light: { name: 'Light', value: '#ffffff' },
+        dark: { name: 'Dark', value: '#1a1a2e' },
+        gray: { name: 'Gray', value: '#f3f4f6' },
+        brand: { name: 'Brand', value: '#3b82f6' },
+      },
     },
+  },
+  // 初期表示の背景色（parameters ではなく globals 側で指定する）
+  initialGlobals: {
+    backgrounds: { value: 'light' },
   },
 };`}
             />
@@ -504,7 +511,7 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-a11y'],
+  addons: [],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -627,15 +634,20 @@ pnpm test-storybook
 
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">Storybook と Vitest の連携</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              Storybook 8 では、ストーリーを Vitest のテストケースとして直接インポートできます。
-              <code>@storybook/experimental-addon-test</code> を使うと、
+              ストーリーを Vitest のテストケースとして直接インポートできます。
+              <code>@storybook/addon-vitest</code> を使うと、
               ストーリーで定義した play 関数をそのままテストとして実行できます。
+              このアドオンは 8.4 で <code>@storybook/experimental-addon-test</code> として登場し、
+              9 で安定版となって現在の名前に変わりました。
             </p>
 
             <CodeBlock
               language="bash"
               title="Vitest 連携のセットアップ"
-              code={`pnpm add -D @storybook/experimental-addon-test vitest @vitest/browser`}
+              code={`pnpm add -D @storybook/addon-vitest vitest @vitest/browser
+
+# 実験版から移行する場合
+# pnpm remove @storybook/experimental-addon-test`}
             />
 
             <div className="mt-4">
@@ -829,7 +841,7 @@ export const Error: Story = {
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-a11y'],
+  addons: [],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -955,9 +967,9 @@ export default config;`}
               <div className="rounded-lg border border-border p-5">
                 <h3 className="font-bold text-foreground mb-2">テスト機能の強化</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  <code>storybook/test</code> パッケージに
-                  Vitest の expect と Testing Library の機能が統合されました。
-                  追加パッケージなしでインタラクションテストが書けます。
+                  8 で <code>@storybook/test</code> パッケージが登場し、
+                  Vitest の expect と Testing Library の機能が 1 つにまとまりました。
+                  9 ではこれがコアに吸収され、import 元は <code>storybook/test</code> になっています。
                 </p>
               </div>
               <div className="rounded-lg border border-border p-5">
@@ -982,8 +994,8 @@ export default config;`}
 
             <CodeBlock
               language="bash"
-              title="Storybook 8 へのアップグレード"
-              code={`# 自動マイグレーションツール
+              title="最新版へのアップグレード"
+              code={`# 自動マイグレーションツール（最新のメジャー版へ上がる）
 npx storybook@latest upgrade
 
 # マイグレーション後のチェック

@@ -205,7 +205,7 @@ export const searchIndex: Record<string, string[]> = {
   ],
   '/react/storybook/intro': [
     'Storybook とは', 'なぜ Storybook', 'コンポーネント開発', '4つの問題',
-    'デザイナーとエンジニア', 'エコシステム', '画面構成', 'Storybook 8',
+    'デザイナーとエンジニア', 'エコシステム', '画面構成', 'Storybook 9',
   ],
   '/react/storybook/setup': [
     'Storybook 導入', 'インストール', 'ファイル構造', 'main.ts', 'preview.ts',
@@ -225,7 +225,7 @@ export const searchIndex: Record<string, string[]> = {
   ],
   '/react/storybook/advanced': [
     'Addons', 'カスタマイズ', 'テスト連携', 'Composition', '複数 Storybook',
-    'Storybook 8', '新機能',
+    'Storybook 9', '新機能',
   ],
   '/react/architecture/overview': [
     'フロントエンドアーキテクチャ', 'メンタルモデル', 'ディレクトリ構成',

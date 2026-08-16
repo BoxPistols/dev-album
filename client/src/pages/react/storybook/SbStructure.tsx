@@ -276,10 +276,10 @@ export const ButtonGroup: Story = {
   ),
 };
 
-// パターン4: パラメータの上書き
+// パターン4: 表示環境の上書き（背景色は globals で固定する）
 export const OnDarkBackground: Story = {
   args: { label: 'ダーク背景' },
-  parameters: { backgrounds: { default: 'dark' } },
+  globals: { backgrounds: { value: 'dark' } },
 };
 
 // パターン5: 表示名を変更
@@ -671,26 +671,34 @@ decorators: [
             <CodeBlock
               language="tsx"
               title="parameters の設定例"
-              code={`parameters: {
+              code={`// .storybook/preview.ts — 選択肢は parameters、初期値は globals 側で指定する
+parameters: {
   // Canvas のレイアウト
   layout: 'centered',  // 'centered' | 'fullscreen' | 'padded'
 
-  // 背景色
+  // 背景色の選択肢
   backgrounds: {
-    default: 'light',
-    values: [
-      { name: 'light', value: '#ffffff' },
-      { name: 'dark', value: '#1a1a2e' },
-    ],
+    options: {
+      light: { name: 'Light', value: '#ffffff' },
+      dark: { name: 'Dark', value: '#1a1a2e' },
+    },
   },
 
-  // ビューポート
-  viewport: { defaultViewport: 'mobile' },
+  // ビューポートの選択肢
+  viewport: {
+    options: {
+      mobile: { name: 'Mobile', styles: { width: '375px', height: '667px' } },
+    },
+  },
+},
+initialGlobals: {
+  backgrounds: { value: 'light' },
+  viewport: { value: 'mobile', isRotated: false },
 }
 
-// Story ごとに上書き
+// Story ごとに上書き（globals で指定した Story はツールバーから変更できない）
 export const Mobile: Story = {
-  parameters: { viewport: { defaultViewport: 'mobile' } },
+  globals: { viewport: { value: 'mobile', isRotated: false } },
   args: { title: 'モバイル表示' },
 };`}
             />
@@ -1028,9 +1036,9 @@ export const NoDescription: Story = {
               language="tsx"
               title="MDX でカスタムドキュメントを書くことも可能"
               code={`// Button.mdx
-// Storybook 8 での import。9 以降は @storybook/blocks が公開されなくなり、
-// '@storybook/addon-docs/blocks' に統合された
-import { Meta, Canvas, Controls } from '@storybook/blocks';
+// 9 以降の import。@storybook/blocks は公開されなくなり、
+// すべての export が '@storybook/addon-docs/blocks' に統合された
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
 import * as ButtonStories from './Button.stories';
 
 <Meta of={ButtonStories} />

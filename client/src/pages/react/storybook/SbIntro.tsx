@@ -519,9 +519,10 @@ export const SubmitForm: Story = {
 npx storybook add @storybook/addon-docs   # ドキュメント自動生成
 
 # 追加でよく使われるアドオン
-pnpm add -D @storybook/addon-a11y         # アクセシビリティチェック
-pnpm add -D @storybook/addon-designs      # Figma デザイン埋め込み
-pnpm add -D storybook-dark-mode            # ダークモード切り替え`}
+# storybook add はインストールと main.ts の addons への追加をまとめて行う
+npx storybook add @storybook/addon-a11y      # アクセシビリティチェック
+npx storybook add @storybook/addon-designs   # Figma デザイン埋め込み
+npx storybook add storybook-dark-mode        # ダークモード切り替え`}
                 />
               </div>
 
