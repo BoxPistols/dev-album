@@ -78,11 +78,15 @@ export default function GitHubCLI() {
                 <h3 className="font-semibold text-foreground mb-4">対話的なセットアップ</h3>
                 <p className="text-muted-foreground mb-4">以下の質問に答えていきます：</p>
                 <CodeBlock
-                  code={`? What is your preferred protocol for Git operations? [Use arrows to move, type to filter]
+                  code={`? Where do you use GitHub? [Use arrows to move, type to filter]
+> GitHub.com
+  Other
+
+? What is your preferred protocol for Git operations on this host? [Use arrows to move, type to filter]
 > HTTPS
   SSH
 
-? Authenticate with your GitHub credentials? [Y/n]
+? Authenticate Git with your GitHub credentials? [Y/n]
 Y
 
 ? How would you like to authenticate GitHub CLI?
@@ -308,11 +312,15 @@ source ~/.zshrc   # zsh の場合`}
                 <h3 className="font-semibold text-foreground mb-4">対話的なセットアップ</h3>
                 <p className="text-muted-foreground mb-4">以下の質問に答えていきます：</p>
                 <CodeBlock
-                  code={`? What is your preferred protocol for Git operations? [Use arrows to move, type to filter]
+                  code={`? Where do you use GitHub? [Use arrows to move, type to filter]
+> GitHub.com
+  Other
+
+? What is your preferred protocol for Git operations on this host? [Use arrows to move, type to filter]
 > HTTPS
   SSH
 
-? Authenticate with your GitHub credentials? [Y/n]
+? Authenticate Git with your GitHub credentials? [Y/n]
 Y
 
 ? How would you like to authenticate GitHub CLI?

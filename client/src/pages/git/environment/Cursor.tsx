@@ -119,10 +119,10 @@ export default function CursorInstall() {
                   </h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  ページの「Download」ボタンをクリックすると、Mac 版の Cursor がダウンロードされます。
+                  ページの「Download」を開くと、ダウンロード一覧から Mac 版を選べます。
                 </p>
                 <InfoBox type="info">
-                  M1/M2 Mac と Intel Mac の両方に対応しています。自動的に正しいバージョンがダウンロードされます。
+                  Apple Silicon（M1 / M2 以降）と Intel Mac の両方に対応しています。一覧には Mac (ARM64) / Mac (x64) / Mac Universal が並ぶので、Apple Silicon なら ARM64、Intel なら x64 を選びます。どちらか分からない場合は Universal を選びます。
                 </InfoBox>
               </div>
 
@@ -201,7 +201,7 @@ export default function CursorInstall() {
                   </h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  ページの「Download」ボタンをクリックすると、Windows 版の Cursor インストーラーがダウンロードされます。
+                  ページの「Download」を開くと、ダウンロード一覧から Windows 版のインストーラーを選べます（x64 / ARM64、System / User の組み合わせが並びます）。
                 </p>
               </div>
 
@@ -216,10 +216,10 @@ export default function CursorInstall() {
                   </h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  ダウンロードされた CursorSetup.exe をダブルクリックして実行します。
+                  ダウンロードされたインストーラー（既定の User インストーラーは「CursorUserSetup-x64-…」で始まる .exe、System インストーラーは「CursorSetup-x64-…」で始まる .exe。… にはバージョン番号が入ります）をダブルクリックして実行します。
                 </p>
                 <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
-                  <li>CursorSetup.exe をダブルクリック</li>
+                  <li>ダウンロードした .exe をダブルクリック</li>
                   <li>インストールウィザードに従う</li>
                   <li>「Install」ボタンをクリック</li>
                 </ol>

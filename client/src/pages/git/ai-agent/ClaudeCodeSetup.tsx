@@ -350,7 +350,7 @@ claude`}
             <p className="text-amber-700 dark:text-amber-400 font-medium mb-2">Claude Code の終了方法</p>
             <p className="text-amber-700 dark:text-amber-400 text-sm">
               対話を終了するには <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">/exit</code> と入力するか、
-              <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">Ctrl + C</code> を押します。
+              <code className="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">Ctrl + C</code> を 2 回押します（1 回目は実行中の処理の中断、または入力欄のクリアです）。
             </p>
           </div>
         </div>

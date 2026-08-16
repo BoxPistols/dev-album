@@ -346,12 +346,12 @@ export default function ModifyReact() {
               />
 
               <p className="text-muted-foreground mt-4">
-                GitHub のリポジトリページを開くと、「Create Pull Request」というボタンが表示されます。クリックして、Pull Request を作成してください。
+                GitHub のリポジトリページを開くと、ファイル一覧の上のバナーに「Compare &amp; pull request」というボタンが表示されます。クリックして、Pull Request を作成してください。
               </p>
 
               <ol className="space-y-2 text-muted-foreground list-decimal list-inside mt-4">
                 <li>GitHub のリポジトリページを開く</li>
-                <li>「Create Pull Request」をクリック</li>
+                <li>ファイル一覧の上のバナーで「Compare &amp; pull request」をクリック</li>
                 <li>タイトルと説明を入力（例：「Update welcome message and styling」）</li>
                 <li>「Create Pull Request」をクリック</li>
                 <li>Pull Request ページで、変更内容を確認</li>

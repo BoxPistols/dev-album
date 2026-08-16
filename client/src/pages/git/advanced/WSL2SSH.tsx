@@ -235,16 +235,19 @@ Your public key has been saved in /home/username/.ssh/id_ed25519.pub`}
 
             <section>
               <h2 className="text-3xl font-sans font-bold text-foreground mb-6">
-                Git の SSH 設定確認
+                Git のユーザー情報と ssh コマンドの設定
               </h2>
 
               <p className="text-foreground mb-6 leading-relaxed">
-                Git がローカル設定で SSH を使用するように設定されているか確認します。
+                SSH で接続するかどうかは、リモート URL が git@github.com:... の形式かどうかで決まります。鍵を既定のパス（~/.ssh/id_ed25519 など）に置いていれば、Git 側に追加の設定は不要です。鍵を別の場所に置いた場合など、使う ssh コマンドを差し替えたいときだけ core.sshCommand を設定します。user.name と user.email はコミットに記録する情報で、SSH 接続とは別の設定です。
               </p>
 
               <CodeBlock
-                code={`git config --global user.name "Your Name"
+                code={`# コミットに記録するユーザー情報
+git config --global user.name "Your Name"
 git config --global user.email "your-email@example.com"
+
+# 任意: 既定以外の鍵を使うときだけ ssh コマンドを差し替える
 git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519"`}
                 language="bash"
               />
