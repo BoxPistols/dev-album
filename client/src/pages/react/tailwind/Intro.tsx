@@ -68,9 +68,9 @@ export default function TailwindIntro() {
 
             <InfoBox type="info" title="デザイナーにとってのメリット">
               <p>
-                Tailwind のクラス名は CSS プロパティと1対1で対応しています。
-                <code>p-6</code> は <code>padding: 1.5rem</code>、<code>text-xl</code> は <code>font-size: 1.25rem</code> のように、
-                覚えてしまえば CSS を直接書くより速くスタイリングできます。
+                Tailwind の多くのユーティリティは、クラス名が CSS の値と直接対応しています。
+                <code>p-6</code> は <code>padding: 1.5rem</code>、<code>text-xl</code> は <code>font-size: 1.25rem</code>（あわせて <code>line-height</code> も出力されます）といった具合です。
+                <code>sr-only</code> のように 1 つのクラスが複数のプロパティを出すものもありますが、対応関係を覚えるとクラス名からスタイルを読み取れるようになります。
               </p>
             </InfoBox>
           </section>

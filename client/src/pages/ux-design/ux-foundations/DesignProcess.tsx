@@ -295,8 +295,11 @@ export default function DesignProcess() {
 
             <InfoBox type="info" title="現実のプロジェクトでは">
               <p>
-                多くのチームはウォーターフォールとアジャイルの中間的なやり方を採用している。
-                初期の戦略・リサーチはまとめて行い、デザインと開発はスプリント単位で反復する「デュアルトラック・アジャイル」が一般的。
+                ウォーターフォールとアジャイルの中間として「デュアルトラック・アジャイル」がよく挙がる。
+                ただしこれは、初期の戦略・リサーチをまとめて済ませてから開発に入る前工程一括型ではない。
+                用語を広めた Marty Cagan（SVPG）の定義では、検証済みのバックログ項目を作り続ける Discovery トラックと、
+                リリース可能なソフトウェアを作る Delivery トラックを並行して継続的に走らせる。
+                Cagan は旧称の「Discovery Sprints」を、Discovery を期間で区切り工程を直列化する含みがあるとして避けている。
               </p>
             </InfoBox>
           </section>
@@ -457,6 +460,11 @@ export default function DesignProcess() {
                 title: 'Jeff Gothelf - Lean UX (O\'Reilly)',
                 url: 'https://www.oreilly.com/library/view/lean-ux-3rd/9781098116293/',
                 description: 'リーン UX の定番書籍（第 3 版）',
+              },
+              {
+                title: 'SVPG - Dual-Track Agile',
+                url: 'https://www.svpg.com/dual-track-agile/',
+                description: 'Marty Cagan による Discovery / Delivery 2 トラックの定義',
               },
               {
                 title: 'NNGroup: Discovery in Agile',

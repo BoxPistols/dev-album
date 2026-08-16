@@ -361,8 +361,8 @@ function formReducer(state: FormState, action: FormAction): FormState {
         errors: { submit: action.error },
       };
 
-    // すべての case を処理しないと TypeScript がエラーを出す
-    // （exhaustive check）
+    // 想定外の type が来たら state をそのまま返す
+    // （case の書き漏れを型で検出する方法は次の「網羅性チェック」で扱う）
     default:
       return state;
   }

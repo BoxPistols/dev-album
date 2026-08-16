@@ -535,10 +535,10 @@ export function ProductSearch() {
             <ReferenceLinks
               links={[
                 {
-                  title: "Next.js Docs - Data Fetching and Caching",
-                  url: "https://nextjs.org/docs/app/building-your-application/data-fetching/fetching",
+                  title: "Next.js Docs - Fetching Data",
+                  url: "https://nextjs.org/docs/app/getting-started/fetching-data",
                   description:
-                    "Server Component での fetch とキャッシュ / 再検証（revalidate）の公式ガイド",
+                    "Server Component での fetch とストリーミングの公式ガイド（キャッシュ / 再検証は Caching のページに分かれている）",
                 },
                 {
                   title: "Next.js Docs - Route Handlers",

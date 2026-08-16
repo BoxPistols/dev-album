@@ -156,8 +156,8 @@ export default function Quickstart() {
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
             「フロントは書けるが、バックエンドやデータベースは苦手。なのに現場で
             API 設計や連携をすぐやることになった」——このページは、そんな状況で
-            <strong>要点だけを最短で身に付ける</strong>ための地図です。 36
-            ページ全部をいきなり読む必要はありません。読む順番を絞ります。
+            <strong>要点だけを最短で身に付ける</strong>ための地図です。
+            このマニュアルを頭から全部読む必要はありません。読む順番を絞ります。
           </p>
         </div>
 

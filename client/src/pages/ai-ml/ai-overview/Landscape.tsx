@@ -34,9 +34,15 @@ const milestones = [
   },
   {
     year: "2024",
-    title: "マルチモーダル / AI エージェント",
+    title: "マルチモーダル",
     description:
-      "GPT-4o、Claude 3.5 などマルチモーダルモデルが普及。Claude Code のような AI エージェントが開発ワークフローに統合され始めた。",
+      "GPT-4o、Claude 3.5 などマルチモーダルモデルが普及。テキストに加えて画像や音声を同じモデルで扱えるようになった。",
+  },
+  {
+    year: "2025",
+    title: "AI コーディングエージェント",
+    description:
+      "Anthropic が Claude 3.7 Sonnet と同時に Claude Code を limited research preview として公開（2025-02-24）。AI エージェントが開発ワークフローに統合され始めた。",
   },
 ];
 

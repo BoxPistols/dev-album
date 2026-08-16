@@ -259,11 +259,11 @@ export default function UsabilityTesting() {
               <h3 className="font-semibold text-foreground mb-3">SUS スコアの目安</h3>
               <div className="flex items-end gap-1 h-24 mb-4">
                 {[
-                  { label: '0-50', color: 'bg-red-400 dark:bg-red-500', height: '25%', grade: 'F' },
+                  { label: '〜50', color: 'bg-red-400 dark:bg-red-500', height: '25%', grade: 'F' },
                   { label: '51-67', color: 'bg-orange-400 dark:bg-orange-500', height: '45%', grade: 'D' },
-                  { label: '68-80', color: 'bg-yellow-400 dark:bg-yellow-500', height: '65%', grade: 'C' },
-                  { label: '81-90', color: 'bg-green-400 dark:bg-green-500', height: '85%', grade: 'B' },
-                  { label: '91-100', color: 'bg-primary', height: '100%', grade: 'A' },
+                  { label: '68-73', color: 'bg-yellow-400 dark:bg-yellow-500', height: '65%', grade: 'C' },
+                  { label: '74-80', color: 'bg-green-400 dark:bg-green-500', height: '85%', grade: 'B' },
+                  { label: '80.3〜', color: 'bg-primary', height: '100%', grade: 'A' },
                 ].map((item) => (
                   <div key={item.label} className="flex flex-col items-center flex-1">
                     <span className="text-xs font-bold text-foreground mb-1">{item.grade}</span>
@@ -276,8 +276,9 @@ export default function UsabilityTesting() {
                 ))}
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                平均スコアは 68 点。これを上回れば「平均以上の使いやすさ」と判断できます。
-                80点以上でユーザーが積極的に他者に推薦するレベルとされています。
+                平均スコアは 68 点で、これがちょうど C にあたります。これを上回れば「平均以上の使いやすさ」と判断できます。
+                MeasuringU の解説では A は 80.3 点超（上位 10%）、F は 51 点未満（下位 15%）とされています。
+                グレードは絶対評価ではなく、過去の調査データに対する相対位置で決まる点に注意してください。
               </p>
             </div>
           </section>
@@ -476,6 +477,11 @@ export default function UsabilityTesting() {
                 title: 'NNGroup: Measuring Usability with SUS',
                 url: 'https://www.nngroup.com/articles/measuring-perceived-usability/',
                 description: 'SUS（System Usability Scale）の実施方法と結果の解釈',
+              },
+              {
+                title: 'MeasuringU: Measuring Usability with the System Usability Scale (SUS)',
+                url: 'https://measuringu.com/sus/',
+                description: 'SUS スコアのグレード基準（平均 68 = C、80.3 超 = A、51 未満 = F）の出典',
               },
               {
                 title: 'Usability Testing 101',

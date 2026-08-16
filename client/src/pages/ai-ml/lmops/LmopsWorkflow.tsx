@@ -349,7 +349,8 @@ print(response.content)`}
             <div className="rounded-xl border border-border bg-card p-6 mb-6">
               <h3 className="text-xl font-bold text-foreground mb-4">トークンとコスト</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                1 トークンは概ね英語 4 文字、日本語 0.5〜1 文字に相当します。
+                1 トークンが何文字に相当するかは提供元とトークナイザによって異なります。
+                Anthropic は Claude について「1 トークンはおよそ英語 3.5 文字」と説明しています。
                 入力トークンと出力トークンそれぞれに料金が発生し、一般に出力トークンの方が高価です。
               </p>
               <div className="rounded-lg border border-border bg-muted p-5">

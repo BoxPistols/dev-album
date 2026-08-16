@@ -603,7 +603,7 @@ export default function PricingPage() {
 // shadcn/ui の特徴:
 // - Tailwind CSS ベース（Server Component で動作）
 // - コードがプロジェクトに入るのでカスタマイズ自由
-// - Radix UI ベースでアクセシビリティも万全
+// - Base UI（2026 年 7 月以降の既定）または Radix UI をベースにアクセシビリティに対応
 // - App Router との相性が最も良い UI ライブラリの一つ`}
               language="tsx"
               title="shadcn/ui の使用例"

@@ -474,7 +474,7 @@ async function handleCreateOrder(req: Request): Promise<Response> {
                   title: "IETF Draft - The Idempotency-Key HTTP Header Field",
                   url: "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
                   description:
-                    "Idempotency-Key ヘッダーの標準化を進める IETF ドラフト。挙動の正式な整理",
+                    "Idempotency-Key ヘッダーの挙動を整理した IETF ドラフト。2026-04-18 に期限切れ・アーカイブ済みで RFC 化はしていないため、設計の参考として読む",
                 },
                 {
                   title: "MDN - 422 Unprocessable Content",

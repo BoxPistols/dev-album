@@ -244,7 +244,7 @@ export default function Validation() {
 const CreateUserSchema = z.object({
   // 形式: email 形式を強制
   email: z.string().email(),
-  // 範囲: 8〜72 文字（bcrypt の上限を意識）
+  // 長さ: 8〜72（bcrypt の上限は 72 バイト。.max は文字数なのでマルチバイトでは一致しない）
   password: z.string().min(8).max(72),
   // 必須 + 長さ
   name: z.string().min(1).max(50),

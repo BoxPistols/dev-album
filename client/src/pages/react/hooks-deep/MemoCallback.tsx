@@ -155,7 +155,7 @@ function App() {
             <div className="mt-6 mb-6">
               <InfoBox type="warning" title="memo の落とし穴: オブジェクトと関数">
                 <p>
-                  React.memo は props を「浅い比較（===）」で判定します。
+                  React.memo は props を「浅い比較（<code>Object.is</code>）」で判定します。
                   プリミティブ値（文字列、数値）は問題ありませんが、オブジェクトや関数は毎回新しい参照が作られるため、
                   memo が効きません。ここで useMemo と useCallback が必要になります。
                 </p>
@@ -815,7 +815,7 @@ function ProductCatalog({ products }: { products: Product[] }) {
                 { label: 'React がエラーを出す' },
                 { label: 'React.memo が自動的に useMemo を適用する' },
               ]}
-              explanation="React.memo は props を浅い比較（===）で判定します。オブジェクトは毎回新しい参照が作られるため === で false となり、memo が効きません。この問題を解決するには、親コンポーネントで useMemo を使ってオブジェクトの参照を安定させる必要があります。"
+              explanation="React.memo は props を浅い比較（Object.is）で判定します。オブジェクトは毎回新しい参照が作られるため Object.is で false となり、memo が効きません。この問題を解決するには、親コンポーネントで useMemo を使ってオブジェクトの参照を安定させる必要があります。"
             />
           </section>
 

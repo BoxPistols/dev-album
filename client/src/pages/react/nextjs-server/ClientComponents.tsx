@@ -326,7 +326,7 @@ export default async function DashboardLayout({
                 <h4 className="font-semibold text-red-800 dark:text-red-300 mb-2">できないこと</h4>
                 <ul className="text-sm text-foreground/80 space-y-1.5">
                   <li>Client Component から Server Component を直接インポートして使う</li>
-                  <li>Server Component に関数を Props として渡す（シリアライズできないため）</li>
+                  <li>Server Component から Client Component に関数を Props として渡す（シリアライズできないため。'use server' を付けた Server Function は参照として渡せる）</li>
                   <li>Server Component で Hooks やイベントハンドラを使う</li>
                   <li>Client Component で async コンポーネントを定義する</li>
                 </ul>

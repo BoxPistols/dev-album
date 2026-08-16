@@ -33,7 +33,7 @@ const methods = [
   {
     name: "PATCH",
     safe: "非安全",
-    idempotent: "ケースによる",
+    idempotent: "非冪等",
     crud: "Update（部分）",
     use: "リソースの一部だけを更新する。差分だけを送る",
   },
@@ -131,8 +131,10 @@ export default function HttpMethods() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               RFC 9110（HTTP Semantics）が定める各メソッドの性質と、よく対応する
-              CRUD 操作を一覧にします。 PATCH の冪等性が「ケースによる」になって
-              いる点が、後で重要になります。
+              CRUD 操作を一覧にします。PATCH だけは RFC 9110 ではなく RFC 5789
+              が定義しており、同仕様が「安全でも冪等でもない」と明記しています。
+              ただし patch document の作り方次第で、個々の PATCH
+              リクエストを冪等に構成することはできます。この違いが後で重要になります。
             </p>
 
             <div className="rounded-xl border border-border bg-card overflow-x-auto">

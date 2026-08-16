@@ -616,6 +616,12 @@ jobs:
         with:
           fetch-depth: 0  # 全履歴が必要（差分比較のため）
 
+      # cache: 'pnpm' は pnpm コマンドを呼ぶので、先に pnpm を入れる
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -929,6 +935,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # cache: 'pnpm' は pnpm コマンドを呼ぶので、先に pnpm を入れる
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - uses: actions/setup-node@v4
         with:

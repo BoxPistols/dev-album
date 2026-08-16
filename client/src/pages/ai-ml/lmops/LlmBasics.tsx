@@ -203,7 +203,7 @@ export default function LlmBasics() {
                   <tr className="bg-card">
                     <td className="py-3 px-4 font-medium text-foreground">Llama</td>
                     <td className="py-3 px-4 text-muted-foreground">Meta</td>
-                    <td className="py-3 px-4 text-muted-foreground">オープンソース、ローカル実行可能、カスタマイズ性が高い</td>
+                    <td className="py-3 px-4 text-muted-foreground">オープンウェイト（重みを公開。Meta 独自のコミュニティライセンス）、ローカル実行可能、カスタマイズ性が高い</td>
                     <td className="py-3 px-4 text-muted-foreground">オンプレミス、研究、カスタムモデル</td>
                   </tr>
                 </tbody>

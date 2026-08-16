@@ -385,7 +385,7 @@ export default function GlobalError({
                 global-error.tsx はルートレイアウトを置き換えるため、
                 <code className="text-sm bg-muted px-1.5 py-0.5 rounded">&lt;html&gt;</code> と
                 <code className="text-sm bg-muted px-1.5 py-0.5 rounded">&lt;body&gt;</code> タグを自分で定義する必要があります。
-                また、開発モードでは global-error よりもエラーオーバーレイが優先されます。
+                なお Next.js 15.2 以降は、開発モードでも global-error が dev overlay とあわせて表示されます。
               </p>
             </InfoBox>
           </section>

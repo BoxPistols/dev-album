@@ -64,7 +64,7 @@ export default function WhatIsNextjs() {
                   </tr>
                   <tr>
                     <td className="py-3 px-4 font-medium">デプロイ</td>
-                    <td className="py-3 px-4">静的ホスティングのみ</td>
+                    <td className="py-3 px-4">静的ホスティング（SSR 構成なら Node サーバーも可）</td>
                     <td className="py-3 px-4">Vercel で簡単デプロイ</td>
                   </tr>
                 </tbody>
