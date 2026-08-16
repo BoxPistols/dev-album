@@ -101,8 +101,7 @@ export default function SbFigma() {
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mts|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
     '@storybook/addon-designs',  // 追加
   ],
   framework: {

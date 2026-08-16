@@ -19,6 +19,12 @@ export default function SbIntro() {
           エンジニアにとっての開発環境であり、デザイナーにとっての UI カタログであり、チーム全体にとっての共通言語になります。
         </p>
 
+        <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
+          このマニュアルは <code>npx storybook@latest init</code> で導入される最新系（Storybook 9 以降）を前提にしています。
+          Storybook 9 で <code>@storybook/addon-essentials</code> は廃止され、Controls / Actions / Viewport / Backgrounds / Measure / Outline はコアに統合されました。
+          Docs だけは <code>@storybook/addon-docs</code> として別パッケージのままです。8 以前を扱う記事とは設定例が異なります。
+        </p>
+
         <WhyNowBox tags={['Storybook', 'コンポーネントカタログ', 'UI ドキュメント', 'チーム協業']}>
           <p>
             React コンポーネントの作り方、Props の渡し方、CSS のスタイリングを学んできました。
@@ -359,13 +365,13 @@ interface ButtonProps {
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-2">4. インタラクションテスト</h3>
                 <p className="text-muted-foreground mb-3 leading-relaxed">
-                  Storybook 8 では play 関数を使って、ユーザー操作のシミュレーションとアサーションが可能です。
+                  play 関数を使って、ユーザー操作のシミュレーションとアサーションが可能です。
                   「ボタンをクリックしたらモーダルが開く」といった動作の自動テストを Story に組み込めます。
                 </p>
                 <CodeBlock
                   language="tsx"
                   title="play 関数によるインタラクションテスト"
-                  code={`import { within, userEvent, expect, fn } from '@storybook/test';
+                  code={`import { within, userEvent, expect, fn } from 'storybook/test';
 
 export const SubmitForm: Story = {
   args: {
@@ -499,22 +505,24 @@ export const SubmitForm: Story = {
                 <CodeBlock
                   language="bash"
                   title="よく使われるアドオン"
-                  code={`# Storybook 8 では多くのアドオンが最初から同梱されている
+                  code={`# 主要な機能は Storybook のコアに同梱されている
 
-# 同梱済み（追加インストール不要）
-# @storybook/addon-essentials に含まれるもの:
+# コア同梱（インストールも addons への追加も不要）
 #   - Controls: Props を GUI で変更
 #   - Actions: イベントハンドラの呼び出しをログ表示
 #   - Viewport: レスポンシブプレビュー
 #   - Backgrounds: 背景色の切り替え
-#   - Docs: ドキュメント自動生成
 #   - Measure: 要素間のスペーシング表示
 #   - Outline: 要素のアウトライン表示
 
+# Docs は別パッケージ（インストールして addons に追加する）
+npx storybook add @storybook/addon-docs   # ドキュメント自動生成
+
 # 追加でよく使われるアドオン
-pnpm add -D @storybook/addon-a11y         # アクセシビリティチェック
-pnpm add -D @storybook/addon-designs      # Figma デザイン埋め込み
-pnpm add -D storybook-dark-mode            # ダークモード切り替え`}
+# storybook add はインストールと main.ts の addons への追加をまとめて行う
+npx storybook add @storybook/addon-a11y      # アクセシビリティチェック
+npx storybook add @storybook/addon-designs   # Figma デザイン埋め込み
+npx storybook add storybook-dark-mode        # ダークモード切り替え`}
                 />
               </div>
 
@@ -727,15 +735,15 @@ export default meta;
 
           {/* セクション8: Storybook のバージョンと対応フレームワーク */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Storybook 8 の特徴と対応フレームワーク</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">バージョン前提と対応フレームワーク</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              このマニュアルでは Storybook 8（2024年リリース）を前提に解説します。
+              このマニュアルは <code>npx storybook@latest init</code> で入る最新系（Storybook 9 以降）を前提に解説します。
               Storybook は React 専用ではなく、多くのフレームワークをサポートしています。
             </p>
 
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="p-4 rounded-lg border border-border bg-card">
-                <h3 className="font-bold text-foreground mb-2">Storybook 8 の主な改善点</h3>
+                <h3 className="font-bold text-foreground mb-2">Storybook 8 以降の主な改善点</h3>
                 <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4">
                   <li>ビルド・起動の高速化（--test フラグによるテストビルド、React の docgen を react-docgen に変更）</li>
                   <li>React Server Components 対応</li>

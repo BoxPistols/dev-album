@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-storybook-version-alignment",
+    date: "2026-08-16",
+    title: "Storybook マニュアルの前提バージョンを揃え、動かない設定例を直した",
+    description:
+      "npx storybook@latest init で入る版と設定例がずれており、そのとおりに進めると失敗する箇所があった。Storybook 9 で削除された @storybook/addon-essentials を addons から外し、Docs は @storybook/addon-docs として別途入れる形に直した。storybook/test への import 変更、backgrounds と viewport の parameters が options と initialGlobals を使う新形式になった点、@storybook/addon-vitest への改名、MDX の blocks の移動も反映している。再発を防ぐため、マニュアルの入口に前提バージョンを明記した。",
+    category: "fix",
+    link: "/react/storybook/setup",
+  },
+  {
     id: "2026-08-16-audit-self-review",
     date: "2026-08-16",
     title: "照合作業そのものを見直し、自分が入れた誤りを直した",
