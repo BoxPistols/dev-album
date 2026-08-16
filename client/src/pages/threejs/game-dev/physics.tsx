@@ -198,11 +198,15 @@ export default function PhysicsPage() {
             <h3 className="font-bold text-green-500">揚力 (Lift)</h3>
           </div>
           <p className="text-sm text-muted-foreground mb-2">
-            翼が生み出す上方への力。速度と迎え角に比例する。
+            翼が生み出す上方への力。実際の揚力は速度の二乗に比例し（L = Cl
+            ・ρV²/2・A）、迎え角によって揚力係数 Cl が変わる。
           </p>
           <div className="bg-muted/50 rounded px-3 py-2 font-mono text-xs">
             lift = speed * liftCoef * angleOfAttack
           </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            上の式はこのデモの簡略モデル。速度に比例させて挙動を掴みやすくしている。
+          </p>
         </div>
 
         <div className="bg-card border-2 border-red-500/30 rounded-lg p-5">

@@ -236,9 +236,10 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold mb-2 text-sm">仕組み</h4>
                 <ul className="text-xs text-muted-foreground space-y-2">
-                  <li>MCPサーバのツール数が多い場合、ツール定義はdeferredとして登録される</li>
+                  <li>Tool Searchは既定で有効。登録ツール数に関係なく、MCPツールの定義はdeferredとして登録される</li>
                   <li>モデルが必要と判断したタイミングで <code>ToolSearch</code> を呼び出し、ツールのスキーマを取得</li>
                   <li>取得されたツールだけがコンテキストに追加され、その後通常どおり呼び出せる</li>
+                  <li>ツール定義の合計がコンテキストウィンドウの10%に達したら切り替える閾値モードは既定ではなく、<code>ENABLE_TOOL_SEARCH=auto</code> でのオプトイン</li>
                 </ul>
               </div>
               <InfoBox type="success" title="コンテキスト節約効果">

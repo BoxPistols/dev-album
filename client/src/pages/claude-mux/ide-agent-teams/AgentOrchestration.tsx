@@ -55,7 +55,7 @@ export default function AgentOrchestration() {
             </div>
 
             <InfoBox type="info" title="要件">
-              <code>claude --version</code> でバージョンを確認し、古い場合は <code>npm update -g @anthropic-ai/claude-code</code> でアップデートする。そのうえで <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> を設定して有効化する。なお非対話モード（<code>-p</code> / Agent SDK）ではチームメイトは spawn されないため、対話セッションで使う。
+              Agent Teams は experimental で既定では無効。<code>settings.json</code> か環境変数に <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> を設定して有効化する。バージョンは <code>claude --version</code> で確認でき、npm でインストールしている場合の更新は <code>npm install -g @anthropic-ai/claude-code@latest</code>（公式ドキュメントは <code>npm update -g</code> を避けるよう案内している。インストール時の semver 範囲に従うため最新版に上がらないことがある）。ネイティブインストーラで入れた場合はバックグラウンドで自動更新される。なお非対話モード（<code>-p</code> / Agent SDK）ではチームメイトは spawn されないため、対話セッションで使う。
             </InfoBox>
           </section>
 
@@ -167,7 +167,7 @@ claude
                 <thead className="bg-slate-50 dark:bg-slate-900">
                   <tr>
                     <th className="px-4 py-3 text-left font-medium text-foreground border-b border-slate-200 dark:border-slate-800">特性</th>
-                    <th className="px-4 py-3 text-left font-medium text-foreground border-b border-slate-200 dark:border-slate-800">Subagents（Task ツール）</th>
+                    <th className="px-4 py-3 text-left font-medium text-foreground border-b border-slate-200 dark:border-slate-800">Subagents（Agent ツール）</th>
                     <th className="px-4 py-3 text-left font-medium text-foreground border-b border-slate-200 dark:border-slate-800">Agent Teams</th>
                   </tr>
                 </thead>
@@ -176,7 +176,7 @@ claude
                     ['動作範囲', '単一セッション内', '複数の独立セッション間'],
                     ['コンテキスト', '独立したコンテキストウィンドウで開始し、結果を呼び出し元に返す（会話履歴を継承するのは subagent_type: "fork" のみ）', '各チームメイトが独立したコンテキストを持ち、互いに直接通信する'],
                     ['通信', '親セッションを介して結果を返す', 'チームメイト同士が直接通信'],
-                    ['起動方法', 'Claude が自動的に Task ツールで起動', 'チームリードが指示に基づいて起動'],
+                    ['起動方法', 'Claude が自動的に Agent ツールで起動（v2.1.63 で Task から改名。Task(...) はエイリアスとして残る）。@agent-<名前> のメンションや --agent での明示指定もできる', 'チームリードが指示に基づいて起動'],
                     ['適したタスク', '調査・分析・小規模な部分実装', '大規模な並列開発・複数機能の同時実装'],
                     ['可視性', 'メインセッションに結果のみ表示', 'agent panel の上下矢印キー選択または個別ペインで進捗監視可能'],
                   ].map(([feature, sub, teams]) => (

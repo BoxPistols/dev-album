@@ -134,9 +134,13 @@ export default function Lifecycle() {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               コンポーネントは「生成 → マウント → 更新（くり返し） →
               破棄」という流れをたどります。 Composition API のフックはすべて{" "}
-              <code>on</code> プレフィックスの関数で、
-              <code>{"<script setup>"}</code> の中で呼びます。import
-              が必要な点が React の useEffect との違いです。
+              <code>on</code> プレフィックスの関数で、Options API
+              と違って <code>vue</code> から import して使います（React の{" "}
+              <code>useEffect</code> を <code>react</code>{" "}
+              から import するのと同じ形です）。通常は{" "}
+              <code>{"<script setup>"}</code> の中で呼びますが、
+              <code>setup()</code>{" "}
+              から同期的に呼ばれていればコンポーザブル等の外部関数の中でも登録できます。
             </p>
 
             <div className="overflow-x-auto mb-6">

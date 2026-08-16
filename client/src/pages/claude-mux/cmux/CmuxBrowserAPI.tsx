@@ -86,7 +86,8 @@ export default function CmuxBrowserAPI() {
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              主な操作は次の 5 つ。socket 経由のコマンドとして呼び出せる。
+              主な操作は次のとおり。socket 経由のコマンドとして呼び出せる。
+              browser サブコマンドはこれより多く用意されているため、ここでは代表的なものを抜粋している。
             </p>
 
             <div className="overflow-x-auto mb-6">
@@ -107,7 +108,7 @@ export default function CmuxBrowserAPI() {
                       browser snapshot
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      アクセシビリティツリーを取得（--cursor / --compact / --selector / --max-depth で絞れる）
+                      アクセシビリティツリーを取得（--interactive / --compact / --selector / --max-depth で絞れる）
                     </td>
                   </tr>
                   <tr className="border-b border-border">

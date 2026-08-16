@@ -272,7 +272,8 @@ codex resume --last`}
                       Rust 製・オープンソース（Apache 2.0）
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      Node.js ベース・プロプライエタリ
+                      プラットフォーム別のネイティブバイナリ・クローズドソース（npm
+                      経由でも同じバイナリが入り、実行時に Node.js は使わない）
                     </td>
                   </tr>
                 </tbody>

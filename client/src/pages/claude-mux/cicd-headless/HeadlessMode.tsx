@@ -67,8 +67,17 @@ claude -p "Hello" --output-format stream-json`} />
               </div>
             </div>
 
-            <InfoBox type="info" title="パイプモードの特性">
-              パイプモードでは会話履歴が保持されません。毎回新しいセッションとして実行されます。継続的な対話が必要な場合は REPL モード（<code>claude</code>）を使用してください。
+            <InfoBox type="info" title="パイプモードでの会話の継続">
+              <p className="mb-2">
+                フラグを付けない <code>-p</code> の実行は毎回新しいセッションになりますが、会話は保存されており継続できます。<code>--continue</code>（<code>-c</code>）で直近の会話を継続し、<code>--resume</code> にセッション ID を渡すと特定の会話に戻れます。
+              </p>
+              <CodeBlock language="bash" code={`# 直近の会話を継続する
+claude -p "Review this codebase for performance issues"
+claude -p "Now focus on the database queries" --continue
+
+# セッション ID を取って特定の会話に戻る
+session_id=$(claude -p "Start a review" --output-format json | jq -r '.session_id')
+claude -p "Continue that review" --resume "$session_id"`} />
             </InfoBox>
           </section>
 

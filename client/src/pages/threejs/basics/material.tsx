@@ -146,8 +146,14 @@ export default function MaterialPage() {
           <p className="mt-2">
             一方、<code>MeshStandardMaterial</code> と{" "}
             <code>MeshPhongMaterial</code>{" "}
-            はライトがないと真っ黒になります。
-            これらを使う場合は、必ずシーンにライトを追加しましょう。
+            は、<code>emissive</code>（既定は (0,0,0)）も <code>envMap</code>{" "}
+            も設定していない既定の状態ではライトがないと真っ黒になります。
+            これらを使う場合は、シーンにライトを追加しましょう。
+          </p>
+          <p className="mt-2">
+            <code>emissive</code>{" "}
+            は「他のライティングの影響を受けない発色成分」として定義されているため、ここに色を設定すればライトが 1
+            つもなくてもその色で描画されます。とはいえ陰影は付かないので、通常はライトを置くほうが扱いやすくなります。
           </p>
         </InfoBox>
       </div>
@@ -264,7 +270,7 @@ renderer.render(scene, camera);`}
             <li>MeshBasicMaterial: ライト不要、最もシンプル</li>
             <li>MeshStandardMaterial: PBR、最もリアル（推奨）</li>
             <li>MeshPhongMaterial: 光沢表現、Standard より軽量</li>
-            <li>Standard / Phong はライトがないと真っ黒になる</li>
+            <li>Standard / Phong は既定の状態ではライトがないと真っ黒になる（emissive を設定すれば例外）</li>
           </ul>
         </InfoBox>
       </div>

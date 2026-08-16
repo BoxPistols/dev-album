@@ -69,7 +69,7 @@ export default function ClaudeCheatsheet() {
                 ['/compact [focus]', '会話を要約してコンテキスト開放（同セッション継続）'],
                 ['/model [model]', 'モデル切替。引数なしでピッカー、左右キーで effort 調整'],
                 ['/effort [level|auto]', 'effort level 切替: low / medium / high / xhigh / max（モデル依存、auto で既定値）'],
-                ['/doctor', '環境と設定の健全性を診断（f キーで Claude に修正させる）'],
+                ['/doctor', '環境と設定の健全性を診断し、修正もできる。結果を先に報告し、変更前に確認を求める（エイリアス: /checkup）'],
                 ['/exit (/quit)', 'REPLを終了（Ctrl+D でも可）'],
               ]}
             />
@@ -85,7 +85,7 @@ export default function ClaudeCheatsheet() {
               headers={['コマンド', '説明']}
               rows={[
                 ['/resume [session]', '過去のセッションを ID / 名前で再開（引数なしでピッカー）。エイリアス: /continue'],
-                ['/branch [name]', '会話を分岐。元セッションは /resume から戻れる（エイリアス: /fork）'],
+                ['/branch [name]', '会話を分岐して分岐先に切り替える。元セッションは /resume から戻れる'],
                 ['/rewind', '会話 / コードを巻き戻し or 以降を要約。Esc×2 でも起動（/checkpoint, /undo）'],
                 ['/rename [name]', 'セッションに識別名を付与（引数なしで自動命名）'],
                 ['/export [filename]', '対話履歴をプレーンテキスト出力（引数なしでダイアログ）'],
