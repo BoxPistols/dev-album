@@ -1255,7 +1255,7 @@ function App() {
               items={[
                 {
                   question: 'styled-components と Emotion のどちらを選べばいいですか？',
-                  answer: 'API はほぼ同じなので、どちらを選んでも大きな差はありません。styled API のみで統一したいなら styled-components、css prop も活用したいなら Emotion がおすすめです。MUI v5 を使う場合は Emotion が内蔵されています。コミュニティの大きさでは styled-components が勝ります。',
+                  answer: 'API はほぼ同じなので、どちらを選んでも大きな差はありません。styled API のみで統一したいなら styled-components、css prop も活用したいなら Emotion がおすすめです。MUI v5 を使う場合は Emotion が内蔵されています。',
                 },
                 {
                   question: 'styled-components は React Server Components で使えますか？',

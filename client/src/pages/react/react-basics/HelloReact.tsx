@@ -29,8 +29,7 @@ export default function HelloReact() {
           <p>
             React は Meta（旧 Facebook）が開発した UI ライブラリで、
             Instagram、Netflix、Airbnb、Notion など、世界中の主要なWebサービスで使われています。
-            求人サイトで「フロントエンドエンジニア」を検索すると、ほぼ全てで React のスキルが使われるほど、
-            業界標準の技術です。デザイナーが React を学ぶことは、デザインと実装の橋渡し能力を手に入れることを意味します。
+            デザイナーが React を学ぶことは、デザインと実装の橋渡し能力を手に入れることを意味します。
           </p>
         </WhyNowBox>
 

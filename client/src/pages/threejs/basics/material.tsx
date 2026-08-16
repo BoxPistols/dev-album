@@ -103,8 +103,8 @@ export default function MaterialPage() {
           <p className="text-sm text-muted-foreground mb-3">
             PBR（物理ベースレンダリング）マテリアル。
             <code>roughness</code>（粗さ）と <code>metalness</code>
-            （金属感）で質感をリアルに制御できます。
-            最も推奨されるマテリアルです。
+            （金属感）で質感をリアルに制御できます。 公式ドキュメントによると、MeshLambertMaterial や
+            MeshPhongMaterial より正確でリアルな見た目になる一方、計算コストは高くなります。
           </p>
           <CodeBlock
             language="javascript"

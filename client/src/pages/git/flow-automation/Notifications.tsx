@@ -200,21 +200,18 @@ export default function Notifications() {
               導入と基本コマンド
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Slack ワークスペースに GitHub
-              アプリを追加したら、通知を受け取りたい チャンネルで{" "}
-              <code>/github signin</code> を実行してアカウントを
-              紐づけます。以降の設定は、すべて
+              公式ドキュメントが示す順序は、インストール → チャンネルへの招待 →
+              アカウントの接続です。Slack ワークスペースに GitHub
+              アプリを追加したら、通知を受け取りたいチャンネルで{" "}
+              <code>/invite @github</code> を実行してアプリを参加させ、続けて{" "}
+              <code>/github signin</code> でアカウントを紐づけます。
+              購読の設定はその後です。
+            </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              以降の設定は、すべて
               <strong>そのチャンネルの中で</strong>
               行います。購読はチャンネル単位
               なので、同じリポジトリでもチャンネルごとに別の設定を持てます。
-            </p>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              <strong>プライベートチャンネルで使う場合</strong>は、その前に
-              チャンネルへアプリを招待します。ワークスペースへのインストールだけでは
-              プライベートチャンネルにアプリが入らないため、
-              <code>/invite @github</code>{" "}
-              を実行してから購読を設定してください。パブリックチャンネルでは
-              この手順は不要です。
             </p>
 
             {/* 狭い画面ではコマンド列が収まらないため横スクロールさせる。

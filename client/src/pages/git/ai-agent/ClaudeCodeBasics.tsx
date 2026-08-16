@@ -109,8 +109,14 @@ claude`}
           <div className="bg-muted border border-border rounded-lg p-4">
             <p className="text-foreground font-medium mb-2">Claude Code が認識する範囲</p>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Claude Code は起動時のフォルダ以下のファイルを読み取れます。
-              Git リポジトリのルート（<code>.git</code> フォルダがある場所）で起動するのがベストです。
+              既定では、<code>claude</code> を実行したディレクトリが基準になります。
+              対象を広げたいときは <code>--add-dir</code> / <code>/add-dir</code> か、
+              設定の <code>permissions.additionalDirectories</code> を使います。
+            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed mt-2">
+              承認を求めるかどうかは許可ルールで決まるので、ルールを設定すれば承認なしで実行されることもあります。
+              許可ルールはツールを呼ぶ前の確認であって、OS レベルの隔離ではありません。
+              コマンドのファイルアクセスやネットワークを OS 側で制限するのは sandbox の役割です。
             </p>
           </div>
         </div>

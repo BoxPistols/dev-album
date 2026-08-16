@@ -402,10 +402,13 @@ paths:
               エージェントが同じ提案を繰り返すのを減らせる。
             </p>
 
-            <InfoBox type="info" title="第 3 層はどの仕様にも定義されていない">
-              Claude Code が読むのは CLAUDE.md、agents.md
-              が定めているのは AGENTS.md であり、
-              この第 3 のファイル名を規定した公開仕様は確認できていない。
+            <InfoBox
+              type="info"
+              title="第 3 層は CLAUDE.md / AGENTS.md のどちらの仕様にも含まれない"
+            >
+              Claude Code の公式ドキュメントは「Claude Code reads CLAUDE.md, not
+              AGENTS.md.」と述べ、agents.md はリポジトリのルートに AGENTS.md
+              を置く形式を定めている。 3 つ目のファイルはそのどちらにも登場しない。
               読ませたいなら CLAUDE.md / AGENTS.md から明示的に参照する。
               置くだけで読まれることを前提にしない。
             </InfoBox>

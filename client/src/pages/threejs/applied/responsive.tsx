@@ -187,7 +187,7 @@ function App() {
         <InfoBox type="info" title="devicePixelRatio とモバイル対策">
           <p>
             <code>window.devicePixelRatio</code> はデバイスの物理ピクセルと CSS ピクセルの比率です。
-            Retina ディスプレイでは 2 以上、最新スマートフォンでは 3 になることもあります。
+            MDN によると、値 1 は従来の 96 DPI ディスプレイ、値 2 は HiDPI / Retina ディスプレイで想定される値です。
           </p>
           <p className="mt-2">
             ピクセル比が高いほど描画ピクセル数が増え、GPU 負荷が上がります。

@@ -363,8 +363,8 @@ export default function PromptEngineering() {
               </div>
             </div>
 
-            <InfoBox type="info" title="Cursor での使い方">
-              Cursor（コードエディタ）のチャット機能も同じ考え方が使えます。コードを選択して「このコードについて質問」すると、自動でコードブロックに変換されます。役割・文脈・タスクを意識して指示すると、より的確なコード補助が得られます。
+            <InfoBox type="info" title="エディタのチャットでも同じ">
+              コードエディタに組み込まれたチャット機能でも考え方は同じです。役割・文脈・タスクを意識して指示すると、より的確なコード補助が得られます。
             </InfoBox>
           </div>
         </section>

@@ -30,7 +30,7 @@ const milestones = [
     year: "2022",
     title: "ChatGPT",
     description:
-      "GPT-3.5 ベースの対話型 AI がリリースされ、2ヶ月で1億ユーザーを突破。AI が一般ユーザーに浸透する転換点となった。",
+      "GPT-3.5 ベースの対話型 AI がリリースされ、LLM が一般ユーザーの手元で使えるようになった。",
   },
   {
     year: "2024",
@@ -479,7 +479,7 @@ export default function Landscape() {
                 { label: "Transformer", correct: true },
                 { label: "GAN（敵対的生成ネットワーク）" },
               ]}
-              explanation="Transformer は 2017 年に Google が発表したアーキテクチャで、Self-Attention 機構により並列処理が可能になりました。GPT、BERT、Claude など現在の主要な LLM はすべて Transformer をベースにしています。"
+              explanation="Transformer は 2017 年に Google が発表したアーキテクチャで、Self-Attention 機構により並列処理が可能になりました。GPT と BERT は、それぞれの論文で Transformer をベースにしていることが示されています。"
             />
           </section>
 

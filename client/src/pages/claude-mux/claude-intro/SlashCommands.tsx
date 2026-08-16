@@ -218,7 +218,7 @@ export default function SlashCommands() {
                   会話を ID または名前で再開、または引数なしでセッションピッカーを開く。デフォルトでは現在の worktree のセッションが表示され、キーボードショートカットで他 worktree やプロジェクトに広げられる。
                 </p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5 mb-3">
-                  <li>同じ session ID に追記され、新メッセージは既存会話に連結される。<strong>session-scoped permissions は復元されない</strong>ため再承認が必要。</li>
+                  <li>同じ session ID に追記され、新メッセージは既存会話に連結される。復元されるのは会話履歴・モデル・エージェント・パーミッションモードなどで、<strong><code>--mcp-config</code> や <code>--add-dir</code> といった起動フラグは復元されない</strong>ため再指定が必要。</li>
                   <li>CLI からは <code>claude --continue</code>（直前を即再開）、<code>claude --resume &lt;id&gt;</code>（指定 ID）も等価。</li>
                   <li>同じセッションを複数ターミナルで再開すると、両方のメッセージが時系列に交互記録される（壊れないが混在する）。並列なら <code>claude --continue --fork-session</code> で分岐推奨。</li>
                   <li>会話ファイルの実体は <code>~/.claude/projects/</code> 配下の JSONL。チェックポイント含めデフォルト 30 日で自動掃除。</li>

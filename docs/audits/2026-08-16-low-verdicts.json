@@ -1,0 +1,1091 @@
+[
+ {
+  "file": "react/intro/Setup.tsx",
+  "claim": "ブラウザで http://localhost:5173 を開いて、画面が表示されれば完了です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://vite.dev/config/server-options",
+  "quote": "Type: number Default: 5173",
+  "correction": "",
+  "evidence": "Vite 公式の server options を取得し、server.port の既定値が 5173 であることを確認した。"
+ },
+ {
+  "file": "react/nextjs-basics/ProjectSetup.tsx",
+  "claim": "Vite はデフォルトで <code className=\"text-sm bg-muted px-1.5 py-0.5 rounded\">localhost:5173</code> ですが、\n                Next.js は <code className=\"text-sm bg-muted px-1.5 py-0.5 rounded\">localhost:3000</code> を使います。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://nextjs.org/docs/app/api-reference/cli/next",
+  "quote": "By default, Next.js uses http://localhost:3000 during development and with next start.",
+  "correction": "",
+  "evidence": "Next.js 公式 CLI リファレンスを取得し、開発サーバーの既定ポートが 3000 であることを確認した。Vite 側の 5173 は同時に確認済み。"
+ },
+ {
+  "file": "react/nextjs-css/CssModulesSc.tsx",
+  "claim": "<strong>最初に学ぶなら</strong>: Tailwind CSS。最も使われており、App Router との相性も最高です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "Tailwind CSS が「最も使われている」ことと「App Router との相性が最高」であることを裏づける一次情報が無い。Next.js 公式は複数のスタイリング手法を並列に案内しており、優劣を述べていない。"
+ },
+ {
+  "file": "git/github-actions/SecretsPermissions.tsx",
+  "claim": "この教材リポジトリの CI は permissions: contents: read で読み取りに固定し、labeler だけが pull-requests: write を持ちます。役割ごとに必要な分 だけ渡す、を実演しています。",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:.github/workflows/ci.yml, labeler.yml, stale.yml",
+  "quote": "permissions:\n  issues: write\n  pull-requests: write",
+  "correction": "「labeler だけが pull-requests: write を持ちます」を実態に合わせる。現在は labeler.yml（contents: read + pull-requests: write）に加えて stale.yml も issues: write と pull-requests: write を持つ。例えば「CI は contents: read に固定し、書き込み権限は labeler と stale だけが、必要な種類だけ持ちます」のように直す。",
+  "evidence": "リポジトリの .github/workflows 配下を全件確認した。ci.yml は permissions: contents: read のみ（教材の記述どおり）。labeler.yml は contents: read + pull-requests: write。しかし stale.yml も issues: write と pull-requests: write を宣言しており、pull-requests: write を持つのは labeler だけではない。「〜だけが」という限定が現状と食い違う。"
+ },
+ {
+  "file": "git/github/Markdown.tsx",
+  "claim": "覚えることが極めて少ない ─ 基本記法は 10 個程度。15 分で一通り使えるようになります",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "「基本記法 10 個程度」「15 分」を裏づける一次情報は存在しない。何を基本記法に数えるか（見出し・強調・リスト・リンク・画像・コード・引用・表・水平線・タスクリスト等）は仕様側で定義されておらず、CommonMark 仕様も GitHub Flavored Markdown 仕様も「基本記法」という区分を持たない。習得時間も測定条件次第で、根拠を示せないため確定できない。プロジェクトの執筆規約（変動する具体数値は書かない）に照らしても、数値を落とすのが安全。"
+ },
+ {
+  "file": "git/react/Setup.tsx",
+  "claim": "初回は少し時間がかかります（3～5分程度）。",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:/usr/bin/time -p npm create vite@latest my-react-app -- --template react",
+  "quote": "real 9.42",
+  "correction": "所要時間の具体値を落とすか、実態に合わせる。教材の該当コマンド（npm create vite@latest ... --template react）はテンプレート生成のみで数十秒以内に終わる。時間がかかるのは後続の npm install で、それを含めても数十秒〜数分（回線とマシン次第）。「回線によって時間がかかることがあります」程度の書き方が安全。",
+  "evidence": "Node.js 24.18.1 / npm 11.16.0 の実機で、教材と同じコマンドを空ディレクトリで実測。npm create vite@latest my-react-app -- --template react が real 9.42 秒、続く npm install が real 26.62 秒で、合計でも約 36 秒だった。教材が「このコマンドは…作成します。初回は少し時間がかかります（3～5分程度）」と create コマンド単体に 3〜5 分を割り当てているのは実測と桁が違う。回線速度に依存する値なので、そもそも数値を書かない方がよい。"
+ },
+ {
+  "file": "git/workflow/PushPull.tsx",
+  "claim": "初回の Push 時に、「origin」と「main」の関連付けを聞かれる場合があります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/git/git/master/builtin/push.c",
+  "quote": "To push the current branch and set the remote as upstream, use",
+  "correction": "",
+  "evidence": "git 本体の builtin/push.c を raw で取得。上流未設定のブランチを push すると die() でこの案内が出る実装を確認した。git-push(1) の -u/--set-upstream も併読した。"
+ },
+ {
+  "file": "api/advanced/BeyondRest.tsx",
+  "claim": "フィールド番号（= 1 など）はバイナリ上の識別子で、後方互換のために一度割り当てたら変更しません。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://protobuf.dev/programming-guides/proto3/",
+  "quote": "This number cannot be changed once your message type is in use because it identifies the field in the message wire format.",
+  "correction": "",
+  "evidence": "Protocol Buffers 公式サイトの Language Guide (proto3) の Assigning Field Numbers 節を取得。フィールド番号が wire format 上でフィールドを識別するため使用開始後は変更できないこと、および「Field numbers should never be reused.」が明記されている。"
+ },
+ {
+  "file": "api/advanced/BeyondRest.tsx",
+  "claim": "また、ほとんどのリクエストが POST の単一エンドポイントになるため、URL 単位で効く HTTP キャッシュ（CDN・ブラウザ）が素直には効きません。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://graphql.org/learn/caching/",
+  "quote": "The URL in these APIs is a globally unique identifier that the client can leverage to build a cache. In GraphQL, there's no URL-like primitive that provides this globally unique identifier for a given object.",
+  "correction": "",
+  "evidence": "GraphQL 公式 Learn の Caching ページを取得し、エンドポイント型 API では URL がキャッシュの識別子になるのに対し GraphQL にはそれに相当するものがない、という記述を確認。POST 前提の点は同じく公式の Serving over HTTP ページ https://graphql.org/learn/serving-over-http/ で「Your GraphQL HTTP server must handle the HTTP POST method for query and mutation operations, and may also accept the GET method for query operations.」を確認した（GET は任意）。"
+ },
+ {
+  "file": "api/advanced/Summary.tsx",
+  "claim": "プロパティ名の語形（camelCase か snake_case）を全エンドポイントで統一。日時は ISO 8601（RFC 3339）で UTC 表記に揃える。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3339",
+  "quote": "This document defines a date and time format for use in Internet protocols that is a profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.",
+  "correction": "",
+  "evidence": "RFC 3339 本文を取得し、RFC 3339 が ISO 8601 のプロファイル（Internet 用の適合部分集合）であることを確認した。したがって「ISO 8601（RFC 3339）」という併記は妥当。ただし厳密には同一ではなく、同 RFC は「the complete grammar for ISO 8601 is deemed too complex for most Internet protocols」「It is a conformant subset of the ISO 8601 extended format.」とも述べており、両者を同義とまでは言えない点は補足の余地がある。"
+ },
+ {
+  "file": "api/basics/Resources.tsx",
+  "claim": "URL では大文字小文字が区別されうるため小文字に統一する。区切りはアンダースコアより読みやすいハイフン（ケバブケース）を使う。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3986",
+  "quote": "The other generic syntax components are assumed to be case-sensitive unless specifically defined otherwise by the scheme",
+  "correction": "",
+  "evidence": "RFC 3986（URI Generic Syntax）の 6.2.2.1 Case Normalization を取得。scheme と host は case-insensitive で小文字へ正規化すべきだが、それ以外の構成要素（path / query / fragment）は既定で case-sensitive とされている。したがって「URL では大文字小文字が区別されうる」は正しい。なおハイフン推奨は仕様の要求ではなく可読性上の慣習であり、規約の話として読めば問題ない。"
+ },
+ {
+  "file": "api/basics/Rest.tsx",
+  "claim": "API が「どこまで REST に従っているか」を段階で示すのが Richardson 成熟度モデルです。 Leonard Richardson が提唱し、Martin Fowler の解説で広く知られるようになりました。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://martinfowler.com/articles/richardsonMaturityModel.html",
+  "quote": "A model (developed by Leonard Richardson) that breaks down the principal elements of a REST approach into three steps.",
+  "correction": "",
+  "evidence": "Martin Fowler 本人の記事（2010-03-18 公開、著者 Martin Fowler）を取得。Leonard Richardson が考案したモデルであることと、Fowler が「the authors use a model of restful maturity that was developed by Leonard Richardson and explained at a QCon talk」「I thought I'd take a stab of my own explanation of it」と自身の解説であることを明記している。帰属と普及の経緯の記述は妥当。"
+ },
+ {
+  "file": "api/build/Auth.tsx",
+  "claim": "OIDC は OAuth 2.0 の上に「認証（ログイン）」の層を足した仕様。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://openid.net/specs/openid-connect-core-1_0.html",
+  "quote": "OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol.",
+  "correction": "",
+  "evidence": "OpenID Connect Core 1.0（errata set 2, 2023-12-15）の Abstract を取得。OAuth 2.0 の上に載る identity layer であること、「It enables Clients to verify the identity of the End-User based on the authentication performed by an Authorization Server」と認証を担う旨が明記されている。"
+ },
+ {
+  "file": "api/build/RateLimiting.tsx",
+  "claim": "値は秒数（例: Retry-After: 30）か、HTTP 日時（例: Retry-After: Wed, 21 Oct 2026 07:28:00 GMT）のどちらかです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9110",
+  "quote": "The Retry-After field value can be either an HTTP-date or a number of seconds to delay after receiving the response.",
+  "correction": "",
+  "evidence": "RFC 9110 の 10.2.3 Retry-After を取得。ABNF も「Retry-After = HTTP-date / delay-seconds」「delay-seconds = 1*DIGIT」で 2 形式のみ、例示も「Retry-After: Fri, 31 Dec 1999 23:59:59 GMT」「Retry-After: 120」の 2 つ。教材の記述と一致する。"
+ },
+ {
+  "file": "api/data-modeling/Normalization.tsx",
+  "claim": "第2正規形 (2NF) / 1NF かつ、複合主キーの一部にだけ依存する属性（部分関数従属）を排除。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://en.wikipedia.org/wiki/Second_normal_form",
+  "quote": "A relation (or a table, in SQL) is in 2NF if it is in first normal form (1NF) and contains no partial dependencies. A partial dependency occurs when a non-prime attribute (that is, one not part of any candidate key) is functionally dependent on only a proper subset of the attributes making up a candidate key.",
+  "correction": "",
+  "evidence": "候補出典に指定された Wikipedia の Second normal form を取得し、1NF であること + 部分関数従属を持たないこと、という定義が教材と一致することを確認した。定義自体は E. F. Codd に帰属する旨も同ページに記載がある。なお Wikipedia は三次情報であり、厳密な一次情報は Codd の原論文である点は留保する。"
+ },
+ {
+  "file": "api/quality/DebuggingTools.tsx",
+  "claim": "Network パネルでリクエストを右クリックすると「Copy as cURL」が選べます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.chrome.com/docs/devtools/network/reference",
+  "quote": "Copy as cURL. Copy the request as a cURL command.",
+  "correction": "",
+  "evidence": "Chrome DevTools 公式リファレンス（Network features reference）を取得。「Under the Name column of the Requests table, right-click a request, hover over Copy, and select one of the following options.」に続いて Copy as cURL が列挙されている。厳密には右クリック →「Copy」サブメニュー内の項目だが、右クリックから選べるという記述は正しい。"
+ },
+ {
+  "file": "api/quality/Observability.tsx",
+  "claim": "Google SRE Book — Monitoring Distributed Systems / SLI / SLO・パーセンタイル・アラート設計の考え方を体系的に解説（無料公開）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://sre.google/sre-book/monitoring-distributed-systems/",
+  "quote": "Copyright © 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0",
+  "correction": "",
+  "evidence": "該当章を認証なしで取得でき、全文が読める状態であることと CC BY-NC-ND 4.0 での公開表示を確認した。https://sre.google/books/ でも各書籍に「Read online」導線がある。章の内容としては 99th percentile の議論、アラート設計（As Simple as Possible, No Simpler／Bigtable の Over-Alerting 事例）、SLO への言及（\"measured against a service level objective (SLO; see Service Level Objectives)\"）を確認。ただし SLI / SLO を体系的に扱うのは同書 4 章 Service Level Objectives であり、この章の主題ではない点は説明の粒度として補足の余地がある。"
+ },
+ {
+  "file": "git/advanced/Integration.tsx",
+  "claim": "拡張機能ベース",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "local:/Applications/Cursor.app/Contents/Resources/app/package.json, product.json",
+  "quote": "\"url\": \"https://github.com/microsoft/vscode.git\"",
+  "correction": "",
+  "evidence": "教材の比較表は「拡張機能」の行で Cursor を「VSCode ベース」としている。実機にインストール済みの Cursor 3.14.7 のアプリバンドルを確認したところ、package.json の repository が https://github.com/microsoft/vscode.git、product.json に \"vscodeVersion\": \"1.128.0\" があり、VS Code のフォークであることを確認した。拡張機能は product.json の extensionsGallery が独自の marketplace.cursorapi.com を指しており、VS Code 拡張の仕組みをそのまま使っている（配信元は別）。「VSCode ベース」の記述は正しい。"
+ },
+ {
+  "file": "git/advanced/LinuxBasics.tsx",
+  "claim": "ターミナル内でテキストファイルを編集できます。編集後は Ctrl+X で終了し、Y を入力して保存します。",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:python3 pty で nano を起動し Ctrl-X → y → Enter を送って挙動を実測",
+  "quote": "File Name to write :",
+  "correction": "「編集後は Ctrl+X で終了し、Y を入力、続けて Enter でファイル名を確定すると保存されます」に直す。Y を押した時点ではまだ保存されておらず、ファイル名確認プロンプトで Enter を押すまでファイルは書き出されない。",
+  "evidence": "pty 経由で nano を起動して文字を入力し、Ctrl-X → 「Save modified buffer ... ?」→ y と送った直後にファイルの存在を確認したところ未作成だった（画面は「File Name to write :」プロンプトを表示）。続けて Enter を送った時点で初めてファイルが作成され、内容が書き出された。手順として Enter が抜けている。なお本機の /usr/bin/nano は macOS 同梱の UW PICO 5.09 だが、GNU nano も同じく終了時にファイル名確認プロンプトを出す（公式 man ページ https://www.nano-editor.org/dist/latest/nano.1.html にも ^X が Exit、-t/--saveonexit が「Save a changed buffer without prompting (when exiting with ^X)」＝既定ではプロンプトが出ることが示されている）。"
+ },
+ {
+  "file": "git/advanced/LinuxBasics.tsx",
+  "claim": "削除したファイルはゴミ箱に入らず、完全に削除されます。慎重に使用してください。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/rm.html",
+  "quote": "The rm utility shall remove the directory entry specified by each file argument.",
+  "correction": "",
+  "evidence": "POSIX.1-2024（The Open Group Base Specifications Issue 8）の rm を取得。rm は指定ファイルのディレクトリエントリを削除し、「rm shall perform actions equivalent to the remove() function」と規定されているだけで、ゴミ箱等への退避は一切規定されていない。手元の macOS の man rm も「rm, unlink - remove directory entries」で同様。"
+ },
+ {
+  "file": "git/advanced/VSCode.tsx",
+  "claim": "VSCode（Visual Studio Code）は、Microsoft が開発した無料のコードエディタです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://code.visualstudio.com/docs/supporting/faq",
+  "quote": "Is VS Code free? Yes, VS Code is free for private or commercial use.",
+  "correction": "",
+  "evidence": "VS Code 公式 FAQ を取得し、私用・商用ともに無料であることを確認した。開発元については公式ライセンスページ https://code.visualstudio.com/License/ に「These license terms are an agreement between you and Microsoft Corporation」「Source Code for Visual Studio Code is available at https://github.com/Microsoft/vscode under the MIT license agreement」とあり、Microsoft が開発・配布していることを確認した。"
+ },
+ {
+  "file": "git/advanced/VSCode.tsx",
+  "claim": "ダウンロードされた VSCodeUserSetup-x64-x.xx.x.exe をダブルクリックして実行します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "local:curl -sI -L \"https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user\"",
+  "quote": "Content-Disposition: attachment; filename=VSCodeUserSetup-x64-1.133.0.exe",
+  "correction": "",
+  "evidence": "公式ダウンロードエンドポイント（Windows x64 User Installer）を辿ると https://vscode.download.prss.microsoft.com/.../VSCodeUserSetup-x64-1.133.0.exe へリダイレクトし、Content-Disposition のファイル名も VSCodeUserSetup-x64-1.133.0.exe だった。教材のプレースホルダ VSCodeUserSetup-x64-x.xx.x.exe と形が一致する。公式ドキュメント https://code.visualstudio.com/docs/setup/windows も「The User setup is the recommended installation for most people」と User Installer を推奨しており、教材が User Setup を前提にしている点も整合する。"
+ },
+ {
+  "file": "git/advanced/WSL2.tsx",
+  "claim": "パスワードは入力しても画面に表示されません。これは正常な動作です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://learn.microsoft.com/en-us/windows/wsl/setup/environment",
+  "quote": "Please note that whilst entering the Password, nothing will appear on screen. This is called blind typing. You won't see what you are typing, this is completely normal.",
+  "correction": "",
+  "evidence": "Microsoft 公式の「Set up a WSL development environment」を取得。Linux ディストリビューション初回起動時のユーザー名・パスワード設定について、入力中は画面に何も表示されない（blind typing）が正常であると明記されている。教材の記述と一致する。"
+ },
+ {
+  "file": "git/advanced/WSL2.tsx",
+  "claim": "出力結果に Ubuntu が表示され、VERSION が 2 になっていれば成功です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+  "quote": "wsl --list --verbose See a list of the Linux distributions installed on your Windows machine, including the state (whether the distribution is running or stopped) and the version of WSL running the distribution (WSL 1 or WSL 2).",
+  "correction": "",
+  "evidence": "Microsoft 公式の WSL Basic commands を取得。wsl --list --verbose がインストール済みディストリビューション名・状態・WSL バージョン（1 か 2）を一覧表示することを確認した。既定でインストールされるのが Ubuntu であることは https://learn.microsoft.com/en-us/windows/wsl/install の「This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux.」で確認。VERSION 列が 2 なら WSL2 という読み方は正しい（列見出し NAME/STATE/VERSION 自体は実行結果であり、Windows 実機は未検証）。"
+ },
+ {
+  "file": "git/ai-agent/ClaudeCodeSetup.tsx",
+  "claim": "バージョン番号（例: 1.x.x）が表示されればインストール完了です。",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:claude --version / npm registry @anthropic-ai/claude-code",
+  "quote": "2.1.233 (Claude Code)",
+  "correction": "例を現行系列に合わせて「2.x.x」に直すか、版に依存しない書き方（「バージョン番号が表示されればインストール完了です」）にする。",
+  "evidence": "実機で claude --version を実行すると「2.1.233 (Claude Code)」。npm レジストリ https://registry.npmjs.org/@anthropic-ai/claude-code の dist-tags も latest=2.1.233 / stable=2.1.224 で、現行のメジャー系列は 2.x。教材の「例: 1.x.x」は古く、今インストールした読者の表示と食い違う。"
+ },
+ {
+  "file": "git/ai-agent/ClaudeCodeBasics.tsx",
+  "claim": "開発サーバーが起動したら、表示される URL（通常は http://localhost:5173 など）を ブラウザで開いて確認します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://vite.dev/config/server-options",
+  "quote": "server.port Type: number Default: 5173 Specify server port. Note if the port is already being used, Vite will automatically try the next available port so this may not be the actual port the server ends up listening on.",
+  "correction": "",
+  "evidence": "Vite 公式の Server Options を取得し、server.port の既定値が 5173 であること、使用中なら次の空きポートに自動でずれることを確認した。教材が「通常は」「など」と幅を持たせ、かつ「表示される URL」を見るよう書いているのは、この仕様（実際のポートは変わりうる）と整合している。"
+ },
+ {
+  "file": "git/environment/Cursor.tsx",
+  "claim": "メニューから「Help」→「About Cursor」を選択",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://raw.githubusercontent.com/microsoft/vscode/main/src/vs/platform/menubar/electron-main/menubar.ts",
+  "quote": "private setMacApplicationMenu(macApplicationMenu: Menu): void { const about = this.createMenuItem(nls.localize('mAbout', \"About {0}\", this.productService.nameLong), 'workbench.action.showAboutDialog');",
+  "correction": "macOS は「Cursor」メニュー →「About Cursor」、Windows / Linux は「Help」→「About」と OS ごとに書き分ける。現状は mac でも「Help」→「About Cursor」と案内しており、mac では該当項目が Help メニューに出ない。",
+  "evidence": "Cursor は VS Code のフォーク（実機の product.json に vscodeVersion 1.128.0）なのでメニュー構成は VS Code に従う。VS Code 本体の menubar.ts では About 項目（ラベル \"About {nameLong}\" = 「About Cursor」）を setMacApplicationMenu、すなわち macOS のアプリケーションメニューに追加している。一方 Help メニューへの登録は、実機の Cursor バンドル out/vs/workbench/workbench.desktop.main.js を展開して確認したところ id:\"workbench.action.showAboutDialog\" が title \"About\"、menu:{id: MenubarHelpMenu, when: Ede.toNegated()} で登録されており、Ede は同ファイル内で new RawContextKey(\"isMacNative\", isMacintosh && !isWeb) と定義されている。つまり Help メニューの About はネイティブ macOS では出ず、ラベルも「About Cursor」ではなく「About」。"
+ },
+ {
+  "file": "git/environment/Git.tsx",
+  "claim": "ダウンロードされた Git-x.xx.x-64-bit.exe をダブルクリックして実行します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://api.github.com/repos/git-for-windows/git/releases/latest",
+  "quote": "\"name\": \"Git-2.55.0.4-64-bit.exe\"",
+  "correction": "",
+  "evidence": "git-scm.com/download/win の配布元である git-for-windows/git の最新リリース（v2.55.0.windows.4）のアセット一覧を取得し、64bit 版インストーラーのファイル名が Git-2.55.0.4-64-bit.exe であることを確認した。教材のプレースホルダ Git-x.xx.x-64-bit.exe と形が一致する（実際の版番号は 4 セグメントになることがある点だけ差異）。"
+ },
+ {
+  "file": "git/environment/Nodejs.tsx",
+  "claim": "Node.js - JavaScript の実行環境 npm - パッケージマネージャー（ライブラリ管理ツール） npx - パッケージの一時実行ツール",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/npm/cli/latest/README.md",
+  "quote": "npm comes bundled with node, & most third-party distributions, by default.",
+  "correction": "",
+  "evidence": "npm CLI 公式リポジトリの README を取得し、npm が node に同梱されることを確認した。npx は npm CLI に含まれるコマンドで、公式ドキュメント https://docs.npmjs.com/cli/v11/commands/npx に「npx Run a command from a local or remote npm package」とあり「パッケージの一時実行ツール」という説明と一致する。手元でも Node.js 24.18.1 と npm 11.16.0 が組で入っている。"
+ },
+ {
+  "file": "git/environment/Nodejs.tsx",
+  "claim": "以下のリンクから Node.js をダウンロードしてください。LTS（Long Term Support）版をお勧めします。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://nodejs.org/en/about/previous-releases",
+  "quote": "Production applications should only use Active LTS or Maintenance LTS releases.",
+  "correction": "",
+  "evidence": "Node.js 公式の Releases ページを取得し、本番用途では Active LTS / Maintenance LTS のみを使うべきという公式の推奨を確認した。LTS が「long-term support」で重大バグ修正が計 30 か月保証される点も同ページに記載。ダウンロードページ https://nodejs.org/en/download も既定で LTS（v24.19.0 LTS）を提示している。"
+ },
+ {
+  "file": "git/environment/Nodejs.tsx",
+  "claim": "ダウンロードされた node-vxx.x.x-x64.msi をダブルクリックして実行します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://nodejs.org/dist/v24.19.0/",
+  "quote": "node-v24.19.0-x64.msi",
+  "correction": "",
+  "evidence": "現行 LTS（v24.19.0）の公式配布ディレクトリ一覧を取得し、Windows x64 用インストーラーのファイル名が node-v24.19.0-x64.msi であることを確認した。教材のプレースホルダ node-vxx.x.x-x64.msi と形が一致する。https://nodejs.org/dist/index.json でも当該版の files に win-x64-msi が含まれる。"
+ },
+ {
+  "file": "api/rest-design/RequestResponse.tsx",
+  "claim": "データを送る POST / PUT / PATCH では、ボディを JSON で送るのが現代の Web API の標準です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "「現代の Web API の標準」は普及度に関する主張であり、これを定める一次情報（規格・公式ガイドライン）は存在しない。JSON 自体は RFC 8259 / STD 90 として標準化されているが、それは書式の標準化であって「Web API のボディは JSON が標準」という慣行の裏付けにはならない。普及率を測った一次調査を見つけられなかったため UNDETERMINED とした。"
+ },
+ {
+  "file": "api/Quickstart.tsx",
+  "claim": "Swagger Petstore（実物の Swagger UI） — https://petstore.swagger.io/ — 公開されている Swagger UI。Try it out で契約の読み方を体感できる",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://petstore.swagger.io/swagger-initializer.js",
+  "quote": "const defaultDefinitionUrl = \"https://petstore.swagger.io/v2/swagger.json\";",
+  "correction": "",
+  "evidence": "https://petstore.swagger.io/ は認証なしで HTTP 200 を返し、HTML に <title>Swagger UI</title> と swagger-ui-bundle.js の読み込みがある。初期化スクリプト swagger-initializer.js が Petstore の OpenAPI 定義を読み込むよう設定されており、その定義 https://petstore.swagger.io/v2/swagger.json も 200 を返す。Try it out は Swagger UI 標準の機能で、この構成（StandaloneLayout、無効化オプションなし）で有効。"
+ },
+ {
+  "file": "react/Home.tsx",
+  "claim": "shadcn/ui、MUI 7 などのコンポーネントライブラリ",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://registry.npmjs.org/@mui/material",
+  "quote": "\"latest-v7\":\"7.3.11\",\"latest\":\"9.3.1\"",
+  "correction": "「MUI 7」の版数表記を現行に合わせる。npm の @mui/material は latest が 9.x（v7 は latest-v7 タグ）。教材本文が v7 前提の記述なら内容ごと更新し、版数に依存しない説明にするなら単に「MUI」と書く。",
+  "evidence": "npm レジストリの @mui/material メタデータを取得し、dist-tags の latest が 9.3.1、v7 系は latest-v7 として保守されている状態を確認した。"
+ },
+ {
+  "file": "infra/observability/Monitoring.tsx",
+  "claim": "Prometheus がメトリクスを収集・保存し、Grafana がそれを可視化する組み合わせ。オープンソースで、自前運用の定番。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://prometheus.io/docs/introduction/overview/",
+  "quote": "Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud [...] Prometheus collects and stores its metrics as time series data",
+  "correction": "",
+  "evidence": "Prometheus 公式 Overview を取得。OSS であること、メトリクスを収集・時系列で保存することを確認した（可視化は同ドキュメントの Visualization に Grafana が挙がっている）。"
+ },
+ {
+  "file": "infra/observability/Monitoring.tsx",
+  "claim": "エラーと例外の追跡に強い。スタックトレースや発生頻度をまとめ、フロントエンド・バックエンド双方の不具合検知に使われる。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.sentry.io/",
+  "quote": "Everything you need to catch errors, trace performance, and fix broken agents.",
+  "correction": "",
+  "evidence": "Sentry 公式ドキュメントのトップを取得し、エラー捕捉を中心に据えた製品であることを確認した。スタックトレースの集約や発生頻度の集計という具体は、この一次情報では明示されていない。"
+ },
+ {
+  "file": "infra/observability/Monitoring.tsx",
+  "claim": "メトリクス・ログ・トレースを統合的に扱うマネージド SaaS。導入が速く、横断的な可観測性をまとめて得たいときに向く。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.datadoghq.com/getting_started/",
+  "quote": "Datadog is an observability platform that supports every phase of software development on any stack.",
+  "correction": "",
+  "evidence": "Datadog 公式ドキュメントの Getting Started を取得。ログ・メトリクス・トレースを取り込む統合オブザーバビリティ基盤である旨を確認した。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "ログの深刻度（error / warn / info）を表す慣用キーは level",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/pinojs/pino/main/docs/api.md",
+  "quote": "Changes the shape of the log level. The default shape is { level: number }.",
+  "correction": "",
+  "evidence": "Node の代表的な構造化ロガー pino の公式 API ドキュメントを raw で取得し、既定のログ出力が level キーで深刻度を持つことを確認した。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "99.9%（スリーナイン）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://sre.google/sre-book/availability-table/",
+  "quote": "99.9% [...] 43.2 minutes",
+  "correction": "",
+  "evidence": "Google SRE Book の Availability Table を取得し、99.9% という可用性水準が表に定義されていることを確認した。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "一般的な Web サービスでよく目標にされる水準。月あたり約43分のダウンを許容する計算になる。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://sre.google/sre-book/availability-table/",
+  "quote": "99.9% [...] 8.76 hours [...] 43.2 minutes",
+  "correction": "",
+  "evidence": "Availability Table の 99.9% 行で per month が 43.2 minutes であることを確認した。教材の「月あたり約43分」と一致する。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "冗長化や自動復旧を相応に作り込まないと届かない水準。コストと運用負荷が大きく上がる。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://sre.google/sre-book/availability-table/",
+  "quote": "",
+  "correction": "",
+  "evidence": "Availability Table は 99.99% の許容停止時間（月 4.32 分）は示すが、「冗長化や自動復旧を作り込まないと届かない」「コストと運用負荷が上がる」という評価そのものは表に書かれていない。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "達成・維持のコストが急激に高まる。本当にここまで必要かを、事業価値と照らして判断する。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://sre.google/sre-book/availability-table/",
+  "quote": "",
+  "correction": "",
+  "evidence": "99.999% の許容停止時間（月 25.9 秒）は表で確認できたが、「コストが急激に高まる」「事業価値と照らして判断する」という判断論は一次情報の当該ページに記述がない。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "トイル は、手作業で繰り返される、自動化できるはずの運用作業を指します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://sre.google/sre-book/eliminating-toil/",
+  "quote": "Toil is the kind of work tied to running a production service that tends to be manual, repetitive, automatable, tactical, devoid of enduring value, and that scales linearly as a service grows.",
+  "correction": "",
+  "evidence": "SRE Book 第5章 Eliminating Toil を取得し、トイルの定義（手作業・反復的・自動化可能）を確認した。"
+ },
+ {
+  "file": "infra/observability/Sre.tsx",
+  "claim": "可用性は「9 の数」で語られます。9 が一つ増えるごとに、 許容される停止時間は一桁ずつ短くなり、",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://sre.google/sre-book/availability-table/",
+  "quote": "99.9% [...] 43.2 minutes [...] 99.99% [...] 4.32 minutes [...] 99.999% [...] 25.9 seconds",
+  "correction": "",
+  "evidence": "Availability Table の per month 列で 43.2 分 → 4.32 分 → 25.9 秒 と、9 が 1 つ増えるごとに許容停止時間がほぼ一桁短くなることを確認した。"
+ },
+ {
+  "file": "react/accessibility/TableDesign.tsx",
+  "claim": "入れ子テーブルは HTML の仕様上は許可されていますが、スクリーンリーダーにとって非常に困難なナビゲーション体験を生みます。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://html.spec.whatwg.org/multipage/tables.html",
+  "quote": "",
+  "correction": "",
+  "evidence": "WHATWG HTML 仕様の tables セクションを取得したが「nest」という語は 1 件も含まれず、入れ子テーブルの可否も、スクリーンリーダーでの困難さも当該ページには書かれていない（td の内容モデルが flow content である点は別セクション）。"
+ },
+ {
+  "file": "react/architecture/Maintenance.tsx",
+  "claim": "# バンドルサイズの目標値（目安）\n# - 初期ロード: < 200KB（gzip後）\n# - ルートごとの JS: < 50KB（gzip後）\n# - 画像を含む合計: < 1MB",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "初期ロード 200KB / ルート 50KB / 合計 1MB といった具体的なバンドル予算を定めた一次情報は見当たらなかった。プロジェクトごとに置くパフォーマンスバジェットの例で、標準値ではない。"
+ },
+ {
+  "file": "react/hooks-deep/MemoCallback.tsx",
+  "claim": "//    → 1回のレンダーに 16ms 以上かかると 60fps を下回る",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+  "quote": "The most common refresh rate is 60hz, (60 cycles/frames per second), though 75hz, 120hz, and 144hz are also widely used.",
+  "correction": "",
+  "evidence": "MDN の requestAnimationFrame を取得。60fps＝1 秒 60 フレームなので 1 フレームの持ち時間は約 16.7ms であり、16ms 以上かかると 60fps を維持できないという算術と一致する。"
+ },
+ {
+  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "claim": "同時に接続するMCPサーバは10個程度までが実用的です。それ以上はTool Searchがあっても起動時間やメモリ使用量に影響します。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "Claude Code / MCP の公式ドキュメントに同時接続サーバ数の推奨上限を示す記述は見当たらず、実機の claude --help にもサーバ数上限のオプションや注意書きはない（MCP_TIMEOUT / MAX_MCP_OUTPUT_TOKENS は存在するがサーバ数とは無関係）。「10 個程度」は経験則としては妥当な範囲だが、根拠となる一次情報も実測も提示されていないため確定できない。教材側で実測条件を添えるか、数値を落として傾向だけ書くのが安全。"
+ },
+ {
+  "file": "claude-mux/reference/Troubleshooting.tsx",
+  "claim": "セッション履歴は保存されています。直前のセッションは claude --continue、過去のセッションは claude --resume で復帰できます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "local:claude --help / claude --version",
+  "quote": "-c, --continue                        Continue the most recent conversation in the current directory",
+  "correction": "",
+  "evidence": "実機の Claude Code 2.1.233 で claude --help を実行。「-c, --continue  Continue the most recent conversation in the current directory」「-r, --resume [value]  Resume a conversation by session ID, or open interactive picker with optional search term」を確認した。セッションが既定でディスクに保存されることは「--no-session-persistence  Disable session persistence - sessions will not be saved to disk and cannot be resumed」という打ち消しオプションの存在から裏付けられる。"
+ },
+ {
+  "file": "threejs/Home.tsx",
+  "claim": "その入り口として最も人気のあるライブラリが Three.js です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://api.npmjs.org/downloads/point/last-month/three",
+  "quote": "\"downloads\":55393873",
+  "correction": "",
+  "evidence": "npm のダウンロード API で直近 1 か月を取得。three が約 5,539 万に対し @babylonjs/core は約 136 万で、Web 3D ライブラリとして three.js の利用が突出していることを確認した。"
+ },
+ {
+  "file": "threejs/basics/camera.tsx",
+  "claim": "Three.js で最もよく使われるカメラです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/PerspectiveCamera.html.md",
+  "quote": "This projection mode is designed to mimic the way the human eye sees. It is the most common projection mode used for rendering a 3D scene.",
+  "correction": "",
+  "evidence": "three.js リポジトリの PerspectiveCamera ドキュメント原本を raw で取得し、透視投影が 3D シーン描画で最も一般的な投影方式だと明記されていることを確認した。"
+ },
+ {
+  "file": "threejs/basics/camera.tsx",
+  "claim": "カメラの視野の広さを度数で指定します。値が大きいほど広い範囲が映り、 小さいほどズームインしたように見えます。一般的に 50〜75 を使います。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/PerspectiveCamera.html.md",
+  "quote": "",
+  "correction": "",
+  "evidence": "three.js のドキュメントで fov が度数（in degrees）で既定 50 であることは確認できたが、「一般的に 50〜75 を使う」という推奨レンジは一次情報に記載がない。"
+ },
+ {
+  "file": "threejs/basics/camera.tsx",
+  "claim": "カメラからこの距離より近いオブジェクトは描画されません。通常は 0.1 を設定します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/PerspectiveCamera.html.md",
+  "quote": "The camera's near plane. Default is 0.1.",
+  "correction": "",
+  "evidence": "PerspectiveCamera のドキュメント原本で near の既定値が 0.1 であることを確認した。教材の「通常は 0.1 を設定します」と一致する。"
+ },
+ {
+  "file": "threejs/basics/geometry.tsx",
+  "claim": "球体なら 32 分割、トーラスなら 16〜32 分割が一般的な目安です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/TorusGeometry.html.md",
+  "quote": "",
+  "correction": "",
+  "evidence": "SphereGeometry の既定は widthSegments 32 / heightSegments 16 で球体 32 分割は既定と一致するが、TorusGeometry の既定は radialSegments 12 / tubularSegments 48 で「16〜32 分割」という目安は一次情報に無い。"
+ },
+ {
+  "file": "threejs/basics/light.tsx",
+  "claim": "シーン全体を均一に照らす環境光。影を作らず、 全方向から同じ強さで照らします。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/AmbientLight.html.md",
+  "quote": "This light globally illuminates all objects in the scene equally. [...] It cannot be used to cast shadows as it does not have a direction.",
+  "correction": "",
+  "evidence": "three.js リポジトリの AmbientLight ドキュメント原本を raw で取得し、均一に照らすこと・影を落とせないことを確認した。"
+ },
+ {
+  "file": "threejs/basics/animation.tsx",
+  "claim": "映画が 1 秒間に 24 コマの静止画を高速で切り替えるのと同じ原理です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "映画が毎秒 24 コマであることの一次情報を取りに行ったが、Library of Congress のページは Cloudflare のチャレンジで本文を取得できず、SMPTE の規格文書も有償で参照できなかった。"
+ },
+ {
+  "file": "threejs/basics/animation.tsx",
+  "claim": "60fps では滑らかでも、30fps の端末では半分の速さになります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+  "quote": "The frequency of calls to the callback function will generally match the display refresh rate.",
+  "correction": "",
+  "evidence": "MDN の requestAnimationFrame を取得。コールバック頻度がディスプレイのリフレッシュレートに追従するため、毎フレーム固定値を加算する実装では 30fps 端末で 60fps 時の半分しか進まないことを確認した。"
+ },
+ {
+  "file": "threejs/basics/renderer.tsx",
+  "claim": "WebGLRenderer は Three.js のメインのレンダラーです。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/WebGLRenderer.html.md",
+  "quote": "",
+  "correction": "",
+  "evidence": "WebGLRenderer のドキュメント原本は「This renderer uses WebGL 2 to display scenes.」と述べるのみで、「メインのレンダラー」という位置づけは書かれていない。現在の three.js は WebGPURenderer も併存する。"
+ },
+ {
+  "file": "threejs/basics/renderer.tsx",
+  "claim": "モバイル端末では Math.min(window.devicePixelRatio, 2) で上限を 2 に制限するのが一般的です。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "devicePixelRatio の上限を 2 に丸めるのが「一般的」であることを述べた一次情報が見当たらなかった。WebGLRenderer の setPixelRatio にも上限の推奨値は記載がない。"
+ },
+ {
+  "file": "threejs/basics/renderer.tsx",
+  "claim": "Three.js のレンダラーは HTML の <canvas> 要素に描画します。 既存の canvas 要素を渡すこともできます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/WebGLRenderer.html.md",
+  "quote": "A canvas where the renderer draws its output. This is automatically created by the renderer in the constructor (if not provided already); you just need to add it to your page",
+  "correction": "",
+  "evidence": "WebGLRenderer の domElement のドキュメントで、描画先が canvas であること、未指定なら自動生成される（＝既存の canvas を渡せる）ことを確認した。"
+ },
+ {
+  "file": "threejs/applied/textures.tsx",
+  "claim": "また、大きなテクスチャはメモリを大量に消費します。 モバイル端末では 1024x1024 以下に抑えることを推奨します。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "モバイルでテクスチャを 1024x1024 以下に抑えるという推奨を明示した一次情報が見当たらなかった。端末の GPU メモリに依存する経験則で、three.js 公式にも数値の記載がない。"
+ },
+ {
+  "file": "threejs/applied/model-loading.tsx",
+  "claim": "glTF（GL Transmission Format）は、3D モデルの標準フォーマットとして 広く採用されています。「3D の JPEG」とも呼ばれ、",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.khronos.org/gltf/",
+  "quote": "glTF: The JPEG of 3D",
+  "correction": "",
+  "evidence": "Khronos の glTF 公式ページを取得し、「3D の JPEG」という呼称と 3D アセット配信フォーマットとしての位置づけを確認した。"
+ },
+ {
+  "file": "threejs/applied/model-loading.tsx",
+  "claim": "すべてのデータを 1 つのバイナリファイルにまとめた形式。 ファイルサイズが小さく、Web での配信に最適です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.khronos.org/gltf/",
+  "quote": "which can be stored in a single binary glTF file (.glb)",
+  "correction": "",
+  "evidence": "Khronos の glTF 公式ページで、シーン全体を単一のバイナリ glTF ファイル（.glb）に格納できることを確認した。"
+ },
+ {
+  "file": "threejs/applied/orbit-controls.tsx",
+  "claim": "3D ビューワーやポートフォリオなど、ほとんどの 3D Web アプリで使われる 最も基本的なカメラコントロールです。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "OrbitControls が「ほとんどの 3D Web アプリで使われる最も基本的なカメラコントロール」であることを示す一次情報が無い。three.js のドキュメントは例示的に扱うのみで普及度を述べていない。"
+ },
+ {
+  "file": "threejs/applied/responsive.tsx",
+  "claim": "dpr={[1, 2]}  // ピクセル比を 1〜2 に制限",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://r3f.docs.pmnd.rs/api/canvas",
+  "quote": "dpr | Pixel-ratio, use window.devicePixelRatio, or automatic: [min, max] | [1, 2]",
+  "correction": "",
+  "evidence": "React Three Fiber 公式の Canvas API を取得し、dpr が [min, max] 形式でピクセル比を制限でき、既定が [1, 2] であることを確認した。"
+ },
+ {
+  "file": "threejs/practical/r3f-drei.tsx",
+  "claim": "公式ドキュメント: github.com/pmndrs/drei",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://raw.githubusercontent.com/pmndrs/drei/master/README.md",
+  "quote": "Documentation https://pmndrs.github.io/drei",
+  "correction": "「公式ドキュメント: github.com/pmndrs/drei」のリンク先を https://pmndrs.github.io/drei に差し替える。README の Documentation 節がドキュメントの正本としてこちらを指しており、GitHub リポジトリ側の旧ドキュメントは「Old doc」として折りたたまれている。",
+  "evidence": "drei の README を raw で取得し、Documentation 節がドキュメントサイト（pmndrs.github.io/drei）を指していること、README 内の各コンポーネント項目も同サイトへ移動済みと書かれていることを確認した。"
+ },
+ {
+  "file": "threejs/game-dev/overview.tsx",
+  "claim": "ゲームループはゲームの心臓部です。毎フレーム（約 60 回/秒）、 入力の読み取り → 状態の更新 → 描画 というサイクルを繰り返します。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+  "quote": "The most common refresh rate is 60hz, (60 cycles/frames per second), though 75hz, 120hz, and 144hz are also widely used.",
+  "correction": "",
+  "evidence": "MDN の requestAnimationFrame を取得し、毎フレーム＝おおむね毎秒 60 回であることを確認した。"
+ },
+ {
+  "file": "threejs/game-dev/physics.tsx",
+  "claim": "空気抵抗。速度の二乗に比例して増大する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/drag-equation/",
+  "quote": "Drag depends on the density of the air, the square of the velocity, the air's viscosity and compressibility, the size and shape of the body, and the body's inclination to the flow.",
+  "correction": "",
+  "evidence": "NASA Glenn の Beginners Guide to Aeronautics「Drag Equation」を取得し、抗力が速度の二乗に依存することを確認した（旧 URL grc.nasa.gov/www/k-12 は移転済み）。 照合スクリプトの fetch は当該ホストの証明書チェーンを検証できず取得に失敗するが、curl では 200 で本文を取得できる。"
+ },
+ {
+  "file": "threejs/game-dev/physics.tsx",
+  "claim": "重力加速度は 9.8 (m/s^2) が標準です",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://physics.nist.gov/cgi-bin/cuu/Value?gn",
+  "quote": "standard acceleration of gravity Numerical value 9.806 65 m s -2",
+  "correction": "",
+  "evidence": "NIST の CODATA 値ページで standard acceleration of gravity が 9.80665 m/s^2（厳密値）であることを確認した。教材の 9.8 はその丸め。"
+ },
+ {
+  "file": "threejs/game-dev/hud-gameloop.tsx",
+  "claim": "R3F では Canvas の上に position: absolute の DOM 要素を重ねるか、 drei の Html コンポーネントを使います。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/pmndrs/drei/master/README.md",
+  "quote": "The default export of the library is web which does export Html and Loader.",
+  "correction": "",
+  "evidence": "drei の README を raw で取得し、web エントリが Html コンポーネントをエクスポートすることを確認した。"
+ },
+ {
+  "file": "infra/aws/IamAccount.tsx",
+  "claim": "IAM Identity Center（旧 AWS SSO）",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html",
+  "quote": "On July 26, 2022, AWS Single Sign-On was renamed to AWS IAM Identity Center.",
+  "correction": "",
+  "evidence": "AWS 公式ユーザーガイドの What is IAM Identity Center? を取得し、「IAM Identity Center rename」節で改称の事実を確認した。"
+ },
+ {
+  "file": "infra/baas/Firebase.tsx",
+  "claim": "メール・パスワード、Google・Apple などのソーシャルログイン、電話番号認証を提供する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://firebase.google.com/docs/auth",
+  "quote": "It supports authentication using passwords, phone numbers, popular federated identity providers like Google, Facebook and Twitter, and more.",
+  "correction": "",
+  "evidence": "Firebase Authentication の公式概要ページを取得。パスワード・電話番号・フェデレーテッド ID プロバイダの対応を確認した（Apple は「and more」に含まれ、専用ガイドが別途ある）。"
+ },
+ {
+  "file": "infra/baas/Firebase.tsx",
+  "claim": "さらに Firebase は Google Cloud の一部であり、 BigQuery などへ自然に拡張できます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://firebase.google.com/docs/projects/learn-more",
+  "quote": "When you create a new Firebase project, you're actually creating a Google Cloud project behind the scenes.",
+  "correction": "",
+  "evidence": "Firebase プロジェクトの公式解説ページを取得し、Firebase プロジェクト＝Google Cloud プロジェクトである旨と、BigQuery へのエクスポートが用意されている旨を確認した。"
+ },
+ {
+  "file": "infra/devops/Containers.tsx",
+  "claim": "数十秒〜分",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "仮想マシンの起動時間「数十秒〜分」を定義する一次情報が見当たらなかった。ハイパーバイザやゲスト OS に依存する実測値で、公式仕様として公表されていない。"
+ },
+ {
+  "file": "vue/basics/TemplateSyntax.tsx",
+  "claim": "なお :key 自体は v-for で実質的に必須です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://ja.vuejs.org/guide/essentials/list.html",
+  "quote": "v-for の key 属性は、可能な場合は必ず指定することが推奨されます。",
+  "correction": "",
+  "evidence": "Vue 公式ガイド（日本語版）のリストレンダリングを取得し、key を可能な限り必ず指定するよう推奨されていることを確認した。"
+ },
+ {
+  "file": "vue/styling/SfcStyling.tsx",
+  "claim": "Tailwind ベースで Nuxt と相性が良い。ユーティリティの上に整った部品が乗る構成。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://ui.nuxt.com/",
+  "quote": "A comprehensive Vue UI component library (Nuxt optional) with 125+ accessible, Tailwind CSS components for building modern web applications.",
+  "correction": "",
+  "evidence": "Nuxt UI 公式サイトのトップを取得し、Tailwind CSS ベースのコンポーネント群であること・Nuxt と素の Vue の双方で使えることを確認した。"
+ },
+ {
+  "file": "devflow/agile/WhatIsAgile.tsx",
+  "claim": "宣言には 4 つの価値を支える 12 の原則が添えられています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://agilemanifesto.org/iso/ja/principles.html",
+  "quote": "私たちは以下の原則に従う:",
+  "correction": "",
+  "evidence": "アジャイル宣言の背後にある原則（公式日本語訳）を取得し、列挙されている原則を数えたところ 12 件だった（顧客満足の最優先／要求変更の歓迎／短い間隔でのリリース／ビジネス側と開発者の日々の協働／意欲ある人々への信頼／フェイス・トゥ・フェイス／動くソフトウェアが進捗の尺度／持続可能な開発／技術的卓越性／シンプルさ／自己組織的なチーム／定期的なふりかえり）。"
+ },
+ {
+  "file": "devflow/agile/WhatIsAgile.tsx",
+  "claim": "情報を伝える最も効率的な方法は、顔を合わせた会話。チームと顧客が日々協働する。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://agilemanifesto.org/iso/ja/principles.html",
+  "quote": "情報を伝えるもっとも効率的で効果的な方法は フェイス・トゥ・フェイスで話をすることです。",
+  "correction": "",
+  "evidence": "公式日本語訳を取得し、第 6 原則（フェイス・トゥ・フェイス）と第 4 原則「ビジネス側の人と開発者は、プロジェクトを通して 日々一緒に働かなければなりません。」を確認した。教材のカードは「要点をいくつか挙げます」と明示した要約であり、主張のずれはない。ただし原典は「効率的で効果的」であり教材は「効率的」のみ、また原典の「ビジネス側の人」を教材は「顧客」と言い換えている点は粒度の差として注記の余地がある。"
+ },
+ {
+  "file": "devflow/agile/Scrum.tsx",
+  "claim": "この経験主義を支える 3 本柱が、透明性・検査・適応です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://scrumguides.org/scrum-guide.html",
+  "quote": "These events work because they implement the empirical Scrum pillars of transparency, inspection, and adaptation.",
+  "correction": "",
+  "evidence": "scrumguides.org の 2020 年版スクラムガイド（HTML 版）を取得。Scrum Theory 節に transparency / inspection / adaptation の 3 本柱が明記され、それぞれ Transparency・Inspection・Adaptation の小見出しで解説されている。教材の「透明性・検査・適応」と一致する。"
+ },
+ {
+  "file": "devflow/pm/Backlog.tsx",
+  "claim": "書いたストーリーが扱いやすいかどうかは、INVEST という 6 つの観点でチェックできます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://xp123.com/invest-in-good-stories-and-smart-tasks/",
+  "quote": "Independent Stories are easiest to work with if they are independent. […] Testable A good story is testable.",
+  "correction": "",
+  "evidence": "INVEST の提唱者 Bill Wake の原典記事（XP123, 2003-08-17）を取得。「The acronym INVEST can remind you that good stories are:」に続いて I=Independent / N=Negotiable / V=Valuable / E=Estimable / S=Small / T=Testable の 6 項目が列挙され、それぞれに Independent・Negotiable… and Negotiated・Valuable・Estimable・Small・Testable の 6 つの節が置かれている。観点は 6 つで教材と一致する。"
+ },
+ {
+  "file": "devflow/pm/Backlog.tsx",
+  "claim": "バックログリファインメント（グルーミングとも呼ばれます）は、 バックログの上位項目を継続的に整える活動です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://scrumguides.org/scrum-guide.html",
+  "quote": "Product Backlog refinement is the act of breaking down and further defining Product Backlog items into smaller more precise items. This is an ongoing activity to add details, such as a description, order, and size.",
+  "correction": "",
+  "evidence": "2020 年版スクラムガイドを取得し、Product Backlog refinement が継続的な活動であること、上位項目ほど詳細化されスプリントで着手可能になること（\"Product Backlog items that can be Done by the Scrum Team within one Sprint are deemed ready for selection in a Sprint Planning event. They usually acquire this degree of transparency after refining activities.\"）を確認した。現行スクラムガイドに \"grooming\" の語は 1 件も出現しない一方、Atlassian は https://www.atlassian.com/agile/project-management/backlog-grooming を現役ページ（HTTP 200、title \"Backlog grooming | Atlassian\"）として公開しており、業界では別称として使われている。「とも呼ばれます」という書き方は妥当。"
+ },
+ {
+  "file": "devflow/pm/Estimation.tsx",
+  "claim": "数字が大きくなるほど間隔が広がる。大きい項目ほど不確実性が高いという実感に合い、隣接する値で迷いにくい。ストーリーポイントの定番。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.mountaingoatsoftware.com/agile/story-points/planning-poker",
+  "quote": "A typical Planning Poker deck contains values such as: 0, 1, 2, 3, 5, 8, 13, 20, 40, 100",
+  "correction": "",
+  "evidence": "Mike Cohn（Mountain Goat Software）の Planning Poker ページを取得。同サイトは「If you've estimated with Planning Poker, you may very well have used cards with either the FIbonacci sequence, or a modified Fibonacci sequence.」とも述べており、フィボナッチ／修正フィボナッチがストーリーポイントの定番であることを確認した。注記: 教材が併記する数列「1, 2, 3, 5, 8, 13, 21」は純粋なフィボナッチであり、標準的なプランニングポーカーのデッキは 21/34 ではなく 20/40/100 を使う修正版である点は補足の余地がある（教材はデッキそのものではなく尺度として提示しているため主張は誤りではない）。"
+ },
+ {
+  "file": "devflow/pm/Roadmap.tsx",
+  "claim": "Must / Should / Could / Won't の 4 区分",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/",
+  "quote": "The specific use of Must Have, Should Have, Could Have or Won't Have this time, provides a clear indication of that item and the expectations for its completion.",
+  "correction": "",
+  "evidence": "MoSCoW の出自である DSDM を管理する Agile Business Consortium の公式解説を取得。The MoSCoW Rules として Must Have / Should Have / Could Have / Won't Have this time の 4 区分が節見出しで解説されている。教材の 4 区分は正しい。正式には Won't は「Won't Have this time」（今回はやらない）である点を添えるとより正確。"
+ },
+ {
+  "file": "devflow/devops/Branching.tsx",
+  "claim": "main / develop / feature / release / hotfix の複数ブランチ",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow",
+  "quote": "Instead of a single main branch, this workflow uses two branches to record the history of the project. The main branch stores the official release history, and the develop branch serves as an integration branch for features. […] Feature branches? [feature/] 10 Release branches? [release/] 11 Hotfix branches? [hotfix/]",
+  "correction": "",
+  "evidence": "候補出典の Atlassian Gitflow ページを取得し、main / develop の 2 本と supporting branch prefix（feature/ release/ hotfix/ support/）が git flow init の対話出力として示されているのを確認した。原典 https://nvie.com/posts/a-successful-git-branching-model/ も取得したが、こちらは 2010 年当時の呼称で master / develop と書かれている（master → main は現在の一般的な呼称変更で、Atlassian の現行ドキュメントは main を採用）。教材の 5 ブランチ列挙は現行の説明として妥当。"
+ },
+ {
+  "file": "devflow/devops/Branching.tsx",
+  "claim": "ブランチを作成して切り替えるのは git switch -c",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://git-scm.com/docs/git-switch",
+  "quote": "-c <new-branch> --create <new-branch> Create a new branch named <new-branch> starting at <start-point> before switching to the branch.",
+  "correction": "",
+  "evidence": "git 公式ドキュメントの git-switch を取得。-c / --create が「新しいブランチを作ってから切り替える」オプションであること、「This is the transactional equivalent of $ git branch <new-branch> $ git switch <new-branch>」と説明されていることを確認した。"
+ },
+ {
+  "file": "devflow/devops/Branching.tsx",
+  "claim": "トランクベース開発が CI/CD と最も相性が良いのは、この前提を最大限に活かすからです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://dora.dev/capabilities/trunk-based-development/",
+  "quote": "Trunk-based development is a required practice for continuous integration. Continuous integration (CI) is the combination of practicing trunk-based development and maintaining a suite of fast automated tests that run after each commit to trunk to make sure the system is always working.",
+  "correction": "",
+  "evidence": "DORA（Google Cloud の DevOps 研究）の Capabilities: Trunk-based development を取得。CI の必須実践としてトランクベース開発を位置づけ、DORA データ（2016/2017）の分析でこの実践に従うチームがソフトウェアデリバリ性能で高い水準に達すると述べている。教材の最上級表現「最も相性が良い」は、公式が「required practice」と述べる関係よりむしろ控えめで、主張として過大ではない。"
+ },
+ {
+  "file": "devflow/review/WhyReview.tsx",
+  "claim": "「バス係数（bus factor）」とは、何人が突然いなくなるとプロジェクトが止まるかを表す指標です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://en.wikipedia.org/wiki/Bus_factor",
+  "quote": "The \"bus factor\" is the minimum number of team members that have to suddenly disappear from a project before the project stalls due to lack of knowledgeable or competent personnel.",
+  "correction": "",
+  "evidence": "Wikipedia の Bus factor を取得し、「突然いなくなるとプロジェクトが止まる最小人数」という定義を確認した。教材の「何人が突然いなくなるとプロジェクトが止まるかを表す指標」は同じ内容を平易に言い換えたもので、ずれはない（厳密には『最小人数』と書くとより正確）。同ページの例では 5 人しか焼成を知らないチームの bus factor は 5、bus factor 1 は単一障害点、とされている。"
+ },
+ {
+  "file": "devflow/review/Perspectives.tsx",
+  "claim": "nit（nitpick の略、任意）は好みや細かい改善提案で、 対応してもしなくてもよいものです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://conventionalcomments.org/",
+  "quote": "nitpick: Nitpicks are trivial preference-based requests. These should be non-blocking by nature.",
+  "correction": "",
+  "evidence": "Conventional Comments 公式サイトを取得。推奨ラベル一覧に nitpick があり、「trivial preference-based requests」で「non-blocking by nature」と定義されている。教材の「好みや細かい改善提案」「対応してもしなくてもよい」と一致する。nit が nitpick の略であることも同ページの用法（quibble の説明で「Quibbles are very much like nitpick:」）と整合する。"
+ },
+ {
+  "file": "devflow/review/PullRequest.tsx",
+  "claim": "迷ったら squash から始めるチームが多いです。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "マージ方式の採用比率を測った一次調査（GitHub / GitLab の公式統計等）を見つけられなかった。GitHub の公式ドキュメントはマージ方式の選択肢と挙動を説明するのみで、どれが多数派かには言及していない。「多いです」という普及度の断定は根拠を提示できないため確定できない。"
+ },
+ {
+  "file": "devflow/designops/WhatIsDesignOps.tsx",
+  "claim": "デザイントークンの標準仕様を策定するコミュニティの公式サイト",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.designtokens.org/",
+  "quote": "The Design Tokens W3C Community Group (DTCG) is a community of designers, developers, and tooling vendors standardizing how design tokens are defined and exchanged.",
+  "correction": "",
+  "evidence": "designtokens.org を取得。W3C コミュニティグループであること、デザイントークンの定義と交換方法を標準化するコミュニティであること、「We steward the Design Tokens specification」「Publish and maintain vendor-agnostic specification modules」と仕様策定を担う旨が明記されている。URL も到達可能（HTTP 200）。"
+ },
+ {
+  "file": "devflow/team/Incident.tsx",
+  "claim": "ここでも、5 Whys は「なぜ」を 5 回と決まっているわけではありません。 仕様（手法名）では 5 回ですが、実測では 3 回で根本に届くことも、 7 回必要なこともあります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.lean.org/lexicon-terms/5-whys/",
+  "quote": "The specific number five is not the point. Rather it is to keep asking until the root cause is reached and eliminated.",
+  "correction": "",
+  "evidence": "Lean Enterprise Institute の Lean Lexicon「5 Whys」を取得。大野耐一の例（Ohno 1988, p.17）を引いたうえで、5 という数字自体が本質ではなく根本原因に届くまで問い続けることが要点だと明記している。教材の「5 回と決まっているわけではない／3 回のことも 7 回のこともある」は一次的な位置づけと整合する。なお Toyota 公式の該当ページ（toyota-global.com の Toyota Traditions 記事）は現在 global.toyota/en/company/ へリダイレクトされ参照できなかった。"
+ },
+ {
+  "file": "devflow/team/Retrospective.tsx",
+  "claim": "場を整える / データを集める / 気づきを引き出す / アクションを決める / ふりかえりを締める",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://retromat.org/static/lang/phase_titles_en.js",
+  "quote": "var phase_titles = ['Set the stage', 'Gather data', 'Generate insights', 'Decide what to do', 'Close the retrospective', 'Something completely different'];",
+  "correction": "",
+  "evidence": "Retromat が実際に読み込んでいるフェーズ定義ファイルを取得。Set the stage / Gather data / Generate insights / Decide what to do / Close the retrospective の 5 段階（6 番目は分類外の Something completely different）で、教材の「場を整える / データを集める / 気づきを引き出す / アクションを決める / ふりかえりを締める」と 1 対 1 で対応する。この 5 段階は Derby & Larsen の Agile Retrospectives 由来のモデルなので、教材側で出典を添えるとより親切。"
+ },
+ {
+  "file": "devflow/team/Retrospective.tsx",
+  "claim": "Fun Done Learn / 楽しかった / 終わったこと / 学んだこと",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://kawaguti.hateblo.jp/entry/2019/03/11/045356",
+  "quote": "沖縄でみんなでつくった Fun! Done! Learn! が広がりをみせていて、作った人の一人としてとても嬉しいです。",
+  "correction": "",
+  "evidence": "考案者の一人である川口恭伸氏本人のブログ（2019-03-11）を取得し、沖縄でのスクラムコーチリトリートで作られた手法であること、3 軸が Fun / Done / Learn であること（同記事に「Deliver は長いし、汎用性考えると Done のほうが使いやすそうだ」と Done を選んだ経緯の記述あり）を確認した。教材の日本語（楽しかった／終わったこと／学んだこと）は 3 語の素直な訳で、原典と矛盾しない。なお候補出典の retromat.org には Fun Done Learn は収録されていない（activities_en.json の全 146 件を検索して 0 件）ので、参考リンクを差し替えるとよい。"
+ },
+ {
+  "file": "ai-ml/lmops/LlmBasics.tsx",
+  "claim": "Rust 製で高速、フィルタリング機能が強力",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://github.com/qdrant/qdrant",
+  "quote": "Qdrant is tailored for extended filtering support, making it useful for all sorts of neural-network or semantic-based matching, faceted search, and other applications. Qdrant is written in Rust 🦀, which makes it fast and reliable even under high load.",
+  "correction": "",
+  "evidence": "公式リポジトリ qdrant/qdrant の README.md を raw で取得。Rust 実装であること・高負荷でも高速で信頼できること・拡張フィルタリングに特化していることが同一段落に明記されている。リポジトリ直下に Cargo.toml / rustfmt.toml / clippy.toml があることも Rust 実装の裏付け。"
+ },
+ {
+  "file": "ai-ml/lmops/LlmBasics.tsx",
+  "claim": "※ 実際のトークン分割はモデルによって異なります。日本語は英語より多くのトークンを消費する傾向があります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "local:python -c \"import tiktoken; ...\" (tiktoken 実測)",
+  "quote": "EN chars=58 tokens=10 | JA chars=16 tokens=14",
+  "correction": "",
+  "evidence": "venv に tiktoken を入れて実測した。(1) モデル差: tiktoken.encoding_for_model が gpt-4o では o200k_base、gpt-4 / gpt-3.5-turbo では cl100k_base を返し、トークナイザがモデルによって異なることを確認。(2) 日本語のトークン消費: o200k_base で「Machine learning is a subfield of artificial intelligence.」= 10 トークンに対し同義の「機械学習は人工知能の一分野です。」= 14 トークン、もう 1 組でも 13 対 16 で日本語が多い。文字あたりでも EN 0.17-0.24 に対し JA 0.59-0.88 トークン。"
+ },
+ {
+  "file": "ai-ml/lmops/LmopsWorkflow.tsx",
+  "claim": "オープンソースの LLM オブザーバビリティ。トレース、評価、コスト追跡を一元管理。セルフホスト可能。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://raw.githubusercontent.com/langfuse/langfuse/main/README.md",
+  "quote": "Langfuse is an open source LLM engineering platform. It helps teams collaboratively develop, monitor, evaluate, and debug AI applications. Langfuse can be self-hosted in minutes and is battle-tested.",
+  "correction": "",
+  "evidence": "公式リポジトリの README.md を raw で取得し、オープンソースであること・セルフホスト可能であること・監視と評価を含むことを確認。README のバッジは MIT License を示す。コスト追跡は README に記載がないため公式ドキュメント https://langfuse.com/docs/observability/features/token-and-cost-tracking を別途取得し「Langfuse tracks the usage and costs of your LLM generations and provides breakdowns by usage types.」を確認した。"
+ },
+ {
+  "file": "ai-ml/python-ml/PythonSetup.tsx",
+  "claim": "Python 2 は 2020年1月にサポートが終了しています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.python.org/doc/sunset-python-2/",
+  "quote": "We have decided that January 1, 2020, was the day that we sunset Python 2.",
+  "correction": "",
+  "evidence": "python.org 公式の Sunsetting Python 2 ページを取得。「The sunset date has now passed; it was January 1st, 2020.」「As of January 1st, 2020 no new bug reports, fixes, or changes will be made to Python 2, and Python 2 is no longer supported.」も同ページにあり、2020 年 1 月のサポート終了は正しい。"
+ },
+ {
+  "file": "ai-ml/python-ml/DataLibraries.tsx",
+  "claim": "print(np.std(data))    # 5.85  -- 標準偏差",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:venv/bin/python -c \"import numpy as np; print(np.std(np.array([85,92,78,95,88])))\"",
+  "quote": "5.885575587824865",
+  "correction": "コメントを「# 5.89  -- 標準偏差」に直す（表示は丸めずに 5.885575587824865 と出る点も注記できるとより正確）。",
+  "evidence": "教材と同じ配列 [85, 92, 78, 95, 88] で numpy 2.5.2 の np.std を実行し 5.885575587824865 を得た。手計算でも平均 87.6、偏差平方和 173.2、母分散 34.64、√34.64 ≈ 5.8856 で一致する。numpy.std の既定は ddof=0（母標準偏差）であることを公式ドキュメント https://numpy.org/doc/stable/reference/generated/numpy.std.html の「By default ddof is zero.」で確認済み。教材の 5.85 は 5.89 の誤り。"
+ },
+ {
+  "file": "ai-ml/python-ml/DataLibraries.tsx",
+  "claim": "print(a.dtype)    # int64",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://numpy.org/doc/stable/numpy_2_0_migration_guide.html",
+  "quote": "The default integer used by NumPy is now 64bit on all 64bit systems (and 32bit on 32bit system).",
+  "correction": "",
+  "evidence": "NumPy 2.0 移行ガイドの「Windows default integer」節を取得し、64bit システムでは既定整数が 64bit（int64）になったことを確認。手元（macOS arm64 / numpy 2.5.2）でも np.array([1,2,3,4,5]).dtype が int64 だった。注記: NumPy 1.x の Windows では既定が int32 だったため、古い環境では int64 にならない。"
+ },
+ {
+  "file": "ai-ml/python-ml/PythonPractice.tsx",
+  "claim": "pathlib.Path は Python 3 で導入されたファイルパス操作のためのクラスです。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://docs.python.org/3/library/pathlib.html",
+  "quote": "pathlib - Object-oriented filesystem paths ¶ Added in version 3.4.",
+  "correction": "",
+  "evidence": "Python 公式標準ライブラリドキュメントの pathlib ページを取得し、モジュール冒頭に「Added in version 3.4.」とあることを確認した。Python 3 系での導入という記述は正しい。より正確に書くなら「Python 3.4 で導入」と版まで示せる。"
+ },
+ {
+  "file": "ai-ml/ml-fundamentals/Supervised.tsx",
+  "claim": "print(f\"テスト精度: {accuracy:.2f}\")\n# => テスト精度: 0.97（97%）",
+  "verdict": "REFUTED",
+  "sourceUrl": "local:venv/bin/python (scikit-learn 1.9.0 / numpy 2.5.2 で教材のコードをそのまま実行)",
+  "quote": "テスト精度: 0.93",
+  "correction": "コメントの期待出力を「テスト精度: 0.93（93%）」に直す。教材と同じ引数（test_size=0.2, random_state=42, stratify=y, DecisionTreeClassifier(random_state=42)）では 0.9333... となり 0.97 にはならない。",
+  "evidence": "教材ページ Supervised.tsx に書かれた手順（load_iris → train_test_split(test_size=0.2, random_state=42, stratify=y) → DecisionTreeClassifier(random_state=42).fit → accuracy_score）をそのまま実行し、accuracy=0.9333333333333333、f\"{accuracy:.2f}\" は 0.93 だった。shape も教材どおり (120,4)/(30,4)。参考までに stratify を外すと 1.0 になり、いずれにせよ 0.97 は再現しない。"
+ },
+ {
+  "file": "ai-ml/ai-overview/Landscape.tsx",
+  "claim": "Google が「Attention Is All You Need」を発表。Self-Attention 機構により並列処理が可能になり、GPT・BERT など LLM の基盤アーキテクチャとなった。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://arxiv.org/pdf/1706.03762",
+  "quote": "Google Brain Google Brain Google Research Google Research avaswani@google.com noam@google.com nikip@google.com usz@google.com",
+  "correction": "",
+  "evidence": "arXiv の PDF を pdftotext -layout で平文化し、1 ページ目の著者所属を確認した。8 名中 6 名が Google Brain / Google Research、Aidan N. Gomez は University of Toronto（脚注で Google Brain 在籍中の成果）、Illia Polosukhin は所属記載なし。Google 帰属は妥当。https://arxiv.org/abs/1706.03762 の abs ページで「[Submitted on 12 Jun 2017 (v1), last revised 2 Aug 2023 (this version, v7)]」を確認し、教材の年（2017）とも一致する。"
+ },
+ {
+  "file": "ai-ml/ai-overview/Landscape.tsx",
+  "claim": "1974-1980 第一次 AI の冬 初期の楽観的な予測が現実に追いつかなかった / 1987-1993 第二次 AI の冬 エキスパートシステムの限界が明らかになった",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://en.wikipedia.org/wiki/AI_winter",
+  "quote": "There were two major \"winters\" approximately 1974-1980 and 1987-2000,",
+  "correction": "",
+  "evidence": "AI の冬の年代区分を定める一次文書は存在せず、最も広く参照される英語版 Wikipedia を取得したところ「1974-1980 and 1987-2000」と記載されていた。第一次（1974-1980）は教材と一致するが、第二次は 1987-2000 と幅が広く、教材の 1987-1993 と食い違う。1987-1993 も文献では一般的な区切りであり、どちらが正しいと一次情報で確定できないため UNDETERMINED とした。教材側で出典を明示するのが望ましい。"
+ },
+ {
+  "file": "ux-design/ui-design/VisualDesign.tsx",
+  "claim": "Robin Williams の著書『ノンデザイナーズ・デザインブック』で提唱された 4 原則は、あらゆるビジュアルデザインの基礎になります。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.peachpit.com/store/non-designers-design-book-9780133966152",
+  "quote": "Chapter 2. Proximity Chapter 3. Alignment Chapter 4. Repetition Chapter 5. Contrast Chapter 6. Review of the Four Design Principles",
+  "correction": "",
+  "evidence": "版元 Peachpit の書誌ページ（Robin Williams 著）を取得し、目次が近接・整列・反復・コントラストの 4 原則で構成されることを確認した。O'Reilly の該当ページは自動取得が 403 で拒否されたため版元を一次情報とした。"
+ },
+ {
+  "file": "ux-design/ui-design/VisualDesign.tsx",
+  "claim": "見出しから本文、キャプションまで、文字サイズの階層を一貫した比率で設計します。1.25 倍（Major Third）や 1.333 倍（Perfect Fourth）の比率がよく使われます。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://typescale.com/",
+  "quote": "1.250 [...] Major Third 1.333 [...] Perfect Fourth",
+  "correction": "",
+  "evidence": "Typescale のスケール一覧を取得し、1.250 が Major Third、1.333 が Perfect Fourth と対応することを確認した。"
+ },
+ {
+  "file": "ux-design/ui-design/VisualDesign.tsx",
+  "claim": "行間（line-height）1.5 ~ 1.8 本文の可読性を確保する。日本語は 1.7 ~ 1.8 が読みやすい / 1 行の文字数 40 ~ 70 文字",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "行間 1.5〜1.8（日本語は 1.7〜1.8）・1 行 40〜70 文字という数値を定めた一次情報が見当たらなかった。WCAG は行間 1.5 倍以上（1.4.12）と 1 行 80 文字以内（1.4.8）を定めるが、この範囲そのものは規定していない。"
+ },
+ {
+  "file": "ux-design/ui-design/VisualDesign.tsx",
+  "claim": "余白の値は 8 の倍数（8, 16, 24, 32, 48, 64...）で統一すると、リズム感のあるレイアウトになります。Tailwind CSS の spacing スケール（p-2 = 8px, p-4 = 16px...）はこの考え方に沿っています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://tailwindcss.com/docs/theme",
+  "quote": "--spacing: 0.25 rem",
+  "correction": "",
+  "evidence": "Tailwind CSS v4 の theme 変数一覧を取得し、既定の --spacing が 0.25rem（＝4px）であることを確認した。padding ドキュメントの p-<number> は calc(var(--spacing) * <number>) なので p-2 = 8px、p-4 = 16px になる。"
+ },
+ {
+  "file": "ux-design/ui-design/DesignSystem.tsx",
+  "claim": "Ant Design / Alibaba / エンタープライズ Web",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://ant.design/",
+  "quote": "Made with ❤ by Ant Group and Ant Design Community",
+  "correction": "提供元の「Alibaba」を「Ant Group」に直す。Ant Design 公式サイトのフッターは Ant Group による提供と明示している（Ant Group はアリババ系列だが別会社）。",
+  "evidence": "ant.design のトップページを取得し、フッターの提供元表記と「An enterprise-class design system」という自己記述を確認した。"
+ },
+ {
+  "file": "ux-design/ui-design/DesignSystem.tsx",
+  "claim": "Brad Frost が提唱した Atomic Design は、UI を 5 段階の粒度で整理する設計手法です。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://atomicdesign.bradfrost.com/chapter-2/",
+  "quote": "Atomic Design Methodology Atoms, molecules, organisms, templates, and pages",
+  "correction": "",
+  "evidence": "Brad Frost の Atomic Design 第 2 章を取得し、原子・分子・生物・テンプレート・ページの 5 段階であることを確認した。"
+ },
+ {
+  "file": "ux-design/prototyping/FigmaPrototype.tsx",
+  "claim": "On Click / On Hover / On Drag / While Pressing",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://help.figma.com/hc/en-us/articles/360040315773-Prototype-interactions-and-animations",
+  "quote": "Note: You're not able to combine On click / On tap with While hovering.",
+  "correction": "「On Click / On Hover / On Drag / While Pressing」→「On click / While hovering / On drag / While pressing」に直す。Figma のトリガー名に「On Hover」は無く、ホバー系は While hovering（および Mouse enter / Mouse leave）である。",
+  "evidence": "Figma ヘルプセンターの Prototype interactions and animations を取得し、トリガーの一覧が On click / On tap・While hovering・While pressing・On drag・Mouse enter / Mouse leave などであることを確認した。"
+ },
+ {
+  "file": "ux-design/ia-wireframe/InformationArchitecture.tsx",
+  "claim": "タブの数が多いと破綻する（5個以内が目安）",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "タブの数を 5 個以内に抑えるという目安を示した一次情報が見当たらなかった。ナビゲーションの設計指針として広く語られるが、規格・公式ガイドラインの数値ではない。"
+ },
+ {
+  "file": "ux-design/ia-wireframe/Wireframe.tsx",
+  "claim": "Mobile 〜767px 1列 / Tablet 768px〜1023px 2列 / Desktop 1024px〜 3〜4列",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "767px / 768px / 1024px という区切りを定めた一次情報が無い。CSS のメディアクエリ仕様は具体的な breakpoint を定義せず、フレームワークごとに値が異なる（Bootstrap は 576/768/992/1200）。"
+ },
+ {
+  "file": "ux-design/ia-wireframe/Wireframe.tsx",
+  "claim": "モバイルファーストの提唱者による原点記事",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.lukew.com/ff/entry.asp?933",
+  "quote": "Mobile First by Luke Wroblewski November 3, 2009",
+  "correction": "",
+  "evidence": "LukeW 本人のサイトの当該記事を取得し、2009-11-03 付の「Mobile First」であること、モバイルを先に設計すべき理由を述べた原典であることを確認した。"
+ },
+ {
+  "file": "ux-design/ux-foundations/WhatIsUx.tsx",
+  "claim": "「The Elements of User Experience」で提唱されたモデル。抽象的な戦略レイヤーから具体的な表層レイヤーへと、5 段階で構成される。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "http://www.jjg.net/elements/pdf/elements.pdf",
+  "quote": "Jesse James Garrett The Elements of User Experience",
+  "correction": "",
+  "evidence": "Jesse James Garrett 本人が公開している原典 PDF を取得し pdftotext で平文化。抽象（Abstract）から具体（Concrete）へ、Site Objectives / User Needs・Functional Specifications / Content Requirements・Interaction Design / Information Architecture・Interface / Navigation / Information Design・Visual Design の 5 層が積まれた図であることを確認した。"
+ },
+ {
+  "file": "ux-design/ux-foundations/DesignProcess.tsx",
+  "claim": "英国 Design Council が提唱したフレームワーク。「正しい問題を見つける」前半と「正しい解決策を作る」後半の 2 つのダイヤモンドで構成される。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.designcouncil.org.uk/our-resources/the-double-diamond/",
+  "quote": "The first diamond helps people understand, rather than simply assume, what the problem is. [...] The second diamond encourages people to give different answers to the clearly defined problem",
+  "correction": "",
+  "evidence": "英国 Design Council の The Double Diamond ページを取得し、前半のダイヤモンドが問題の理解、後半が解決策の探索であることを確認した。"
+ },
+ {
+  "file": "ux-design/ux-foundations/DesignProcess.tsx",
+  "claim": "Eric Ries の Lean Startup の考え方を UX に適用したアプローチ。仮説を素早く検証し、学びを得ることを最優先にする。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://www.oreilly.com/library/view/lean-ux-3rd/9781098116293/",
+  "quote": "",
+  "correction": "",
+  "evidence": "O'Reilly の書誌ページは自動取得が 403 で本文を得られず、著者 Jeff Gothelf のサイトの書籍ページにも Eric Ries / Lean Startup への言及が無かったため、由来を一次情報で確認できなかった。"
+ },
+ {
+  "file": "ux-design/research/UserResearch.tsx",
+  "claim": "選択式の質問で量的データを、自由記述で質的データを取得できる。回答率を上げるには質問数を10〜15問以内に抑え、所要時間を明示する。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "",
+  "quote": "",
+  "correction": "",
+  "evidence": "アンケートの設問数を 10〜15 問以内に抑えるという目安を定めた一次情報が見当たらなかった。"
+ },
+ {
+  "file": "ux-design/research/UserResearch.tsx",
+  "claim": "20以上のリサーチ手法を「態度 vs 行動」「定性 vs 定量」の2軸で分類した解説。",
+  "verdict": "REFUTED",
+  "sourceUrl": "https://www.nngroup.com/articles/which-ux-research-methods/",
+  "quote": "20 methods are mapped across 3 dimensions and over time within a typical product-development process.",
+  "correction": "「20以上のリサーチ手法を『態度 vs 行動』『定性 vs 定量』の2軸で分類」→「20 の手法を『態度 vs 行動』『定性 vs 定量』『利用文脈』の 3 次元（と製品開発プロセス上の時間軸）で位置づけ」に直す。手法数は 20 で「以上」ではなく、軸も 2 つではなく 3 つ。",
+  "evidence": "NN/g の Which UX Research Methods? を取得し、要旨に手法数 20・次元数 3 と明記されていること、本文が Attitudinal vs. Behavioral と Qualitative vs. Quantitative に加えて利用文脈の次元を持つことを確認した。"
+ },
+ {
+  "file": "ux-design/research/UserResearch.tsx",
+  "claim": "Google のデザインチームのリソースとガイド",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://design.google/library",
+  "quote": "",
+  "correction": "",
+  "evidence": "design.google/library はクライアント側描画で、取得した HTML の本文が「Library」等のごく短い文字列しか含まず、記事・ガイドの内容を一次情報として照合できなかった。"
+ },
+ {
+  "file": "BugReport.tsx",
+  "claim": "WebGL に対応したブラウザ（Chrome / Firefox 推奨）をご利用ください。",
+  "verdict": "UNDETERMINED",
+  "sourceUrl": "https://raw.githubusercontent.com/mdn/browser-compat-data/main/api/WebGLRenderingContext.json",
+  "quote": "\"safari\": { \"version_added\": \"5.1\" }",
+  "correction": "",
+  "evidence": "MDN browser-compat-data の api/WebGLRenderingContext.json を取得し、chrome 9 / firefox 4 / safari 5.1 / edge 12 / safari_ios 8 で対応済みであることを確認した。つまり WebGL 対応ブラウザは Chrome と Firefox に限られない。ただし本文は「対応ブラウザを使え」と述べたうえで Chrome / Firefox を『推奨』しているだけで、Safari や Edge が非対応だとは主張していない。推奨（編集上の選好）は一次情報では真偽が確定しないため UNDETERMINED とした。"
+ },
+ {
+  "file": "DevComponents.tsx",
+  "claim": "WCAG 1.4.12 では line-height 1.5 以上、letter-spacing 0.12em 以上を指定可能にすることが求められています。",
+  "verdict": "CONFIRMED",
+  "sourceUrl": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+  "quote": "Line height (line spacing) to at least 1.5 times the font size; Spacing following paragraphs to at least 2 times the font size; Letter spacing (tracking) to at least 0.12 times the font size;",
+  "correction": "",
+  "evidence": "W3C WAI の Understanding 文書を取得。ページ表題が「Understanding Success Criterion 1.4.12: Text Spacing」であり達成基準番号 1.4.12 = Text Spacing を確認した。本文の Success Criterion 節に line height 1.5 倍以上・letter spacing 0.12 倍以上の記述があり、0.12 times the font size は 0.12em と等価。"
+ }
+]

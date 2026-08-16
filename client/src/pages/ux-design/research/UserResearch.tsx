@@ -22,7 +22,7 @@ const researchMethods = [
     category: '定性',
     desc: '1対1の対話を通じてユーザーの行動・動機・課題を深掘りする手法。',
     detail:
-      '半構造化インタビュー（事前に質問リストを用意しつつ、回答に応じて柔軟に深掘り）が実務では多い。1セッション30〜60分が目安。5〜8人で主要なパターンが見えてくる。',
+      '事前に質問リストを用意しつつ回答に応じて深掘りする形式は、半構造化インタビュー（semi-structured interview）とも呼ばれる。セッション時間と人数は目的によって変わるため、設計時に決める。',
     tools: 'Zoom / Google Meet / 対面',
   },
   {
@@ -440,7 +440,7 @@ export default function UserResearch() {
                 {
                   title: 'NNGroup: When to Use Which User-Experience Research Methods',
                   url: 'https://www.nngroup.com/articles/which-ux-research-methods/',
-                  description: '20以上のリサーチ手法を「態度 vs 行動」「定性 vs 定量」の2軸で分類した解説。',
+                  description: '20 のリサーチ手法を「態度 vs 行動」「定性 vs 定量」「利用文脈」の 3 次元で位置づけた解説。',
                 },
                 {
                   title: 'Google Design Library',

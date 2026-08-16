@@ -289,7 +289,7 @@ export default function Flexbox() {
               title="flex ショートハンド（実務ではこれを使う）"
               code={`/* flex: grow shrink basis */
 .item { flex: 0 1 auto; }    /* デフォルト: 伸びない・縮む・自動サイズ */
-.item { flex: 1; }            /* = flex: 1 1 0% → 均等に伸びる */
+.item { flex: 1; }            /* = flex: 1 1 0 → 均等に伸びる */
 .item { flex: auto; }         /* = flex: 1 1 auto → 内容に応じて伸縮 */
 .item { flex: none; }         /* = flex: 0 0 auto → 固定サイズ */
 
@@ -302,10 +302,12 @@ export default function Flexbox() {
 
             <InfoBox type="warning" title="flex-basis: 0 vs auto のよくある誤解">
               <p>
-                <code>flex: 1</code>（basis: 0%）はコンテンツ量に関係なく均等幅になります。
+                <code>flex: 1</code>（basis: 0）はコンテンツ量に関係なく均等幅になります。
                 <code>flex: 1 1 auto</code>（basis: auto）はコンテンツの量に応じて幅が変わります。
                 「均等幅にしたい」なら <code>flex: 1</code>、
                 「コンテンツに応じて伸ばしたい」なら <code>flex: auto</code> を使いましょう。
+                なお仕様（CSS Flexible Box Layout Level 1）が定義する省略時の basis は <code>0</code> ですが、
+                Chrome / Safari の開発者ツールでは計算値が <code>0%</code> と表示されます。
               </p>
             </InfoBox>
           </section>
@@ -537,7 +539,7 @@ export default function Flexbox() {
               title="basis の値でレイアウトが変わる"
               code={`/* Item A: 短いテキスト、Item B: 長いテキスト */
 
-/* flex: 1 (= flex: 1 1 0%) → 完全に均等幅 */
+/* flex: 1 (= flex: 1 1 0) → 完全に均等幅 */
 /* basis が 0 なので、コンテンツ量は無視される */
 
 /* flex: 1 1 auto → コンテンツに応じた幅 */
@@ -826,7 +828,7 @@ export default function Flexbox() {
                   <strong className="text-foreground">落とし穴:</strong>
                   <p className="ml-4 mt-1">
                     テキストはみ出し → min-width: 0 /
-                    flex: 1 と flex: auto → basis が 0% か auto か
+                    flex: 1 と flex: auto → basis が 0 か auto か
                   </p>
                 </div>
               </div>

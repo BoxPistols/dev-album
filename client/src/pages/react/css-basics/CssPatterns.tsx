@@ -36,7 +36,7 @@ export default function CssPatterns() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">BEM（Block Element Modifier）</h2>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              BEM は最も広く使われている CSS 命名規則です。
+              BEM は CSS の命名規則の一つです。
               クラス名を <strong>Block（ブロック）</strong>、<strong>Element（要素）</strong>、
               <strong>Modifier（修飾子）</strong> の3つの概念で構造化します。
             </p>

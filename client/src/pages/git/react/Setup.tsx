@@ -51,7 +51,7 @@ export default function ReactSetup() {
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              React は、Facebook が開発した JavaScript ライブラリです。Web ページのインタラクティブな部分（ボタンをクリックしたときの動作など）を簡単に実装できます。
+              React は、ユーザーインターフェースを組み立てるための JavaScript ライブラリです。Web ページのインタラクティブな部分（ボタンをクリックしたときの動作など）を簡単に実装できます。
             </p>
 
             <div className="bg-secondary/5 border-l-4 border-secondary p-6 rounded-r-lg">
@@ -121,7 +121,7 @@ export default function ReactSetup() {
               )}
 
               <p className="text-muted-foreground mt-4">
-                このコマンドは、「my-react-app」という名前の React プロジェクトを作成します。初回は少し時間がかかります（3～5分程度）。
+                このコマンドは、「my-react-app」という名前の React プロジェクトを作成します。テンプレートの生成自体はすぐ終わり、時間がかかるのは後続の依存インストールです（回線とマシン次第）。
               </p>
 
               <InfoBox type="info">

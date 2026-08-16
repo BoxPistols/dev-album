@@ -37,7 +37,7 @@ const wireframeLevels = [
     icon: <Layers className="w-5 h-5" />,
     resolution: "中",
     time: "数時間〜1日",
-    tool: "Figma、Sketch、Adobe XD（グレースケール）",
+    tool: "Figma、Sketch（グレースケール）",
     purpose: "レイアウトと情報構造の確定、ユーザーテストの素材",
     description:
       "デジタルツールで作成するグレースケールのワイヤーフレーム。テキスト、画像プレースホルダー、ボタンの配置を具体的に定義する。",

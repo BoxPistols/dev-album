@@ -166,7 +166,7 @@ print(x * y)          # [10 40 90]
 # 統計関数
 data = np.array([85, 92, 78, 95, 88])
 print(np.mean(data))   # 87.6  -- 平均
-print(np.std(data))    # 5.85  -- 標準偏差
+print(np.std(data))    # 5.885575587824865  -- 標準偏差（母標準偏差）
 print(np.max(data))    # 95    -- 最大値
 print(np.argmax(data)) # 3     -- 最大値のインデックス`}
               language="python"
@@ -206,8 +206,9 @@ print(data[mask])      # [7 9 6]  -- 5より大きい要素だけ`}
               <p>
                 Python の標準リストは異なる型の要素を混在でき柔軟ですが、
                 数値演算は遅くなります。NumPy の ndarray は同一型に制限される代わりに、
-                C 言語レベルの速度で計算できます。100万要素の配列で比較すると、
-                NumPy は Python リストの 10-100 倍高速です。
+                C 言語レベルの速度で計算できます。
+                差がどれくらい出るかは演算内容・要素型・実行環境で変わるため、
+                手元のデータで timeit を使って計測します。
               </p>
             </InfoBox>
           </section>

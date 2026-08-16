@@ -212,10 +212,11 @@ export default function InformationArchitecture() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
               <Layers className="text-primary" />
-              IA の 4 つの構成要素
+              IA を設計するときの 4 つの観点
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              情報アーキテクチャは大きく分けて 4 つの要素で構成されます。
+              このページでは情報アーキテクチャを、組織化・ラベリング・ナビゲーション・検索の
+              4 つの観点に分けて扱います。
               それぞれが連携することで、ユーザーが迷わないサイト構造が実現します。
             </p>
 
@@ -337,14 +338,14 @@ export default function InformationArchitecture() {
           {/* Quiz 1 */}
           <section>
             <Quiz
-              question="情報アーキテクチャ（IA）の 4 つの構成要素に含まれないものはどれ？"
+              question="情報アーキテクチャ（IA）が扱う領域に含まれないものはどれ？"
               options={[
                 { label: "組織化（Organization）" },
                 { label: "ラベリング（Labeling）" },
                 { label: "ビジュアルデザイン（Visual Design）", correct: true },
                 { label: "検索（Search）" },
               ]}
-              explanation="IA の 4 要素は組織化・ラベリング・ナビゲーション・検索です。ビジュアルデザインは IA の後工程で扱う領域であり、IA そのものには含まれません。IA はあくまで情報の構造と分類に関する設計です。"
+              explanation="このページでは IA を組織化・ラベリング・ナビゲーション・検索の 4 つの観点で扱っています。ビジュアルデザインは IA の後工程で扱う領域であり、IA そのものには含まれません。IA はあくまで情報の構造と分類に関する設計です。"
             />
           </section>
 
@@ -397,8 +398,9 @@ export default function InformationArchitecture() {
             </div>
 
             <InfoBox type="info" title="リモートでもカードソーティングは実施できる">
-              Optimal Workshop や UserZoom などのツールを使えば、オンラインでカードソーティングを実施できる。
-              対面でのポストイットを使った方法と同等の結果が得られる。
+              Optimal Workshop のような Web
+              ベースのツールを使えば、カードを紙で用意せずリモートで実施できる。NN/g
+              は、分析の効率からリモートの方が一般的になっていると説明している。
             </InfoBox>
           </section>
 

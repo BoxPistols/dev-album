@@ -350,14 +350,13 @@ GET /users/42/orders/99   # ここまではネスト
 GET /order-items/3        # items はトップレベルに昇格`}
             />
 
-            <InfoBox type="info" title="HATEOAS は仕様、実装は限定的">
+            <InfoBox type="info" title="HATEOAS は Richardson Maturity Model の最上位">
               REST の成熟度を測る Richardson Maturity Model では、最上位の Level
               3 で レスポンスに次の操作リンクを含める HATEOAS が求められます。
-              しかし仕様として定義されていても、実装まで徹底している API
-              は多くありません。 実務では URL とメソッドを整える Level 2
-              を満たすだけでも十分に価値があり、 純粋な REST（Level
-              3）を全面採用しているサービスは少数派です。
-              「仕様の理想」と「現場の実装」にギャップがある点は知っておくとよいでしょう。
+              このページで扱う URL とメソッドの設計は Level 2
+              にあたる範囲です。 Fowler 自身は同モデルについて「REST
+              そのものの段階を定義するものではない」と断っているので、 どの Level
+              まで設計するかは API の性質に合わせて決めます。
             </InfoBox>
           </section>
 

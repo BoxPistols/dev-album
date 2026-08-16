@@ -162,7 +162,7 @@ createRoot(document.getElementById('root')!).render(
 
             <InfoBox type="info" title="CssBaseline とは">
               <p>
-                <code>CssBaseline</code> は CSS リセット（normalize.css に相当）です。
+                <code>CssBaseline</code> はグローバルなスタイルリセットを行うコンポーネントです。
                 ブラウザ間のスタイル差異を吸収し、Material Design に最適化された基本スタイルを適用します。
                 余白のリセット、フォントの設定、box-sizing の統一などを行います。
               </p>

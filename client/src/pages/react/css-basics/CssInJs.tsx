@@ -1023,12 +1023,15 @@ function Card({ children }) {
               </div>
             </div>
 
-            <InfoBox type="info" title="業界のトレンド">
+            <InfoBox type="info" title="選択肢の整理">
               <p>
-                2024-2025年のトレンドとしては、ランタイム CSS-in-JS から Tailwind CSS やゼロランタイム CSS-in-JS への移行が進んでいます。
-                しかし、styled-components や Emotion は依然として多くのプロジェクトで使われており、
-                既存コードの保守や理解のために学ぶ価値は十分にあります。
-                次のステップでは、最も人気のある styled-components を実際に使ってみましょう。
+                CSS-in-JS には、実行時にスタイルを解決するもの（styled-components / Emotion）と、
+                ビルド時に静的な CSS へ書き出すゼロランタイム系があります。
+                Tailwind CSS のようなユーティリティ CSS も並ぶ選択肢のひとつです。
+                どれを選ぶかは、ランタイムのコストをどこまで許容するか、
+                Server Component で使う必要があるか、といったプロジェクトの制約で決まります。
+                styled-components の書き方は既存コードを読むときにも役立つので、
+                次のステップで実際に使ってみましょう。
               </p>
             </InfoBox>
           </section>

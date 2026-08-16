@@ -509,14 +509,15 @@ animate();`}
               <strong>急激なカメラの回転を避ける</strong> - lerp のスムージング値を適切に設定する
             </li>
             <li>
-              <strong>視野角（FOV）を広げすぎない</strong> - 45-60 度が快適な範囲
+              <strong>視野角（FOV）を調整できるようにする</strong> - Xbox
+              Accessibility Guidelines は特定の値を定めず、プレイヤーが FOV
+              を変えられることを求めている
             </li>
             <li>
               <strong>固定の参照点を用意する</strong> - HUD やコックピットフレームで安定感を与える
             </li>
             <li>
-              <strong>ロール（Z軸回転）を抑える</strong> - 水平線が傾くと酔いやすい。
-              カメラのロールは機体の 50% 程度に抑えるとよい
+              <strong>ロール（Z軸回転）を抑える</strong> - 水平線が傾くと酔いやすい
             </li>
             <li>
               <strong>FPS を安定させる</strong> - フレームレートの低下や不安定さは酔いの原因

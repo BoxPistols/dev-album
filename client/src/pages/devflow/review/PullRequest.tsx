@@ -110,10 +110,11 @@ export default function PullRequest() {
               小さい PR の価値
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              PR
-              が小さいほどレビューは速く、正確になります。差分が数百行を超えると、
-              レビュアーの集中は続かず、指摘の質が落ちることが知られています。
-              小さい PR は
+              PR が小さいほどレビューは速く、正確になります。Google の
+              Engineering Practices は「どれくらいが大きすぎるかに厳密な基準は無い」
+              と断った上で、100 行程度が妥当なサイズ、1000
+              行は大きすぎることが多く、判断はレビュアー次第だとしています。 小さい
+              PR は
               <strong>
                 レビュー負荷を下げ、フィードバックを早め、コンフリクトのリスクも減らします
               </strong>
@@ -139,10 +140,11 @@ export default function PullRequest() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               実装の途中で方向性だけ共有したいときは
-              <strong>Draft PR（下書き PR）</strong>を使います。 Draft
-              はレビュー依頼前の状態を示し、CI を回しつつ early feedback
-              をもらえます。 完成したら Ready for review
-              に切り替えてレビュアーに渡します。
+              <strong>Draft PR（下書き PR）</strong>を使います。 GitHub
+              の公式ドキュメントによれば、Draft PR
+              はマージできず、コードオーナーへのレビュー依頼も自動では行われません。
+              正式なレビュー依頼をせずに作業中の内容を共有できる状態です。
+              完成したら Ready for review に切り替えてレビュアーに渡します。
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               レビューを依頼する前に、まず自分で差分を上から下まで読む
@@ -152,18 +154,18 @@ export default function PullRequest() {
             </p>
 
             <Quiz
-              question="Draft PR を使う主な目的はどれ？"
+              question="GitHub の Draft PR の説明として、公式ドキュメントに合致するのはどれ？"
               options={[
-                { label: "マージを禁止して PR を永久に残すため" },
+                { label: "そのままマージでき、レビューも自動で依頼される" },
                 {
                   label:
-                    "完成前の段階で CI を回し、方向性への early feedback を得るため",
+                    "マージはできず、コードオーナーへのレビュー依頼も自動では行われない",
                   correct: true,
                 },
-                { label: "レビュアーを自動でアサインしないため" },
-                { label: "差分を非公開にするため" },
+                { label: "差分がレビュアーから見えなくなる" },
+                { label: "作成後は Ready for review に切り替えられない" },
               ]}
-              explanation="Draft PR は「まだレビュー依頼の準備が整っていない」状態を表します。CI を走らせたり、設計の方向性だけ先に相談したりできます。完成したら Ready for review に切り替えて正式にレビューを依頼します。"
+              explanation="Draft PR は「まだレビュー依頼の準備が整っていない」状態を表します。公式ドキュメントは、Draft PR はマージできず、コードオーナーへのレビュー依頼も自動では行われないと説明しています。作業中の内容を、正式なレビュー依頼をせずに共有したいときに使い、完成したら Ready for review に切り替えます。"
             />
           </section>
 

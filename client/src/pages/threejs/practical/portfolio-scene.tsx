@@ -377,7 +377,7 @@ export default function PortfolioScene() {
             完成した 3D シーンをポートフォリオに組み込みましょう。
           </p>
           <ul className="list-disc list-inside space-y-1">
-            <li>Vercel にデプロイ: <code>npx vercel</code> で即座に公開可能</li>
+            <li>Vercel にデプロイ: プロジェクトのルートで <code>vercel</code> を実行するとデプロイされる（サブコマンドを省略すると <code>vercel deploy</code> と同じ）</li>
             <li>既存のポートフォリオサイトに埋め込み: Canvas コンポーネントを配置するだけ</li>
             <li>背景として使用: <code>position: fixed</code> でフルスクリーン背景に</li>
             <li>スクロール連動: <code>@react-three/drei</code> の <code>ScrollControls</code> で実現</li>

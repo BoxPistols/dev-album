@@ -288,13 +288,30 @@ npx wrangler kv namespace create MY_KV`}
           {/* 無料枠と nodejs_compat */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              無料枠の広さと nodejs_compat 互換フラグ
+              無料枠の上限と nodejs_compat 互換フラグ
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Cloudflare は無料枠の範囲が広く、小〜中規模の個人プロジェクトなら
-              無料のまま運用できることが多いのが特徴です。Pages の ビルド回数や
-              Workers の 1 日あたりリクエスト数などに上限はありますが、
-              学習や検証には十分な余裕があります。
+              無料プランには上限があります。公式のドキュメントでは Workers Free
+              のリクエスト数が 1 日あたり 100,000、Pages Free のビルド回数が 1
+              か月あたり 500 と示されています（
+              <a
+                href="https://developers.cloudflare.com/workers/platform/limits/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Workers の制限
+              </a>
+              ／
+              <a
+                href="https://developers.cloudflare.com/pages/platform/limits/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Pages の制限
+              </a>
+              ）。数値は変わることがあるため、実際に使う前に公式ページで確認してください。
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Workers のランタイムは Node.js そのものではなく、Web 標準 API

@@ -241,14 +241,13 @@ export default function Summary() {
               ))}
             </div>
 
-            <InfoBox type="info" title="HATEOAS は「仕様」、Level 2 が「実測」">
+            <InfoBox type="info" title="HATEOAS はどの段階に位置づくか">
               REST の理想形（Richardson 成熟度モデルの Level
               3）は、レスポンスに次に取れる操作のリンクを埋め込む HATEOAS
-              を含みます。しかし実務で広く運用されている API
-              の多くは、リソース指向と適切な HTTP メソッドまでを満たす Level 2
-              にとどまります。仕様としての純粋な REST
-              と、現場で主流の設計には差がある、と知っておくと混乱しません。
-              本チェックリストも Level 2 を実用的な基準として置いています。
+              を含みます。Level 2 は、リソース指向と適切な HTTP
+              メソッドまでを満たす段階です。本チェックリストは Level 2
+              を基準として置いているため、HATEOAS
+              を採用するかどうかは別途判断してください。
             </InfoBox>
           </section>
 

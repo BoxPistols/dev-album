@@ -312,8 +312,9 @@ function Button() {
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">4. Bulletproof React パターン</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
-              Alan Alickovic が提唱する、Feature-based と Layer-based のハイブリッド構成です。
-              実務で最も採用されているパターンの一つで、大規模プロジェクトでも破綻しにくい設計になっています。
+              Alan Alickovic が公開している bulletproof-react の構成で、
+              横断レイヤ（components / hooks / lib）と機能別モジュール（features）を併置する、
+              Feature-based と Layer-based のハイブリッドです。
             </p>
 
             <CodeBlock
@@ -578,7 +579,6 @@ function Counter() {
                   Redux の公式推奨ツールキット。大規模アプリでの実績が豊富だが、
                   学習コストは Zustand / Jotai より高い。厳格なデータフロー（Flux アーキテクチャ）を強制するため、
                   チーム全員が規律を守る大規模プロジェクトに向いている。
-                  新規プロジェクトでは Zustand や Jotai を先に検討するのが現在のトレンド。
                 </p>
               </div>
             </div>

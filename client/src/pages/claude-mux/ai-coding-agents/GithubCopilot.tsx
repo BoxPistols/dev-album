@@ -153,11 +153,13 @@ copilot -p "この PR の変更点を要約して"`}
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              個人向けは無料プランから始められる。仕様では基本機能は
-              定額プランに含まれ、高性能モデルの利用量は「AI クレジット」（旧称:
-              プレミアムリクエスト）という
-              枠で管理される。料金・枠の体系は改定されることがあるため、
-              最新は公式の料金ページで確認したい（以下は執筆時点の公式表記）。
+              個人向けは無料プランから始められる。公式ドキュメントによると
+              Copilot の利用量は「AI クレジット」で計測され、
+              どのプランにも月あたりの割り当てが含まれる。 コード補完と Next
+              edit suggestions は AI クレジットの対象外。
+              料金・枠の体系は改定されることがあるため、
+              最新は公式の料金ページで確認したい（以下は 2026 年 8 月時点の公式表記。
+              金額とプラン構成のみを載せており、クレジットの枠は公式表を参照）。
             </p>
 
             <div className="overflow-x-auto mb-6">
@@ -191,10 +193,26 @@ copilot -p "この PR の変更点を要約して"`}
                     </td>
                   </tr>
                   <tr className="border-b border-border">
+                    <td className="p-3 font-semibold text-foreground">
+                      Student
+                    </td>
+                    <td className="p-3 text-muted-foreground">$0</td>
+                    <td className="p-3 text-muted-foreground">
+                      認証済みの学生向け。補完は無制限、チャットとエージェントは限定
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
                     <td className="p-3 font-semibold text-foreground">Pro+</td>
                     <td className="p-3 text-muted-foreground">$39</td>
                     <td className="p-3 text-muted-foreground">
-                      高性能モデル（Opus 等）とより大きなクレジット枠
+                      Pro の内容に加えて、より大きなクレジット枠とプレミアムモデル
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="p-3 font-semibold text-foreground">Max</td>
+                    <td className="p-3 text-muted-foreground">$100</td>
+                    <td className="p-3 text-muted-foreground">
+                      Pro+ の内容に加えて、個人向けで最大のクレジット枠
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -272,17 +290,6 @@ copilot -p "この PR の変更点を要約して"`}
                     </td>
                     <td className="p-3 text-muted-foreground">
                       Claude ファミリー
-                    </td>
-                  </tr>
-                  <tr className="border-b border-border">
-                    <td className="p-3 font-semibold text-foreground">
-                      インライン補完
-                    </td>
-                    <td className="p-3 text-muted-foreground">
-                      主力機能（タイピング中の候補提示）
-                    </td>
-                    <td className="p-3 text-muted-foreground">
-                      非対応（対話・タスク単位の作業が中心）
                     </td>
                   </tr>
                   <tr className="border-b border-border">

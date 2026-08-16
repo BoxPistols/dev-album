@@ -197,9 +197,8 @@ export default function SecretsPermissions() {
                   発行直後にコピー
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  トークンは発行時に一度だけ表示されます。その場でコピーし、
-                  シークレット等の安全な場所に保管します（画面を閉じると
-                  二度と見られません）。
+                  発行直後の画面にコピー用のアイコンが出ます。その場でコピーし、
+                  シークレット等の安全な場所に保管します。
                 </p>
               </div>
             </div>
@@ -300,8 +299,10 @@ export default function SecretsPermissions() {
             <InfoBox type="info" title="このサイトのリポジトリでの実例">
               この教材リポジトリの CI は{" "}
               <code>permissions: contents: read</code>{" "}
-              で読み取りに固定し、labeler だけが{" "}
-              <code>pull-requests: write</code> を持ちます。役割ごとに必要な分
+              で読み取りに固定しています。書き込み権限を持つのは labeler
+              （<code>pull-requests: write</code>）と stale
+              （<code>issues: write</code> と <code>pull-requests: write</code>）
+              だけで、それぞれ必要な種類しか持ちません。役割ごとに必要な分
               だけ渡す、を実演しています。
             </InfoBox>
           </section>

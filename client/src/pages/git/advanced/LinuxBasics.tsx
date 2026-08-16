@@ -180,7 +180,7 @@ cat file1.txt file2.txt # 複数ファイルの内容を表示`}
               title="ファイル編集"
             />
             <p className="text-lg text-muted-foreground leading-relaxed">
-              ターミナル内でテキストファイルを編集できます。編集後は Ctrl+X で終了し、Y を入力して保存します。
+              ターミナル内でテキストファイルを編集できます。編集後は Ctrl+X で終了し、Y を入力、続けて Enter でファイル名を確定すると保存されます。Y を押した時点ではまだ書き出されていません。
             </p>
           </div>
 

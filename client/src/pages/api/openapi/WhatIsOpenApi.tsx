@@ -225,7 +225,7 @@ export default function WhatIsOpenApi() {
                     <td className="py-2 pr-4">
                       JSON Schema 部分準拠（独自差分あり）
                     </td>
-                    <td className="py-2">対応ツールが最も多く枯れている</td>
+                    <td className="py-2">3.1 に未対応のツールでも読める</td>
                   </tr>
                   <tr>
                     <td className="py-2 pr-4 font-medium text-foreground">

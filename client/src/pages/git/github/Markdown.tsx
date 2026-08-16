@@ -85,8 +85,8 @@ export default function MarkdownGuide() {
               </ul>
             </div>
 
-            <InfoBox type="info" title="AI 時代の共通言語">
-              AI ツール（ChatGPT、Claude、GitHub Copilot など）は Markdown 形式でやり取りするのが標準です。「見出しで構造を示す」「リストで箇条書きにする」「コードブロックでコードを囲む」─ これだけで AI への指示精度が大きく向上します。Markdown は人間と AI の共通言語と言えます。
+            <InfoBox type="info" title="AI への指示にも使える">
+              AI ツールへの指示でも Markdown の書き方がそのまま使えます。「見出しで構造を示す」「リストで箇条書きにする」「コードブロックでコードを囲む」だけで、どこからどこまでが一つのまとまりかを伝えられます。
             </InfoBox>
           </div>
         </section>
@@ -301,7 +301,7 @@ export default function MarkdownGuide() {
               </p>
 
               <InfoBox type="info">
-                GitHub の Issue やコメントでは、画像をドラッグ＆ドロップするだけで自動的に Markdown の画像記法に変換してくれます。
+                GitHub の Issue やコメントでは、ファイルをコメント欄にドラッグ＆ドロップして添付できます。公式ドキュメントによると、添付したファイルはすぐにアップロードされ、入力欄には匿名化された URL が挿入されます。
               </InfoBox>
             </div>
 

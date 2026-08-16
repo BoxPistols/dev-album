@@ -172,10 +172,14 @@ export default async function Blog() {
               </div>
             </div>
 
-            <InfoBox type="success" title="Next.js が自動で判断してくれる">
+            <InfoBox type="success" title="レンダリング方式の決まり方">
               <p>
-                App Router では、コンポーネントの内容に基づいて Next.js が自動的に最適なレンダリング方式を選びます。
-                動的なデータ取得がなければ SSG、あれば SSR というように、開発者が明示的に指定する必要はほとんどありません。
+                App Router では、動的 API（<code>cookies</code> / <code>headers</code> / <code>connection</code> /
+                <code>draftMode</code> / <code>searchParams</code> prop）を使わないルートは
+                <code>next build</code> の時点で静的に生成されます。これらの API を使うルートは動的レンダリングに切り替わります。
+                ただし Next.js 15 以降は <code>fetch</code> の結果が既定でキャッシュされないため、
+                データ取得を伴うルートを静的に保つには <code>cache: 'force-cache'</code> や
+                <code>next: {'{'} revalidate {'}'}</code> を明示します。
               </p>
             </InfoBox>
           </section>

@@ -125,6 +125,7 @@ export default function Kanban() {
               カンバンでは時間そのものを主要な指標として扱います。 よく使う 2
               つがリードタイムとサイクルタイムです。混同しやすいので、
               どこを始点に測るかで区別します。
+              起点をどこに置くかで数字が変わるため、計測を始める前にチーム内で定義を揃えます。
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -133,7 +134,9 @@ export default function Kanban() {
                   リードタイム
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  依頼が発生してから完了するまでの全体時間。待ち時間も含む、顧客から見た所要時間。
+                  計測の起点から完了までの全体時間。待ち時間も含む。Kanban
+                  Guide
+                  は起点をコミットメントポイント（着手すると決めて作業がシステムに入った時点）に置いている。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-5">
@@ -347,7 +350,8 @@ export default function Kanban() {
               ハンズオン: リードタイムとサイクルタイムを計算する
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              リードタイムは「依頼発生から完了まで」、サイクルタイムは「着手から完了まで」です。
+              リードタイムは「計測の起点から完了まで」、サイクルタイムは「着手から完了まで」です。
+              ここでは起点を「依頼発生」と定義して計算します。
               下のタイムスタンプから両方を計算してみましょう。差分が、着手前の待ち時間にあたります。
             </p>
             <CodingChallenge

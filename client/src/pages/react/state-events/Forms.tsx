@@ -161,9 +161,9 @@ function UncontrolledInput() {
               </table>
             </div>
 
-            <InfoBox type="success" title="基本は制御コンポーネント">
+            <InfoBox type="success" title="制御コンポーネントを使う場面">
               <p>
-                React の公式ドキュメントでは、ほとんどのケースで制御コンポーネントを使うことを推奨しています。非制御コンポーネントは、ファイル入力（<code>{'<input type="file">'}</code>）のように、プログラムから値を設定できない要素で使います。
+                React の公式ドキュメントは、入力のたびに UI を再描画するなど state が必要な場面で制御コンポーネントが適していると説明しています。非制御コンポーネントは、ファイル入力（<code>{'<input type="file">'}</code>）のように、プログラムから値を設定できない要素で使います。
               </p>
             </InfoBox>
           </section>

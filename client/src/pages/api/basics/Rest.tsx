@@ -53,7 +53,7 @@ const maturityLevels = [
     level: "Level 2",
     name: "HTTP メソッド + ステータスコード",
     description:
-      "GET / POST / PUT / DELETE を意味通りに使い、200 / 201 / 404 / 409 などのステータスコードを正しく返す。実務で「REST API」と呼ばれるものの大半はここ。",
+      "GET / POST / PUT / DELETE を意味通りに使い、200 / 201 / 404 / 409 などのステータスコードを正しく返す。リソース URI とメソッドの設計はこの段階で完成する。",
   },
   {
     level: "Level 3",
@@ -287,15 +287,16 @@ GET    /users        # ユーザー一覧`}
           {/* 仕様値 vs 実測 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              仕様としての REST と、実装される REST のギャップ
+              「REST API」と呼ばれるものの段階を見分ける
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               ここは先に明示しておきます。 Fielding が定義した本来の REST は
-              HATEOAS（Level 3）を含みますが、
-              <strong>実際に HATEOAS まで実装している API はごく少数</strong>
-              です。 世の中で「REST API」と呼ばれているものの多くは Level 2
-              ——リソース URI と HTTP
-              メソッドとステータスコードを正しく使う段階——にとどまります。
+              HATEOAS（Level 3）を含み、Fowler の記事も「Level 3 は REST
+              の前提条件だと Fielding が明言している」と記しています。
+              一方で同じ記事は、Richardson 成熟度モデル自体は
+              <strong>REST そのものの段階を定義するものではない</strong>
+              とも断っています。 つまり「REST API」という呼称だけでは、その API
+              がどの Level にあるかは分かりません。
             </p>
 
             <div className="rounded-xl border border-border bg-card p-5 mb-6 overflow-x-auto">
@@ -306,50 +307,45 @@ GET    /users        # ユーザー一覧`}
                       観点
                     </th>
                     <th className="py-2 pr-4 font-bold text-foreground">
-                      仕様（理想）
+                      Level 3（HATEOAS）
                     </th>
-                    <th className="py-2 font-bold text-foreground">
-                      実測（現実）
-                    </th>
+                    <th className="py-2 font-bold text-foreground">Level 2</th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr className="border-b border-border">
-                    <td className="py-2 pr-4">純粋な REST</td>
-                    <td className="py-2 pr-4">Level 3（HATEOAS 必須）</td>
-                    <td className="py-2">Level 2 が大半</td>
+                    <td className="py-2 pr-4">次の操作の伝え方</td>
+                    <td className="py-2 pr-4">レスポンス内のリンクで返す</td>
+                    <td className="py-2">ドキュメントで示す</td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="py-2 pr-4">リンク駆動</td>
-                    <td className="py-2 pr-4">URL は組み立てない</td>
-                    <td className="py-2">URL をクライアントで組み立てる</td>
+                    <td className="py-2 pr-4">URL の決め方</td>
+                    <td className="py-2 pr-4">返ってきたリンクをたどる</td>
+                    <td className="py-2">クライアントが組み立てる</td>
                   </tr>
                   <tr>
-                    <td className="py-2 pr-4">呼び名</td>
-                    <td className="py-2 pr-4">RESTful</td>
-                    <td className="py-2">実態は「REST 風」が多い</td>
+                    <td className="py-2 pr-4">URL 構成を変えるとき</td>
+                    <td className="py-2 pr-4">サーバ側だけで変更できる</td>
+                    <td className="py-2">クライアントの改修を伴う</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              これは「Level 2 が劣っている」という話ではありません。 HATEOAS
-              はクライアント実装が複雑になりがちで、
-              得られる柔軟性に対してコストが見合わないと判断されることが多いのです。
-              実務では Level 2 を堅実に満たすことを目標に置くのが現実的です。
+              どちらの段階を目指すかは設計判断です。 Level 3
+              はサーバ側だけで URL 構成を変えられる代わりに、
+              リンクをたどるクライアントを書く必要があります。 自分の API
+              がどの段階を目指すのかを決めてからレスポンス形式を設計すると、
+              後から揺れません。
             </p>
 
-            <InfoBox type="warning" title="HATEOAS が普及していない現実">
-              HATEOAS は REST の理念上は中心的な制約ですが、 採用している公開
-              API は限られます。理由は、リンクをたどる
-              ハイパーメディア駆動のクライアントを書く負担が大きいこと、
-              そして多くの実用 API ではクライアントが事前に URL
-              構造を把握していれば十分だからです。 「REST と言えば Level
-              2」が実務上の共通認識になっています。
-              理想と実装が乖離している典型例として押さえておくと、 「うちの API
-              は HATEOAS じゃないから REST じゃない」と
-              悩む必要がないと分かります。
+            <InfoBox type="info" title="「REST 対応」と書かれていたら Level を確認する">
+              API のドキュメントに「REST」とだけ書かれている場合、 Richardson
+              成熟度モデルのどの Level なのかは
+              実際のレスポンスを見るまで分かりません。 上の例の{" "}
+              <code>_links</code> のようなハイパーメディア表現が含まれているかを
+              見れば、Level 3 かどうかを判断できます。
             </InfoBox>
           </section>
 
@@ -372,7 +368,7 @@ GET    /users        # ユーザー一覧`}
                 },
                 { label: "JSON ではなく XML でレスポンスを返す" },
               ]}
-              explanation="Level 2 は、リソースごとに URI を分けた上で、GET / POST / PUT / DELETE といった HTTP メソッドと 200 / 201 / 404 などのステータスコードを正しく使う段階です。実務で REST API と呼ばれるものの大半がこのレベルにあたります。単一エンドポイントへの POST は Level 0、リンク駆動は Level 3（HATEOAS）です。"
+              explanation="Level 2 は、リソースごとに URI を分けた上で、GET / POST / PUT / DELETE といった HTTP メソッドと 200 / 201 / 404 などのステータスコードを正しく使う段階です。単一エンドポイントへの POST は Level 0、リンク駆動は Level 3（HATEOAS）です。"
             />
           </section>
 
@@ -380,10 +376,11 @@ GET    /users        # ユーザー一覧`}
           <section>
             <InfoBox type="success" title="この章で押さえること">
               REST は制約の集合からなる設計思想で、従う度合いに段階があります。
-              実務の目標は Richardson 成熟度モデルの Level 2——リソース URI ・
-              HTTP
-              メソッド・ステータスコードを正しく使うこと——に置くのが現実的です。
-              HATEOAS（Level 3）は理想ですが必須ではなく、採用は限られます。
+              このページで扱ったのは Richardson 成熟度モデルの Level
+              2——リソース URI ・ HTTP
+              メソッド・ステータスコードを正しく使うこと——までです。
+              HATEOAS（Level 3）まで含めるかは、
+              クライアント側の実装を含めて設計時に決めます。
             </InfoBox>
           </section>
 

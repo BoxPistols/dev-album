@@ -70,8 +70,9 @@ npx storybook@latest init
 
             <InfoBox type="info" title="ポート番号について">
               <p>
-                Storybook はデフォルトでポート 6006 で起動します。
-                Vite の開発サーバー（通常 5173）と異なるポートなので、
+                <code>storybook init</code> が package.json に書き込むスクリプトは
+                <code>storybook dev -p 6006</code> で、ポート 6006 を指定します。
+                Vite の開発サーバー（既定 5173）と異なるポートなので、
                 両方を同時に起動できます。
                 <code>storybook dev -p 6007</code> のようにポートを変更することも可能です。
               </p>

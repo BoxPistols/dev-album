@@ -295,7 +295,7 @@ function WobblyTorus() {
             <li><code>PresentationControls</code> - ドラッグで回転するプレゼン向けコントロール</li>
           </ul>
           <p className="mt-2">
-            公式ドキュメント: <a href="https://github.com/pmndrs/drei" target="_blank" rel="noopener noreferrer" className="underline">github.com/pmndrs/drei</a>
+            公式ドキュメント: <a href="https://pmndrs.github.io/drei" target="_blank" rel="noopener noreferrer" className="underline">pmndrs.github.io/drei</a>
           </p>
         </InfoBox>
       </div>

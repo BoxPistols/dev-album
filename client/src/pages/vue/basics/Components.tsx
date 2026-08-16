@@ -243,7 +243,7 @@ import UserCard from './components/UserCard.vue'
                 },
                 { label: "defineComponent で明示的にラップする必要がある" },
               ]}
-              explanation="<script setup> では、子コンポーネントを import するだけで template 内のタグとして使えます。components オプションへの明示的な登録は不要です（Vue 2 の Options API では必要でした）。app.component() によるグローバル登録も可能ですが、通常はファイル単位の import が推奨されます。"
+              explanation="<script setup> では、子コンポーネントを import するだけで template 内のタグとして使えます。components オプションへの明示的な登録は不要です（Vue 2 の Options API では必要でした）。app.component() によるグローバル登録もできますが、公式ドキュメントはグローバル登録の欠点としてツリーシェイクが阻害される点を挙げ、ローカル登録では依存関係が分かりやすくツリーシェイクが働きやすいと説明しています。"
             />
           </section>
 

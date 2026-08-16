@@ -616,7 +616,7 @@ function Parent() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">React Compiler: メモ化の自動化</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              React チームは <strong>React Compiler</strong>（旧称 React Forget）を開発しています。
+              React チームは <strong>React Compiler</strong> を開発しています。
               これはビルド時にコードを解析し、useMemo や useCallback を自動的に挿入してくれるコンパイラです。
             </p>
 

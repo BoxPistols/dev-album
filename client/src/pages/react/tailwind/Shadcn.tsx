@@ -584,11 +584,6 @@ function App() {
                     <td className="py-3 px-4">必要な分だけ（小さい）</td>
                     <td className="py-3 px-4">比較的大きい</td>
                   </tr>
-                  <tr className="border-b border-border/50">
-                    <td className="py-3 px-4 font-medium text-foreground">コンポーネント数</td>
-                    <td className="py-3 px-4">40+ 個</td>
-                    <td className="py-3 px-4">60+ 個</td>
-                  </tr>
                   <tr>
                     <td className="py-3 px-4 font-medium text-foreground">おすすめ場面</td>
                     <td className="py-3 px-4">独自デザインのプロジェクト</td>

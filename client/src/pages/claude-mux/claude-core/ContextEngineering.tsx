@@ -235,7 +235,6 @@ auth/ 配下の全ファイルを読んで...（ファイル一覧と中身が�
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              ハーネス研究で「最も信頼できる効果」とされるパターン。
               プランを立てる前に「実際のコードで何に触れるか」を
               シンボル単位で先に洗い出す。
             </p>
@@ -276,7 +275,7 @@ Plan Mode に入って:
 
             <p className="text-foreground mb-6 leading-relaxed">
               つまり「コンテキストの前半（システム側の指示群）を安定させる」ことが
-              そのままコスト最適化になる。キャッシュヒット率や使用量の内訳は{" "}
+              そのままコスト最適化になる。キャッシュ読み取り・書き込みを含む使用量の内訳は{" "}
               <code className="text-primary">/usage</code> で確認できる。
             </p>
 
