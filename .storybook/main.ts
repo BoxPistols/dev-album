@@ -1,4 +1,11 @@
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import type { StorybookConfig } from "@storybook/react-vite";
+
+// このファイルからの相対で解決する。絶対パスを書くと、リポジトリを移動した
+// 環境や他人のマシンでビルドが落ちる（実際に別リポジトリのパスが残っていた）
+const HERE = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../client/src/**/*.stories.@(ts|tsx)"],
@@ -12,8 +19,8 @@ const config: StorybookConfig = {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": "/Users/ai/dev/26Apps/unified-manual/client/src",
-      "@shared": "/Users/ai/dev/26Apps/unified-manual/shared",
+      "@": resolve(HERE, "../client/src"),
+      "@shared": resolve(HERE, "../shared"),
     };
     return config;
   },
