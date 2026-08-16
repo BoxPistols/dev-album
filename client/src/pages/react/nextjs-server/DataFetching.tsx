@@ -376,7 +376,8 @@ async function RecentOrders() {
                 <h4 className="font-semibold text-foreground mb-1">1. データは使う場所で取得する</h4>
                 <p className="text-sm text-foreground/80">
                   親コンポーネントでまとめて取得して Props で流すより、各コンポーネントが必要なデータを直接取得するほうが良いです。
-                  Next.js は同一レンダリングパス内で同じ URL への fetch を自動的にメモ化（Request Memoization）するため、パフォーマンスの心配は不要です。
+                  Next.js は同一のサーバーレンダリングパス内で、GET かつ URL とオプションが同じ fetch を自動的にメモ化します。
+                  fetch を使わず ORM やデータベースを直接呼ぶ場合は、React の <code>cache</code> で包むと同じように重複を省けます。
                 </p>
               </div>
               <div className="rounded-lg border border-border p-4">

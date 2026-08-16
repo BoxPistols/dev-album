@@ -96,7 +96,7 @@ export function useChatApi() {
         // レスポンスヘッダから quota 情報を取得 (バックエンド未送信なら null 維持)
         setQuota(parseQuotaHeaders(response.headers));
 
-        // 429: tier quota exhausted (匿名・招待枠切れ)
+        // 429: tier quota exhausted (匿名枠切れ)
         if (response.status === 429) {
           const reset = response.headers.get("X-RateLimit-Reset");
           const resetText = reset
