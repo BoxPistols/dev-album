@@ -1,0 +1,237 @@
+// 出典 URL を取得して逐語照合するための共有部品。
+//
+// verify-sources.mjs（出典レジストリの照合）と verify-verdicts.mjs（監査 JSON の照合）が
+// 同じ normalize を使う。ここを 2 箇所に写すと、片方だけ緩めたときに気づけない。
+
+import { execFileSync } from "node:child_process";
+
+const TIMEOUT_MS = 20000;
+
+/**
+ * PDF を平文化する。poppler の pdftotext が要る。
+ *
+ * 入っていない環境では null を返す。「取れなかったもの」を黙って
+ * 「一致しなかったもの」に混ぜると、引用の正確さの問題と道具の不在が区別できなくなる。
+ */
+export function pdfToText(buffer) {
+  try {
+    return execFileSync("pdftotext", ["-layout", "-", "-"], {
+      input: buffer,
+      maxBuffer: 64 * 1024 * 1024,
+      encoding: "utf8",
+    });
+  } catch {
+    return null;
+  }
+}
+
+export function isPdf(contentType, body) {
+  return contentType.includes("pdf") || body.startsWith("%PDF-");
+}
+
+/** HTML/Markdown をざっくり平文化する。引用の照合は正規化した空白の上で行う */
+export function toPlainText(body, contentType) {
+  let text = body;
+  if (contentType.includes("html")) {
+    text = text
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " ");
+  }
+  return decodeEntities(text);
+}
+
+function decodeEntities(s) {
+  return s
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&rsquo;|&#8217;/g, "’");
+}
+
+/**
+ * 引用照合用の正規化。
+ *
+ * 吸収してよいのは「同じ文が Markdown 原文と描画後 HTML で見た目だけ変わる」差分に限る。
+ * インラインコードのバッククォート、Markdown リンク記法、強調・見出し・箇条書きの記号、
+ * バックスラッシュエスケープ、`<code>` の境界が句読点の前に差し込む空白、
+ * そして引用符・ダッシュの字体。
+ *
+ * 記号だけを落とし、語そのものは変えない。語を落とす正規化を足すと
+ * 「言い換えた引用」まで通るようになり、捏造を検出するというこの仕組みの目的が失われる。
+ * 拡張したら verify-verdicts の fixture（捏造・言い換え・数値改変）で赤を確認すること。
+ */
+export function normalize(s) {
+  return (
+    s
+      // [text](url) → text
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      // コードブロックの囲み行。言語ラベル（```js）は描画後に出てこない。
+      // バッククォートを消す前に、行ごと落とす
+      .replace(/^[ \t]*(?:```+|~~~+)[a-zA-Z0-9_+#-]*[ \t]*$/gm, "")
+      // インラインコードのバッククォート
+      .replace(/`/g, "")
+      // Markdown のバックスラッシュエスケープ（\$9.99 は描画後 $9.99）。
+      // 対象は CommonMark と同じく ASCII 記号のみ。語には触らない
+      .replace(/\\([!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, "$1")
+      // 強調（**bold** / __bold__ は描画後に記号が消える）
+      .replace(/\*\*|__/g, "")
+      // 見出し・箇条書き・引用ブロックの行頭記号
+      .replace(/^[ \t]*#{1,6}[ \t]+/gm, "")
+      .replace(/^[ \t]*[*+-][ \t]+/gm, "")
+      .replace(/^[ \t]*>[ \t]?/gm, "")
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/[–—]/g, "-")
+      .replace(/\s+/g, " ")
+      // <code> の境界由来の、句読点の直前・括弧の内側の空白
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .replace(/\(\s+/g, "(")
+      .replace(/\s+\)/g, ")")
+      .trim()
+  );
+}
+
+/**
+ * 引用を中略で割る。断片が全て原文に在れば一致とみなす。
+ *
+ * 認めるのは中略を示す記号だけ（`[…]` `[...]`、および前後を空白で挟んだ `…` `...`）。
+ * 語を落とす分割ではないので、言い換えを通す穴にはならない。
+ */
+export function quoteFragments(quote) {
+  return quote
+    .split(/\[…\]|\[\.\.\.\]|\s(?:…|\.\.\.)\s/)
+    .map(normalize)
+    .filter((p) => p.length > 0);
+}
+
+// 既定はブラウザを名乗る。CDN 前段で素の HTTP クライアントを弾く出典があるため。
+const UA_BROWSER =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
+  "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 dev-album-source-verifier";
+
+// 逆に、ブラウザを騙る UA を弾く出典もある（w3.org は上記に 403、こちらには 200）。
+// 403 のときだけこちらで取り直す。
+const UA_PLAIN = "dev-album-source-verifier";
+
+async function get(url, ua = UA_BROWSER) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      redirect: "follow",
+      // 言語を指定しないと出典側が地域や既定で別言語版を返すことがある
+      // （web.dev が ?hl=pl へ飛ばした実例あり）。照合を再現可能にするため英語に固定する
+      headers: { "user-agent": ua, "accept-language": "en" },
+    });
+    const contentType = res.headers.get("content-type") ?? "";
+    // PDF を pdftotext へ渡すため生バイトも残す
+    const bytes = Buffer.from(await res.arrayBuffer());
+    return {
+      status: res.status,
+      finalUrl: res.url,
+      contentType,
+      body: bytes.toString("utf8"),
+      bytes,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * GitHub の blob ページは描画後の HTML で、本文は JS に埋め込まれた JSON に入る。
+ * 平文化しても原文が出てこないので、ファイルそのものを配信する raw へ寄せる。
+ */
+function toRawGithub(url) {
+  const m = url.match(
+    /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+?)(?:[?#].*)?$/,
+  );
+  return m
+    ? `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}`
+    : null;
+}
+
+/**
+ * 可能なら Markdown 版を取りに行く。
+ *
+ * 描画後の HTML では表の `|` 区切りやコードブロックの体裁が失われ、
+ * 原文に実在する引用でも文字列一致しない。Markdown 原文なら逐語のまま照合できる。
+ * 多くのドキュメントサイト（code.claude.com 等）が `<path>.md` を配信している。
+ */
+export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+export async function fetchText(url) {
+  // 429 は連続アクセスで起こる。待って 1 度やり直す（生きている出典を落とさない）
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const res = await fetchOnce(url);
+    if (res.status !== 429) return res;
+    await sleep(4000);
+  }
+  return fetchOnce(url);
+}
+
+async function fetchOnce(url) {
+  const raw = toRawGithub(url);
+  if (raw) {
+    try {
+      const r = await get(raw);
+      if (r.status === 200) return { ...r, usedRaw: true };
+    } catch {
+      // raw が引けないときは描画後のページへ落とす
+    }
+  }
+
+  if (!/\.(md|txt|json)$/.test(url) && !url.includes("?")) {
+    const mdUrl = url.replace(/\/$/, "") + ".md";
+    try {
+      const md = await get(mdUrl);
+      if (md.status === 200 && /markdown|plain/.test(md.contentType)) {
+        return { ...md, usedMarkdown: true };
+      }
+    } catch {
+      // Markdown 版が無いのは普通のこと。HTML へ落とす
+    }
+  }
+
+  let res = await get(url);
+  // ブラウザを騙る UA を弾く出典があるので、403 のときだけ素直な UA で取り直す
+  if (res.status === 403) {
+    try {
+      const plain = await get(url, UA_PLAIN);
+      if (plain.status === 200) return { ...plain, usedPlainUa: true };
+    } catch {
+      // 取り直しても駄目なら元の 403 を返す
+    }
+  }
+
+  // meta refresh は HTTP のリダイレクトではないので fetch は追わない。
+  // nuxt.com のように版付きパスへ飛ばす出典があり、追わないと本文が数十字で終わる
+  const refreshed = await followMetaRefresh(res);
+  if (refreshed) return refreshed;
+
+  return res;
+}
+
+async function followMetaRefresh(res) {
+  if (res.status !== 200 || !res.contentType.includes("html")) return null;
+  if (res.body.length > 4000) return null;
+  const m = res.body.match(
+    /<meta[^>]+http-equiv=["']?refresh["']?[^>]*content=["'][^"']*url=([^"'\s]+)/i,
+  );
+  if (!m) return null;
+  try {
+    const next = new URL(m[1], res.finalUrl).toString();
+    const r = await get(next);
+    if (r.status === 200) return { ...r, followedMetaRefresh: next };
+  } catch {
+    // 追えなければ元の応答を使う
+  }
+  return null;
+}
+
