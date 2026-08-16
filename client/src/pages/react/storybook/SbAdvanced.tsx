@@ -644,7 +644,13 @@ pnpm test-storybook
             <CodeBlock
               language="bash"
               title="Vitest 連携のセットアップ"
-              code={`pnpm add -D @storybook/addon-vitest vitest @vitest/browser
+              code={`# アドオンの登録・vitest.config.ts の storybookTest プラグイン・
+# browser mode・setupFiles まで一括で設定される
+npx storybook add @storybook/addon-vitest
+
+# パッケージを入れるだけでは play 関数はテストとして走らない。
+# 手で設定する場合は vitest.config.ts に storybookTest と browser の
+# project を足し、.storybook/vitest.setup.ts を setupFiles に指定する
 
 # 実験版から移行する場合
 # pnpm remove @storybook/experimental-addon-test`}
