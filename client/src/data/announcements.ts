@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-audit-self-review",
+    date: "2026-08-16",
+    title: "照合作業そのものを見直し、自分が入れた誤りを直した",
+    description:
+      "誤りを直す過程で持ち込んでしまった記述を洗い出して訂正した。Kanban Guide に無い定義を同ガイドに帰属させていた点、Glacier の取り出し時間で通常経路の代表値が消えていた点、SUS のグラフだけ出典に無い区分になっていた点、裏づけの取れない記述を落とす作業の中で /rewind に未確認の説明を足していた点など。あわせて low リスク層の未確定な主張の処理漏れを埋め、本文だけ直して Quiz や図が古いまま残っていた箇所を揃えた。",
+    category: "fix",
+    link: "/devflow/agile/kanban",
+  },
+  {
     id: "2026-08-16-cmux-reverified",
     date: "2026-08-16",
     title: "cmux のページを実機 0.64.20 で照合し直した",
