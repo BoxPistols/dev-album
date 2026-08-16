@@ -26,7 +26,7 @@ const useCases = [
     title: "エッジ重視・低レイテンシ",
     recommend: "Cloudflare",
     description:
-      "コードとデータをユーザーの近くで動かしたい場合。Workers と KV/D1/R2 を組み合わせ、広い無料枠でエッジ前提の設計を組める。",
+      "コードとデータをユーザーの近くで動かしたい場合。Workers と KV/D1/R2 を組み合わせ、無料プランのままエッジ前提の設計を試せる。",
   },
   {
     title: "フルコントロール",
@@ -131,7 +131,7 @@ export default function Comparison() {
                     </td>
                     <td className="p-3">無料枠 + 従量</td>
                     <td className="p-3">無料枠 + 従量</td>
-                    <td className="p-3">広い無料枠 + 従量</td>
+                    <td className="p-3">無料枠 + 従量（有料は最低 $5/月）</td>
                     <td className="p-3">サーバ定額が中心</td>
                   </tr>
                   <tr className="border-b border-border">

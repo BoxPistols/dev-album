@@ -162,8 +162,7 @@ export default function Prerequisites() {
                 </p>
                 <ol className="space-y-2 text-muted-foreground list-decimal list-inside">
                   <li>スタートメニューで「PowerShell」と検索</li>
-                  <li>ファイルエクスプローラーで右クリック → 「ここで PowerShell を開く」</li>
-                  <li>Windows キー + X → Windows PowerShell</li>
+                  <li>コマンドプロンプトで <code>powershell</code> と入力</li>
                 </ol>
               </div>
             </div>

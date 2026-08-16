@@ -962,10 +962,11 @@ jobs:
 
             <InfoBox type="success" title="Chromatic でも公開できる">
               <p>
-                Chromatic を使っている場合、ビルドするたびに自動的に
-                Storybook が公開されます。Chromatic の URL を共有するだけで
-                チーム全員がコンポーネントカタログにアクセスできるため、
-                GitHub Pages の設定が不要になります。
+                Chromatic を使っている場合、ビルドするたびに Storybook が Chromatic の CDN に公開されます。
+                ブランチごとに <code>https://&lt;branch&gt;--&lt;appid&gt;.chromatic.com</code> の permalink が発行されるので、
+                リンクを共有してコンポーネントカタログを見せられます。
+                公開された Storybook は既定では非公開で、ログイン済みのコラボレーターだけがアクセスできます。
+                誰でも開ける状態にするには visibility を public に変更します。
               </p>
             </InfoBox>
           </section>

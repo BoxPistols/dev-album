@@ -104,13 +104,14 @@ export default function BeyondRest() {
               </div>
             </div>
 
-            <InfoBox type="info" title="純粋な REST は実は少数派">
+            <InfoBox type="info" title="「REST」が指す範囲は文脈で変わる">
               REST の理想形には
-              HATEOAS（レスポンス内のリンクで次の操作を辿る）まで含まれますが、
-              実装されている例は稀です。リチャードソン成熟度モデルでいう Level
-              2（リソース URL ＋ HTTP メソッドを正しく使う）が実務の主流で、
-              「仕様としての REST」と「現場で REST
-              と呼ばれているもの」にはギャップがあります。
+              HATEOAS（レスポンス内のリンクで次の操作を辿る）まで含まれます。
+              リチャードソン成熟度モデルではこれが Level 3 にあたり、Level
+              2（リソース URL ＋ HTTP メソッドを正しく使う）とは区別されます。
+              Fowler 自身は同モデルについて「REST
+              そのものの段階を定義するものではない」と断っているため、「REST
+              対応」と書かれていたらどの段階を指すのかを確認します。
             </InfoBox>
           </section>
 

@@ -96,7 +96,8 @@ export default function DeepLearning() {
                 <h4 className="font-bold text-foreground text-sm mb-1">活性化関数（ReLU）</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   ニューロンの出力に非線形性を加える関数。
-                  ReLU は負の値を 0 にし、正の値はそのまま通す。現在最も広く使われている。
+                  ReLU は負の値を 0 にし、正の値はそのまま通す。
+                  ほかに GELU や SwiGLU などがあり、モデルの構造によって使い分ける。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
@@ -342,7 +343,8 @@ for epoch in range(100):
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   ニューラルネットワークの学習は、行列の掛け算の繰り返しです。
                   CPU は少数のコアで逐次処理するのに対し、GPU は数千のコアで同時に計算できます。
-                  大規模なモデルでは、GPU を使うことで学習時間が数十倍〜数百倍速くなります。
+                  短縮の度合いはモデル構造・バッチサイズ・比較対象のハードウェアで変わるため、
+                  自分の構成で計測して確かめます。
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-5">

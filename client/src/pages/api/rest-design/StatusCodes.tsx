@@ -330,11 +330,13 @@ Content-Type: application/json
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              名称が紛らわしいのは仕様上の経緯によるものです。401 は名前に
-              「Unauthorized（認可されていない）」とありますが、
-              実際の意味は「未認証（authentication が必要）」です。 一方 403
-              が「認可（authorization）の失敗」を表します。
-              名前ではなく意味で覚えるのが安全です。
+              名前と意味がずれて見えるので、RFC 9110
+              の定義で覚えるのが安全です。401 は
+              「対象リソースに対する有効な認証資格を欠いている」ことを示し、
+              サーバは <code>WWW-Authenticate</code>{" "}
+              ヘッダーで認証方式を伝えなければなりません。 403
+              は「リクエストは理解したが実行を拒否する」ことを示し、
+              資格情報とは無関係な理由による拒否も含みます。
             </p>
           </section>
 

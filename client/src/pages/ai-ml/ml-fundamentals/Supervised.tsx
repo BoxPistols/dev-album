@@ -25,8 +25,7 @@ export default function Supervised() {
           <p>
             前のステップで教師あり学習の概念を理解しました。
             ここからは scikit-learn で実際にコードを書いて ML を体験します。
-            scikit-learn は Python の ML ライブラリの中で最も広く使われており、
-            データの前処理からモデルの評価まで統一的な API で操作できます。
+            scikit-learn は、データの前処理からモデルの評価まで統一的な API で操作できます。
           </p>
         </WhyNowBox>
 

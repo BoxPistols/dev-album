@@ -33,7 +33,7 @@ const routeMap = [
   {
     file: "app/pages/[...slug].vue",
     route: "/* （未マッチの全パス）",
-    role: "キャッチオール。404 ページや任意階層に使う",
+    role: "キャッチオール。そのパス配下の全ルートにマッチする",
   },
 ];
 
@@ -244,8 +244,10 @@ function search(keyword: string) {
               <code>[...slug].vue</code> です。 キャッチオールでは{" "}
               <code>useRoute().params.slug</code> が パスを分割した配列（例:{" "}
               <code>/docs/a/b</code> なら <code>['docs', 'a', 'b']</code>
-              ）になります。 どのルートにもマッチしなかったパスを拾えるので、404
-              ページや CMS の任意パスに使います。
+              ）になります。 そのパス配下の全ルートにマッチするので、CMS
+              の任意パスのように階層数が決まらない URL に使います。 なお 404
+              の扱いは、Nuxt 公式では <code>error.vue</code> と{" "}
+              <code>createError()</code> 側で説明されています。
             </InfoBox>
           </section>
 

@@ -776,7 +776,6 @@ function unlockScroll() {
 
 // 問題1: スクロール位置がリセットされる場合がある
 // 問題2: スクロールバーの幅分だけレイアウトがガタつく
-// 問題3: iOS Safari では overflow: hidden だけではスクロールが止まらない
 
 // より堅牢な実装
 function lockScrollRobust() {
@@ -1800,11 +1799,11 @@ function App() {
               question="スクロールロックの実装で overflow: hidden だけでは不十分な理由として正しいものはどれですか？"
               options={[
                 { label: 'Firefox でスクロールロックが効かないから' },
-                { label: 'スクロールバーが消えてレイアウトがガタつき、iOS Safari では効かないことがあるから', correct: true },
+                { label: 'スクロールバーが消えてレイアウトがガタつき、スクロール位置も失われることがあるから', correct: true },
                 { label: 'React の仮想 DOM と競合するから' },
                 { label: 'dialog 要素の仕様で禁止されているから' },
               ]}
-              explanation="overflow: hidden を body に設定するとスクロールバーが消え、その幅の分だけコンテンツがガタつきます。また iOS Safari ではこの方法だけではスクロールが止まらない場合があります。position: fixed と paddingRight の補正を組み合わせた実装が必要です。"
+              explanation="overflow: hidden を body に設定するとスクロールバーが消え、その幅の分だけコンテンツがガタつきます。またダイアログを閉じたときにスクロール位置が失われることがあります。position: fixed で位置を保存し、paddingRight でスクロールバー幅を補正する実装を組み合わせます。"
             />
           </section>
 

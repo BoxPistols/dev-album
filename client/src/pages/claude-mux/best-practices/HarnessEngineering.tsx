@@ -43,9 +43,10 @@ export default function HarnessEngineering() {
             </p>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              この用語は 2026 年初頭から主流化した。Anthropic、OpenAI、 Martin
-              Fowler などが体系化を進めており、 Claude Code
-              のようなエージェントツールは「ハーネスの実装例」として位置づけられる。
+              Martin Fowler のサイトには「Harness engineering for coding agent
+              users」（2026-04-02 公開）があり、Anthropic
+              のエンジニアリングブログもこの語を用いている。 Claude Code
+              のようなエージェントツールは「ハーネスの実装例」にあたる。
             </p>
 
             <CodeBlock

@@ -395,7 +395,7 @@ $ cat .claude/audit.jsonl | jq -r '.tool' | sort | uniq -c | sort -rn`}
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-xs mb-2 text-[var(--claude-primary)]">コンテキスト分離</h4>
-                <p className="text-xs text-muted-foreground">agent Hook は独立したコンテキストで実行されるため、メインセッションのコンテキストを消費しません。</p>
+                <p className="text-xs text-muted-foreground">agent Hook では Claude Code が subagent を起動し、その subagent が Read / Grep / Glob などのツールで条件を確認してから判定を返します。</p>
               </div>
             </div>
             <CodeBlock

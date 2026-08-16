@@ -25,7 +25,7 @@ export default function UseReducer() {
           <p>
             useState を複数組み合わせて管理していると、「この state が変わったらあの state も変えて...」と処理が絡み合い始めます。
             useReducer を使えば、<strong>すべての状態変化を 1 箇所に集約</strong>でき、バグを減らしながらコードの見通しがよくなります。
-            React 公式も「複雑な state ロジックには useReducer を推奨」しています。
+            React 公式ドキュメントは、state 更新の誤りによるバグが頻発していて、コードに構造を入れたいときにリデューサーを使うことを勧めています。
           </p>
         </WhyNowBox>
 

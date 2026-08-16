@@ -153,7 +153,7 @@ animate();`}
 function animate() {
   requestAnimationFrame(animate);
 
-  const delta = clock.getDelta(); // 前フレームからの経過秒数
+  const delta = clock.getDelta(); // 前回 getDelta() を呼んでからの経過秒数
   cube.rotation.x += delta * 1.0; // 1秒で約1ラジアン回転
 
   renderer.render(scene, camera);
@@ -265,7 +265,7 @@ animate();`}
           hints={[
             'THREE.Clock() でクロックを作成します',
             'requestAnimationFrame に渡すのは animate 関数自身です',
-            'clock.getDelta() でフレーム間の経過秒数を取得します',
+            'clock.getDelta() で前回呼び出しからの経過秒数を取得します',
             'delta に速度係数を掛けて回転速度を調整します',
           ]}
           keywords={['Clock()', 'requestAnimationFrame(animate)', 'getDelta()', 'rotation.x', 'rotation.y']}

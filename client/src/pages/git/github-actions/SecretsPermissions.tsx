@@ -197,9 +197,8 @@ export default function SecretsPermissions() {
                   発行直後にコピー
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  トークンは発行時に一度だけ表示されます。その場でコピーし、
-                  シークレット等の安全な場所に保管します（画面を閉じると
-                  二度と見られません）。
+                  発行直後の画面にコピー用のアイコンが出ます。その場でコピーし、
+                  シークレット等の安全な場所に保管します。
                 </p>
               </div>
             </div>

@@ -247,7 +247,7 @@ export default function Versioning() {
             <CodeBlock
               language="http"
               title="URL パス方式 vs ヘッダー方式"
-              code={`# URL パス方式: バージョンが URL に現れる（最も一般的）
+              code={`# URL パス方式: バージョンが URL に現れる
 GET /v1/users/42 HTTP/1.1
 Host: api.example.com
 Accept: application/json
@@ -259,11 +259,12 @@ Accept: application/vnd.example.v2+json`}
             />
 
             <p className="text-muted-foreground mt-6 leading-relaxed">
-              現場では <strong>URL パス方式が圧倒的に主流</strong>です。
-              GitHub・Stripe など多くの公開 API が、メジャーバージョンを URL
-              かヘッダーで管理しています。
-              ヘッダー方式は理屈としては美しいものの、ブラウザのアドレスバーで確認できず、
-              ドキュメントや curl の例も冗長になりがちで、採用は限定的です。
+              どちらを採るかは API ごとに異なります。Stripe は{" "}
+              <code>Stripe-Version</code>{" "}
+              ヘッダーと日付ベースのリリース名でバージョンを管理しています（公式ドキュメント）。
+              URL パス方式はブラウザのアドレスバーやドキュメントの curl
+              例にバージョンがそのまま現れる一方、 ヘッダー方式は URL
+              を変えずにバージョンを切り替えられます。
             </p>
 
             <InfoBox type="info" title="バージョンの粒度はメジャー単位で十分">

@@ -627,8 +627,9 @@ animate();`}
               フライトの難易度を変化させる
             </li>
             <li>
-              <strong>Vercel にデプロイ</strong> - <code>npx vercel</code> で
-              即座にオンラインで遊べるゲームとして公開可能
+              <strong>Vercel にデプロイ</strong> - プロジェクトのルートで{" "}
+              <code>vercel</code> を実行するとデプロイされる（サブコマンドを省略すると{" "}
+              <code>vercel deploy</code> と同じ）
             </li>
           </ul>
         </InfoBox>

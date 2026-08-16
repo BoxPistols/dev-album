@@ -323,9 +323,9 @@ export default function ComponentThinking() {
                 </div>
               </div>
               <p className="text-sm text-foreground/80 leading-relaxed">
-                3 軸 × 各 3 択なら、定義は 9 個で 27
-                通りの組み合わせを表現できます。 軸が独立しているので「Secondary
-                の Large の Disabled」のような指定が言葉だけで成立します。
+                3 軸 × 各 3 択なら、宣言する選択肢は 9 個で、組み合わせは 27
+                通りになります。 軸が独立しているので「Secondary の Large の
+                Disabled」のような指定が言葉だけで成立します。
               </p>
             </div>
 

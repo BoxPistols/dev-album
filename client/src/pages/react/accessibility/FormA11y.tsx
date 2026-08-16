@@ -70,7 +70,8 @@ export default function FormA11y() {
               <p>
                 <code>placeholder</code> は入力のヒントであり、ラベルの代わりにはなりません。
                 入力を始めると消えるため、何を入力すべきか分からなくなります。
-                多くのスクリーンリーダーは placeholder をラベルとして読み上げません。
+                HTML-AAM 1.0 のアクセシブル名計算では、<code>placeholder</code> が名前に使われるのは
+                <code>label</code> / <code>aria-label</code> / <code>title</code> のいずれも無い場合の最後の手段です。
                 必ず <code>label</code> または <code>aria-label</code> と併用してください。
               </p>
             </InfoBox>
@@ -314,7 +315,7 @@ export default function FormA11y() {
                 { label: 'placeholder にエラーメッセージを表示する' },
                 { label: 'title 属性にエラーメッセージを設定する' },
               ]}
-              explanation="aria-invalid='true' はフィールドが無効であることを伝え、aria-describedby でエラーメッセージの id を参照するとフォーカス時にエラー内容が読み上げられます。色だけでは色覚制約のあるユーザーに伝わらず、placeholder は入力開始で消え、title はデフォルトで読み上げられません。"
+              explanation="aria-invalid='true' はフィールドが無効であることを伝え、aria-describedby でエラーメッセージの id を参照するとフォーカス時にエラー内容が読み上げられます。色だけでは色覚制約のあるユーザーに伝わらず、placeholder は入力開始で消え、title は WHATWG HTML が「多くのユーザーエージェントが仕様どおりにアクセシブルな形で公開していない」として依存を避けるよう述べている属性です。"
             />
           </section>
 
@@ -451,7 +452,7 @@ export default function FormA11y() {
 // CAPTCHA のアクセシビリティ:
 // - 画像 CAPTCHA: 視覚障害者は読めない。最もアクセシブルでない
 // - reCAPTCHA v3: ユーザー操作不要で透過的。問題が最も少ない
-// - Cloudflare Turnstile: 非対話型でプライバシーも良好
+// - Cloudflare Turnstile: widget type に Non-interactive / Invisible があり、操作不要の構成を選べる
 // - ハニーポット: 隠しフィールドでボット検知。操作不要でアクセシブル`}
             />
           </section>

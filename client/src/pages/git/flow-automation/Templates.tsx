@@ -97,8 +97,10 @@ export default function Templates() {
               Issue テンプレート — Issue Forms（YAML）
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              現在の推奨は、YAML で入力欄を定義する <strong>Issue Forms</strong>{" "}
-              です。ファイルは <code>.github/ISSUE_TEMPLATE/</code> に置きます。
+              YAML で入力欄を定義する <strong>Issue Forms</strong>{" "}
+              は、GitHub のフォームスキーマで書きます。 ファイルは{" "}
+              <code>.github/ISSUE_TEMPLATE/</code> に置きます。 公式ドキュメントでは
+              public preview と表示されており、仕様が変わる可能性があります。
               <code>type</code> に <code>input</code> / <code>dropdown</code> /{" "}
               <code>textarea</code> などを指定し、
               <code>validations.required</code> で必須入力にできます。

@@ -169,7 +169,9 @@ export default function ComputeModels() {
                   <tr className="border-b border-border">
                     <td className="py-3 pr-4">実行時間</td>
                     <td className="py-3 pr-4">制限なし</td>
-                    <td className="py-3 pr-4">数十秒〜数分の上限</td>
+                    <td className="py-3 pr-4">
+                      上限あり（AWS Lambda は 15 分）
+                    </td>
                     <td className="py-3">短時間向け</td>
                   </tr>
                   <tr className="border-b border-border">

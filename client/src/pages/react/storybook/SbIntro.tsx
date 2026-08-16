@@ -595,8 +595,9 @@ export default meta;
                     <h3 className="font-bold text-foreground mb-1">Canvas（メイン領域）</h3>
                     <p className="text-sm text-muted-foreground">
                       選択した Story のコンポーネントが実際に描画される領域です。
-                      コンポーネントは iframe 内でレンダリングされるため、
-                      アプリ本体のスタイルの影響を受けません。
+                      Story は Storybook の管理 UI とは別の preview iframe 内で描画されます。
+                      アプリのグローバル CSS は自動では入らず、<code>.storybook/preview.ts</code> で
+                      import すると preview iframe に適用されます。
                       ツールバーには、ズーム、背景切り替え、ビューポートサイズの変更ボタンがあります。
                     </p>
                   </div>

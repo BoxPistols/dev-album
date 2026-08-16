@@ -207,8 +207,10 @@ gltfLoader.setDRACOLoader(dracoLoader);`}
           <div className="bg-card border border-border rounded-lg p-4">
             <h4 className="font-semibold text-primary mb-2">テクスチャの圧縮</h4>
             <p className="text-sm text-muted-foreground">
-              テクスチャサイズを適切に設定し、KTX2 形式への変換を検討します。
-              GPU での展開が高速で、メモリ使用量も削減できます。
+              テクスチャサイズを適切に設定し、KTX2 形式への変換を検討します。 glTF
+              の KHR_texture_basisu 拡張は、PNG / JPEG の代わりに Basis Universal
+              で圧縮した KTX v2 画像を使えるようにするもので、 Basis Universal は
+              GPU 圧縮形式へ高速にトランスコードできます。
             </p>
           </div>
           <div className="bg-card border border-border rounded-lg p-4">

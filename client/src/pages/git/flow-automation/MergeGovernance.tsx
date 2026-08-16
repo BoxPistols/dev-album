@@ -223,12 +223,13 @@ gh pr merge 123 --auto --squash`}
 
             <InfoBox
               type="warning"
-              title="auto-merge は保護ルールがあって初めて安全"
+              title="auto-merge は保護ルールがあって初めて意味を持つ"
             >
-              保護ルールのないリポジトリで auto-merge を有効にすると、 CI
-              も承認もないまま即マージされ、むしろ危険です。 auto-merge
-              は「必須チェックと必須承認」という条件があって初めて
-              意味を持ちます。<strong>柵（保護）→ 自動化（auto-merge）</strong>
+              GitHub の公式ドキュメントによると、auto-merge
+              を有効にする選択肢は「すぐにはマージできない PR」にだけ表示されます。
+              つまりレビュー必須やステータスチェック必須といった保護ルールが
+              効いている状態が前提です。
+              <strong>柵（保護）→ 自動化（auto-merge）</strong>
               の順で入れるのが鉄則です。
             </InfoBox>
           </section>

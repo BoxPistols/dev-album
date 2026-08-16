@@ -131,9 +131,11 @@ gemini`}
                 </p>
               </div>
               <div className="bg-muted rounded-lg p-4 border border-border">
-                <p className="text-foreground font-medium mb-1">エラー解析</p>
+                <p className="text-foreground font-medium mb-1">
+                  ターミナルとエージェントの切り替え
+                </p>
                 <p className="text-sm text-muted-foreground">
-                  エラーが出たら右クリック →「Ask Warp AI」で原因を AI が解説
+                  コマンド用のターミナル表示と、対話を続けるエージェント表示を切り替えて使える
                 </p>
               </div>
             </div>

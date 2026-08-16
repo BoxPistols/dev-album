@@ -86,9 +86,11 @@ export default function RequestResponse() {
               現代の Web API の標準です。このとき、送る側は
               <code>Content-Type: application/json</code> を付けて「中身は JSON
               だ」と宣言します。
-              サーバはこのヘッダーを見てパース方法を決めるため、付け忘れると
-              <code>415 Unsupported Media Type</code> や
-              パースエラーになります。
+              サーバはこのヘッダーを見てパース方法を決めます。RFC 9110 は、
+              Content-Type が無いときの扱いを受信側の裁量とし、{" "}
+              <code>application/octet-stream</code>
+              と見なすか中身を調べて判定してよいと定めています。
+              どう扱われるかはサーバ実装によって変わるため、必ず付けます。
             </p>
 
             <CodeBlock

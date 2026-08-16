@@ -109,8 +109,9 @@ claude`}
           <div className="bg-muted border border-border rounded-lg p-4">
             <p className="text-foreground font-medium mb-2">Claude Code が認識する範囲</p>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Claude Code は起動時のフォルダ以下のファイルを読み取れます。
-              Git リポジトリのルート（<code>.git</code> フォルダがある場所）で起動するのがベストです。
+              公式ドキュメントによると、Claude Code が書き込めるのは起動したフォルダとそのサブフォルダで、
+              親ディレクトリのファイルは明示的な許可なしには変更されません。読み取りはこの境界の外にも及びますが、
+              その場合は承認を求められます。
             </p>
           </div>
         </div>

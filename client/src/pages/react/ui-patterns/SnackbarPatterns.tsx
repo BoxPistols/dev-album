@@ -784,12 +784,14 @@ function SnackbarItem({ message, duration, onClose }: {
 }`}
             />
 
-            <InfoBox type="info" title="ホバー一時停止は必須ではないが推奨">
+            <InfoBox type="info" title="自動で消える通知と WCAG">
               <p>
-                ホバー時のタイマー一時停止は WCAG の要件ではありませんが、
-                ユーザビリティの観点から強く推奨されます。
-                特にアクション付き Snackbar では、マウスが Snackbar 上にある間は消えないことが
-                ユーザーの期待に合致します。フォーカス時の一時停止も同様に実装しましょう。
+                WCAG 2.2 の達成基準 2.2.1「調整可能な時間制限」は、コンテンツが設定した時間制限について
+                解除・調整・延長のいずれかを提供することを求めています。
+                W3C の ARIA APG（Alert Pattern）は、アラートが自動的に消える設計を避けるよう述べており、
+                消えるのが早すぎると達成基準 2.2.3 を満たせなくなるとしています。
+                ホバー時の一時停止は、マウスが Snackbar 上にある間は消えないようにする実装です。
+                フォーカス時の一時停止も同様に実装しましょう。
               </p>
             </InfoBox>
           </section>
@@ -1446,7 +1448,6 @@ function ToastWithAction({ message, actionLabel, onAction, onClose }: {
 
             <InfoBox type="warning" title="aria-live の注意点">
               <ul className="list-disc pl-4 space-y-1">
-                <li><code>aria-live</code> のコンテナは初回レンダリング時に DOM に存在している必要がある。動的に生成すると一部のスクリーンリーダーで認識されない</li>
                 <li><code>aria-live="assertive"</code> を多用すると、スクリーンリーダーユーザーの操作が頻繁に中断され、深刻なユーザビリティの低下を招く</li>
                 <li>自動消去する場合でも、通知内容をスクリーンリーダーが読み上げる十分な時間を確保する（最低 5 秒程度）</li>
                 <li>Undo ボタンなどのアクションはキーボードでフォーカス可能かつ操作可能であること</li>

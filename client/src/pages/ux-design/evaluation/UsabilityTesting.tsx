@@ -251,7 +251,8 @@ export default function UsabilityTesting() {
             <h2 className="text-2xl font-bold text-foreground mb-4">SUS（System Usability Scale）</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               SUS は10項目の質問からなる標準化されたユーザビリティ評価アンケートです。
-              John Brooke が1986年に開発し、現在も広く使われています。
+              John Brooke が Digital Equipment Corporation で考案したもので、UX
+              リサーチで使われるアンケートとしてよく知られています。
               テスト後にユーザーに回答してもらい、0〜100点のスコアで使いやすさを数値化します。
             </p>
 

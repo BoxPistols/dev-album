@@ -60,7 +60,7 @@ export default function FigmaPrototype() {
                     <td className="px-4 py-3 text-muted-foreground border border-border">中</td>
                     <td className="px-4 py-3 text-muted-foreground border border-border">中（数時間）</td>
                     <td className="px-4 py-3 text-muted-foreground border border-border">操作フローの検証、ステークホルダー共有</td>
-                    <td className="px-4 py-3 text-muted-foreground border border-border">Figma・Adobe XD</td>
+                    <td className="px-4 py-3 text-muted-foreground border border-border">Figma</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3 text-foreground border border-border font-medium">コード</td>
@@ -362,7 +362,7 @@ export default function FigmaPrototype() {
                 <h3 className="font-semibold text-foreground mb-2 text-sm">Claude + Figma MCP</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Claude Code から Figma のデザインデータを直接読み取り、
-                  コンポーネントコードを生成する。Dev Mode の情報を AI が解釈してコードに変換する。
+                  コンポーネントコードを生成する。MCP サーバーが返す design context（変数・コンポーネント・レイアウト）を AI が解釈してコードに変換する。
                 </p>
               </div>
             </div>
