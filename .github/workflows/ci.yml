@@ -44,6 +44,13 @@ jobs:
       - name: ビルド
         run: pnpm build
 
+      # Storybook は本体のビルドとは別の解決経路（.storybook/main.ts の alias、
+      # stories の glob、framework preset）を通るため、pnpm build が通っても壊れうる。
+      # 実際に main.ts の alias が別リポジトリの絶対パスのまま放置され、
+      # 誰も気づかない期間があった。実測で数秒なので PR ゲートに入れる。
+      - name: Storybook ビルド
+        run: pnpm build-storybook
+
   # E2E 回帰ガード（a11y を含む全スペック）。
   # a11y: axe-core で Light / Dark / Dracula の3テーマを検査し、critical / serious な
   # 違反（コントラスト等）をブロックする。検査対象にはコードブロック（テンプレート
