@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-16-drop-unsourced-claims",
+    date: "2026-08-16",
+    title: "裏づけの取れなかった主張を本文から落とした",
+    description:
+      "一次情報に当たっても確認できなかった記述を、断定を弱めるのではなく落とす方針で整理した。推測で埋めた一文は読者から見て確認済みの記述と区別が付かないためで、「一般に」「多くの場合」で薄めて残す書き方は採っていない。落としたのは「最も広く使われている」といった普及度や最上級の主張、原典に到達できなかった年号や分類、現行ドキュメントに記載のない UI 操作など。代わりに、出典で確認できる範囲だけを残している。",
+    category: "update",
+    link: "/ux-design/research/user-research",
+  },
+  {
+    id: "2026-08-16-low-risk-audit",
+    date: "2026-08-16",
+    title: "残っていた low リスクの主張も照合し、コードの期待出力の誤りを直した",
+    description:
+      "high・medium に続いて low リスク 121 件を一次情報と照合した。コードを実行して確認した結果、決定木の精度は 0.97 ではなく 0.93、np.std の出力は 5.85 ではなく 5.885575587824865 と、掲載していた期待出力が再現しないものが見つかった。nano は Ctrl+X → Y のあとファイル名確認の Enter を押すまで保存されない点、macOS の Cursor はバージョン情報が Help メニューに出ない点も実機で確かめて直している。",
+    category: "fix",
+    link: "/ai-ml/ml-fundamentals/supervised",
+  },
+  {
     id: "2026-08-16-git-snapshot-model",
     date: "2026-08-16",
     title: "Git マニュアルの「差分を保存する」という説明を訂正した",
