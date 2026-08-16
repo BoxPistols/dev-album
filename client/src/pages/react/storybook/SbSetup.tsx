@@ -145,10 +145,10 @@ const config: StorybookConfig = {
   ],
 
   // 使用するアドオン
+  // Controls / Actions / Viewport / Backgrounds などはコアに同梱されているので書かない
   addons: [
-    '@storybook/addon-essentials',  // 必須アドオンセット
+    '@storybook/addon-docs',        // ドキュメント生成（コアとは別パッケージ）
     '@storybook/addon-onboarding',  // 初回ガイド（不要なら削除可）
-    '@storybook/addon-interactions', // インタラクションテスト
     '@storybook/addon-a11y',        // アクセシビリティチェック
   ],
 
@@ -177,8 +177,9 @@ export default config;`}
               <div className="p-4 rounded-lg border border-border bg-card">
                 <h3 className="font-bold text-foreground mb-2">addons</h3>
                 <p className="text-sm text-muted-foreground">
-                  使用するアドオンの一覧です。<code>@storybook/addon-essentials</code> には
-                  Controls、Actions、Viewport、Backgrounds、Docs などの必須機能が含まれています。
+                  使用するアドオンの一覧です。Controls、Actions、Viewport、Backgrounds、Measure、Outline は
+                  Storybook のコアに含まれているため、この配列に書く必要はありません。
+                  Docs は別パッケージなので <code>@storybook/addon-docs</code> をインストールして配列に加えます。
                   アドオンを追加・削除するときはこの配列を編集します。
                 </p>
               </div>
@@ -212,8 +213,7 @@ const config: StorybookConfig = {
   ],
 
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
     '@storybook/addon-a11y',
     // Figma 連携を追加
     '@storybook/addon-designs',
@@ -532,7 +532,7 @@ export default preview;`}
               showLineNumbers
               code={`// src/stories/Button.stories.ts
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { Button } from './Button';
 
 // Meta: このファイルがどのコンポーネントの Story かを定義
@@ -734,8 +734,7 @@ npx storybook@latest init
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
   ],
   framework: {
     // React + Vite の場合: '@storybook/react-vite'
@@ -944,7 +943,7 @@ pnpm build-storybook
                 </li>
                 <li>
                   <strong>Node.js バージョン: </strong>
-                  Storybook 8 は Node.js 18 以上が必要
+                  Storybook 10 は Node.js 20.19 以上または 22.12 以上が必要（Storybook 9 は 20 以上）
                 </li>
                 <li>
                   <strong>キャッシュの問題: </strong>

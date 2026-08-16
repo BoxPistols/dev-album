@@ -61,8 +61,6 @@ export default function SbAdvanced() {
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     '@storybook/addon-a11y',  // 追加
   ],
   framework: {
@@ -178,7 +176,7 @@ export default meta;`}
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">@storybook/addon-viewport（レスポンシブプレビュー）</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               ストーリーの表示領域を iPhone、iPad、デスクトップなどの画面サイズに切り替えられます。
-              <code>addon-essentials</code> に含まれているため、通常は追加インストール不要です。
+              Storybook のコアに含まれているため、インストールも <code>addons</code> への追加も不要です。
               カスタムのビューポートサイズを設定することもできます。
             </p>
 
@@ -225,7 +223,7 @@ export default preview;`}
             <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">@storybook/addon-measure（CSS レイアウト計測）</h3>
             <p className="text-foreground/80 mb-4 leading-relaxed">
               コンポーネントの margin、padding、サイズをブラウザの DevTools のように
-              視覚的にオーバーレイ表示します。<code>addon-essentials</code> に含まれています。
+              視覚的にオーバーレイ表示します。Storybook のコアに含まれています。
               デザイナーとの「この余白は何px？」のやりとりが不要になります。
             </p>
 
@@ -234,7 +232,7 @@ export default preview;`}
               ストーリーの背景色をワンクリックで切り替えられます。
               白背景のコンポーネントをダーク背景で確認したり、
               透明背景のアイコンを異なる背景色で視認性を確認できます。
-              <code>addon-essentials</code> に含まれています。
+              Storybook のコアに含まれています。
             </p>
 
             <CodeBlock
@@ -314,7 +312,8 @@ export const ActiveFocus: Story = {
             <InfoBox type="success" title="Addons の選び方">
               <p>
                 Addons は入れすぎると Storybook の起動が遅くなります。
-                まずは addon-essentials（Controls, Viewport, Backgrounds, Measure, Actions, Docs）を使いこなし、
+                まずはコアに含まれる機能（Controls, Viewport, Backgrounds, Measure, Outline, Actions）と
+                Docs（<code>@storybook/addon-docs</code>）を使いこなし、
                 必要に応じて a11y と pseudo-states を追加するのがおすすめです。
               </p>
             </InfoBox>
@@ -505,7 +504,7 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -646,7 +645,7 @@ pnpm test-storybook
                 showLineNumbers
                 code={`// src/components/LoginForm/LoginForm.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 import LoginForm from './LoginForm';
 
 const meta: Meta<typeof LoginForm> = {
@@ -830,7 +829,7 @@ export const Error: Story = {
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -956,7 +955,7 @@ export default config;`}
               <div className="rounded-lg border border-border p-5">
                 <h3 className="font-bold text-foreground mb-2">テスト機能の強化</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  <code>@storybook/test</code> パッケージに
+                  <code>storybook/test</code> パッケージに
                   Vitest の expect と Testing Library の機能が統合されました。
                   追加パッケージなしでインタラクションテストが書けます。
                 </p>
@@ -1027,8 +1026,8 @@ npx storybook doctor`}
                     <p className="font-semibold text-foreground">不要な Addons を外す</p>
                     <p className="text-sm text-foreground/80">
                       使っていない Addons がロードされると起動時間が伸びます。
-                      addon-essentials は内部で複数の Addons をロードするため、
-                      不要なものは個別にオフにできます。
+                      Controls / Viewport / Backgrounds などはコアに含まれるため
+                      <code>addons</code> の対象は自分で追加したものだけです。使わなくなったものは配列から外します。
                     </p>
                   </div>
                 </div>
@@ -1056,33 +1055,6 @@ npx storybook doctor`}
               </div>
             </div>
 
-            <CodeBlock
-              language="ts"
-              title="addon-essentials の個別設定"
-              showLineNumbers
-              code={`// .storybook/main.ts
-const config: StorybookConfig = {
-  addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        // 使わない Addons をオフにする
-        actions: true,     // イベントログ（通常は必要）
-        backgrounds: true, // 背景色切替
-        controls: true,    // Props 操作パネル
-        docs: true,        // ドキュメントページ
-        measure: false,    // レイアウト計測（不要なら無効化）
-        outline: false,    // CSS アウトライン（不要なら無効化）
-        viewport: true,    // ビューポート切替
-        toolbars: true,    // ツールバー
-        // highlight は addon-essentials に含まれません
-        // 必要な場合は @storybook/addon-highlight を別途追加
-      },
-    },
-  ],
-};`}
-            />
-
             <InfoBox type="success" title="結論: Storybook は開発を加速する">
               <p>
                 最初のセットアップには時間がかかりますが、
@@ -1106,7 +1078,8 @@ const config: StorybookConfig = {
                 <h3 className="font-bold text-foreground mb-3">最初に導入すべきもの</h3>
                 <div className="space-y-2">
                   {[
-                    'addon-essentials（デフォルトで含まれる）',
+                    'Controls / Actions / Viewport / Backgrounds（コアに同梱）',
+                    'addon-docs（ドキュメント生成）',
                     'addon-a11y（アクセシビリティ）',
                     'カスタムビューポート設定',
                     'パスエイリアスの設定',

@@ -152,7 +152,7 @@ export const Secondary: Story = {
               title="Meta の主要プロパティ"
               showLineNumbers
               code={`import type { Meta } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { Button } from './Button';
 
 const meta = {
@@ -445,7 +445,7 @@ export const Danger: Story = {
               language="tsx"
               title="play 関数の例: フォームの送信テスト"
               showLineNumbers
-              code={`import { within, userEvent, expect, fn } from '@storybook/test';
+              code={`import { within, userEvent, expect, fn } from 'storybook/test';
 import { LoginForm } from './LoginForm';
 
 const meta = {
@@ -708,7 +708,7 @@ export const Mobile: Story = {
               title="Button.stories.tsx"
               showLineNumbers
               code={`import type { Meta, StoryObj } from '@storybook/react';
-import { fn, within, userEvent, expect } from '@storybook/test';
+import { fn, within, userEvent, expect } from 'storybook/test';
 import { Button } from './Button';
 
 const meta = {
@@ -793,7 +793,7 @@ export const ClickTest: Story = {
               title="Card.stories.tsx"
               showLineNumbers
               code={`import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { Card } from './Card';
 
 const meta = {
