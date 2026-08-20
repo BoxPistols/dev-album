@@ -32,3 +32,13 @@ export const Bash: Story = {
     title: "ターミナル",
   },
 };
+
+// badge は「どこで打つコードか」を示す注記。手順ページで実行場所を取り違えないようにする。
+export const WithBadge: Story = {
+  args: {
+    code: `/github subscribe your-org/your-repo pulls +label:"urgent"\n/github subscribe list features`,
+    language: "bash",
+    title: "購読にラベルフィルタを足す",
+    badge: "対象チャンネルで実行",
+  },
+};

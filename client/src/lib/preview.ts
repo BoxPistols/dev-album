@@ -312,7 +312,8 @@ export function buildTerminalPreviewHtml(text: string, isDark = true): string {
   const jsonContent = JSON.stringify(text).replace(/<\//g, '<\\/');
   const bg = isDark ? '#1e1e2e' : '#fafafa';
   const textColor = isDark ? '#cdd6f4' : '#333';
-  const commentColor = isDark ? '#6c7086' : '#999';
+  // AA 4.5:1 の実測値。旧 #6c7086 は #1e1e2e 上で 3.36、旧 #999 は #fafafa 上で 2.73 だった
+  const commentColor = isDark ? '#8a8fa8' : '#6a737d';
   const commandColor = isDark ? '#89b4fa' : '#0550ae';
   const flagColor = isDark ? '#f9e2af' : '#953800';
   const stringColor = isDark ? '#a6e3a1' : '#0a3069';
@@ -393,7 +394,8 @@ export function buildConfigPreviewHtml(config: string, isDark = true): string {
   const stringColorVal = isDark ? '#a6e3a1' : '#0a3069';
   const numberColor = isDark ? '#fab387' : '#953800';
   const booleanColor = isDark ? '#89b4fa' : '#0550ae';
-  const nullColor = isDark ? '#6c7086' : '#999';
+  // commentColor と同じ理由で AA を満たす値に寄せる
+  const nullColor = isDark ? '#8a8fa8' : '#6a737d';
   const bracketColorVal = isDark ? '#f9e2af' : '#953800';
   return `<!DOCTYPE html>
 <html>

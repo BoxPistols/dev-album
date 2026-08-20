@@ -6,6 +6,8 @@ interface CodeBlockProps {
   code: string;
   language?: string;
   title?: string;
+  /** ヘッダー右側に出す短い注記（例: "対象チャンネルで実行"）。どこで打つコードかを示す */
+  badge?: string;
   showLineNumbers?: boolean;
 }
 
@@ -64,6 +66,7 @@ export default function CodeBlock({
   code,
   language = 'tsx',
   title,
+  badge,
   showLineNumbers = true,
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
@@ -80,28 +83,37 @@ export default function CodeBlock({
     <div className="rounded-lg overflow-hidden border border-border bg-[#1e1e2e] text-slate-100 my-4">
       {/* ヘッダー */}
       {(title || language) && (
-        <div className="flex items-center justify-between px-4 py-2.5 bg-[#181825] border-b border-[#313244]">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2.5 bg-[#181825] border-b border-[#313244]">
+          <div className="flex items-center gap-2 min-w-0">
             {language && (
-              <span className="text-xs font-mono text-[#cdd6f4]/60 uppercase tracking-wider">
+              <span className="text-xs font-mono text-[#cdd6f4]/60 uppercase tracking-wider flex-shrink-0">
                 {language}
               </span>
             )}
             {title && (
-              <span className="text-sm font-medium text-[#cdd6f4]">{title}</span>
+              <span className="text-sm font-medium text-[#cdd6f4] truncate">
+                {title}
+              </span>
             )}
           </div>
-          <button
-            onClick={handleCopy}
-            className="p-1.5 rounded hover:bg-[#313244] transition-colors"
-            title="コードをコピー"
-          >
-            {copied ? (
-              <Check size={16} className="text-[#a6e3a1]" />
-            ) : (
-              <Copy size={16} className="text-[#cdd6f4]/60" />
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {badge && (
+              <span className="inline-block rounded-full border border-[#45475a] px-2.5 py-0.5 text-xs font-medium text-[#cdd6f4] whitespace-nowrap">
+                {badge}
+              </span>
             )}
-          </button>
+            <button
+              onClick={handleCopy}
+              className="p-1.5 rounded hover:bg-[#313244] transition-colors"
+              title="コードをコピー"
+            >
+              {copied ? (
+                <Check size={16} className="text-[#a6e3a1]" />
+              ) : (
+                <Copy size={16} className="text-[#cdd6f4]/60" />
+              )}
+            </button>
+          </div>
         </div>
       )}
 

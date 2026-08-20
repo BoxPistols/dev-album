@@ -49,6 +49,10 @@ export function useMermaid(code: string): UseMermaidResult {
           theme: mermaidTheme,
           securityLevel: "strict",
           fontFamily: "inherit",
+          // dark テーマ既定のエッジラベルは #cccccc / #585858 で 4.43:1（AA 未達）。
+          // 背景だけ暗くして 5.52:1 にする（実測値）。
+          themeVariables:
+            mermaidTheme === "dark" ? { edgeLabelBackground: "#4a4a4a" } : {},
         });
         const id = `mermaid-${token}-${++renderSeq}`;
         const { svg: rendered } = await mermaid.render(id, code);
