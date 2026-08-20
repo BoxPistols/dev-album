@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import {
   ArrowLeft,
   BarChart3,
-  Gauge,
   HardDrive,
   MessageSquare,
   ShieldCheck,
@@ -24,20 +23,6 @@ const ANALYTICS_FIELDS = [
   { name: "ブラウザとバージョン", example: "Chrome 140 (Blink)" },
   { name: "デバイス種別", example: "Desktop / Mobile / Tablet" },
   { name: "計測スクリプトのバージョン", example: "2.0.1" },
-];
-
-// Vercel Speed Insights が保存する項目。
-// 出典: https://vercel.com/docs/speed-insights/privacy-policy
-const SPEED_FIELDS = [
-  { name: "ルート / URL", example: "/react/mui/intro" },
-  { name: "回線速度", example: "4g（slow-2g / 2g / 3g）" },
-  { name: "ブラウザ", example: "Chrome 140 (Blink)" },
-  { name: "デバイス種別・OS", example: "Desktop / macOS 15" },
-  { name: "国（ISO 3166-1 alpha-2）", example: "JP" },
-  { name: "Web Vitals の値", example: "FCP 1.0s" },
-  { name: "値に寄与した要素", example: "html>body img.header" },
-  { name: "SDK のバージョン", example: "@vercel/speed-insights 2.0.0" },
-  { name: "サーバー受信時刻", example: "2026-08-21 09:06:30" },
 ];
 
 // ブラウザの localStorage に置いているもの。
@@ -91,8 +76,7 @@ export default function PolicyPrivacy() {
               アカウント登録はありません。氏名・メールアドレスは集めません
             </li>
             <li>
-              アクセス解析と表示速度の計測に Vercel
-              のサービスを使っています。どちらも Cookie
+              アクセス解析に Vercel Web Analytics を使っています。Cookie
               を使わず、個人を特定できる形ではデータを保存しません
             </li>
             <li>
@@ -155,49 +139,6 @@ export default function PolicyPrivacy() {
             には個人を特定する値を含めていないため、
             上の「URL」から誰かが特定されることもありません。
           </p>
-        </section>
-
-        <section className="mb-10">
-          <div className="flex items-center gap-2 mb-3">
-            <Gauge size={18} className="text-primary" />
-            <h2 className="text-xl font-semibold text-foreground">
-              表示速度の計測
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            ページの表示が遅くなっていないかを見るために{" "}
-            <strong>Vercel Speed Insights</strong>{" "}
-            を使っています。ブラウザ標準の API から Web Vitals
-            の値を読み取って送るもので、こちらも個人の閲覧をページをまたいで
-            つなぎ直せる情報は集めません。
-          </p>
-          <div
-            className="rounded-xl border border-border bg-card overflow-x-auto"
-            tabIndex={0}
-            role="region"
-            aria-label="表示速度の計測で保存される項目（横スクロールできます）"
-          >
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-muted-foreground">
-                <tr>
-                  <th className="text-left px-4 py-2 font-medium">項目</th>
-                  <th className="text-left px-4 py-2 font-medium">例</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {SPEED_FIELDS.map((f) => (
-                  <tr key={f.name}>
-                    <td className="px-4 py-2.5 text-foreground align-top">
-                      {f.name}
-                    </td>
-                    <td className="px-4 py-2.5 text-muted-foreground align-top">
-                      {f.example}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </section>
 
         <section className="mb-10">
@@ -282,7 +223,7 @@ export default function PolicyPrivacy() {
             >
               バグ報告フォーム
             </Link>{" "}
-            から連絡してください。各サービスの詳細は{" "}
+            から連絡してください。アクセス解析の詳細は{" "}
             <a
               href="https://vercel.com/docs/analytics/privacy-policy"
               target="_blank"
@@ -290,15 +231,6 @@ export default function PolicyPrivacy() {
               className="text-primary underline underline-offset-2"
             >
               Vercel Web Analytics のプライバシー方針
-            </a>{" "}
-            と{" "}
-            <a
-              href="https://vercel.com/docs/speed-insights/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline underline-offset-2"
-            >
-              Speed Insights のプライバシー方針
             </a>{" "}
             にあります。
           </p>

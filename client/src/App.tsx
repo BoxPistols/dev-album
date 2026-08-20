@@ -14,7 +14,6 @@ import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { useManualTheme } from "./hooks/useManualTheme";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // ── ランディング ──
 const Landing = lazy(() => import("./pages/Landing"));
@@ -810,9 +809,9 @@ function App() {
               dev で描画すると debug スクリプトが読まれてコンソールが埋まり、
               NODE_ENV の検出に失敗した場合はローカルの閲覧まで計上されてしまう。
               route を渡さない = 自動計測を有効のままにする（SPA の遷移は
-              Vercel 側のスクリプトが history を見て拾う）。 */}
+              Vercel 側のスクリプトが history を見て拾う）。
+              Speed Insights は現在のプランで有効化できないため入れていない。 */}
           {import.meta.env.PROD && <Analytics />}
-          {import.meta.env.PROD && <SpeedInsights />}
           </LayoutProvider>
         </OSProvider>
       </PlatformProvider>
