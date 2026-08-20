@@ -145,8 +145,8 @@ const cheatsheet = [
     scope: "そのチャンネル",
   },
   {
-    goal: "一括作業の前に止める（1／2）イベント種別を外す",
-    command: "/github unsubscribe your-org/your-repo pulls",
+    goal: "一括作業の前に止める（1／2）受け取っている種別を並べて外す",
+    command: "/github unsubscribe your-org/your-repo issues pulls commits",
     scope: "そのチャンネル",
   },
   {
@@ -155,7 +155,7 @@ const cheatsheet = [
     scope: "そのチャンネル",
   },
   {
-    goal: "作業後に元へ戻す（種別とフィルタをまとめて 1 行）",
+    goal: "作業後に、外した種別とフィルタを戻す",
     command: '/github subscribe your-org/your-repo pulls +label:"urgent"',
     scope: "そのチャンネル",
   },
@@ -178,6 +178,7 @@ const cheatsheet = [
 
 const checklist = [
   "止めるときは 2 行打つ（イベント種別の unsubscribe だけではラベルフィルタが残る）",
+  "外れるのは名前を挙げた種別だけ。受け取っている種別を subscribe list features で控えてから、まとめて並べて外す",
   "停止と復元は、同じ owner/repo・同じチャンネルで打つ（別チャンネルで復元すると設定が二重になる）",
   "停止する前に、そのチャンネルを実際に見ているメンバーへ一言入れる（設定はチャンネル単位で、全員に効く）",
   "復元コマンドは、ラベルフィルタまで含めた形でチャンネルにピン留めしておく",
@@ -612,43 +613,66 @@ export default function Notifications() {
               イベント種別と <code>+label:</code> の 2 行を打ちます。
             </InfoBox>
 
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              手順は「控える → 外す → 作業 → 戻す → 確かめる」です。
+              <strong>外れるのは名前を挙げたものだけ</strong>
+              なので、まず何を受け取っているかを控えます。
+              以下は STEP 3 で作った「<code>pulls</code> を{" "}
+              <code>&quot;urgent&quot;</code>{" "}
+              ラベルで絞って受け取っているチャンネル」を想定した例です。
+            </p>
+
             <CodeBlock
               language="bash"
               title="① 作業前に止める（2 行とも打つ）"
               badge={IN_CHANNEL}
-              code={`# 1. イベント種別を外す
+              code={`# 0. いま何を受け取っているかを控える
+/github subscribe list features
+
+# 1. 控えたイベント種別を外す
 /github unsubscribe your-org/your-repo pulls
 
 # 2. ラベルフィルタを外す（1 行目では消えない）
 /github unsubscribe your-org/your-repo +label:"urgent"
 
-# 止まったことを確認する
+# 外れたことを確認する
 /github subscribe list features`}
             />
 
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              外れるのは指定したものだけです。<code>owner/repo</code>{" "}
-              を付けているので、同じチャンネルで購読している
-              他のリポジトリには影響しません。同じリポジトリの{" "}
-              <code>issues</code> や <code>releases</code>{" "}
-              も、名前を挙げなければそのまま残ります。
-              リポジトリの通知をすべて止めたいなら、
-              残っているイベント種別も同じ行に並べて外します。
+              <code>owner/repo</code> を付けているので、同じチャンネルで
+              購読している他のリポジトリには影響しません。一方で、
+              <strong>
+                同じリポジトリの <code>issues</code> や <code>releases</code>{" "}
+                は、名前を挙げなければ届き続けます
+              </strong>
+              。既定の一式を受け取っているチャンネルなら、
+              受け取っている種別をすべて並べて外します。
             </p>
 
-            <InfoBox type="info" title="止まったことの見分け方">
+            <CodeBlock
+              language="bash"
+              title="既定の一式を受け取っている場合の 1 行目"
+              badge={IN_CHANNEL}
+              code={`# 種別は 1 行に並べて指定できる
+/github unsubscribe your-org/your-repo issues pulls commits releases deployments`}
+            />
+
+            <InfoBox type="info" title="止まったかどうかの見分け方">
               <code>/github subscribe list features</code>{" "}
-              の出力に、リポジトリ名だけが並んでイベント名もラベルも
-              出てこなければ、そのリポジトリの通知は止まっています。
-              逆にラベル名が残って見えていたら、2 行目の{" "}
-              <code>+label:</code> がまだ打てていない状態です。
+              の出力を読みます。リポジトリ名だけが並んで
+              <strong>イベント名もラベルも出てこなければ</strong>
+              、そのリポジトリの通知は止まっています。
+              イベント名が残っていれば、その種別はまだ届きます。
+              ラベル名が残っていれば、2 行目の <code>+label:</code>{" "}
+              がまだ打てていない状態です。
             </InfoBox>
 
             <CodeBlock
               language="bash"
-              title="② 作業後に、同じチャンネルで戻す（1 行でよい）"
+              title="② 作業後に、同じチャンネルで控えたものを戻す"
               badge={IN_CHANNEL}
-              code={`# イベント種別とラベルフィルタは、まとめて指定し直せる
+              code={`# 外した種別とラベルフィルタを指定し直す
 /github subscribe your-org/your-repo pulls +label:"urgent"
 
 # 戻ったことを確認する
