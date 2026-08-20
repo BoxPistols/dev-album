@@ -13,11 +13,14 @@ import ChatWidget from "./components/ChatWidget";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { useManualTheme } from "./hooks/useManualTheme";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // ── ランディング ──
 const Landing = lazy(() => import("./pages/Landing"));
 const Announcements = lazy(() => import("./pages/Announcements"));
 const PolicyChatQuota = lazy(() => import("./pages/PolicyChatQuota"));
+const PolicyPrivacy = lazy(() => import("./pages/PolicyPrivacy"));
 const BugReport = lazy(() => import("./pages/BugReport"));
 const DevComponents = lazy(() => import("./pages/DevComponents"));
 const DevTestResults = lazy(() => import("./pages/DevTestResults"));
@@ -412,6 +415,7 @@ function App() {
                 <Route path="/" component={Landing} />
                 <Route path="/announcements" component={Announcements} />
                 <Route path="/policy/chat-quota" component={PolicyChatQuota} />
+                <Route path="/policy/privacy" component={PolicyPrivacy} />
                 <Route path="/bug-report" component={BugReport} />
                 {import.meta.env.DEV && <Route path="/dev/components" component={DevComponents} />}
                 {import.meta.env.DEV && <Route path="/dev/test-results" component={DevTestResults} />}
@@ -802,6 +806,13 @@ function App() {
           <ChatWidget />
           <AchievementToastContainer />
           <Toaster position="bottom-right" />
+          {/* Vercel Web Analytics。本番ビルドだけに載せる。
+              dev で描画すると debug スクリプトが読まれてコンソールが埋まり、
+              NODE_ENV の検出に失敗した場合はローカルの閲覧まで計上されてしまう。
+              route を渡さない = 自動計測を有効のままにする（SPA の遷移は
+              Vercel 側のスクリプトが history を見て拾う）。 */}
+          {import.meta.env.PROD && <Analytics />}
+          {import.meta.env.PROD && <SpeedInsights />}
           </LayoutProvider>
         </OSProvider>
       </PlatformProvider>
