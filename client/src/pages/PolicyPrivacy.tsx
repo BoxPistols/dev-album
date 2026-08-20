@@ -40,7 +40,9 @@ const SPEED_FIELDS = [
   { name: "サーバー受信時刻", example: "2026-08-21 09:06:30" },
 ];
 
-// ブラウザの localStorage に置いているもの。サーバーへは送らない。
+// ブラウザの localStorage に置いているもの。
+// ここに「保存する」ことと「サーバーへ送る」ことは別。AI チャットだけは
+// 回答を作るために内容がサーバーを経由する（履歴の保存先はブラウザのまま）。
 const LOCAL_STORAGE = [
   { key: "bookmarked-pages", detail: "ブックマークしたページ" },
   { key: "completed-pages", detail: "学習の進捗（読了したページ）" },
@@ -49,7 +51,8 @@ const LOCAL_STORAGE = [
   { key: "page-note:<パス>", detail: "ページごとに書いたメモ" },
   {
     key: "chat-history / chat-settings / chat-panel-size",
-    detail: "AI チャットの会話履歴と表示設定",
+    detail:
+      "AI チャットの会話履歴と表示設定。履歴の保存先はブラウザだけだが、送信した内容は回答を作るためにサーバーを経由する",
   },
   {
     key: "theme / theme-mode / font-size / layout-mode",
@@ -93,9 +96,13 @@ export default function PolicyPrivacy() {
               を使わず、個人を特定できる形ではデータを保存しません
             </li>
             <li>
-              学習の進捗・ブックマーク・メモ・チャット履歴は、すべて
+              学習の進捗・ブックマーク・メモは
               <strong>あなたのブラウザの中</strong>
-              にだけ保存されます。サーバーには送りません
+              にだけ保存され、サーバーへは送りません
+            </li>
+            <li>
+              AI チャットだけは例外で、送信した内容が回答を作るために
+              サーバーを経由します。会話履歴そのものの保存先はブラウザです
             </li>
           </ul>
         </section>
@@ -202,8 +209,10 @@ export default function PolicyPrivacy() {
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
             以下はブラウザの localStorage
-            にだけ保存され、サーバーへは送りません。
-            ブラウザの設定から消せば、いつでも全部消えます。
+            に保存されます。ブラウザの設定から消せば、いつでも全部消えます。
+            保存先がブラウザであることと、サーバーへ送るかどうかは別の話です。
+            AI チャットは送信した内容が回答を作るためにサーバーを経由し、
+            それ以外はサーバーへ送りません。
           </p>
           <div
             className="rounded-xl border border-border bg-card overflow-x-auto"
