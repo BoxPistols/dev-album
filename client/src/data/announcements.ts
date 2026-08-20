@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-20-slack-notification-pause-restore",
+    date: "2026-08-20",
+    title: "Slack 通知連携に、一括作業のあいだだけ止めて戻す手順を足した",
+    description:
+      "古い Issue の一括クローズや依存更新 PR の連続マージで通知が溢れる場面向けに、unsubscribe で止めて subscribe で戻す手順を STEP 4 として追加した。止めるときはイベント種別とラベルフィルタの 2 行が要る（種別を外しても +label: は残る）ことを実機で確認したので、その落とし穴と、subscribe list features の出力での見分け方を書いている。購読はチャンネル単位なので停止すると全員に届かなくなる点、自分だけ静かにしたいなら Slack のミュートを使う点も先に置いた。あわせて目的から引く早見表と運用前チェックリストを足し、コマンド表に signout と subscribe list features、各コマンドの効く範囲（チャンネル / 自分のアカウント）を追記している。",
+    category: "update",
+    link: "/git/flow-automation/notifications",
+  },
+  {
     id: "2026-08-16-storybook-version-alignment",
     date: "2026-08-16",
     title: "Storybook マニュアルの前提バージョンを揃え、動かない設定例を直した",

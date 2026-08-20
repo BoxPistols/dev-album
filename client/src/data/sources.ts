@@ -54,6 +54,44 @@ import { GENERATED_SOURCES } from "./sources.generated";
 /** 手で書いた出典。ページの出典欄に出す */
 export const CURATED_SOURCES: Source[] = [
   {
+    id: "github-slack-use-in-slack",
+    title: "Using GitHub in Slack",
+    url: "https://docs.github.com/en/integrations/how-tos/slack/use-github-in-slack",
+    kind: "official-docs",
+    verifiedAt: "2026-08-20",
+    quotes: [
+      "Subscribes the channel to notifications for the specified repository.",
+      "Unsubscribes the channel from notifications for the specified repository.",
+      "Lists all repositories the channel is subscribed to.",
+      "You, or any other member of the channel, can re-enable threading at any time by following the same steps",
+    ],
+    usedBy: ["/git/flow-automation/notifications"],
+  },
+  {
+    id: "github-slack-label-filter-survives-unsubscribe",
+    title:
+      "ラベルフィルタはイベント種別の unsubscribe では消えない（Slack ワークスペースでの実測）",
+    kind: "measured",
+    verifiedAt: "2026-08-20",
+    reproduce:
+      '対象チャンネルで /github subscribe owner/repo pulls +label:"X" を実行 → /github unsubscribe owner/repo pulls → /github subscribe list features の出力にラベルフィルタが残る。/github unsubscribe owner/repo +label:"X" を実行すると消える',
+    note: "公式ドキュメントには unsubscribe とラベルフィルタの関係の記載がない。手元の Slack ワークスペースで実際に打って確認した挙動",
+    usedBy: ["/git/flow-automation/notifications"],
+  },
+  {
+    id: "github-slack-customize-notifications-2026-08",
+    title: "Customizing notifications for GitHub in Slack",
+    url: "https://docs.github.com/en/integrations/how-tos/slack/customize-notifications",
+    kind: "official-docs",
+    verifiedAt: "2026-08-20",
+    quotes: [
+      "If you have previously set up the `commits:all` filter, it will continue to work until you update your configuration to use the `commits:*` filter.",
+      "You can update an existing label filter by specifying a new label value",
+      "To view the currently active label filters for a channel, use the following command",
+    ],
+    usedBy: ["/git/flow-automation/notifications"],
+  },
+  {
     id: "claude-code-memory",
     title: "Claude Code — How Claude remembers your project",
     url: "https://code.claude.com/docs/en/memory",

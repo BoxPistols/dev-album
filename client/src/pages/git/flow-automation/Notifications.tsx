@@ -1,41 +1,75 @@
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
+import PageToc, { type PageTocItem } from "@/components/PageToc";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
 import StepIndicator from "@/components/StepIndicator";
+import StepHeading from "@/components/StepHeading";
 import SectionBadge from "@/components/SectionBadge";
 import CodeBlock from "@/components/CodeBlock";
 import MermaidDiagram from "@/components/MermaidDiagram";
 import CodingChallenge from "@/components/CodingChallenge";
 
+// 実行場所のラベル。コマンドがどこで打つものかを CodeBlock のバッジに出す。
+const IN_CHANNEL = "対象チャンネルで実行";
+
+const toc: PageTocItem[] = [
+  { id: "design", label: "通知は「全部流す」と読まれなくなる" },
+  { id: "setup", label: "アプリを入れて、チャンネルで購読する", step: 1 },
+  { id: "events", label: "イベント種別を足し引きする", step: 2 },
+  { id: "filters", label: "ラベル・ブランチで絞り込む", step: 3 },
+  { id: "pause", label: "一括作業のあいだだけ止めて、あとで戻す", step: 4 },
+  { id: "channels", label: "役割別のチャンネル設計例", step: 5 },
+  { id: "gaps", label: "仕様と実物のギャップ" },
+  { id: "cheatsheet", label: "目的から引く早見表" },
+  { id: "checklist", label: "運用前チェックリスト" },
+];
+
 const commands = [
   {
     command: "/github signin",
     purpose: "GitHub アカウントと Slack を紐づける。最初に一度だけ実行する。",
+    scope: "自分のアカウント",
+  },
+  {
+    command: "/github signout",
+    purpose: "紐づけた GitHub アカウントを、自分の Slack ユーザーから外す。",
+    scope: "自分のアカウント",
   },
   {
     command: "/github subscribe <owner>/<repo>",
     purpose:
       "そのチャンネルで購読を開始する。既定のイベント一式がまとめて有効になる。",
+    scope: "そのチャンネル",
   },
   {
     command: "/github unsubscribe <owner>/<repo>",
     purpose: "購読を解除する。イベント名を付けると、その種類だけを外せる。",
+    scope: "そのチャンネル",
   },
   {
     command: "/github subscribe list",
     purpose: "このチャンネルが購読中のリポジトリを一覧する。",
+    scope: "そのチャンネル",
+  },
+  {
+    command: "/github subscribe list features",
+    purpose:
+      "有効なイベント種別と、いま効いているラベルフィルタを表示する。設定を変えたら必ず打つ。",
+    scope: "そのチャンネル",
   },
   {
     command: "/github settings",
     purpose:
       "チャンネル単位で、Issue / PR 通知のスレッド化を有効・無効にする。",
+    scope: "そのチャンネル",
   },
   {
     command: "/github help",
     purpose: "利用できるコマンドの一覧を Slack 上で表示する。",
+    scope: "自分の画面",
   },
 ];
 
@@ -98,6 +132,60 @@ const features = [
   },
 ];
 
+// 目的から引く早見表。コマンド名から引く一覧（commands）とは切り口を変える。
+const cheatsheet = [
+  {
+    goal: "ラベルで絞って購読する",
+    command: '/github subscribe your-org/your-repo pulls +label:"urgent"',
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "要らないイベント種別をまとめて外す",
+    command: "/github unsubscribe your-org/your-repo issues commits releases",
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "一括作業の前に止める（1／2）イベント種別を外す",
+    command: "/github unsubscribe your-org/your-repo pulls",
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "一括作業の前に止める（2／2）ラベルフィルタを外す",
+    command: '/github unsubscribe your-org/your-repo +label:"urgent"',
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "作業後に元へ戻す（種別とフィルタをまとめて 1 行）",
+    command: '/github subscribe your-org/your-repo pulls +label:"urgent"',
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "いま効いているフィルタを確かめる",
+    command: "/github subscribe list features",
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "購読中のリポジトリを一覧する",
+    command: "/github subscribe list",
+    scope: "そのチャンネル",
+  },
+  {
+    goal: "自分だけ通知を静かにする",
+    command: "Slack のチャンネル通知設定（ミュート）",
+    scope: "自分だけ",
+  },
+];
+
+const checklist = [
+  "止めるときは 2 行打つ（イベント種別の unsubscribe だけではラベルフィルタが残る）",
+  "停止と復元は、同じ owner/repo・同じチャンネルで打つ（別チャンネルで復元すると設定が二重になる）",
+  "停止する前に、そのチャンネルを実際に見ているメンバーへ一言入れる（設定はチャンネル単位で、全員に効く）",
+  "復元コマンドは、ラベルフィルタまで含めた形でチャンネルにピン留めしておく",
+  "設定を変えたら /github subscribe list features を打ち、イベント名とラベルが消えている（または戻っている）ことを目で確かめる",
+  "本番のチャンネルに入れる前に、テスト用のチャンネルとリポジトリで 1 往復させる",
+  "停止と復元の担当を 1 人に決める（複数人が同時に触ると設定が競合する）",
+];
+
 export default function Notifications() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -133,9 +221,25 @@ export default function Notifications() {
           </p>
         </WhyNowBox>
 
-        <div className="space-y-12 mt-8">
+        <InfoBox type="info" title="コマンドの読み方">
+          このページのコマンドは、<code>your-org/your-repo</code> を自分の
+          リポジトリに、<code>&quot;urgent&quot;</code>{" "}
+          などのラベル名を自分のラベルに差し替えて使います。
+          コマンドの定義を示す表では、埋める場所を{" "}
+          <code>&lt;owner&gt;/&lt;repo&gt;</code>{" "}
+          のように山かっこで書いています。
+        </InfoBox>
+
+        <div className="mt-8">
+          <PageToc items={toc} />
+        </div>
+
+        <div className="space-y-12">
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
+            <h2
+              id="design"
+              className="text-2xl font-bold text-foreground mb-4 scroll-mt-24"
+            >
               通知は「全部流す」と読まれなくなる
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -196,9 +300,11 @@ export default function Notifications() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              導入と基本コマンド
-            </h2>
+            <StepHeading
+              step={1}
+              id="setup"
+              title="アプリを入れて、チャンネルで購読する"
+            />
             <p className="text-muted-foreground mb-6 leading-relaxed">
               公式ドキュメントが示す順序は、インストール → チャンネルへの招待 →
               アカウントの接続です。Slack ワークスペースに GitHub
@@ -238,6 +344,9 @@ export default function Notifications() {
                     <th className="text-left font-bold text-foreground px-4 py-3">
                       用途
                     </th>
+                    <th className="text-left font-bold text-foreground px-4 py-3 whitespace-nowrap">
+                      効く範囲
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -254,6 +363,9 @@ export default function Notifications() {
                       <td className="px-4 py-3 text-muted-foreground align-top">
                         {c.purpose}
                       </td>
+                      <td className="px-4 py-3 text-muted-foreground align-top whitespace-nowrap">
+                        {c.scope}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -263,6 +375,7 @@ export default function Notifications() {
             <CodeBlock
               language="bash"
               title="最小構成：まず購読して、いま何が有効か確かめる"
+              badge={IN_CHANNEL}
               code={`# 1. アカウントを紐づける（初回のみ）
 /github signin
 
@@ -283,9 +396,11 @@ export default function Notifications() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              購読できるイベントと既定値
-            </h2>
+            <StepHeading
+              step={2}
+              id="events"
+              title="イベント種別を足し引きする"
+            />
             <p className="text-muted-foreground mb-6 leading-relaxed">
               <code>/github subscribe</code>{" "}
               をイベント名なしで実行すると、既定で有効なイベント一式が
@@ -347,6 +462,7 @@ export default function Notifications() {
             <CodeBlock
               language="bash"
               title="イベント単位で足し引きする"
+              badge={IN_CHANNEL}
               code={`# レビューと Actions の結果を追加で受け取る
 /github subscribe your-org/your-repo reviews workflows
 
@@ -370,19 +486,27 @@ export default function Notifications() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              フィルタで絞り込む
-            </h2>
+            <StepHeading
+              step={3}
+              id="filters"
+              title="ラベル・ブランチで絞り込む"
+            />
             <p className="text-muted-foreground mb-6 leading-relaxed">
               イベント種別だけでは粗い場合、ラベル・ブランチ・ワークフローで
               さらに絞り込めます。フィルタは購読に追加する形で指定します。
+              すでに購読しているリポジトリでも、同じ <code>subscribe</code>{" "}
+              コマンドで後からラベルフィルタだけを足せます。
             </p>
 
             <CodeBlock
               language="bash"
               title="ラベルで絞る"
+              badge={IN_CHANNEL}
               code={`# "urgent" ラベルが付いたものだけを受け取る
 /github subscribe your-org/your-repo +label:"urgent"
+
+# 購読済みのイベントにラベルフィルタだけ足す場合も、同じ形で書ける
+/github subscribe your-org/your-repo pulls +label:"urgent"
 
 # 別のラベルを指定すると、前のフィルタは置き換えられる
 # （下を実行すると "urgent" ではなく "incident" で絞られる）
@@ -409,11 +533,16 @@ export default function Notifications() {
               <code>comments</code> / <code>reviews</code> に適用されます。
               <code>commits</code> と <code>branches</code>{" "}
               はラベルを持たないため対象外で、フィルタを付けても絞り込まれません。
+              なお、ここで足したフィルタは
+              <strong>イベント種別を解除しても残ります</strong>
+              。外すには <code>+label:</code> を明示して{" "}
+              <code>unsubscribe</code> します（STEP 4）。
             </InfoBox>
 
             <CodeBlock
               language="bash"
               title="ブランチ・ワークフローで絞る"
+              badge={IN_CHANNEL}
               code={`# デフォルトブランチ以外も含め、すべてのブランチのコミットを受け取る
 /github subscribe your-org/your-repo commits:*
 
@@ -429,7 +558,179 @@ export default function Notifications() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
+            <StepHeading
+              step={4}
+              id="pause"
+              title="一括作業のあいだだけ止めて、あとで戻す"
+            />
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              古い Issue をまとめてクローズする、依存更新の PR を一気にマージする
+              —— こうした作業は、通知の量が普段の何倍にもなります。
+              チャンネルが埋まると、その日に流れた重要な通知まで読み飛ばされます。
+              一時停止のためのコマンドは用意されていないので、
+              <strong>
+                <code>unsubscribe</code> で外し、作業後に <code>subscribe</code>{" "}
+                で戻す
+              </strong>
+              という組で運用します。止めるときは
+              <strong>イベント種別とラベルフィルタの 2 行</strong>
+              が要ります（戻すのは 1 行です）。
+            </p>
+
+            <InfoBox
+              type="warning"
+              title="これはチャンネル全員に効く。「自分だけミュート」ではない"
+            >
+              購読の設定はチャンネル単位です。公式ドキュメントも{" "}
+              <code>/github subscribe owner/repo</code> を
+              「そのチャンネルを購読させるコマンド」と説明しています。
+              つまり停止すると、そのチャンネルを見ている
+              <strong>全員に届かなくなります</strong>。
+              自分の手元だけ静かにしたいなら、Slack
+              のチャンネル通知設定（ミュート）を使ってください。
+              チャンネル側の設定を止めるときは、実際にそこを見ているメンバーへ
+              先に一言入れます。なお GitHub アプリとの DM
+              でも購読はできますが、そちらは自分だけの購読で、
+              チャンネルの設定とは別物です。
+              チームの設定を変えるつもりのコマンドを DM で打っても、
+              チャンネルには反映されません。
+            </InfoBox>
+
+            <InfoBox
+              type="warning"
+              title="止めるには 2 行要る。イベント種別を外してもラベルフィルタは残る"
+            >
+              <code>/github unsubscribe owner/repo pulls</code>{" "}
+              で外れるのはイベント種別だけで、
+              <strong>
+                その購読に付けたラベルフィルタ（<code>+label:</code>）は残ります
+              </strong>
+              。公式ドキュメントに記載はありませんが、手元の Slack
+              ワークスペースで実際に確認しました。フィルタが残っていると、
+              あとで同じイベントを購読し直したときに
+              「前のラベルで絞られたまま」になります。完全に止めるなら、
+              イベント種別と <code>+label:</code> の 2 行を打ちます。
+            </InfoBox>
+
+            <CodeBlock
+              language="bash"
+              title="① 作業前に止める（2 行とも打つ）"
+              badge={IN_CHANNEL}
+              code={`# 1. イベント種別を外す
+/github unsubscribe your-org/your-repo pulls
+
+# 2. ラベルフィルタを外す（1 行目では消えない）
+/github unsubscribe your-org/your-repo +label:"urgent"
+
+# 止まったことを確認する
+/github subscribe list features`}
+            />
+
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              外れるのは指定したものだけです。<code>owner/repo</code>{" "}
+              を付けているので、同じチャンネルで購読している
+              他のリポジトリには影響しません。同じリポジトリの{" "}
+              <code>issues</code> や <code>releases</code>{" "}
+              も、名前を挙げなければそのまま残ります。
+              リポジトリの通知をすべて止めたいなら、
+              残っているイベント種別も同じ行に並べて外します。
+            </p>
+
+            <InfoBox type="info" title="止まったことの見分け方">
+              <code>/github subscribe list features</code>{" "}
+              の出力に、リポジトリ名だけが並んでイベント名もラベルも
+              出てこなければ、そのリポジトリの通知は止まっています。
+              逆にラベル名が残って見えていたら、2 行目の{" "}
+              <code>+label:</code> がまだ打てていない状態です。
+            </InfoBox>
+
+            <CodeBlock
+              language="bash"
+              title="② 作業後に、同じチャンネルで戻す（1 行でよい）"
+              badge={IN_CHANNEL}
+              code={`# イベント種別とラベルフィルタは、まとめて指定し直せる
+/github subscribe your-org/your-repo pulls +label:"urgent"
+
+# 戻ったことを確認する
+/github subscribe list features`}
+            />
+
+            <InfoBox type="info" title="復元コマンドは、止める前に書き留めておく">
+              止める前の設定を <code>/github subscribe list features</code>{" "}
+              で控え、復元コマンドをチャンネルにピン留めしておくと、
+              翌日別の人が作業を引き継いでも元に戻せます。
+              ラベルフィルタはリポジトリごとに 1 つなので（STEP 3）、
+              控えるのは「どのイベント種別を購読していたか」と
+              「どのラベルで絞っていたか」の 2 つだけです。
+            </InfoBox>
+
+            <MermaidDiagram
+              title="図: 一時停止と復元の 5 手"
+              chart={`flowchart LR
+    A["現在の設定を控える<br/>subscribe list features"] --> B["種別を外す<br/>unsubscribe ... pulls"]
+    B --> C["フィルタを外す<br/>unsubscribe ... +label"]
+    C --> D["一括作業"]
+    D --> E["戻す<br/>subscribe ... pulls +label"]
+    E --> F["確認する<br/>subscribe list features"]`}
+            />
+          </section>
+
+          <section>
+            <StepHeading step={5} id="channels" title="役割別のチャンネル設計例" />
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              1 つのチャンネルにすべてを集約せず、読み手の役割ごとに分けます。
+              以下は出発点にできる 3 パターンです。まずこの形で始めて、
+              「読み飛ばしている通知」を毎週 1 つずつ外していくと、
+              チームに合った設定に収束します。
+            </p>
+
+            <CodeBlock
+              language="bash"
+              title="#dev-review — 開発チーム（レビューと CI）"
+              badge={IN_CHANNEL}
+              code={`# PR・レビュー・Actions・デプロイを追う
+/github subscribe your-org/your-repo pulls reviews workflows deployments
+
+# Issue とコミットは追わない（GitHub 上で見る）
+/github unsubscribe your-org/your-repo issues commits releases`}
+            />
+
+            <CodeBlock
+              language="bash"
+              title="#qa-bugs — QA チーム（バグ追跡）"
+              badge={IN_CHANNEL}
+              code={`# "bug" ラベルの付いた Issue と PR だけに絞る
+/github subscribe your-org/your-repo issues pulls +label:"bug"
+
+# デリバリー系のイベントは不要
+/github unsubscribe your-org/your-repo commits releases deployments`}
+            />
+
+            <CodeBlock
+              language="bash"
+              title="#product-release — PM（リリースと機能進捗）"
+              badge={IN_CHANNEL}
+              code={`# リリースと、"feature" ラベルの付いた PR を追う
+/github subscribe your-org/your-repo releases pulls +label:"feature"
+
+# 実装の細部は追わない
+/github unsubscribe your-org/your-repo issues commits deployments`}
+            />
+
+            <InfoBox type="info" title="プライベートリポジトリを流すときの注意">
+              購読すると、PR タイトル・Issue 本文・ブランチ名などが Slack
+              チャンネルに転記されます。公開チャンネルに流せば、
+              ワークスペースの全員がそれを読めます。プライベートリポジトリを
+              購読するチャンネルは、リポジトリと同じ範囲の人だけが
+              入れる状態にしてから設定します。
+            </InfoBox>
+          </section>
+
+          <section>
+            <h2
+              id="gaps"
+              className="text-2xl font-bold text-foreground mb-4 scroll-mt-24"
+            >
               仕様と実物のギャップ — 出回っている「使えないコマンド」
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -439,7 +740,12 @@ export default function Notifications() {
               一次情報（公式リポジトリの README とドキュメント）で確かめます。
             </p>
 
-            <div className="rounded-xl border border-border bg-card overflow-hidden mb-6">
+            <div
+              className="rounded-xl border border-border bg-card overflow-x-auto mb-6"
+              tabIndex={0}
+              role="region"
+              aria-label="よく見かける記述と実際の一覧（横スクロールできます）"
+            >
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
@@ -482,7 +788,7 @@ export default function Notifications() {
                       最後に指定したラベルだけが有効です。
                     </td>
                   </tr>
-                  <tr className="border-b border-border last:border-0">
+                  <tr className="border-b border-border">
                     <td className="px-4 py-3 align-top">
                       <code className="text-foreground font-medium">
                         /github mute
@@ -491,9 +797,26 @@ export default function Notifications() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground align-top">
                       そのようなコマンドは公式アプリのコマンド一覧にありません。
-                      一時的に静かにしたいなら、
-                      <code>/github unsubscribe</code> でイベントを外すか、
-                      Slack 側のチャンネル通知設定（ミュート）を使います。
+                      チャンネルの通知を止めるなら{" "}
+                      <code>/github unsubscribe</code>{" "}
+                      でイベント種別とラベルフィルタを外し（STEP 4 の 2 行）、
+                      自分だけ静かにしたいなら Slack
+                      側のチャンネル通知設定（ミュート）を使います。
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border last:border-0">
+                    <td className="px-4 py-3 align-top">
+                      <code className="text-foreground font-medium">
+                        commits:all
+                      </code>{" "}
+                      で全ブランチのコミットを受け取る
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground align-top">
+                      公式ドキュメントは <code>commits:all</code> を
+                      提供終了に向かうフィルタとし、
+                      <code>commits:*</code> を使うよう案内しています。
+                      設定済みのものは当面動きますが、新しく書くなら{" "}
+                      <code>commits:*</code> です。
                     </td>
                   </tr>
                 </tbody>
@@ -513,53 +836,91 @@ export default function Notifications() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              役割別のチャンネル設計例
+            <h2
+              id="cheatsheet"
+              className="text-2xl font-bold text-foreground mb-4 scroll-mt-24"
+            >
+              目的から引く早見表
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              1 つのチャンネルにすべてを集約せず、読み手の役割ごとに分けます。
-              以下は出発点にできる 3 パターンです。まずこの形で始めて、
-              「読み飛ばしている通知」を毎週 1 つずつ外していくと、
-              チームに合った設定に収束します。
+              コマンド名を覚えるのではなく、やりたいことから引きます。
+              <code>owner/repo</code>{" "}
+              とラベル名を自分のものに差し替えれば、そのまま使えます。
             </p>
 
-            <CodeBlock
-              language="bash"
-              title="#dev-review — 開発チーム（レビューと CI）"
-              code={`# PR・レビュー・Actions・デプロイを追う
-/github subscribe your-org/your-repo pulls reviews workflows deployments
+            <div
+              className="rounded-xl border border-border bg-card overflow-x-auto mb-6"
+              tabIndex={0}
+              role="region"
+              aria-label="目的から引く早見表（横スクロールできます）"
+            >
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-muted/40">
+                    <th className="text-left font-bold text-foreground px-4 py-3">
+                      やりたいこと
+                    </th>
+                    <th className="text-left font-bold text-foreground px-4 py-3">
+                      打つもの
+                    </th>
+                    <th className="text-left font-bold text-foreground px-4 py-3 whitespace-nowrap">
+                      効く範囲
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cheatsheet.map((row) => (
+                    <tr
+                      key={row.goal}
+                      className="border-b border-border last:border-0"
+                    >
+                      <td className="px-4 py-3 text-muted-foreground align-top">
+                        {row.goal}
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <code className="text-foreground font-medium whitespace-nowrap">
+                          {row.command}
+                        </code>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground align-top whitespace-nowrap">
+                        {row.scope}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-# Issue とコミットは追わない（GitHub 上で見る）
-/github unsubscribe your-org/your-repo issues commits releases`}
-            />
+          <section>
+            <h2
+              id="checklist"
+              className="text-2xl font-bold text-foreground mb-4 scroll-mt-24"
+            >
+              運用前チェックリスト
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              停止と復元を伴う運用は、手順そのものより
+              「誰が、どのチャンネルで、何を戻すか」で失敗します。
+              チームで回す前に、以下を確かめてください。
+            </p>
 
-            <CodeBlock
-              language="bash"
-              title="#qa-bugs — QA チーム（バグ追跡）"
-              code={`# "bug" ラベルの付いた Issue と PR だけに絞る
-/github subscribe your-org/your-repo issues pulls +label:"bug"
-
-# デリバリー系のイベントは不要
-/github unsubscribe your-org/your-repo commits releases deployments`}
-            />
-
-            <CodeBlock
-              language="bash"
-              title="#product-release — PM（リリースと機能進捗）"
-              code={`# リリースと、"feature" ラベルの付いた PR を追う
-/github subscribe your-org/your-repo releases pulls +label:"feature"
-
-# 実装の細部は追わない
-/github unsubscribe your-org/your-repo issues commits deployments`}
-            />
-
-            <InfoBox type="info" title="プライベートリポジトリを流すときの注意">
-              購読すると、PR タイトル・Issue 本文・ブランチ名などが Slack
-              チャンネルに転記されます。公開チャンネルに流せば、
-              ワークスペースの全員がそれを読めます。プライベートリポジトリを
-              購読するチャンネルは、リポジトリと同じ範囲の人だけが
-              入れる状態にしてから設定します。
-            </InfoBox>
+            <ul className="space-y-3 mb-6">
+              {checklist.map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3 rounded-xl border border-border bg-card p-4"
+                >
+                  <span
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border border-border"
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section>
@@ -579,6 +940,26 @@ export default function Notifications() {
                 { label: "リポジトリの設定次第で変わる" },
               ]}
               explanation="引数なしの subscribe で有効になるのは issues / pulls / commits / releases / deployments です。reviews / comments / branches / workflows / discussions は既定で無効なため、/github subscribe your-org/your-repo reviews のように明示して追加します。現在の状態は /github subscribe list features で確認できます。"
+            />
+          </section>
+
+          <section>
+            <Quiz
+              question="大量の PR をマージする前に /github unsubscribe your-org/your-repo pulls を打った。この操作の影響は？"
+              options={[
+                {
+                  label:
+                    "そのチャンネルを見ている全員に、そのリポジトリの PR 通知が届かなくなる",
+                  correct: true,
+                },
+                { label: "コマンドを打った自分にだけ PR 通知が届かなくなる" },
+                {
+                  label:
+                    "そのチャンネルで購読している全リポジトリの PR 通知が止まる",
+                },
+                { label: "そのリポジトリの通知が、すべての種別で止まる" },
+              ]}
+              explanation={'購読の設定はチャンネル単位なので、影響はチャンネル全体に及びます。一方で owner/repo とイベント名を指定しているため、対象はそのリポジトリの pulls だけで、他のリポジトリや issues / releases は残ります。なお、この 1 行では +label: のラベルフィルタは消えません（手元で確認済み）。完全に止めるには /github unsubscribe owner/repo +label:"ラベル名" も打ちます。自分の手元だけ静かにしたい場合は、Slack のチャンネル通知設定（ミュート）を使います。'}
             />
           </section>
 
