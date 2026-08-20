@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy } from 'lucide-react';
+import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy, ShieldCheck } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -466,6 +466,18 @@ export default function Navigation() {
             >
               <Dumbbell size={14} />
               UI トレーニング
+            </Link>
+            <Link
+              href="/policy/privacy"
+              onClick={() => setIsOpen(false)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                location === '/policy/privacy'
+                  ? 'text-primary font-medium bg-primary/10'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50'
+              }`}
+            >
+              <ShieldCheck size={14} />
+              プライバシー
             </Link>
             {window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? (
               <>

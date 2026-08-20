@@ -16,8 +16,18 @@ export default function PolicyChatQuota() {
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
           AI チャット 利用ポリシー
         </h1>
-        <p className="text-sm text-muted-foreground mb-10">
+        <p className="text-sm text-muted-foreground mb-2">
           dev-album の AI 学習アシスタントの無料枠と識別方法について。
+        </p>
+        <p className="text-sm text-muted-foreground mb-10">
+          サイト全体で何を集めているかは{" "}
+          <Link
+            href="/policy/privacy"
+            className="text-primary underline underline-offset-2"
+          >
+            プライバシーについて
+          </Link>{" "}
+          にまとめています。
         </p>
 
         <section className="mb-10">

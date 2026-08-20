@@ -201,6 +201,40 @@ describe("announcements の整合性", () => {
     expect(missing).toEqual([]);
   });
 
+  it("画面に直書きした内部リンクの行き先が実在する", () => {
+    // お知らせと同じ穴が、共有コンポーネントや教材以外のページにも空いていた。
+    // サイドバーや LP のフッターに書いた href="/..." は誰も検査しておらず、
+    // ルート名を変えると無言で 404 になる。列挙ではなく走査で拾う。
+    const SRC = join(import.meta.dirname, "..");
+    const targets = [
+      ...getAllTsxFiles(join(SRC, "components")),
+      // 教材ページはコード例に href を含むので、教材以外の直下ページだけを見る
+      ...readdirSync(join(SRC, "pages"))
+        .filter((f) => f.endsWith(".tsx"))
+        .map((f) => join(SRC, "pages", f)),
+    ];
+
+    const found: string[] = [];
+    const missing: string[] = [];
+    for (const file of targets) {
+      const content = readFileSync(file, "utf8");
+      for (const m of content.matchAll(/href="(\/[^"]*)"/g)) {
+        // 教材コード例の中の href は対象外
+        if (isInsideTemplateLiteral(content, m.index!)) continue;
+        const href = m[1].split("#")[0].split("?")[0];
+        if (href === "/") continue;
+        found.push(`${file}: ${href}`);
+        if (!validPaths.has(href) && !routePaths.has(href)) {
+          missing.push(`${file}: ${href}`);
+        }
+      }
+    }
+
+    // 1 件も拾えていないなら走査が壊れている（0 件成功を作らない）
+    expect(found.length).toBeGreaterThan(0);
+    expect(missing).toEqual([]);
+  });
+
   it("お知らせの id が重複せず、規定の書式に沿っている", async () => {
     const { ANNOUNCEMENTS } = await import("../data/announcements");
     const ids = ANNOUNCEMENTS.map((a) => a.id);
