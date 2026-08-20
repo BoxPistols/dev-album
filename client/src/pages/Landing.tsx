@@ -478,6 +478,14 @@ export default function Landing() {
           <p className="text-sm text-muted-foreground mt-4">
             アカウント不要・無料・すぐに始められます
           </p>
+          <p className="text-sm text-muted-foreground mt-6">
+            <Link
+              href="/policy/privacy"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              プライバシーについて
+            </Link>
+          </p>
         </div>
       </section>
     </div>
