@@ -20,6 +20,42 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-22-explore-plan-code-commit",
+    date: "2026-08-22",
+    title: "新ページ: 探索 → 計画 → コード → コミット",
+    description:
+      "公式が推奨する日常ワークフローの基本形を、Claude Code コア機能の最初のページとして追加した。プランモードへの入り方（Shift+Tab / --permission-mode plan / /plan プレフィックス）、計画承認時の 3 つの選択肢、Ctrl+G での計画直接編集、検証手段をセットで渡す実装指示、計画フェーズを飛ばしてよい判断基準までを一通り体験できる。",
+    category: "feature",
+    link: "/claude-mux/claude-core/explore-plan-code-commit",
+  },
+  {
+    id: "2026-08-22-permission-modes",
+    date: "2026-08-22",
+    title: "新ページ: パーミッションモード",
+    description:
+      "default / acceptEdits / plan / auto / dontAsk / bypassPermissions の 6 モードを「何が確認なしで実行されるか」の軸で整理した。Shift+Tab の循環順、auto モードの分類器の仕組みと利用条件、settings.json の permissions ルール（allow / ask / deny）との重なり方を扱う。",
+    category: "feature",
+    link: "/claude-mux/claude-core/permission-modes",
+  },
+  {
+    id: "2026-08-22-skills-deep-dive",
+    date: "2026-08-22",
+    title: "新ページ: Skills 深掘り",
+    description:
+      "スキルの置き場所と同名解決の優先順位、呼び出し 2 経路の制御（disable-model-invocation / user-invocable）、$ARGUMENTS による引数、複数ファイル構成、context: fork でのサブエージェント実行、他の拡張機能との使い分け、トラブルシューティングまでを 1 ページにまとめた。",
+    category: "feature",
+    link: "/claude-mux/agent-extensions/skills-deep-dive",
+  },
+  {
+    id: "2026-08-22-verification-and-trust",
+    date: "2026-08-22",
+    title: "新ページ: 検証スキル — 無監督実行を信頼する",
+    description:
+      "Claude に自分で回せるチェック（テスト・ビルド・スクリーンショット比較）を渡し、完了報告は証拠で受け取るための技術を追加した。チェックの効かせ方の 4 段階（プロンプト内 / /goal / Stop hook / 敵対的レビュー）、レビュアーの指摘を全部追いかけない判断、/rewind と /clear での仕切り直しを扱う。",
+    category: "feature",
+    link: "/claude-mux/best-practices/verification-and-trust",
+  },
+  {
     id: "2026-08-22-claude-code-fact-check",
     date: "2026-08-22",
     title: "Claude Code マニュアルを公式ドキュメントと実機 CLI で照合し、古い記述を直した",

@@ -187,7 +187,9 @@ const CmWhyClaudeCode = lazy(() => import("./pages/claude-mux/getting-started/Wh
 const CmClaudeCodeIntro = lazy(() => import("./pages/claude-mux/claude-intro/ClaudeCodeIntro"));
 const CmInstallSetup = lazy(() => import("./pages/claude-mux/claude-intro/InstallSetup"));
 const CmSlashCommands = lazy(() => import("./pages/claude-mux/claude-intro/SlashCommands"));
+const CmExplorePlanCodeCommit = lazy(() => import("./pages/claude-mux/claude-core/ExplorePlanCodeCommit"));
 const CmContextMgmt = lazy(() => import("./pages/claude-mux/claude-core/ContextManagement"));
+const CmPermissionModes = lazy(() => import("./pages/claude-mux/claude-core/PermissionModes"));
 const CmSecurity = lazy(() => import("./pages/claude-mux/claude-core/SecurityPermissions"));
 const CmTokenOpt = lazy(() => import("./pages/claude-mux/claude-core/TokenOptimization"));
 const CmExtThinking = lazy(() => import("./pages/claude-mux/claude-core/ExtendedThinking"));
@@ -195,6 +197,7 @@ const CmMCPSetup = lazy(() => import("./pages/claude-mux/mcp/MCPSetup"));
 const CmMCPPractical = lazy(() => import("./pages/claude-mux/mcp/MCPPractical"));
 const CmSubagents = lazy(() => import("./pages/claude-mux/agent-extensions/Subagents"));
 const CmCustomSkills = lazy(() => import("./pages/claude-mux/agent-extensions/CustomSkills"));
+const CmSkillsDeepDive = lazy(() => import("./pages/claude-mux/agent-extensions/SkillsDeepDive"));
 const CmGeminiCli = lazy(() => import("./pages/claude-mux/ai-coding-agents/GeminiCli"));
 const CmOpenAiCodex = lazy(() => import("./pages/claude-mux/ai-coding-agents/OpenAiCodex"));
 const CmGithubCopilot = lazy(() => import("./pages/claude-mux/ai-coding-agents/GithubCopilot"));
@@ -212,6 +215,7 @@ const CmCmuxWorktrees = lazy(() => import("./pages/claude-mux/cmux/CmuxWorktrees
 const CmTroubleshooting = lazy(() => import("./pages/claude-mux/reference/Troubleshooting"));
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-mux/reference/ClaudeCheatsheet"));
 const CmEffectiveWorkflows = lazy(() => import("./pages/claude-mux/best-practices/EffectiveWorkflows"));
+const CmVerificationAndTrust = lazy(() => import("./pages/claude-mux/best-practices/VerificationAndTrust"));
 const CmSpecDrivenDev = lazy(() => import("./pages/claude-mux/best-practices/SpecDrivenDev"));
 const CmTestingDebugging = lazy(() => import("./pages/claude-mux/best-practices/TestingDebugging"));
 const CmHooksGuide = lazy(() => import("./pages/claude-mux/hooks-advanced/HooksGuide"));
@@ -580,7 +584,9 @@ function App() {
                 <Route path="/claude-mux/claude-intro/claude-code-intro" component={CmClaudeCodeIntro} />
                 <Route path="/claude-mux/claude-intro/install-setup" component={CmInstallSetup} />
                 <Route path="/claude-mux/claude-intro/slash-commands" component={CmSlashCommands} />
+                <Route path="/claude-mux/claude-core/explore-plan-code-commit" component={CmExplorePlanCodeCommit} />
                 <Route path="/claude-mux/claude-core/context-management" component={CmContextMgmt} />
+                <Route path="/claude-mux/claude-core/permission-modes" component={CmPermissionModes} />
                 <Route path="/claude-mux/claude-core/security-permissions" component={CmSecurity} />
                 <Route path="/claude-mux/claude-core/token-optimization" component={CmTokenOpt} />
                 <Route path="/claude-mux/claude-core/extended-thinking" component={CmExtThinking} />
@@ -588,6 +594,7 @@ function App() {
                 <Route path="/claude-mux/mcp/mcp-practical" component={CmMCPPractical} />
                 <Route path="/claude-mux/agent-extensions/subagents" component={CmSubagents} />
                 <Route path="/claude-mux/agent-extensions/custom-skills" component={CmCustomSkills} />
+                <Route path="/claude-mux/agent-extensions/skills-deep-dive" component={CmSkillsDeepDive} />
                 <Route path="/claude-mux/ai-coding-agents/gemini-cli" component={CmGeminiCli} />
                 <Route path="/claude-mux/ai-coding-agents/openai-codex" component={CmOpenAiCodex} />
                 <Route path="/claude-mux/ai-coding-agents/github-copilot" component={CmGithubCopilot} />
@@ -627,6 +634,7 @@ function App() {
                 <Route path="/claude-mux/reference/troubleshooting" component={CmTroubleshooting} />
                 <Route path="/claude-mux/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
                 <Route path="/claude-mux/best-practices/effective-workflows" component={CmEffectiveWorkflows} />
+                <Route path="/claude-mux/best-practices/verification-and-trust" component={CmVerificationAndTrust} />
                 <Route path="/claude-mux/best-practices/spec-driven-dev" component={CmSpecDrivenDev} />
                 <Route path="/claude-mux/best-practices/testing-debugging" component={CmTestingDebugging} />
                 <Route path="/claude-mux/hooks-advanced/hooks-guide" component={CmHooksGuide} />
