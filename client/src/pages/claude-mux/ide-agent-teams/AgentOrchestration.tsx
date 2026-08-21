@@ -323,6 +323,36 @@ git worktree remove ../project-dashboard`} />
             </div>
           </section>
 
+          {/* セッション間メッセージング */}
+          <section>
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+              <MessageSquare className="text-[var(--claude-primary)]" />
+              独立したセッション同士のメッセージング
+            </h2>
+            <p className="leading-relaxed mb-4 text-muted-foreground">
+              Agent Teams は「Claude が生成し統括するチーム」ですが、<strong>自分でそれぞれ立ち上げた独立セッション同士</strong>もメッセージをやり取りできます。片方のセッションが加えた変更が、もう片方が作っているものを壊すとき、こちらが気づく前に Claude が警告を送れます。
+            </p>
+            <p className="leading-relaxed mb-4 text-muted-foreground">
+              Claude は <code>ListAgents</code> で到達できる相手を探し、<code>SendMessage</code> で名前を指定して送ります。ツールは Claude が呼ぶので、こちらは「相手に何を知らせたいか」を伝えるだけです。送れるのは<strong>テキストだけ</strong>で、会話履歴やファイルは渡りません。
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {[
+                { label: '発見の受け渡し', desc: '破壊的変更や決定事項を、影響を受ける側のセッションに要約して伝える。同じ説明を 2 回しなくて済む。' },
+                { label: '並列 worktree の調整', desc: '同じリポジトリを別 worktree で触っているセッションに、何がマージされたかを知らせる。' },
+                { label: '長時間処理の報告', desc: 'マイグレーションやテスト実行に、見ている側のセッションへ結果を報告させる。' },
+                { label: 'マシンをまたぐ連絡', desc: '別マシンや Web 上の自分のセッションにも届く。' },
+              ].map(item => (
+                <div key={item.label} className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                  <h4 className="font-bold text-sm text-[var(--claude-primary)] mb-2">{item.label}</h4>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <InfoBox type="info" title="似た機能との使い分け">
+              1 つの会話を別ターミナルで続けたいなら<strong>セッションの再開</strong>、Claude が生成・統括するチームなら <strong>Agent Teams</strong>、多数のセッションを 1 画面で見るなら <strong>agent view</strong>、スマホ等から自分で操作するなら <strong>Remote Control</strong>、CI 結果など外部イベントを流し込むなら <strong>channels</strong>。メッセージングは「自分で立てた独立セッション同士の連絡」に使います。要件は v2.1.224 以降（macOS / Linux、ネイティブ Windows は v2.1.234 以降）で、満たしていれば有効化の操作は不要です。
+            </InfoBox>
+          </section>
+
           {/* ベストプラクティス */}
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">

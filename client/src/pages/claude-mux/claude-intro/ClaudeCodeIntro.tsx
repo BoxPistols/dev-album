@@ -41,11 +41,11 @@ export default function ClaudeCodeIntro() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h4 className="font-bold mb-1 text-[var(--claude-primary)]">エージェントによる自律実行</h4>
-                <p className="text-xs text-muted-foreground text-justify">指示に基づき、bashコマンドやGit操作を自ら選択し実行します。必要に応じてサブエージェントを起動し並列処理を行うことも可能です。</p>
+                <p className="text-xs text-muted-foreground">指示に基づき、bashコマンドやGit操作を自ら選択し実行します。必要に応じてサブエージェントを起動し並列処理を行うことも可能です。</p>
               </div>
               <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h4 className="font-bold mb-1 text-[var(--claude-primary)]">プロジェクト横断的な理解</h4>
-                <p className="text-xs text-muted-foreground text-justify">個別のコード片だけでなく、リポジトリ全体の構造、依存関係、テスト状況を把握した上で、最適な修正や提案を行います。</p>
+                <p className="text-xs text-muted-foreground">個別のコード片だけでなく、リポジトリ全体の構造、依存関係、テスト状況を把握した上で、最適な修正や提案を行います。</p>
               </div>
             </div>
           </section>

@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-22-browser-verification",
+    date: "2026-08-22",
+    title: "新ページ: ブラウザと画面での検証",
+    description:
+      "テストが通ることと UI が意図どおり描画されることは別、という前ページの続きとして、Claude 自身に見た目を確かめさせる手段を追加した。Claude in Chrome（--chrome、コンソールと DOM を直接読む、前提となるプランと認証方式の制約）と computer use（ビルトイン MCP サーバー、macOS の research preview）を扱い、MCP → Bash → Chrome → computer use という公式の道具選択順、スクリーンショットをディスクに残して証拠にする方法、外部コンテンツを読むことによる信頼境界の注意まで含めている。",
+    category: "feature",
+    link: "/claude-mux/best-practices/browser-verification",
+  },
+  {
+    id: "2026-08-22-agent-teams-cross-session",
+    date: "2026-08-22",
+    title: "Agent Teams ページにセッション間メッセージングを追記",
+    description:
+      "自分で立ち上げた独立セッション同士がメッセージをやり取りできる機能（ListAgents / SendMessage）を追記した。送れるのはテキストのみで会話履歴やファイルは渡らないこと、発見の受け渡し・並列 worktree の調整・長時間処理の報告・マシンをまたぐ連絡という使いどころ、そしてセッション再開 / Agent Teams / agent view / Remote Control / channels との使い分けを整理している。",
+    category: "update",
+    link: "/claude-mux/ide-agent-teams/agent-orchestration",
+  },
+  {
+    id: "2026-08-22-project-rules",
+    date: "2026-08-22",
+    title: "新ページ: CLAUDE.md と .claude/rules/",
+    description:
+      "プロジェクト指示を「いつ読み込まれるか」で整理するページを追加した。常時ロードの CLAUDE.md、トピック別に分割する .claude/rules/、paths フロントマターによる条件付きロード（マッチするファイルを読んだときだけ載る）、シンボリックリンクでの複数プロジェクト共有、~/.claude/rules/ のユーザーレベルルールを扱う。glob のブレース展開の予算と [ のエスケープという実際に踏む落とし穴、そしてルールは強制ではなく Hooks / Permissions で担保するという線引きも明記した。",
+    category: "feature",
+    link: "/claude-mux/claude-core/project-rules",
+  },
+  {
     id: "2026-08-22-explore-plan-code-commit",
     date: "2026-08-22",
     title: "新ページ: 探索 → 計画 → コード → コミット",

@@ -189,6 +189,7 @@ const CmInstallSetup = lazy(() => import("./pages/claude-mux/claude-intro/Instal
 const CmSlashCommands = lazy(() => import("./pages/claude-mux/claude-intro/SlashCommands"));
 const CmExplorePlanCodeCommit = lazy(() => import("./pages/claude-mux/claude-core/ExplorePlanCodeCommit"));
 const CmContextMgmt = lazy(() => import("./pages/claude-mux/claude-core/ContextManagement"));
+const CmProjectRules = lazy(() => import("./pages/claude-mux/claude-core/ProjectRules"));
 const CmPermissionModes = lazy(() => import("./pages/claude-mux/claude-core/PermissionModes"));
 const CmSecurity = lazy(() => import("./pages/claude-mux/claude-core/SecurityPermissions"));
 const CmTokenOpt = lazy(() => import("./pages/claude-mux/claude-core/TokenOptimization"));
@@ -216,6 +217,7 @@ const CmTroubleshooting = lazy(() => import("./pages/claude-mux/reference/Troubl
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-mux/reference/ClaudeCheatsheet"));
 const CmEffectiveWorkflows = lazy(() => import("./pages/claude-mux/best-practices/EffectiveWorkflows"));
 const CmVerificationAndTrust = lazy(() => import("./pages/claude-mux/best-practices/VerificationAndTrust"));
+const CmBrowserVerification = lazy(() => import("./pages/claude-mux/best-practices/BrowserVerification"));
 const CmSpecDrivenDev = lazy(() => import("./pages/claude-mux/best-practices/SpecDrivenDev"));
 const CmTestingDebugging = lazy(() => import("./pages/claude-mux/best-practices/TestingDebugging"));
 const CmHooksGuide = lazy(() => import("./pages/claude-mux/hooks-advanced/HooksGuide"));
@@ -586,6 +588,7 @@ function App() {
                 <Route path="/claude-mux/claude-intro/slash-commands" component={CmSlashCommands} />
                 <Route path="/claude-mux/claude-core/explore-plan-code-commit" component={CmExplorePlanCodeCommit} />
                 <Route path="/claude-mux/claude-core/context-management" component={CmContextMgmt} />
+                <Route path="/claude-mux/claude-core/project-rules" component={CmProjectRules} />
                 <Route path="/claude-mux/claude-core/permission-modes" component={CmPermissionModes} />
                 <Route path="/claude-mux/claude-core/security-permissions" component={CmSecurity} />
                 <Route path="/claude-mux/claude-core/token-optimization" component={CmTokenOpt} />
@@ -635,6 +638,7 @@ function App() {
                 <Route path="/claude-mux/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
                 <Route path="/claude-mux/best-practices/effective-workflows" component={CmEffectiveWorkflows} />
                 <Route path="/claude-mux/best-practices/verification-and-trust" component={CmVerificationAndTrust} />
+                <Route path="/claude-mux/best-practices/browser-verification" component={CmBrowserVerification} />
                 <Route path="/claude-mux/best-practices/spec-driven-dev" component={CmSpecDrivenDev} />
                 <Route path="/claude-mux/best-practices/testing-debugging" component={CmTestingDebugging} />
                 <Route path="/claude-mux/hooks-advanced/hooks-guide" component={CmHooksGuide} />
