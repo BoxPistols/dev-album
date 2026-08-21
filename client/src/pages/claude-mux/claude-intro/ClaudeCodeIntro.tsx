@@ -93,7 +93,7 @@ export default function ClaudeCodeIntro() {
                   </div>
                   <div className="p-3 bg-slate-900 rounded border border-slate-800">
                     <span className="text-emerald-400">$ claude --model sonnet</span>
-                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します。エイリアス（sonnet, opus, haiku, fable）または完全名（claude-sonnet-4-6 等）が使用可能。</p>
+                    <p className="text-slate-500 mt-1"># 使用モデルを指定して起動します。エイリアス（sonnet, opus, haiku, fable）または完全名（claude-sonnet-5 等）が使用可能。</p>
                   </div>
                 </div>
               </div>
@@ -205,8 +205,8 @@ $ claude
             previewType="terminal"
             title="Claude Code の基本コマンドを書いてみよう"
             description="Claude Code CLI の主要な起動オプションを整理しましょう。対話モード、非対話モード、セッション継続、モデル指定の4つのコマンドをコメント付きで書いてください。"
-            initialCode={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude ___ "このプロジェクトの構造を説明して"  # ← ここを埋める\n\n# 3. 直前のセッションを継続\nclaude ___  # ← ここを埋める\n\n# 4. モデルを指定して起動\nclaude ___ claude-sonnet-4-6  # ← ここを埋める`}
-            answer={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude -p "このプロジェクトの構造を説明して"\n\n# 3. 直前のセッションを継続\nclaude -c\n\n# 4. モデルを指定して起動\nclaude --model claude-sonnet-4-6`}
+            initialCode={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude ___ "このプロジェクトの構造を説明して"  # ← ここを埋める\n\n# 3. 直前のセッションを継続\nclaude ___  # ← ここを埋める\n\n# 4. モデルを指定して起動\nclaude ___ claude-sonnet-5  # ← ここを埋める`}
+            answer={`# Claude Code の起動コマンドを書いてください\n\n# 1. 対話モード（REPL）を開始\nclaude\n\n# 2. 非対話モードでプロンプトを渡す\nclaude -p "このプロジェクトの構造を説明して"\n\n# 3. 直前のセッションを継続\nclaude -c\n\n# 4. モデルを指定して起動\nclaude --model claude-sonnet-5`}
             hints={[
               '対話モードは引数なしで claude を実行します',
               '非対話モードは -p フラグを使います',

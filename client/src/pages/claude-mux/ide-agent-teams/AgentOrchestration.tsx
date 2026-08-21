@@ -86,7 +86,7 @@ claude
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-lg font-bold mb-3">Split panes モード</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  各チームメイトが iTerm2 または tmux の独立ペインで動作する。複数のチームメイトの出力を同時に視認でき、大規模なチームで有用。
+                  各チームメイトが iTerm2 または tmux の独立ペインで動作する。複数のチームメイトの出力を同時に視認でき、大規模なチームで有用。<code>iterm2</code> 指定（v2.1.186 以降）には <code>it2</code> CLI のインストールと、iTerm2 の Settings → General → Magic → Enable Python API の有効化が必要。無い場合はインストールコマンド付きのエラーが表示される。
                 </p>
                 <CodeBlock language="bash" code={`# iTerm2 の split panes モードで起動（macOS）
 claude --teammate-mode iterm2

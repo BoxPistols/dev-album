@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-22-claude-code-fact-check",
+    date: "2026-08-22",
+    title: "Claude Code マニュアルを公式ドキュメントと実機 CLI で照合し、古い記述を直した",
+    description:
+      "code.claude.com/docs の現行リファレンスと実機 v2.1.239 で 12 ページを照合した。モデル完全名の例を claude-sonnet-5 に更新し、非推奨になった @modelcontextprotocol/server-github の例を現行の GitHub リモート MCP（HTTP）とファイルシステムサーバに差し替えた。SSE トランスポートが公式に非推奨である点、/agents の対話ウィザードが v2.1.198 で廃止された点、プラグイン管理コマンドが /plugin である点、Agent Teams の iterm2 モードに it2 CLI が必要な点も反映している。effort・Hooks・MCP Tool Search・Serena の各記述は現行仕様と一致することを確認した。",
+    category: "fix",
+    link: "/claude-mux/claude-intro/claude-code-intro",
+  },
+  {
     id: "2026-08-20-slack-notification-pause-restore",
     date: "2026-08-20",
     title: "Slack 通知連携に、一括作業のあいだだけ止めて戻す手順を足した",

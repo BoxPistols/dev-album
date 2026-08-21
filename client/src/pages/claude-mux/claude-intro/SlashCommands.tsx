@@ -153,7 +153,7 @@ export default function SlashCommands() {
                 { cmd: '/review [PR]', desc: 'カレントセッション内で PR をローカルレビュー。深いクラウドレビューには /ultrareview。' },
                 { cmd: '/security-review', desc: 'カレントブランチの差分を解析し、injection / 認証問題 / データ露出などのセキュリティリスクを検出。' },
                 { cmd: '/plan [description]', desc: 'プロンプトから直接プランモードに突入。説明を渡すと即そのタスクで開始（例: /plan fix the auth bug）。' },
-                { cmd: '/agents', desc: 'subagent（agent）設定を管理。' },
+                { cmd: '/agents', desc: 'subagent 設定の案内を表示。v2.1.198 で対話ウィザードは廃止され、作成・編集は .claude/agents/ の直接編集か Claude への依頼で行う。' },
                 { cmd: '/skills', desc: '利用可能な skill 一覧を表示。t キーでトークン数ソート。' },
                 { cmd: '/tasks', desc: 'バックグラウンドタスクを一覧・管理。エイリアス: /bashes。' },
                 { cmd: '/simplify [focus]', desc: 'バンドル skill。変更コードの再利用性 / 単純化 / 効率 / 抽象度を 4 つの review agent で並列分析し修正を適用。' },
