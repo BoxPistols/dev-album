@@ -4,7 +4,13 @@
 
 Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 → 日常ワークフロー → カスタマイズ → 自動化 → 検証」の段階的な学習パスに再編する。構成の設計判断は公式ラーニングパス（Claude Academy: https://academy.claude.com/ja/courses/claude-code-101 ほか）のカリキュラムを参考にし、**本文の根拠はすべて公式ドキュメント（https://code.claude.com/docs/）と実機検証で取る**。Academy の本文は転載しない（ライセンス上、再利用には個別交渉が必要。参照は各ページ末尾のフルパス URL リンクのみ）。
 
-3 段階で実施する。段階 1（事実照合）は 2026-08-22 に完了（12 ページを公式 docs + 実機 v2.1.239 で照合、修正済み）。本仕様は段階 2（欠落ページの追加）と段階 3（順序再編）を定義する。
+3 段階すべて 2026-08-22 に完了。
+
+| 段階 | 内容 | 状態 |
+|---|---|---|
+| 1 | 12 ページを公式 docs + 実機 v2.1.239 で照合し、古い記述を修正 | 完了（誤り 6 件を修正） |
+| 2 | 欠落していた 4 ページを追加 | 完了（41 → 45 ページ） |
+| 3 | 公式カリキュラム順への再編 | 完了（MCP を agent-extensions の後ろへ） |
 
 ## 入力
 
@@ -44,9 +50,11 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 - CodingChallenge は keyword 対応ヒント（1 keyword = 1 hint）
 - `navigation.ts` / `App.tsx` ルート / `navigation.test.ts` 期待値 / `announcements.ts` を同 PR で更新
 
-### 段階 3: 順序再編
+### 段階 3: 順序再編（実施済み）
 
-公式の進行（毎日使うもの順）に合わせ、claude-mux の basic パートを並び替える:
+公式の進行に合わせ、claude-mux の basic パートを並び替えた。**判断の根拠**: 公式の 2 情報源（`features-overview` の並び「CLAUDE.md → Skills → MCP → Subagents → Hooks」と、Claude Code 101 のカスタマイズ章「CLAUDE.md → サブエージェント → Skills → MCP → Hooks」）は Subagents の位置で食い違うが、**Skills が MCP より前**・**Hooks が最後**の 2 点では一致する。旧構成は MCP が Skills / Subagents より前にあり両方に反していたため、`mcp` セクションを `agent-extensions` の後ろへ移した。
+
+再編後の basic パート:
 
 1. getting-started（現状維持）
 2. claude-intro: 概要 → インストール → スラッシュコマンド（現状維持）
@@ -55,10 +63,10 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 5. mcp（CLAUDE.md → subagents → skills → MCP → hooks の公式順に合わせ、agent-extensions の後ろへ移動）
 6. 以降（ai-coding-agents / cmux / reference / advanced パート）は現状維持。best-practices に **verification-and-trust（新）** を追加
 
-制約:
+制約（すべて遵守済み）:
 - 既存 URL は変えない（step 番号と表示順のみ変更）。ページの物理移動はしない
-- `navigation.test.ts` の期待値（総ページ数 / claude-mux ページ数）を同 PR で更新
-- 並び替えと新規追加は別 PR に分ける（レビュー可能な粒度）
+- `navigation.test.ts` の期待値（総ページ数 337 / claude-mux 45）を同 PR で更新
+- 並び替えと新規追加はコミットを分ける（レビュー可能な粒度）
 
 ## エッジケース
 
