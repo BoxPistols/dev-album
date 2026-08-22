@@ -39,7 +39,7 @@ tools:
 
 ## 参照
 
-- https://docs.anthropic.com/en/docs/claude-code/
+- https://code.claude.com/docs/
 - https://react.dev/
 - https://storybook.js.org/docs
 - `CLAUDE.md` — プロジェクト仕様
