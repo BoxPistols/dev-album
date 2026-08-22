@@ -202,13 +202,36 @@ export default function Navigation() {
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
+      {/* ワイドモード中の復帰コントロール: サイドバーが引っ込みツールバーに手が届かないので常設する */}
+      {layoutMode === 'wide' && (
+        <div className="hidden md:flex fixed bottom-16 left-6 z-50 items-center gap-1 p-1 rounded-full border border-border bg-card/85 backdrop-blur-md shadow-sm">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
+            title={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
+            className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            {isOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+          <button
+            onClick={toggleLayout}
+            aria-label="通常表示に戻す"
+            title="通常表示に戻す"
+            className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            <Columns2 size={16} />
+          </button>
+        </div>
+      )}
+
       {/* サイドバー */}
       {/* 共有 TooltipProvider: 初回は 2 秒のウォームアップ、直近 1.5 秒以内の連続ホバーは遅延なしで表示 */}
       <TooltipProvider delayDuration={2000} skipDelayDuration={1500}>
       <nav
-        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar glass-sidebar border-r border-sidebar-border overflow-y-auto transition-transform duration-300 z-40 md:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar glass-sidebar border-r border-sidebar-border overflow-y-auto transition-transform duration-300 z-40 ${
+          layoutMode === 'normal' ? 'md:translate-x-0 ' : ''
+        }${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="p-6">
           {/* ロゴ */}
@@ -241,7 +264,7 @@ export default function Navigation() {
             <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={theme === 'dark' ? 'ライトモード' : 'ダークモード'}>
               {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
             </button>
-            <button onClick={toggleLayout} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={layoutMode === 'normal' ? 'ワイドモード' : '通常モード'}>
+            <button onClick={toggleLayout} aria-pressed={layoutMode === 'wide'} aria-label={layoutMode === 'normal' ? 'ワイド表示にする（サイドバーを隠す）' : '通常表示に戻す'} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={layoutMode === 'normal' ? 'ワイド表示（サイドバーを隠す）' : '通常表示に戻す'}>
               {layoutMode === 'normal' ? <Maximize size={15} /> : <Columns2 size={15} />}
             </button>
             <button onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="設定">
@@ -485,9 +508,12 @@ export default function Navigation() {
       </nav>
       </TooltipProvider>
 
-      {/* モバイルオーバーレイ */}
+      {/* サイドバーを重ねて開いている間の背景。ワイドモードでは md 以上でも重なるので出す */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 z-30 md:hidden" onClick={() => setIsOpen(false)} />
+        <div
+          className={`fixed inset-0 bg-black/20 z-30 ${layoutMode === 'wide' ? '' : 'md:hidden'}`}
+          onClick={() => setIsOpen(false)}
+        />
       )}
     </>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { ChevronLeft, ChevronRight, HelpCircle, Settings, Bookmark } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLayout } from '@/contexts/LayoutContext';
 import {
   getNextPage,
   getPreviousPage,
@@ -15,6 +16,7 @@ export default function KeyboardNav() {
   const [showToast, setShowToast] = useState<string | null>(null);
   const [isMac, setIsMac] = useState(() => getIsMac());
   const { toggleTheme } = useTheme();
+  const { layoutMode } = useLayout();
 
   const currentPage = getPageByPath(location);
   const prevPage = getPreviousPage(location);
@@ -92,7 +94,8 @@ export default function KeyboardNav() {
 
       {/* 画面下部ショートカットバー */}
       {/* bg-card/80 だと下のコンテンツ次第で文字コントラストが AA を割るため 95% に */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 hidden md:flex items-center justify-center gap-1 py-2 px-4 bg-card/95 backdrop-blur-sm border-t border-border md:ml-64">
+      {/* ワイドモードではサイドバーが引っ込むので、本文と同じく左マージンを外す */}
+      <div className={`fixed bottom-0 left-0 right-0 z-30 hidden md:flex items-center justify-center gap-1 py-2 px-4 bg-card/95 backdrop-blur-sm border-t border-border ${layoutMode === 'wide' ? '' : 'md:ml-64'}`}>
         {/* 前へ */}
         <button
           onClick={() => prevPage && navigate(prevPage.path, `← ${prevPage.title}`)}

@@ -399,7 +399,8 @@ function MainContent({ children }: { children: ReactNode }) {
   useAutoHeadingIds();
   useManualTheme();
   return (
-    <main className={`flex-1 md:ml-64 w-full ${layoutMode === 'wide' ? 'layout-wide' : ''}`}>
+    // ワイドモードではサイドバーが引っ込むので、その分の左マージンも外す
+    <main className={`flex-1 min-w-0 ${layoutMode === 'wide' ? 'layout-wide' : 'md:ml-64'}`}>
       <Suspense fallback={<Loading />}>{children}</Suspense>
     </main>
   );

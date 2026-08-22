@@ -633,8 +633,16 @@ html.font-large {
 }
 
 /* ワイドレイアウトモード: @layer 外で詳細度を確保し Tailwind ユーティリティを上書き */
+/* 本文用の 4xl だけでなく、TOP やマニュアル入口で使う 5xl / 6xl も広げる
+   （4xl しか広がらないと TOP でボタンを押しても何も変わらなかった） */
 .layout-wide .max-w-4xl {
   max-width: 80rem;
+}
+.layout-wide .max-w-5xl {
+  max-width: 88rem;
+}
+.layout-wide .max-w-6xl {
+  max-width: 96rem;
 }
 
 /* 検索ハイライト: 該当見出しを一時的に強調 */
