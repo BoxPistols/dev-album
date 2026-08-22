@@ -32,7 +32,7 @@ function StreakDisplay({
           {currentStreak > 0 ? `${currentStreak}日連続` : "ストリークなし"}
         </span>
         {isActiveToday && (
-          <span className="text-[12px] px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 font-semibold">
+          <span className="text-[12px] px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 font-semibold">
             今日アクティブ
           </span>
         )}

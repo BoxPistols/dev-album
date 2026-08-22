@@ -153,7 +153,7 @@ docs(Input): error prop の使用例を追加`}
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-xs">2</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-xs">2</span>
                   <div>
                     <p className="font-semibold text-foreground">移行ガイドを用意する</p>
                     <p>変更内容、影響範囲、修正方法を具体的に文書化する。コード例を含める。</p>
@@ -350,7 +350,7 @@ pnpm add react@latest react-dom@latest
                   <p>PR で Storybook のビルドチェックを行い、ビルドエラーのある Story を検知する</p>
                 </div>
                 <div className="flex gap-3 items-start">
-                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-700 font-mono text-xs">ルール</span>
+                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-800 font-mono text-xs">ルール</span>
                   <p>「新しいコンポーネント = Story も必須」というレビュー基準を設ける</p>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -675,7 +675,7 @@ function ProductList({ products, filter }: Props) {
             <div className="rounded-lg border border-border p-5">
               <div className="space-y-4 text-sm text-foreground/80">
                 <div className="flex gap-3 items-start">
-                  <span className="flex-shrink-0 px-3 py-1 rounded bg-green-100 text-green-700 font-bold text-xs">LCP</span>
+                  <span className="flex-shrink-0 px-3 py-1 rounded bg-green-100 text-green-800 font-bold text-xs">LCP</span>
                   <div>
                     <p className="font-semibold text-foreground">Largest Contentful Paint（最大コンテンツの表示）</p>
                     <p>ページの主要コンテンツが表示されるまでの時間。目標: 2.5秒以内。</p>
@@ -775,7 +775,7 @@ onCLS(console.log);   // CLS の計測結果`}
                   <p>React Tokyo、Next.js meetup、Figma Japan Community、Qiita / Zenn での記事執筆</p>
                 </div>
                 <div className="flex gap-3 items-start">
-                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-700 font-mono text-xs">海外</span>
+                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-800 font-mono text-xs">海外</span>
                   <p>React Conf、Next.js Conf、X (Twitter) のエンジニアコミュニティ、Discord サーバー</p>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -849,7 +849,7 @@ onCLS(console.log);   // CLS の計測結果`}
 
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-sm">2</span>
+                  <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-sm">2</span>
                   <h3 className="font-bold text-foreground">第2部: Next.js（Step 31-46）</h3>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed mb-3">

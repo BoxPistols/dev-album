@@ -213,7 +213,7 @@ systemBlue              #007AFF      #0A84FF      アクション/リンク`}
             {/* 2b: スペーシング */}
             <div className="rounded-lg border border-border p-5 mb-6">
               <div className="flex items-center gap-3 mb-3">
-                <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 flex items-center justify-center font-bold text-xs">
+                <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 flex items-center justify-center font-bold text-xs">
                   b
                 </span>
                 <h3 className="font-bold text-foreground">スペーシング</h3>
@@ -778,7 +778,7 @@ Dark                          .dark { ... }`}
 
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 flex items-center justify-center font-bold text-xs">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 flex items-center justify-center font-bold text-xs">
                     #4
                   </span>
                   <h3 className="font-bold text-foreground">一貫性と標準</h3>

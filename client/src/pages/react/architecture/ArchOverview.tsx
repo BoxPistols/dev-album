@@ -49,7 +49,7 @@ export default function ArchOverview() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-xs">2</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-xs">2</span>
                   <div>
                     <p className="font-semibold text-foreground">チームの生産性</p>
                     <p>統一されたルールがあれば、新しいメンバーが加わっても「どこに何を置くか」で迷いません。コードレビューも効率的になります。</p>
@@ -434,7 +434,7 @@ function SearchBar() {
                   <p>モーダルの開閉、タブの選択、入力フォームの値 → <strong>useState / useReducer</strong></p>
                 </div>
                 <div className="flex gap-3 items-start">
-                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-700 font-mono text-xs">App state</span>
+                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-800 font-mono text-xs">App state</span>
                   <p>ログインユーザー、テーマ、言語設定 → <strong>Context / Zustand / Jotai</strong></p>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -740,7 +740,7 @@ export function ProductFilter() {
                   <p><strong>Server Component で直接 fetch</strong> → 最も推奨。API キーをクライアントに露出しない。初期表示が速い。</p>
                 </div>
                 <div className="flex gap-3 items-start">
-                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-700 font-mono text-xs">SA</span>
+                  <span className="flex-shrink-0 px-2 py-0.5 rounded bg-green-100 text-green-800 font-mono text-xs">SA</span>
                   <p><strong>Server Actions でデータ変更</strong> → フォーム送信やデータ更新に最適。'use server' で定義。</p>
                 </div>
                 <div className="flex gap-3 items-start">

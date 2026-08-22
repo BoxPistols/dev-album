@@ -257,7 +257,7 @@ export default function Home() {
             {/* キーボードショートカット */}
             <div className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-400">
                   <Keyboard className="w-5 h-5" />
                 </div>
                 <h3 className="font-semibold text-foreground text-base">キーボードショートカット</h3>
@@ -287,7 +287,7 @@ export default function Home() {
             {/* キーワード検索 */}
             <div className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">
                   <Search className="w-5 h-5" />
                 </div>
                 <h3 className="font-semibold text-foreground text-base">キーワード検索</h3>

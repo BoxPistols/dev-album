@@ -40,7 +40,7 @@ export default function SbFigma() {
 
             <div className="grid gap-4 md:grid-cols-3 mb-6">
               <div className="rounded-lg border border-border p-5">
-                <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm mb-3">1</div>
+                <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold text-sm mb-3">1</div>
                 <h3 className="font-bold text-foreground mb-2">デザイン埋め込み</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
                   Storybook のパネルに Figma のフレームを表示。
@@ -56,7 +56,7 @@ export default function SbFigma() {
                 </p>
               </div>
               <div className="rounded-lg border border-border p-5">
-                <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-sm mb-3">3</div>
+                <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-sm mb-3">3</div>
                 <h3 className="font-bold text-foreground mb-2">ビジュアルテスト</h3>
                 <p className="text-sm text-foreground/80 leading-relaxed">
                   Chromatic で UI のスナップショットを撮影し、
@@ -666,7 +666,7 @@ jobs:
                 '全ての変更が Accept されたら PR をマージ',
               ].map((step, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center text-xs font-bold">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center text-xs font-bold">
                     {i + 1}
                   </span>
                   <p className="text-sm text-foreground/80">{step}</p>
@@ -1151,7 +1151,7 @@ jobs:
             <div className="space-y-4">
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">1</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold text-sm">1</span>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">まず: Storybook を公開する</h3>
                     <p className="text-sm text-foreground/80 leading-relaxed">
@@ -1175,7 +1175,7 @@ jobs:
               </div>
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-sm">3</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-sm">3</span>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">さらに: Chromatic でビジュアルテスト</h3>
                     <p className="text-sm text-foreground/80 leading-relaxed">

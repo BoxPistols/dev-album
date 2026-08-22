@@ -18,7 +18,7 @@ export default function WSL2SSH() {
         <div className="text-sm font-medium text-muted-foreground mb-4">STEP 18 / 40</div>
 
         <div className="mt-8 mb-12">
-          <div className="inline-block px-4 py-2 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 rounded-full text-sm font-medium mb-6">
+          <div className="inline-block px-4 py-2 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 rounded-full text-sm font-medium mb-6">
             Windows ユーザー向け
           </div>
 

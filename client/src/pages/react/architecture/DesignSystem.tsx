@@ -52,7 +52,7 @@ export default function DesignSystem() {
 
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-xs">2</span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-xs">2</span>
                   <h3 className="font-bold text-foreground">デザイントークン + コンポーネント</h3>
                 </div>
                 <p className="text-sm text-foreground/80">
@@ -696,7 +696,7 @@ function LoginForm() {
                 </div>
               </div>
               <div className="flex gap-3 items-start rounded-lg border border-border p-4">
-                <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-xs">2</span>
+                <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-xs">2</span>
                 <div>
                   <p className="font-semibold text-foreground">Input</p>
                   <p className="text-sm text-foreground/80">フォームの基盤。label / error / disabled を内蔵し、アクセシビリティ（aria属性）を正しく設定します。</p>

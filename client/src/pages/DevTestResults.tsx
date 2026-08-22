@@ -108,7 +108,7 @@ function PassBadge({ pass }: { pass: boolean }) {
     <span
       className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${
         pass
-          ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+          ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
           : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
       }`}
     >

@@ -823,7 +823,7 @@ try {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">人気No.1</span>
-                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">豊富なドキュメント</span>
+                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-2 py-0.5 rounded">豊富なドキュメント</span>
                 </div>
               </div>
 
@@ -835,7 +835,7 @@ try {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">柔軟な API</span>
-                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">css prop</span>
+                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-2 py-0.5 rounded">css prop</span>
                 </div>
               </div>
             </div>
@@ -855,7 +855,7 @@ try {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded">ゼロランタイム</span>
-                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">型安全</span>
+                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-2 py-0.5 rounded">型安全</span>
                 </div>
               </div>
 

@@ -258,7 +258,7 @@ function App() {
       </CardHeader>
       <CardContent className="flex flex-wrap gap-2">
         <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">React</span>
-        <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-950 dark:text-green-300">Tailwind</span>
+        <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-950 dark:text-green-300">Tailwind</span>
         <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-950 dark:text-purple-300">TypeScript</span>
       </CardContent>
       <CardFooter className="justify-between">

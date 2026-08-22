@@ -58,13 +58,13 @@ export default function DesignCodeSync() {
             <div className="grid gap-4 md:grid-cols-2 mb-6">
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
                     F
                   </div>
                   <span className="text-lg font-bold text-foreground">
                     &#8594;
                   </span>
-                  <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-sm">
                     C
                   </div>
                 </div>
@@ -94,13 +94,13 @@ export default function DesignCodeSync() {
 
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-sm">
                     C
                   </div>
                   <span className="text-lg font-bold text-foreground">
                     &#8594;
                   </span>
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
                     F
                   </div>
                 </div>
@@ -176,7 +176,7 @@ export default function DesignCodeSync() {
                   tokens.json (GitHub)
                 </div>
                 <span className="text-muted-foreground font-bold">&#8594;</span>
-                <div className="px-3 py-2 rounded-lg bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 font-medium">
+                <div className="px-3 py-2 rounded-lg bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 font-medium">
                   Style Dictionary
                 </div>
                 <span className="text-muted-foreground font-bold">&#8594;</span>
@@ -602,7 +602,7 @@ jobs:
               </h3>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                     1
                   </div>
                   <div>
@@ -616,7 +616,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                     2
                   </div>
                   <div>
@@ -630,7 +630,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                     3
                   </div>
                   <div>
@@ -644,7 +644,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                     4
                   </div>
                   <div>

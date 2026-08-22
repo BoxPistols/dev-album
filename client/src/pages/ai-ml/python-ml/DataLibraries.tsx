@@ -43,7 +43,7 @@ export default function DataLibraries() {
             <div className="space-y-4">
               <div className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
                 <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold text-lg">N</span>
+                  <span className="text-blue-700 dark:text-blue-300 font-bold text-lg">N</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1">NumPy -- 数値計算の基盤</h4>
@@ -64,7 +64,7 @@ export default function DataLibraries() {
 
               <div className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
                 <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">P</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-bold text-lg">P</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1">Pandas -- データ操作</h4>
@@ -85,7 +85,7 @@ export default function DataLibraries() {
 
               <div className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
                 <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-orange-600 dark:text-orange-400 font-bold text-lg">M</span>
+                  <span className="text-orange-700 dark:text-orange-400 font-bold text-lg">M</span>
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1">Matplotlib -- 可視化</h4>

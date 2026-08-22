@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync, statSync } from "fs";
 import { join } from "path";
+import { TAILWIND_PALETTE_RGB } from "./tailwind-palette";
 
 // ============================================================
 // カラートークンのコントラスト検査
@@ -348,6 +349,125 @@ describe("カラートークンのコントラスト", () => {
 });
 
 // ============================================================
+// ============================================================
+// Tailwind パレット色どうしの組
+//
+// 上の検査はテーマトークン（--primary 等）の組だけを見る。
+// text-orange-600 × bg-orange-100 のような素のパレット色はトークンではないので、
+// これまでどの検査にも掛かっていなかった。story が無ければ pnpm test:storybook にも、
+// 代表ページの抜き取りである axe にも入らない。実際に 3.12:1 の頭文字バッジが
+// 残っていた（client/src/pages/ai-ml/python-ml/DataLibraries.tsx）。
+//
+// パレットの値は theme.css の oklch で、jsdom は oklch を解決できない。
+// 変換式をここに書くとブラウザが実際に描く色とずれても気づけないので、
+// Chromium で描画して読み取った値（scripts/measure-palette.mjs の生成物）を使う。
+// ============================================================
+
+const PALETTE_TEXT =
+  /(?<![\w:-])text-([a-z]+-\d+)(?:\/(\d+))?(?![\w-])/g;
+const PALETTE_BG = /(?<![\w:-])bg-([a-z]+-\d+)(?:\/(\d+))?(?![\w-])/g;
+const DARK_PALETTE_TEXT =
+  /(?<![\w-])dark:text-([a-z]+-\d+)(?:\/(\d+))?(?![\w-])/g;
+const DARK_PALETTE_BG = /(?<![\w-])dark:bg-([a-z]+-\d+)(?:\/(\d+))?(?![\w-])/g;
+
+type PalettePair = {
+  text: string;
+  textAlpha: number;
+  bg: string;
+  bgAlpha: number;
+  dark: boolean;
+  file: string;
+};
+
+/**
+ * プレビュー用のコード例（CodingChallenge の initialCode 等）を落とす。
+ * 教材のコード例はプレビュー iframe の中で、その iframe の地の上に描かれる。
+ * アプリのテーマトークンの上には乗らないので、ここで一緒に評価すると
+ * 実在しない不合格が出る（無効化されたボタンのように WCAG 1.4.3 の対象外のものもある）。
+ * JSX のタグを含むテンプレートリテラルをコード例とみなす。className={`...`} は
+ * タグを含まないので残る。
+ */
+function stripCodeSamples(src: string): string {
+  return src.replace(/`[^`]*`/g, (lit) =>
+    /<(?:div|span|button|form|input|p|h[1-6]|section|ul|li|table|a)[\s>]/.test(
+      lit,
+    )
+      ? " "
+      : lit,
+  );
+}
+
+const palettePairs = new Map<string, PalettePair>();
+for (const file of getAllTsxFiles(SRC_DIR)) {
+  const src = stripCodeSamples(readFileSync(file, "utf8"));
+  for (const attr of src.matchAll(
+    /className=(?:"([^"]*)"|\{`([^`]*)`\}|\{"([^"]*)"\})/g,
+  )) {
+    for (const group of classGroups(attr[1] ?? attr[2] ?? attr[3] ?? "")) {
+      for (const [dark, textRe, bgRe] of [
+        [false, PALETTE_TEXT, PALETTE_BG],
+        [true, DARK_PALETTE_TEXT, DARK_PALETTE_BG],
+      ] as const) {
+        // dark: 付きは素のクラスにも一致するので、素側では dark: を落としてから読む
+        const scope = dark
+          ? group
+          : group.replace(/(?:dark|hover|focus|group-hover):[\w/-]+/g, " ");
+        const texts = [...scope.matchAll(textRe)];
+        const bgs = [...scope.matchAll(bgRe)];
+        for (const t of texts) {
+          for (const b of bgs) {
+            if (!TAILWIND_PALETTE_RGB[t[1]] || !TAILWIND_PALETTE_RGB[b[1]])
+              continue;
+            const key = `${dark}|${t[0]}|${b[0]}`;
+            if (!palettePairs.has(key))
+              palettePairs.set(key, {
+                text: t[1],
+                textAlpha: t[2] ? Number(t[2]) / 100 : 1,
+                bg: b[1],
+                bgAlpha: b[2] ? Number(b[2]) / 100 : 1,
+                dark,
+                file,
+              });
+          }
+        }
+      }
+    }
+  }
+}
+
+describe("Tailwind パレット色どうしのコントラスト", () => {
+  // 不透明な文字 × 不透明な面だけを機械判定にする。
+  // 半透明が絡む組（bg-cyan-400/10 等）は「その要素がどの地に載るか」で答えが変わり、
+  // 静的には決められない。実際 react/Home.tsx の hero は暗い地に載るので、
+  // card を仮定すると 1.14:1 という誤った不合格が出る。
+  // 決定的に取れるものだけを機械で取り、残りは axe の実描画と目視に回す。
+  const opaque = [...palettePairs.values()].filter(
+    (p) => p.textAlpha === 1 && p.bgAlpha === 1,
+  );
+
+  it("不透明どうしの組が AA 4.5:1 を満たす", () => {
+    const failures: string[] = [];
+    for (const pair of opaque) {
+      // 両方不透明なので下地に依らず値が決まる
+      const ratio = contrast(
+        TAILWIND_PALETTE_RGB[pair.text],
+        TAILWIND_PALETTE_RGB[pair.bg],
+      );
+      if (ratio < AA_MIN) {
+        const prefix = pair.dark ? "dark:" : "";
+        failures.push(
+          `${ratio.toFixed(2)}:1  ${prefix}text-${pair.text} × ${prefix}bg-${pair.bg}  例: ${pair.file.replace(/.*client\//, "client/")}`,
+        );
+      }
+    }
+    expect(failures, `AA 未達:\n${failures.join("\n")}`).toEqual([]);
+  });
+
+  it("パレットの組を実際に拾えている（0 件は走査の事故）", () => {
+    expect(opaque.length).toBeGreaterThan(0);
+  });
+});
+
 // ManualGlyph のバッジ地色
 //
 // このバッジだけはトークンではなく navigation.ts のブランド色をインラインで敷く
