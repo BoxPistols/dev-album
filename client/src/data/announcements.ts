@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-multi-ai-coexistence-sources",
+    date: "2026-08-23",
+    title: "マルチ AI ツールの共存戦略: 出典未確認だった 4 点を一次情報で確認・修正",
+    description:
+      "Gemini CLI（.gemini/settings.json）と Gemini Code Assist on GitHub（.gemini/config.yaml）を別製品として書き分けた。Cursor のスキル置き場 .cursor/skills/ と、互換で .claude/skills/ も読む挙動を公式ドキュメントで確認した。/deep-research は Claude Code にバンドルされたワークフローであることを確認した。公開仕様の無い .agents/rules/ は本文から外し、共通ルールの正本は AGENTS.md と .claude/rules/ に改めた。根拠はページ末尾の出典欄から辿れる。",
+    category: "fix",
+    link: "/claude-code/multi-ai/multi-ai-coexistence",
+  },
+  {
     id: "2026-08-23-claude-code-url-and-progress-migration",
     date: "2026-08-23",
     title: "Claude Code マニュアルの URL 変更と学習記録の引き継ぎ",
