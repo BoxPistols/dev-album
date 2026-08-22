@@ -59,11 +59,11 @@ export default function MCPSetup() {
             </p>
             <CodeBlock
               code={`# stdioサーバ（ローカルプロセス）を追加
-$ claude mcp add --transport stdio github-server \\
-    -- npx -y @modelcontextprotocol/server-github
+$ claude mcp add --transport stdio fs-server \\
+    -- npx -y @modelcontextprotocol/server-filesystem ~/projects
 
-# HTTPサーバ（リモート）を追加
-$ claude mcp add --transport http my-server https://example.com/mcp
+# HTTPサーバ（リモート）を追加。GitHub 公式は HTTP リモート型
+$ claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
 # JSON形式で追加
 $ claude mcp add-json my-server '{"type":"stdio","command":"npx","args":["-y","@mcp/server"]}'
@@ -100,7 +100,7 @@ $ claude mcp add --env API_KEY=YOUR_KEY --transport stdio my-server \\
               ))}
             </div>
             <CodeBlock code={`# projectスコープで追加（チーム共有）
-$ claude mcp add -s project github-server -- npx -y @mcp/server-github
+$ claude mcp add -s project fs-server -- npx -y @modelcontextprotocol/server-filesystem .
 
 # userスコープで追加（全プロジェクト共通）
 $ claude mcp add -s user my-tool -- npx -y @mcp/my-tool`} language="bash" />
@@ -183,7 +183,7 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
               トランスポートプロトコル
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              主な通信方式は stdio と HTTP の2種類です（他に SSE / WebSocket にも対応）。サーバの種類に応じて使い分けます。
+              主な通信方式は stdio と HTTP の2種類です。SSE トランスポートは公式に非推奨（deprecated）で、SSE エンドポイントしか無いサーバに限り <code>--transport sse</code> を使います。サーバの種類に応じて使い分けます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -252,9 +252,9 @@ $ MAX_MCP_OUTPUT_TOKENS=50000 claude`} language="bash" />
           preview
           previewType="config"
           title="MCP サーバの設定 JSON を書いてみよう"
-          description="プロジェクトの .mcp.json ファイルに GitHub と Figma の MCP サーバを設定する JSON を書いてください。"
-          initialCode={`{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "type": "___",  // ← ここを埋める（通信方式）\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "___",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
-          answer={`{\n  "mcpServers": {\n    "github": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"]\n    },\n    "figma": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
+          description="プロジェクトの .mcp.json ファイルにファイルシステムと Figma の MCP サーバを設定する JSON を書いてください。"
+          initialCode={`{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "filesystem": {\n      "type": "___",  // ← ここを埋める（通信方式）\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]\n    },\n    "figma": {\n      "type": "___",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
+          answer={`{\n  "mcpServers": {\n    "filesystem": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]\n    },\n    "figma": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "figma-developer-mcp"]\n    }\n  }\n}`}
           keywords={['mcpServers', 'stdio']}
           hints={[
             'MCPサーバは "type", "command", "args" の3プロパティで構成されます',

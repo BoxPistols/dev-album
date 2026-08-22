@@ -67,9 +67,9 @@ export default function PluginsEcosystem() {
               <div>
                 <h3 className="text-xl font-bold mb-3">CLI からインストール</h3>
                 <p className="leading-relaxed mb-4 text-muted-foreground">
-                  Claude Code のセッション中に <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/plugins</code> コマンドを実行すると、プラグイン管理インターフェースが開く。
+                  Claude Code のセッション中に <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/plugin</code> コマンドを実行すると、プラグイン管理インターフェースが開く。
                 </p>
-                <CodeBlock language="bash" code={`/plugins
+                <CodeBlock language="bash" code={`/plugin
 # → "Manage plugins" インターフェースが開く
 # → "Plugins" タブ: インストール済みプラグインの管理
 # → "Marketplaces" タブ: 公開プラグインの検索・インストール
@@ -147,7 +147,7 @@ export default function PluginsEcosystem() {
               プラグインの発見
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/plugins</code> の Marketplaces タブ、または VS Code 拡張のプラグイン管理画面から公開プラグインを検索・インストールできる。
+              <code className="text-sm bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">/plugin</code> の Marketplaces タブ、または VS Code 拡張のプラグイン管理画面から公開プラグインを検索・インストールできる。
             </p>
 
             <div className="space-y-4">
@@ -281,13 +281,11 @@ $ARGUMENTS
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_TOKEN": "ghp_..."
-      }
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
     },
     "filesystem": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]
     }
@@ -391,12 +389,12 @@ description: 現在のブランチの差分をレビューする
             previewType="config"
             title="プラグインのディレクトリ構成と MCP 設定を書こう"
             description="プラグインの plugin.json とスキル定義の作成、および MCP サーバーの設定を書いてください。"
-            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     ___.json     // ← ここを埋める（マニフェストファイル名）\n//   ___/review/    // ← ここを埋める（スキルフォルダ名）\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    }\n  }\n}`}
-            answer={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     plugin.json  - name, version, description\n//   skills/review/\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n//   hooks/\n//     hooks.json     - Hook 設定\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "mcpServers": {\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {\n        "GITHUB_TOKEN": "ghp_..."\n      }\n    },\n    "filesystem": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]\n    }\n  }\n}`}
+            initialCode={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     ___.json     // ← ここを埋める（マニフェストファイル名）\n//   ___/review/    // ← ここを埋める（スキルフォルダ名）\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "___": {  // ← ここを埋める（MCP設定キー）\n    "github": {\n      "type": "http",\n      "url": "https://api.githubcopilot.com/mcp/"\n    }\n  }\n}`}
+            answer={`// プラグインのディレクトリ構成\n// my-plugin/\n//   .claude-plugin/\n//     plugin.json  - name, version, description\n//   skills/review/\n//     SKILL.md       - レビュースキル定義\n//   agents/\n//     reviewer.md    - サブエージェント定義\n//   hooks/\n//     hooks.json     - Hook 設定\n\n// MCP サーバーの設定\n// .mcp.json\n{\n  "mcpServers": {\n    "github": {\n      "type": "http",\n      "url": "https://api.githubcopilot.com/mcp/"\n    },\n    "filesystem": {\n      "type": "stdio",\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]\n    }\n  }\n}`}
             hints={[
               'マニフェストは .claude-plugin/plugin.json で、名前・バージョン・説明を記述します',
               'skills/ ディレクトリ内のサブディレクトリに SKILL.md を配置するとスラッシュコマンドになります',
-              'MCP サーバーは .mcp.json の mcpServers キーに command と args を指定します',
+              'MCP サーバーは .mcp.json の mcpServers キーに登録します（HTTP は type と url、stdio は command と args）',
             ]}
             keywords={['plugin.json', 'skills', 'mcpServers']}
           />

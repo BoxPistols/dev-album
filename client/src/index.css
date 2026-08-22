@@ -435,12 +435,6 @@
   body {
     word-break: auto-phrase;
   }
-  /* 本文プロースは両端揃えで行末の凸凹を整える。対象は本文コンテナ（main）配下に
-     限定し、サイドバー（nav）のタイトルや進捗表示には効かせない。:where() で
-     詳細度を上げず、単一行・nowrap 要素は最終行が左揃えのままで影響しない。 */
-  main :where(p, li, dd, td, blockquote) {
-    text-align: justify;
-  }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
     @apply font-bold tracking-tight;

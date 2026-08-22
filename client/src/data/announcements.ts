@@ -20,6 +20,78 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-22-browser-verification",
+    date: "2026-08-22",
+    title: "新ページ: ブラウザと画面での検証",
+    description:
+      "テストが通ることと UI が意図どおり描画されることは別、という前ページの続きとして、Claude 自身に見た目を確かめさせる手段を追加した。Claude in Chrome（--chrome、コンソールと DOM を直接読む、前提となるプランと認証方式の制約）と computer use（ビルトイン MCP サーバー、macOS の research preview）を扱い、MCP → Bash → Chrome → computer use という公式の道具選択順、スクリーンショットをディスクに残して証拠にする方法、外部コンテンツを読むことによる信頼境界の注意まで含めている。",
+    category: "feature",
+    link: "/claude-mux/best-practices/browser-verification",
+  },
+  {
+    id: "2026-08-22-agent-teams-cross-session",
+    date: "2026-08-22",
+    title: "Agent Teams ページにセッション間メッセージングを追記",
+    description:
+      "自分で立ち上げた独立セッション同士がメッセージをやり取りできる機能（ListAgents / SendMessage）を追記した。送れるのはテキストのみで会話履歴やファイルは渡らないこと、発見の受け渡し・並列 worktree の調整・長時間処理の報告・マシンをまたぐ連絡という使いどころ、そしてセッション再開 / Agent Teams / agent view / Remote Control / channels との使い分けを整理している。",
+    category: "update",
+    link: "/claude-mux/ide-agent-teams/agent-orchestration",
+  },
+  {
+    id: "2026-08-22-project-rules",
+    date: "2026-08-22",
+    title: "新ページ: CLAUDE.md と .claude/rules/",
+    description:
+      "プロジェクト指示を「いつ読み込まれるか」で整理するページを追加した。常時ロードの CLAUDE.md、トピック別に分割する .claude/rules/、paths フロントマターによる条件付きロード（マッチするファイルを読んだときだけ載る）、シンボリックリンクでの複数プロジェクト共有、~/.claude/rules/ のユーザーレベルルールを扱う。glob のブレース展開の予算と [ のエスケープという実際に踏む落とし穴、そしてルールは強制ではなく Hooks / Permissions で担保するという線引きも明記した。",
+    category: "feature",
+    link: "/claude-mux/claude-core/project-rules",
+  },
+  {
+    id: "2026-08-22-explore-plan-code-commit",
+    date: "2026-08-22",
+    title: "新ページ: 探索 → 計画 → コード → コミット",
+    description:
+      "公式が推奨する日常ワークフローの基本形を、Claude Code コア機能の最初のページとして追加した。プランモードへの入り方（Shift+Tab / --permission-mode plan / /plan プレフィックス）、計画承認時の 3 つの選択肢、Ctrl+G での計画直接編集、検証手段をセットで渡す実装指示、計画フェーズを飛ばしてよい判断基準までを一通り体験できる。",
+    category: "feature",
+    link: "/claude-mux/claude-core/explore-plan-code-commit",
+  },
+  {
+    id: "2026-08-22-permission-modes",
+    date: "2026-08-22",
+    title: "新ページ: パーミッションモード",
+    description:
+      "default / acceptEdits / plan / auto / dontAsk / bypassPermissions の 6 モードを「何が確認なしで実行されるか」の軸で整理した。Shift+Tab の循環順、auto モードの分類器の仕組みと利用条件、settings.json の permissions ルール（allow / ask / deny）との重なり方を扱う。",
+    category: "feature",
+    link: "/claude-mux/claude-core/permission-modes",
+  },
+  {
+    id: "2026-08-22-skills-deep-dive",
+    date: "2026-08-22",
+    title: "新ページ: Skills 深掘り",
+    description:
+      "スキルの置き場所と同名解決の優先順位、呼び出し 2 経路の制御（disable-model-invocation / user-invocable）、$ARGUMENTS による引数、複数ファイル構成、context: fork でのサブエージェント実行、他の拡張機能との使い分け、トラブルシューティングまでを 1 ページにまとめた。",
+    category: "feature",
+    link: "/claude-mux/agent-extensions/skills-deep-dive",
+  },
+  {
+    id: "2026-08-22-verification-and-trust",
+    date: "2026-08-22",
+    title: "新ページ: 検証スキル — 無監督実行を信頼する",
+    description:
+      "Claude に自分で回せるチェック（テスト・ビルド・スクリーンショット比較）を渡し、完了報告は証拠で受け取るための技術を追加した。チェックの効かせ方の 4 段階（プロンプト内 / /goal / Stop hook / 敵対的レビュー）、レビュアーの指摘を全部追いかけない判断、/rewind と /clear での仕切り直しを扱う。",
+    category: "feature",
+    link: "/claude-mux/best-practices/verification-and-trust",
+  },
+  {
+    id: "2026-08-22-claude-code-fact-check",
+    date: "2026-08-22",
+    title: "Claude Code マニュアルを公式ドキュメントと実機 CLI で照合し、古い記述を直した",
+    description:
+      "code.claude.com/docs の現行リファレンスと実機 v2.1.239 で 12 ページを照合した。モデル完全名の例を claude-sonnet-5 に更新し、非推奨になった @modelcontextprotocol/server-github の例を現行の GitHub リモート MCP（HTTP）とファイルシステムサーバに差し替えた。SSE トランスポートが公式に非推奨である点、/agents の対話ウィザードが v2.1.198 で廃止された点、プラグイン管理コマンドが /plugin である点、Agent Teams の iterm2 モードに it2 CLI が必要な点も反映している。effort・Hooks・MCP Tool Search・Serena の各記述は現行仕様と一致することを確認した。",
+    category: "fix",
+    link: "/claude-mux/claude-intro/claude-code-intro",
+  },
+  {
     id: "2026-08-20-slack-notification-pause-restore",
     date: "2026-08-20",
     title: "Slack 通知連携に、一括作業のあいだだけ止めて戻す手順を足した",
