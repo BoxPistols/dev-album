@@ -534,7 +534,7 @@ export const level4Challenges: TrainingChallenge[] = [
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+              <tr key={i} style={{ background: i % 2 === 0 ? 'var(--bg-subtle)' : 'var(--bg)' }}>
                 {row.map((cell, j) => (
                   <td key={j} style={{ padding: '10px 14px', whiteSpace: 'nowrap', borderBottom: '1px solid #eee' }}>
                     {cell}
@@ -630,7 +630,7 @@ export const level4Challenges: TrainingChallenge[] = [
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr key={i} style={{ background: i % 2 === 0 ? '#f9f9f9' : '#fff' }}>
+              <tr key={i} style={{ background: i % 2 === 0 ? 'var(--bg-subtle)' : 'var(--bg)' }}>
                 {row.map((cell, j) => (
                   <td key={j} style={{ padding: '10px 14px', whiteSpace: 'nowrap', borderBottom: '1px solid #eee' }}>
                     {cell}
@@ -1309,7 +1309,7 @@ export const level4Challenges: TrainingChallenge[] = [
         ) : (
           <p style={{ color: '#999', fontSize: 13 }}>全ての記事を表示しました</p>
         )}
-        <p style={{ fontSize: 12, color: '#bbb', marginTop: 8 }}>
+        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 8 }}>
           {items.length} / {total} 件表示中
         </p>
       </div>
@@ -1376,7 +1376,7 @@ export const level4Challenges: TrainingChallenge[] = [
         ) : (
           <p style={{ color: '#999', fontSize: 13 }}>全ての記事を表示しました</p>
         )}
-        <p style={{ fontSize: 12, color: '#bbb', marginTop: 8 }}>
+        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 8 }}>
           {items.length} / {total} 件表示中
         </p>
       </div>
@@ -1615,7 +1615,7 @@ export const level4Challenges: TrainingChallenge[] = [
           <div
             key={card.title}
             style={{
-              background: '#fff',
+              background: 'var(--bg-card)',
               borderRadius: 12,
               overflow: 'hidden',
               boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
@@ -1625,7 +1625,7 @@ export const level4Challenges: TrainingChallenge[] = [
             <div style={{ height: 8, background: card.color }} />
             <div style={{ padding: 20 }}>
               <h3 style={{ margin: '0 0 8px', fontSize: 18 }}>{card.title}</h3>
-              <p style={{ margin: 0, fontSize: 14, color: '#666', lineHeight: 1.5 }}>{card.desc}</p>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.5 }}>{card.desc}</p>
             </div>
           </div>
         ))}
@@ -1657,7 +1657,7 @@ export const level4Challenges: TrainingChallenge[] = [
           <div
             key={card.title}
             style={{
-              background: '#fff',
+              background: 'var(--bg-card)',
               borderRadius: 12,
               overflow: 'hidden',
               boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
@@ -1667,7 +1667,7 @@ export const level4Challenges: TrainingChallenge[] = [
             <div style={{ height: 8, background: card.color }} />
             <div style={{ padding: 20 }}>
               <h3 style={{ margin: '0 0 8px', fontSize: 18 }}>{card.title}</h3>
-              <p style={{ margin: 0, fontSize: 14, color: '#666', lineHeight: 1.5 }}>{card.desc}</p>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.5 }}>{card.desc}</p>
             </div>
           </div>
         ))}

@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-dracula-preview-theme",
+    date: "2026-08-23",
+    title: "Dracula テーマでプレビューがライトのまま描かれる問題を修正",
+    description:
+      "テーマを Dracula にしても、教材内のプレビュー（コードの実行結果）だけがライト配色で描かれていた。プレビューの明暗判定が Dark しか見ていなかったのが原因で、Dracula もダークとして扱うようにした。あわせて、ダーク配色で文字が背景に沈んでいたサンプル（トレーニングの表・カード・カルーセル、MUI のグリッドとテーマ切替）を直し、3 テーマでプレビュー内の文字と背景のコントラストを機械的に検査するテストを追加した。",
+    category: "fix",
+    link: "/react/css-layout/flexbox",
+  },
+  {
     id: "2026-08-23-multi-ai-coexistence-sources",
     date: "2026-08-23",
     title: "マルチ AI ツールの共存戦略: 出典未確認だった 4 点を一次情報で確認・修正",

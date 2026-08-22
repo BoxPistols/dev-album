@@ -9,7 +9,7 @@ import {
   buildConfigPreviewHtml,
   type PreviewLib,
 } from '@/lib/preview';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 import { incrementChallengePassCount, checkAchievements } from '@/hooks/useAchievements';
 import { showAchievementToast } from './AchievementToast';
 
@@ -296,7 +296,7 @@ export default function CodingChallenge({
   libs,
 }: CodingChallengeProps) {
   const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const isDark = isDarkTheme(theme);
   const [code, setCode] = useState(initialCode);
   const [showAnswer, setShowAnswer] = useState(false);
   const [showHint, setShowHint] = useState(false);
