@@ -1,7 +1,12 @@
-import { mkdirSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import type { Plugin, ResolvedConfig } from "vite";
-import { renderRobots, renderSitemap } from "./client/src/lib/seo";
+import { renderRouteHtml, routeToOutputFile } from "./client/src/lib/prerender";
+import {
+  listPrerenderPaths,
+  renderRobots,
+  renderSitemap,
+} from "./client/src/lib/seo";
 
 /**
  * navigation.ts を正本に sitemap.xml / robots.txt を生成する。
@@ -38,6 +43,21 @@ export function seoPlugin(): Plugin {
       mkdirSync(outDir, { recursive: true });
       writeFileSync(resolve(outDir, "sitemap.xml"), renderSitemap(lastmod));
       writeFileSync(resolve(outDir, "robots.txt"), renderRobots());
+
+      // ルートごとに <head> を焼き込んだ index.html を dist/public/<route>/index.html に置く。
+      // JS を実行しないクローラーにもページ固有の title / canonical / OGP が届くようにする（SSR はしない）。
+      // 本体は index.html のままで、/ だけはその場で書き換える。
+      const template = readFileSync(resolve(outDir, "index.html"), "utf8");
+      const started = Date.now();
+      const paths = listPrerenderPaths();
+      for (const path of paths) {
+        const file = resolve(outDir, routeToOutputFile(path));
+        mkdirSync(dirname(file), { recursive: true });
+        writeFileSync(file, renderRouteHtml(template, path));
+      }
+      config.logger.info(
+        `[seo] prerendered <head> for ${paths.length} routes in ${Date.now() - started}ms`,
+      );
     },
   };
 }

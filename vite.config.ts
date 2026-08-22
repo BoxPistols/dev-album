@@ -65,7 +65,9 @@ export default defineConfig({
           "assets/index-*.js",
           "assets/vendor-react-*.js",
         ],
-        globIgnores: ["vendor/**"],
+        // ルート別に prerender した <route>/index.html はクローラー向けなので precache しない。
+        // オフライン時の画面遷移は navigateFallback（既定の index.html、precache 済み）が受ける
+        globIgnores: ["vendor/**", "*/**/index.html"],
         runtimeCaching: [
           {
             // ページチャンク: 一度訪れたページはオフラインでも開ける

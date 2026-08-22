@@ -20,7 +20,8 @@
     "check:sources": "node scripts/verify-sources.mjs",
     "check:verdicts": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-medium-verdicts.json",
     "check:verdicts:low": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-low-verdicts.json",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "check:prerender": "node scripts/check-prerender.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.19",

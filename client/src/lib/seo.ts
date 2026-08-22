@@ -211,6 +211,14 @@ export function listIndexablePaths(): string[] {
   ).filter((p) => !NOINDEX_PATHS.has(p));
 }
 
+/** prerender する全パス。noindex のページも含む（noindex のメタを HTML に焼き込む必要があるため） */
+export function listPrerenderPaths(): string[] {
+  const fromPages = pages.map((p) => p.path);
+  const fromStatic = STATIC_ROUTES.map((r) => r.path);
+  const manualHomes = manuals.map((m) => `/${m.id}`);
+  return Array.from(new Set([...fromStatic, ...manualHomes, ...fromPages]));
+}
+
 function escapeXml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
