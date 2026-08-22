@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-page-sources-trial",
+    date: "2026-08-23",
+    title: "機械照合した出典をページから読めるようにした（2 ページで試行）",
+    description:
+      "監査で一次情報と照合した出典を、ページ末尾の出典欄から辿れるようにした。まずは「Next.js 15 の新機能」と「トークン・シークレット・権限の実務」の 2 ページで、既定は閉じた開閉ブロックに入れて出している。引用文が原文に逐語で含まれることは自動照合済みで、その引用が本文の主張を支えているかは人が読んで判断する範囲であることも書き添えた。読み心地を見てから、他のページへ広げるかを決める。",
+    category: "feature",
+    link: "/react/nextjs-advanced/next15-features",
+  },
+  {
     id: "2026-08-23-threejs-clock-deprecated",
     date: "2026-08-23",
     title: "Three.js のアニメーション: Clock が r183 で非推奨になった点を書き足した",

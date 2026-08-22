@@ -5,6 +5,7 @@ import PageNavigation from '@/components/PageNavigation';
 import Quiz from '@/components/Quiz';
 import ReferenceLinks from '@/components/ReferenceLinks';
 import Faq from '@/components/Faq';
+import PageSources from '@/components/PageSources';
 
 export default function Next15Features() {
   return (
@@ -840,6 +841,10 @@ export default nextConfig;`}
                 },
               ]}
             />
+          </section>
+
+          <section>
+            <PageSources path="/react/nextjs-advanced/next15-features" />
           </section>
         </div>
 

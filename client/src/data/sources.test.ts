@@ -2,7 +2,13 @@ import { existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { SOURCES, getSourcesForPage, type Source } from "./sources";
+import {
+  GENERATED_SOURCES_TRIAL_PATHS,
+  SOURCES,
+  getGeneratedSourcesForPage,
+  getSourcesForPage,
+  type Source,
+} from "./sources";
 import { pages } from "../lib/navigation";
 
 // ネットワークを使わない決定的チェックだけをここに置く。
@@ -142,5 +148,40 @@ describe("出典レジストリ", () => {
       found.every((s) => s.usedBy?.includes("/claude-code/multi-ai/design-md")),
     ).toBe(true);
     expect(getSourcesForPage("/does/not/exist")).toHaveLength(0);
+  });
+});
+
+describe("機械照合した出典の表示（issue 49 の試行）", () => {
+  it("試行ページはすべて navigation.ts に実在する", () => {
+    const known = new Set(pages.map((p) => p.path));
+    for (const path of GENERATED_SOURCES_TRIAL_PATHS) {
+      expect(known.has(path), `${path} が navigation に無い`).toBe(true);
+    }
+  });
+
+  it("試行ページは出典を 1 件以上表示する（出るはずのものが出ない状態を検知する）", () => {
+    expect(GENERATED_SOURCES_TRIAL_PATHS.length).toBeGreaterThan(0);
+    for (const path of GENERATED_SOURCES_TRIAL_PATHS) {
+      const found = getGeneratedSourcesForPage(path);
+      expect(found.length, `${path} に表示できる出典が無い`).toBeGreaterThan(0);
+      for (const s of found) {
+        expect(s.usedByFiles?.length, `${s.id} が参照元を持たない`).toBeTruthy();
+      }
+    }
+  });
+
+  it("同じ出典を二重に返さない", () => {
+    for (const path of GENERATED_SOURCES_TRIAL_PATHS) {
+      const ids = getGeneratedSourcesForPage(path).map((s) => s.id);
+      expect(new Set(ids).size).toBe(ids.length);
+    }
+  });
+
+  it("試行ページ以外には出さない", () => {
+    // 手書きの出典を持つページでも、生成分は試行対象でなければ出さない
+    expect(getGeneratedSourcesForPage("/claude-code/multi-ai/design-md")).toHaveLength(
+      0,
+    );
+    expect(getGeneratedSourcesForPage("/does/not/exist")).toHaveLength(0);
   });
 });
