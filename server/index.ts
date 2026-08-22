@@ -21,7 +21,9 @@ async function startServer() {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 
-  const port = process.env.PORT || 3000;
+  // PORT を明示すればその値。未指定なら乱数で選ぶ（3000 は他プロジェクトと衝突しやすい）。
+  // ホスティング環境は PORT を必ず渡すので、乱数になるのはローカルの pnpm start だけ。
+  const port = process.env.PORT || 30000 + Math.floor(Math.random() * 10000);
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);

@@ -1,5 +1,10 @@
 import { defineConfig } from '@playwright/test';
 
+// dev サーバの既定ポートは乱数（vite.config.ts）なので、e2e は必ず値を固定する。
+// この値を webServer.env で子プロセスへ渡し、待ち受け側とサーバ側を必ず一致させる。
+// 渡さないと vite が乱数ポートで起動し、Playwright は別ポートを待ち続けてハングする。
+const PORT = process.env.PORT || '3400';
+
 export default defineConfig({
   testDir: './e2e',
   timeout: 30_000,
@@ -11,14 +16,16 @@ export default defineConfig({
     ? [['github'], ['html', { open: 'never' }]]
     : [['list']],
   use: {
-    baseURL: `http://localhost:${process.env.PORT || 3000}`,
+    baseURL: `http://localhost:${PORT}`,
     screenshot: 'only-on-failure',
     // CI 失敗時の原因追跡用。再試行時のみ収集してアーティファクト量を抑える。
     trace: process.env.CI ? 'on-first-retry' : 'off',
   },
   webServer: {
     command: 'pnpm dev',
-    port: Number(process.env.PORT) || 3000,
+    // 子の vite に同じポートを強制する（未指定だと vite が乱数ポートで起動してしまう）。
+    env: { PORT },
+    port: Number(PORT),
     // CI では毎回クリーンな dev サーバを起動する（残留プロセスの再利用による flake を防ぐ）。
     // ローカルでは起動中の dev サーバを再利用して待ち時間を減らす。
     reuseExistingServer: !process.env.CI,

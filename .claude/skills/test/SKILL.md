@@ -17,4 +17,4 @@ description: Unit テスト（vitest）と E2E テスト（Playwright）を実�
 
 - Unit: `client/src/lib/*.test.ts`
 - E2E: `e2e/*.spec.ts`（a11y 含む）
-- dev サーバーは `playwright.config.ts` が自動起動する。既定の 3000 が他プロジェクトに使われていると誤ったサーバを再利用するので、`PORT=3400 pnpm test:e2e` のように空きポートを明示する。
+- dev サーバーは `playwright.config.ts` が自動起動する。既定ポートは 3400 で、その値を `webServer.env` 経由で dev サーバへ渡している（`pnpm dev` 単体の既定は乱数なので、渡さないと待ち受け側とずれてハングする）。3400 が他プロジェクトに使われていると誤ったサーバを再利用するので、その場合は `PORT=3401 pnpm test:e2e` のように空きポートを明示する。
