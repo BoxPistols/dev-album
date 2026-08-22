@@ -42,22 +42,23 @@ export default function MuiComponents() {
 import Box from '@mui/material/Box';
 
 function App() {
-  const cell = { p: 2, color: '#fff', borderRadius: 1 };
+  // 文字色は背景ごとの contrastText に任せる（dark では primary.main が淡色になる）
+  const cell = { p: 2, borderRadius: 1 };
   return (
     <Grid container spacing={2}>
       {/* 12 カラム制。item の xs で常に幅を分割する */}
       {/* 8 : 4 の 2 カラム */}
       <Grid item xs={8}>
-        <Box sx={{ ...cell, bgcolor: 'primary.main' }}>メインコンテンツ（8 カラム）</Box>
+        <Box sx={{ ...cell, bgcolor: 'primary.main', color: 'primary.contrastText' }}>メインコンテンツ（8 カラム）</Box>
       </Grid>
       <Grid item xs={4}>
-        <Box sx={{ ...cell, bgcolor: 'secondary.main' }}>サイド（4 カラム）</Box>
+        <Box sx={{ ...cell, bgcolor: 'secondary.main', color: 'secondary.contrastText' }}>サイド（4 カラム）</Box>
       </Grid>
 
       {/* 3 等分（4 + 4 + 4） */}
       {[1, 2, 3].map((n) => (
         <Grid item xs={4} key={n}>
-          <Box sx={{ ...cell, bgcolor: 'grey.700' }}>カード {n}</Box>
+          <Box sx={{ ...cell, bgcolor: 'grey.700', color: 'common.white' }}>カード {n}</Box>
         </Grid>
       ))}
     </Grid>

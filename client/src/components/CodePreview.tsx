@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
 import { useDebouncedPreview, type PreviewLib } from '@/lib/preview';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 
 interface CodePreviewProps {
   code: string;
@@ -56,7 +56,7 @@ export default function CodePreview({
   const canPreview = language === 'tsx' || language === 'jsx';
   const isHorizontal = layout === 'horizontal';
 
-  const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, theme === 'dark', libs);
+  const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, isDarkTheme(theme), libs);
 
   const handleReset = () => setEditableCode(code);
 

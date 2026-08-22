@@ -603,7 +603,7 @@ export const level3Challenges: TrainingChallenge[] = [
             style={{
               position: 'absolute', top: '50%', left: 8, transform: 'translateY(-50%)',
               width: 36, height: 36, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.8)', fontSize: 18, cursor: 'pointer', fontWeight: 700,
+              background: 'rgba(255,255,255,0.8)', color: '#222', fontSize: 18, cursor: 'pointer', fontWeight: 700,
             }}
           >
             ‹
@@ -613,7 +613,7 @@ export const level3Challenges: TrainingChallenge[] = [
             style={{
               position: 'absolute', top: '50%', right: 8, transform: 'translateY(-50%)',
               width: 36, height: 36, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.8)', fontSize: 18, cursor: 'pointer', fontWeight: 700,
+              background: 'rgba(255,255,255,0.8)', color: '#222', fontSize: 18, cursor: 'pointer', fontWeight: 700,
             }}
           >
             ›
@@ -668,7 +668,7 @@ export const level3Challenges: TrainingChallenge[] = [
             style={{
               position: 'absolute', top: '50%', left: 8, transform: 'translateY(-50%)',
               width: 36, height: 36, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.8)', fontSize: 18, cursor: 'pointer', fontWeight: 700,
+              background: 'rgba(255,255,255,0.8)', color: '#222', fontSize: 18, cursor: 'pointer', fontWeight: 700,
             }}
           >
             ‹
@@ -678,7 +678,7 @@ export const level3Challenges: TrainingChallenge[] = [
             style={{
               position: 'absolute', top: '50%', right: 8, transform: 'translateY(-50%)',
               width: 36, height: 36, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.8)', fontSize: 18, cursor: 'pointer', fontWeight: 700,
+              background: 'rgba(255,255,255,0.8)', color: '#222', fontSize: 18, cursor: 'pointer', fontWeight: 700,
             }}
           >
             ›
@@ -758,7 +758,7 @@ export const level3Challenges: TrainingChallenge[] = [
               disabled={i === 0}
               style={{
                 width: 28, height: 28, border: 'none', borderRadius: 4, marginRight: 4,
-                background: i === 0 ? '#edf2f7' : '#e2e8f0', cursor: i === 0 ? 'default' : 'pointer',
+                background: i === 0 ? '#edf2f7' : '#e2e8f0', color: '#222', cursor: i === 0 ? 'default' : 'pointer',
                 fontSize: 12,
               }}
             >
@@ -769,7 +769,7 @@ export const level3Challenges: TrainingChallenge[] = [
               disabled={i === items.length - 1}
               style={{
                 width: 28, height: 28, border: 'none', borderRadius: 4,
-                background: i === items.length - 1 ? '#edf2f7' : '#e2e8f0',
+                background: i === items.length - 1 ? '#edf2f7' : '#e2e8f0', color: '#222',
                 cursor: i === items.length - 1 ? 'default' : 'pointer',
                 fontSize: 12,
               }}
@@ -823,7 +823,7 @@ export const level3Challenges: TrainingChallenge[] = [
               disabled={i === 0}
               style={{
                 width: 28, height: 28, border: 'none', borderRadius: 4, marginRight: 4,
-                background: i === 0 ? '#edf2f7' : '#e2e8f0', cursor: i === 0 ? 'default' : 'pointer',
+                background: i === 0 ? '#edf2f7' : '#e2e8f0', color: '#222', cursor: i === 0 ? 'default' : 'pointer',
                 fontSize: 12,
               }}
             >
@@ -834,7 +834,7 @@ export const level3Challenges: TrainingChallenge[] = [
               disabled={i === items.length - 1}
               style={{
                 width: 28, height: 28, border: 'none', borderRadius: 4,
-                background: i === items.length - 1 ? '#edf2f7' : '#e2e8f0',
+                background: i === items.length - 1 ? '#edf2f7' : '#e2e8f0', color: '#222',
                 cursor: i === items.length - 1 ? 'default' : 'pointer',
                 fontSize: 12,
               }}
