@@ -1,3 +1,4 @@
+// implementation-mirror: api/lib/quota.ts
 import {
   getManualById,
   getPageByPath,
@@ -50,7 +51,7 @@ export const STATIC_ROUTES: ReadonlyArray<{
     path: "/policy/chat-quota",
     title: "チャット AI の利用枠について",
     description:
-      "チャット AI の利用枠・リセット時刻・招待コードの扱いを説明します。",
+      "チャット AI の利用枠・リセット時刻・BYOK の扱いを説明します。",
   },
   {
     path: "/policy/privacy",

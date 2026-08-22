@@ -29,6 +29,15 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/claude-code/multi-ai/multi-ai-coexistence",
   },
   {
+    id: "2026-08-23-workflow-permissions-wording",
+    date: "2026-08-23",
+    title: "workflow の書き込み権限の記述を実装と照合するようにした",
+    description:
+      "「トークン・シークレット・権限の実務」の実例で、書き込み権限を持つ workflow が labeler と stale の 2 つであることと、stale が Issue と PR の両方に書き込む理由を書いた。チャット利用枠ページの層（匿名 / BYOK）と合わせて、この記述が実装の現在値とずれたらテストで落ちるようにした。",
+    category: "fix",
+    link: "/git/github-actions/secrets-permissions",
+  },
+  {
     id: "2026-08-23-claude-code-url-and-progress-migration",
     date: "2026-08-23",
     title: "Claude Code マニュアルの URL 変更と学習記録の引き継ぎ",
