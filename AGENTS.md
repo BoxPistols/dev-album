@@ -22,6 +22,7 @@ pnpm build                       # 本番ビルド
 ```
 
 - CI は `verify`（型チェック → 単体テスト → ビルド）と `e2e`（Playwright 全スペック）の 2 ジョブ。**push 前にビルド + テスト通過を確認**する。
+- 外部に出る検査（`check:links` / `check:sources` / `check:verdicts` / `check:freshness`）は PR ゲートに入れず、`.github/workflows/source-checks.yml` が週次で回して失敗を issue に集約する。
 - ローカルで E2E を回すときは **空きポートを明示**する（`PORT=3400 pnpm test:e2e`）。既定の 3000 が他プロジェクトに使われていると、そのサーバを再利用して誤った結果になる。
 
 ## コーディング規約

@@ -11,32 +11,9 @@
 // sources.ts は TypeScript なので tsx で起動する（package.json の check:sources を参照）。
 // ネットワークに出るため vitest には入れない（外部の障害で CI を落とさない）。
 
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
-
+import { loadSources } from "./lib/load-sources.mjs";
 import { fetchText, normalize, sleep, toPlainText } from "./lib/source-fetch.mjs";
 
-const HERE = dirname(fileURLToPath(import.meta.url));
-const SOURCES_TS = resolve(HERE, "../client/src/data/sources.ts");
-
-/**
- * sources.ts を tsx 経由でそのまま import する。
- * 以前は文字列操作で配列リテラルを切り出していたが、型注釈 `Source[]` の `[` を
- * 配列の開始と誤認して 0 件を返す事故があった。TS として読めば書式に依存しない。
- */
-async function loadSources() {
-  const mod = await import(SOURCES_TS);
-  const parsed = mod.SOURCES;
-
-  // 読み込みに失敗して空配列を返すと「何も照合していないのに成功」になる。
-  // 0 件は成果ではなく事故として扱う。
-  if (!Array.isArray(parsed) || parsed.length === 0) {
-    throw new Error(
-      "出典を読み込めたが 0 件だった。sources.ts の export が変わった可能性がある",
-    );
-  }
-  return parsed;
-}
 
 async function main() {
   const args = process.argv.slice(2);
