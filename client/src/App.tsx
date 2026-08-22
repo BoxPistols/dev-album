@@ -12,6 +12,7 @@ import AchievementToastContainer from "./components/AchievementToast";
 import ChatWidget from "./components/ChatWidget";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { useManualTheme } from "./hooks/useManualTheme";
+import { useSeo } from "./hooks/useSeo";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -411,6 +412,7 @@ function MainContent({ children }: { children: ReactNode }) {
   const { layoutMode } = useLayout();
   useAutoHeadingIds();
   useManualTheme();
+  useSeo();
   return (
     // ワイドモードではサイドバーが引っ込むので、その分の左マージンも外す
     <main className={`flex-1 min-w-0 ${layoutMode === 'wide' ? 'layout-wide' : 'md:ml-64'}`}>
