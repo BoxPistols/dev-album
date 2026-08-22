@@ -228,7 +228,7 @@ claude --version`}
           />
 
           <InfoBox type="success" title="インストール成功">
-            バージョン番号（例: <code>1.x.x</code>）が表示されればインストール完了です。
+            バージョン番号が表示されればインストール完了です。
           </InfoBox>
 
           {selectedOS === 'windows' && (
