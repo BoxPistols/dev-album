@@ -1,3 +1,4 @@
+// implementation-mirror: api/lib/quota.ts
 import { Link } from "wouter";
 import { Shield, Key, Activity, ArrowLeft } from "lucide-react";
 
