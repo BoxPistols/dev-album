@@ -2,6 +2,7 @@ import { useLocation } from 'wouter';
 import { getPageByPath, sections, type ManualId } from '@/lib/navigation';
 
 const manualColors: Record<ManualId, string> = {
+  learning: 'bg-lime-50 dark:bg-lime-900/20 text-lime-800 dark:text-lime-300 border-lime-200 dark:border-lime-800',
   react: 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800',
   git: 'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800',
   threejs: 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800',

@@ -169,6 +169,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 
 | マニュアル | Light | Dark | Dracula |
 |---|---|---|---|
+| `learning` | #456E0D | #A3E635 | #BEF264 |
 | `git` | #BE123C | #FB7185 | #FC9EAB |
 | `react` | #4F46E5 | #A5B4FC | #A5B4FC |
 | `claude-code` | #6D28D9 | #C4B5FD | #C4B5FD |

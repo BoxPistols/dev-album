@@ -1,4 +1,4 @@
-export type ManualId = 'react' | 'git' | 'threejs' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'infra' | 'devflow';
+export type ManualId = 'learning' | 'react' | 'git' | 'threejs' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'infra' | 'devflow';
 
 export interface ManualInfo {
   id: ManualId;
@@ -29,6 +29,14 @@ export interface PageInfo {
 // ── マニュアル定義 ──
 
 export const manuals: ManualInfo[] = [
+  {
+    id: 'learning',
+    title: '学び方 — 初めての領域との向き合い方',
+    shortTitle: '学び方',
+    description: '調べ方・一次情報の見分け方・AI との学び方を、手順として扱う',
+    icon: '?',
+    color: '#84CC16',
+  },
   {
     id: 'git',
     title: 'Git / GitHub 入門',
@@ -114,6 +122,12 @@ export const manuals: ManualInfo[] = [
 // ── セクション定義 ──
 
 export const sections: SectionInfo[] = [
+  // === 学び方マニュアル ===
+  { id: 'learn-approach', title: '向き合い方', manualId: 'learning', description: '初めての領域に入る手順と、理解を自分で確かめる方法' },
+  { id: 'learn-sources', title: '情報にたどり着く', manualId: 'learning', description: '一次情報の見分け方・公式の追い方・検索の技術' },
+  { id: 'learn-with-ai', title: 'AI と学ぶ', manualId: 'learning', description: '聞き方の型と、AI が間違えるところ' },
+  { id: 'learn-habits', title: '続ける', manualId: 'learning', description: '詰まったときの手順と記録の取り方' },
+
   // === React マニュアル ===
   { id: 'react-intro', title: 'はじめに', manualId: 'react', part: 'react' },
   { id: 'react-basics', title: 'React の基本', manualId: 'react', part: 'react' },
@@ -241,6 +255,18 @@ export const sections: SectionInfo[] = [
 // ── ページ定義 ──
 
 export const pages: PageInfo[] = [
+  // === 学び方マニュアル ===
+  { step: 1, path: '/learning', title: 'このコースについて', sectionId: 'learn-approach', manualId: 'learning' },
+  { step: 2, path: '/learning/approach/first-encounter', title: '初めての領域に入る手順', sectionId: 'learn-approach', manualId: 'learning' },
+  { step: 3, path: '/learning/approach/principles-first', title: '原理原則から入る', sectionId: 'learn-approach', manualId: 'learning' },
+  { step: 4, path: '/learning/approach/knowing-you-know', title: '「わかったつもり」を見つける', sectionId: 'learn-approach', manualId: 'learning' },
+  { step: 5, path: '/learning/sources/primary-sources', title: '一次情報の見分け方', sectionId: 'learn-sources', manualId: 'learning' },
+  { step: 6, path: '/learning/sources/official-catchup', title: '公式から変化を追う', sectionId: 'learn-sources', manualId: 'learning' },
+  { step: 7, path: '/learning/sources/search-technique', title: '検索の技術', sectionId: 'learn-sources', manualId: 'learning' },
+  { step: 8, path: '/learning/with-ai/how-to-ask', title: 'AI への聞き方', sectionId: 'learn-with-ai', manualId: 'learning' },
+  { step: 9, path: '/learning/with-ai/where-ai-fails', title: 'AI が間違えるところ', sectionId: 'learn-with-ai', manualId: 'learning' },
+  { step: 10, path: '/learning/habits/when-stuck', title: '詰まったときの手順', sectionId: 'learn-habits', manualId: 'learning' },
+
   // ===========================
   // React マニュアル (77ページ)
   // ===========================
@@ -661,8 +687,12 @@ export function getSectionPages(sectionId: string): PageInfo[] {
 }
 
 export function getManualIdFromPath(path: string): ManualId | undefined {
-  const match = path.match(/^\/(react|git|threejs|claude-code|ai-ml|ux-design|api|vue|infra|devflow)/);
-  return match ? (match[1] as ManualId) : undefined;
+  // manuals から導出する。ID を直書きしていると、マニュアルを増やしたときに
+  // サイドバーのセクションナビとテーマ色（[data-manual]）だけが黙って効かなくなる。
+  // 実際に learning を足したとき、ページは表示されるのに色が既定のままだった。
+  // パスの第 1 セグメントと完全一致で見る（/react-native を react と誤認しない）。
+  const first = path.split("/")[1];
+  return manuals.some((m) => m.id === first) ? (first as ManualId) : undefined;
 }
 
 export function getNextSectionFirstPage(currentPath: string): PageInfo | undefined {

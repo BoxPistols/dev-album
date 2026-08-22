@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow } from "lucide-react";
+import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
@@ -21,6 +21,7 @@ const announcementMeta: Record<AnnouncementCategory, { label: string; icon: Reac
 
 /* ── マニュアル別アイコン ── */
 const manualIcons: Record<ManualId, React.ReactNode> = {
+  learning: <Compass size={20} />,
   react: <Code2 size={20} />,
   git: <GitBranch size={20} />,
   threejs: <Box size={20} />,
@@ -34,6 +35,15 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
 };
 
 const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
+  learning: {
+    tagline: "初めての領域に入るときの手順そのものを扱う。他のコースの前段",
+    topics: [
+      "全体像 → 用語 → 最小の実行 → 切り分け",
+      "一次情報の見分け方と公式の追い方",
+      "文書化された検索演算子だけを使う",
+      "AI への聞き方と、AI が間違えるところ",
+    ],
+  },
   react: {
     tagline:
       "コンポーネントの基本から CSS・Next.js・デプロイまで一通り体験できる",

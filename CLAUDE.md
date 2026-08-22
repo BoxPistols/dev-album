@@ -55,6 +55,7 @@ client/src/
 ├── hooks/          useBookmarks, useProgress, useManualTheme 等
 ├── lib/            navigation.ts, preview.ts, searchIndex.ts
 └── pages/
+    ├── learning/   学び方マニュアル（一覧の先頭）
     ├── git/        Git マニュアル
     ├── react/      React マニュアル
     ├── claude-code/ Claude Code マニュアル
@@ -121,6 +122,7 @@ client/src/
 
 | マニュアル | Light | Dark | Dracula |
 |---|---|---|---|
+| learning | #456E0D | #A3E635 | #BEF264 |
 | git | #BE123C | #FB7185 | #FC9EAB |
 | react | #4F46E5 | #A5B4FC | #A5B4FC |
 | claude-code | #6D28D9 | #C4B5FD | #C4B5FD |
