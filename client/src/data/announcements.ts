@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-claude-file-map",
+    date: "2026-08-23",
+    title: "新ページ: AI 向けファイルの早見表と、Claude Code マニュアルの章立て見直し",
+    description:
+      "CLAUDE.md / .claude/rules/ / AGENTS.md / ARCHITECTURE.md / DESIGN.md / settings.json / Skills を 1 つの表に並べ、誰が読むか・いつコンテキストに載るか・どこまで効くかで見比べられるようにした。取り違えやすい 3 点（AGENTS.md は Claude Code が読まない、@import で分けてもコンテキストは減らない、CLAUDE.md は強制ではない）と、実際に読まれたかを /context で確かめる手順も入れている。あわせて章立てを組み替え、CLAUDE.md・Skills・コマンド・Hooks・Subagents・プラグインを「Claude Code の構成要素」1 章にまとめ（Hooks の詳細だけ発展編に離れていた）、ファイル系のページを「AI 向けファイルの使い分け」1 章に集約した。ページの URL は変えていない。",
+    category: "feature",
+    link: "/claude-mux/multi-ai/file-map",
+  },
+  {
     id: "2026-08-22-browser-verification",
     date: "2026-08-22",
     title: "新ページ: ブラウザと画面での検証",

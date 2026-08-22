@@ -30,6 +30,8 @@ const PAGES = [
   { path: "/claude-mux/agent-extensions/skills-deep-dive", name: "Skills 深掘り（表）" },
   { path: "/claude-mux/best-practices/verification-and-trust", name: "検証スキル" },
   { path: "/claude-mux/best-practices/browser-verification", name: "ブラウザと画面での検証" },
+  // 章立ての組み替えで追加した比較ページ。表が 2 つ、内部リンクと外部リンクを含む。
+  { path: "/claude-mux/multi-ai/file-map", name: "AI 向けファイル早見表（表）" },
   { path: "/threejs/basics/scene", name: "Three.js（ブランド色）" },
   { path: "/ai-ml/ai-overview/landscape", name: "AI・ML（ブランド色）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
