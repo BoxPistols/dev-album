@@ -5,8 +5,11 @@
 // それは逐語引用ではないので、照合は正しく落ちる。落ちたぶんを通すために正規化を
 // 緩めるのではなく、確認できた範囲まで引用を短くする。確認できなければ捨てる。
 //
-//   node scripts/trim-quotes.mjs           結果を表示するだけ
-//   node scripts/trim-quotes.mjs --write   sources.generated.ts を書き換える
+//   pnpm check:quotes   結果を表示するだけ。変更が出るなら exit 1（CI・再監査の確認用）
+//   pnpm fix:quotes     --write で sources.generated.ts を書き換える
+//
+// 再監査の流れでは、sources.generated.ts を生成したあと fix:quotes → check:sources の順で通す
+// （.claude/skills/evidence-check/SKILL.md「再監査の手順」）。
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -188,7 +191,16 @@ async function main() {
   );
 
   if (!write) {
-    console.log("\n--write を付けると sources.generated.ts に反映する");
+    const changes = trimmed + dropped + unreachable;
+    if (changes > 0) {
+      console.log(
+        `\n${changes} 件の変更がある。pnpm fix:quotes で sources.generated.ts に反映する` +
+          `\n取得不可の出典は一時的な障害のこともあるので、反映前に個別に再実行して確かめる`,
+      );
+      process.exitCode = 1;
+    } else {
+      console.log("\n変更なし");
+    }
     return;
   }
 
