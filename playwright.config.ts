@@ -1,9 +1,12 @@
 import { defineConfig } from '@playwright/test';
 
+import { parsePort } from './client/src/lib/port';
+
 // dev サーバの既定ポートは乱数（vite.config.ts）なので、e2e は必ず値を固定する。
 // この値を webServer.env で子プロセスへ渡し、待ち受け側とサーバ側を必ず一致させる。
 // 渡さないと vite が乱数ポートで起動し、Playwright は別ポートを待ち続けてハングする。
-const PORT = process.env.PORT || '3400';
+// 検証は vite 側と同じ関数を使う（待ち受け側とサーバ側で判定がずれないように）。
+const PORT = String(parsePort(process.env.PORT) ?? 3400);
 
 export default defineConfig({
   testDir: './e2e',

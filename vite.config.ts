@@ -5,12 +5,13 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { apiDevPlugin } from "./vite-api-plugin";
 import { seoPlugin } from "./vite-seo-plugin";
+import { parsePort, resolveDevPort } from "./client/src/lib/port";
 
 // 開発サーバのポート。PORT を明示すればその値、未指定なら毎回乱数で選ぶ。
-// 3000 は他プロジェクトと衝突しやすいので既定にしない。範囲は well-known と
-// vite(5173) / storybook(6006) の慣例を避け、macOS のエフェメラル範囲(49152-)より下に取る。
-const explicitPort = process.env.PORT ? Number(process.env.PORT) : undefined;
-const devPort = explicitPort ?? 30000 + Math.floor(Math.random() * 10000);
+// 3000 は他プロジェクトと衝突しやすいので既定にしない。判定は client/src/lib/port.ts
+// に置き、playwright / server と同じ関数を使う（待ち受け側とサーバ側でずれないように）。
+const explicitPort = parsePort(process.env.PORT);
+const devPort = resolveDevPort(process.env.PORT);
 
 export default defineConfig({
   plugins: [
