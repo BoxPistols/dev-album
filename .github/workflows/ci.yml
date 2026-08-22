@@ -26,10 +26,12 @@ jobs:
       # packageManager フィールド（pnpm@10.4.1）から pnpm を用意する
       - uses: pnpm/action-setup@v6
 
-      # Node 20 は 2026-04-30 に EOL のため、サポート中の LTS（22）を使う
+      # 本番の Vercel が Node 24.x で動いているので、CI も 24 に揃える。
+      # テストする実行環境と動く実行環境がずれると、CI で落ちるのに本番では動く
+      # （またはその逆）が検出できない。Vercel の Node を上げるときはここも一緒に上げる。
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
 
       - name: 依存をインストール
@@ -68,7 +70,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
 
       - name: 依存をインストール
