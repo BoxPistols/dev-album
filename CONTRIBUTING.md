@@ -11,7 +11,8 @@ Dev Album への貢献ガイド。このリポジトリは Git フロー自動�
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:3000
+pnpm dev        # ポートは起動ごとに乱数（30000-39999）。URL は起動時の出力を見る
+                # 固定したいときは PORT=3456 pnpm dev
 ```
 
 ## 確認コマンド（PR 前に通す）

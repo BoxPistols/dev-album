@@ -5,6 +5,13 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { apiDevPlugin } from "./vite-api-plugin";
 import { seoPlugin } from "./vite-seo-plugin";
+import { parsePort, resolveDevPort } from "./client/src/lib/port";
+
+// 開発サーバのポート。PORT を明示すればその値、未指定なら毎回乱数で選ぶ。
+// 3000 は他プロジェクトと衝突しやすいので既定にしない。判定は client/src/lib/port.ts
+// に置き、playwright / server と同じ関数を使う（待ち受け側とサーバ側でずれないように）。
+const explicitPort = parsePort(process.env.PORT);
+const devPort = resolveDevPort(process.env.PORT);
 
 export default defineConfig({
   plugins: [
@@ -141,8 +148,11 @@ export default defineConfig({
     },
   },
   server: {
-    port: Number(process.env.PORT) || 3000,
-    strictPort: false,
+    port: devPort,
+    // PORT を明示したときだけ固定する。埋まっていても黙って隣のポートへ移らせない
+    // （e2e はその値で待ち受けるため、ずれるとサーバは起動しているのに待ち続ける）。
+    // 乱数のときは衝突しても隣へ移ってよい。
+    strictPort: explicitPort !== undefined,
     host: true,
     allowedHosts: ["localhost", "127.0.0.1"],
   },

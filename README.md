@@ -38,7 +38,8 @@ https://dev-album.vercel.app
 ```bash
 pnpm install
 pnpm dev
-# → http://localhost:3000
+# → 起動ごとにポートを乱数で選ぶ（30000-39999）。実際の URL は起動時の出力を見る
+# ポートを固定したいときは PORT を渡す: PORT=3456 pnpm dev
 ```
 
 ## コンテンツ構成
@@ -210,7 +211,7 @@ pnpm test:a11y                   # a11y のみ（axe-core, 3 テーマ）
 pnpm test src/lib/editor-validation.test.ts   # 全チャレンジコードのトランスパイル検証
 ```
 
-ローカルで E2E を回すときは空きポートを明示する（`PORT=3400 pnpm test:e2e`）。既定の 3000 が他プロジェクトに使われていると、そのサーバを再利用して誤った結果になる。
+E2E は `playwright.config.ts` の既定ポート 3400 を使い、その値を dev サーバへ明示的に渡す（`pnpm dev` の既定は乱数なので、渡さないと待ち受け側とずれる）。3400 が他プロジェクトに使われている場合は、そのサーバを再利用して誤った結果になるため、`PORT=3401 pnpm test:e2e` のように空きポートを指定する。
 
 CI（`.github/workflows/ci.yml`）は `verify`（型 → 単体 → ビルド）と `e2e`（Playwright 全スペック）の 2 ジョブ。
 
