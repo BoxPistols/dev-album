@@ -7,6 +7,7 @@ name: Source checks
 #   pnpm check:sources       出典レジストリ（sources.ts）の逐語引用が原文にあるか
 #   pnpm check:verdicts      監査 JSON（medium）の逐語引用が原文にあるか
 #   pnpm check:verdicts:low  監査 JSON（low）の逐語引用が原文にあるか
+#   pnpm check:verdicts:followup  追補監査の逐語引用が原文にあるか（実ブラウザ経由の出典を含む）
 #   pnpm check:freshness     verifiedAt が 180 日より古い出典が無いか
 #
 # なぜ PR ゲートにしないか:
@@ -51,7 +52,7 @@ env:
 jobs:
   check:
     runs-on: ubuntu-latest
-    # 5 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
+    # 6 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v7
@@ -73,6 +74,11 @@ jobs:
       - name: pdftotext を用意
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
 
+      # クライアント描画の出典（m3.material.io 等）は実ブラウザでしか本文が取れない。
+      # 用意しないと「取れなかった」扱いで素通りし、照合していないのに緑になる
+      - name: Playwright の chromium を用意
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: 外部リンクの実在確認
         id: links
         continue-on-error: true
@@ -92,6 +98,12 @@ jobs:
         id: verdicts-low
         continue-on-error: true
         run: bash .github/scripts/run-check-with-retry.sh verdicts-low pnpm check:verdicts:low
+
+      # 実ブラウザで取る出典（m3.material.io 等）を含むので chromium が要る
+      - name: 追補監査の逐語照合
+        id: verdicts-followup
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh verdicts-followup pnpm check:verdicts:followup
 
       # ネットワークに出ないので再実行は無意味だが、ログの置き場を揃えるため同じ経路で回す
       - name: 出典の照合日の鮮度
@@ -122,6 +134,7 @@ jobs:
             sources=${{ steps.sources.outputs.status }}/${{ steps.sources.outputs.attempts }}
             verdicts=${{ steps.verdicts.outputs.status }}/${{ steps.verdicts.outputs.attempts }}
             verdicts-low=${{ steps.verdicts-low.outputs.status }}/${{ steps.verdicts-low.outputs.attempts }}
+            verdicts-followup=${{ steps.verdicts-followup.outputs.status }}/${{ steps.verdicts-followup.outputs.attempts }}
             freshness=${{ steps.freshness.outputs.status }}/${{ steps.freshness.outputs.attempts }}
         run: bash .github/scripts/report-source-checks.sh
 
@@ -134,6 +147,7 @@ jobs:
             ${{ steps.sources.outcome }}
             ${{ steps.verdicts.outcome }}
             ${{ steps.verdicts-low.outcome }}
+            ${{ steps.verdicts-followup.outcome }}
             ${{ steps.freshness.outcome }}
         run: |
           echo "各検査の結果: $OUTCOMES"
