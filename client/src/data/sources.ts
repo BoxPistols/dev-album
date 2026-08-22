@@ -49,6 +49,7 @@ const DESIGN_MD = "/claude-code/multi-ai/design-md";
 const MULTI_AI = "/claude-code/multi-ai/multi-ai-coexistence";
 const SSOT = "/claude-code/multi-ai/single-source-of-truth";
 
+import { resolvePagePathFromFile } from "../lib/source-paths";
 import { GENERATED_SOURCES } from "./sources.generated";
 
 /** 手で書いた出典。ページの出典欄に出す */
@@ -255,4 +256,44 @@ export const SOURCES: Source[] = [...CURATED_SOURCES, ...GENERATED_SOURCES];
 
 export function getSourcesForPage(path: string): Source[] {
   return CURATED_SOURCES.filter((s) => s.usedBy?.includes(path));
+}
+
+/**
+ * 生成分の出典を読者に出すページ。issue 49 の試行として 2 ページだけに絞る。
+ * https://github.com/BoxPistols/dev-album/issues/49
+ *
+ * 151 件は登録も逐語照合も済んでいるが、これまで画面には出していなかった。
+ * 全ページで一斉に出すと、出典が 10 件以上付くページで教材本文が読みにくくなる。
+ * まずこの 2 ページで、折りたたみの出し方と分量が読者にとって邪魔にならないかを
+ * 見てから、広げるかどうかを決める。広げるときはこの配列を消して
+ * getGeneratedSourcesForPage の絞り込みを外す。
+ */
+export const GENERATED_SOURCES_TRIAL_PATHS: readonly string[] = [
+  "/react/nextjs-advanced/next15-features",
+  "/git/github-actions/secrets-permissions",
+];
+
+/** path -> 生成分の出典。usedByFiles を navigation の path へ解決して引く */
+const generatedByPath = new Map<string, Source[]>();
+for (const source of GENERATED_SOURCES) {
+  for (const file of source.usedByFiles ?? []) {
+    const path = resolvePagePathFromFile(file);
+    if (!path) continue;
+    const bucket = generatedByPath.get(path);
+    if (bucket) {
+      if (!bucket.includes(source)) bucket.push(source);
+    } else {
+      generatedByPath.set(path, [source]);
+    }
+  }
+}
+
+/**
+ * 監査から機械生成した出典。引用が原文に逐語で存在することは照合済みだが、
+ * その引用がページの主張を支えているかまでは人が確認していない。
+ * 表示は GENERATED_SOURCES_TRIAL_PATHS のページに限る。
+ */
+export function getGeneratedSourcesForPage(path: string): Source[] {
+  if (!GENERATED_SOURCES_TRIAL_PATHS.includes(path)) return [];
+  return generatedByPath.get(path) ?? [];
 }

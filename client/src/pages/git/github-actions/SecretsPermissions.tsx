@@ -2,6 +2,7 @@
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
+import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 import BookmarkButton from "@/components/BookmarkButton";
@@ -474,6 +475,10 @@ export default function SecretsPermissions() {
                 },
               ]}
             />
+          </section>
+
+          <section>
+            <PageSources path="/git/github-actions/secrets-permissions" />
           </section>
         </div>
 
