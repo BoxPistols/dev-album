@@ -420,7 +420,7 @@ export default function UsabilityTesting() {
                         <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300">バックログに追加</span>
                       </td>
                       <td className="px-4 py-2 border border-border">
-                        <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">余裕があれば対応</span>
+                        <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">余裕があれば対応</span>
                       </td>
                     </tr>
                   </tbody>

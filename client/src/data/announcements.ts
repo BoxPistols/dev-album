@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-palette-contrast",
+    date: "2026-08-23",
+    title: "Tailwind のパレット色どうしの配色を検査対象に加え、AA 未達を直した",
+    description:
+      "text-orange-600 と bg-orange-100 のような素のパレット色の組は、テーマトークンではないためこれまでどの検査にも掛かっていなかった。実測してみると 3.12:1 のように AA を割っているものが複数あり、AI・ML の頭文字バッジ、Git 入口のカードのアイコン、React の手順番号などを読める濃さに直した。以後は単体テストが同じ型の配色を落とす。",
+    category: "fix",
+    link: "/ai-ml/python-ml/data-libraries",
+  },
+  {
     id: "2026-08-23-storybook-a11y-contrast-fix",
     date: "2026-08-23",
     title: "サイドバーと LiveEditor の配色を AA まで上げ、story ごとに自動検査するようにした",

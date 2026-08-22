@@ -54,7 +54,7 @@ export default function Summary() {
 
               <div className="rounded-lg border border-border p-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 text-green-700 flex items-center justify-center font-bold text-sm">11-18</span>
+                  <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-green-100 text-green-800 flex items-center justify-center font-bold text-sm">11-18</span>
                   <h3 className="font-bold text-foreground">State とイベント / Hooks</h3>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed mb-2">

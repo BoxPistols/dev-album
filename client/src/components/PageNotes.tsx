@@ -20,7 +20,7 @@ export default function PageNotes({ path }: PageNotesProps) {
           <StickyNote size={16} />
           <span>このページのメモ</span>
           {note && !isOpen && (
-            <span className="text-xs text-amber-500 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-0.5 rounded-full">
+            <span className="text-xs text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-0.5 rounded-full">
               メモあり
             </span>
           )}
