@@ -145,7 +145,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'background.default', p: 3, borderRadius: 2 }}>
+      <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 3, borderRadius: 2 }}>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
           <Typography variant="body2">light</Typography>
           <Switch

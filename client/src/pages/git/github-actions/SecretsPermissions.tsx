@@ -303,10 +303,13 @@ export default function SecretsPermissions() {
               で読み取りに固定しています。書き込み権限を持つのは labeler
               （<code>pull-requests: write</code>）と stale
               （<code>issues: write</code> と <code>pull-requests: write</code>）
+              と source-checks（<code>issues: write</code>）
               だけで、それぞれ必要な種類しか持ちません。labeler は PR
               にラベルを付けるので PR への書き込みだけ、stale は放置された
               Issue と PR の両方にラベルを付けてクローズするので両方への
-              書き込みが要ります。役割ごとに必要な分だけ渡す、を実演しています。
+              書き込みが要ります。source-checks は週次で出典とリンクを検査し、
+              失敗したときだけ Issue を作る（または追記する）ので Issue
+              への書き込みだけです。役割ごとに必要な分だけ渡す、を実演しています。
               この一覧は <code>implementation-drift.test.ts</code> が実際の
               workflow ファイルと突き合わせているので、ずれると CI で落ちます。
             </InfoBox>

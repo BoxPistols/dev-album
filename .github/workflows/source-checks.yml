@@ -1,0 +1,143 @@
+name: Source checks
+
+# 出典・外部リンクの定期検査。
+#
+# 何をするか:
+#   pnpm check:links         教材ページの外部 URL が実在するか
+#   pnpm check:sources       出典レジストリ（sources.ts）の逐語引用が原文にあるか
+#   pnpm check:verdicts      監査 JSON（medium）の逐語引用が原文にあるか
+#   pnpm check:verdicts:low  監査 JSON（low）の逐語引用が原文にあるか
+#   pnpm check:freshness     verifiedAt が 180 日より古い出典が無いか
+#
+# なぜ PR ゲートにしないか:
+#   700 以上の URL を取得するため 10 分以上かかり、相手側の一時的な障害で無関係な PR が落ちる。
+#   そのため schedule + workflow_dispatch だけで回し、pull_request では走らせない。
+#
+# 赤の扱い（方針）:
+#   - 失敗した検査は 60 秒おいて 1 度だけ再実行し、2 回目の結果だけを採用する
+#     （.github/scripts/run-check-with-retry.sh）。1 回目の失敗だけでは何も報告しない
+#   - 2 回目も失敗した検査が 1 つでもあれば、固定の題名の issue を作るか既存の issue に追記する。
+#     通知はこの issue であり、ワークフローの赤そのものではない
+#   - ワークフローが赤になるのは「2 回目も失敗した検査がある」ときだけ。
+#     一過性のネットワーク障害だけで赤にはしない
+#   - 各検査は continue-on-error で全部走らせる。1 つ目で止めると残りの結果が分からない
+#
+# レート制限:
+#   以前 429 を踏んだため、検査は matrix で並列にせず 1 ジョブ内で直列に回す。
+#   各スクリプト内部の並列度・待ち時間はスクリプト側で持つ。
+
+on:
+  schedule:
+    # 毎週火曜 06:17 UTC（日本時間 15:17）。
+    # 月曜 00:00 UTC は stale.yml と GitHub 全体の混雑時間帯に重なるので避ける。
+    # 正時ちょうども混むので分をずらしている。平日の日中に issue が立てば当日中に見られる。
+    - cron: '17 6 * * 2'
+  workflow_dispatch:
+
+# issue の作成 / コメントに issues: write が要る。それ以外は読み取りのみ
+permissions:
+  contents: read
+  issues: write
+
+# 手動実行と定期実行が重なっても二重に取得しない
+concurrency:
+  group: source-checks
+  cancel-in-progress: false
+
+env:
+  ISSUE_TITLE: '[定期検査] 出典・リンクの検査が失敗'
+  ISSUE_LABEL: evidence
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    # 5 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: 依存をインストール
+        run: pnpm install --frozen-lockfile
+
+      # PDF の出典を平文化するのに pdftotext が要る（scripts/lib/source-fetch.mjs）。
+      # 無いと PDF の引用が「取れなかった」扱いになり、照合していないのに通ってしまう
+      - name: pdftotext を用意
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: 外部リンクの実在確認
+        id: links
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh links pnpm check:links
+
+      - name: 出典レジストリの逐語照合
+        id: sources
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh sources pnpm check:sources
+
+      - name: 監査 JSON（medium）の逐語照合
+        id: verdicts
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh verdicts pnpm check:verdicts
+
+      - name: 監査 JSON（low）の逐語照合
+        id: verdicts-low
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh verdicts-low pnpm check:verdicts:low
+
+      # ネットワークに出ないので再実行は無意味だが、ログの置き場を揃えるため同じ経路で回す
+      - name: 出典の照合日の鮮度
+        id: freshness
+        continue-on-error: true
+        env:
+          RETRY_WAIT_SECONDS: '0'
+        run: bash .github/scripts/run-check-with-retry.sh freshness pnpm check:freshness
+
+      - name: 検査の出力を保存
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: source-check-reports
+          path: reports/
+          retention-days: 30
+
+      # 失敗した検査があれば issue を作る / 既存の issue に追記する。
+      # ステップの出力は env 経由で渡す（untrusted な式を run に直挿ししない）
+      - name: 失敗を issue に報告
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RESULTS: >-
+            links=${{ steps.links.outputs.status }}/${{ steps.links.outputs.attempts }}
+            sources=${{ steps.sources.outputs.status }}/${{ steps.sources.outputs.attempts }}
+            verdicts=${{ steps.verdicts.outputs.status }}/${{ steps.verdicts.outputs.attempts }}
+            verdicts-low=${{ steps.verdicts-low.outputs.status }}/${{ steps.verdicts-low.outputs.attempts }}
+            freshness=${{ steps.freshness.outputs.status }}/${{ steps.freshness.outputs.attempts }}
+        run: bash .github/scripts/report-source-checks.sh
+
+      # 2 回目も失敗した検査があるときだけ、このワークフローを赤にする
+      - name: 結果を確定
+        if: always()
+        env:
+          OUTCOMES: >-
+            ${{ steps.links.outcome }}
+            ${{ steps.sources.outcome }}
+            ${{ steps.verdicts.outcome }}
+            ${{ steps.verdicts-low.outcome }}
+            ${{ steps.freshness.outcome }}
+        run: |
+          echo "各検査の結果: $OUTCOMES"
+          case " $OUTCOMES " in
+            *" failure "*) echo "2 回目も失敗した検査がある。issue を見る"; exit 1 ;;
+            *) echo "すべての検査が通った" ;;
+          esac

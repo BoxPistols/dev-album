@@ -1,7 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type ThemeMode = "system" | "light" | "dark" | "dark-soft";
-type ResolvedTheme = "light" | "dark" | "dark-soft";
+export type ResolvedTheme = "light" | "dark" | "dark-soft";
+
+/**
+ * プレビュー iframe をダーク配色で描くべきテーマか。
+ * Dracula（dark-soft）もダークの一種なので、`=== "dark"` ではなく light 以外で判定する
+ * （`=== "dark"` だと Dracula だけプレビューがライトのまま残る）。
+ */
+export function isDarkTheme(theme: ResolvedTheme): boolean {
+  return theme !== "light";
+}
 
 interface ThemeContextType {
   mode: ThemeMode;

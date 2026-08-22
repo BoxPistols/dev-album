@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, RotateCcw, Maximize2, Minimize2, Eye, Code2 } from 'lucide-react';
 import { buildPreviewHtml } from '@/lib/preview';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 
 // --- 型定義 ---
 interface FileTab {
@@ -50,7 +50,7 @@ export default function LiveEditor({
   const runPreview = useCallback(() => {
     const jsxFile = files.find((f) => f.language === 'tsx') ?? files[0];
     const cssFile = files.find((f) => f.language === 'css');
-    const html = buildPreviewHtml(jsxFile.code, cssFile?.code ?? '', theme === 'dark');
+    const html = buildPreviewHtml(jsxFile.code, cssFile?.code ?? '', isDarkTheme(theme));
     setPreviewHtml(html);
   }, [files, theme]);
 
