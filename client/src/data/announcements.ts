@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-low-risk-claims-verified",
+    date: "2026-08-23",
+    title: "low リスクの主張 121 件の照合を再実行し、取り残しを直した",
+    description:
+      "Claude Code のインストール確認手順から、古くなったバージョン番号の例を外した。表示される版は更新のたびに変わるので、例を書かずに「バージョン番号が表示されれば完了」とだけ案内する。あわせて、照合結果の出典のうち、取得のたびに値が変わるもの（配布物の最新版と npm の直近ダウンロード数）を、期間や版を固定した URL に差し替え、後からでも同じ引用を確認できるようにした。",
+    category: "fix",
+    link: "/git/ai-agent/claude-code-setup",
+  },
+  {
     id: "2026-08-23-dracula-preview-theme",
     date: "2026-08-23",
     title: "Dracula テーマでプレビューがライトのまま描かれる問題を修正",
