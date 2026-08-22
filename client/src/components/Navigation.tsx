@@ -17,14 +17,15 @@ import { useProgress } from '@/hooks/useProgress';
 import { useStreak } from '@/hooks/useStreak';
 import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
+import ManualGlyph from './ManualGlyph';
+import ManualSwitcher from './ManualSwitcher';
 
 // マニュアル別の色分けはトークン層（index.css の [data-manual] が --primary 系を上書き）で行うため、
 // コンポーネント側のクラス名は全マニュアル共通でよい。
 // 以前はマニュアルごとの Record だったが全エントリ同一値のため定数化した。
+// なお data-manual が付かない TOP では 10 件が同じ色になるので、マニュアル一覧側の
+// 色分けはトークンではなく navigation.ts の色を使う（ManualGlyph 参照）。
 const MANUAL_TEXT = 'text-primary';
-const MANUAL_BG = 'bg-primary';
-const MANUAL_BORDER = 'border-primary';
-const MANUAL_ACTIVE_BG = 'bg-primary/10';
 
 /**
  * サイドバーのセクション見出し。タイトルが省略された時だけ、フォーカス可能な
@@ -219,26 +220,8 @@ export default function Navigation() {
           </Link>
           <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
 
-          {/* マニュアルタブ */}
-          <div className="grid grid-cols-2 gap-1.5 mb-4">
-            {manuals.map((m) => {
-              const isActive = activeManualId === m.id;
-              return (
-                <Link
-                  key={m.id}
-                  href={`/${m.id}`}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-3 py-1.5 rounded-lg text-center text-xs font-medium border transition-colors truncate ${
-                    isActive
-                      ? `${MANUAL_BORDER} ${MANUAL_ACTIVE_BG} ${MANUAL_TEXT}`
-                      : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-                  }`}
-                >
-                  {m.shortTitle}
-                </Link>
-              );
-            })}
-          </div>
+          {/* マニュアル切り替え。TOP や汎用ページでは下の一覧が同じ役目を果たすので描画されない */}
+          <ManualSwitcher activeManualId={activeManualId} onNavigate={() => setIsOpen(false)} />
 
           {/* 検索 */}
           <div className="relative mb-4">
@@ -429,8 +412,8 @@ export default function Navigation() {
                     className="block px-4 py-3 rounded-lg border border-border hover:bg-sidebar-accent transition-all group"
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg ${MANUAL_BG} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                        <span className="text-white font-bold text-sm">{m.icon}</span>
+                      <div className="group-hover:scale-110 transition-transform">
+                        <ManualGlyph manual={m} size="md" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-foreground">{m.shortTitle}</p>
@@ -442,9 +425,9 @@ export default function Navigation() {
                     </div>
                     {/* 進捗バー */}
                     <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full ${MANUAL_BG} transition-all duration-700`}
-                        style={{ width: `${percentage}%` }}
+                      <div
+                        className="h-full transition-all duration-700"
+                        style={{ width: `${percentage}%`, backgroundColor: m.color }}
                       />
                     </div>
                   </Link>

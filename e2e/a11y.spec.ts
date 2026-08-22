@@ -83,3 +83,54 @@ for (const theme of THEMES) {
     });
   }
 }
+
+// ------------------------------------------------------------
+// マニュアル切り替え（展開状態）
+//
+// 上のページ単位の検査は畳んだ状態しか踏まないため、開いたときにだけ現れる
+// 一覧を個別に当てる。対象はマニュアル名・進捗率・リンクのロールとフォーカス。
+//
+// バッジ（ManualGlyph）の頭文字はここでは検査されない。aria-hidden を付けており
+// axe が color-contrast の対象から外すため。実測で確認済み（alpha を 1 にして
+// 頭文字を沈めても、この検査は緑のままだった）。バッジ地色のコントラストは
+// client/src/lib/theme-contrast.test.ts が 10 マニュアル × 3 テーマで見ている。
+// ------------------------------------------------------------
+for (const theme of THEMES) {
+  test(`[${theme.name}] マニュアル切り替えを開いた状態: critical/serious な a11y 違反がない`, async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+    await page.goto("/claude-mux/getting-started/why-claude-code", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(page.locator("h1").first()).toBeVisible({ timeout: 15_000 });
+
+    await page.evaluate((classes) => {
+      const root = document.documentElement;
+      root.classList.remove("dark", "dark-soft");
+      classes.forEach((c) => root.classList.add(c));
+    }, theme.classes as string[]);
+    await page.addStyleTag({
+      content:
+        "*,*::before,*::after{animation:none!important;transition:none!important;opacity:1!important}",
+    });
+
+    await page.getByRole("button", { name: /マニュアルを切り替え/ }).click();
+    const list = page.locator("#manual-switcher-list");
+    await expect(list).toBeVisible();
+    // 現在のマニュアルはトリガー行が担うので、一覧には残りだけが並ぶ
+    await expect(list.locator("li")).toHaveCount(9);
+
+    const results = await new AxeBuilder({ page }).include("nav").analyze();
+    const blocking = results.violations.filter(
+      (v) => v.impact === "critical" || v.impact === "serious",
+    );
+    const summary = blocking
+      .map(
+        (v) =>
+          `[${v.impact}] ${v.id}: ${v.help} (${v.nodes.length} 箇所, 例: ${v.nodes[0]?.target.join(" ")})`,
+      )
+      .join("\n");
+    expect(blocking, `a11y 違反:\n${summary}`).toEqual([]);
+  });
+}
