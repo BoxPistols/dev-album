@@ -246,10 +246,10 @@
     "file": "git/environment/Git.tsx",
     "claim": "ダウンロードされた Git-x.xx.x-64-bit.exe をダブルクリックして実行します。",
     "verdict": "CONFIRMED",
-    "sourceUrl": "https://api.github.com/repos/git-for-windows/git/releases/latest",
-    "quote": "\"name\": \"Git-2.55.0.4-64-bit.exe\"",
+    "sourceUrl": "https://api.github.com/repos/git-for-windows/git/releases/tags/v2.55.0.windows.5",
+    "quote": "\"name\": \"Git-2.55.0.5-64-bit.exe\"",
     "correction": "",
-    "evidence": "git-scm.com/download/win の配布元である git-for-windows/git の最新リリース（v2.55.0.windows.4）のアセット一覧を取得し、64bit 版インストーラーのファイル名が Git-2.55.0.4-64-bit.exe であることを確認した。教材のプレースホルダ Git-x.xx.x-64-bit.exe と形が一致する（実際の版番号は 4 セグメントになることがある点だけ差異）。"
+    "evidence": "git-scm.com/download/win の配布元である git-for-windows/git のリリース v2.55.0.windows.5 のアセット一覧を取得し、64bit 版インストーラーのファイル名が Git-2.55.0.5-64-bit.exe であることを確認した（2026-08-23 再照合）。教材のプレースホルダ Git-x.xx.x-64-bit.exe と形が一致する（実際の版番号は 4 セグメントになることがある点だけ差異）。当初の出典は releases/latest だったが、最新版が動くたびに引用が原文から外れるため、版を固定した tags/v2.55.0.windows.5 に差し替えた。"
   },
   {
     "file": "git/environment/Nodejs.tsx",
@@ -444,10 +444,10 @@
     "file": "threejs/Home.tsx",
     "claim": "その入り口として最も人気のあるライブラリが Three.js です。",
     "verdict": "CONFIRMED",
-    "sourceUrl": "https://api.npmjs.org/downloads/point/last-month/three",
-    "quote": "\"downloads\":55393873",
+    "sourceUrl": "https://api.npmjs.org/downloads/point/2026-07-01:2026-07-31/three",
+    "quote": "\"downloads\":52444173,\"start\":\"2026-07-01\",\"end\":\"2026-07-31\",\"package\":\"three\"",
     "correction": "",
-    "evidence": "npm のダウンロード API で直近 1 か月を取得。three が約 5,539 万に対し @babylonjs/core は約 136 万で、Web 3D ライブラリとして three.js の利用が突出していることを確認した。"
+    "evidence": "npm のダウンロード API で 2026-07-01〜2026-07-31 の 1 か月分を取得。three が 52,444,173 に対し、@babylonjs/core は同じ期間で 1,228,272（https://api.npmjs.org/downloads/point/2026-07-01:2026-07-31/@babylonjs/core）で、Web 3D ライブラリとして three.js の利用が突出していることを確認した（2026-08-23 再照合）。当初の出典は last-month だったが、値が毎日動いて引用が原文から外れるため、期間を固定した範囲指定に差し替えた。ダウンロード数は利用実態の代理指標であり、全ライブラリを網羅比較したものではない点は確認できていない。"
   },
   {
     "file": "threejs/basics/camera.tsx",
