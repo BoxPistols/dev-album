@@ -6,10 +6,11 @@
 //
 //   pnpm check:sources            全件を照合
 //   pnpm check:sources <id>...    指定した出典だけ照合
+//   pnpm check:sources --dry-run  読み込めた件数だけ出して終わる（ネットワークに出ない）
 //
+// sources.ts は TypeScript なので tsx で起動する（package.json の check:sources を参照）。
 // ネットワークに出るため vitest には入れない（外部の障害で CI を落とさない）。
 
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -19,81 +20,37 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SOURCES_TS = resolve(HERE, "../client/src/data/sources.ts");
 
 /**
- * sources.ts をトランスパイルせずに読むため、Node の実行時に解釈できる形へ削る。
- * 型注釈と import/export を落として関数として評価する。
+ * sources.ts を tsx 経由でそのまま import する。
+ * 以前は文字列操作で配列リテラルを切り出していたが、型注釈 `Source[]` の `[` を
+ * 配列の開始と誤認して 0 件を返す事故があった。TS として読めば書式に依存しない。
  */
-function loadArray(src, exportName) {
-  const start = src.indexOf(`export const ${exportName}`);
-  if (start === -1) return [];
-  // 型注釈の `Source[]` にも `[` が含まれるので、代入の `=` より後ろから探す
-  const assign = src.indexOf("=", start);
-  if (assign === -1) throw new Error(`${exportName} の代入が見つからない`);
-  const arrayStart = src.indexOf("[", assign);
-  // 対応する閉じ括弧を数える（文字列リテラル内の括弧は無視する）
-  let depth = 0;
-  let end = -1;
-  let quote = null;
-  for (let i = arrayStart; i < src.length; i++) {
-    const c = src[i];
-    const prev = src[i - 1];
-    if (quote) {
-      if (c === quote && prev !== "\\") quote = null;
-      continue;
-    }
-    if (c === '"' || c === "'" || c === "`") {
-      quote = c;
-      continue;
-    }
-    if (c === "[") depth++;
-    else if (c === "]") {
-      depth--;
-      if (depth === 0) {
-        end = i;
-        break;
-      }
-    }
-  }
-  if (end === -1) throw new Error(`${exportName} の配列を閉じられない`);
+async function loadSources() {
+  const mod = await import(SOURCES_TS);
+  const parsed = mod.SOURCES;
 
-  // usedBy が参照している定数（AGENT_DOCS 等）も一緒に渡す
-  const constBlock = src
-    .split("\n")
-    .filter((l) => /^const [A-Z_]+ = ".*";$/.test(l))
-    .join("\n");
-
-  const literal = src.slice(arrayStart, end + 1);
-  // eslint-disable-next-line no-new-func
-  return new Function(`${constBlock}\nreturn ${literal};`)();
-}
-
-function loadSources() {
-  const curatedSrc = readFileSync(SOURCES_TS, "utf8");
-  const generatedPath = resolve(HERE, "../client/src/data/sources.generated.ts");
-  let generatedSrc = "";
-  try {
-    generatedSrc = readFileSync(generatedPath, "utf8");
-  } catch {
-    // 生成ファイルが無い構成もありうる
-  }
-
-  const parsed = [
-    ...loadArray(curatedSrc, "CURATED_SOURCES"),
-    ...loadArray(generatedSrc, "GENERATED_SOURCES"),
-  ];
-
-  // 解析に失敗して空配列を返すと「何も照合していないのに成功」になる。
+  // 読み込みに失敗して空配列を返すと「何も照合していないのに成功」になる。
   // 0 件は成果ではなく事故として扱う。
   if (!Array.isArray(parsed) || parsed.length === 0) {
     throw new Error(
-      "出典を解析できたが 0 件だった。sources.ts の書式が変わった可能性がある",
+      "出典を読み込めたが 0 件だった。sources.ts の export が変わった可能性がある",
     );
   }
   return parsed;
 }
 
 async function main() {
-  const only = process.argv.slice(2);
-  const all = loadSources();
+  const args = process.argv.slice(2);
+  const dryRun = args.includes("--dry-run");
+  const only = args.filter((a) => !a.startsWith("--"));
+  const all = await loadSources();
+  if (dryRun) {
+    const measuredCount = all.filter((s) => s.kind === "measured").length;
+    const quoteCount = all.reduce((n, s) => n + (s.quotes?.length ?? 0), 0);
+    console.log(
+      `出典 ${all.length} 件（うち実測 ${measuredCount} 件）/ 引用 ${quoteCount} 件を読み込んだ`,
+    );
+    return;
+  }
   const targets = only.length ? all.filter((s) => only.includes(s.id)) : all;
 
   if (only.length) {
