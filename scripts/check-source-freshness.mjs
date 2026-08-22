@@ -60,7 +60,7 @@ function escapeCell(s) {
   return String(s).replace(/\|/g, "\\|");
 }
 
-function main() {
+async function main() {
   const { days, asJson } = parseArgs(process.argv.slice(2));
   const now = Date.now();
   const sources = await loadSources();
@@ -134,9 +134,7 @@ function main() {
   if (stale.length || malformed.length) process.exitCode = 1;
 }
 
-try {
-  main();
-} catch (err) {
+main().catch((err) => {
   console.error(err instanceof Error ? err.message : err);
   process.exitCode = 2;
-}
+});
