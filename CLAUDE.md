@@ -134,7 +134,7 @@ client/src/
 
 `infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
 
-**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 9 マニュアル × 3 テーマ = 27 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。
+**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 9 マニュアル × 3 テーマ = 27 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。コンポーネント単位は `pnpm test:storybook` が story ごとに axe を通す。
 
 **ティントの上限**: `text-primary` を載せる背景は `bg-primary/10` まで。`bg-primary/α` は下地を primary 側へ寄せるので α を上げるほど余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145）。`/20` は AA を割る。
 
@@ -203,6 +203,7 @@ client/src/
 - Unit: `pnpm test`
 - E2E: `pnpm test:e2e`（dev サーバーは Playwright が自動起動。ローカルでは `PORT=3400 pnpm test:e2e` のように空きポートを明示する）
 - a11y のみ: `pnpm test:a11y`
+- Storybook の a11y: `pnpm test:storybook`（`vitest.storybook.config.ts`。story を 1 件ずつ chromium で描画し、`.storybook/preview.tsx` の `a11y.test: "error"` により違反があれば落ちる。初回は `pnpm exec playwright install chromium` が要る）
 - 全チャレンジコードのトランスパイル検証: `editor-validation.test.ts`
 
 ## Git ワークフロー

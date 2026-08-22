@@ -136,7 +136,17 @@ const BG_CLASS =
 
 // 背景クラスを持たない要素の文字色は、ページの地（background / card / muted）の上に乗る。
 // *-foreground 系トークンは「対になる純色の上」で使う前提なので、この推定の対象外。
-const GROUND_TEXT = new Set(["primary", "accent", "foreground", "muted-foreground"]);
+const GROUND_TEXT = new Set([
+  "primary",
+  "accent",
+  "foreground",
+  "muted-foreground",
+]);
+
+// opacity-N は要素まるごと（文字も面も）を下地へ沈める。文字色クラスのアルファとは
+// 別系統だが効果は乗算されるので、同じ要素に付いていれば一緒に評価する。
+// 未解除バッジを opacity-50 で沈めて 2.03:1 になっていた例がある。
+const OPACITY_CLASS = /(?<![\w:-])opacity-(\d+)(?![\w-])/g;
 
 /**
  * className の中身から「同時に適用され得るクラス列」を取り出す。
@@ -154,7 +164,13 @@ function classGroups(content: string): string[] {
   return groups;
 }
 
-type Pair = { text: string; textAlpha: number; bg: string; alpha: number };
+type Pair = {
+  text: string;
+  textAlpha: number;
+  bg: string;
+  alpha: number;
+  opacity: number;
+};
 
 /** ページのパスからそのファイルが描画されるマニュアルを判定する（共有部品は全マニュアル） */
 function manualsFor(file: string): (Manual | null)[] {
@@ -173,6 +189,13 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
     /className=(?:"([^"]*)"|\{`([^`]*)`\}|\{"([^"]*)"\})/g,
   )) {
     for (const group of classGroups(attr[1] ?? attr[2] ?? attr[3] ?? "")) {
+      // 同じ要素に複数付くことはないが、条件分岐を合成した group では並ぶことがある。
+      // 一番濃い（= 検査が緩くならない）値を採る。0 は要素ごと不可視なので対象外
+      const opacities = [...group.matchAll(OPACITY_CLASS)].map(
+        (m) => Number(m[1]) / 100,
+      );
+      if (opacities.includes(0)) continue;
+      const opacity = opacities.length ? Math.max(...opacities) : 1;
       const texts = [
         ...new Map(
           [...group.matchAll(TEXT_CLASS)].map((m) => [
@@ -185,10 +208,11 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
         token: m[1],
         alpha: m[2] ? Number(m[2]) / 100 : 1,
       }));
-      // 背景クラスが同居しない半透明文字は、ページの地の上に乗るものとして評価する
+      // 背景クラスが同居しない半透明文字（opacity で沈めたものを含む）は、
+      // ページの地の上に乗るものとして評価する
       if (bgs.length === 0) {
         for (const t of texts) {
-          if (t.alpha < 1 && GROUND_TEXT.has(t.token)) {
+          if ((t.alpha < 1 || opacity < 1) && GROUND_TEXT.has(t.token)) {
             bgs.push(
               { token: "background", alpha: 1 },
               { token: "card", alpha: 1 },
@@ -199,7 +223,7 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
       }
       for (const text of texts) {
         for (const bg of bgs) {
-          const key = `${text.token}|${text.alpha}|${bg.token}|${bg.alpha}`;
+          const key = `${text.token}|${text.alpha}|${bg.token}|${bg.alpha}|${opacity}`;
           if (!occurrences.has(key)) {
             occurrences.set(key, {
               pair: {
@@ -207,6 +231,7 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
                 textAlpha: text.alpha,
                 bg: bg.token,
                 alpha: bg.alpha,
+                opacity,
               },
               manuals: new Set(),
               file,
@@ -245,21 +270,28 @@ describe("カラートークンのコントラスト", () => {
         for (const theme of THEMES) {
           const t = tokensFor(theme, manual);
           const fg = parseHex(t[pair.text]);
-          const surfaces =
-            pair.alpha === 1
+          // 不透明な面に不透明な文字なら下地は要らない。半透明が絡むときだけ、
+          // その要素が載り得る地を総当たりする
+          const bases =
+            pair.alpha === 1 && pair.opacity === 1
               ? [parseHex(t[pair.bg])]
-              : baseSurfaces(t).map((base) =>
-                  composite(parseHex(t[pair.bg]), base, pair.alpha),
-                );
-          for (const surface of surfaces) {
+              : baseSurfaces(t);
+          for (const base of bases) {
+            let surface =
+              pair.alpha === 1
+                ? parseHex(t[pair.bg])
+                : composite(parseHex(t[pair.bg]), base, pair.alpha);
             // 半透明の文字は下地と合成された色で描画される
-            const effFg =
-              pair.textAlpha < 1
-                ? composite(fg, surface, pair.textAlpha)
-                : fg;
+            let effFg =
+              pair.textAlpha < 1 ? composite(fg, surface, pair.textAlpha) : fg;
+            if (pair.opacity < 1) {
+              // opacity は文字と面をまとめて地へ沈める
+              effFg = composite(effFg, base, pair.opacity);
+              surface = composite(surface, base, pair.opacity);
+            }
             const ratio = contrast(effFg, surface);
             if (ratio < AA_MIN) {
-              const cls = `text-${pair.text}${pair.textAlpha < 1 ? `/${pair.textAlpha * 100}` : ""} × bg-${pair.bg}${pair.alpha < 1 ? `/${pair.alpha * 100}` : ""}`;
+              const cls = `text-${pair.text}${pair.textAlpha < 1 ? `/${pair.textAlpha * 100}` : ""} × bg-${pair.bg}${pair.alpha < 1 ? `/${pair.alpha * 100}` : ""}${pair.opacity < 1 ? ` × opacity-${pair.opacity * 100}` : ""}`;
               failures.push(
                 `${ratio.toFixed(2)}:1  [${theme}/${manual ?? "既定"}] ${cls}  例: ${file.replace(/.*client\//, "client/")}`,
               );
@@ -345,7 +377,10 @@ describe("ManualGlyph のバッジ地色", () => {
 
   it("ソースから alpha と 10 マニュアルぶんの色を取り出せる", () => {
     // 取り出しに失敗したまま 0 件を検査して緑になるのを防ぐ
-    expect(alphaMatch, "TINT_ALPHA を ManualGlyph.tsx から読めない").toBeTruthy();
+    expect(
+      alphaMatch,
+      "TINT_ALPHA を ManualGlyph.tsx から読めない",
+    ).toBeTruthy();
     expect(brandColors).toHaveLength(11);
   });
 
