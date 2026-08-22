@@ -11,7 +11,7 @@ const TIERS: { tier: string; what: string; examples: string; caution: string }[]
     tier: "一次",
     what: "作った側が出しているもの",
     examples:
-      "仕様書・RFC、公式ドキュメント、リリースノートと変更履歴、ソースコード、公式リポジトリの issue",
+      "仕様書・RFC、公式ドキュメント、リリースノートと変更履歴、ソースコード、メンテナーが認めた変更",
     caution: "書かれていないことは「未定義」であって「不可能」ではない",
   },
   {
@@ -124,7 +124,11 @@ export default function PrimarySources() {
               </li>
               <li>
                 <strong>issue と Pull Request。</strong> 「なぜそうなっているか」は
-                ドキュメントより議論のほうに残ります
+                ドキュメントより議論のほうに残ります。ただし
+                <strong>issue そのものは一次情報ではありません</strong>。
+                公式リポジトリにあっても、読み取り権限があれば誰でも立てられます。
+                根拠にするのは、その中でメンテナーが認めた内容か、そこから辿った
+                仕様・変更履歴のほうです
               </li>
             </ul>
             <div className="mt-6">

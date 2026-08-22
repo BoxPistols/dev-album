@@ -20,7 +20,8 @@ const FAILURES: { kind: string; looks: string; check: string }[] = [
   {
     kind: "実在する URL に似た偽の URL",
     looks: "ドメインは本物で、パスだけがそれらしく作られている",
-    check: "開く。404 かどうかを見るだけで判定できる",
+    check:
+      "開いて、最終的な URL と中身を見る。転送されて別ページに着いたり、200 のまま検索結果や案内ページが返ることがあるので、状態コードだけでは判定できない",
   },
   {
     kind: "モデル名やバージョン番号の取り違え",
@@ -124,8 +125,11 @@ npm view some-package version
 npm ls some-package
 npm view some-package versions --json
 
-# URL が生きているか（本文を取らずに状態だけ見る）
-curl -sI --max-time 10 https://example.com/docs/page | head -1
+# URL が生きているか。転送を追って、最終的にどこに着いたかを見る
+# （404 にならず、案内ページへ飛ばされているだけのことがある）
+curl -s -o /dev/null -L --max-time 10 \
+  -w 'status=%{http_code} final=%{url_effective}\n' \
+  https://example.com/docs/page
 
 # CLI のオプションが実在するか
 some-cli --help | grep -- --that-option`}

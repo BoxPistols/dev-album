@@ -254,7 +254,7 @@ export default function Landing() {
             実践リファレンス
           </h1>
           <p className="text-lg text-zinc-400 max-w-xl leading-relaxed mb-10">
-            Git・React・Claude Code・Three.js をはじめとする 10 のマニュアルを
+            学び方・Git・React・Claude Code をはじめとする {manuals.length} のマニュアルを
             Web 標準とアクセシビリティの視点で解説。
           </p>
           <div className="flex flex-wrap gap-3">
@@ -376,7 +376,7 @@ export default function Landing() {
             Manuals
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
-            4 つのマニュアル
+            {manuals.length} のマニュアル
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {manuals.map((m, i) => {

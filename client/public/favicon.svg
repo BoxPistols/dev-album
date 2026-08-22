@@ -2,7 +2,7 @@
   <!-- 棚の本と、引き出した 1 冊。BrandMark.tsx と同じ図形。
        favicon は CSS 変数を解決できないため、色は既定テーマの primary を直に書く。
        XML のコメントに連続ハイフンは書けないので、変数名はそのまま書かない。 -->
-  <g fill="#1F5CDB">
+  <g fill="#84CC16">
     <rect x="4" y="9" width="6" height="19" rx="1.8" opacity="0.32"/>
     <rect x="12" y="5" width="6" height="23" rx="1.8" opacity="0.55"/>
     <rect x="20" y="4" width="6" height="23.5" rx="1.8" transform="rotate(14 23 27.5)"/>
