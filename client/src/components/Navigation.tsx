@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy, ShieldCheck } from 'lucide-react';
+import { ChevronDown, X, Search, Sun, Moon, PanelLeft, PanelLeftClose, PanelLeftOpen, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy, ShieldCheck } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -17,6 +17,7 @@ import { useProgress } from '@/hooks/useProgress';
 import { useStreak } from '@/hooks/useStreak';
 import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
+import BrandMark from './BrandMark';
 import ManualGlyph from './ManualGlyph';
 import ManualSwitcher from './ManualSwitcher';
 
@@ -26,6 +27,13 @@ import ManualSwitcher from './ManualSwitcher';
 // なお data-manual が付かない TOP では 10 件が同じ色になるので、マニュアル一覧側の
 // 色分けはトークンではなく navigation.ts の色を使う（ManualGlyph 参照）。
 const MANUAL_TEXT = 'text-primary';
+
+// 左上の常駐コントロール。サイドバーの上にも本文の上にも乗るので、地色と blur を自前で持つ。
+// 位置はサイドバーの内側余白（p-6 = 24px）と揃え、隠しても現れても同じ場所に見えるようにする。
+const SIDEBAR_TOGGLE =
+  'fixed top-5 left-5 z-50 w-9 h-9 items-center justify-center rounded-lg border border-border ' +
+  'bg-card/85 backdrop-blur-md shadow-sm text-muted-foreground hover:text-foreground hover:bg-muted ' +
+  'transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary';
 
 /**
  * サイドバーのセクション見出し。タイトルが省略された時だけ、フォーカス可能な
@@ -194,36 +202,26 @@ export default function Navigation() {
 
   return (
     <>
-      {/* モバイルメニューボタン */}
+      {/* サイドバーの出し入れ。サイドバーを隠すコントロールをサイドバーの中に置くと、
+          隠した瞬間に手が届かなくなる。ビューポート左上に固定し、どちらのモードでも
+          同じ位置に置く（サイドバーより手前に出すので z-50）。 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border border-border hover:bg-muted shadow-sm"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
+        className={`${SIDEBAR_TOGGLE} flex md:hidden`}
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isOpen ? <X size={18} /> : <PanelLeft size={18} />}
       </button>
-
-      {/* ワイドモード中の復帰コントロール: サイドバーが引っ込みツールバーに手が届かないので常設する */}
-      {layoutMode === 'wide' && (
-        <div className="hidden md:flex fixed bottom-16 left-6 z-50 items-center gap-1 p-1 rounded-full border border-border bg-card/85 backdrop-blur-md shadow-sm">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-label={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
-            title={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
-            className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          >
-            {isOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
-          <button
-            onClick={toggleLayout}
-            aria-label="通常表示に戻す"
-            title="通常表示に戻す"
-            className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          >
-            <Columns2 size={16} />
-          </button>
-        </div>
-      )}
+      <button
+        onClick={toggleLayout}
+        aria-pressed={layoutMode === 'wide'}
+        aria-label={layoutMode === 'normal' ? 'サイドバーを隠して本文を広げる' : 'サイドバーを表示する'}
+        title={layoutMode === 'normal' ? 'サイドバーを隠して本文を広げる' : 'サイドバーを表示する'}
+        className={`${SIDEBAR_TOGGLE} hidden md:flex`}
+      >
+        {layoutMode === 'normal' ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
+      </button>
 
       {/* サイドバー */}
       {/* 共有 TooltipProvider: 初回は 2 秒のウォームアップ、直近 1.5 秒以内の連続ホバーは遅延なしで表示 */}
@@ -234,14 +232,16 @@ export default function Navigation() {
         }${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="p-6">
-          {/* ロゴ */}
-          <Link href="/" className="flex items-center gap-2.5 mb-1 group">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <span className="text-primary-foreground font-heading font-bold text-sm">DA</span>
-            </div>
-            <span className="font-heading font-bold text-lg text-foreground whitespace-nowrap">Dev Album</span>
-          </Link>
-          <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
+          {/* ロゴ。左上の固定コントロールと同じ行に並ぶので、その幅ぶん右へ逃がす */}
+          <div className="pl-[46px]">
+            <Link href="/" className="flex items-center gap-2.5 mb-0.5 group">
+              <BrandMark className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" />
+              <span className="font-heading font-bold text-lg tracking-tight text-foreground whitespace-nowrap">
+                Dev Album
+              </span>
+            </Link>
+            <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
+          </div>
 
           {/* マニュアル切り替え。TOP や汎用ページでは下の一覧が同じ役目を果たすので描画されない */}
           <ManualSwitcher activeManualId={activeManualId} onNavigate={() => setIsOpen(false)} />
@@ -263,9 +263,6 @@ export default function Navigation() {
           <div className="flex gap-1.5 mb-4">
             <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={theme === 'dark' ? 'ライトモード' : 'ダークモード'}>
               {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
-            <button onClick={toggleLayout} aria-pressed={layoutMode === 'wide'} aria-label={layoutMode === 'normal' ? 'ワイド表示にする（サイドバーを隠す）' : '通常表示に戻す'} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={layoutMode === 'normal' ? 'ワイド表示（サイドバーを隠す）' : '通常表示に戻す'}>
-              {layoutMode === 'normal' ? <Maximize size={15} /> : <Columns2 size={15} />}
             </button>
             <button onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="設定">
               <Settings size={15} />
@@ -508,12 +505,9 @@ export default function Navigation() {
       </nav>
       </TooltipProvider>
 
-      {/* サイドバーを重ねて開いている間の背景。ワイドモードでは md 以上でも重なるので出す */}
+      {/* モバイルオーバーレイ */}
       {isOpen && (
-        <div
-          className={`fixed inset-0 bg-black/20 z-30 ${layoutMode === 'wide' ? '' : 'md:hidden'}`}
-          onClick={() => setIsOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/20 z-30 md:hidden" onClick={() => setIsOpen(false)} />
       )}
     </>
   );
