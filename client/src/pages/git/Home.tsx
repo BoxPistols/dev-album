@@ -44,6 +44,15 @@ export default function Home() {
     },
   ];
 
+  // 総学習時間は learningPath の duration から出す。手で書くと、
+  // 各ステップの時間を変えたときに合計だけが古いまま残る（実際に 30 分ずれていた）。
+  const totalMinutes = learningPath.reduce(
+    (sum, step) => sum + Number.parseInt(step.duration, 10),
+    0,
+  );
+  const totalHours = Math.floor(totalMinutes / 60);
+  const totalRemainder = totalMinutes % 60;
+
   const benefits = [
     {
       icon: <Zap className="w-6 h-6" />,
@@ -130,7 +139,8 @@ export default function Home() {
           {/* Learning Duration */}
           <div className="inline-block bg-card border border-border rounded-lg px-6 py-3">
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">総学習時間：</span> 約 2 時間 45 分
+              <span className="font-semibold text-foreground">総学習時間：</span> 約 {totalHours} 時間
+              {totalRemainder > 0 && ` ${totalRemainder} 分`}
             </p>
           </div>
         </div>

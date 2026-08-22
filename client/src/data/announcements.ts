@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-git-home-total-duration",
+    date: "2026-08-23",
+    title: "Git マニュアル入口の総学習時間を、各ステップの時間から計算するようにした",
+    description:
+      "入口ページの総学習時間が 2 時間 45 分と書かれていたが、各ステップの時間を足すと 2 時間 15 分だった。手書きの合計をやめ、ステップの時間から計算して表示するようにしたので、ステップの時間を変えると合計も追従する。",
+    category: "fix",
+    link: "/git",
+  },
+  {
     id: "2026-08-23-page-sources-trial",
     date: "2026-08-23",
     title: "機械照合した出典をページから読めるようにした（2 ページで試行）",
