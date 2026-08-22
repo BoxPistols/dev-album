@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-claude-code-url-and-progress-migration",
+    date: "2026-08-23",
+    title: "Claude Code マニュアルの URL 変更と学習記録の引き継ぎ",
+    description:
+      "マニュアルの URL を /claude-mux から /claude-code に改めた。旧 URL は自動で転送する。完了ページ・ブックマーク・ページメモはブラウザ（localStorage）に保存しているため、次に開いたときに新しい URL へ自動で写し替える。以前に削除した tmux 系ページの記録だけは写す先が無いので、この機会に整理する。表示がおかしいときは、ブラウザの開発者ツールでこのサイトの localStorage を消すと初期状態に戻る。",
+    category: "fix",
+    link: "/claude-code",
+  },
+  {
     id: "2026-08-23-learning-how-to-learn",
     date: "2026-08-23",
     title: "新マニュアル: 学び方 — 初めての領域との向き合い方",
