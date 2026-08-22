@@ -4,12 +4,14 @@ import path from "node:path";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import { apiDevPlugin } from "./vite-api-plugin";
+import { seoPlugin } from "./vite-seo-plugin";
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
     apiDevPlugin(),
+    seoPlugin(),
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg"],

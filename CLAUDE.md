@@ -55,6 +55,7 @@ client/src/
 ├── hooks/          useBookmarks, useProgress, useManualTheme 等
 ├── lib/            navigation.ts, preview.ts, searchIndex.ts
 └── pages/
+    ├── learning/   学び方マニュアル（一覧の先頭）
     ├── git/        Git マニュアル
     ├── react/      React マニュアル
     ├── claude-code/ Claude Code マニュアル
@@ -121,6 +122,7 @@ client/src/
 
 | マニュアル | Light | Dark | Dracula |
 |---|---|---|---|
+| learning | #456E0D | #A3E635 | #BEF264 |
 | git | #BE123C | #FB7185 | #FC9EAB |
 | react | #4F46E5 | #A5B4FC | #A5B4FC |
 | claude-code | #6D28D9 | #C4B5FD | #C4B5FD |
@@ -132,7 +134,7 @@ client/src/
 
 `infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
 
-**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 8 マニュアル × 3 テーマ = 24 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。
+**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 9 マニュアル × 3 テーマ = 27 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。
 
 **ティントの上限**: `text-primary` を載せる背景は `bg-primary/10` まで。`bg-primary/α` は下地を primary 側へ寄せるので α を上げるほど余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145）。`/20` は AA を割る。
 

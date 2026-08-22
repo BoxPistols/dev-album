@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { manuals } from "../client/src/lib/navigation";
 
 // ============================================================
 // アクセシビリティ自動検査（axe-core）
@@ -10,6 +11,10 @@ import AxeBuilder from "@axe-core/playwright";
 
 const PAGES = [
   { path: "/", name: "ランディング" },
+  // 学び方マニュアル（一覧の先頭に置く新マニュアル）。独自のブランド色を持つので
+  // 3 テーマとも当てる。表・内部リンク・外部リンク・コードブロックを含むページを選ぶ
+  { path: "/learning", name: "学び方 Home" },
+  { path: "/learning/sources/search-technique", name: "検索の技術（表・外部リンク）" },
   { path: "/react", name: "React マニュアル Home" },
   { path: "/react/mui/intro", name: "MUI 入門（ライブプレビュー含む）" },
   { path: "/react/accessibility/semantic-aria", name: "アクセシビリティ教材" },
@@ -120,8 +125,9 @@ for (const theme of THEMES) {
     await page.getByRole("button", { name: /マニュアルを切り替え/ }).click();
     const list = page.locator("#manual-switcher-list");
     await expect(list).toBeVisible();
-    // 現在のマニュアルはトリガー行が担うので、一覧には残りだけが並ぶ
-    await expect(list.locator("li")).toHaveCount(9);
+    // 現在のマニュアルはトリガー行が担うので、一覧には残りだけが並ぶ。
+    // 件数は navigation.ts から引く（直書きするとマニュアルを増やすたびに落ちる）
+    await expect(list.locator("li")).toHaveCount(manuals.length - 1);
 
     const results = await new AxeBuilder({ page }).include("nav").analyze();
     const blocking = results.violations.filter(

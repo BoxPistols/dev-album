@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow } from "lucide-react";
+import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
@@ -21,6 +21,7 @@ const announcementMeta: Record<AnnouncementCategory, { label: string; icon: Reac
 
 /* ── マニュアル別アイコン ── */
 const manualIcons: Record<ManualId, React.ReactNode> = {
+  learning: <Compass size={20} />,
   react: <Code2 size={20} />,
   git: <GitBranch size={20} />,
   threejs: <Box size={20} />,
@@ -34,6 +35,15 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
 };
 
 const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
+  learning: {
+    tagline: "初めての領域に入るときの手順そのものを扱う。他のコースの前段",
+    topics: [
+      "全体像 → 用語 → 最小の実行 → 切り分け",
+      "一次情報の見分け方と公式の追い方",
+      "文書化された検索演算子だけを使う",
+      "AI への聞き方と、AI が間違えるところ",
+    ],
+  },
   react: {
     tagline:
       "コンポーネントの基本から CSS・Next.js・デプロイまで一通り体験できる",
@@ -244,7 +254,7 @@ export default function Landing() {
             実践リファレンス
           </h1>
           <p className="text-lg text-zinc-400 max-w-xl leading-relaxed mb-10">
-            Git・React・Claude Code・Three.js をはじめとする 10 のマニュアルを
+            学び方・Git・React・Claude Code をはじめとする {manuals.length} のマニュアルを
             Web 標準とアクセシビリティの視点で解説。
           </p>
           <div className="flex flex-wrap gap-3">
@@ -366,7 +376,7 @@ export default function Landing() {
             Manuals
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
-            4 つのマニュアル
+            {manuals.length} のマニュアル
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {manuals.map((m, i) => {

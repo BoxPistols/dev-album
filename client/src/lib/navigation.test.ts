@@ -21,6 +21,7 @@ describe("navigation データ整合性", () => {
   it("全マニュアルが定義されている", () => {
     const ids = manuals.map((m) => m.id);
     expect(ids).toEqual([
+      "learning",
       "git",
       "react",
       "claude-code",
@@ -35,10 +36,11 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(340);
+    expect(pages.length).toBe(350);
   });
 
   it("マニュアル別ページ数", () => {
+    expect(getManualPages("learning").length).toBe(10);
     expect(getManualPages("react").length).toBe(82);
     expect(getManualPages("git").length).toBe(43);
     expect(getManualPages("threejs").length).toBe(23);
@@ -72,8 +74,24 @@ describe("navigation データ整合性", () => {
     }
   });
 
+  it("すべてのマニュアルがパスから引ける", () => {
+    // ここが漏れると、ページは出るのにサイドバーのセクションナビとテーマ色が
+    // 効かない状態になる。追加したマニュアルを黙って取りこぼさないための検査
+    for (const m of manuals) {
+      expect(getManualIdFromPath(`/${m.id}`), m.id).toBe(m.id);
+      expect(getManualIdFromPath(`/${m.id}/any/page`), m.id).toBe(m.id);
+    }
+  });
+
+  it("マニュアル ID の前方一致で誤判定しない", () => {
+    expect(getManualIdFromPath("/react-native/foo")).toBeUndefined();
+    expect(getManualIdFromPath("/")).toBeUndefined();
+    expect(getManualIdFromPath("/training")).toBeUndefined();
+  });
+
   it("全セクションの manualId が有効", () => {
     const validIds: ManualId[] = [
+      "learning",
       "react",
       "git",
       "threejs",

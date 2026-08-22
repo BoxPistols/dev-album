@@ -12,6 +12,7 @@ import AchievementToastContainer from "./components/AchievementToast";
 import ChatWidget from "./components/ChatWidget";
 import { useAutoHeadingIds } from "./hooks/useAutoHeadingIds";
 import { useManualTheme } from "./hooks/useManualTheme";
+import { useSeo } from "./hooks/useSeo";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -189,6 +190,18 @@ const CmInstallSetup = lazy(() => import("./pages/claude-code/claude-intro/Insta
 const CmSlashCommands = lazy(() => import("./pages/claude-code/claude-intro/SlashCommands"));
 const CmExplorePlanCodeCommit = lazy(() => import("./pages/claude-code/claude-core/ExplorePlanCodeCommit"));
 const CmContextMgmt = lazy(() => import("./pages/claude-code/claude-core/ContextManagement"));
+// 学び方マニュアル
+const LearnWelcome = lazy(() => import("./pages/learning/Welcome"));
+const LearnFirstEncounter = lazy(() => import("./pages/learning/approach/FirstEncounter"));
+const LearnPrinciplesFirst = lazy(() => import("./pages/learning/approach/PrinciplesFirst"));
+const LearnKnowingYouKnow = lazy(() => import("./pages/learning/approach/KnowingYouKnow"));
+const LearnPrimarySources = lazy(() => import("./pages/learning/sources/PrimarySources"));
+const LearnOfficialCatchup = lazy(() => import("./pages/learning/sources/OfficialCatchup"));
+const LearnSearchTechnique = lazy(() => import("./pages/learning/sources/SearchTechnique"));
+const LearnHowToAsk = lazy(() => import("./pages/learning/with-ai/HowToAsk"));
+const LearnWhereAiFails = lazy(() => import("./pages/learning/with-ai/WhereAiFails"));
+const LearnWhenStuck = lazy(() => import("./pages/learning/habits/WhenStuck"));
+
 const CmProjectRules = lazy(() => import("./pages/claude-code/claude-core/ProjectRules"));
 const CmPermissionModes = lazy(() => import("./pages/claude-code/claude-core/PermissionModes"));
 const CmSecurity = lazy(() => import("./pages/claude-code/claude-core/SecurityPermissions"));
@@ -399,6 +412,7 @@ function MainContent({ children }: { children: ReactNode }) {
   const { layoutMode } = useLayout();
   useAutoHeadingIds();
   useManualTheme();
+  useSeo();
   return (
     // ワイドモードではサイドバーが引っ込むので、その分の左マージンも外す
     <main className={`flex-1 min-w-0 ${layoutMode === 'wide' ? 'layout-wide' : 'md:ml-64'}`}>
@@ -583,6 +597,17 @@ function App() {
                 <Route path="/threejs/game-dev/hud-gameloop" component={ThreejsHudGameloop} />
 
                 {/* === Claude Code マニュアル === */}
+                {/* 学び方マニュアル */}
+                <Route path="/learning" component={LearnWelcome} />
+                <Route path="/learning/approach/first-encounter" component={LearnFirstEncounter} />
+                <Route path="/learning/approach/principles-first" component={LearnPrinciplesFirst} />
+                <Route path="/learning/approach/knowing-you-know" component={LearnKnowingYouKnow} />
+                <Route path="/learning/sources/primary-sources" component={LearnPrimarySources} />
+                <Route path="/learning/sources/official-catchup" component={LearnOfficialCatchup} />
+                <Route path="/learning/sources/search-technique" component={LearnSearchTechnique} />
+                <Route path="/learning/with-ai/how-to-ask" component={LearnHowToAsk} />
+                <Route path="/learning/with-ai/where-ai-fails" component={LearnWhereAiFails} />
+                <Route path="/learning/habits/when-stuck" component={LearnWhenStuck} />
                 <Route path="/claude-code" component={CmWelcome} />
                 <Route path="/claude-code/getting-started/why-claude-code" component={CmWhyClaudeCode} />
                 <Route path="/claude-code/claude-intro/claude-code-intro" component={CmClaudeCodeIntro} />

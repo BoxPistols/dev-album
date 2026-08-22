@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-learning-how-to-learn",
+    date: "2026-08-23",
+    title: "新マニュアル: 学び方 — 初めての領域との向き合い方",
+    description:
+      "個別の技術ではなく、初めての領域に入るときの手順そのものを扱う 10 ページを追加した。全体像 → 用語 → 最小の実行 → 切り分けという順序、一次情報と二次・三次の見分け方、公式から変化を追う場所、Google が公式に文書化している検索演算子だけを使う理由（inurl: や AROUND() は文書化されていない）、AI への聞き方（前提の渡し方・ELI5 による粒度指定・出典の要求・反証させる）、AI が間違える 6 つの型と機械的な確かめ方、詰まったときの切り分けと記録の残し方。他のマニュアルへ入る前段なので、一覧の先頭に置いている。",
+    category: "feature",
+    link: "/learning",
+  },
+  {
     id: "2026-08-23-claude-file-map",
     date: "2026-08-23",
     title: "新ページ: AI 向けファイルの早見表と、Claude Code マニュアルの章立て見直し",

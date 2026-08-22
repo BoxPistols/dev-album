@@ -162,6 +162,41 @@
    その検証は client/src/lib/theme-contrast.test.ts が全 8 マニュアル × 3 テーマで機械的に行う
    （ソースに実在するクラスの組だけを対象にし、WCAG AA 4.5:1 を下回ったら失敗する）。
    ここの色を変えるときは、そのテストを通してから確定すること。他マニュアルへの影響はない。 */
+/* 学び方マニュアル。他マニュアルへ入る前段なので、既存 10 色と重ならない
+   ライム系を割り当てる。値は theme-contrast.test.ts が 3 テーマぶん検査する */
+[data-manual="learning"] {
+  --primary: #456E0D;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #456E0D;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #456E0D;
+  --accent-foreground: #F9FAFB;
+  --ring: #456E0D;
+  --sidebar-ring: #456E0D;
+}
+
+.dark[data-manual="learning"] {
+  --primary: #A3E635;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #A3E635;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #A3E635;
+  --accent-foreground: #0C1425;
+  --ring: #A3E635;
+  --sidebar-ring: #A3E635;
+}
+
+.dark-soft[data-manual="learning"] {
+  --primary: #BEF264;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #BEF264;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #BEF264;
+  --accent-foreground: #282A36;
+  --ring: #BEF264;
+  --sidebar-ring: #BEF264;
+}
+
 [data-manual="git"] {
   --primary: #BE123C;
   --primary-foreground: #F9FAFB;

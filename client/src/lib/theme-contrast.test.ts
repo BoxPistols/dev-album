@@ -35,6 +35,7 @@ function readTokens(selector: string): Record<string, string> {
 }
 
 const MANUALS = [
+  "learning",
   "git",
   "react",
   "claude-code",
@@ -295,7 +296,7 @@ describe("カラートークンのコントラスト", () => {
     );
   });
 
-  it("マニュアル別ブランドカラーが 8 マニュアル × 3 テーマぶん定義されている", () => {
+  it("マニュアル別ブランドカラーが 9 マニュアル × 3 テーマぶん定義されている", () => {
     // 定義漏れがあると既定の primary にフォールバックし、上の検査を素通りする
     for (const manual of MANUALS) {
       expect(
@@ -345,7 +346,7 @@ describe("ManualGlyph のバッジ地色", () => {
   it("ソースから alpha と 10 マニュアルぶんの色を取り出せる", () => {
     // 取り出しに失敗したまま 0 件を検査して緑になるのを防ぐ
     expect(alphaMatch, "TINT_ALPHA を ManualGlyph.tsx から読めない").toBeTruthy();
-    expect(brandColors).toHaveLength(10);
+    expect(brandColors).toHaveLength(11);
   });
 
   it("頭文字（--foreground）がバッジ地色の上で AA 4.5:1 を満たす", () => {
