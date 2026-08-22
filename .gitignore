@@ -16,3 +16,6 @@ storybook-static/
 
 # Playwright MCP のセッション出力（スナップショット・コンソールログ）
 .playwright-mcp/
+
+# 定期検査（source-checks.yml）の出力
+reports/
