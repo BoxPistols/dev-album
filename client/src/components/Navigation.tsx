@@ -293,7 +293,8 @@ export default function Navigation() {
                   {currentStreak > 0 && (
                     <div className="flex items-center gap-1.5 px-2 py-1.5">
                       <Flame size={14} className="text-orange-500" />
-                      <span className="text-xs font-bold text-orange-600 dark:text-orange-400">
+                      {/* orange-600 は白地で 3.58:1 しかなく、12px bold は大文字扱いにならないので AA 未達。700 で 5.22:1 */}
+                      <span className="text-xs font-bold text-orange-700 dark:text-orange-400">
                         {currentStreak}日連続
                       </span>
                     </div>

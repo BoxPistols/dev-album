@@ -199,7 +199,9 @@ export default function LiveEditor({
                   className={`px-4 py-2 text-xs font-mono whitespace-nowrap transition-colors border-b-2 ${
                     i === activeTab
                       ? `bg-[#1e1e2e] ${tabColor(file.language)} border-primary`
-                      : 'text-[#cdd6f4]/40 border-transparent hover:text-[#cdd6f4]/70 hover:bg-[#1e1e2e]/50'
+                      // 非アクティブでもタブ名は読めることが要る。/40 は #11111b の上で
+                      // 3.01:1 しかなく AA 未達だった（/60 で 5.20:1）
+                      : 'text-[#cdd6f4]/60 border-transparent hover:text-[#cdd6f4] hover:bg-[#1e1e2e]/50'
                   }`}
                 >
                   {file.name}

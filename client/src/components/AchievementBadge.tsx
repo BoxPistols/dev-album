@@ -7,6 +7,7 @@ import {
   Zap,
   Award,
   Crown,
+  Lock,
   type LucideIcon,
 } from "lucide-react";
 import type { AchievementDef } from "@/hooks/useAchievements";
@@ -36,7 +37,9 @@ export default function AchievementBadge({
   unlockDate,
   pulse = false,
 }: AchievementBadgeProps) {
-  const Icon = iconMap[achievement.icon] || Star;
+  // 未解除は錠アイコンに差し替える。減光で状態を示すと文字が読めなくなるうえ、
+  // 明度差だけの手がかりになるため（形でも区別できるようにする）
+  const Icon = unlocked ? iconMap[achievement.icon] || Star : Lock;
 
   return (
     <div
@@ -45,7 +48,7 @@ export default function AchievementBadge({
         ${
           unlocked
             ? "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-foreground"
-            : "bg-muted/30 border-border text-muted-foreground opacity-50 grayscale"
+            : "bg-muted/30 border-border text-muted-foreground"
         }
         ${pulse ? "achievement-pulse" : ""}
       `}
@@ -60,10 +63,13 @@ export default function AchievementBadge({
           }
         `}
       >
-        <Icon size={16} />
+        <Icon size={16} aria-hidden="true" />
       </div>
       <div className="min-w-0">
-        <p className="text-xs font-bold truncate">{achievement.name}</p>
+        <p className="text-xs font-bold truncate">
+          {achievement.name}
+          {!unlocked && <span className="sr-only">（未解除）</span>}
+        </p>
         <p className="text-[12px] text-muted-foreground truncate">
           {achievement.description}
         </p>

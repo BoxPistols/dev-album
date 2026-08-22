@@ -18,6 +18,7 @@ pnpm check                       # 型チェック（tsc --noEmit）
 pnpm test                        # 単体テスト（Vitest）
 pnpm test:e2e                    # E2E 全スペック（Playwright, a11y 含む）
 pnpm test:a11y                   # a11y のみ（axe-core, 3テーマ）
+pnpm test:storybook              # story ごとの a11y 検査（chromium で実描画）
 pnpm build                       # 本番ビルド
 ```
 

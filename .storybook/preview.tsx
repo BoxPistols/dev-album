@@ -28,6 +28,13 @@ const withTheme: Decorator = (Story, context) => {
 
 const preview: Preview = {
   decorators: [withTheme],
+  parameters: {
+    a11y: {
+      // "error": axe の違反を story のテスト失敗として扱う（pnpm test:storybook）。
+      // "todo" にすると警告どまりになるので、既定は error のままにする
+      test: "error",
+    },
+  },
   globalTypes: {
     theme: {
       description: "テーマ切替",

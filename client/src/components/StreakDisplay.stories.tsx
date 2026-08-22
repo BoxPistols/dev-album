@@ -27,7 +27,7 @@ function StreakDisplay({
           }
         />
         <span
-          className={`text-sm font-bold ${currentStreak > 0 ? "text-orange-600 dark:text-orange-400" : "text-muted-foreground"}`}
+          className={`text-sm font-bold ${currentStreak > 0 ? "text-orange-700 dark:text-orange-400" : "text-muted-foreground"}`}
         >
           {currentStreak > 0 ? `${currentStreak}日連続` : "ストリークなし"}
         </span>

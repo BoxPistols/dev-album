@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-storybook-a11y-contrast-fix",
+    date: "2026-08-23",
+    title: "サイドバーと LiveEditor の配色を AA まで上げ、story ごとに自動検査するようにした",
+    description:
+      "未解除の実績バッジは全体を薄くする表現をやめ、錠アイコンで区別するようにした（2.03:1 → 5.28:1）。連続日数の表示色はライトテーマで一段濃くしている（3.58:1 → 5.22:1）。教材で使うライブエディタも、非アクティブなファイルタブが読める濃さになった（3.01:1 → 5.20:1）。あわせて story ごとの a11y 検査をテストとして走らせ、コントラスト違反が入ると CI で落ちるようにした。",
+    category: "fix",
+    link: "/react/storybook/advanced",
+  },
+  {
     id: "2026-08-23-low-risk-claims-verified",
     date: "2026-08-23",
     title: "low リスクの主張 121 件の照合を再実行し、取り残しを直した",

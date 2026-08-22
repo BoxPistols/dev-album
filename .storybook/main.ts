@@ -9,7 +9,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../client/src/**/*.stories.@(ts|tsx)"],
-  addons: ["@storybook/addon-a11y"],
+  addons: ["@storybook/addon-a11y", "@storybook/addon-vitest"],
   framework: {
     name: "@storybook/react-vite",
     options: {},
