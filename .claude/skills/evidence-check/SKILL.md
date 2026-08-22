@@ -190,5 +190,10 @@ pnpm check:sources               # 3. レジストリ全体を逐語照合する
   - meta refresh は fetch が追わない（nuxt.com は本文が 125 字で終わる）
   - 言語を指定しないと別言語版が返る（web.dev がポーランド語版を返した）
   - Wayback は連続アクセスで 503 を返す。再試行すると通る
+  - クライアント描画のサイトは HTTP 応答に本文が入らない（m3.material.io は
+    「This website requires JavaScript.」だけを返す）。`source-fetch.mjs` の
+    `BROWSER_RENDERED_HOSTS` に足すと chromium で描画してから照合する。
+    許可リストに載らない URL はブラウザを通らないので、通常実行は遅くならない。
+    chromium が入っていない環境では「未照合」になる（不一致には混ざらない）
 - **まとめて回した結果の失敗は、個別に再実行して確かめる。** 一時的な取得失敗が
   混ざる。1 件だけ落ちたときは特に疑う

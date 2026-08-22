@@ -884,11 +884,26 @@
 - **記述**: npm create nuxt@latest が現在の入口で、内部では nuxi （Nuxt の CLI）が動きます。既存ディレクトリに 初期化したい場合は npx nuxi init も使えます。
   - **確定しなかった理由**: (1) 入口が npm create nuxt@latest であることは公式 Installation ドキュメントで確認できる (https://raw.githubusercontent.com/nuxt/nuxt/4.x/docs/1.getting-started/02.installation.md に「npm create nuxt@latest <project-name>」)。(2) npx nuxi init も実測で動作した: 一時ディレクトリで `npx --yes nuxi@3.37.0 init --help` を実行し「Initialize a fresh pro
 
+## 追補（2026-08-23）
+
+この監査で照合できなかった領域は https://github.com/BoxPistols/dev-album/issues/58 に残してある。
+そのうち次を埋めた。判定は `2026-08-23-followup-verdicts.json`（書式は同じ）。
+
+- **クライアント描画の出典**: `scripts/lib/source-fetch.mjs` に実ブラウザ（chromium）で描画してから
+  照合する経路を足した。許可リスト（`BROWSER_RENDERED_HOSTS`）に載るホストだけがブラウザを通るので、
+  700 URL の通常実行は今までどおり素の fetch のまま。`m3.material.io` と
+  `developer.apple.com` の判定は機械照合の対象に戻した
+- **Vue 公式のツリーシェイクの記述 / three.js docs の一部**: 一次情報に当たり直して判定を確定させた
+
+残っているのは cmux の実 UI 挙動（アプリ本体の起動が要る）と、DORA の PDF の多段組み表
+（`pdftotext -layout` で列が交錯する。該当箇所の `evidence` に明記済み）。
+
 ## 再現
 
 ```bash
-pnpm check:links    # 外部リンクの実在確認
-pnpm check:sources  # 出典レジストリの逐語引用照合
+pnpm check:links               # 外部リンクの実在確認
+pnpm check:sources             # 出典レジストリの逐語引用照合
+pnpm check:verdicts:followup   # 追補分の判定の逐語照合（chromium が要る出典を含む）
 ```
 
 主張の抽出と照合は Claude Code のワークフローで実施した。手順は `.claude/skills/evidence-check/`、

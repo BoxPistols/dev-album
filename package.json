@@ -24,6 +24,7 @@
     "check:verdicts": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-medium-verdicts.json",
     "check:verdicts:low": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-low-verdicts.json",
     "claim:coverage": "node scripts/claim-coverage.mjs",
+    "check:verdicts:followup": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-followup-verdicts.json",
     "check:links": "node scripts/check-links.mjs",
     "check:prerender": "node scripts/check-prerender.mjs",
     "check:freshness": "tsx scripts/check-source-freshness.mjs"

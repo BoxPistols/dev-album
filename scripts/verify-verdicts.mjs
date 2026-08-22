@@ -15,8 +15,10 @@
 import { readFileSync } from "node:fs";
 
 import {
+  closeBrowser,
   fetchText,
   isPdf,
+  needsBrowser,
   normalize,
   pdfToText,
   quoteFragments,
@@ -119,7 +121,15 @@ async function main() {
   const notExtracted = [];
   const mismatched = [];
 
+  const browserUrls = [...byUrl.keys()].filter(needsBrowser);
+  if (browserUrls.length) {
+    console.log(
+      `うち ${browserUrls.length} URL はクライアント描画のため実ブラウザ（chromium）で描画して取る\n`,
+    );
+  }
+
   let i = 0;
+  let browserUsed = 0;
   for (const [url, entries] of byUrl) {
     i++;
     let fetched;
@@ -131,11 +141,23 @@ async function main() {
       console.log(`[${i}/${byUrl.size}] ✗ 取得できない (${entries.length}件) ${url}\n    ${err.message}`);
       continue;
     }
+    if (fetched.browserUnavailable) {
+      // 「本文が JS でしか出ないホストを、素の fetch で引いた」だけ。
+      // 引用の誤りではないので不一致に混ぜず、未照合として別に数える
+      notExtracted.push({
+        url,
+        reason: `chromium を開けない（${fetched.browserUnavailable}）。pnpm exec playwright install chromium`,
+        count: entries.length,
+      });
+      console.log(`[${i}/${byUrl.size}] - 未照合 (${entries.length}件) ${url}`);
+      continue;
+    }
     if (fetched.status !== 200) {
       fetchFailed.push({ url, reason: `HTTP ${fetched.status}`, count: entries.length });
       console.log(`[${i}/${byUrl.size}] ✗ HTTP ${fetched.status} (${entries.length}件) ${url}`);
       continue;
     }
+    if (fetched.usedBrowser) browserUsed++;
 
     let plain;
     if (isPdf(fetched.contentType, fetched.body)) {
@@ -165,16 +187,20 @@ async function main() {
       }
     }
     const mark = bad.length === 0 ? "✓" : "✗";
-    console.log(`[${i}/${byUrl.size}] ${mark} ${ok}/${entries.length} ${url}`);
+    const via = fetched.usedBrowser ? " [browser]" : "";
+    console.log(`[${i}/${byUrl.size}] ${mark} ${ok}/${entries.length}${via} ${url}`);
     for (const v of bad) {
       console.log(`      引用が本文にない: ${truncate(v.quote)}`);
       console.log(`      └ ${v.file} (${v.verdict})`);
     }
   }
 
+  await closeBrowser();
+
   console.log(
     `\n照合 ${checked} 件 / 一致 ${matched} 件 / 不一致 ${mismatched.length} 件` +
-      ` / 取得失敗 ${fetchFailed.length} URL / 未照合 ${notExtracted.length} URL`,
+      ` / 取得失敗 ${fetchFailed.length} URL / 未照合 ${notExtracted.length} URL` +
+      (browserUsed ? ` / 実ブラウザ経由 ${browserUsed} URL` : ""),
   );
   if (notExtracted.length) {
     console.log(`未照合（平文化できず。一致とも不一致とも言えない）:`);
@@ -211,7 +237,10 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exitCode = 1;
-});
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  })
+  // 途中で落ちても chromium を残さない
+  .finally(() => closeBrowser());

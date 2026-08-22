@@ -12,7 +12,13 @@
 // ネットワークに出るため vitest には入れない（外部の障害で CI を落とさない）。
 
 import { loadSources } from "./lib/load-sources.mjs";
-import { fetchText, normalize, sleep, toPlainText } from "./lib/source-fetch.mjs";
+import {
+  closeBrowser,
+  fetchText,
+  normalize,
+  sleep,
+  toPlainText,
+} from "./lib/source-fetch.mjs";
 
 
 async function main() {
@@ -107,7 +113,10 @@ function truncate(s, n = 72) {
   return one.length > n ? `${one.slice(0, n)}…` : one;
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exitCode = 1;
-});
+main()
+  .catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  })
+  // 許可リストの出典で起動した chromium を残さない
+  .finally(() => closeBrowser());

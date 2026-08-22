@@ -1,0 +1,101 @@
+[
+  {
+    "file": "vue/basics/Components.tsx",
+    "claim": "app.component() によるグローバル登録もできますが、公式ドキュメントはグローバル登録の欠点としてツリーシェイクが阻害される点を挙げ、ローカル登録では依存関係が分かりやすくツリーシェイクが働きやすいと説明しています。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://ja.vuejs.org/guide/components/registration.html",
+    "quote": "グローバル登録では、未使用のコンポーネントを削除してくれるビルドシステムの処理（いわゆる「ツリーシェイク」）が阻害されます。 […] これによって依存関係が分かりやすくなり、ツリーシェイクが働きやすくなります。",
+    "correction": "",
+    "evidence": "公式ガイドの「ローカル登録」節を日本語版・英語版の双方で取得して照合した。日本語版は引用の 2 文、英語版 https://vuejs.org/guide/components/registration.html は「Global registration prevents build systems from removing unused components (a.k.a \"tree-shaking\").」「It makes the dependency relationship more explicit, and is more tree-shaking friendly.」。教材側は「公式ドキュメントは〜と説明しています」と帰属を明示しているので、公式の記述と一致する。2026-08-16 の監査で UNDETERMINED としていた項目（#58 の 5 番）の解決。"
+  },
+  {
+    "file": "vue/basics/Components.tsx",
+    "claim": "app.component() によるグローバル登録も可能ですが、通常はファイル単位の import が推奨されます。",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://vuejs.org/guide/components/registration.html",
+    "quote": "Global registration prevents build systems from removing unused components (a.k.a \"tree-shaking\"). […] It makes the dependency relationship more explicit, and is more tree-shaking friendly.",
+    "correction": "「通常は〜が推奨されます」という無主語の断定をやめる。公式が書いているのは「グローバル登録の欠点」と「ローカル登録の利点」であって、登録方法の推奨ではない。帰属を付けて「公式ドキュメントはグローバル登録の欠点としてツリーシェイクが阻害される点を挙げ、ローカル登録では依存関係が分かりやすくツリーシェイクが働きやすいと説明しています」と書く。",
+    "evidence": "登録ページ・スタイルガイドとも、コンポーネントの登録方法について recommend / 推奨 の語を使っていない（日本語版・英語版の本文を取得して確認。recommended が出るのはコンポーネント名の記法についての箇所のみ）。公式が推奨と述べた事実は無いので、無主語の「推奨されます」は支持できない。方向性そのものは公式の記述と整合するため、削除ではなく帰属付きの書き換えで対応した（対応済み）。"
+  },
+  {
+    "file": "threejs/basics/material.tsx",
+    "claim": "公式ドキュメントによると、MeshLambertMaterial や MeshPhongMaterial より正確でリアルな見た目になる一方、計算コストは高くなります。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/MeshStandardMaterial.html.md",
+    "quote": "In practice this gives a more accurate and realistic looking result than the MeshLambertMaterial or MeshPhongMaterial, at the cost of being somewhat more computationally expensive.",
+    "correction": "",
+    "evidence": "three.js のドキュメント原本（docs/pages/MeshStandardMaterial.html.md）を取得して逐語で確認した。教材は帰属（公式ドキュメントによると）を明示しており、原文の主張と一致する。"
+  },
+  {
+    "file": "threejs/basics/material.tsx",
+    "claim": "MeshStandardMaterial: PBR、最もリアル（推奨）",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/MeshPhysicalMaterial.html.md",
+    "quote": "An extension of the MeshStandardMaterial, providing more advanced physically-based rendering properties:",
+    "correction": "まとめの「最もリアル（推奨）」を落とし、公式の記述に沿って「MeshLambertMaterial や MeshPhongMaterial より正確でリアルな見た目になる一方、計算コストは高くなる」と書く。表の用途欄の「リアルな質感（推奨）」も「リアルな質感（PBR）」に改める。",
+    "evidence": "MeshStandardMaterial を推奨する記述は一次情報に無い（API ドキュメントと公式マニュアルの Materials ページを取得して recommend / best / prefer を grep し 0 件。マニュアルは逆に「if you don't need the extra features then use the simplest material.」と用途に応じた選択を促す）。加えて MeshPhysicalMaterial が MeshStandardMaterial の拡張としてより高度な PBR 特性を持つため、「最もリアル」も成り立たない。2026-08-16 の監査は本文の「最も推奨されるマテリアルです。」だけを見て UNDETERMINED としていたが、表とまとめに「（推奨）」が残っていた。断定を弱めるのではなく落とした（対応済み）。"
+  },
+  {
+    "file": "threejs/basics/camera.tsx",
+    "claim": "PerspectiveCamera の既定値は 50 で、このページのデモでは 75 を使っています。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/PerspectiveCamera.html.md",
+    "quote": "The vertical field of view. Default is 50.",
+    "correction": "",
+    "evidence": "three.js のドキュメント原本で fov の既定値 50 を確認した。2026-08-16 の監査が確定できなかった「一般的に 50〜75 を使います」という推奨レンジは一次情報に無く、ページからは既に落ちている。現在の記述は既定値（一次情報）とこのページのデモ値（自リポジトリで確認できる事実）だけを述べている。"
+  },
+  {
+    "file": "threejs/basics/geometry.tsx",
+    "claim": "three.js の既定値は SphereGeometry が横 32 / 縦 16、TorusGeometry が radialSegments 12 / tubularSegments 48 です。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/TorusGeometry.html.md",
+    "quote": "The number of radial segments. Default is 12. […] The number of tubular segments. Default is 48.",
+    "correction": "",
+    "evidence": "TorusGeometry は引用のとおり。SphereGeometry は https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/SphereGeometry.html.md の「The number of horizontal segments. Minimum value is 3. Default is 32.」「The number of vertical segments. Minimum value is 2. Default is 16.」で確認した。2026-08-16 の監査が確定できなかった「球体なら 32 分割、トーラスなら 16〜32 分割が一般的な目安」という表現はページから落ちており、現在は既定値そのものを書いている。"
+  },
+  {
+    "file": "threejs/basics/renderer.tsx",
+    "claim": "WebGLRenderer は WebGL 2 を使ってシーンを表示するレンダラーです。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/WebGLRenderer.html.md",
+    "quote": "This renderer uses WebGL 2 to display scenes.",
+    "correction": "",
+    "evidence": "ドキュメント原本の 1 文と一致する。2026-08-16 の監査が確定できなかった「Three.js のメインのレンダラー」という位置づけは原文に無く（現在の three.js には WebGPURenderer も併存する）、ページからは既に落ちている。"
+  },
+  {
+    "file": "threejs/basics/renderer.tsx",
+    "claim": "ただし値が高いとGPU負荷が増えるため、Math.min(window.devicePixelRatio, 2) のように上限を設けることもあります。",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/WebGLRenderer.html.md",
+    "quote": "",
+    "correction": "",
+    "evidence": "WebGLRenderer の setPixelRatio に上限の推奨値は書かれておらず、「2 に丸めるのが一般的」と述べた一次情報も見つからない。ページは既に「一般的です」という断定を外し、「上限を設けることもあります」「このページのデモでは上限を 2 に制限しています」という書き方になっている。前者は実務での選択肢の提示、後者は自リポジトリで確認できる事実であり、どちらも一次情報を必要としない。一般性の主張としては確定しないので UNDETERMINED のまま残す。"
+  },
+  {
+    "file": "threejs/basics/animation.tsx",
+    "claim": "const delta = clock.getDelta(); // 前回 getDelta() を呼んでからの経過秒数",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/Clock.html.md",
+    "quote": "Holds the time at which the clock's `start()`, `getElapsedTime()` or `getDelta()` methods were last called.",
+    "correction": "",
+    "evidence": "getDelta() の基準点は .oldTime の説明（引用箇所）と実装で確定する。https://raw.githubusercontent.com/mrdoob/three.js/dev/src/core/Clock.js の getDelta() は diff = ( newTime - this.oldTime ) / 1000; this.oldTime = newTime; で、oldTime は start() / getElapsedTime() / getDelta() のいずれかが最後に呼ばれた時刻。2026-08-16 の監査は「前フレームからの経過秒数」というコメントを UNDETERMINED としていたが、現在のコメントは「前回 getDelta() を呼んでからの経過秒数」に直っており、一次情報の記述と一致する。"
+  },
+  {
+    "file": "threejs/basics/animation.tsx",
+    "claim": "公式ドキュメントは Clock を r183 で非推奨とし、Timer を代わりに案内しています（2026-08-23 時点、three r183 で確認）。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/Clock.html.md",
+    "quote": "Deprecated: since r183.",
+    "correction": "",
+    "evidence": "Clock のドキュメント原本に Deprecated の注記がある。実装側 https://raw.githubusercontent.com/mrdoob/three.js/dev/src/core/Clock.js にも @deprecated since r183. がある。実機での確認: このリポジトリの node_modules に入っている three で node -e \"const t=require('three'); console.log(t.REVISION, typeof t.Timer, typeof t.Clock)\" を実行し、183 function function を得た（Timer は three 本体から export されており、addons の import は要らない）。2026-08-16 の監査が「本 claim の真偽とは別の検討事項」として記録していた点を、本 PR でページに書き足した。"
+  },
+  {
+    "file": "threejs/basics/animation.tsx",
+    "claim": "Timer は update() で内部状態を進めるため、1 フレーム内で getDelta() を何度呼んでも同じ値を返します。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/dev/docs/pages/Timer.html.md",
+    "quote": "Timer has an update() method that updates its internal state. That makes it possible to call getDelta() and getElapsed() multiple times per simulation step without getting different values.",
+    "correction": "",
+    "evidence": "Timer のドキュメント原本に引用のとおり書かれている。教材側の「1 フレーム内で」は原文の per simulation step に対応する言い換えなので、本文では「update() で内部状態を進める」という仕組みのほうを主にして書いた。"
+  }
+]
