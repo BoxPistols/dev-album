@@ -10,7 +10,8 @@ import CodingChallenge from '@/components/CodingChallenge';
 const toolData = [
   { tool: 'Claude Code', config: 'CLAUDE.md\n.claude/settings.json', strength: 'ゼロからの実装・レビュー・調査、Subagents による並列処理', env: 'CLI / VS Code / JetBrains' },
   { tool: 'Cursor', config: '.cursor/rules/*.mdc\nAGENTS.md\n（.cursorrules はレガシー・非推奨）', strength: '日常的なコーディング、ルールベースの差分編集', env: 'Cursor エディタ' },
-  { tool: 'Gemini CLI', config: 'GEMINI.md\n.gemini/settings.json', strength: 'PR レビュー自動化、大規模コンテキスト処理', env: 'CLI / GitHub 連携' },
+  { tool: 'Gemini CLI', config: 'GEMINI.md\n.gemini/settings.json', strength: 'ターミナルでの並行調査、大規模コンテキスト処理', env: 'CLI' },
+  { tool: 'Gemini Code Assist (GitHub)', config: '.gemini/config.yaml\n.gemini/styleguide.md', strength: 'PR の自動レビュー・サマリー', env: 'GitHub アプリ（Gemini CLI とは別製品）' },
   { tool: 'GitHub Copilot', config: '.github/copilot-instructions.md', strength: 'インラインコード補完、Copilot Agent によるIssue対応', env: 'VS Code / JetBrains / CLI' },
   { tool: 'OpenAI Codex', config: 'AGENTS.md\nAGENTS.override.md\n~/.codex/config.toml', strength: 'クラウド環境での自律タスク、サンドボックス実行', env: 'CLI / VS Code Insiders' },
 ];
@@ -187,7 +188,7 @@ export default function MultiAICoexistence() {
                   {[
                     { phase: '実装', tool: 'Cursor', op: 'rules/ に基づく差分編集で高速コーディング' },
                     { phase: 'レビュー', tool: 'Claude Code', op: '/code-review スキルで品質チェック' },
-                    { phase: '調査', tool: 'Claude Code', op: '/deep-research で技術選定・設計検討' },
+                    { phase: '調査', tool: 'Claude Code', op: '/deep-research（バンドル済みワークフロー）で技術選定の根拠を出典付きで集める' },
                     { phase: '補完', tool: 'GitHub Copilot', op: 'インラインコード補完（常時有効）' },
                   ].map(item => (
                     <div key={item.phase} className="flex gap-3 text-sm">
@@ -214,7 +215,7 @@ export default function MultiAICoexistence() {
                       {[
                         ['実装', 'Cursor', 'rules/ に基づく差分編集で高速コーディング'],
                         ['レビュー', 'Claude Code', '/code-review スキルで品質チェック'],
-                        ['調査', 'Claude Code', '/deep-research で技術選定・設計検討'],
+                        ['調査', 'Claude Code', '/deep-research（バンドル済みワークフロー）で技術選定の根拠を出典付きで集める'],
                         ['補完', 'GitHub Copilot', 'インラインコード補完（常時有効）'],
                       ].map(([phase, tool, op]) => (
                         <tr key={phase} className="bg-white dark:bg-slate-900">
@@ -229,9 +230,9 @@ export default function MultiAICoexistence() {
               </div>
 
               <div className="p-4 md:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h3 className="text-base md:text-lg font-bold mb-4">パターン B: Claude Code メイン + Gemini PR 自動レビュー</h3>
+                <h3 className="text-base md:text-lg font-bold mb-4">パターン B: Claude Code メイン + Gemini Code Assist の PR 自動レビュー</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Claude Code で設計からコーディングまでを一貫して行い、Gemini による自動 PR レビューを品質ゲートとして活用。
+                  Claude Code で設計からコーディングまでを一貫して行い、Gemini Code Assist on GitHub による自動 PR レビューを品質ゲートとして活用。PR レビューの設定先はリポジトリ直下の <code>.gemini/config.yaml</code> で、Gemini CLI の設定ファイル <code>.gemini/settings.json</code> とは製品も書式も別です。
                 </p>
                 <CodeBlock language="yaml" code={`# .gemini/config.yaml
 code_review:
@@ -308,19 +309,22 @@ cd ~/project && claude "/code-review"
               </div>
 
               <div>
-                <h3 className="text-lg md:text-xl font-bold mb-3">Cursor 版のスキル（同一チェックリスト）</h3>
-                <CodeBlock language="markdown" code={`<!-- .cursor/skills/code-review/SKILL.md -->
-# コードレビュースキル
+                <h3 className="text-lg md:text-xl font-bold mb-3">Cursor 側のスキル</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Cursor のプロジェクトスキルは <code>.cursor/skills/</code>（または <code>.agents/skills/</code>）に置きます。Cursor は互換のため <code>.claude/skills/</code> も読み込むので、上の SKILL.md はそのまま Cursor でも使えます。Cursor だけに効かせたい調整があるときだけ、別名のスキルを <code>.cursor/skills/</code> に足します。
+                </p>
+                <CodeBlock language="markdown" code={`<!-- .cursor/skills/code-review-apply/SKILL.md -->
+---
+name: code-review-apply
+description: code-review の指摘を Cursor で差分適用するときに使う
+---
 
-（チェックリストは .claude/skills/ と同一内容）
-
-## Cursor 固有の設定
-- Apply 機能で差分を直接適用
-- rules/ の規約ファイルを参照して判定`} />
+.claude/skills/code-review/SKILL.md のチェックリストで判定し、
+修正案は Apply で差分として適用する。`} />
               </div>
 
               <InfoBox type="info" title="スキルの同期">
-                チェックリスト本体を <code>.agents/rules/review-checklist.md</code> に一元配置し、各ツールの SKILL.md から参照する構成にすると、更新漏れを防げます。詳細は次ページの「シングルソースオブトゥルース設計」を参照してください。
+                チェックリスト本体は <code>.claude/skills/code-review/SKILL.md</code> の 1 箇所に置き、Cursor には互換読み込みで届けます。ツール横断の規約そのものは <code>AGENTS.md</code> に、Claude Code だけに効かせたい分割ルールは <code>.claude/rules/</code> に置くと、更新箇所が 1 つに定まります。次ページの「シングルソースオブトゥルース設計」で使う <code>.agents/rules/</code> はプロジェクト側で決める正本の置き場で、どのツールも自動では読みません。シンボリックリンクやスクリプトで各ツールの設定ファイルへ配信して初めて効きます。
               </InfoBox>
             </div>
           </section>
@@ -349,14 +353,14 @@ cd ~/project && claude "/code-review"
                   phase: 'Phase 2: レビュー層の追加',
                   items: [
                     'Claude Code の /code-review スキルを導入',
-                    'Gemini の PR 自動レビューを設定',
+                    'Gemini Code Assist (GitHub) の PR 自動レビューを .gemini/config.yaml で設定',
                     'Copilot の copilot-instructions.md を配置',
                   ],
                 },
                 {
                   phase: 'Phase 3: ルールの一元管理',
                   items: [
-                    '.agents/rules/ に共通ルールソースを集約',
+                    'AGENTS.md を共通ルールの正本にし、Claude Code 固有の分割ルールは .claude/rules/ へ',
                     'シンボリックリンクまたはビルドスクリプトで配信',
                     'CI でルールの整合性チェックを自動化',
                   ],
@@ -395,8 +399,8 @@ cd ~/project && claude "/code-review"
             previewType="terminal"
             title="マルチ AI ハイブリッド環境を構築しよう"
             description="Claude Code と他の AI ツールを共存させるディレクトリ構成と、共通コンテキストファイルの設定を書いてください。"
-            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\nEOF`}
-            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .agents/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
+            initialCode={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .claude/rules\n\n# 2. ___ を作成（全ツール共通）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\nEOF\n\n# 3. ___ を作成（Claude Code 固有）:  # ← ここを埋める\ncat > ___ << 'EOF'  # ← ここを埋める\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\nEOF`}
+            answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .claude/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
             hints={[
               'AGENTS.md は対応を表明した各ツールが読むツール横断のファイルです',
               'Claude Code は AGENTS.md を自動では読まないので、CLAUDE.md から @AGENTS.md で import します',
