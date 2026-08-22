@@ -136,10 +136,10 @@ describe("出典レジストリ", () => {
   });
 
   it("getSourcesForPage が該当ページの出典を返す", () => {
-    const found = getSourcesForPage("/claude-mux/multi-ai/design-md");
+    const found = getSourcesForPage("/claude-code/multi-ai/design-md");
     expect(found.length).toBeGreaterThan(0);
     expect(
-      found.every((s) => s.usedBy?.includes("/claude-mux/multi-ai/design-md")),
+      found.every((s) => s.usedBy?.includes("/claude-code/multi-ai/design-md")),
     ).toBe(true);
     expect(getSourcesForPage("/does/not/exist")).toHaveLength(0);
   });

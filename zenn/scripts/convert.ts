@@ -15,7 +15,7 @@ const bookMap: Record<string, { bookId: string; dir: string }> = {
   react: { bookId: 'dev-album-react', dir: 'client/src/pages/react' },
   git: { bookId: 'dev-album-git', dir: 'client/src/pages/git' },
   threejs: { bookId: 'dev-album-threejs', dir: 'client/src/pages/threejs' },
-  'claude-mux': { bookId: 'dev-album-claude', dir: 'client/src/pages/claude-mux' },
+  'claude-code': { bookId: 'dev-album-claude', dir: 'client/src/pages/claude-code' },
 };
 
 // ── ページ定義を navigation.ts から取得（簡易パース） ──

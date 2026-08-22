@@ -20,13 +20,22 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-claude-file-map",
+    date: "2026-08-23",
+    title: "新ページ: AI 向けファイルの早見表と、Claude Code マニュアルの章立て見直し",
+    description:
+      "CLAUDE.md / .claude/rules/ / AGENTS.md / ARCHITECTURE.md / DESIGN.md / settings.json / Skills を 1 つの表に並べ、誰が読むか・いつコンテキストに載るか・どこまで効くかで見比べられるようにした。取り違えやすい 3 点（AGENTS.md は Claude Code が読まない、@import で分けてもコンテキストは減らない、CLAUDE.md は強制ではない）と、実際に読まれたかを /context で確かめる手順も入れている。あわせて章立てを組み替え、CLAUDE.md・Skills・コマンド・Hooks・Subagents・プラグインを「Claude Code の構成要素」1 章にまとめ（Hooks の詳細だけ発展編に離れていた）、ファイル系のページを「AI 向けファイルの使い分け」1 章に集約した。ページの URL は変えていない。",
+    category: "feature",
+    link: "/claude-code/multi-ai/file-map",
+  },
+  {
     id: "2026-08-22-browser-verification",
     date: "2026-08-22",
     title: "新ページ: ブラウザと画面での検証",
     description:
       "テストが通ることと UI が意図どおり描画されることは別、という前ページの続きとして、Claude 自身に見た目を確かめさせる手段を追加した。Claude in Chrome（--chrome、コンソールと DOM を直接読む、前提となるプランと認証方式の制約）と computer use（ビルトイン MCP サーバー、macOS の research preview）を扱い、MCP → Bash → Chrome → computer use という公式の道具選択順、スクリーンショットをディスクに残して証拠にする方法、外部コンテンツを読むことによる信頼境界の注意まで含めている。",
     category: "feature",
-    link: "/claude-mux/best-practices/browser-verification",
+    link: "/claude-code/best-practices/browser-verification",
   },
   {
     id: "2026-08-22-agent-teams-cross-session",
@@ -35,7 +44,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "自分で立ち上げた独立セッション同士がメッセージをやり取りできる機能（ListAgents / SendMessage）を追記した。送れるのはテキストのみで会話履歴やファイルは渡らないこと、発見の受け渡し・並列 worktree の調整・長時間処理の報告・マシンをまたぐ連絡という使いどころ、そしてセッション再開 / Agent Teams / agent view / Remote Control / channels との使い分けを整理している。",
     category: "update",
-    link: "/claude-mux/ide-agent-teams/agent-orchestration",
+    link: "/claude-code/ide-agent-teams/agent-orchestration",
   },
   {
     id: "2026-08-22-project-rules",
@@ -44,7 +53,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "プロジェクト指示を「いつ読み込まれるか」で整理するページを追加した。常時ロードの CLAUDE.md、トピック別に分割する .claude/rules/、paths フロントマターによる条件付きロード（マッチするファイルを読んだときだけ載る）、シンボリックリンクでの複数プロジェクト共有、~/.claude/rules/ のユーザーレベルルールを扱う。glob のブレース展開の予算と [ のエスケープという実際に踏む落とし穴、そしてルールは強制ではなく Hooks / Permissions で担保するという線引きも明記した。",
     category: "feature",
-    link: "/claude-mux/claude-core/project-rules",
+    link: "/claude-code/claude-core/project-rules",
   },
   {
     id: "2026-08-22-explore-plan-code-commit",
@@ -53,7 +62,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "公式が推奨する日常ワークフローの基本形を、Claude Code コア機能の最初のページとして追加した。プランモードへの入り方（Shift+Tab / --permission-mode plan / /plan プレフィックス）、計画承認時の 3 つの選択肢、Ctrl+G での計画直接編集、検証手段をセットで渡す実装指示、計画フェーズを飛ばしてよい判断基準までを一通り体験できる。",
     category: "feature",
-    link: "/claude-mux/claude-core/explore-plan-code-commit",
+    link: "/claude-code/claude-core/explore-plan-code-commit",
   },
   {
     id: "2026-08-22-permission-modes",
@@ -62,7 +71,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "default / acceptEdits / plan / auto / dontAsk / bypassPermissions の 6 モードを「何が確認なしで実行されるか」の軸で整理した。Shift+Tab の循環順、auto モードの分類器の仕組みと利用条件、settings.json の permissions ルール（allow / ask / deny）との重なり方を扱う。",
     category: "feature",
-    link: "/claude-mux/claude-core/permission-modes",
+    link: "/claude-code/claude-core/permission-modes",
   },
   {
     id: "2026-08-22-skills-deep-dive",
@@ -71,7 +80,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "スキルの置き場所と同名解決の優先順位、呼び出し 2 経路の制御（disable-model-invocation / user-invocable）、$ARGUMENTS による引数、複数ファイル構成、context: fork でのサブエージェント実行、他の拡張機能との使い分け、トラブルシューティングまでを 1 ページにまとめた。",
     category: "feature",
-    link: "/claude-mux/agent-extensions/skills-deep-dive",
+    link: "/claude-code/agent-extensions/skills-deep-dive",
   },
   {
     id: "2026-08-22-verification-and-trust",
@@ -80,7 +89,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude に自分で回せるチェック（テスト・ビルド・スクリーンショット比較）を渡し、完了報告は証拠で受け取るための技術を追加した。チェックの効かせ方の 4 段階（プロンプト内 / /goal / Stop hook / 敵対的レビュー）、レビュアーの指摘を全部追いかけない判断、/rewind と /clear での仕切り直しを扱う。",
     category: "feature",
-    link: "/claude-mux/best-practices/verification-and-trust",
+    link: "/claude-code/best-practices/verification-and-trust",
   },
   {
     id: "2026-08-22-claude-code-fact-check",
@@ -89,7 +98,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "code.claude.com/docs の現行リファレンスと実機 v2.1.239 で 12 ページを照合した。モデル完全名の例を claude-sonnet-5 に更新し、非推奨になった @modelcontextprotocol/server-github の例を現行の GitHub リモート MCP（HTTP）とファイルシステムサーバに差し替えた。SSE トランスポートが公式に非推奨である点、/agents の対話ウィザードが v2.1.198 で廃止された点、プラグイン管理コマンドが /plugin である点、Agent Teams の iterm2 モードに it2 CLI が必要な点も反映している。effort・Hooks・MCP Tool Search・Serena の各記述は現行仕様と一致することを確認した。",
     category: "fix",
-    link: "/claude-mux/claude-intro/claude-code-intro",
+    link: "/claude-code/claude-intro/claude-code-intro",
   },
   {
     id: "2026-08-20-slack-notification-pause-restore",
@@ -125,7 +134,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude Code の hook は cmux の Claude ラッパーが自動注入する方式に変わっており、cmux claude-hook コマンドは無くなっていた。~/.claude/settings.json を手で編集する手順を載せていたので削除し、他のエージェント向けの cmux hooks setup / <agent> install に置き換えた。分割やワークスペース選択のショートカット、ビルトインブラウザの操作、ライセンス表記（GPL-3.0-or-later）も実機の出力とショートカット定義に合わせて直している。アプリ未起動で確認できない UI の挙動は断定を外した。",
     category: "fix",
-    link: "/claude-mux/cmux/cmux-setup",
+    link: "/claude-code/cmux/cmux-setup",
   },
   {
     id: "2026-08-16-responsive-breakpoints-source",
@@ -173,13 +182,13 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/react/hooks-deep/memo-callback",
   },
   {
-    id: "2026-08-16-claude-mux-verified-behavior",
+    id: "2026-08-16-claude-code-verified-behavior",
     date: "2026-08-16",
     title: "Claude Code マニュアルのコマンド仕様を実機で確認して更新した",
     description:
       "実機 2.1.233 で確認し、/doctor の f キー（v2.1.205 より前の挙動）、/fork を /branch のエイリアスとする記述、サブエージェント起動を Task ツールとする記述を現行仕様に直した。MCP のツールが deferred として登録される条件について、MCPSetup と MCPPractical が別のことを書いていた食い違いも解消している。",
     category: "fix",
-    link: "/claude-mux/reference/claude-cheatsheet",
+    link: "/claude-code/reference/claude-cheatsheet",
   },
   {
     id: "2026-08-16-infra-devflow-versioned-values",
@@ -215,7 +224,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "外部の一次情報で真偽が確定する主張を全ページから抽出し、高リスクに分類した 466 件をベンダー公式ドキュメント・仕様書・公式リポジトリと照合した。3 分の 1 にあたる 152 件が食い違っており、削除済み API を使ったコード例、デフォルト値が逆の説明、古くなった設定キー名などを修正した。一次情報に当たっても確定しなかった 34 件は本文から削除している。判定の全記録は docs/audits/2026-08-16-claim-audit.md にある。",
     category: "fix",
-    link: "/claude-mux/multi-ai/agent-docs",
+    link: "/claude-code/multi-ai/agent-docs",
   },
   {
     id: "2026-08-16-design-md-spec",
@@ -224,7 +233,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Stitch から切り出されたビジュアルアイデンティティ記述フォーマットを、公式仕様と @google/design.md@0.4.0 の実挙動で解説した。8 セクションの順序制約、コンポーネントに書ける 8 プロパティ、11 個の lint ルールに加え、クォートしない数値が lint 無警告・exit 0 のまま export から消える挙動を再現手順つきで載せている。",
     category: "feature",
-    link: "/claude-mux/multi-ai/design-md",
+    link: "/claude-code/multi-ai/design-md",
   },
   {
     id: "2026-08-16-agent-docs-rename",
@@ -233,7 +242,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "DESIGN.md は Google Labs の公開フォーマット名として実在し内容も別物のため、アーキテクチャ決定記録の層を ARCHITECTURE.md に改名した。あわせて「Claude Code は AGENTS.md を自動では読まない」「@import ではコンテキストは減らない」「compact 後の再読込指示は不要」の 3 点を公式ドキュメントの記述に沿って訂正している。",
     category: "fix",
-    link: "/claude-mux/multi-ai/agent-docs",
+    link: "/claude-code/multi-ai/agent-docs",
   },
   {
     id: "2026-08-11-git-slack-notifications",
@@ -368,7 +377,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude Code 以外の主要 AI コーディングツール 4 つと、ユースケース別の選び方・使い分けを解説する 5 ページを追加。各ページは公式ドキュメントの一次情報のみを根拠に、インストール手順・料金体系・Claude Code との特性の違いを扱う。",
     category: "feature",
-    link: "/claude-mux/ai-coding-agents/choosing-tools",
+    link: "/claude-code/ai-coding-agents/choosing-tools",
   },
   {
     id: "2026-07-03-designer-tokens-section",
@@ -386,7 +395,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude Code 関連 13 ページを公式リファレンス 15 ページと突き合わせ、廃止済み機能（.claudeignore、claude config set 等）や誤った記述（thinking トークンの課金、スラッシュコマンドのプレフィックス、MCP スコープの保存先等）を現行仕様に修正した。",
     category: "fix",
-    link: "/claude-mux/claude-intro/claude-code-intro",
+    link: "/claude-code/claude-intro/claude-code-intro",
   },
   {
     id: "2026-07-03-tmux-section-retired",
@@ -395,7 +404,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude Code & 開発環境マニュアルから tmux 関連 17 ページを削除し、AI コーディングエージェントの比較・使い分けに紙面を再配分した。旧 URL は自動的にマニュアルトップへリダイレクトされる。",
     category: "release",
-    link: "/claude-mux",
+    link: "/claude-code",
   },
   {
     id: "2026-07-03-a11y-and-preview-hardening",
@@ -530,7 +539,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "全 5 ページに VerifiedBox（バージョン・検証日）を追加。settings.json 改変の副作用警告と browser API の脅威モデル TL;DR、期待出力ブロックも追加。",
     category: "update",
-    link: "/claude-mux/cmux/cmux-setup",
+    link: "/claude-code/cmux/cmux-setup",
   },
   {
     id: "2026-04-26-cmux-pages-added",
@@ -539,7 +548,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Intro / Setup / AgentTeams / BrowserAPI / Worktrees。ターミナル環境の使い分け、Claude Code との連携、git worktree との組み合わせを扱う。",
     category: "feature",
-    link: "/claude-mux/cmux/cmux-intro",
+    link: "/claude-code/cmux/cmux-intro",
   },
   {
     id: "2026-04-26-harness-engineering",
@@ -548,7 +557,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "Claude Code を支える「ハーネス」の概念と設計指針。コンテキストエンジニアリング・DESIGN.md と合わせて 3 ページ追加。",
     category: "feature",
-    link: "/claude-mux/best-practices/harness-engineering",
+    link: "/claude-code/best-practices/harness-engineering",
   },
   {
     id: "2026-04-26-context-engineering",
@@ -557,7 +566,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "AGENTS.md / CLAUDE.md / プロンプト設計の使い分け、コンテキスト圧縮の判断軸を整理。",
     category: "feature",
-    link: "/claude-mux/claude-core/context-engineering",
+    link: "/claude-code/claude-core/context-engineering",
   },
   {
     id: "2026-04-26-design-md",
@@ -566,6 +575,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
     description:
       "3 つのマークダウン設計ファイルの責務分担と Multi-AI 環境での使い分けを解説。",
     category: "feature",
-    link: "/claude-mux/multi-ai/design-md",
+    link: "/claude-code/multi-ai/design-md",
   },
 ];

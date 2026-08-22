@@ -288,7 +288,7 @@
   "evidence": "GitHub のリリースページ（HTML）は公開年を本文テキストに出さない（相対時刻要素で描画される）ため、同じリリースを返す GitHub API のレスポンスに出典を差し替えた。published_at が 2023-06-28 で、v6.0.0 が 2023 年公開であることを確認できる。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "# 使い方: プロンプトに \"use context7\" を含めるだけ",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/upstash/context7",
@@ -297,7 +297,7 @@
   "evidence": "`curl https://raw.githubusercontent.com/upstash/context7/master/README.md` を取得。「## ✅ With Context7」直下の例が示すとおり、プロンプト末尾に `use context7` を付ける使い方が公式の想定。バージョン指定の例（『How do I set up Next.js 14 middleware? use context7』）も同 README にある。補足として、現行 README は `npx ctx7 setup` によるセットアップ後、skill / rule を入れれば明示的に書かなくても発火する経路も案内している（『Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.』）。教材はセットアップ手順の直後に置いているため『含めるだけ』は成立する。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "Language Server Protocol（LSP）を活用し、30+言語に対してシンボルレベルのコード理解を提供します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/oraios/serena",
@@ -306,7 +306,7 @@
   "evidence": "公式 README が LSP ベースであることと対応言語数を明記している。現在の README は「over 40」で、教材の「30+ 言語」はこれを下回る控えめな表現なので誤りではない。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "アクセシビリティツリーを活用したブラウザ自動化。スクリーンショットベースではなく構造化データで動作するため、ビジョンモデル不要で高速・確定的に動作します。Chromium / Firefox / WebKit対応。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/microsoft/playwright-mcp/blob/main/README.md",
@@ -315,7 +315,7 @@
   "evidence": "`curl https://raw.githubusercontent.com/microsoft/playwright-mcp/main/README.md` を取得。冒頭と Key Features が『アクセシビリティツリー / 構造化データ / ビジョンモデル不要 / 確定的』をすべて明記。ブラウザ対応は同 README の CLI オプション表『--browser <browser> | browser or chrome channel to use, possible values: chrome, firefox, webkit, msedge.』および設定型定義『browserName?: 'chromium' | 'firefox' | 'webkit';』で確認。リポジトリは microsoft org 配下（github.com/microsoft/playwright-mcp）で 200 応答。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "コミュニティのコレクション awesome-design-md に集まった 74 件のうち、64 件は仕様どおりに色や書体の値を書いており、残り 10 件は色コードを 1 つも書かず散文だけで構成されている。",
   "verdict": "REFUTED",
   "sourceUrl": "https://github.com/BoxPistols/design-md-docs/blob/main/docs/03-two-styles.md",
@@ -324,7 +324,7 @@
   "evidence": "出典 docs/03-two-styles.md を curl で取得（『流派Bは frontmatter を1行も持たず、**すべて散文**です。』『トークン比率 | 中央値 **57.7%** | **0%**』）。加えて再現実測: `git clone --depth 1 https://github.com/VoltAgent/awesome-design-md.git` + 出典の `tools/measure.py` を実行し『総数 74 / 流派A(frontmatter有) 64 / 流派B(散文のみ) 10』を再現。その 10 件に対し `#[0-9a-fA-F]{3,8}` を走査したところ全件で hex が検出された。反例の逐語例: spotify/DESIGN.md『- Spotify Green (`#1ed760`) as singular brand accent — never decorative, always functional』、tesla/DESIGN.md『- Single accent color — Electric Blue (`#3E6AE1`) — used exclusively for primary CTA buttons』。なお出典自身が『コレクション側が更新されれば数値は変わります』と注記しているが、2026-08-16 時点でも 74/64/10 は一致した。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "実物 64 件の散文行数の中央値が 206 行なのに対し、公式サンプルは 37 行。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/BoxPistols/design-md-docs/blob/main/docs/03-two-styles.md",
@@ -333,7 +333,7 @@
   "evidence": "出典 docs/03-two-styles.md を curl で取得して該当箇所を確認。さらに再現実測した: awesome-design-md を clone して `python3 tools/measure.py awesome/design-md` → 『総数 74 / 流派A 64 / 流派B 10』『トークン行数 中央値 268 / 散文行数 中央値 206』。公式サンプルは `git clone https://github.com/google-labs-code/design.md.git` + `python3 tools/measure.py designmd/examples` → 『総数 3』『トークン行数 中央値 144 / 散文行数 中央値 37』。両方の数値が 2026-08-16 時点でも一致。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "computed style を走査する判定は 誤検出も見逃しもゼロで、画像を見る判定も判定できた 12 項目はすべて正解した。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/BoxPistols/design-md-docs/blob/main/docs/07-machine-verification.md",
@@ -342,7 +342,7 @@
   "evidence": "出典 docs/07-machine-verification.md を curl で取得。決定的チェッカ側は「結果1: 決定的チェッカは完璧だった」節に上記の逐語記述。視覚 judge 側は「結果2」節に『**判定可能な12項目すべて正解。誤検出ゼロ。準拠版を1件も違反にしていません。**』とあり、表は V1〜V5 × sample-1/2/3 = 15 枠のうち V2 の 3 枠が undetermined、残り 12 項目がすべて正解と一致する。限界の申し送り: 今回は記録の記述と内部整合（15 枠 − undetermined 3 = 12）までを照合したもので、sandbox/tools/probe.mjs の再実行までは行っていない。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/ChoosingTools.tsx",
+  "file": "claude-code/ai-coding-agents/ChoosingTools.tsx",
   "claim": "Gemini CLI / Google / CLI（OSS・Apache 2.0） / 大きな無料枠、Google 検索グラウンディング、1M トークンコンテキスト / 無料（1,000 req/日）〜 API 従量 / Code Assist 有料版",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-gemini/gemini-cli",
@@ -351,7 +351,7 @@
   "evidence": "`curl https://raw.githubusercontent.com/google-gemini/gemini-cli/main/README.md` を取得し「Why Gemini CLI?」節から引用。各要素の裏取りも同 README 内で確認: Apache 2.0 は「Legal」節『- **License**: [Apache License 2.0](LICENSE)』、API 従量は「Gemini API key」節『- **Usage-based billing**: Upgrade for higher limits when needed』、Code Assist 有料版は認証節の見出し『#### If you are using a paid Code Assist License from your organization, remember to set the Google Cloud Project』。無料枠 1,000 req/日は OAuth 経路（60 req/min + 1,000 req/day）と API キー経路（『Free tier: 1000 requests/day with Gemini 3』）の両方に記載。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GeminiCli.tsx",
+  "file": "claude-code/ai-coding-agents/GeminiCli.tsx",
   "claim": "公式の GitHub Action （google-github-actions/run-gemini-cli）を使うと、PR の自動レビューや Issue トリアージ、@gemini-cli メンションによる呼び出しを CI 上で運用できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-github-actions/run-gemini-cli",
@@ -360,7 +360,7 @@
   "evidence": "引用を README の Overview 節の地の文（Markdown リンク記法とインラインコードの記号を除いた形）に取り直した。同 README には Issue Triage / Pull Request Review の各ワークフロー節が実在する。『公式』の裏取りとして、Gemini CLI 本体 README の GitHub Integration 節が同 Action をリンクしている。リポジトリの owner は google-github-actions（Organization）。"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "cmux は macOS ネイティブのターミナルアプリケーションで、複数の AI コーディングエージェントを同時に管理するために設計されている。Ghostty のレンダリングエンジン（libghostty）をベースに、Swift + AppKit で実装されており、動作は軽量。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
@@ -369,7 +369,7 @@
   "evidence": "引用を README の FAQ（What platforms does it support?）と Features 箇条書きの 3 箇所に取り直し、行頭の箇条書き記号や強調記号を含まない形にした。FAQ『How does cmux relate to Ghostty?』も libghostty をライブラリとして使う旨を述べており、fork ではない。GitHub API の language は Swift。『動作は軽量』は Fast startup, low memory. に対応する。"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "各ワークスペースが独立したターミナル環境を持ち、Claude Code・Codex・Aider など主要な AI コーディングエージェントに対応する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
@@ -378,7 +378,7 @@
   "evidence": "README はワークスペース単位のターミナル（垂直タブ、分割ペイン）と AI コーディングエージェント向けの通知を製品の中心に据えている。ただし現行 README がエージェント名を挙げているのは Claude Code / OpenCode / Codex までで、Aider は名指しされていない（以前あった「ターミナルで動くエージェントはすべて動く」という FAQ は削除済み）。「ターミナルで動くものは動く」という一般論としては成り立つが、Aider 対応を README から逐語で示すことはできない。"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "設定方式 / tmux.conf テキスト / GUI 設定",
   "verdict": "REFUTED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
@@ -387,7 +387,7 @@
   "evidence": "README FAQ「Can I customize cmux?」（370 行目）を curl 取得した本文から grep で逐語確認。同 README の機能リストにも '- **Ghostty compatible** — Reads your existing `~/.config/ghostty/config` for themes, fonts, and colors'、'- **Custom commands** — Define project-specific actions in [`cmux.json`](https://cmux.com/docs/custom-commands) that launch from the command palette' がある。FAQ「Can I customize keyboard shortcuts?」も 'Terminal keybindings are read from your Ghostty config file (`~/.config/ghostty/config`).' と明記。なお同マニュアル内の CmuxSetup.tsx が「Ghostty の設定ファイルがそのまま利用できる」と書いており、本ページの表と自己矛盾している。"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "リモートサーバー / 対応（SSH 永続化） / 非対応",
   "verdict": "REFUTED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
@@ -396,7 +396,7 @@
   "evidence": "引用を README FAQ の設問と回答が連続する地の文に取り直した（Markdown リンク記法は除去）。cmux はリモートに対応しており、表の cmux 側『非対応』は誤り。README の Features にも cmux ssh user@remote でリモートマシン用ワークスペースを作る記述があり、『How does it compare to tmux?』にも『cmux can attach to your remote tmux sessions natively (beta)』とある。"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "公式サイト cmux.com",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
@@ -405,16 +405,16 @@
   "evidence": "README「## Documentation」節（curl 取得本文から grep で逐語確認）。GitHub API `api.github.com/repos/manaflow-ai/cmux` の homepage フィールドも \"https://cmux.com\"。到達確認: curl -sL -A 'Mozilla/5.0' -o /dev/null -w '%{http_code}' --max-time 20 'https://cmux.com' → 200（url_effective = https://cmux.com/）。README 内では cmux.com/docs/* が公式ドキュメントとして多数リンクされている（keyboard-shortcuts, api, browser-automation, session-restore, ssh, skills, configuration 等）。"
  },
  {
-  "file": "claude-mux/cmux/CmuxBrowserAPI.tsx",
+  "file": "claude-code/cmux/CmuxBrowserAPI.tsx",
   "claim": "主な操作は次の 5 つ。socket 経由のコマンドとして呼び出せる。",
   "verdict": "REFUTED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/README.md",
   "quote": "Yes. Every action is available through the cmux CLI and a Unix socket: create workspaces, open split panes, send input, read screen contents, take screenshots, and drive the in-app browser.",
   "correction": "件数が本文と表で食い違う。直後の表は 6 行ある（browser snapshot / browser click / browser fill・type / browser eval / browser get・screenshot / browser goto・wait）。「次の 5 つ」を「次の 6 つ」に直すか、表を 5 行に減らす。なお cmux の browser サブコマンドは公式ドキュメント上 40 個以上あり（click, dblclick, hover, focus, check, uncheck, scroll-into-view, type, fill, press, keydown, keyup, select, scroll, snapshot, screenshot, get, is, find, highlight, eval, addinitscript, addscript, addstyle, frame, dialog, download, cookies, storage, state, history, tab, console, errors 等）、6 つは教材側の抜粋である旨を明示すると誤読を防げる。後半の「socket 経由のコマンドとして呼び出せる」は公式記載どおりで正しい。",
-  "evidence": "後半の裏づけは README FAQ「Is cmux programmable?」（354 行目）を curl 取得本文から grep で逐語確認。件数は対象ファイルを機械的に数えて確定: `awk 'NR>=92 && NR<=180' client/src/pages/claude-mux/cmux/CmuxBrowserAPI.tsx | grep -c '<tr className=\"border-b border-border\">'` → 6。各行の第 1 セルも抽出し、browser snapshot / browser click / browser fill / type / browser eval / browser get / screenshot / browser goto / wait の 6 行であることを確認（表末尾は同ファイル 145-152 行目）。サブコマンドの全体像は https://cmux.com/docs/browser-automation を curl 取得しタグ除去して確認。"
+  "evidence": "後半の裏づけは README FAQ「Is cmux programmable?」（354 行目）を curl 取得本文から grep で逐語確認。件数は対象ファイルを機械的に数えて確定: `awk 'NR>=92 && NR<=180' client/src/pages/claude-code/cmux/CmuxBrowserAPI.tsx | grep -c '<tr className=\"border-b border-border\">'` → 6。各行の第 1 セルも抽出し、browser snapshot / browser click / browser fill / type / browser eval / browser get / screenshot / browser goto / wait の 6 行であることを確認（表末尾は同ファイル 145-152 行目）。サブコマンドの全体像は https://cmux.com/docs/browser-automation を curl 取得しタグ除去して確認。"
  },
  {
-  "file": "claude-mux/cmux/CmuxBrowserAPI.tsx",
+  "file": "claude-code/cmux/CmuxBrowserAPI.tsx",
   "claim": "browser snapshot アクセシビリティツリーを取得（--cursor / --compact / --selector / --max-depth で絞れる）",
   "verdict": "REFUTED",
   "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/main/skills/cmux-browser/references/commands.md",
@@ -423,7 +423,7 @@
   "evidence": "一次情報 2 点で照合。(1) リポジトリ内の公式スキル参照 https://raw.githubusercontent.com/manaflow-ai/cmux/main/skills/cmux-browser/references/commands.md を curl 取得（4732 bytes）。'## Snapshot and inspection' 節に上記 2 行が逐語で存在し、`--cursor` は同ファイル内に 0 件（grep -- '--cursor' で無出力）。(2) 公式ドキュメント https://cmux.com/docs/browser-automation を curl 取得（477213 bytes）しタグ除去して全文検索したところ 'cmux browser surface:2 snapshot --interactive --compact' および 'cmux browser surface:2 snapshot --selector \"main\" --max-depth 5' が存在し、'cursor' の出現は 0 件。CLI リファレンス https://cmux.com/docs/api も同様に取得し '--cursor' 0 件。GitHub コード検索（gh api search/code, repo:manaflow-ai/cmux \"--cursor\"）は 11 件ヒットするが、内訳は docs/events.md・docs/feed.md・docs/cli-contract.md・cmux-tui の CLI・CSS ファイル等で、docs/cli-contract.md の該当行は '| `--cursor-file <path>` | Read the starting sequence from a file and update it after every event. |'（イベント用）。「アクセシビリティツリーを取得」という説明自体は README の 'Agents can snapshot the accessibility tree, get element refs, click, fill forms, and evaluate JS.' と整合し問題ない。"
  },
  {
-  "file": "claude-mux/cmux/CmuxWorktrees.tsx",
+  "file": "claude-code/cmux/CmuxWorktrees.tsx",
   "claim": "manaflow-ai/cmux macOS ネイティブターミナル ワークスペース = worktree で運用 / craigsc/cmux Bash 製のシェルツール worktree のライフサイクル管理が中心",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/craigsc/cmux/blob/main/README.md",
@@ -1008,7 +1008,7 @@
   "evidence": "github/docs リポジトリの raw ソース (https://raw.githubusercontent.com/github/docs/main/content/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-version-updates.md) を curl で取得し、手順が reusable `repositories/sidebar-settings` + `repositories/navigate-to-code-security-and-analysis` を参照していることを確認。後者の実体は「In the \"Security\" section of the sidebar, click **{{ UI_advanced_security }}**」で、data/variables/product.yml の `UI_advanced_security` は `prodname_AS` = \"Advanced Security\"。変数展開後の実文面は公開ページ https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-version-updates と https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-security-updates を curl + タグ除去して実測し、いずれも \"In the \\\"Security\\\" section of the sidebar, click Advanced Security.\" と表示されることを確認した。なお candidateSource の https://docs.github.com/en/code-security/dependabot は curl で 200（リダイレクト先の索引ページ）。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "仕様では基本機能は 定額プランに含まれ、高性能モデルの利用量は「AI クレジット」（旧称: プレミアムリクエスト）という 枠で管理される。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals",
@@ -1017,7 +1017,7 @@
   "evidence": "一次情報 3 本を照合した。(1) https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals は「Copilot usage is measured in AI credits.」「Copilot features that use AI models consume AI credits, such as: Copilot Chat / Copilot CLI / Copilot cloud agent / Copilot Spaces / Spark / Third-party coding agents」「Code completions and Next edit suggestions are not billed in AI credits and remain unlimited for all paid plans.」と述べる。(2) https://docs.github.com/en/copilot/reference/copilot-billing/request-based-billing-legacy/github-copilot-premium-requests は表題が \"Overview of request-based billing (legacy)\" で、冒頭に「This article only applies to Copilot Pro and Copilot Pro+ subscribers on an existing annual plan who remained on legacy premium request-based billing after June 1, 2026.」とある。(3) https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing は「1 AI credit = $0.01 USD」でトークン課金を換算すると述べる。以上から「定額プランに基本機能（コード補完）が無制限で含まれる」「AI クレジットという枠がある」「premium request 方式は legacy 扱いになった」までは裏が取れるが、claim の 2 点は一次情報で確定できない: (a) 「AI クレジット」を「プレミアムリクエストの旧称（改称）」と書いた記述は公式ドキュメントに存在せず、公式は課金方式の置き換え（request-based → token/credit-based）として扱っている。(b) AI クレジットが消費されるのは「高性能モデルの利用量」に限らず、Chat / CLI / cloud agent 等で軽量モデルを使った場合も消費される（\"A quick question in Copilot Chat using a lightweight model might cost a fraction of an AI credit.\"）。この 2 点について公式が claim の言い方を支持も否定もしていないため UNDETERMINED とした。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "認証済みの学生・教員・人気 OSS のメンテナーは無料でアクセスできる制度がある。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/copilot/get-started/plans",
@@ -1026,7 +1026,7 @@
   "evidence": "https://docs.github.com/en/copilot/get-started/plans を curl + HTML タグ除去で取得し、レンダリング後の本文から上記 2 段落を逐語で抽出（変数展開済み）。裏付けとして https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-teachers-and-os-maintainers.md も取得し、\"There are two ways to qualify for free access to Copilot Pro: As a verified teacher on GitHub Education. / As a maintainer of a popular open-source repository.\" と、\"GitHub reevaluates your eligibility every month.\" を確認。学生は Copilot Pro ではなく専用の Copilot Student プラン（無料）である点も一致する。"
  },
  {
-  "file": "claude-mux/cicd-headless/GitHubActions.tsx",
+  "file": "claude-code/cicd-headless/GitHubActions.tsx",
   "claim": "pull_request_target はベースブランチのコンテキストで実行されるため、フォークからの PR でもシークレットにアクセスできます。信頼できないリポジトリでは if 条件でフィルタリングしてください。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target",
@@ -2340,7 +2340,7 @@
   "evidence": "3.4 以前は分割代入した変数が定数のままで、3.5 以降はコンパイラーが props. を補うことで更新に追従する、という点は一次情報どおり。なお「<script setup> は 1 度だけ実行される」の根拠は同じページではなく guide/extras/render-function の「setup() 関数はコンポーネントごとに一度だけ呼び出されます」で、ここでは引用に含めていない。"
  },
  {
-  "file": "claude-mux/agent-extensions/Subagents.tsx",
+  "file": "claude-code/agent-extensions/Subagents.tsx",
   "claim": "サブエージェントはバックグラウンドで実行可能です。/tasks コマンドで実行中のタスク一覧を確認できます。別のターミナルタブで git diff を実行すれば、ファイル変更をリアルタイムに監視できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
@@ -2349,7 +2349,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md で raw markdown を取得。L790-793 の「Run subagents in foreground or background」節に上記の逐語文。/tasks については同ファイル L813「During those 30 seconds, run [`/tasks`](/docs/en/commands) and press `Enter` on the subagent to open its transcript.」、および https://code.claude.com/docs/en/commands.md L142「| `/tasks` | View and manage background work in the current session, including subagents that have finished. Also available as `/bashes`」で裏取り。3 文目（別ターミナルで git diff）は Claude Code の仕様ではなく一般的な作業手順の提案で、一次情報に対応記述はないが Claude Code の挙動に関する主張ではないため判定対象外とした。"
  },
  {
-  "file": "claude-mux/agent-extensions/Subagents.tsx",
+  "file": "claude-code/agent-extensions/Subagents.tsx",
   "claim": "Ctrl+B 実行中タスクをバックグラウンドに切り替え",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/interactive-mode",
@@ -2358,7 +2358,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/interactive-mode を取得（raw markdown 変換、L29 のキーボードショートカット表）。同ページ L270「Press `Ctrl+B` to move a regular Bash tool invocation to the background. Tmux users must press `Ctrl+B` twice due to tmux's prefix key.」、および sub-agents.md L809「* Press **Ctrl+B** to background a running task」でも一致。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "インライン補完 / 主力機能（タイピング中の候補提示） / 非対応（対話・タスク単位の作業が中心）",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/desktop",
@@ -2367,7 +2367,7 @@
   "evidence": "Copilot 側は https://docs.github.com/en/copilot/get-started/what-is-github-copilot に「Get code suggestions as you type in your IDE.」とあり主張と一致する。Claude Code 側の「非対応」は一次情報で確定できなかった。code.claude.com/docs 全体（llms.txt の全 187 ページ一覧を取得し、overview / vs-code / interactive-mode / desktop を精査）で、インライン補完機能を提供するという記述も、CLI・VS Code 拡張がそれを提供しないという明示的な否定も見つからない。唯一近いのは desktop.md L887「**Inline code suggestions**: Desktop does not provide autocomplete-style suggestions. It works through conversational prompts and explicit code changes.」だが、これは Desktop アプリ限定の「What's not available in Desktop」節の記述で、Claude Code 全体についての言明ではない。なお vs-code.md L368 の「| Tab completion | Yes | No |」は CLI と VS Code 拡張のシェル/コマンド補完の比較であり、コードのインライン補完ではない。ドキュメントに機能記載がないことは非対応の証明にならないため UNDETERMINED とする。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "CLI 実装 / Rust 製・オープンソース（Apache 2.0） / Node.js ベース・プロプライエタリ",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/setup",
@@ -2376,7 +2376,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/setup.md の L469 に上記逐語。同 L463「the package downloads a native binary that doesn't use your Node.js at runtime」。Codex 側は GitHub API で実測: https://api.github.com/repos/openai/codex → language: Rust, license spdx_id: Apache-2.0。https://api.github.com/repos/openai/codex/languages → Rust 49,038,629 バイトで最大。リポジトリ直下に codex-rs/ が存在。https://raw.githubusercontent.com/openai/codex/main/LICENSE 先頭が「Apache License / Version 2.0, January 2004」。同 README L81「This repository is licensed under the [Apache-2.0 License](LICENSE).」。"
  },
  {
-  "file": "claude-mux/best-practices/EffectiveWorkflows.tsx",
+  "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
   "claim": "公式ドキュメントが推奨する4フェーズのワークフローです。各フェーズで明確な目的を持つことで、的確な成果物を得られます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
@@ -2385,7 +2385,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/best-practices.md L64 に上記逐語。直前の見出しは L56「## Explore first, then plan, then code」。続く <Steps> の各 <Step title> は Explore / Plan / Implement / Commit の 4 つで、ページ側の「Explore → Plan → Implement → Commit」と完全に一致（sed で Step title 行を抽出して確認）。「公式ドキュメントが推奨する4フェーズ」という出典主張は成立する。後半「各フェーズで明確な目的を持つことで、的確な成果物を得られます」は評価的な表現で出典と逐語対応はしないが、同節の「Separate research and planning from implementation to avoid solving the wrong problem.」と趣旨は一致。"
  },
  {
-  "file": "claude-mux/best-practices/EffectiveWorkflows.tsx",
+  "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
   "claim": "/rewind 直前のターンを取り消し。誤った方向に進んだ場合のやり直しに使用。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/commands",
@@ -2394,7 +2394,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/commands.md L125 に上記逐語行。復元アクションの内訳は https://code.claude.com/docs/en/checkpointing の「Rewind and summarize」節に逐語で列挙（Restore code and conversation / Restore conversation / Restore code / Summarize from here / Summarize up to here / Never mind）。ターン数指定は commands 系ドキュメントの `/rewind [N|description]` 記述で「when you pass a number, `/rewind` goes back that many turns」。同一マニュアル内 SlashCommands.tsx の「チェックポイント復元」側の説明のほうが一次情報に近い。"
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "# Model: Claude Opus 4.7 等の LLM 本体",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
@@ -2403,7 +2403,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md L460（effort レベル対応表）に上記逐語行があり、Claude Opus 4.7 は現行ドキュメントに実在する Claude モデル名。同 L465「The default effort is `high` on every model that supports effort, except Opus 4.7, which defaults to `xhigh`.」、L53「Before v2.1.207, `opus` resolved to Opus 4.7 on Claude Platform on AWS」でも実在を確認。ただし記述は「等の」という例示であり最新版の宣言ではない点に注意: 同 L46 の表では Anthropic API での `opus` エイリアスは Opus 5 に解決する（| Anthropic API | Opus 5 | Sonnet 5 |）ため、最新ラインアップの代表例としては古い。モデル名自体は誤りではないので CONFIRMED とした。"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "Claude Code はマルチモーダル対応のため、UI のスクリーンショットを直接解析できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/common-workflows",
@@ -2412,7 +2412,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/common-workflows.md の「### Work with images」節（L300 以降）。画像投入手段は L308-310「Drag and drop an image into the Claude Code window」「Copy an image and paste it into the CLI with Ctrl+V. On macOS, Cmd+V also works in iTerm2.」「Provide an image path to Claude.」、プロンプト例に L319「Describe the UI elements in this screenshot」「Here's a screenshot of the error. What's causing it?」。Tips に上記逐語（L354）。interactive-mode のショートカット表にも「| `Ctrl+V` or `Cmd+V` (iTerm2) or `Alt+V` (Windows and WSL) | Paste image from clipboard |」があり、ページ側の「ターミナルへの画像ペースト」の記述とも一致。"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "# セッション内でカスタムエージェントを呼び出す\n> @security-reviewer で src/auth/ 配下のコードをレビューして",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
@@ -2421,7 +2421,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md L752 に上記逐語。ピッカー経由の例は同 L742-746「**@-mention the subagent.** Type `@` and pick the subagent from the typeahead, the same way you @-mention files.」＋コードブロック「@\"code-reviewer (agent)\" look at the auth changes」。ページ側 TestingDebugging.tsx L193 / L196 の 3 箇所（@security-reviewer、@performance-reviewer）すべてがこの誤記法。"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "# .claude/agents/security-reviewer.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
@@ -2430,7 +2430,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md L281 に上記逐語（frontmatter フィールド表の直前）。表の該当行は L285「| `name` | Yes | Unique identifier using lowercase letters and hyphens.…」、L287「| `tools` | No | …」、L289「| `model` | No | [Model](#choose-a-model) to use: `sonnet`, `opus`, `haiku`, `fable`, a full model ID (for example, `claude-opus-5`), or `inherit`. Defaults to `inherit` |」。公式サンプルは L247-252「---\\nname: code-reviewer\\ndescription: Reviews code for quality and best practices\\ntools: Read, Glob, Grep\\nmodel: sonnet\\n---」、L358-362「---\\nname: safe-researcher\\ndescription: Research agent with restricted capabilities\\ntools: Read, Grep, Glob, Bash\\n---」。ファイル内で「comma-separated」「YAML list」といった記法の言及を grep したが 0 件で、ブロックリスト形式の可否はドキュメント上明示されていない（判定の根拠は name/description 欠落）。なお同ページの CodingChallenge の initialCode / answer（TestingDebugging.tsx L320-321）も同じ frontmatter を採用しているため併せて要修正。"
  },
  {
-  "file": "claude-mux/cicd-headless/GitHubActions.tsx",
+  "file": "claude-code/cicd-headless/GitHubActions.tsx",
   "claim": "Claude Code は GitLab CI/CD パイプラインでも同様に利用できます。claude -p（パイプモード）をスクリプトステップで呼び出すことで、プラットフォームに依存しない自動化が構築できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/gitlab-ci-cd",
@@ -2439,7 +2439,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/gitlab-ci-cd を取得。公式に GitLab CI/CD 用のページが存在し、`.gitlab-ci.yml` の `script:` ステップで `claude -p \"${AI_FLOW_INPUT:-'Review this MR and implement the requested changes'}\" --permission-mode acceptEdits --allowedTools \"Bash Read Edit Write mcp__gitlab\" --debug` を呼ぶ例が載っている。https://code.claude.com/docs/en/headless の Next steps にも「GitLab CI/CD: use the Agent SDK in GitLab pipelines」へのリンクがある。補足（教材本文には無い留保）: 同ページ冒頭に「Claude Code for GitLab CI/CD is currently in beta.」「This integration is maintained by GitLab.」と明記されている。"
  },
  {
-  "file": "claude-mux/cicd-headless/HeadlessMode.tsx",
+  "file": "claude-code/cicd-headless/HeadlessMode.tsx",
   "claim": "# Claude Code を MCP サーバーとして起動\nclaude mcp serve",
   "verdict": "CONFIRMED",
   "sourceUrl": "",
@@ -2448,16 +2448,16 @@
   "evidence": "ローカルにインストール済みの公式 CLI（/Users/ai/.local/bin/claude, `claude --version` = 2.1.233 (Claude Code)）で `claude mcp --help` と `claude mcp serve --help` を実行。前者のサブコマンド一覧に `serve [options]  Start the Claude Code MCP server` が出力され、後者は exit 0 で上記ヘルプを返した。注意: Web の公式ドキュメント側では確認できなかった（https://code.claude.com/docs/en/cli-reference.md および https://code.claude.com/docs/en/mcp.md を curl で取得して grep したが `mcp serve` の記載は無く、cli-reference の一覧にも `claude mcp login` / `claude mcp logout` はあるが `serve` は無い）。ベンダー配布バイナリ自身の出力を一次情報として CONFIRMED としたが、ドキュメント未掲載＝将来変更されうる点は留意。"
  },
  {
-  "file": "claude-mux/cicd-headless/HeadlessMode.tsx",
+  "file": "claude-code/cicd-headless/HeadlessMode.tsx",
   "claim": "パイプモードでは会話履歴が保持されません。毎回新しいセッションとして実行されます。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/headless",
   "quote": "### Continue conversations\n\nUse `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation. This example runs a review, then sends follow-up prompts:\n\n```bash theme={null}\n# First request\nclaude -p \"Review this codebase for performance issues\"\n\n# Continue the most recent conversation\nclaude -p \"Now focus on the database queries\" --continue\nclaude -p \"Generate a summary of all issues found\" --continue\n```",
   "correction": "`-p`（パイプモード）でも会話履歴は保存されており、継続できる。既定ではフラグを付けない各実行が新しいセッションになるだけで、`claude -p \"...\" --continue` で直近の会話を継続でき、`session_id=$(claude -p \"Start a review\" --output-format json | jq -r '.session_id')` で ID を取り `claude -p \"...\" --resume \"$session_id\"` で特定セッションを継続できる。CLI reference にも `claude -c -p \"query\"`（Continue via SDK）が独立した項目として載っている。したがって「継続的な対話が必要な場合は REPL モードを使用」という誘導も不正確。",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-mux/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code 公式が最初に強調するのは 「コンテキストウィンドウは最重要のリソース」という事実。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
@@ -2466,7 +2466,7 @@
   "evidence": "curl -sL で https://code.claude.com/docs/en/best-practices.md を取得し grep。「The context window is the most important resource to manage.」が逐語で存在する。位置も本文冒頭の導入直後（最初の水平線の直後、個別の best practice 見出しより前）にあり、教材の「最初に強調する」という記述と整合する。教材本文の続き「埋まるほどモデルの性能が下がる」も原文の「performance degrades as it fills」「LLM performance degrades as context fills」に対応。"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code は prompt cache を自動的に利用する。毎回同じ prefix（CLAUDE.md、@import 群、Skills）を 読み込むセッションでは、キャッシュ読み取りは通常の入力トークンより 大幅に安価になり、レイテンシも下がる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/prompt-caching",
@@ -2475,7 +2475,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/prompt-caching を取得。「Claude Code handles prompt caching for you, unless you disable it」「Prompt caching makes Claude Code faster and more cost-efficient」および Check cache performance 節の表から、自動利用・約10%の単価・高速化が逐語で確認できた。補足（教材の括弧書きへの留保）: 同ページの層の表では安定プレフィックスは「System prompt」と「Project context（CLAUDE.md, auto memory, unscoped rules）」で、Skills はプレフィックスに入らない。「Skills and commands inject their instructions as user messages at the point of invocation」とあり、Skill 呼び出しはキャッシュを壊さず末尾に追記される。主張の核（自動キャッシュ・大幅に安価・低レイテンシ）は正しいが、括弧内の「Skills」は prefix の構成要素としては不正確。"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "キャッシュヒット率や使用量の内訳は /usage で確認できる。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/costs",
@@ -2484,7 +2484,7 @@
   "evidence": "curl で https://code.claude.com/docs/en/costs.md、https://code.claude.com/docs/en/commands.md を取得し grep、加えて https://code.claude.com/docs/en/prompt-caching を WebFetch。「使用量の内訳」の部分は確認できる（`/usage` は cache read / cache write のトークン数を含む Session ブロックを表示し、Pro/Max/Team/Enterprise では skill・subagent・plugin・MCP サーバー別の Attribution と、cache misses 等の Behavior flags を表示する）。一方「キャッシュヒット率」は一次情報で裏が取れない: `/usage` の出力に率（%）としてのヒット率の記載は無くトークン数のみで、公式の「Check cache performance」節は「The most direct way to watch them live is a statusline script that reads the `current_usage` object」と statusline / OpenTelemetry を案内し `/usage` に言及していない。率そのものは表示されない可能性が高いが、cache read/write 数から導出はできるため誤りとも断定できない。実機の TUI で `/usage` 画面を目視確認していないため UNDETERMINED とした。"
  },
  {
-  "file": "claude-mux/claude-core/ContextManagement.tsx",
+  "file": "claude-code/claude-core/ContextManagement.tsx",
   "claim": "deny ルールはどのパーミッションモードでも適用されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
@@ -2493,7 +2493,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/permission-modes を取得し「deny」「bypassPermissions」で grep。上記の逐語記述が該当。裏付けとして https://code.claude.com/docs/en/permissions に「Rules are evaluated in order: deny, then ask, then allow.」「If a tool is denied at any level, no other level can allow it.」「Hook decisions don't bypass permission rules. Claude Code evaluates deny and ask rules regardless of what a PreToolUse hook returns」があり、同じ結論を支持する。唯一の例外は `EndConversation` ツールで、他ツールが残っている間は deny/ask で塞げない点（教材本文には無い留保）。"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "high / 既定値。トークン消費と知能のバランス。大半のタスクに適する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
@@ -2502,7 +2502,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Adjust effort level」「Choose an effort level」節を確認。`high` = 「Balances token usage and intelligence」＝「トークン消費と知能のバランス」、「The default suits most coding tasks」＝「大半のタスクに適する」に一致。API 側 https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost の表も「| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks. |」で既定を裏付ける。批判点への回答: 入力の why にある「Fable 5・Opus 4.7 以降は xhigh が既定」は公式と食い違う。xhigh 既定は Opus 4.7 のみで、Fable 5 / Opus 4.8 / Opus 5 / Sonnet 5 はいずれも既定 high（ただし Fable 5・Opus 4.8・Opus 4.7 は初回起動時にモデル既定を保持する hold がある）。本 claim 側（high が既定）が正しく、SlashCommands.tsx 側の記述を要修正。"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "Option+T（macOS）/ Alt+T でセッション中に切替でき、思考の深さは主に Effort Level が制御します（現行モデルはタスクに応じて思考量を自動調整する adaptive reasoning に対応）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
@@ -2511,7 +2511,7 @@
   "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Extended thinking」節と「Adaptive reasoning and fixed thinking budgets」節を確認。キーバインド（Option+T / Alt+T）、Effort Level が思考量の主制御であること、現行モデルが adaptive reasoning であることの 3 点がいずれも逐語で存在。「[Effort levels] control adaptive reasoning, which lets the model decide whether and how much to think on each step based on task complexity」も「タスクに応じて思考量を自動調整」に対応する。補足（教材本文には無い留保）: 「Thinking cannot be turned off on Fable 5. The session toggle, `alwaysThinkingEnabled`, and `MAX_THINKING_TOKENS=0` have no effect there.」とあり、Fable 5 では Option+T の切替が効かない。"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "thinking トークンは出力トークンとして課金されます（表示が折りたたまれていても課金対象）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost",
@@ -2520,7 +2520,7 @@
   "evidence": "WebFetch で https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost の Pricing 節を取得。「Tokens Claude uses while thinking (billed as output tokens)」が逐語で存在し、display 設定（summarized / omitted）にかかわらず「Output tokens (billed): The full thinking tokens Claude generated internally」と表に明記されているため、「表示が折りたたまれていても課金対象」も裏が取れる。関連して https://platform.claude.com/docs/en/build-with-claude/extended-thinking にも「monitor the `usage.output_tokens_details.thinking_tokens` field in the response, which reports how many of the billed output tokens were internal reasoning」がある。"
  },
  {
-  "file": "claude-mux/claude-core/TokenOptimization.tsx",
+  "file": "claude-code/claude-core/TokenOptimization.tsx",
   "claim": "xhigh より深い推論。Fable 5 / Opus 4.7 以降などで利用可能。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
@@ -2529,7 +2529,7 @@
   "evidence": "公式ドキュメントの effort レベル表で、max を持つのは Fable 5 と Opus 5 / Sonnet 5 / Opus 4.8 / Opus 4.7。Opus 4.6 と Sonnet 4.6 は low / medium / high / max（xhigh なし）。フラグメント付き URL では Markdown 原文を取得できないため sourceUrl をページ本体に差し替えた。"
  },
  {
-  "file": "claude-mux/claude-intro/ClaudeCodeIntro.tsx",
+  "file": "claude-code/claude-intro/ClaudeCodeIntro.tsx",
   "claim": "VS Code サイドバー/タブパネル、インラインdiff表示、チェックポイントによるロールバック。Cmd+Esc でフォーカス切替。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/ide-integrations",
@@ -2538,7 +2538,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/ide-integrations.md で raw markdown を取得（52108 bytes）。4 要素を個別に照合した。(1) サイドバー/タブパネル: \"Choose where Claude lives\" 節（行 165-169）に Secondary sidebar / Primary sidebar / Editor area (tab) が列挙され、設定 `preferredLocation` も既定 `panel` で \"`sidebar` (right) or `panel` (new tab)\"（行 344）。(2) インライン diff: ページ description（行 7）に \"inline diffs\"。本文 \"Review changes\"（行 81）では \"shows a side-by-side comparison of the original and proposed changes\" と表現される。(3) チェックポイント: \"Rewind with checkpoints\"（行 370-372）+ 機能比較表で Checkpoints は VS Code Extension も Yes（行 366）。(4) Cmd+Esc: 行 254 の本文と、ショートカット表 \"| Focus Input | `Cmd+Esc` (Mac) / `Ctrl+Esc` (Windows/Linux) | Toggle focus between editor and Claude |\"（行 262）。"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "優先順位: 環境変数 CLAUDE_CODE_EFFORT_LEVEL > 設定値 > モデル既定。skill / subagent frontmatter の effort はその skill / subagent 実行時のみ上書き。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config#set-the-effort-level",
@@ -2547,7 +2547,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md の \"Set the effort level\" 節（行 508-517）。優先順位の一文が主張とそのまま一致する（env var > configured level > model default）。frontmatter の扱いも \"applies when that skill or subagent is active\" で「その skill / subagent 実行時のみ上書き」に一致。環境変数名 `CLAUDE_CODE_EFFORT_LEVEL` も同節に実在。補足として、frontmatter は環境変数には勝たない旨が明記されている点も教材の記述と矛盾しない。"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "同じセッションを複数ターミナルで再開すると、両方のメッセージが時系列に交互記録される（壊れないが混在する）。並列なら claude --continue --fork-session で分岐推奨。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/sessions#branch-a-session",
@@ -2556,7 +2556,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/sessions.md（26127 bytes）の \"Branch a session\" 節。行 160 が「複数ターミナルで同一セッションを fork せず再開すると両方のメッセージが 1 つの transcript に交互に混ざる」を逐語で述べており、主張の中核と一致。分岐コマンドも行 145-149 に `claude --continue --fork-session` がコードブロックで示されている。cli-reference.md 行 90 の `--fork-session` 説明 \"When resuming, create a new session ID instead of reusing the original (use with `--resume` or `--continue`)\" も裏づけ。なお「壊れないが」「時系列に」は原文に無い補足表現だが、\"interleave into one transcript\"（破損ではなく 1 本の transcript への混在）と矛盾しない範囲の言い換えと判断した。「推奨」は編集上の助言であり事実主張ではない。"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "同じ session ID に追記され、新メッセージは既存会話に連結される。session-scoped permissions は復元されないため再承認が必要。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/sessions#what-a-resumed-session-restores",
@@ -2565,7 +2565,7 @@
   "evidence": "前半（同じ session ID に追記・既存会話に連結）は裏づけがある。cli-reference.md 行 90 の `--fork-session` が \"create a new session ID instead of reusing the original\" と述べ、sessions.md 行 127 が \"Sessions created with `/branch` or `--fork-session` get their own session IDs\" とするので、fork しない再開は元 ID を再利用すると読める。後半が確定できない。sessions.md の \"What a resumed session restores\" 節（行 30-42）は復元されるものを Conversation history / Model / Agent / Permission mode / Active goal / Scheduled tasks と列挙するが、「session-scoped permission grants」については肯定も否定もしていない（列挙に無いという不在の証拠のみ）。permissions.md を全文取得して grep しても resume と session 付与権限を結びつける記述は無い（唯一の近い記述は行 21 の \"A file-modification approval isn't saved to the file: as the table shows, it lasts until the session ends.\" で、resume 時の扱いには触れない）。最も近いのは sessions.md 行 156 の /branch 比較表で、これは `--fork-session` で別プロセスに分岐した場合に権限が引き継がれず再承認が要る旨を述べており、素の `--resume` の話ではない。したがって後半は一次情報から確定できない。"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "memory-sync など他の hook がすでにある場合は、上書きせず同じ hooks 配列に並べて追加する。配列内の hook は並列実行されるので、cmux 連携は「追加」する形で安全に共存できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/hooks#hook-handler-fields",
@@ -2574,7 +2574,7 @@
   "evidence": "curl -sL https://code.claude.com/docs/en/hooks.md の \"Hook handler fields\" 節（行 401-410）。内側の `hooks` 配列の各要素が hook handler であることを述べた直後に \"All matching hooks run in parallel.\" が置かれており、検証対象である「同じ hooks 配列に並べた hook は並列実行される」を直接支持する。したがって「上書きせず追加する」という運用助言の根拠（既存 hook を潰さずに共存できる）も成立する。memory-sync という個別ツール名は Claude Code 公式ドキュメントの対象外なので、そこは検証していない（本判定は並列実行の仕様部分に対するもの）。"
  },
  {
-  "file": "claude-mux/hooks-advanced/HooksRecipes.tsx",
+  "file": "claude-code/hooks-advanced/HooksRecipes.tsx",
   "claim": "Notification Hook の stdin には通知メッセージが JSON で渡されます。jq を使って解析し、動的な通知メッセージを表示することもできます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/hooks#notification",
@@ -2583,7 +2583,7 @@
   "evidence": "引用を、エージェントの注記やコードブロックを含まない地の文 2 箇所に取り直した（https://code.claude.com/docs/en/hooks の Hook types 節と Notification input 節）。前半が『stdin に JSON が渡る』、後半が『message フィールドで通知テキストが渡る』に対応する。jq での解析は同ページの Notification hook 例が body=$(jq -r '.message // \"Needs your attention\"' <<< \"$input\") と書いており、主張の 3 要素（stdin / JSON / jq で動的メッセージ）すべてが一次情報に存在する。"
  },
  {
-  "file": "claude-mux/hooks-advanced/HooksRecipes.tsx",
+  "file": "claude-code/hooks-advanced/HooksRecipes.tsx",
   "claim": "agent Hook は独立したコンテキストで実行されるため、メインセッションのコンテキストを消費しません。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/hooks#agent-based-hooks",
@@ -3690,7 +3690,7 @@
   "evidence": "@next/bundle-analyzer は環境変数 ANALYZE=true を付けてビルドしたときだけ有効になり、HTML のレポートが出力される。README の例はパッケージマネージャが yarn だが、変数名と仕組みは pnpm build でも同じ。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "Agent Teams を使うには 最新版の Claude Code が必要。claude --version でバージョンを確認し、古い場合は npm update -g @anthropic-ai/claude-code でアップデートする。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/setup",
@@ -3699,7 +3699,7 @@
   "evidence": "curl https://code.claude.com/docs/en/setup.md の 473 行に `npm update -g` を避けるよう明記された文（上記引用）を確認。Agent Teams 側は curl https://code.claude.com/docs/en/agent-teams.md および WebFetch で本文取得し、冒頭 Warning ブロックに CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 の必須要件を確認。同ページに「This page describes agent teams as of v2.1.178.」というバージョン言及はあるが、「最新版が必要」という要件記述は存在しない。パッケージ名 @anthropic-ai/claude-code 自体は実在（npm view → 2.1.233）し、`claude --version` でのバージョン確認も妥当だが、更新コマンドと前提条件の記述が公式と食い違う。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "Google Labs が公開した、ビジュアルアイデンティティをコーディングエージェントに 伝えるためのフォーマット。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md",
@@ -3708,7 +3708,7 @@
   "evidence": "curl https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md の冒頭で上記の定義文を確認（「ビジュアルアイデンティティをコーディングエージェントに伝えるためのフォーマット」と逐語一致）。公開主体は 3 点で裏取り: (a) GitHub Organization ページ https://github.com/google-labs-code の <title> が「Google Labs Code · GitHub」、(b) npm パッケージが Google 公式スコープ `@google/design.md` で、`npm view @google/design.md maintainers` が google-wombot <node-team-npm+wombot@google.com> / ofrobots / mrdoob、(c) README 末尾の Disclaimer が「This project is not eligible for the Google Open Source Software Vulnerability Rewards Program」と Google OSS プログラムを参照。GitHub API は当該 IP のレート制限で 403 のため、HTML の title で確認した。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "なお第 3 層の名前は公式に決まったものではなく、ここでは DESIGN.md が Google Labs の公開したデザイントークン記述フォーマットの名前として実在するため、衝突を避けて ARCHITECTURE.md としています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md/blob/main/README.md",
@@ -3717,7 +3717,7 @@
   "evidence": "curl https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md で、DESIGN.md がフォーマット名として実在し、その中核がデザイントークン（YAML front matter の colors / typography / rounded / spacing）であることを確認。README には「Design Token Interoperability」節もあり「DESIGN.md tokens are inspired by the [W3C Design Token Format](https://www.designtokens.org/)」および DTCG / Tailwind への export が記載されているため、「デザイントークン記述フォーマット」という要約は妥当。公開主体が Google Labs である点は同バッチの DesignMd.tsx の検証と同根拠（org 名 Google Labs Code、npm @google スコープ、Google OSS VRP への言及）。付記として README の Status 節は「The DESIGN.md format is at version `alpha`. The spec, token schema, and CLI are under active development.」とあり、alpha 段階である点は教材側で触れていない（実在性の判定には影響しない）。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "Claude が自動的に Task ツールで起動",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
@@ -3726,7 +3726,7 @@
   "evidence": "https://code.claude.com/docs/en/sub-agents.md を curl 取得（200）。393 行目に改名の Note、725 行目に自動デリゲートの記述、以降に明示起動 3 パターン（Natural language / @-mention / Session-wide）。さらに https://code.claude.com/docs/en/tools-reference.md のツール表に「| `Agent` | Spawns a [subagent](/docs/en/sub-agents) with its own context window to handle a task.」があり、`Task` 単体のツールは存在せず `TaskCreate`/`TaskGet`/`TaskList`/`TaskStop`/`TaskUpdate` がタスクリスト用として別に並んでいることを確認。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "プロジェクトルートの CLAUDE.md に記述した指示は全チームメイトが共有する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/agent-teams",
@@ -3735,7 +3735,7 @@
   "evidence": "https://code.claude.com/docs/en/agent-teams.md を curl 取得（200）。「Context and communication」節（286 行目）に上記の逐語文。加えて「Give teammates enough context」節（338 行目）に \"Teammates load project context automatically, including CLAUDE.md, MCP servers, and skills, but they don't inherit the lead's conversation history.\" があり、CLAUDE.md が全チームメイトに読み込まれる点は二箇所で明示されている。なお共有されるのは CLAUDE.md 等のプロジェクトコンテキストであってリードの会話履歴ではない、という限定も同文に含まれる。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "Cmd+Esc (macOS) / Claude Code パネルを開く / 閉じる",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/vs-code",
@@ -3744,7 +3744,7 @@
   "evidence": "https://code.claude.com/docs/en/vs-code（curl 200）本文を取得し「VS Code commands and shortcuts」表を確認。Focus Input = Toggle focus between editor and Claude、Open in New Tab = `Cmd+Shift+Esc`。トラブルシュート節にも \"open the VS Code Keyboard Shortcuts editor (`Cmd+K Cmd+S`), search for `Claude Code: Focus input`\" とありコマンド名が Focus input であることを裏取り。対比として https://code.claude.com/docs/en/jetbrains.md には \"**Quick launch**: use `Cmd+Esc` (Mac) or `Ctrl+Esc` (Windows/Linux) to open Claude Code directly from your editor\" とある。該当箇所は IdeIntegration.tsx 82 行目で、VS Code セクション（JetBrains セクションは 98 行目以降）内にあるため VS Code の仕様が適用される。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "IntelliJ IDEA、WebStorm、PyCharm などの JetBrains IDE でも Claude Code プラグインが利用可能です。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/jetbrains",
@@ -3753,7 +3753,7 @@
   "evidence": "https://code.claude.com/docs/en/jetbrains.md を curl 取得（200）。ページ冒頭に \"Claude Code integrates with JetBrains IDEs through a dedicated plugin\"、続く「Supported IDEs」節に上記の列挙。インストール手順にも \"Install the [Claude Code plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) from the JetBrains Marketplace and restart your IDE.\" とあり、JetBrains Marketplace で配布されていることも確認できる。教材が挙げた IntelliJ IDEA / WebStorm / PyCharm は 3 つとも公式リストに含まれる。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "iTerm2 / Terminal.app / VS Code ターミナルそれぞれに\n# 対応した設定が自動で適用される",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/terminal-config",
@@ -3762,7 +3762,7 @@
   "evidence": "https://code.claude.com/docs/en/terminal-config.md を curl 取得（200）。24〜30 行目の表で対応状況を確認。32 行目に \"For VS Code, Cursor, Devin Desktop, Alacritty, and Zed, `/terminal-setup` writes Shift+Enter and other keybindings into the terminal's configuration file.\"、iTerm2 タブに \"Running `/terminal-setup` in iTerm2 enables \\\"Applications in terminal may access clipboard\\\" under Settings → General → Selection so the `/copy` command can write to your system clipboard.\"、Apple Terminal タブに \"That prompt runs `/terminal-setup` for you, which enables Option as Meta and turns off the audible bell in your Apple Terminal profile.\" と、ターミナルごとに適用内容が異なることが明記されている。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "エディタで開いているファイルは自動的にコンテキストとして認識されます。@file メンションで明示的にファイルを指定することも可能です。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/jetbrains",
@@ -3771,7 +3771,7 @@
   "evidence": "該当箇所は IdeIntegration.tsx 230 行目「IDE 共通の操作ヒント」節なので、JetBrains と VS Code の両方の公式ドキュメントで確認した。JetBrains（https://code.claude.com/docs/en/jetbrains.md、200）の Features に上記の逐語文。VS Code（https://code.claude.com/docs/en/vs-code、200）にも \"**Selection and open-file context.** While connected, the CLI includes your current editor selection and the path of the active file as context on each prompt you send.\" があり、自動共有されるのは「現在の選択範囲」と「アクティブファイルのパス」で、開いている全タブの中身ではない点は補足しておくとより正確。@ メンションについては同ページに \"Use @-mentions to give Claude context about specific files or folders. When you type `@` followed by a file or folder name, Claude reads that content and can answer questions about it or make changes to it.\" があり、明示指定が可能という主張は裏取りできた。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインが提供するカスタムコマンド。/plugin-name:command の形式で呼び出し、定型処理を実行",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/plugins",
@@ -3780,7 +3780,7 @@
   "evidence": "https://code.claude.com/docs/en/plugins.md を curl 取得（200）。冒頭の比較表に \"| **Plugins** (self-contained directories with skills, agents, hooks, or a `.claude-plugin/plugin.json` manifest) | `/plugin-name:hello` | ...\" があり、呼び出し名が `/plugin-name:xxx` 形式であることを確認。さらに \"Plugin skills are namespaced as `/plugin-name:skill-name`\"、\"Try your skills with `/plugin-name:skill-name`\" と複数箇所で同じ記法。https://code.claude.com/docs/en/plugins-reference.md（200）でも配置先が `skills/` または `commands/`（\"Skills as flat Markdown files. Use `skills/` for new plugins\"）と説明されており、`commands/` 由来のものも同じ名前空間で呼ばれる。ただし現行ドキュメントは呼称を「skill」に統一しているため、教材の「カスタムコマンド」という語は用語としては旧称寄り（記法自体は正しい）。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインは Agent Skills オープンスタンダードに従って構成される。これにより、Claude Code だけでなく対応する他のツールでもプラグインを再利用できる仕組みになっている。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
@@ -3789,7 +3789,7 @@
   "evidence": "https://code.claude.com/docs/en/skills.md（200）19 行目に上記逐語文。349 行目に \"Claude Code accepts every field in the table above. Outside Claude Code, you can use only the fields in the [Agent Skills](https://agentskills.io) spec\"。標準の一次情報 https://agentskills.io（200）は \"At its core, a skill is a folder containing a `SKILL.md` file.\"、\"**Cross-product reuse**: Build a skill once and use it across any skills-compatible agent.\" と skill 単位で定義しており、plugin という単位は定義していない。一方 https://code.claude.com/docs/en/plugins-reference.md（200）は \"A **plugin** is a self-contained directory of components that extends Claude Code with custom functionality.\" として `.claude-plugin/plugin.json` を必須マニフェストに置いており、標準側には対応物がない。なお同ファイル PluginsEcosystem.tsx の 54〜55 行目には既にこの正しい説明が入っており、当該 claim の文面は現在のソースには残っていない。"
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインはグローバルにインストールされ、すべてのプロジェクトで利用可能。特定のプロジェクトでのみ使用したい場合は、CLAUDE.md でプラグインの Skills を参照する運用が推奨される。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/plugins-reference",
@@ -4104,7 +4104,7 @@
   "evidence": "sourceUrl を、素の HTTP クライアントに 403 を返す npm のパッケージページから、公開パッケージ本体を配信する unpkg の型定義ファイルに差し替えた（https://unpkg.com/@storybook/react@10.5.8/dist/index.d.ts、HTTP 200 / text/typescript）。Meta と StoryObj は現行 v10.5.8 でも @storybook/react から export されている（npm view @storybook/react version → 10.5.8、deprecated フィールドなし）。ただし公式の推奨形は変わっており、storybookjs/storybook の MIGRATION.md『Moving from renderer-based to framework-based configuration』に import 元を @storybook/react-vite に替える diff と『Remove @storybook/react from your package.json dependencies』がある。現行 v10 のドキュメントも @storybook/your-framework プレースホルダで記述している。つまり『動かない』のではなく『文書上の推奨形ではなくなった』。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "ただし Windows ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、公式は @AGENTS.md の import を使うよう案内している。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4113,7 +4113,7 @@
   "evidence": "curl -sL 'https://docs.claude.com/en/docs/claude-code/memory.md' で公式ドキュメントの Markdown 原本を取得（200, 35973 bytes）。「AGENTS.md」セクション内、`ln -s AGENTS.md CLAUDE.md` を示した直後の行に上記文が存在する。HTML 版 https://docs.claude.com/en/docs/claude-code/memory も 200 で到達確認済み。管理者権限（Administrator privileges）/ 開発者モード（Developer Mode）の二択、および代替として @AGENTS.md import を案内する点まで一致。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "バッククォートで囲んだ `@README` は import されず、ただの文字列として扱われる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4122,7 +4122,7 @@
   "evidence": "同じく memory.md の「Import additional files」セクション。`@README` という具体例まで公式原文と一致しており、バッククォート内は literal として扱われる（import されない）と明記されている。ページ内の直前行で「maximum depth of four hops」も確認でき、教材本文の「最大 4 ホップ」記述とも整合する。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式ドキュメントは「imports に分けるのは整理には役立つが、import されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4131,7 +4131,7 @@
   "evidence": "memory.md 内に同趣旨の記述が 2 箇所ある。上記引用（トラブルシュート節）に加え、Size の項に「You can also split content into [imports](#import-additional-files) for organization, though imported files still load and enter the context window at launch.」がある。教材の日本語文は原文の逐語引用ではなく訳（鉤括弧で括られている）だが、内容は原文と一致する。原文引用を併記するのが望ましい。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "どのファイルが実際に読み込まれたかはセッション中に /context の Memory files で確認できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4140,7 +4140,7 @@
   "evidence": "memory.md 内に同じ案内が複数回出る。上記のほか「Run `/context` and check the list under **Memory files** to verify your CLAUDE.md and CLAUDE.local.md files loaded. If a file is missing there, Claude can't see it.」、および /memory の説明末尾に「To check which files actually loaded into the current session, run `/context`.」。表示項目名が Memory files であることと、「実際に読み込まれたファイル」を確認する用途である点の両方が公式原文で確定する。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "Claude Code が読むのは CLAUDE.md、agents.md が定めているのは AGENTS.md であり、この第 3 のファイル名を規定した公開仕様は確認できていない。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4149,7 +4149,7 @@
   "evidence": "前半 2 つは一次情報で裏が取れる。Claude Code 側は memory.md に「Claude Code reads `CLAUDE.md`, not `AGENTS.md`.」、agents.md 側は公式サイト本文に「Create an AGENTS.md file at the root of the repository.」「A simple, open format for guiding coding agents」（curl で https://agents.md/ を取得しタグ除去して確認、200）。しかし本主張の主眼は第 3 のファイル名（当該ページの文脈では ARCHITECTURE.md）について「規定した公開仕様は確認できていない」という否定的全称命題で、これは一次情報からの逐語引用で肯定できない性質のもの。WebSearch でも仕様書に相当する一次情報は見つからず（ヒットしたのは解説記事等の二次情報のみ）、逆に「存在しない」ことを示す一次情報も存在しない。よって CONFIRMED にはしない。なお同じ InfoBox の見出しは「第 3 層はどの仕様にも定義されていない」と断定形になっており、本文の「確認できていない」より強い。見出し側は根拠づけできないので本文と同じ強度に揃えるのが安全。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "公式 README はこう定義している。「A format specification for describing a visual identity to coding agents.」",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md",
@@ -4158,7 +4158,7 @@
   "evidence": "curl -sL 'https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md' で README 原本を取得（200, 13148 bytes。master も同内容・同バイト数）。見出し `# DESIGN.md` の直後 1 行目が上記。引用文は原文の第 1 文と逐語一致。リポジトリ URL は npm view @google/design.md が返す homepage（https://github.com/google-labs-code/design.md#readme）と一致し、curl で 200 到達確認済み。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "出自は Google Labs の UI 生成ツール Stitch で、そこで使っていた内部フォーマットが 切り出された。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-design-md/",
@@ -4167,7 +4167,7 @@
   "evidence": "Google 公式ブログ（blog.google、Google Labs カテゴリ、著者 Cassia Xu / Software Engineer、2026-04-21）を curl で取得（200, 373188 bytes）しタグ除去して本文全体を確認。記事タイトル自体が「Stitch's DESIGN.md format is now open-source so you can use it across platforms.」で、Stitch 由来のフォーマットを公開仕様として切り出した旨が本文で確定する。注意点として、公式は Stitch の export/import 機能としてユーザーに露出していた形式を open-source 化したと書いており、「内部フォーマット」という語（外部非公開だった含み）は原文にない。「Stitch のフォーマットが draft specification として公開された」と書く方が原文に忠実。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "公式アナウンスの表現も控えめで、検証できるものとして名前が挙がっているのは WCAG だけ（「can validate their choices against WCAG accessibility rules」）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-design-md/",
@@ -4176,7 +4176,7 @@
   "evidence": "上記ブログを curl 取得し、ナビゲーション・フッターを除いた記事本文（2 段落のみ）を全文確認した。引用句は原文と逐語一致。本文中で validate の対象として名前が挙がる標準は WCAG のみで、他の規格名は 1 つも出現しない（本文全体が短く、目視で全数確認できる）。「これだけ」という限定は成立する。ただし「表現も控えめで」は評価的な形容であり真偽判定の対象外として扱った。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "フォーマットは alpha 段階で、README 自身が「Expect changes to the format as it matures.」と 書いている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md",
@@ -4185,7 +4185,7 @@
   "evidence": "README 原本（raw.githubusercontent.com/google-labs-code/design.md/main/README.md）の `## Status` セクション。引用句「Expect changes to the format as it matures.」は逐語一致。alpha である点も同セクションの第 1 文で確定し、さらに README のフロントマター仕様例にも「version: <string>          # optional, current: \"alpha\"」がある。なお段階は変わりうる情報なので、確認時点は 2026-08-16（npm 上の最新は @google/design.md@0.4.0、2 週間前公開）。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "# W3C Design Tokens Format Module として書き出し\nnpx @google/design.md export --format dtcg DESIGN.md > tokens.json",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md",
@@ -4194,7 +4194,7 @@
   "evidence": "README の「Design Token Interoperability」節に上記行があり、コマンド文字列（npx @google/design.md export --format dtcg DESIGN.md）と `dtcg` = W3C Design Tokens Format Module という対応が公式に明記されている。同 README のオプション表にも「| `dtcg` | JSON | W3C Design Tokens Format Module |」がある。加えて実機検証として scratchpad に @google/design.md@0.4.0 を npm i して `design.md export --help` を実行し、「dtcg emits W3C Design Tokens」「--format (required) Output format: css-tailwind, json-tailwind, tailwind, dtcg, css-vars」を確認（教材が併記する 5 つの format 値も v0.4.0 の実出力と一致）。npm 上のパッケージ実在は npm view @google/design.md version → 0.4.0 で確認。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Cursor / .cursor/rules/*.mdc\n.cursorrules",
   "verdict": "REFUTED",
   "sourceUrl": "https://cursor.com/help/customization/rules",
@@ -4203,7 +4203,7 @@
   "evidence": "引用を Cursor 公式ヘルプ https://cursor.com/help/customization/rules の FAQ『How do I migrate from .cursorrules?』の地の文に取り直した（設問見出しと箇条書き番号を外し、legacy 宣言と削除手順の 2 箇所を中略で繋いだ）。現行 docs https://cursor.com/docs/context/rules 本文には cursorrules の文字列が 0 件で、挙げられるルールは Project Rules / User Rules / Team Rules / AGENTS.md の 4 種、『Project rules live in .cursor/rules as .mdc files and are version-controlled.』とある。したがって `.cursor/rules/*.mdc` は正しく、`.cursorrules` を並列の現行設定として並べる教材の記述が公式と食い違う。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Gemini CLI / GEMINI.md\n.gemini/settings.json",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/reference/configuration.md",
@@ -4212,7 +4212,7 @@
   "evidence": "公式リポジトリ google-gemini/gemini-cli の main ブランチから raw で 2 ファイルを取得して確認した。(1) https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/reference/configuration.md （HTTP 200, 100393 bytes）の 48-51 行目に上記 quote。同ファイル 45 行目にはユーザースコープの `~/.gemini/settings.json` も記載。(2) https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md （HTTP 200）の冒頭に逐語で「Context files, which use the default name `GEMINI.md`, are a powerful feature for providing instructional context to the Gemini model.」とあり、GEMINI.md が既定のコンテキストファイル名であることを確認。docs/index.md でも「**[Project context (GEMINI.md)](./cli/gemini-md.md):** Technical hierarchy of context files.」と索引されている。両ファイル名・パスとも一次情報と一致。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "# タブ 2: Gemini CLI — 並行調査（無料枠を活用）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/resources/quota-and-pricing.md",
@@ -4221,7 +4221,7 @@
   "evidence": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/resources/quota-and-pricing.md を curl で取得（HTTP 200, 9148 bytes）し、「## Free usage」節を逐語確認。同ファイル冒頭にも「Gemini CLI offers a generous free tier that covers many individual developers' use cases.」とある。README.md（https://raw.githubusercontent.com/google-gemini/gemini-cli/main/README.md, HTTP 200）19 行目にも「- **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google」と記載。教材の主張は無料枠の存在のみで具体的な数値を書いていないため、現行の一次情報と矛盾しない。ただし quota-and-pricing.md の表では API キー経由の無料枠は 250 requests/day、Google アカウント経由は 1,000 requests/day と認証方式ごとに条件が異なり、提供条件は将来変わりうる点は claim の risk 指摘どおり。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "レビュー / Claude Code / /code-review スキルで品質チェック",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/skills",
@@ -4230,7 +4230,7 @@
   "evidence": "https://docs.claude.com/en/docs/claude-code/skills.md を curl で取得（HTTP 200, 94693 bytes）。20-23 行目に上記 quote。同ファイル 14 行目にも「For built-in commands like `/help` and `/compact`, and bundled skills like `/debug` and `/code-review`, see the [commands reference](/docs/en/commands).」、127 行目に「For example, a `code-review` skill in your project's `.claude/skills/` replaces the bundled `/code-review`, and typing the bundled alias `/review` never runs your skill.」とあり、`/code-review` が Claude Code 標準提供（bundled）のスキルであること、およびプロジェクト側の `.claude/skills/code-review/SKILL.md` で上書きできること（教材 292 行目の例と整合）を確認。HTML 版 https://docs.claude.com/en/docs/claude-code/skills も HTTP 200 で到達。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "プロジェクト / CLAUDE.md\n.claude/rules/*.md",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
@@ -4239,7 +4239,7 @@
   "evidence": "https://docs.claude.com/en/docs/claude-code/memory.md を curl で取得（HTTP 200, 35973 bytes）。177 行目に「### Organize rules with `.claude/rules/`」節があり、186-199 行目に上記 quote。拡張子が `.md`、配置がプロジェクトの `.claude/rules/` であることが逐語で確認できる。175 行目にも「This loads `CLAUDE.md`, `.claude/CLAUDE.md`, `.claude/rules/*.md`, and `CLAUDE.local.md` from the additional directory.」と `.claude/rules/*.md` の表記そのものが登場する。プロジェクトスコープのルールファイルとして CLAUDE.md と併記する教材の記述は一次情報と一致。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "Windows では管理者権限が必要な場合があります。Git では core.symlinks = true を確認してください。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/git/git/master/Documentation/config/core.adoc",
@@ -4248,7 +4248,7 @@
   "evidence": "2 つの主張を別々の一次情報で確認した。(1) Git 設定キー名: https://raw.githubusercontent.com/git/git/master/Documentation/config/core.adoc を curl で取得（HTTP 200, 36651 bytes）し、237-246 行目に上記 quote。`core.symlinks` は実在するキーで、既定は true だが clone / init 時に git が自動で false を設定しうるため「確認してください」という教材の書き方は妥当。(2) Windows の権限要件: https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-createsymboliclinkw の dwFlags 表に逐語で「SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE / 0x2 | Specify this flag to allow creation of symbolic links when the process is not elevated. Developer Mode must first be enabled on the machine before this option will function.」とあり、非昇格プロセスでの作成には Developer Mode の有効化が前提＝それ以外では昇格（管理者権限）が要ることを示す。Anthropic の公式ドキュメント https://docs.claude.com/en/docs/claude-code/memory.md 147 行目にも「On Windows, creating a symlink requires Administrator privileges or Developer Mode, so use the `@AGENTS.md` import instead.」と明記されており、教材の「必要な場合があります」という留保付きの記述と一致する。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "echo \"description: $name\"\n    echo \"alwaysApply: true\"",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://cursor.com/docs/context/rules",
@@ -4536,7 +4536,7 @@
   "evidence": "比較表のセル文言。『広い』は他社の無料枠との相対評価であり、Cloudflare の一次情報（料金ページ）は自社の数値を列挙するのみで無料枠の広狭に言及していないため、真偽を確定できない。後半の『従量』については https://developers.cloudflare.com/workers/platform/pricing/index.md（curl、HTTP 200）の 17-19 行目に『By default, users have access to the Workers Free plan.』『The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account. The plan includes increased initial usage allotments, with clear charges for usage that exceeds the base plan.』とあり、純粋な従量ではなく『月額 $5 の最低課金 + 含有枠超過分の従量』である。純従量と読める表記との差はあるが、セル文言が短く判定を分ける材料に乏しいため、全体として UNDETERMINED とする。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "Java のバージョンアップ（v8 / v11 / v17 / v21 → v17 / v21）や .NET Framework からクロスプラットフォーム .NET への移植を自動化する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/code-transformation.html",
@@ -4923,7 +4923,7 @@
   "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent を取得（HTTP 200）。API が端末の物理的な向きの情報を提供することは冒頭定義で確認できる（Baseline 表記は 'Widely available ... available across browsers since September 2023'）。該当箇所は client/src/pages/threejs/game-dev/hud-gameloop.tsx:613-616 の「発展のアイデア」一覧の 1 項目で、制約の有無には言及していないため一次情報と矛盾しない。ただし同ページには 'Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.' と静的メソッド 'DeviceOrientationEvent.requestPermission()' — 'Requests the user's permission to access device orientation data. Returns a Promise that resolves with a string of \"granted\" or \"denied\".' が明記されている。HTTPS 必須かつ iOS Safari ではユーザー操作起点の権限要求が要るので、実装を促す文脈なら教材側に注記を足すのが望ましい（主張自体の誤りではない）。"
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "# JSON形式で追加\n$ claude mcp add-json my-server '{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"-y\",\"@mcp/server\"]}'",
   "verdict": "CONFIRMED",
   "sourceUrl": "local:claude mcp add-json --help",
@@ -4932,7 +4932,7 @@
   "evidence": "実機 (Claude Code 2.1.233) で `claude mcp add-json --help` を実行し、サブコマンドと `<name> <json>` の引数形式を確認した。公式ドキュメント https://docs.claude.com/en/docs/claude-code/mcp.md にも `claude mcp add-json local-weather '{\"type\":\"stdio\",\"command\":\"/path/to/weather-cli\",\"args\":[\"--api-key\",\"abc123\"],\"env\":{\"CACHE_DIR\":\"/tmp\"}}'` の例があり、教材と同じ `type`/`command`/`args` キー構成である。"
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "MCPサーバが公開するリソース（ファイル、ドキュメント、データなど）には、プロンプト内で @サーバ名:プロトコル://リソース/パス の形式でアクセスできます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/mcp.md",
@@ -4941,16 +4941,16 @@
   "evidence": "公式 MCP ドキュメントの .md 版を curl で取得。「Use MCP resources」節に参照記法が明示されており、`Type `@` in your prompt to see available resources from all connected MCP servers.` というオートコンプリートの記述も一致する。"
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "MCPサーバのツール数が多い場合、ツール定義はdeferredとして登録される",
   "verdict": "REFUTED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/mcp.md",
   "quote": "Tool search is enabled by default. MCP tools are deferred rather than loaded into context upfront",
   "correction": "「ツール数が多い場合」という条件を外す。既定では登録ツール数によらず全 MCP ツールが deferred になる。ツール定義の合計がコンテキストウィンドウの 10% に達したら切り替える閾値方式は既定ではなく、`ENABLE_TOOL_SEARCH=auto` を明示した場合のみ。",
-  "evidence": "公式 MCP ドキュメントの「Scale with MCP tool search / How it works」を取得。deferred という用語自体は正しいが、発動条件がツール数ではなく既定の挙動である点が食い違う。同リポジトリの claude-mux/mcp/MCPPractical.tsx は「ツール数に関係なくMCPツールは遅延ロードされ」と正しく書いており、ページ間でも不整合になっている。"
+  "evidence": "公式 MCP ドキュメントの「Scale with MCP tool search / How it works」を取得。deferred という用語自体は正しいが、発動条件がツール数ではなく既定の挙動である点が食い違う。同リポジトリの claude-code/mcp/MCPPractical.tsx は「ツール数に関係なくMCPツールは遅延ロードされ」と正しく書いており、ページ間でも不整合になっている。"
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "10個のMCPサーバで計200以上のツールがある場合でも、実際に使うツールだけがロードされます。複雑なプロジェクトでのコンテキスト効率が大幅に向上します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/mcp.md",
@@ -4959,7 +4959,7 @@
   "evidence": "公式ドキュメントに「Tool search keeps MCP context usage low by deferring tool definitions until Claude needs them. Only tool names and server instructions load at session start, so adding more MCP servers has minimal impact on your context window.」ともあり、機構と効果の記述は一致する。ただし「10個のMCPサーバで計200以上のツール」という数値自体は公式に載っておらず、説明用の仮定として読める範囲。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "claude mcp add --transport http supabase https://mcp.supabase.com/mcp",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://supabase.com/docs/guides/getting-started/mcp",
@@ -4968,7 +4968,7 @@
   "evidence": "Supabase 公式ドキュメントの MCP ページを取得。ホスト版 MCP サーバのエンドポイントが教材と同じ https://mcp.supabase.com/mcp であることが本文に明記されている。Claude Code 向けの導入例も `claude mcp add --scope project --transport http supabase \"https://mcp.supabase.com/mcp?features=...\"` で、features クエリを付ける点以外は教材のコマンドと一致する。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "例: 200以上のツールが登録されていても、実際に使う5-10個だけがロードされる",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/mcp.md",
@@ -4977,7 +4977,7 @@
   "evidence": "遅延ロードの機構は公式ドキュメントと一致する。「実際に使う5-10個だけ」の 5-10 という数はドキュメントに存在せず、タスク次第で変わるため、あくまで例示として読める範囲にとどまる。同ページの本文（ツール数に関係なく遅延ロード / 10% 閾値は opt-in）は公式と一致していた。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "MCP経由の外部サービス呼び出しは、パーミッション設定の対象です。settings.json の allow/deny ルールで mcp__サーバ名__* パターンを使用して制御できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/permissions.md",
@@ -4986,7 +4986,7 @@
   "evidence": "公式 permissions ドキュメントを取得。allow/deny ルールのツール名位置で `mcp__<server>__*` が使えること、allow では server セグメントに glob を置けないこと（`mcp__*` は allow では警告付きでスキップ）まで確認した。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "インストール時にlocal/project/userスコープを選択可能",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/discover-plugins.md",
@@ -4995,7 +4995,7 @@
   "evidence": "公式 discover-plugins ドキュメントの `/plugin` インストール手順に「Choose an installation scope:」があり、User / Project / Local の 3 スコープが列挙されている。教材の local/project/user と一致する。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/clear / 空コンテキストで新会話開始。前会話は /resume で復帰可（エイリアス: /reset, /new）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
@@ -5004,7 +5004,7 @@
   "evidence": "公式 commands リファレンス（.md）の `/clear [name]` 行を取得。「Start a new conversation with empty context.」「Resume the previous conversation with `/resume`」も同じ行にあり、教材の 3 点すべてが一致する。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/doctor / 環境と設定の健全性を診断（f キーで Claude に修正させる）",
   "verdict": "REFUTED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
@@ -5013,7 +5013,7 @@
   "evidence": "公式 commands リファレンスの `/doctor` 行に、f キーが v2.1.205 より前の挙動であると明記されている。実機の Claude Code は 2.1.233（`claude --version`）で、その版より新しい。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/branch [name] / 会話を分岐。元セッションは /resume から戻れる（エイリアス: /fork）",
   "verdict": "REFUTED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
@@ -5022,7 +5022,7 @@
   "evidence": "公式 commands リファレンスの `/branch [name]` 行と `/fork [prompt]` 行を取得。両者は別エントリで、`/branch` の説明文が `/fork` を「代わりの手段」として案内している。`/branch` にエイリアスの記載はない。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/skills / skill 一覧（t キーでトークン数ソート）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
@@ -5031,7 +5031,7 @@
   "evidence": "公式 commands リファレンスの `/skills` 行に「List available skills. Type to filter the list by name.」に続けて t キーの記述がある。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "claude --continue --fork-session / 直前を分岐起動（新 ID、元セッションは保持）",
   "verdict": "CONFIRMED",
   "sourceUrl": "local:claude --help",
@@ -5040,7 +5040,7 @@
   "evidence": "実機 (Claude Code 2.1.233) の `claude --help` を実行。`--fork-session` が `--continue` と併用可で、元セッションを保持し新しいセッション ID を作ると明記されている。`-c, --continue` は「Continue the most recent conversation in the current directory」。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "Escape × 2 / 入力が空なら /rewind を起動、入力中はドラフトをクリア",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/interactive-mode.md",
@@ -5049,7 +5049,7 @@
   "evidence": "公式 interactive-mode リファレンスの `Esc` + `Esc` 行を取得。「When the prompt input contains text, double `Esc` clears it and saves the draft to history」も同じ行にあり、教材の条件分岐が両方とも一致する。"
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "CLAUDE.local.md / プロジェクトルート / 個人用の追加指示（.gitignore 推奨）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory.md",
@@ -5058,7 +5058,7 @@
   "evidence": "公式 memory ドキュメントの表で `./CLAUDE.local.md` が「Local instructions」として現行サポートされており、.gitignore 追加が推奨されている。非推奨化の記載はなく、「CLAUDE.md and CLAUDE.local.md files in the directory hierarchy above the working directory are loaded in full at launch.」ともある。"
  },
  {
-  "file": "claude-mux/reference/Troubleshooting.tsx",
+  "file": "claude-code/reference/Troubleshooting.tsx",
   "claim": "まず /doctor で環境と設定の健全性を診断してください。インストールや設定の問題を検出し、そのまま修正まで任せることもできます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
@@ -5067,7 +5067,7 @@
   "evidence": "公式 commands リファレンスの `/doctor` 行。インストールの健全性・PATH・設定ファイルの解析可否などを診断し、修正まで行えることが明記されている（変更前に確認を求める）。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "AWS コンソール内のアシスタント / サンセットの対象外。継続提供される",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/",
@@ -5076,7 +5076,7 @@
   "evidence": "curl で AWS 公式 EOS 告知ブログを取得し本文を確認。「What's not changing」節に、AWS Management Console と first-party AWS experiences（Marketing Website / Documentation / Console Mobile App / Chat Apps）はサンセット対象外で提供継続と明記されている。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "既存の Pro サブスクリプションは Kiro でも利用できるが、計測単位（リクエスト vs クレジット）が 異なると FAQ に明記されている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://aws.amazon.com/q/developer/faqs/",
@@ -6390,7 +6390,7 @@
   "evidence": "Google SRE Book の Managing Incidents 章を取得。Incident Command の役割定義に加え、Anatomy of an Unmanaged Incident 節の Sharp Focus on the Technical Problem で She wasn’t in a position to think about the bigger picture of how to mitigate the problem because the technical task at hand was overwhelming. と、復旧作業に没頭すると全体が見えなくなる失敗例が明記されている。また The operations team should be the only group modifying the system during an incident. とあり、指揮官が自ら手を動かす想定でないことも裏付けられる。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式サイトはこれを「エージェント向けの README」と説明している。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://agents.md",
@@ -6399,7 +6399,7 @@
   "evidence": "agents.md 公式トップページを curl で取得。ヒーロー部分の説明文がこの表現をそのまま使っている（続きは : a dedicated, predictable place to provide the context and instructions to help AI coding agents work on your project.）。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式サイトは「エージェントはディレクトリツリー上で最も近いファイルを読むので、最も近いものが優先される」としている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://agents.md",
@@ -6408,7 +6408,7 @@
   "evidence": "agents.md の How to use AGENTS.md? の 4 番目（Large monorepo?）にこの記述がある。さらに FAQ の What if instructions conflict? では The closest AGENTS.md to the edited file wins と重ねて説明されている。"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Codex・Cursor・Gemini CLI・GitHub Copilot・Zed・opencode など多数のツールが対応を表明しており、既存のツール固有ファイルと併用できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://agents.md",
@@ -6417,7 +6417,7 @@
   "evidence": "agents.md の One AGENTS.md works across many agents 節の対応ツール一覧に、教材が挙げる 6 件（Codex from OpenAI / Cursor / Gemini CLI from Google / Coding agent from GitHub Copilot / Zed / opencode）がいずれも含まれることを確認した。既存のツール固有ファイルとの併用については、同ページの Why AGENTS.md? に Provide precise, agent-focused guidance that complements existing README and docs. とある。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/ChoosingTools.tsx",
+  "file": "claude-code/ai-coding-agents/ChoosingTools.tsx",
   "claim": "ChatGPT の各プランには Codex が、Claude のサブスクリプションには Claude Code が含まれる。追加費用なしでエージェント開発を始められる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://claude.com/pricing",
@@ -6426,7 +6426,7 @@
   "evidence": "claude.com/pricing の FAQ「Is Claude Code included in my plan?」の回答を curl で取得（引用は本文からリンク要素を挟まない連続部分）。Codex 側は developers.openai.com/codex/pricing.md を取得し、Free / Go / Plus / Pro / Business / Enterprise & Edu の各カードが Codex 利用を前提に記述されていることを確認した。なお Claude の Free プランに Claude Code は含まれない（教材は「サブスクリプション」と書いており有料プランを指すため矛盾しない）。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "初回起動時に「Sign in with ChatGPT」で認証する。ChatGPT の 各プラン（Free / Go / Plus / Pro / Business / Edu / Enterprise）に Codex の利用枠が含まれており",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://developers.openai.com/codex/pricing.md",
@@ -6435,7 +6435,7 @@
   "evidence": "OpenAI 公式の Codex 料金ページを markdown 版（.md）で取得。個人向けに Free / Go / Plus / Pro、法人向けに Business / Enterprise & Edu のカードが並び、Free カードの説明が引用文のとおり Codex 利用を前提にしている。教材が列挙する 6 プラン名はすべて実在し、いずれも Codex の利用枠を伴う。"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "--dangerously-bypass-approvals-and-sandbox （通称 --yolo）は承認とサンドボックスの両方を 無効化する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://developers.openai.com/codex/agent-approvals-security.md",
@@ -7092,7 +7092,7 @@
   "evidence": "npm レジストリで usehooks-ts の latest が 3.1.1 であることを確認し、その公開型定義 dist/index.d.ts を取得。引用のとおり useDebounceValue がエクスポートされている（リポジトリの src/index.ts にも export * from './useDebounceValue' がある）。"
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "この用語は 2026 年初頭から主流化した。Anthropic、OpenAI、 Martin Fowler などが体系化を進めており、 Claude Code のようなエージェントツールは「ハーネスの実装例」として位置づけられる。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://martinfowler.com/articles/harness-engineering.html",
@@ -7101,7 +7101,7 @@
   "evidence": "「2026 年初頭から主流化した」という時期付きの一般化を裏づける一次情報は見つからなかった。確認できたのは、Martin Fowler のサイトに「Harness engineering for coding agent users」が実在し公開日が 02 April 2026 であること、および Anthropic のエンジニアリングブログが harness という語を用いていること。OpenAI が体系化を進めているという部分の一次情報は取得できず、主流化の時期も確定できないため未確定とする。"
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "設計の核は brain / hands / session の分離。 brain（モデル + ハーネス本体）、hands（サンドボックスとツール）、 session（イベントログ）を独立コンポーネントとして交換可能にした。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://www.anthropic.com/engineering/managed-agents",
@@ -7956,7 +7956,7 @@
   "evidence": "Redux Toolkit 公式ドキュメント（candidateSource と同内容の Markdown ソース）を取得。createReducer と createSlice が内部で自動的に Immer を使うと明記されており、「Redux Toolkit にも組み込まれている」という教材の記述と一致する。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "APIキーなしでも動作しますが、レート制限が厳しいため context7.com/dashboard での無料取得を推奨します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/upstash/context7/master/README.md",
@@ -7965,7 +7965,7 @@
   "evidence": "Context7 公式リポジトリ（upstash/context7）の README を取得。context7.com/dashboard で無料の API キーを取得でき、その目的がレート制限の緩和であることが明記されている。キー未設定でも利用できる（キーは Recommended であって必須ではない）点も、この書き方から読み取れる。"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "claude mcp add --transport http sentry https://mcp.sentry.dev/mcp",
   "verdict": "CONFIRMED",
   "sourceUrl": "local:claude mcp add --help",
@@ -7974,7 +7974,7 @@
   "evidence": "実機 (Claude Code 2.1.233) の `claude mcp add --help` を実行したところ、教材とまったく同じコマンド行が公式の使用例として表示された。エンドポイント URL・トランスポート指定ともに一致する。"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "ハーネス研究で「最も信頼できる効果」とされるパターン。プランを立てる前に「実際のコードで何に触れるか」を シンボル単位で先に洗い出す。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://martinfowler.com/articles/harness-engineering.html",
@@ -7983,7 +7983,7 @@
   "evidence": "「ハーネス研究で『最も信頼できる効果』とされるパターン」の出典を特定できなかった。Martin Fowler の Harness engineering 記事（2026-04-02）と Anthropic のエンジニアリングブログを全文取得して Repository Impact Map / impact map / most reliable を検索したが該当記述は無い。最上級の帰属先となる一次資料が見つからないため未確定とする。"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "brew install pngpaste で導入できる CLI ツール。pngpaste image.png でクリップボードを PNG 化できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/jcsalterego/pngpaste/master/README.md",

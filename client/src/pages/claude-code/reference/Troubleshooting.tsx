@@ -132,7 +132,7 @@ claude mcp list`}
 
               <div className="flex justify-center gap-4">
                 <Button
-                  onClick={() => navigate("/claude-mux")}
+                  onClick={() => navigate("/claude-code")}
                   className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-6 text-lg"
                 >
                   トップページに戻る

@@ -44,10 +44,10 @@ export interface Source {
   usedByFiles?: string[];
 }
 
-const AGENT_DOCS = "/claude-mux/multi-ai/agent-docs";
-const DESIGN_MD = "/claude-mux/multi-ai/design-md";
-const MULTI_AI = "/claude-mux/multi-ai/multi-ai-coexistence";
-const SSOT = "/claude-mux/multi-ai/single-source-of-truth";
+const AGENT_DOCS = "/claude-code/multi-ai/agent-docs";
+const DESIGN_MD = "/claude-code/multi-ai/design-md";
+const MULTI_AI = "/claude-code/multi-ai/multi-ai-coexistence";
+const SSOT = "/claude-code/multi-ai/single-source-of-truth";
 
 import { GENERATED_SOURCES } from "./sources.generated";
 

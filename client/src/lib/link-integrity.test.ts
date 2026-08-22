@@ -107,7 +107,7 @@ describe("リンク整合性テスト", () => {
 
 describe("navigate/href パスのプレフィックス検証", () => {
   // 各マニュアルのページファイルが、自マニュアルのプレフィックス付きパスを使っているか
-  const manualDirs = ["react", "git", "threejs", "claude-mux"] as const;
+  const manualDirs = ["react", "git", "threejs", "claude-code"] as const;
 
   for (const manualId of manualDirs) {
     it(`${manualId} ページの navigate() パスに /${manualId} プレフィックスがある`, () => {

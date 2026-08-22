@@ -23,7 +23,7 @@ describe("navigation データ整合性", () => {
     expect(ids).toEqual([
       "git",
       "react",
-      "claude-mux",
+      "claude-code",
       "threejs",
       "ai-ml",
       "ux-design",
@@ -35,14 +35,14 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(339);
+    expect(pages.length).toBe(340);
   });
 
   it("マニュアル別ページ数", () => {
     expect(getManualPages("react").length).toBe(82);
     expect(getManualPages("git").length).toBe(43);
     expect(getManualPages("threejs").length).toBe(23);
-    expect(getManualPages("claude-mux").length).toBe(47);
+    expect(getManualPages("claude-code").length).toBe(48);
     expect(getManualPages("ai-ml").length).toBe(11);
     expect(getManualPages("ux-design").length).toBe(15);
     expect(getManualPages("api").length).toBe(41);
@@ -77,7 +77,7 @@ describe("navigation データ整合性", () => {
       "react",
       "git",
       "threejs",
-      "claude-mux",
+      "claude-code",
       "ai-ml",
       "ux-design",
       "api",
@@ -152,7 +152,7 @@ describe("getManualIdFromPath", () => {
     expect(getManualIdFromPath("/react/intro/setup")).toBe("react");
     expect(getManualIdFromPath("/git/environment/prerequisites")).toBe("git");
     expect(getManualIdFromPath("/threejs/basics/scene")).toBe("threejs");
-    expect(getManualIdFromPath("/claude-mux")).toBe("claude-mux");
+    expect(getManualIdFromPath("/claude-code")).toBe("claude-code");
   });
 
   it("不明なパスで undefined を返す", () => {
@@ -166,7 +166,7 @@ describe("getManualSections", () => {
     expect(getManualSections("react").length).toBeGreaterThan(0);
     expect(getManualSections("git").length).toBeGreaterThan(0);
     expect(getManualSections("threejs").length).toBeGreaterThan(0);
-    expect(getManualSections("claude-mux").length).toBeGreaterThan(0);
+    expect(getManualSections("claude-code").length).toBeGreaterThan(0);
   });
 
   it("セクションが正しいマニュアルに属する", () => {
@@ -203,7 +203,7 @@ describe("セクションナビゲーション", () => {
   });
 });
 
-describe("claude-mux パート", () => {
+describe("claude-code パート", () => {
   it("parts が定義されている", () => {
     expect(parts.length).toBe(2);
     expect(parts.map((p) => p.id)).toEqual(["basic", "advanced"]);

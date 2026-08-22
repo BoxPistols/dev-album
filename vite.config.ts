@@ -48,7 +48,11 @@ export default defineConfig({
         // ページチャンクと プレビュー用 vendor UMD はランタイムキャッシュに委ねる
         // （初回訪問で全ページ分 ~12MB を precache していた過剰を解消）
         globPatterns: [
-          "**/*.{html,css,svg,png,woff2}",
+          "**/*.{html,css,svg,woff2}",
+          // png は列挙する。`**/*.png` にすると OGP 画像まで入り、クローラーしか
+          // 取りに来ないファイルを全訪問者へ precache で配ることになる
+          "pwa-192x192.png",
+          "pwa-512x512.png",
           "assets/index-*.js",
           "assets/vendor-react-*.js",
         ],

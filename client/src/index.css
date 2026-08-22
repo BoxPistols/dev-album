@@ -222,7 +222,7 @@
   --ring: #A5B4FC;
   --sidebar-ring: #A5B4FC;
 }
-[data-manual="claude-mux"] {
+[data-manual="claude-code"] {
   --primary: #6D28D9;
   --primary-foreground: #F9FAFB;
   --sidebar-primary: #6D28D9;
@@ -232,7 +232,7 @@
   --ring: #6D28D9;
   --sidebar-ring: #6D28D9;
 }
-.dark[data-manual="claude-mux"] {
+.dark[data-manual="claude-code"] {
   --primary: #C4B5FD;
   --primary-foreground: #0C1425;
   --sidebar-primary: #C4B5FD;
@@ -242,7 +242,7 @@
   --ring: #C4B5FD;
   --sidebar-ring: #C4B5FD;
 }
-.dark-soft[data-manual="claude-mux"] {
+.dark-soft[data-manual="claude-code"] {
   --primary: #C4B5FD;
   --primary-foreground: #282A36;
   --sidebar-primary: #C4B5FD;
@@ -633,8 +633,23 @@ html.font-large {
 }
 
 /* ワイドレイアウトモード: @layer 外で詳細度を確保し Tailwind ユーティリティを上書き */
+/* 左上の常駐コントロールは本文の上に重なる。サイドバーが無いワイド時、md ちょうど
+   (768px) では STEP 表示と 1px 接触するので、本文側に逃げを作る。1024px 以上では
+   本文が中央寄せされて自然に離れるが、幅で分けると境目でだけ間隔が変わるので一律に置く */
+@media (min-width: 768px) {
+  .layout-wide { padding-top: 1.5rem; }
+}
+
+/* 本文用の 4xl だけでなく、TOP やマニュアル入口で使う 5xl / 6xl も広げる
+   （4xl しか広がらないと TOP でボタンを押しても何も変わらなかった） */
 .layout-wide .max-w-4xl {
   max-width: 80rem;
+}
+.layout-wide .max-w-5xl {
+  max-width: 88rem;
+}
+.layout-wide .max-w-6xl {
+  max-width: 96rem;
 }
 
 /* 検索ハイライト: 該当見出しを一時的に強調 */

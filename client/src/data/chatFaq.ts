@@ -18,7 +18,7 @@ export const faqEntries: FaqEntry[] = [
     keywords: ["サイト", "Dev Album", "概要", "何"],
     answer:
       "Dev Album は Web 開発の実践リファレンスです。Git・React・Claude Code・Three.js から AI・ML、UX デザイン、API 設計、Vue / Nuxt、インフラ、開発フローまでの各領域を、コードを書きながら学べます。",
-    relatedPages: ["/react", "/git", "/threejs", "/claude-mux"],
+    relatedPages: ["/react", "/git", "/threejs", "/claude-code"],
   },
   {
     id: "general-start",
@@ -27,7 +27,7 @@ export const faqEntries: FaqEntry[] = [
     keywords: ["始め", "おすすめ", "最初", "初心者", "順番"],
     answer:
       "Web 開発が初めてなら **Git マニュアル** → **React マニュアル** の順がおすすめです。AI ツールに興味があれば **Claude Code マニュアル**、3D 表現を学びたいなら **Three.js マニュアル** へ進んでください。",
-    relatedPages: ["/git", "/react", "/claude-mux", "/threejs"],
+    relatedPages: ["/git", "/react", "/claude-code", "/threejs"],
   },
   {
     id: "general-progress",
@@ -219,38 +219,38 @@ export const faqEntries: FaqEntry[] = [
   // ── Claude Code マニュアル ──
   {
     id: "claude-what",
-    manualId: "claude-mux",
+    manualId: "claude-code",
     question: "Claude Code とは何ですか",
     keywords: ["Claude Code", "AI", "ツール", "概要", "コーディング"],
     answer:
       "Claude Code は Anthropic が提供する AI コーディングアシスタントの CLI ツールです。ターミナルで直接コードの生成・編集・レビューができます。",
-    relatedPages: ["/claude-mux/claude-intro/claude-code-intro"],
+    relatedPages: ["/claude-code/claude-intro/claude-code-intro"],
   },
   {
     id: "claude-install",
-    manualId: "claude-mux",
+    manualId: "claude-code",
     question: "Claude Code のインストール方法は",
     keywords: ["インストール", "セットアップ", "導入", "始め方"],
     answer:
       "`npm install -g @anthropic-ai/claude-code` でインストールします。API キーの設定後、`claude` コマンドで起動できます。",
-    relatedPages: ["/claude-mux/claude-intro/claude-code-install"],
+    relatedPages: ["/claude-code/claude-intro/claude-code-install"],
   },
   {
     id: "claude-claudemd",
-    manualId: "claude-mux",
+    manualId: "claude-code",
     question: "CLAUDE.md とは何ですか",
     keywords: ["CLAUDE.md", "コンテキスト", "設定", "プロジェクト", "指示"],
     answer:
       "プロジェクトルートに配置する設定ファイルです。プロジェクトのルール・技術スタック・コーディング規約を記述すると、Claude Code がそれに従って作業します。",
-    relatedPages: ["/claude-mux/claude-core/context-management"],
+    relatedPages: ["/claude-code/claude-core/context-management"],
   },
   {
     id: "claude-mcp",
-    manualId: "claude-mux",
+    manualId: "claude-code",
     question: "MCP とは何ですか",
     keywords: ["MCP", "Model Context Protocol", "連携", "ツール", "サーバー"],
     answer:
       "Model Context Protocol は AI モデルに外部ツールやデータソースを接続する標準プロトコルです。ファイルシステム、データベース、API などと Claude Code を連携できます。",
-    relatedPages: ["/claude-mux/mcp/mcp-setup"],
+    relatedPages: ["/claude-code/mcp/mcp-setup"],
   },
 ];

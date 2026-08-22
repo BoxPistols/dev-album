@@ -423,7 +423,7 @@
     "evidence": "MDN の requestAnimationFrame を取得。60fps＝1 秒 60 フレームなので 1 フレームの持ち時間は約 16.7ms であり、16ms 以上かかると 60fps を維持できないという算術と一致する。"
   },
   {
-    "file": "claude-mux/mcp/MCPPractical.tsx",
+    "file": "claude-code/mcp/MCPPractical.tsx",
     "claim": "同時に接続するMCPサーバは10個程度までが実用的です。それ以上はTool Searchがあっても起動時間やメモリ使用量に影響します。",
     "verdict": "UNDETERMINED",
     "sourceUrl": "",
@@ -432,7 +432,7 @@
     "evidence": "Claude Code / MCP の公式ドキュメントに同時接続サーバ数の推奨上限を示す記述は見当たらず、実機の claude --help にもサーバ数上限のオプションや注意書きはない（MCP_TIMEOUT / MAX_MCP_OUTPUT_TOKENS は存在するがサーバ数とは無関係）。「10 個程度」は経験則としては妥当な範囲だが、根拠となる一次情報も実測も提示されていないため確定できない。教材側で実測条件を添えるか、数値を落として傾向だけ書くのが安全。"
   },
   {
-    "file": "claude-mux/reference/Troubleshooting.tsx",
+    "file": "claude-code/reference/Troubleshooting.tsx",
     "claim": "セッション履歴は保存されています。直前のセッションは claude --continue、過去のセッションは claude --resume で復帰できます。",
     "verdict": "CONFIRMED",
     "sourceUrl": "local:claude --help / claude --version",

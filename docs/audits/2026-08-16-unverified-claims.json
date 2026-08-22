@@ -4560,7 +4560,7 @@
   "candidateSource": "https://ahooks.js.org/hooks/use-request/basic"
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "Claude が自動的に Task ツールで起動",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4568,7 +4568,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "Agent Teams を使うには 最新版の Claude Code が必要。claude --version でバージョンを確認し、古い場合は npm update -g @anthropic-ai/claude-code でアップデートする。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4576,7 +4576,7 @@
   "candidateSource": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
  },
  {
-  "file": "claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+  "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
   "claim": "プロジェクトルートの CLAUDE.md に記述した指示は全チームメイトが共有する。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4584,7 +4584,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "Cmd+Esc (macOS) / Claude Code パネルを開く / 閉じる",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4592,7 +4592,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "IntelliJ IDEA、WebStorm、PyCharm などの JetBrains IDE でも Claude Code プラグインが利用可能です。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4600,7 +4600,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "iTerm2 / Terminal.app / VS Code ターミナルそれぞれに\n# 対応した設定が自動で適用される",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4608,7 +4608,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/IdeIntegration.tsx",
+  "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
   "claim": "エディタで開いているファイルは自動的にコンテキストとして認識されます。@file メンションで明示的にファイルを指定することも可能です。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4616,7 +4616,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインが提供するカスタムコマンド。/plugin-name:command の形式で呼び出し、定型処理を実行",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4624,7 +4624,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインは Agent Skills オープンスタンダードに従って構成される。これにより、Claude Code だけでなく対応する他のツールでもプラグインを再利用できる仕組みになっている。",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -4632,7 +4632,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+  "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインはグローバルにインストールされ、すべてのプロジェクトで利用可能。特定のプロジェクトでのみ使用したい場合は、CLAUDE.md でプラグインの Skills を参照する運用が推奨される。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4640,7 +4640,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "# JSON形式で追加\n$ claude mcp add-json my-server '{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"-y\",\"@mcp/server\"]}'",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4648,7 +4648,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "MCPサーバが公開するリソース（ファイル、ドキュメント、データなど）には、プロンプト内で @サーバ名:プロトコル://リソース/パス の形式でアクセスできます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4656,7 +4656,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "MCPサーバのツール数が多い場合、ツール定義はdeferredとして登録される",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4664,7 +4664,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPSetup.tsx",
+  "file": "claude-code/mcp/MCPSetup.tsx",
   "claim": "10個のMCPサーバで計200以上のツールがある場合でも、実際に使うツールだけがロードされます。複雑なプロジェクトでのコンテキスト効率が大幅に向上します。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4672,7 +4672,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "APIキーなしでも動作しますが、レート制限が厳しいため context7.com/dashboard での無料取得を推奨します。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4680,7 +4680,7 @@
   "candidateSource": "https://context7.com/dashboard"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "# 使い方: プロンプトに \"use context7\" を含めるだけ",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4688,7 +4688,7 @@
   "candidateSource": "https://github.com/upstash/context7"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "Language Server Protocol（LSP）を活用し、30+言語に対してシンボルレベルのコード理解を提供します。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4696,7 +4696,7 @@
   "candidateSource": "https://github.com/oraios/serena"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "アクセシビリティツリーを活用したブラウザ自動化。スクリーンショットベースではなく構造化データで動作するため、ビジョンモデル不要で高速・確定的に動作します。Chromium / Firefox / WebKit対応。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4704,7 +4704,7 @@
   "candidateSource": "https://github.com/microsoft/playwright-mcp"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "claude mcp add --transport http sentry https://mcp.sentry.dev/mcp",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4712,7 +4712,7 @@
   "candidateSource": "https://docs.sentry.io/product/sentry-mcp/"
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "claude mcp add --transport http supabase https://mcp.supabase.com/mcp",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4720,7 +4720,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "例: 200以上のツールが登録されていても、実際に使う5-10個だけがロードされる",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4728,7 +4728,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "同時に接続するMCPサーバは10個程度までが実用的です。それ以上はTool Searchがあっても起動時間やメモリ使用量に影響します。",
   "category": "statistic-or-number",
   "risk": "low",
@@ -4736,7 +4736,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "MCP経由の外部サービス呼び出しは、パーミッション設定の対象です。settings.json の allow/deny ルールで mcp__サーバ名__* パターンを使用して制御できます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4744,7 +4744,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/mcp/MCPPractical.tsx",
+  "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "インストール時にlocal/project/userスコープを選択可能",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4752,7 +4752,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/clear / 空コンテキストで新会話開始。前会話は /resume で復帰可（エイリアス: /reset, /new）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4760,7 +4760,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/doctor / 環境と設定の健全性を診断（f キーで Claude に修正させる）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4768,7 +4768,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/branch [name] / 会話を分岐。元セッションは /resume から戻れる（エイリアス: /fork）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4776,7 +4776,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "/skills / skill 一覧（t キーでトークン数ソート）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4784,7 +4784,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "claude --continue --fork-session / 直前を分岐起動（新 ID、元セッションは保持）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4792,7 +4792,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "Escape × 2 / 入力が空なら /rewind を起動、入力中はドラフトをクリア",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4800,7 +4800,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/ClaudeCheatsheet.tsx",
+  "file": "claude-code/reference/ClaudeCheatsheet.tsx",
   "claim": "CLAUDE.local.md / プロジェクトルート / 個人用の追加指示（.gitignore 推奨）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4808,7 +4808,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/Troubleshooting.tsx",
+  "file": "claude-code/reference/Troubleshooting.tsx",
   "claim": "まず /doctor で環境と設定の健全性を診断してください。インストールや設定の問題を検出し、そのまま修正まで任せることもできます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4816,7 +4816,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/reference/Troubleshooting.tsx",
+  "file": "claude-code/reference/Troubleshooting.tsx",
   "claim": "セッション履歴は保存されています。直前のセッションは claude --continue、過去のセッションは claude --resume で復帰できます。",
   "category": "tool-behavior",
   "risk": "low",
@@ -4824,7 +4824,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式サイトはこれを「エージェント向けの README」と説明している。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4832,7 +4832,7 @@
   "candidateSource": "https://agents.md"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式サイトは「エージェントはディレクトリツリー上で最も近いファイルを読むので、最も近いものが優先される」としている。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4840,7 +4840,7 @@
   "candidateSource": "https://agents.md"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "ただし Windows ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、公式は @AGENTS.md の import を使うよう案内している。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4848,7 +4848,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "バッククォートで囲んだ `@README` は import されず、ただの文字列として扱われる。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4856,7 +4856,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "公式ドキュメントは「imports に分けるのは整理には役立つが、import されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4864,7 +4864,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "どのファイルが実際に読み込まれたかはセッション中に /context の Memory files で確認できる。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4872,7 +4872,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/AgentDocs.tsx",
+  "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "Claude Code が読むのは CLAUDE.md、agents.md が定めているのは AGENTS.md であり、この第 3 のファイル名を規定した公開仕様は確認できていない。",
   "category": "universal-or-superlative",
   "risk": "medium",
@@ -4880,7 +4880,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "Google Labs が公開した、ビジュアルアイデンティティをコーディングエージェントに 伝えるためのフォーマット。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4888,7 +4888,7 @@
   "candidateSource": "https://www.npmjs.com/package/@google/design.md"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "公式 README はこう定義している。「A format specification for describing a visual identity to coding agents.」",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -4896,7 +4896,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "出自は Google Labs の UI 生成ツール Stitch で、そこで使っていた内部フォーマットが 切り出された。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4904,7 +4904,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "公式アナウンスの表現も控えめで、検証できるものとして名前が挙がっているのは WCAG だけ（「can validate their choices against WCAG accessibility rules」）。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -4912,7 +4912,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "フォーマットは alpha 段階で、README 自身が「Expect changes to the format as it matures.」と 書いている。",
   "category": "version-or-release",
   "risk": "medium",
@@ -4920,7 +4920,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "コミュニティのコレクション awesome-design-md に集まった 74 件のうち、64 件は仕様どおりに色や書体の値を書いており、残り 10 件は色コードを 1 つも書かず散文だけで構成されている。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4928,7 +4928,7 @@
   "candidateSource": "https://github.com/BoxPistols/design-md-docs"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "実物 64 件の散文行数の中央値が 206 行なのに対し、公式サンプルは 37 行。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4936,7 +4936,7 @@
   "candidateSource": "https://github.com/BoxPistols/design-md-docs"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "computed style を走査する判定は 誤検出も見逃しもゼロで、画像を見る判定も判定できた 12 項目はすべて正解した。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -4944,7 +4944,7 @@
   "candidateSource": "https://github.com/BoxPistols/design-md-docs/blob/main/docs/07-machine-verification.md"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/DesignMd.tsx",
+  "file": "claude-code/multi-ai-architecture/DesignMd.tsx",
   "claim": "# W3C Design Tokens Format Module として書き出し\nnpx @google/design.md export --format dtcg DESIGN.md > tokens.json",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -4952,7 +4952,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Cursor / .cursor/rules/*.mdc\n.cursorrules",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4960,7 +4960,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Gemini CLI / GEMINI.md\n.gemini/settings.json",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4968,7 +4968,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "Codex・Cursor・Gemini CLI・GitHub Copilot・Zed・opencode など多数のツールが対応を表明しており、既存のツール固有ファイルと併用できます。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4976,7 +4976,7 @@
   "candidateSource": "https://agents.md"
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "# タブ 2: Gemini CLI — 並行調査（無料枠を活用）",
   "category": "external-service-detail",
   "risk": "medium",
@@ -4984,7 +4984,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
+  "file": "claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
   "claim": "レビュー / Claude Code / /code-review スキルで品質チェック",
   "category": "tool-behavior",
   "risk": "medium",
@@ -4992,7 +4992,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "プロジェクト / CLAUDE.md\n.claude/rules/*.md",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5000,7 +5000,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "Windows では管理者権限が必要な場合があります。Git では core.symlinks = true を確認してください。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5008,7 +5008,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "echo \"description: $name\"\n    echo \"alwaysApply: true\"",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5016,7 +5016,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+  "file": "claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
   "claim": "なお第 3 層の名前は公式に決まったものではなく、ここでは DESIGN.md が Google Labs の公開したデザイントークン記述フォーマットの名前として実在するため、衝突を避けて ARCHITECTURE.md としています。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5024,7 +5024,7 @@
   "candidateSource": "https://www.npmjs.com/package/@google/design.md"
  },
  {
-  "file": "claude-mux/agent-extensions/Subagents.tsx",
+  "file": "claude-code/agent-extensions/Subagents.tsx",
   "claim": "サブエージェントはバックグラウンドで実行可能です。/tasks コマンドで実行中のタスク一覧を確認できます。別のターミナルタブで git diff を実行すれば、ファイル変更をリアルタイムに監視できます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5032,7 +5032,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/agent-extensions/Subagents.tsx",
+  "file": "claude-code/agent-extensions/Subagents.tsx",
   "claim": "Ctrl+B 実行中タスクをバックグラウンドに切り替え",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5040,7 +5040,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "AWS コンソール内のアシスタント / サンセットの対象外。継続提供される",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5048,7 +5048,7 @@
   "candidateSource": "https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "Java のバージョンアップ（v8 / v11 / v17 / v21 → v17 / v21）や .NET Framework からクロスプラットフォーム .NET への移植を自動化する。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5056,7 +5056,7 @@
   "candidateSource": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html"
  },
  {
-  "file": "claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+  "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
   "claim": "既存の Pro サブスクリプションは Kiro でも利用できるが、計測単位（リクエスト vs クレジット）が 異なると FAQ に明記されている。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -5064,7 +5064,7 @@
   "candidateSource": "https://aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/"
  },
  {
-  "file": "claude-mux/ai-coding-agents/ChoosingTools.tsx",
+  "file": "claude-code/ai-coding-agents/ChoosingTools.tsx",
   "claim": "ChatGPT の各プランには Codex が、Claude のサブスクリプションには Claude Code が含まれる。追加費用なしでエージェント開発を始められる。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5072,7 +5072,7 @@
   "candidateSource": "https://developers.openai.com/codex/pricing"
  },
  {
-  "file": "claude-mux/ai-coding-agents/ChoosingTools.tsx",
+  "file": "claude-code/ai-coding-agents/ChoosingTools.tsx",
   "claim": "Gemini CLI / Google / CLI（OSS・Apache 2.0） / 大きな無料枠、Google 検索グラウンディング、1M トークンコンテキスト / 無料（1,000 req/日）〜 API 従量 / Code Assist 有料版",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -5080,7 +5080,7 @@
   "candidateSource": "https://github.com/google-gemini/gemini-cli"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GeminiCli.tsx",
+  "file": "claude-code/ai-coding-agents/GeminiCli.tsx",
   "claim": "公式の GitHub Action （google-github-actions/run-gemini-cli）を使うと、PR の自動レビューや Issue トリアージ、@gemini-cli メンションによる呼び出しを CI 上で運用できる。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5088,7 +5088,7 @@
   "candidateSource": "https://github.com/google-github-actions/run-gemini-cli"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "仕様では基本機能は 定額プランに含まれ、高性能モデルの利用量は「AI クレジット」（旧称: プレミアムリクエスト）という 枠で管理される。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5096,7 +5096,7 @@
   "candidateSource": "https://docs.github.com/copilot"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "認証済みの学生・教員・人気 OSS のメンテナーは無料でアクセスできる制度がある。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5104,7 +5104,7 @@
   "candidateSource": "https://docs.github.com/copilot"
  },
  {
-  "file": "claude-mux/ai-coding-agents/GithubCopilot.tsx",
+  "file": "claude-code/ai-coding-agents/GithubCopilot.tsx",
   "claim": "インライン補完 / 主力機能（タイピング中の候補提示） / 非対応（対話・タスク単位の作業が中心）",
   "category": "universal-or-superlative",
   "risk": "medium",
@@ -5112,7 +5112,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "初回起動時に「Sign in with ChatGPT」で認証する。ChatGPT の 各プラン（Free / Go / Plus / Pro / Business / Edu / Enterprise）に Codex の利用枠が含まれており",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5120,7 +5120,7 @@
   "candidateSource": "https://developers.openai.com/codex/pricing"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "--dangerously-bypass-approvals-and-sandbox （通称 --yolo）は承認とサンドボックスの両方を 無効化する。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5128,7 +5128,7 @@
   "candidateSource": "https://developers.openai.com/codex/agent-approvals-security"
  },
  {
-  "file": "claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+  "file": "claude-code/ai-coding-agents/OpenAiCodex.tsx",
   "claim": "CLI 実装 / Rust 製・オープンソース（Apache 2.0） / Node.js ベース・プロプライエタリ",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5136,7 +5136,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/EffectiveWorkflows.tsx",
+  "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
   "claim": "公式ドキュメントが推奨する4フェーズのワークフローです。各フェーズで明確な目的を持つことで、的確な成果物を得られます。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -5144,7 +5144,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/EffectiveWorkflows.tsx",
+  "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
   "claim": "/rewind 直前のターンを取り消し。誤った方向に進んだ場合のやり直しに使用。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5152,7 +5152,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "この用語は 2026 年初頭から主流化した。Anthropic、OpenAI、 Martin Fowler などが体系化を進めており、 Claude Code のようなエージェントツールは「ハーネスの実装例」として位置づけられる。",
   "category": "universal-or-superlative",
   "risk": "medium",
@@ -5160,7 +5160,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "設計の核は brain / hands / session の分離。 brain（モデル + ハーネス本体）、hands（サンドボックスとツール）、 session（イベントログ）を独立コンポーネントとして交換可能にした。",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -5168,7 +5168,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/best-practices/HarnessEngineering.tsx",
+  "file": "claude-code/best-practices/HarnessEngineering.tsx",
   "claim": "# Model: Claude Opus 4.7 等の LLM 本体",
   "category": "version-or-release",
   "risk": "medium",
@@ -5176,7 +5176,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "Claude Code はマルチモーダル対応のため、UI のスクリーンショットを直接解析できます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5184,7 +5184,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "# セッション内でカスタムエージェントを呼び出す\n> @security-reviewer で src/auth/ 配下のコードをレビューして",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5192,7 +5192,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/best-practices/TestingDebugging.tsx",
+  "file": "claude-code/best-practices/TestingDebugging.tsx",
   "claim": "# .claude/agents/security-reviewer.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5200,7 +5200,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/cicd-headless/GitHubActions.tsx",
+  "file": "claude-code/cicd-headless/GitHubActions.tsx",
   "claim": "pull_request_target はベースブランチのコンテキストで実行されるため、フォークからの PR でもシークレットにアクセスできます。信頼できないリポジトリでは if 条件でフィルタリングしてください。",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -5208,7 +5208,7 @@
   "candidateSource": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows"
  },
  {
-  "file": "claude-mux/cicd-headless/GitHubActions.tsx",
+  "file": "claude-code/cicd-headless/GitHubActions.tsx",
   "claim": "Claude Code は GitLab CI/CD パイプラインでも同様に利用できます。claude -p（パイプモード）をスクリプトステップで呼び出すことで、プラットフォームに依存しない自動化が構築できます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5216,7 +5216,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/cicd-headless/HeadlessMode.tsx",
+  "file": "claude-code/cicd-headless/HeadlessMode.tsx",
   "claim": "# Claude Code を MCP サーバーとして起動\nclaude mcp serve",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5224,7 +5224,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/cicd-headless/HeadlessMode.tsx",
+  "file": "claude-code/cicd-headless/HeadlessMode.tsx",
   "claim": "パイプモードでは会話履歴が保持されません。毎回新しいセッションとして実行されます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5232,7 +5232,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code 公式が最初に強調するのは 「コンテキストウィンドウは最重要のリソース」という事実。",
   "category": "official-recommendation",
   "risk": "medium",
@@ -5240,7 +5240,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code は prompt cache を自動的に利用する。毎回同じ prefix（CLAUDE.md、@import 群、Skills）を 読み込むセッションでは、キャッシュ読み取りは通常の入力トークンより 大幅に安価になり、レイテンシも下がる。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5248,7 +5248,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "キャッシュヒット率や使用量の内訳は /usage で確認できる。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5256,7 +5256,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ContextEngineering.tsx",
+  "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "ハーネス研究で「最も信頼できる効果」とされるパターン。プランを立てる前に「実際のコードで何に触れるか」を シンボル単位で先に洗い出す。",
   "category": "universal-or-superlative",
   "risk": "medium",
@@ -5264,7 +5264,7 @@
   "candidateSource": ""
  },
  {
-  "file": "claude-mux/claude-core/ContextManagement.tsx",
+  "file": "claude-code/claude-core/ContextManagement.tsx",
   "claim": "deny ルールはどのパーミッションモードでも適用されます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5272,7 +5272,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "high / 既定値。トークン消費と知能のバランス。大半のタスクに適する。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5280,7 +5280,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "Option+T（macOS）/ Alt+T でセッション中に切替でき、思考の深さは主に Effort Level が制御します（現行モデルはタスクに応じて思考量を自動調整する adaptive reasoning に対応）。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5288,7 +5288,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/ExtendedThinking.tsx",
+  "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "thinking トークンは出力トークンとして課金されます（表示が折りたたまれていても課金対象）。",
   "category": "spec-or-standard",
   "risk": "medium",
@@ -5296,7 +5296,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-core/TokenOptimization.tsx",
+  "file": "claude-code/claude-core/TokenOptimization.tsx",
   "claim": "xhigh より深い推論。Fable 5 / Opus 4.7 以降などで利用可能。",
   "category": "version-or-release",
   "risk": "medium",
@@ -5304,7 +5304,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-intro/ClaudeCodeIntro.tsx",
+  "file": "claude-code/claude-intro/ClaudeCodeIntro.tsx",
   "claim": "VS Code サイドバー/タブパネル、インラインdiff表示、チェックポイントによるロールバック。Cmd+Esc でフォーカス切替。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5312,7 +5312,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "優先順位: 環境変数 CLAUDE_CODE_EFFORT_LEVEL > 設定値 > モデル既定。skill / subagent frontmatter の effort はその skill / subagent 実行時のみ上書き。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5320,7 +5320,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "同じセッションを複数ターミナルで再開すると、両方のメッセージが時系列に交互記録される（壊れないが混在する）。並列なら claude --continue --fork-session で分岐推奨。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5328,7 +5328,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/claude-intro/SlashCommands.tsx",
+  "file": "claude-code/claude-intro/SlashCommands.tsx",
   "claim": "同じ session ID に追記され、新メッセージは既存会話に連結される。session-scoped permissions は復元されないため再承認が必要。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5336,7 +5336,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "cmux は macOS ネイティブのターミナルアプリケーションで、複数の AI コーディングエージェントを同時に管理するために設計されている。Ghostty のレンダリングエンジン（libghostty）をベースに、Swift + AppKit で実装されており、動作は軽量。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5344,7 +5344,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "各ワークスペースが独立したターミナル環境を持ち、Claude Code・Codex・Aider など主要な AI コーディングエージェントに対応する。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5352,7 +5352,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "設定方式 / tmux.conf テキスト / GUI 設定",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5360,7 +5360,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxIntro.tsx",
+  "file": "claude-code/cmux/CmuxIntro.tsx",
   "claim": "リモートサーバー / 対応（SSH 永続化） / 非対応",
   "category": "universal-or-superlative",
   "risk": "medium",
@@ -5368,7 +5368,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "memory-sync など他の hook がすでにある場合は、上書きせず同じ hooks 配列に並べて追加する。配列内の hook は並列実行されるので、cmux 連携は「追加」する形で安全に共存できる。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5376,7 +5376,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "brew install pngpaste で導入できる CLI ツール。pngpaste image.png でクリップボードを PNG 化できる。",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5384,7 +5384,7 @@
   "candidateSource": "https://formulae.brew.sh/formula/pngpaste"
  },
  {
-  "file": "claude-mux/cmux/CmuxSetup.tsx",
+  "file": "claude-code/cmux/CmuxSetup.tsx",
   "claim": "公式サイト cmux.com",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5392,7 +5392,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxBrowserAPI.tsx",
+  "file": "claude-code/cmux/CmuxBrowserAPI.tsx",
   "claim": "主な操作は次の 5 つ。socket 経由のコマンドとして呼び出せる。",
   "category": "statistic-or-number",
   "risk": "medium",
@@ -5400,7 +5400,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxBrowserAPI.tsx",
+  "file": "claude-code/cmux/CmuxBrowserAPI.tsx",
   "claim": "browser snapshot アクセシビリティツリーを取得（--cursor / --compact / --selector / --max-depth で絞れる）",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5408,7 +5408,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/cmux/CmuxWorktrees.tsx",
+  "file": "claude-code/cmux/CmuxWorktrees.tsx",
   "claim": "manaflow-ai/cmux macOS ネイティブターミナル ワークスペース = worktree で運用 / craigsc/cmux Bash 製のシェルツール worktree のライフサイクル管理が中心",
   "category": "external-service-detail",
   "risk": "medium",
@@ -5416,7 +5416,7 @@
   "candidateSource": "https://github.com/manaflow-ai/cmux"
  },
  {
-  "file": "claude-mux/hooks-advanced/HooksRecipes.tsx",
+  "file": "claude-code/hooks-advanced/HooksRecipes.tsx",
   "claim": "Notification Hook の stdin には通知メッセージが JSON で渡されます。jq を使って解析し、動的な通知メッセージを表示することもできます。",
   "category": "tool-behavior",
   "risk": "medium",
@@ -5424,7 +5424,7 @@
   "candidateSource": "https://code.claude.com/docs"
  },
  {
-  "file": "claude-mux/hooks-advanced/HooksRecipes.tsx",
+  "file": "claude-code/hooks-advanced/HooksRecipes.tsx",
   "claim": "agent Hook は独立したコンテキストで実行されるため、メインセッションのコンテキストを消費しません。",
   "category": "tool-behavior",
   "risk": "medium",

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ChevronDown, Menu, X, Search, Sun, Moon, Columns2, Maximize, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy, ShieldCheck } from 'lucide-react';
+import { ChevronDown, X, Search, Sun, Moon, PanelLeft, PanelLeftClose, PanelLeftOpen, Bookmark, Settings, HelpCircle, CheckCircle2, Dumbbell, Flame, Trophy, ShieldCheck } from 'lucide-react';
 import {
   pages, sections, manuals,
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
@@ -17,14 +17,23 @@ import { useProgress } from '@/hooks/useProgress';
 import { useStreak } from '@/hooks/useStreak';
 import { useAchievements } from '@/hooks/useAchievements';
 import AchievementBadge from './AchievementBadge';
+import BrandMark from './BrandMark';
+import ManualGlyph from './ManualGlyph';
+import ManualSwitcher from './ManualSwitcher';
 
 // マニュアル別の色分けはトークン層（index.css の [data-manual] が --primary 系を上書き）で行うため、
 // コンポーネント側のクラス名は全マニュアル共通でよい。
 // 以前はマニュアルごとの Record だったが全エントリ同一値のため定数化した。
+// なお data-manual が付かない TOP では 10 件が同じ色になるので、マニュアル一覧側の
+// 色分けはトークンではなく navigation.ts の色を使う（ManualGlyph 参照）。
 const MANUAL_TEXT = 'text-primary';
-const MANUAL_BG = 'bg-primary';
-const MANUAL_BORDER = 'border-primary';
-const MANUAL_ACTIVE_BG = 'bg-primary/10';
+
+// 左上の常駐コントロール。サイドバーの上にも本文の上にも乗るので、地色と blur を自前で持つ。
+// 位置はサイドバーの内側余白（p-6 = 24px）と揃え、隠しても現れても同じ場所に見えるようにする。
+const SIDEBAR_TOGGLE =
+  'fixed top-5 left-5 z-50 w-9 h-9 items-center justify-center rounded-lg border border-border ' +
+  'bg-card/85 backdrop-blur-md shadow-sm text-muted-foreground hover:text-foreground hover:bg-muted ' +
+  'transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary';
 
 /**
  * サイドバーのセクション見出し。タイトルが省略された時だけ、フォーカス可能な
@@ -186,59 +195,56 @@ export default function Navigation() {
     storybook: '第3部: Storybook',
     architecture: '第4部: アーキテクチャ',
     quality: '第5部: 品質と倫理',
-    // Claude-mux
+    // Claude Code
     basic: '基礎編',
     advanced: '発展編',
   };
 
   return (
     <>
-      {/* モバイルメニューボタン */}
+      {/* サイドバーの出し入れ。サイドバーを隠すコントロールをサイドバーの中に置くと、
+          隠した瞬間に手が届かなくなる。ビューポート左上に固定し、どちらのモードでも
+          同じ位置に置く（サイドバーより手前に出すので z-50）。 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border border-border hover:bg-muted shadow-sm"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
+        className={`${SIDEBAR_TOGGLE} flex md:hidden`}
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isOpen ? <X size={18} /> : <PanelLeft size={18} />}
+      </button>
+      <button
+        onClick={toggleLayout}
+        aria-pressed={layoutMode === 'wide'}
+        aria-label={layoutMode === 'normal' ? 'サイドバーを隠して本文を広げる' : 'サイドバーを表示する'}
+        title={layoutMode === 'normal' ? 'サイドバーを隠して本文を広げる' : 'サイドバーを表示する'}
+        className={`${SIDEBAR_TOGGLE} hidden md:flex`}
+      >
+        {layoutMode === 'normal' ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
       </button>
 
       {/* サイドバー */}
       {/* 共有 TooltipProvider: 初回は 2 秒のウォームアップ、直近 1.5 秒以内の連続ホバーは遅延なしで表示 */}
       <TooltipProvider delayDuration={2000} skipDelayDuration={1500}>
       <nav
-        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar glass-sidebar border-r border-sidebar-border overflow-y-auto transition-transform duration-300 z-40 md:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar glass-sidebar border-r border-sidebar-border overflow-y-auto transition-transform duration-300 z-40 ${
+          layoutMode === 'normal' ? 'md:translate-x-0 ' : ''
+        }${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="p-6">
-          {/* ロゴ */}
-          <Link href="/" className="flex items-center gap-2.5 mb-1 group">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <span className="text-primary-foreground font-heading font-bold text-sm">DA</span>
-            </div>
-            <span className="font-heading font-bold text-lg text-foreground whitespace-nowrap">Dev Album</span>
-          </Link>
-          <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
-
-          {/* マニュアルタブ */}
-          <div className="grid grid-cols-2 gap-1.5 mb-4">
-            {manuals.map((m) => {
-              const isActive = activeManualId === m.id;
-              return (
-                <Link
-                  key={m.id}
-                  href={`/${m.id}`}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-3 py-1.5 rounded-lg text-center text-xs font-medium border transition-colors truncate ${
-                    isActive
-                      ? `${MANUAL_BORDER} ${MANUAL_ACTIVE_BG} ${MANUAL_TEXT}`
-                      : 'border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-                  }`}
-                >
-                  {m.shortTitle}
-                </Link>
-              );
-            })}
+          {/* ロゴ。左上の固定コントロールと同じ行に並ぶので、その幅ぶん右へ逃がす */}
+          <div className="pl-[46px]">
+            <Link href="/" className="flex items-center gap-2.5 mb-0.5 group">
+              <BrandMark className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" />
+              <span className="font-heading font-bold text-lg tracking-tight text-foreground whitespace-nowrap">
+                Dev Album
+              </span>
+            </Link>
+            <p className="text-[12px] text-muted-foreground mb-4 ml-[46px]">v0.9 beta</p>
           </div>
+
+          {/* マニュアル切り替え。TOP や汎用ページでは下の一覧が同じ役目を果たすので描画されない */}
+          <ManualSwitcher activeManualId={activeManualId} onNavigate={() => setIsOpen(false)} />
 
           {/* 検索 */}
           <div className="relative mb-4">
@@ -257,9 +263,6 @@ export default function Navigation() {
           <div className="flex gap-1.5 mb-4">
             <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={theme === 'dark' ? 'ライトモード' : 'ダークモード'}>
               {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
-            <button onClick={toggleLayout} className="flex-1 flex items-center justify-center gap-1 px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title={layoutMode === 'normal' ? 'ワイドモード' : '通常モード'}>
-              {layoutMode === 'normal' ? <Maximize size={15} /> : <Columns2 size={15} />}
             </button>
             <button onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))} className="flex-1 flex items-center justify-center px-2 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors" title="設定">
               <Settings size={15} />
@@ -429,8 +432,8 @@ export default function Navigation() {
                     className="block px-4 py-3 rounded-lg border border-border hover:bg-sidebar-accent transition-all group"
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg ${MANUAL_BG} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                        <span className="text-white font-bold text-sm">{m.icon}</span>
+                      <div className="group-hover:scale-110 transition-transform">
+                        <ManualGlyph manual={m} size="md" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-foreground">{m.shortTitle}</p>
@@ -442,9 +445,9 @@ export default function Navigation() {
                     </div>
                     {/* 進捗バー */}
                     <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full ${MANUAL_BG} transition-all duration-700`}
-                        style={{ width: `${percentage}%` }}
+                      <div
+                        className="h-full transition-all duration-700"
+                        style={{ width: `${percentage}%`, backgroundColor: m.color }}
                       />
                     </div>
                   </Link>

@@ -24,7 +24,7 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
   react: <Code2 size={20} />,
   git: <GitBranch size={20} />,
   threejs: <Box size={20} />,
-  "claude-mux": <Terminal size={20} />,
+  "claude-code": <Terminal size={20} />,
   "ai-ml": <Brain size={20} />,
   "ux-design": <Palette size={20} />,
   api: <Network size={20} />,
@@ -62,7 +62,7 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "飛行シミュレーション",
     ],
   },
-  "claude-mux": {
+  "claude-code": {
     tagline: "Claude Code と AI コーディングエージェントの開発ワークフローを試しながら学べる",
     topics: [
       "Claude Code CLI 活用",

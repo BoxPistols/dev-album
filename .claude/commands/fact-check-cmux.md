@@ -12,11 +12,11 @@ cmux 教材コンテンツを公式仕様と実機の出力で照合してくだ
    - `which cmux` → Apple Silicon: /opt/homebrew/bin/cmux, Intel: /usr/local/bin/cmux
 
 3. **対象ページのファクトチェック**
-   - client/src/pages/claude-mux/cmux/CmuxIntro.tsx
-   - client/src/pages/claude-mux/cmux/CmuxSetup.tsx
-   - client/src/pages/claude-mux/cmux/CmuxAgentTeams.tsx
-   - client/src/pages/claude-mux/cmux/CmuxBrowserAPI.tsx
-   - client/src/pages/claude-mux/cmux/CmuxWorktrees.tsx
+   - client/src/pages/claude-code/cmux/CmuxIntro.tsx
+   - client/src/pages/claude-code/cmux/CmuxSetup.tsx
+   - client/src/pages/claude-code/cmux/CmuxAgentTeams.tsx
+   - client/src/pages/claude-code/cmux/CmuxBrowserAPI.tsx
+   - client/src/pages/claude-code/cmux/CmuxWorktrees.tsx
 
 4. **特に注意して見る項目**
    - `<VerifiedBox />` の `cmuxVersion` / `verifiedAt` / `platform` が古くなっていないか

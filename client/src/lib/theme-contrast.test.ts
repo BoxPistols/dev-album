@@ -37,7 +37,7 @@ function readTokens(selector: string): Record<string, string> {
 const MANUALS = [
   "git",
   "react",
-  "claude-mux",
+  "claude-code",
   "threejs",
   "ai-ml",
   "ux-design",
@@ -311,5 +311,77 @@ describe("カラートークンのコントラスト", () => {
         manual,
       ).toBeTruthy();
     }
+  });
+});
+
+// ============================================================
+// ManualGlyph のバッジ地色
+//
+// このバッジだけはトークンではなく navigation.ts のブランド色をインラインで敷く
+// （TOP には data-manual が付かず、10 件すべてが既定の primary で同色になるため）。
+// 上の検査はクラスの組を見るのでインライン style を拾えず、axe も aria-hidden 要素の
+// コントラストは対象外にする。つまり自動検査に穴があく場所なので、ここで塞ぐ。
+//
+// 値はソースから読む。TINT_ALPHA や色を変えたら、この検査が新しい値で評価し直す。
+// ============================================================
+
+describe("ManualGlyph のバッジ地色", () => {
+  const glyphSrc = readFileSync(
+    join(SRC_DIR, "components", "ManualGlyph.tsx"),
+    "utf8",
+  );
+  const navSrc = readFileSync(join(SRC_DIR, "lib", "navigation.ts"), "utf8");
+
+  const alphaMatch = /const TINT_ALPHA = ([\d.]+);/.exec(glyphSrc);
+  const brandColors = [
+    ...navSrc
+      .slice(
+        navSrc.indexOf("export const manuals"),
+        navSrc.indexOf("export const sections"),
+      )
+      .matchAll(/color:\s*'(#[0-9A-Fa-f]{6})'/g),
+  ].map((m) => m[1]);
+
+  it("ソースから alpha と 10 マニュアルぶんの色を取り出せる", () => {
+    // 取り出しに失敗したまま 0 件を検査して緑になるのを防ぐ
+    expect(alphaMatch, "TINT_ALPHA を ManualGlyph.tsx から読めない").toBeTruthy();
+    expect(brandColors).toHaveLength(10);
+  });
+
+  it("頭文字（--foreground）がバッジ地色の上で AA 4.5:1 を満たす", () => {
+    const alpha = Number(alphaMatch![1]);
+    const failures: string[] = [];
+
+    for (const theme of THEMES) {
+      const t = tokensFor(theme, null);
+      // バッジが実際に載り得る下地。--sidebar は半透明なので --background に合成する
+      const sidebarAlpha = /rgba\([^)]*,\s*([\d.]+)\)/.exec(t.sidebar);
+      const sidebarRgb = /rgba\((\d+),\s*(\d+),\s*(\d+)/.exec(t.sidebar);
+      const grounds: Record<string, RGB> = {
+        card: parseHex(t.card),
+        background: parseHex(t.background),
+        muted: parseHex(t.muted),
+        "sidebar-accent": parseHex(t["sidebar-accent"]),
+        sidebar: composite(
+          [+sidebarRgb![1], +sidebarRgb![2], +sidebarRgb![3]],
+          parseHex(t.background),
+          Number(sidebarAlpha![1]),
+        ),
+      };
+      const fg = parseHex(t.foreground);
+
+      for (const [groundName, ground] of Object.entries(grounds)) {
+        for (const brand of brandColors) {
+          const tinted = composite(parseHex(brand), ground, alpha);
+          const ratio = contrast(fg, tinted);
+          if (ratio < AA_MIN) {
+            failures.push(
+              `${theme} / ${groundName} / ${brand} @${alpha}: ${ratio.toFixed(2)}`,
+            );
+          }
+        }
+      }
+    }
+    expect(failures, `AA 未達:\n${failures.join("\n")}`).toEqual([]);
   });
 });
