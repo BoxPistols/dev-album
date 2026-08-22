@@ -158,6 +158,12 @@ function animate() {
   renderer.render(scene, camera);
 }`}
           </pre>
+          <p className="mt-2">
+            公式ドキュメントは <code>Clock</code> を r183 で非推奨とし、
+            <code>Timer</code> を代わりに案内しています（2026-08-23 時点、three r183 で確認）。
+            <code>Timer</code> は <code>update()</code> で内部状態を進めるため、
+            1 フレーム内で <code>getDelta()</code> を何度呼んでも同じ値を返します。
+          </p>
         </InfoBox>
       </div>
 

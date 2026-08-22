@@ -167,6 +167,17 @@ function toRawGithub(url) {
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export async function fetchText(url) {
+  // クライアント描画の出典（許可リスト）だけ実ブラウザで描画して取る。
+  // ここに載らない URL はブラウザに一切触れないので、通常実行の速さは変わらない。
+  if (needsBrowser(url)) {
+    const rendered = await fetchViaBrowser(url);
+    if (rendered) return rendered;
+    // chromium を開けなかった。素の fetch へ落とすが、「本文が取れないホストを
+    // 取れない道具で引いた」ことを呼び出し側へ伝える（不一致に混ぜない）
+    const res = await fetchOnce(url);
+    return { ...res, browserUnavailable: browserUnavailableReason() ?? "unknown" };
+  }
+
   // 429 は連続アクセスで起こる。待って 1 度やり直す（生きている出典を落とさない）
   for (let attempt = 0; attempt < 2; attempt++) {
     const res = await fetchOnce(url);
@@ -235,3 +246,111 @@ async function followMetaRefresh(res) {
   return null;
 }
 
+
+// ────────────────────────────────────────────────────────────────────────────
+// クライアント描画の出典を実ブラウザで取る経路
+//
+// なぜホストの許可リストにしたか（判定ごとの `fetchWith: "browser"` にしなかった理由）:
+//
+//   1. 「本文が JS でしか出てこない」は主張ではなくホストの性質なので、
+//      同じホストの URL を足すたびに書き手が思い出す必要のない場所に置く。
+//   2. 判定 JSON にも sources.ts にも新しい欄を増やさずに済む。
+//      両方に同じ欄を足すと、片方だけ書き忘れたときに黙って素の fetch に落ちる。
+//   3. 既定で有効にできる。許可リストに載っていない URL はブラウザに触れないので、
+//      700 URL の通常実行は今までどおり素の fetch のままで、起動コストが増えない。
+//
+// ブラウザは「許可リストの URL が実際に出てきたとき」に 1 度だけ起動して使い回す。
+// chromium が入っていない環境では起動に失敗するが、そこで落とさず null を返し、
+// 呼び出し側が「未照合」として数える（道具の不在を引用の誤りに混ぜない）。
+// ────────────────────────────────────────────────────────────────────────────
+
+const BROWSER_TIMEOUT_MS = 45000;
+
+/** 本文が HTTP 応答に入らない（クライアント描画の）出典のホスト */
+export const BROWSER_RENDERED_HOSTS = new Set([
+  "m3.material.io",
+  "m2.material.io",
+  "material.io",
+  "developer.apple.com",
+  "design.google",
+]);
+
+export function needsBrowser(url) {
+  try {
+    return BROWSER_RENDERED_HOSTS.has(new URL(url).host);
+  } catch {
+    return false;
+  }
+}
+
+let browserPromise = null;
+/** chromium を開けなかった理由。開けなかったことを「一致しない」に化けさせない */
+let browserError = null;
+
+async function getBrowser() {
+  if (browserError) return null;
+  if (!browserPromise) {
+    browserPromise = (async () => {
+      const { chromium } = await import("@playwright/test");
+      return chromium.launch();
+    })().catch((err) => {
+      browserError = err;
+      return null;
+    });
+  }
+  return browserPromise;
+}
+
+/** 使い回していた chromium を閉じる。スクリプトの最後で呼ぶ */
+export async function closeBrowser() {
+  if (!browserPromise) return;
+  const browser = await browserPromise.catch(() => null);
+  browserPromise = null;
+  if (browser) await browser.close().catch(() => {});
+}
+
+export function browserUnavailableReason() {
+  return browserError ? browserError.message : null;
+}
+
+/**
+ * 実ブラウザで開いて `document.body.innerText` を返す。
+ *
+ * innerText はタグを取り除いた「画面に出ている文字」なので、そのまま照合に使える
+ * （toPlainText の HTML 剥がしを通す必要がない）。取得できなければ null。
+ */
+export async function fetchViaBrowser(url) {
+  const browser = await getBrowser();
+  if (!browser) return null;
+
+  const context = await browser.newContext({
+    userAgent: UA_BROWSER,
+    locale: "en-US",
+    // 素の fetch 側と同じく英語に固定する。地域で別言語版を返す出典があるため
+    extraHTTPHeaders: { "accept-language": "en" },
+  });
+  const page = await context.newPage();
+  try {
+    const res = await page.goto(url, {
+      waitUntil: "domcontentloaded",
+      timeout: BROWSER_TIMEOUT_MS,
+    });
+    // networkidle は常時通信するページで待ち切れないことがある。
+    // 待てなければ待てないまま進む（本文が出ていれば照合はできる）
+    await page
+      .waitForLoadState("networkidle", { timeout: 15000 })
+      .catch(() => {});
+    const text = await page.evaluate(() => document.body.innerText);
+    return {
+      status: res?.status() ?? 0,
+      finalUrl: page.url(),
+      // HTML 剥がしを二重に掛けないため、平文として返す
+      contentType: "text/plain; charset=utf-8",
+      body: text,
+      bytes: Buffer.from(text, "utf8"),
+      usedBrowser: true,
+    };
+  } finally {
+    await context.close().catch(() => {});
+  }
+}

@@ -1068,7 +1068,7 @@
     "sourceUrl": "https://design.google/library",
     "quote": "",
     "correction": "",
-    "evidence": "design.google/library はクライアント側描画で、取得した HTML の本文が「Library」等のごく短い文字列しか含まず、記事・ガイドの内容を一次情報として照合できなかった。"
+    "evidence": "実ブラウザ（chromium）で https://design.google/library を描画すると本文が取得できるようになった（素の HTTP 応答では「Library」等のごく短い文字列しか返らない）。描画結果は「Library」の見出しの下に記事が並ぶ一覧で、各記事に Perspectives / Spotlight / Guides / Podcasts / Conversations の区分が付く。教材側の説明（design.google が公開する記事ライブラリ）と食い違う点は無い。ただしページ自体に「何であるか」を述べた文が無く、記事のタイトルは入れ替わるため、逐語で引ける恒久的な自己記述が存在しない。取得できないという道具の問題は解消したが、引用を置けないので判定は UNDETERMINED のままとする。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
   },
   {
     "file": "BugReport.tsx",

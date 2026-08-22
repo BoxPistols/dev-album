@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-threejs-clock-deprecated",
+    date: "2026-08-23",
+    title: "Three.js のアニメーション: Clock が r183 で非推奨になった点を書き足した",
+    description:
+      "時間ベースのアニメーションで使う THREE.Clock を、公式ドキュメントが r183 で非推奨とし THREE.Timer を案内している。Timer は update() で内部状態を進めるため、1 フレーム内で getDelta() を何度呼んでも同じ値を返す。この違いを本文に追記した。",
+    category: "fix",
+    link: "/threejs/basics/animation",
+  },
+  {
+    id: "2026-08-23-threejs-material-recommendation",
+    date: "2026-08-23",
+    title: "Three.js のマテリアル: 出典の無い「推奨」表記を公式の記述に置き換えた",
+    description:
+      "表とまとめに残っていた MeshStandardMaterial の「推奨」「最もリアル」を落とし、公式ドキュメントの記述（MeshLambertMaterial や MeshPhongMaterial より正確でリアルな見た目になる一方、計算コストは高くなる）に揃えた。MeshPhysicalMaterial は MeshStandardMaterial の拡張なので、「最もリアル」は成り立たない。",
+    category: "fix",
+    link: "/threejs/basics/material",
+  },
+  {
     id: "2026-08-23-palette-contrast",
     date: "2026-08-23",
     title: "Tailwind のパレット色どうしの配色を検査対象に加え、AA 未達を直した",

@@ -4902,7 +4902,7 @@
   "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
   "quote": "A double-precision floating-point value indicating the ratio of the display's resolution in physical pixels to the resolution in CSS pixels. A value of 1 indicates a classic 96 DPI display, while a value of 2 is expected for HiDPI/Retina displays. Other values may be returned in the case of unusually low resolution displays or, more often, when a screen has a higher pixel density than double the standard resolution of 96 DPI. Modern mobile device screens - which offer high display resolutions at small physical sizes - often yield a devicePixelRatio value greater than 2.",
   "correction": "",
-  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio （HTTP 200）と CSSOM View 仕様 https://drafts.csswg.org/cssom-view/ （HTTP 200）を取得。定義部分は一致する（MDN: 'The devicePixelRatio of Window interface returns the ratio of the resolution in physical pixels to the resolution in CSS pixels for the current display device.' / 仕様: 'The devicePixelRatio attribute must return the result of the following determine the device pixel ratio algorithm' … 'Return the result of dividing CSS pixel size by device pixel size.'）。一方で数値の主張は一次情報と厳密に照合できなかった。MDN は Retina について 'a value of 2 is expected'（＝2 が想定値）と書いており「2 以上」とは書いていない。またモバイルは 'greater than 2' としか書かれておらず、'3' という具体値は MDN・CSSOM View 仕様のいずれにも出現しない（取得したページ本文を grep して 3 / 3x の記載が 0 件であることを確認）。Apple の Human Interface Guidelines（https://developer.apple.com/design/human-interface-guidelines/images, HTTP 200）は JS レンダリングで本文が取得できず @3x の逐語引用も取れなかった。よって定義は確認できるが、数値部分（2 以上 / 3）は未確定として UNDETERMINED とする。"
+  "evidence": "curl -sL で https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio （HTTP 200）と CSSOM View 仕様 https://drafts.csswg.org/cssom-view/ （HTTP 200）を取得。定義部分は一致する。一方で数値の主張は MDN と厳密には一致しない。MDN は Retina について「a value of 2 is expected」と書いており「2 以上」とは書いていない。判定当時に取得できなかった Apple Human Interface Guidelines の images ページは、実ブラウザ（chromium）で描画して本文を取得できた。https://developer.apple.com/design/human-interface-guidelines/images に「A 2:1 density (called @2x) has a scale factor of 2, and a 3:1 density (called @3x) has a scale factor of 3.」があり、3 倍密度の端末が実在することは一次情報で確認できる。ただし MDN 側は「greater than 2」としか書いていないため、「Retina は 2 以上」という言い方の是非は一次情報で確定しない。数値部分は UNDETERMINED のままとする。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "threejs/game-dev/aircraft.tsx",
@@ -5208,7 +5208,7 @@
   "sourceUrl": "https://raw.githubusercontent.com/material-components/material-web/main/docs/theming/typography.md",
   "quote": "Important: if you do not change the typeface, be sure to load the default",
   "correction": "",
-  "evidence": "Google 公式の M3 web 実装 material-web の typography ドキュメントで、書体を変えない場合は既定の Roboto を読み込むよう案内されている。あわせて m3.material.io の Fonts ページを実ブラウザ(Playwright)で描画し Roboto is the default typeface for Android, and is used in the M3 typescale. を確認した（原文は default であって推奨という語ではない）。"
+  "evidence": "Google 公式の M3 web 実装 material-web の typography ドキュメントで、書体を変えない場合は既定の Roboto を読み込むよう案内されている。あわせて https://m3.material.io/styles/typography/fonts を実ブラウザ（chromium）で描画し、「Roboto is the default typeface for Android, and is used in the M3 typescale.」および「Static fonts like Roboto are currently applied by default to all Material 3 components.」を確認した（原文は default であって推奨という語ではない）。この裏取りは以前は手作業だったが、ブラウザ経由の取得を用意したので同じ URL を node scripts/verify-verdicts.mjs --url で再現できる。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "react/ui-patterns/SnackbarPatterns.tsx",
@@ -5217,7 +5217,7 @@
   "sourceUrl": "https://raw.githubusercontent.com/androidx/androidx/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MotionTokens.kt",
   "quote": "inline val EasingLegacyCubicBezier: CubicBezierEasing get() = CubicBezierEasing(0.4f, 0.0f, 0.2f, 1.0f) […] inline val EasingStandardCubicBezier: CubicBezierEasing get() = CubicBezierEasing(0.2f, 0.0f, 0.0f, 1.0f)",
   "correction": "現行 Material Design 3 の standard easing は cubic-bezier(0.2, 0.0, 0, 1.0)。cubic-bezier(0.4, 0, 0.2, 1) は Material Design 2 の standard easing（MUI の既定 easeInOut と同値）なので、「Material Design 2 の標準イージング（MUI の既定値）」のように版を明示する。",
-  "evidence": "Google 公式実装 androidx.compose.material3 の MotionTokens.kt では 0.4/0.0/0.2/1.0 のカーブが Legacy(=MD2 相当) と命名され、M3 の Standard は 0.2/0.0/0.0/1.0。m3.material.io の Easing and duration / Tokens & specs を実ブラウザで描画した CSS 行も cubic-bezier(0.2, 0.0, 0, 1.0) で一致し、m2.material.io/design/motion/speed.html 側が cubic-bezier(0.4, 0.0, 0.2, 1) であることも確認した。"
+  "evidence": "Google 公式実装 androidx.compose.material3 の MotionTokens.kt では 0.4/0.0/0.2/1.0 のカーブが Legacy(=MD2 相当) と命名され、M3 の Standard は 0.2/0.0/0.0/1.0。https://m3.material.io/styles/motion/easing-and-duration/tokens-specs を実ブラウザ（chromium）で描画した Standard easing set の CSS 行も「cubic-bezier(0.2, 0.0, 0, 1.0);」で一致し、m2.material.io/design/motion/speed.html 側が cubic-bezier(0.4, 0.0, 0.2, 1) であることも確認した。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "react/ui-patterns/SnackbarPatterns.tsx",
@@ -5226,7 +5226,7 @@
   "sourceUrl": "https://raw.githubusercontent.com/material-components/material-components-android/master/docs/components/Snackbar.md",
   "quote": "Only one snackbar will be shown at a time. Showing a new snackbar will dismiss any previous ones first.",
   "correction": "",
-  "evidence": "Google 公式実装 material-components-android の Snackbar ドキュメントに、同時に 1 件のみ表示し新しい Snackbar が前のものを閉じると明記。m3.material.io の Snackbar / Guidelines を実ブラウザで描画した本文にも Consecutive snackbars must appear one at a time. と However, a snackbar with updated information can immediately replace an outdated snackbar. があり一致する。"
+  "evidence": "Google 公式実装 material-components-android の Snackbar ドキュメントに、同時に 1 件のみ表示し新しい Snackbar が前のものを閉じると明記。https://m3.material.io/components/snackbar/guidelines を実ブラウザ（chromium）で描画した本文にも「Consecutive snackbars must appear one at a time.」と「However, a snackbar with updated information can immediately replace an outdated snackbar.」があり一致する。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "react/design-tokens/WhyDarkMode.tsx",
@@ -5240,11 +5240,11 @@
  {
   "file": "react/design-tokens/WhyDarkMode.tsx",
   "claim": "Material\n                  Design 3 では、ダークモードのエレベーションを影ではなく\n                  surface の明度差（tonal overlay）で表現します。",
-  "verdict": "UNDETERMINED",
+  "verdict": "REFUTED",
   "sourceUrl": "https://m3.material.io/styles/elevation/applying-elevation",
-  "quote": "",
-  "correction": "",
-  "evidence": "m3.material.io は JS 描画の SPA で、HTTP 応答本文には「This website requires JavaScript.」しか含まれないため逐語照合ができない（実ブラウザで描画しないと本文が取れない）。加えて、当初の否定根拠だった「M3 の用語は tonal overlay ではない」は支持できない。Google 自身の M3 実装ドキュメント（https://developer.android.com/develop/ui/compose/designsystems/material3 ）に「Material 3 represents elevation mainly using tonal color overlays.」「Elevation overlays in dark themes have also changed to tonal color overlays in Material 3.」とあり、tonal（color）overlay は公式の語である。ただし同ドキュメントは「in addition to shadows」とも書いており、色による表現はダークモード限定でもない。教材の記述を誤りと断定する根拠が取れないため UNDETERMINED とする（なお developer.android.com は accept-language 指定でリダイレクトループになり、この照合スクリプトからは取得できない）。"
+  "quote": "Elevation can be depicted using shadows or other visual cues, such as surface fills with a tone difference or scrims. […] By default, Material 3's surfaces use tonal difference to indicate separation.",
+  "correction": "「ダークモードのエレベーションを影ではなく surface の明度差で表現する」を、M3 の記述に合わせて「ライト / ダークを問わず、影に加えて色調のオーバーレイ（tonal color overlay）でエレベーションを表す」に改める。M3 は影を排しておらず、色調による表現もダークモード限定ではない。",
+  "evidence": "実ブラウザ（chromium）で https://m3.material.io/styles/elevation/applying-elevation を描画して本文を取得し、引用の 2 文を確認した（素の HTTP 応答は「This website requires JavaScript.」しか返さない）。M3 は影を排しておらず「shadows or other visual cues」と並列に置き、色調差を既定の手段としているだけで、ダークモード限定の話でもない。Google 自身の M3 実装ドキュメント https://developer.android.com/develop/ui/compose/designsystems/material3 の「Material 3 represents elevation mainly using tonal color overlays.」「in addition to shadows」とも整合する（同ページは accept-language 指定でリダイレクトループになり、この照合スクリプトからは取得できない）。以前は取得手段が無く UNDETERMINED としていたが、ブラウザ経由の取得で原文を確認できたため REFUTED に改めた。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "react/design-tokens/TokensPractice.tsx",
@@ -7932,10 +7932,10 @@
   "file": "react/design-tokens/WhyDarkMode.tsx",
   "claim": "Apple Human Interface Guidelines は「ユーザーの好みを尊重する\n                  (Respect user preferences)」を 基本原則として掲げています。",
   "verdict": "REFUTED",
-  "sourceUrl": "local:playwright https://developer.apple.com/design/human-interface-guidelines/dark-mode",
+  "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/dark-mode",
   "quote": "In iOS, iPadOS, macOS, and tvOS, people often choose Dark Mode as their default interface style, and they generally expect all apps and games to respect their preference.",
   "correction": "「「ユーザーの好みを尊重する (Respect user preferences)」を基本原則として掲げています」を、HIG の実際の記述に沿って書き換える。例:「Apple Human Interface Guidelines は、利用者がダークモードを既定として選ぶことが多く、すべてのアプリがその設定を尊重することを期待していると述べ、アプリ独自の外観設定を用意しないよう推奨しています」。",
-  "evidence": "Apple HIG の Dark Mode ページを実ブラウザ（Playwright）で開いて本文を取得（developer.apple.com は JS 必須で curl では本文が取れない）。趣旨に沿う記述（引用文および Best practices の「Avoid offering an app-specific appearance setting.」）はあるが、「Respect user preferences」という名前の基本原則は存在しない。Designing for iOS ページの Best practices も「Adapt seamlessly to appearance changes — like device orientation, Dark Mode, and Dynamic Type — letting people choose the configurations that work best for them.」という個別の推奨で、原則名としては掲げられていない。"
+  "evidence": "実ブラウザ（chromium）で https://developer.apple.com/design/human-interface-guidelines/dark-mode を描画して本文を取得し、引用文を確認した（developer.apple.com は JS 必須で素の HTTP 応答からは本文が取れない）。趣旨に沿う記述（引用文および Best practices の「Avoid offering an app-specific appearance setting.」）はあるが、「Respect user preferences」という名前の基本原則は存在しない。Designing for iOS ページの Best practices も「Adapt seamlessly to appearance changes — like device orientation, Dark Mode, and Dynamic Type — letting people choose the configurations that work best for them.」という個別の推奨で、原則名としては掲げられていない。判定当時は sourceUrl を local:playwright として照合対象外にしていたが、ブラウザ経由の取得を用意したので通常の https URL に直し、機械照合の対象に戻した。取得経路: scripts/lib/source-fetch.mjs の BROWSER_RENDERED_HOSTS に載るホストは chromium で描画してから document.body.innerText を照合する。node scripts/verify-verdicts.mjs <判定JSON> --url <この sourceUrl> で再現できる（2026-08-23 実行）。"
  },
  {
   "file": "react/design-tokens/DarkModeImpl.tsx",

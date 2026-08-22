@@ -182,7 +182,7 @@ export default function MaterialPage() {
                 <td className="p-3 font-mono text-foreground">MeshStandardMaterial</td>
                 <td className="p-3">必要</td>
                 <td className="p-3">やや重い</td>
-                <td className="p-3">リアルな質感（推奨）</td>
+                <td className="p-3">リアルな質感（PBR）</td>
               </tr>
               <tr className="border-t border-border">
                 <td className="p-3 font-mono text-foreground">MeshPhongMaterial</td>
@@ -268,7 +268,10 @@ renderer.render(scene, camera);`}
           <ul className="list-disc list-inside space-y-1">
             <li>マテリアルは 3D オブジェクトの「見た目」を決める</li>
             <li>MeshBasicMaterial: ライト不要、最もシンプル</li>
-            <li>MeshStandardMaterial: PBR、最もリアル（推奨）</li>
+            <li>
+              MeshStandardMaterial: PBR。MeshLambertMaterial や MeshPhongMaterial
+              より正確でリアルな見た目になる一方、計算コストは高くなる
+            </li>
             <li>MeshPhongMaterial: 光沢表現、Standard より軽量</li>
             <li>Standard / Phong は既定の状態ではライトがないと真っ黒になる（emissive を設定すれば例外）</li>
           </ul>
