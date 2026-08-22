@@ -5,7 +5,7 @@ import StepIndicator from '@/components/StepIndicator';
 import SectionBadge from '@/components/SectionBadge';
 import { getManualSections } from '@/lib/navigation';
 
-const sections = getManualSections('claude-mux');
+const sections = getManualSections('claude-code');
 
 export default function Welcome() {
   return (

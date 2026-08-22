@@ -6,7 +6,7 @@ export default function BookmarkButton() {
   const [location] = useLocation();
   const { toggle, isBookmarked } = useBookmarks();
 
-  if (location === '/' || location === '/react' || location === '/git' || location === '/threejs' || location === '/claude-mux') return null;
+  if (location === '/' || location === '/react' || location === '/git' || location === '/threejs' || location === '/claude-code') return null;
 
   const active = isBookmarked(location);
 

@@ -7,7 +7,7 @@ const meta: Meta<typeof ManualSwitcher> = {
   component: ManualSwitcher,
   decorators: [
     (Story) => (
-      <Router ssrPath="/claude-mux">
+      <Router ssrPath="/claude-code">
         {/* 実寸のサイドバー幅（w-64 から p-6 を引いた 208px）で確認する */}
         <div className="w-52">
           <Story />
@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof ManualSwitcher>;
 
 export const Default: Story = {
-  args: { activeManualId: "claude-mux" },
+  args: { activeManualId: "claude-code" },
 };
 
 /** 最長のマニュアル名。1 列にしたので省略されないことを確認する */

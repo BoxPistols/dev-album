@@ -17,7 +17,7 @@ export const GENERATED_SOURCES: Source[] = [
       "New signups will no longer available starting May 15, 2026. New Q Developer Free Tier account creation (via Builder ID in IDE plugins) and new Q Developer subscription creation (via the AWS Console) will be blocked.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
     ],
   },
   {
@@ -31,7 +31,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Amazon Q Developer transformation capability for Java upgrades *",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
     ],
   },
   {
@@ -44,7 +44,7 @@ export const GENERATED_SOURCES: Source[] = [
       "To use Gemini CLI free-of-charge, simply login with a personal Google account to get a free Gemini Code Assist license. That free license gets you access to Gemini 2.5 Pro and its massive 1 million token context window. To ensure you rarely, if ever, hit a limit during this preview, we offer the industry's largest allowance: 60 model requests per minute and 1,000 requests per day at no charge.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GeminiCli.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GeminiCli.tsx",
     ],
   },
   {
@@ -88,7 +88,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Teammates work independently, each in its own context window, and communicate directly with each other.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ide-agent-teams/AgentOrchestration.tsx",
+      "client/src/pages/claude-code/ide-agent-teams/AgentOrchestration.tsx",
     ],
   },
   {
@@ -115,7 +115,7 @@ export const GENERATED_SOURCES: Source[] = [
       "change the period with cleanupPeriodDays",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
     ],
   },
   {
@@ -128,7 +128,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Claude Code deletes the files in the paths below once they're older than cleanupPeriodDays, as long as it can safely determine the retention period. The default is 30 days and the minimum is 1; setting 0 fails with a validation error.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
     ],
   },
   {
@@ -142,9 +142,9 @@ export const GENERATED_SOURCES: Source[] = [
       "| claude auth login | Sign in to your Anthropic",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/cicd-headless/HeadlessMode.tsx",
-      "client/src/pages/claude-mux/claude-core/TokenOptimization.tsx",
-      "client/src/pages/claude-mux/claude-intro/ClaudeCodeIntro.tsx",
+      "client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx",
+      "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
+      "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
     ],
   },
   {
@@ -159,10 +159,10 @@ export const GENERATED_SOURCES: Source[] = [
       "/init | Initialize project with a CLAUDE.md guide. Set CLAUDE_CODE_NEW_INIT=1 for an interactive flow that also walks through skills, hooks, and personal memory files. If /init finds configuration from a coding agent that /import supports, it offers to carry it over with /import",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/TokenOptimization.tsx",
-      "client/src/pages/claude-mux/claude-intro/SlashCommands.tsx",
-      "client/src/pages/claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
-      "client/src/pages/claude-mux/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
+      "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
     ],
   },
   {
@@ -175,7 +175,7 @@ export const GENERATED_SOURCES: Source[] = [
       "You can also customize compaction behavior in your CLAUDE.md file at the root of your project:",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
     ],
   },
   {
@@ -189,8 +189,8 @@ export const GENERATED_SOURCES: Source[] = [
       "Hook events receive these fields as JSON, in addition to event-specific fields documented in each hook event section. For command hooks, this JSON arrives via stdin.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/agent-extensions/CustomSkills.tsx",
-      "client/src/pages/claude-mux/hooks-advanced/HooksGuide.tsx",
+      "client/src/pages/claude-code/agent-extensions/CustomSkills.tsx",
+      "client/src/pages/claude-code/hooks-advanced/HooksGuide.tsx",
     ],
   },
   {
@@ -203,8 +203,8 @@ export const GENERATED_SOURCES: Source[] = [
       "Use /btw to ask a question about your current work without adding to the conversation history.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/ContextEngineering.tsx",
-      "client/src/pages/claude-mux/claude-intro/ClaudeCodeIntro.tsx",
+      "client/src/pages/claude-code/claude-core/ContextEngineering.tsx",
+      "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
     ],
   },
   {
@@ -219,7 +219,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Project-scoped servers from.mcp.json that are awaiting your approval appear in claude mcp list and claude mcp get <name> as ⏸ Pending approval (run claude to approve). Run claude interactively to review and approve them.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/mcp/MCPSetup.tsx",
+      "client/src/pages/claude-code/mcp/MCPSetup.tsx",
     ],
   },
   {
@@ -234,9 +234,9 @@ export const GENERATED_SOURCES: Source[] = [
       "Claude Code reads CLAUDE.md, not AGENTS.md. If your repository already uses AGENTS.md for other coding agents, create a CLAUDE.md that imports it so both tools read the same instructions without duplicating them.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/ContextManagement.tsx",
-      "client/src/pages/claude-mux/multi-ai-architecture/MultiAICoexistence.tsx",
-      "client/src/pages/claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx",
+      "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
     ],
   },
   {
@@ -251,7 +251,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Both relative and absolute paths are allowed. Relative paths resolve relative to the file containing the import, not the working directory. Imported files can recursively import other files, with a maximum depth of four hops.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/multi-ai-architecture/AgentDocs.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/AgentDocs.tsx",
     ],
   },
   {
@@ -266,8 +266,8 @@ export const GENERATED_SOURCES: Source[] = [
       "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example claude-opus-5, or set the corresponding environment variable like ANTHROPIC_DEFAULT_OPUS_MODEL.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/ExtendedThinking.tsx",
-      "client/src/pages/claude-mux/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-core/ExtendedThinking.tsx",
+      "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
     ],
   },
   {
@@ -281,7 +281,7 @@ export const GENERATED_SOURCES: Source[] = [
       "If you set dontAsk mode, Claude Code auto-denies every tool call that would otherwise prompt you. Claude runs only actions matching your permissions.allow rules, read-only Bash commands, and calls approved by a PreToolUse hook. Use this mode for CI pipelines or restricted environments where you pre-define exactly what Claude may do; the session never waits for input.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
     ],
   },
   {
@@ -294,7 +294,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Rules are evaluated in order: deny, then ask, then allow. The first match in that order determines the outcome, and rule specificity doesn't change the order.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/SecurityPermissions.tsx",
+      "client/src/pages/claude-code/claude-core/SecurityPermissions.tsx",
     ],
   },
   {
@@ -307,7 +307,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Skills live in the skills/ directory. Each skill is a folder containing a SKILL.md file. The folder name becomes the skill name, prefixed with the plugin's namespace (hello/ in a plugin named my-first-plugin creates /my-first-plugin:hello).",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+      "client/src/pages/claude-code/ide-agent-teams/PluginsEcosystem.tsx",
     ],
   },
   {
@@ -320,7 +320,7 @@ export const GENERATED_SOURCES: Source[] = [
       "1. **Managed** (highest): can't be overridden by any other scope, apart from the exceptions to managed settings precedence 2. **Command line arguments**: temporary session overrides 3. **Local**: overrides project and user settings 4. **Project**: overrides user settings 5. **User** (lowest): applies when nothing else specifies the setting",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/SecurityPermissions.tsx",
+      "client/src/pages/claude-code/claude-core/SecurityPermissions.tsx",
     ],
   },
   {
@@ -335,8 +335,8 @@ export const GENERATED_SOURCES: Source[] = [
       "You can also install Claude Code as a global npm package. As of v2.1.198, the npm package requires Node.js 22 or later. On an older Node.js version, npm prints an EBADENGINE warning during install rather than failing; the install completes and claude still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-intro/ClaudeCodeIntro.tsx",
-      "client/src/pages/claude-mux/claude-intro/InstallSetup.tsx",
+      "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
+      "client/src/pages/claude-code/claude-intro/InstallSetup.tsx",
     ],
   },
   {
@@ -350,7 +350,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Claude Code skills follow the Agent Skills open standard, which works across multiple AI tools. Claude Code extends the standard with additional features like invocation control, subagent execution, and dynamic context injection.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/agent-extensions/CustomSkills.tsx",
+      "client/src/pages/claude-code/agent-extensions/CustomSkills.tsx",
     ],
   },
   {
@@ -363,7 +363,7 @@ export const GENERATED_SOURCES: Source[] = [
       "| model | No | Model to use: sonnet, opus, haiku, fable, a full model ID (for example, claude-opus-5), or inherit. Defaults to inherit",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/agent-extensions/Subagents.tsx",
+      "client/src/pages/claude-code/agent-extensions/Subagents.tsx",
     ],
   },
   {
@@ -376,7 +376,7 @@ export const GENERATED_SOURCES: Source[] = [
       "The VS Code extension includes a graphical interface for installing and managing plugins. Type /plugins in the prompt box to open the **Manage plugins** interface.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ide-agent-teams/PluginsEcosystem.tsx",
+      "client/src/pages/claude-code/ide-agent-teams/PluginsEcosystem.tsx",
     ],
   },
   {
@@ -442,7 +442,7 @@ export const GENERATED_SOURCES: Source[] = [
       "claude mcp add --transport http figma https://mcp.figma.com/mcp",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/mcp/MCPPractical.tsx",
+      "client/src/pages/claude-code/mcp/MCPPractical.tsx",
     ],
   },
   {
@@ -682,7 +682,7 @@ export const GENERATED_SOURCES: Source[] = [
       "While working on a coding task, Copilot cloud agent has access to its own ephemeral development environment, powered by GitHub Actions, where it can explore your code, make changes, execute automated tests and linters and more.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GithubCopilot.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
     ],
   },
   {
@@ -695,7 +695,7 @@ export const GENERATED_SOURCES: Source[] = [
       "These are specified in files called AGENTS.md, CLAUDE.md, or GEMINI.md.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/ChoosingTools.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/ChoosingTools.tsx",
     ],
   },
   {
@@ -708,7 +708,7 @@ export const GENERATED_SOURCES: Source[] = [
       "shell copy brew install --cask copilot-cli",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GithubCopilot.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
     ],
   },
   {
@@ -721,7 +721,7 @@ export const GENERATED_SOURCES: Source[] = [
       "You can create one or more AGENTS.md files, stored anywhere within the repository. When Copilot is working, the nearest AGENTS.md file in the directory tree will take precedence.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GithubCopilot.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
     ],
   },
   {
@@ -856,7 +856,7 @@ export const GENERATED_SOURCES: Source[] = [
       "A general-purpose Claude Code action for GitHub PRs and issues that can answer questions and implement code changes. This action intelligently detects when to activate based on your workflow context-whether responding to @claude mentions, issue assignments, or executing automation tasks with explicit prompts.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/cicd-headless/GitHubActions.tsx",
+      "client/src/pages/claude-code/cicd-headless/GitHubActions.tsx",
     ],
   },
   {
@@ -882,7 +882,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Free For getting started with GitHub Copilot. $ 0 USD Get started Open in VS Code What's included: 2,000 completions per month Access to Haiku 4.5, GPT-5 mini, and more Copilot CLI Community Support No credit card required. Verified students have access to the GitHub Copilot Student plan. Learn more Pro For everyday coding with agents in GitHub Copilot. $ 10 USD per user",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GithubCopilot.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
     ],
   },
   {
@@ -895,7 +895,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Gemini CLI includes a Checkpointing feature that automatically saves a snapshot of your project's state before any file modifications are made by AI-powered tools. This lets you safely experiment with and apply code changes, knowing you can instantly revert back to the state before the tool was run.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GeminiCli.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GeminiCli.tsx",
     ],
   },
   {
@@ -908,7 +908,7 @@ export const GENERATED_SOURCES: Source[] = [
       "--approval-mode <mode>: Sets the approval mode for tool calls. Available modes: default: Prompt for approval on each tool call (default behavior) auto_edit: Automatically approve edit tools (replace, write_file) while prompting for others yolo: Automatically approve all tool calls (equivalent to --yolo) plan: Read-only mode for tool calls (requires experimental planning to be enabled).",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/GeminiCli.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/GeminiCli.tsx",
     ],
   },
   {
@@ -921,7 +921,7 @@ export const GENERATED_SOURCES: Source[] = [
       "spacing: <scale-level>: <Dimension | number>",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/multi-ai-architecture/DesignMd.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/DesignMd.tsx",
     ],
   },
   {
@@ -934,8 +934,8 @@ export const GENERATED_SOURCES: Source[] = [
       "Terminal keybindings are read from your Ghostty config file (~/.config/ghostty/config). cmux-specific shortcuts (workspaces, splits, browser, notifications) can be customized in Settings.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/cmux/CmuxAgentTeams.tsx",
-      "client/src/pages/claude-mux/cmux/CmuxSetup.tsx",
+      "client/src/pages/claude-code/cmux/CmuxAgentTeams.tsx",
+      "client/src/pages/claude-code/cmux/CmuxSetup.tsx",
     ],
   },
   {
@@ -961,7 +961,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Codex CLI can also be installed via the following package managers:",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/OpenAiCodex.tsx",
     ],
   },
   {
@@ -974,7 +974,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Codex is written in Rust, so it honors the RUST_LOG environment variable to configure its logging behavior.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/OpenAiCodex.tsx",
     ],
   },
   {
@@ -1052,7 +1052,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Kiro CLI is the next update of the Q CLI. Your existing Q Developer CLI workflows, subscription, and authentication continue to work without any changes.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/AmazonQDeveloper.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
     ],
   },
   {
@@ -1065,7 +1065,7 @@ export const GENERATED_SOURCES: Source[] = [
       "OS-level sandbox Codex enforces the sandbox differently depending on your OS:",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/ai-coding-agents/OpenAiCodex.tsx",
+      "client/src/pages/claude-code/ai-coding-agents/OpenAiCodex.tsx",
     ],
   },
   {
@@ -1394,7 +1394,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Cache read tokens are 0.1 times the base input tokens price",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/claude-core/TokenOptimization.tsx",
+      "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
     ],
   },
   {
@@ -1434,7 +1434,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Valid component properties: backgroundColor, textColor, typography, rounded, padding, size, height, width.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/multi-ai-architecture/DesignMd.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/DesignMd.tsx",
     ],
   },
   {
@@ -1947,7 +1947,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Managed Agents is a meta-harness in the same spirit, unopinionated about the specific harness that Claude will need in the future. Rather, it is a system with general interfaces that allow many different harnesses. For example, Claude Code is an excellent harness that we use widely across tasks.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/best-practices/HarnessEngineering.tsx",
+      "client/src/pages/claude-code/best-practices/HarnessEngineering.tsx",
     ],
   },
   {
@@ -1973,7 +1973,7 @@ export const GENERATED_SOURCES: Source[] = [
       "We used a simple recipe to iteratively improve deepagents-cli (our coding agent) 13.7 points from 52.8 to 66.5 on Terminal Bench 2.0. We only tweaked the harness and kept the model fixed, gpt-5.2-codex.",
     ],
     usedByFiles: [
-      "client/src/pages/claude-mux/best-practices/HarnessEngineering.tsx",
+      "client/src/pages/claude-code/best-practices/HarnessEngineering.tsx",
     ],
   },
   {

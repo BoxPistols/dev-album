@@ -32,7 +32,7 @@
 
 ## 要修正（REFUTED）
 
-### `claude-mux/ide-agent-teams/PluginsEcosystem.tsx`
+### `claude-code/ide-agent-teams/PluginsEcosystem.tsx`
 
 - **記述**: プラグインは、スラッシュコマンド・サブエージェント・MCP サーバー・Hooks をバンドルした軽量パッケージ。Agent Skills オープンスタンダードに準拠しており、CLI と VS Code 拡張の両方で管理できる。一方でインストールしたプラグインはもう一方でも自動的に利用可能になる。
   - **一次情報**: 「Agent Skills オープンスタンダードに準拠」の帰属先が誤り。オープンスタンダードに準拠しているのは **skill**（`SKILL.md` を含むフォルダという形式）であって、プラグインのパッケージ形式ではない。プラグインは `.claude-plugin/plugin.json` マニフェストを持つ Claude Code 固有の形式で、その中の `skills/` が Agent Skills 標準に従う。agentskills.io の規格自体もスラッシュコマンド・サブエージェント・MCP サーバー・Hooks のバンドルを定義していない。他 2 点は正しい: プラグインの構成要素は公式に「Plugins extend Claude Code with skills, agents, hooks, and MCP servers.」（デスクトップ版ドキュメントでは LSP 設定も含む）で、CLI と VS C
@@ -55,7 +55,7 @@
   - **一次情報**: ファイル名とスキーマの両方が誤り。(1) ファイルは `hooks/settings.json` ではなく `hooks/hooks.json`（プラグインルート直下、または plugin.json にインライン）。(2) matcher オブジェクトの直下に `command` を書くフラットな形は無効で、matcher オブジェクトの中にさらに `hooks` 配列を置き、その各要素に `type`（"command" など）と `command` を書く。正しい形は {"hooks":{"PreToolUse":[{"matcher":"Bash","hooks":[{"type":"command","command":"echo 'Tool execution starting...'"}]}]}}。なお `settings.json` はプラグインルート直下に置ける別物として存在するが、対応キーは `agent` と
   - 出典: https://code.claude.com/docs/en/plugins-reference
 
-### `claude-mux/claude-intro/SlashCommands.tsx`
+### `claude-code/claude-intro/SlashCommands.tsx`
 
 - **記述**: /branch [name] 現在の会話の分岐ポイントを作成。分岐後も元セッションは /resume から戻れる。/fork は別コマンド（会話を引き継いだ background subagent を起動）。
   - **一次情報**: /branch に関する記述（分岐ポイントの作成、元セッションへ /resume で戻れる、/fork は別コマンド）は正しい。誤りは /fork の説明。現行版（v2.1.212 以降、agent view が有効な既定状態）の /fork は「background subagent」ではなく、会話を複製した **background session**（agent view で管理される独立セッション）を起動し、呼び出し元はその場で作業を続ける。「forked subagent を起動する」のは v2.1.161〜v2.1.211、または agent view を無効にしている場合のフォールバック挙動。なお「結果がこの会話に戻ってくる subagent に側タスクを渡す」のは /fork ではなく /subtask。
@@ -115,7 +115,7 @@
   - **一次情報**: 月75回・初月150回という AI リクエスト枠は現行の Warp には存在しない。現在の Free プランは Warp Agent 用の AI 利用枠を含まず、クレジット購入か BYOK が必要。ターミナル部分については pricing ページが Free に 'Includes core terminal features' と 'State-of-the-art modern terminal' と記載しており基本機能が無料である点は整合するが、同じ Free 列に 'Limited Warp Drive and collaboration feature access' 'Limited cloud conversation storage' と明記されているため「全て無料で制限なく」という全称は成り立たない。
   - 出典: https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/
 
-### `claude-mux/hooks-advanced/HooksGuide.tsx`
+### `claude-code/hooks-advanced/HooksGuide.tsx`
 
 - **記述**: Hook のアクションは3種類のタイプから選択します。用途に応じて使い分けます。
   - **一次情報**: 3 種類ではなく 5 種類。`type` フィールドが取る値は `"command"`, `"http"`, `"mcp_tool"`, `"prompt"`, `"agent"` の 5 つ（Common fields テーブルの `type` 行に明記）。うち `agent` は experimental（"Agent hooks are experimental and may change."）。また SessionStart と Setup は `command` と `mcp_tool` しかサポートしない（"`SessionStart` and `Setup` support `command` and `mcp_tool` hooks. They don't support `http`, `prompt`, or `agent` hooks."）ので、5 種類がどのイベントでも使えるわけではない点も併記が要る。
@@ -130,7 +130,7 @@
   - **一次情報**: $CLAUDE_FILE_PATH という環境変数は存在しない。公式の Hooks reference が hook プロセスに export されると明記している変数は CLAUDE_PROJECT_DIR / CLAUDE_PLUGIN_ROOT / CLAUDE_PLUGIN_DATA（ほかに CLAUDE_EFFORT, CLAUDE_CODE_REMOTE, CLAUDE_CODE_BRIDGE_SESSION_ID, CLAUDE_PLUGIN_OPTION_<KEY>, SessionStart 限定の CLAUDE_ENV_FILE）で、CLAUDE_FILE_PATH は docs 全文（llms-full.txt, 7.4MB）にも 1 件も出現しない。command hook は「Your script receives the event's JSON input on stdin」であり、ファイルパスは
   - 出典: https://code.claude.com/docs/en/hooks
 
-### `claude-mux/ide-agent-teams/AgentOrchestration.tsx`
+### `claude-code/ide-agent-teams/AgentOrchestration.tsx`
 
 - **記述**: Agent Teams は、複数の Claude Code インスタンスを協調動作させる公式機能。2026年2月5日に Opus 4.6 と同時にリリースされた。最新版の Claude Code で利用できる。
   - **一次情報**: リリース日（2026-02-05、Opus 4.6 と同時）は正しいが、「最新版の Claude Code で利用できる」は誤り。Agent teams は現在も experimental で既定は無効。settings.json または環境変数で `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` を設定しないと、セッション開始時にチームは作られず Claude はチームメイトを spawn も提案もしない。初出時も「research preview」と表記されている。また非対話モード（`-p` / Agent SDK）ではチームメイトは spawn されない。
@@ -190,7 +190,7 @@
   - **一次情報**: https://nextjs.org/blog/next-15-3 は「Next.js 15.3」(2025-04-09) の記事であり、Next.js 16 RC の記事ではない。Next.js 16 の発表記事は https://nextjs.org/blog/next-16（HTTP 200）。/blog/next-16-rc は存在しない（HTTP 404）。タイトルを『Next.js 15.3 ブログ』にするか、URL を https://nextjs.org/blog/next-16 に差し替える必要がある。
   - 出典: https://nextjs.org/blog/next-15-3
 
-### `claude-mux/best-practices/EffectiveWorkflows.tsx`
+### `claude-code/best-practices/EffectiveWorkflows.tsx`
 
 - **記述**: チェックポイント / Claude Code は自動的にチェックポイントを作成。git diff で変更前の状態に戻れる。
   - **一次情報**: 前半（Claude Code が自動でチェックポイントを作成する）は正しい。後半が誤り。復元は `git diff` ではなく `/rewind`（またはプロンプト入力が空の状態で `Esc` を 2 回）で rewind メニューを開き、"Restore code" / "Restore code and conversation" を選ぶ。`git diff` は差分を表示するコマンドであって復元コマンドではない。なお一次情報は、bash コマンドによるファイル変更とサブエージェントの編集はチェックポイントで復元できず、その場合は git で戻すよう案内している（"Use git to revert them."）。
@@ -202,7 +202,7 @@
   - **一次情報**: 後半は正しいが前半が誤り。Shift+Tab は「メニューを表示」するのではなくパーミッションモードを順に巡回するキーで、対象は default（表示上は Manual）/ acceptEdits / plan /（利用可能なら）bypassPermissions / auto の 5 つ。Fast Mode はこの巡回に含まれず、`/fast`（または macOS の Option+O / Windows・Linux の Alt+O、あるいは settings.json の "fastMode": true）で切り替える。なお同ページ 233 行目の「Fast Mode（Haiku）」も誤りで、Fast Mode は Opus 5 / Opus 4.8 のみ対応、Haiku では利用できない（"It is not available on Sonnet, Haiku, or other models."）。
   - 出典: https://code.claude.com/docs/en/interactive-mode
 
-### `claude-mux/cmux/CmuxSetup.tsx`
+### `claude-code/cmux/CmuxSetup.tsx`
 
 - **記述**: 新規ワークスペース Cmd+Shift+N / 右ペイン分割 Cmd+Shift+D / 下ペイン分割 Cmd+Shift+J / 未読通知にジャンプ Cmd+Shift+U / 通知パネル Cmd+Shift+I / ビルトインブラウザ Opt+Cmd+D / ワークスペース切替 Cmd+1 〜 Cmd+9
   - **一次情報**: 正しい既定値は次の通り。新規ワークスペース = Cmd+N（Cmd+Shift+N は新規ウィンドウ）。右ペイン分割 = Cmd+D。下ペイン分割 = Cmd+Shift+D（Cmd+Shift+J は既定に存在しない）。未読通知にジャンプ = Cmd+Shift+U（この 1 件のみ claim と一致）。通知パネル = Cmd+I。ビルトインブラウザを split で開く = Cmd+Shift+L（Opt+Cmd+D は「Split Browser Right」に割り当てられている別アクション）。ワークスペース切替 = Cmd+1〜Cmd+8 が 1〜8 番、Cmd+9 は「最後のワークスペース」へジャンプ。
@@ -272,7 +272,7 @@
   - **一次情報**: 前半の「content-type: application/json」と「detail キー 1 本の JSON」は FastAPI 既定として正しいが、値の "not found" は既定ではなくアプリが渡した detail。detail を省略した FastAPI 既定の 404 本文は HTTP reason phrase の `{"detail": "Not Found"}`（大文字始まり）。「FastAPI 既定は content-type: application/json + `{"detail": "Not Found"}`（detail を渡せば任意の文字列に変わる）」と書けば実測と一致する。
   - 出典: https://github.com/fastapi/fastapi/blob/master/fastapi/exception_handlers.py
 
-### `claude-mux/cicd-headless/HeadlessMode.tsx`
+### `claude-code/cicd-headless/HeadlessMode.tsx`
 
 - **記述**: --allowedTools "tool1,tool2" / 指定ツールのみ許可 / 限定的な自動化、settings.json の allowedTools / 設定ファイルで許可を永続化 / プロジェクト設定
   - **一次情報**: CLI フラグ `--allowedTools "tool1,tool2"` は実在するが、2 点誤りがある。(1) settings.json に `allowedTools` というキーは存在しない。設定ファイルで許可を永続化する正しいキーは `permissions.allow`（ほかに deny / ask / defaultMode / disableBypassPermissionsMode / disableAutoMode / additionalDirectories）。(2) `--allowedTools` は「指定ツールのみ許可（利用可能ツールの制限）」ではなく「許可プロンプトなしで実行できるツールの指定」。利用可能なツール自体を絞るのは `--tools`。
@@ -281,7 +281,7 @@
   - **一次情報**: パッケージ名と関数名の両方が誤り。TypeScript の Agent SDK は `@anthropic-ai/claude-agent-sdk` で、エントリ関数は `claude()` ではなく `query()`。`@anthropic-ai/claude-code` は CLI 配布用パッケージで、npm レジストリ上の metadata が main / types / exports すべて null、`bin` に claude のみを持つため、そもそも `import` してモジュールとして使えない。正しくは `import { query } from "@anthropic-ai/claude-agent-sdk";` + `query({ prompt, options: { maxTurns, allowedTools } })`（options の `maxTurns` / `allowedTools
   - 出典: https://code.claude.com/docs/en/agent-sdk/typescript
 
-### `claude-mux/hooks-advanced/HooksRecipes.tsx`
+### `claude-code/hooks-advanced/HooksRecipes.tsx`
 
 - **記述**: PreToolUse で exit 2 を返すと、ツールの実行がブロックされ、stdout の内容がブロック理由として Claude に通知されます。Claude はブロック理由を踏まえて別のアプローチを試みます。
   - **一次情報**: 「PreToolUse で exit 2 を返すとツール実行がブロックされる」は正しいが、ブロック理由として Claude に渡るのは stdout ではなく stderr。公式は「The blocking message is the reason from your JSON's blocking decision when it makes one, and your stderr text otherwise.」「A hook that blocks by exiting 2 routes the same way as "deny": Claude sees the stderr message as the denial reason.」と明記している（stdout は JSON output の読み取り経路であって、プレーンテキストのブロック理由の経路ではない）。この誤りは説明文だけでなく同ファイルのコード例にも波
@@ -290,7 +290,7 @@
   - **一次情報**: `"type": "agent"` と `"prompt"` は実在する（agent hook は公式に存在し、prompt は必須）。しかし `"tools"` は agent hook の設定キーとして存在しない。公式の Agent hook configuration 表が挙げるのは type / prompt / model / timeout のみで、common fields は type / if / timeout / statusMessage / once。`"tools"` は Hooks reference 全文（3436 行）に 1 件も出現せず、docs 全文で `"tools"` が出るのは `claude --agents` CLI フラグでのサブエージェント定義（別機能）だけ。使えるツールは設定ではなく仕様側で決まっており、公式は「The subagent can use tools like 
   - 出典: https://code.claude.com/docs/en/hooks#agent-based-hooks
 
-### `claude-mux/mcp/MCPPractical.tsx`
+### `claude-code/mcp/MCPPractical.tsx`
 
 - **記述**: $ claude mcp add serena -- uvx \ --from git+https://github.com/oraios/serena \ serena start-mcp-server --context claude-code --project "$(pwd)"
   - **一次情報**: `start-mcp-server --context claude-code --project "$(pwd)"` の部分は現行公式と完全一致だが、起動方法（`uvx --from git+https://github.com/oraios/serena`）が現行の一次情報から消えている。現在の公式手順は (1) `uv tool install -p 3.13 serena-agent` で serena をインストール、(2) `serena init` で初期化、(3) Claude Code へは `serena setup claude-code` の 1 コマンド、または手動なら per-project が `claude mcp add serena -- serena start-mcp-server --context claude-code --project "$(pwd)"`、global が `cl
@@ -299,7 +299,7 @@
   - **一次情報**: 「ツール数が多い場合」という条件が誤り。Tool Search はツール数に関係なく既定で有効（"Tool search is enabled by default"）で、MCP ツールは常に遅延ロードされる。ツール数・サイズに応じて切り替わる閾値モードは既定ではなくオプトインの `ENABLE_TOOL_SEARCH=auto` であり、しかも判定基準は「ツール数」ではなく「ツール定義の合計がコンテキストウィンドウの 10% に達するか」。正しくは「Claude Code は既定で Tool Search を使い、MCP ツールを事前ロードせずオンデマンドで検索・取得するためコンテキストを節約できる」。なお既定から外れて全ツール事前ロードになる例外は、`ENABLE_TOOL_SEARCH=false`、`ANTHROPIC_BASE_URL` がファーストパーティ以外を指す場合、Azure ホストの Microsoft Fo
   - 出典: https://code.claude.com/docs/en/mcp
 
-### `claude-mux/mcp/MCPSetup.tsx`
+### `claude-code/mcp/MCPSetup.tsx`
 
 - **記述**: "figma": { "type": "stdio", "command": "npx", "args": ["-y", "@anthropic/mcp-server-figma"] }
   - **一次情報**: @anthropic/mcp-server-figma は npm に存在しない。GET https://registry.npmjs.org/@anthropic%2fmcp-server-figma が 404 を返し、さらに `@anthropic` スコープ自体に公開パッケージが 1 件も無い（scope 検索の total が 0）。Anthropic の公開スコープは `@anthropic-ai`（例: @anthropic-ai/claude-code）。したがって `npx -y @anthropic/mcp-server-figma` は必ず失敗する。実在する Figma 向け MCP サーバは公式の Figma リモート MCP（HTTP 接続）か、サードパーティの npm パッケージ（例: figma-developer-mcp 0.13.2）。
@@ -308,7 +308,7 @@
   - **一次情報**: ホストは「あなたの PC」（マシン）ではなく、Claude Code や Claude Desktop のような AI アプリケーション本体（ホストプロセス）を指す。したがって Claude Code は「クライアント」ではなく「ホスト」であり、クライアントはそのホストが MCP サーバ 1 つにつき 1 つ生成する内部コンポーネント（サーバと 1:1 の接続を維持する）。正しくは「ホスト（Claude Code などの AI アプリ）」「クライアント（ホストがサーバごとに 1 つ作る接続コンポーネント）」「サーバ（MCP サーバ）」の 3 者。
   - 出典: https://modelcontextprotocol.io/docs/learn/architecture
 
-### `claude-mux/multi-ai-architecture/DesignMd.tsx`
+### `claude-code/multi-ai-architecture/DesignMd.tsx`
 
 - **記述**: README のルール表は broken-ref を「error / 解決しないトークン参照」と説明している。しかし colors の中に accent: "{colors.nope}}" と書いて 0.4.0 で試すと、lint の findings に broken-ref は現れず errors は 0、expo
   - **一次情報**: ページに書かれた閉じ波括弧 2 つの `accent: "{colors.nope}}"` を 0.4.0 の lint に当てると errors は 0 ではなく 1（"summary": { "errors": 1, "warnings": 0, "infos": 3 }、終了コード 1）。出るのは broken-ref ではなく rule フィールドを持たない色値バリデーションのエラーで、message は quote のとおり。閉じ波括弧 1 つの正しい参照記法 `accent: "{colors.nope}"` にした場合は主張どおりで、findings に broken-ref は現れず errors 0・終了コード 0、export の @theme にも --color-accent は出ない。また broken-ref 自体は死んでおらず、components 配下（`components.btn.backgr
@@ -317,7 +317,7 @@
   - **一次情報**: サブコマンドが lint / diff / export / spec の 4 つである点は正しい（`USAGE design.md lint|diff|export|spec`）。しかし「出力は既定で JSON」は 4 つ全体には当てはまらない。既定が JSON なのは lint と diff だけで、両者の help はいずれも `--format="json" Output format: json or text` と表示する。`spec` の既定は markdown（`--format="markdown" Output format (markdown, json).`）で、ページ自身のコード例 `npx @google/design.md spec --rules` も markdown を出力する。`export` に至っては既定値が無く `--format (required)` で、選べるのは css-tai
   - 出典: https://registry.npmjs.org/@google/design.md
 
-### `claude-mux/multi-ai-architecture/MultiAICoexistence.tsx`
+### `claude-code/multi-ai-architecture/MultiAICoexistence.tsx`
 
 - **記述**: OpenAI Codex / AGENTS.md codex.md
   - **一次情報**: 現行の OpenAI Codex が読む指示ファイルは AGENTS.md 系のみで、codex.md は読まれない。公式ドキュメントの探索順は「1. Global scope: `~/.codex` で `AGENTS.override.md` があればそれ、なければ `AGENTS.md`」「2. Project scope: プロジェクトルートから cwd まで各ディレクトリで `AGENTS.override.md` → `AGENTS.md` → `project_doc_fallback_filenames` の順に探す」。設定ファイルは別途 `~/.codex/config.toml`。codex.md は 2025 年 4 月時点の Codex CLI README にあった旧名（当時の README 232-233 行: "2. `codex.md` at repo root - shared project 
@@ -326,7 +326,7 @@
   - **一次情報**: ファイル位置（リポジトリルートの `.gemini/config.yaml`）だけは正しいが、YAML の構造とキーが公式スキーマと合わない。(1) 入れ子が逆で、`pull_request_opened` は `code_review` の**子**（`code_review.pull_request_opened`）。(2) `enabled` というキーは存在しない。オン/オフは `code_review.disable`（boolean）と、`pull_request_opened` 配下の `help` / `summary` / `code_review` / `include_drafts`（いずれも boolean）で表す。(3) `language` と `focus` は config.yaml スキーマに存在しない。日本語でのレビューや観点の指定は `.gemini/styleguide.md`（同じ `.
   - 出典: https://docs.cloud.google.com/gemini/docs/code-review/customize-repo-review
 
-### `claude-mux/multi-ai-architecture/SingleSourceOfTruth.tsx`
+### `claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx`
 
 - **記述**: // Claude Code は AGENTS.md を自動認識
   - **一次情報**: Claude Code は AGENTS.md を自動では読まない。読ませるには CLAUDE.md に `@AGENTS.md` と書いて import するか、`ln -s AGENTS.md CLAUDE.md` でシンボリックリンクを張る（Windows はシンボリックリンク作成に管理者権限か開発者モードが要るため import が推奨）。自動で AGENTS.md に触れるのは限定的な経路だけで、公式ドキュメントは「Running /init reads Cursor rules ... With `CLAUDE_CODE_NEW_INIT=1` set, `/init` also reads `AGENTS.md` ...」と、環境変数を立てた `/init` 実行時の読み込みに限っている。ほかに `/import` コマンドが AGENTS.md 等を CLAUDE.md へ 1 回コピーする（v2.1.213 以
@@ -506,61 +506,61 @@
   - **一次情報**: 寄贈が 2015 年（SmartBear Software による）で OpenAPI Initiative が Linux Foundation のプロジェクトである点は正しいが、「バージョン 3.0 から改称」「2.0 までが Swagger、3.0 以降が OpenAPI」は誤り。改称は既存の 2.0 仕様そのものに遡って適用された。2.0 は現在 OAI の公式サイトで「OpenAPI Specification v2.0」として公開されており、バージョン境界で名前が切り替わるわけではない。3.0.0 のリリースは 2017 年で、改称（2016 年公表）とは別の出来事。
   - 出典: https://spec.openapis.org/oas/v2.0.html
 
-### `claude-mux/agent-extensions/Subagents.tsx`
+### `claude-code/agent-extensions/Subagents.tsx`
 
 - **記述**: Claude Codeは Agent ツールを使用してサブエージェントを動的に生成します。各サブエージェントは独自のコンテキストウィンドウで実行されるため、メインの会話コンテキストを消費しません。
   - **一次情報**: 「Agent ツールで生成される」「各サブエージェントは独自のコンテキストウィンドウで実行される」までは正しいが、「メインの会話コンテキストを消費しません」は言い過ぎ。一次情報は、サブエージェントの作業（ファイル読み込み・検索結果・ログ）はメイン文脈に入らない一方で、最終的な要約はメインのコンテキストへ返ると明記している（sub-agents: "the subagent does that work in its own context and returns only the summary"、context-window: "Only the subagent's final text response comes back to your context, plus a small metadata trailer with token counts and duration."）。正しくは「途中の作業はメイン文脈を消費
   - 出典: https://code.claude.com/docs/en/sub-agents
 
-### `claude-mux/ai-coding-agents/OpenAiCodex.tsx`
+### `claude-code/ai-coding-agents/OpenAiCodex.tsx`
 
 - **記述**: 公式の料金ページでは、Plus プラン（月額 $20）で 5 時間あたりおよそ 15〜80 メッセージ（既定モデル利用時）が目安と されている。Pro プランはその 5 倍・20 倍のティアがある。
   - **一次情報**: Plus が月額 $20 であること、Pro が「Choose 5x or 20x higher rate limits than Plus.」（$100/月 の 5x ティアと $200/月 の 20x ティア）であることは料金ページどおり。ただし「15〜80 メッセージ（既定モデル利用時）」は誤り。料金ページの上限はモデル別に列挙されており、15-80 は GPT-5.5 の行の値。現在 Plus の説明で前面に出ているのは GPT-5.6 ファミリ（「The GPT-5.6 model family, including Sol, Terra, and Luna」）で、その Plus 行は Sol 10-100 / Terra 25-200 / Luna 250-2,000。加えて料金ページ自体は「既定モデル」を一切明示していない（全文で default はプライバシー文脈の 3 箇所のみ）ので、「既定モデル利用時」という
   - 出典: https://learn.chatgpt.com/docs/pricing
 
-### `claude-mux/best-practices/HarnessEngineering.tsx`
+### `claude-code/best-practices/HarnessEngineering.tsx`
 
 - **記述**: Verify / hooks（25 lifecycle）/ Bash テスト実行 / Plan Mode
   - **一次情報**: hook のライフサイクルイベントは 25 ではなく、公式 Hooks リファレンスの「Hook lifecycle」表が列挙するのは 31 件（2026-08-16 時点、上記 quote の一覧）。イベント数はバージョンで増減するため、教材に固定値を書かず「公式リファレンスの Hook lifecycle 表を参照」とするのが安全。
   - 出典: https://code.claude.com/docs/en/hooks
 
-### `claude-mux/cicd-headless/GitHubActions.tsx`
+### `claude-code/cicd-headless/GitHubActions.tsx`
 
 - **記述**: anthropic_api_key / Anthropic API キー（必須）、direct_prompt / 直接プロンプトを指定して実行（レビュー指示など）、allowed_tools / 許可するツールのカンマ区切りリスト、disallowed_tools / 禁止するツールのカンマ区切りリスト、max_tur
   - **一次情報**: v1 で実在する入力は anthropic_api_key（"Anthropic API key (required for direct API, not needed for Bedrock/Vertex/Foundry)" — Bedrock/Vertex/Foundry 利用時は不要なので「必須」も不正確）と、prompt / claude_args / settings 等。direct_prompt・allowed_tools・disallowed_tools・max_turns・custom_instructions・timeout_minutes は v1 の action.yml に存在せず、いずれも廃止済み。置き換え先は direct_prompt → prompt、custom_instructions → claude_args: --append-system-prompt、max_turns → cl
   - 出典: https://github.com/anthropics/claude-code-action/blob/main/docs/migration-guide.md
 
-### `claude-mux/claude-core/SecurityPermissions.tsx`
+### `claude-code/claude-core/SecurityPermissions.tsx`
 
 - **記述**: default / acceptEdits / plan / auto（分類器モデルが各操作を安全確認しつつ、ルーチンの確認プロンプトを省略。長時間タスク向け（research preview）） / dontAsk（事前に許可されたツール以外は自動拒否。CI/CD環境向け） / bypassPermissions
   - **一次情報**: 6 つのモード名（default / acceptEdits / plan / auto / dontAsk / bypassPermissions）と、auto の「分類器モデルが確認しルーチンのプロンプトを省略」「長時間タスク向け」、dontAsk の「事前許可ツール以外は自動拒否」「CI 向け」はすべて正しい。誤りは auto に付した「（research preview）」の一語。現行ドキュメントに research preview / beta の記載はなく、逆に auto mode は Pro / Max / Team プランで「built-in starting mode（組み込みの既定開始モード）」と明記されている。この括弧書きを削除し、必要なら「Pro / Max / Team プランでは既定の開始モード」に置き換えるべき。
   - 出典: https://code.claude.com/docs/en/permission-modes
 
-### `claude-mux/claude-core/TokenOptimization.tsx`
+### `claude-code/claude-core/TokenOptimization.tsx`
 
 - **記述**: # 自動コンパクションの発動閾値（1-100%）を変更。低い値ほど早めに圧縮 $ export CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE=80
   - **一次情報**: 環境変数名が誤り。正しくは `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`（`CODE_` は入らない）。`CLAUDE_CODE_AUTOCOMPACT_PCT_OVERRIDE` はドキュメントに存在せず、設定しても無視される。「1-100%」「低い値ほど早く圧縮」は正しいが、追加で 2 点の注記が必要：(1) 閾値を上げることはできず、既定値を上回る値（例示の 80）は無視される、(2) 「モデルのコンテキスト上限より前にコンパクションするセッション」でのみ有効。正しい例は `export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50`。
   - 出典: https://code.claude.com/docs/en/env-vars
 
-### `claude-mux/cmux/CmuxAgentTeams.tsx`
+### `claude-code/cmux/CmuxAgentTeams.tsx`
 
 - **記述**: Claude Code の teammate モードは、1 つの親セッションから複数の子セッション（teammate）を起動して、 タスクを並列に進めるための仕組み。レビュー担当・実装担当・テスト担当のようにロールを分けて運用する。
   - **一次情報**: 公式ドキュメントに「teammate モード」という機能名は存在しない。該当する機能名は「agent teams（エージェントチーム）」で、専用ページは https://code.claude.com/docs/en/agent-teams 。並列実行の説明自体（1 セッションが team lead となり複数の teammate を起動する／役割を分けて運用する）は agent teams の記述と整合するが、教材は決定的な前提を落としている: agent teams は experimental かつ既定で無効で、`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` を settings.json か環境変数に設定しない限り teammate は一切起動しない。また teammate は「子セッション」ではなく独立した Claude Code インスタンスで、lead を介さず直接やり取りできる点
   - 出典: https://code.claude.com/docs/en/agent-teams
 
-### `claude-mux/cmux/CmuxBrowserAPI.tsx`
+### `claude-code/cmux/CmuxBrowserAPI.tsx`
 
 - **記述**: # 2. ブラウザペインを右に分割して URL に移動 cmux browser open-split right cmux browser goto http://localhost:5173
   - **一次情報**: `cmux browser open-split` の位置引数は分割方向ではなく URL。実機の `cmux browser --help` は `open|open-split|new [url] [--workspace <id|ref|index>] [--window <id|ref|index>] [--focus <true|false>]` と表示する。したがって `cmux browser open-split right` は「right という URL を開け」と解釈され、右分割にはならない。方向を指定して右にブラウザペインを開くなら `cmux new-pane --type browser --direction right --url http://localhost:5173`（実機 --help: `new-pane [--type <terminal|browser>] [--direction 
   - 出典: https://cmux.com/docs/browser-automation
 
-### `claude-mux/getting-started/Welcome.tsx`
+### `claude-code/getting-started/Welcome.tsx`
 
 - **記述**: ターミナルの基本的なコマンド（ls, cd, mkdir 等）の知識があることを前提としています。Node.js 18 以上と Git がインストールされている環境を推奨します。
   - **一次情報**: Node.js のバージョン要件は 18 以上ではなく 22 以上。npm パッケージ `@anthropic-ai/claude-code` の engines は `{ node: '>=22.0.0' }`（npm view で実測、version 2.1.233 時点）。さらに公式の System requirements には Node.js 自体が列挙されていない（OS / 4GB+ RAM / ネットワーク / シェル / 対応国のみ）。npm 以外の標準インストーラはネイティブバイナリを入れるため Node.js は不要で、npm 経由で入れた場合も「The installed `claude` binary does not itself invoke Node.」と明記されている。Git も必須ではなく、Windows で Bash ツールを使うために Git for Windows が推奨される（"Inst
   - 出典: https://code.claude.com/docs/en/setup
 
-### `claude-mux/reference/ClaudeCheatsheet.tsx`
+### `claude-code/reference/ClaudeCheatsheet.tsx`
 
 - **記述**: 読み込み順: グローバル → プロジェクトルート → サブディレクトリ（深い階層が優先）。
   - **一次情報**: 起動時に全文読み込まれるのは、作業ディレクトリとその上位階層にある CLAUDE.md / CLAUDE.local.md（管理ポリシー → ユーザー（~/.claude/CLAUDE.md） → プロジェクト → ローカル、の順で広い範囲から狭い範囲へ）まで。サブディレクトリの CLAUDE.md は起動時の読み込み順に含まれず、Claude がそのディレクトリのファイルを読んだ時点で遅延読み込みされる。また各ファイルは上書きではなく連結されるため「深い階層が優先」という優先順位はない（正しくは「ファイルシステムのルート側から作業ディレクトリ側へ順に連結され、作業ディレクトリに近いものが最後に読まれる」）。
@@ -743,7 +743,7 @@
 - **記述**: export PYENV_ROOT="$HOME/.pyenv" export PATH="$PYENV_ROOT/bin:$PATH" eval "$(pyenv init -)"
   - **確定しなかった理由**: https://raw.githubusercontent.com/pyenv/pyenv/master/README.md を全文取得して該当節（Bash は 737-757 行、Zsh は 770-776 行）を確認。現行 README が推奨するのは quote の 3 行で、教材の版とは 2 点ずれる: PATH 行に `[[ -d $PYENV_ROOT/bin ]] &&` のガードが入る点と、init にシェル名を明示する点（bash なら `pyenv init - bash`、zsh なら `pyenv init - zsh`）。ただし教材の `pyenv init -` が
 
-### `claude-mux/ide-agent-teams/IdeIntegration.tsx`
+### `claude-code/ide-agent-teams/IdeIntegration.tsx`
 
 - **記述**: システムトレイからの常駐起動
   - **確定しなかった理由**: デスクトップアプリの公式リファレンス https://code.claude.com/docs/en/desktop の全文（96KB）を保存し、`grep -n -i 'tray|menu bar|menubar|resident|hotkey|global shortcut|quick launch|launch at|always running'` を実行。system tray / メニューバー常駐に相当する記述はヒットしなかった。「menu bar」の唯一のヒットは版数確認手順の「**macOS**: click **Claude** in the menu bar, then *

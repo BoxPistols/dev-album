@@ -132,7 +132,7 @@ test.describe('ナビゲーション', () => {
   test('マニュアル並び順: Git → React → Claude Code → Three.js', async ({ page }) => {
     await page.goto('/');
     // サイドバーまたは LP のマニュアルカード順を確認
-    const cards = page.locator('[href="/git"], [href="/react"], [href="/claude-mux"], [href="/threejs"]');
+    const cards = page.locator('[href="/git"], [href="/react"], [href="/claude-code"], [href="/threejs"]');
     const count = await cards.count();
     expect(count).toBeGreaterThanOrEqual(4);
   });
@@ -211,5 +211,40 @@ test.describe('プレビューエラー検出', () => {
     const srcDoc = await iframes.first().getAttribute('srcdoc');
     expect(srcDoc).toBeTruthy();
     expect(srcDoc).toContain('React.createElement');
+  });
+});
+
+// ============================================================
+// 旧 URL の互換
+//
+// マニュアル ID を claude-mux から claude-code に変えた。mux は tmux 由来の名残で、
+// tmux の章を外した時点で意味を失っていた（同じマニュアルで扱う cmux とも無関係）。
+// 公開済みの URL なので転送は恒久的に残す。消えたら外部リンクが全部死ぬ。
+// ============================================================
+
+test.describe('旧 URL からの転送', () => {
+  const CASES: [string, string][] = [
+    ['/claude-mux', '/claude-code'],
+    ['/claude-mux/claude-core/project-rules', '/claude-code/claude-core/project-rules'],
+    ['/claude-mux/multi-ai/file-map', '/claude-code/multi-ai/file-map'],
+    ['/claude-mux/cmux/cmux-intro', '/claude-code/cmux/cmux-intro'],
+    // 削除済みの tmux 系は入口へ戻す（同名ページが claude-code 側に無いため）
+    ['/claude-mux/tmux-intro/panes', '/claude-code'],
+    ['/claude-mux/reference/session-management', '/claude-code'],
+  ];
+
+  for (const [from, to] of CASES) {
+    test(`${from} → ${to}`, async ({ page }) => {
+      await page.goto(from);
+      await expect(page.locator('h1').first()).toBeVisible({ timeout: 15_000 });
+      expect(new URL(page.url()).pathname).toBe(to);
+      // 転送先が 404 では意味がない
+      await expect(page.locator('h1').first()).not.toHaveText(/^404/);
+    });
+  }
+
+  test('存在しないパスは 404 のまま（転送が何でも飲み込まない）', async ({ page }) => {
+    await page.goto('/claude-code/no-such-section/no-such-page');
+    await expect(page.locator('h1').first()).toHaveText(/^404/, { timeout: 15_000 });
   });
 });

@@ -195,7 +195,7 @@ export default function Navigation() {
     storybook: '第3部: Storybook',
     architecture: '第4部: アーキテクチャ',
     quality: '第5部: 品質と倫理',
-    // Claude-mux
+    // Claude Code
     basic: '基礎編',
     advanced: '発展編',
   };

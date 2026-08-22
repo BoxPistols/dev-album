@@ -40,7 +40,7 @@ export default function DesignMd() {
               を実際に動かした結果に基づく。仕様の記述と実装の挙動が食い違う箇所は、
               そのことを明示する。
             </p>
-            <PageSources path="/claude-mux/multi-ai/design-md" />
+            <PageSources path="/claude-code/multi-ai/design-md" />
           </section>
 
           {/* ── 何のファイルか ── */}

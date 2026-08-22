@@ -30,7 +30,7 @@ const FILES: {
     reader: "Claude Code",
     when: "毎セッションの開始時",
     scope: "プロジェクト（チーム共有）",
-    href: "/claude-mux/claude-core/project-rules",
+    href: "/claude-code/claude-core/project-rules",
   },
   {
     file: "CLAUDE.local.md",
@@ -38,7 +38,7 @@ const FILES: {
     reader: "Claude Code",
     when: "毎セッションの開始時（CLAUDE.md の後）",
     scope: "自分だけ（gitignore する）",
-    href: "/claude-mux/claude-core/project-rules",
+    href: "/claude-code/claude-core/project-rules",
   },
   {
     file: "~/.claude/CLAUDE.md",
@@ -46,7 +46,7 @@ const FILES: {
     reader: "Claude Code",
     when: "毎セッションの開始時（プロジェクトより先）",
     scope: "自分の全プロジェクト",
-    href: "/claude-mux/claude-core/project-rules",
+    href: "/claude-code/claude-core/project-rules",
   },
   {
     file: ".claude/rules/*.md",
@@ -54,7 +54,7 @@ const FILES: {
     reader: "Claude Code",
     when: "paths なし → 開始時 / paths あり → 一致するファイルを読んだとき",
     scope: "トピック別・パス別",
-    href: "/claude-mux/claude-core/project-rules",
+    href: "/claude-code/claude-core/project-rules",
   },
   {
     file: ".claude/skills/*/SKILL.md",
@@ -62,7 +62,7 @@ const FILES: {
     reader: "Claude Code",
     when: "呼び出したとき、または関連があると判断されたとき",
     scope: "手順そのもの",
-    href: "/claude-mux/agent-extensions/skills-deep-dive",
+    href: "/claude-code/agent-extensions/skills-deep-dive",
   },
   {
     file: ".claude/settings.json",
@@ -70,7 +70,7 @@ const FILES: {
     reader: "Claude Code（クライアント）",
     when: "常時。指示ではなく設定として効く",
     scope: "権限・フック・環境変数",
-    href: "/claude-mux/claude-core/security-permissions",
+    href: "/claude-code/claude-core/security-permissions",
   },
   {
     file: "AGENTS.md",
@@ -78,7 +78,7 @@ const FILES: {
     reader: "他のコーディングエージェント（Claude Code は読まない）",
     when: "CLAUDE.md から @import するか symlink したときだけ",
     scope: "ツール非依存の共通規約",
-    href: "/claude-mux/multi-ai/agent-docs",
+    href: "/claude-code/multi-ai/agent-docs",
   },
   {
     file: "ARCHITECTURE.md",
@@ -86,7 +86,7 @@ const FILES: {
     reader: "人間 + 参照させたときの AI",
     when: "自動では載らない。読ませたいときに指示する",
     scope: "設計判断と制約",
-    href: "/claude-mux/multi-ai/agent-docs",
+    href: "/claude-code/multi-ai/agent-docs",
   },
   {
     file: "DESIGN.md",
@@ -94,7 +94,7 @@ const FILES: {
     reader: "人間 + 参照させたときの AI",
     when: "自動では載らない。読ませたいときに指示する",
     scope: "デザイン仕様",
-    href: "/claude-mux/multi-ai/design-md",
+    href: "/claude-code/multi-ai/design-md",
   },
   {
     file: "MEMORY.md（自動メモリ）",
@@ -262,7 +262,7 @@ export default function FileMap() {
                 指示は文脈として渡るだけで、必ず守られる保証はありません。
                 <strong>確実に止めたい・必ず走らせたい</strong>ものは、
                 <Link
-                  href="/claude-mux/hooks-advanced/hooks-guide"
+                  href="/claude-code/hooks-advanced/hooks-guide"
                   className="text-[var(--claude-primary)] underline underline-offset-2 mx-1"
                 >
                   Hooks

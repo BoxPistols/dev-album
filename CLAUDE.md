@@ -57,7 +57,7 @@ client/src/
 └── pages/
     ├── git/        Git マニュアル
     ├── react/      React マニュアル
-    ├── claude-mux/ Claude Code マニュアル
+    ├── claude-code/ Claude Code マニュアル
     ├── threejs/    Three.js マニュアル
     ├── ai-ml/      AI・ML マニュアル
     ├── ux-design/  UX デザインマニュアル
@@ -123,7 +123,7 @@ client/src/
 |---|---|---|---|
 | git | #BE123C | #FB7185 | #FC9EAB |
 | react | #4F46E5 | #A5B4FC | #A5B4FC |
-| claude-mux | #6D28D9 | #C4B5FD | #C4B5FD |
+| claude-code | #6D28D9 | #C4B5FD | #C4B5FD |
 | threejs | #0E6F68 | #2DD4BF | #2DD4BF |
 | ai-ml | #A14A08 | #F59E0B | #F6A721 |
 | ux-design | #BE185D | #F9A8D4 | #F9A8D4 |

@@ -37,7 +37,7 @@ function readTokens(selector: string): Record<string, string> {
 const MANUALS = [
   "git",
   "react",
-  "claude-mux",
+  "claude-code",
   "threejs",
   "ai-ml",
   "ux-design",

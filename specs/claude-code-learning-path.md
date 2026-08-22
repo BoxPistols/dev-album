@@ -1,8 +1,8 @@
-# specs/claude-mux-learning-path.md — Claude Code マニュアルの学習パス再編
+# specs/claude-code-learning-path.md — Claude Code マニュアルの学習パス再編
 
 ## 概要
 
-Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 → 日常ワークフロー → カスタマイズ → 自動化 → 検証」の段階的な学習パスに再編する。構成の設計判断は公式ラーニングパス（Claude Academy: https://academy.claude.com/ja/courses/claude-code-101 ほか）のカリキュラムを参考にし、**本文の根拠はすべて公式ドキュメント（https://code.claude.com/docs/）と実機検証で取る**。Academy の本文は転載しない（ライセンス上、再利用には個別交渉が必要。参照は各ページ末尾のフルパス URL リンクのみ）。
+Claude Code マニュアル（claude-code、現行 41 ページ）を「基礎 → 日常ワークフロー → カスタマイズ → 自動化 → 検証」の段階的な学習パスに再編する。構成の設計判断は公式ラーニングパス（Claude Academy: https://academy.claude.com/ja/courses/claude-code-101 ほか）のカリキュラムを参考にし、**本文の根拠はすべて公式ドキュメント（https://code.claude.com/docs/）と実機検証で取る**。Academy の本文は転載しない（ライセンス上、再利用には個別交渉が必要。参照は各ページ末尾のフルパス URL リンクのみ）。
 
 3 段階すべて 2026-08-22 に完了。
 
@@ -28,8 +28,8 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 
 ## 入力
 
-- 既存ページ: `client/src/pages/claude-mux/`（13 ディレクトリ・41 ページ）
-- ナビゲーション正本: `client/src/lib/navigation.ts`（claude-mux セクション）
+- 既存ページ: `client/src/pages/claude-code/`（13 ディレクトリ・41 ページ）
+- ナビゲーション正本: `client/src/lib/navigation.ts`（claude-code セクション）
 - 参考カリキュラム: Claude Academy「Claude Code 101」「実践Claude Code」「エージェントスキル入門」「サブエージェントの概要」（構成のみ参照）
 - 事実の一次情報: https://code.claude.com/docs/ の各リファレンス + 実機 `claude` CLI
 
@@ -66,7 +66,7 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 
 ### 段階 3: 順序再編（実施済み）
 
-公式の進行に合わせ、claude-mux の basic パートを並び替えた。**判断の根拠**: 公式の 2 情報源（`features-overview` の並び「CLAUDE.md → Skills → MCP → Subagents → Hooks」と、Claude Code 101 のカスタマイズ章「CLAUDE.md → サブエージェント → Skills → MCP → Hooks」）は Subagents の位置で食い違うが、**Skills が MCP より前**・**Hooks が最後**の 2 点では一致する。旧構成は MCP が Skills / Subagents より前にあり両方に反していたため、`mcp` セクションを `agent-extensions` の後ろへ移した。
+公式の進行に合わせ、claude-code の basic パートを並び替えた。**判断の根拠**: 公式の 2 情報源（`features-overview` の並び「CLAUDE.md → Skills → MCP → Subagents → Hooks」と、Claude Code 101 のカスタマイズ章「CLAUDE.md → サブエージェント → Skills → MCP → Hooks」）は Subagents の位置で食い違うが、**Skills が MCP より前**・**Hooks が最後**の 2 点では一致する。旧構成は MCP が Skills / Subagents より前にあり両方に反していたため、`mcp` セクションを `agent-extensions` の後ろへ移した。
 
 再編後の basic パート:
 
@@ -79,7 +79,7 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 
 制約（すべて遵守済み）:
 - 既存 URL は変えない（step 番号と表示順のみ変更）。ページの物理移動はしない
-- `navigation.test.ts` の期待値（総ページ数 337 / claude-mux 45）を同 PR で更新
+- `navigation.test.ts` の期待値（総ページ数 337 / claude-code 45）を同 PR で更新
 - 並び替えと新規追加はコミットを分ける（レビュー可能な粒度）
 
 ## エッジケース
@@ -91,5 +91,5 @@ Claude Code マニュアル（claude-mux、現行 41 ページ）を「基礎 �
 
 ## 出力
 
-- 正常系: 45 ページ（41 + 新規 4）の claude-mux マニュアル。basic パートが公式ラーニングパス準拠の順序になり、各ページが VerifiedBox と公式リンクを持つ
+- 正常系: 45 ページ（41 + 新規 4）の claude-code マニュアル。basic パートが公式ラーニングパス準拠の順序になり、各ページが VerifiedBox と公式リンクを持つ
 - テスト: `navigation.test.ts`（ページ数・step 連番）、`link-integrity.test.ts`（announcements リンク）、`editor-validation.test.ts`（チャレンジのトランスパイル）がすべて緑

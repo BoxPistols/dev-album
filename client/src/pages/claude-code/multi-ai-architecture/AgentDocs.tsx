@@ -36,7 +36,7 @@ export default function AgentDocs() {
               このページの挙動に関する記述は、以下の一次情報に基づく。
               記載のない挙動については「公式に記述がない」と明示する。
             </p>
-            <PageSources path="/claude-mux/multi-ai/agent-docs" />
+            <PageSources path="/claude-code/multi-ai/agent-docs" />
           </section>
 
           {/* ── 概要 ── */}

@@ -22,7 +22,7 @@ threejs-manual:
 
 claude-manual:
   - changed-files:
-      - any-glob-to-any-file: 'client/src/pages/claude-mux/**'
+      - any-glob-to-any-file: 'client/src/pages/claude-code/**'
 
 design-system:
   - changed-files:

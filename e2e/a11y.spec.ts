@@ -21,17 +21,17 @@ const PAGES = [
   // マニュアルごとに別の色値になる。1 マニュアルでも検査を欠くとその色だけコントラスト
   // 未達を見逃すため、上書きを持つマニュアルすべてから代表 1 ページを取る。
   { path: "/git/environment/prerequisites", name: "Git（ブランド色）" },
-  { path: "/claude-mux/getting-started/why-claude-code", name: "Claude Code（ブランド色）" },
+  { path: "/claude-code/getting-started/why-claude-code", name: "Claude Code（ブランド色）" },
   // 学習パス再編で追加したページ。表・コードブロック・VerifiedBox・外部リンクを含むので
   // 3 テーマとも個別に当てる（代表ページの抜き取りでは新規ページの退行を捕捉できない）。
-  { path: "/claude-mux/claude-core/explore-plan-code-commit", name: "探索→計画→コード→コミット" },
-  { path: "/claude-mux/claude-core/project-rules", name: "CLAUDE.md と rules（表）" },
-  { path: "/claude-mux/claude-core/permission-modes", name: "パーミッションモード（表）" },
-  { path: "/claude-mux/agent-extensions/skills-deep-dive", name: "Skills 深掘り（表）" },
-  { path: "/claude-mux/best-practices/verification-and-trust", name: "検証スキル" },
-  { path: "/claude-mux/best-practices/browser-verification", name: "ブラウザと画面での検証" },
+  { path: "/claude-code/claude-core/explore-plan-code-commit", name: "探索→計画→コード→コミット" },
+  { path: "/claude-code/claude-core/project-rules", name: "CLAUDE.md と rules（表）" },
+  { path: "/claude-code/claude-core/permission-modes", name: "パーミッションモード（表）" },
+  { path: "/claude-code/agent-extensions/skills-deep-dive", name: "Skills 深掘り（表）" },
+  { path: "/claude-code/best-practices/verification-and-trust", name: "検証スキル" },
+  { path: "/claude-code/best-practices/browser-verification", name: "ブラウザと画面での検証" },
   // 章立ての組み替えで追加した比較ページ。表が 2 つ、内部リンクと外部リンクを含む。
-  { path: "/claude-mux/multi-ai/file-map", name: "AI 向けファイル早見表（表）" },
+  { path: "/claude-code/multi-ai/file-map", name: "AI 向けファイル早見表（表）" },
   { path: "/threejs/basics/scene", name: "Three.js（ブランド色）" },
   { path: "/ai-ml/ai-overview/landscape", name: "AI・ML（ブランド色）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
@@ -102,7 +102,7 @@ for (const theme of THEMES) {
     page,
   }) => {
     test.setTimeout(60_000);
-    await page.goto("/claude-mux/getting-started/why-claude-code", {
+    await page.goto("/claude-code/getting-started/why-claude-code", {
       waitUntil: "domcontentloaded",
     });
     await expect(page.locator("h1").first()).toBeVisible({ timeout: 15_000 });

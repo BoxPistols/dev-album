@@ -222,7 +222,7 @@
   --ring: #A5B4FC;
   --sidebar-ring: #A5B4FC;
 }
-[data-manual="claude-mux"] {
+[data-manual="claude-code"] {
   --primary: #6D28D9;
   --primary-foreground: #F9FAFB;
   --sidebar-primary: #6D28D9;
@@ -232,7 +232,7 @@
   --ring: #6D28D9;
   --sidebar-ring: #6D28D9;
 }
-.dark[data-manual="claude-mux"] {
+.dark[data-manual="claude-code"] {
   --primary: #C4B5FD;
   --primary-foreground: #0C1425;
   --sidebar-primary: #C4B5FD;
@@ -242,7 +242,7 @@
   --ring: #C4B5FD;
   --sidebar-ring: #C4B5FD;
 }
-.dark-soft[data-manual="claude-mux"] {
+.dark-soft[data-manual="claude-code"] {
   --primary: #C4B5FD;
   --primary-foreground: #282A36;
   --sidebar-primary: #C4B5FD;
