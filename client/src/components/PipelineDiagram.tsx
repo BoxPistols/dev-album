@@ -51,7 +51,7 @@ export default function PipelineDiagram({
                     {stage.label}
                   </span>
                   {stage.detail && (
-                    <span className="text-[11px] text-muted-foreground mt-0.5 font-mono">
+                    <span className="text-xs text-muted-foreground mt-0.5 font-mono">
                       {stage.detail}
                     </span>
                   )}

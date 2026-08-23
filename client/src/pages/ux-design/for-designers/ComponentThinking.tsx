@@ -69,7 +69,7 @@ export default function ComponentThinking() {
                           {page}画面
                         </span>
                         <span
-                          className="px-2 py-0.5 rounded bg-primary/80 text-[11px]"
+                          className="px-2 py-0.5 rounded bg-primary/80 text-xs"
                           style={{ color: "var(--background)" }}
                         >
                           個別に修正
@@ -92,7 +92,7 @@ export default function ComponentThinking() {
                     大元のボタン（Main Component）
                   </span>
                   <span
-                    className="px-2 py-0.5 rounded bg-primary text-[11px]"
+                    className="px-2 py-0.5 rounded bg-primary text-xs"
                     style={{ color: "var(--background)" }}
                   >
                     ここだけ修正
@@ -300,7 +300,7 @@ export default function ComponentThinking() {
                     大きさ（size）
                   </p>
                   <div className="space-y-2">
-                    <span className="block w-fit px-2 py-0.5 rounded-md bg-primary/15 border border-primary/30 text-[11px] text-foreground">
+                    <span className="block w-fit px-2 py-0.5 rounded-md bg-primary/15 border border-primary/30 text-xs text-foreground">
                       Small
                     </span>
                     <span className="block w-fit px-3 py-1 rounded-md bg-primary/15 border border-primary/30 text-xs text-foreground">
@@ -351,7 +351,7 @@ export default function ComponentThinking() {
                 ].map((name) => (
                   <span
                     key={name}
-                    className="px-2 py-1 rounded bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-[11px] text-foreground/80"
+                    className="px-2 py-1 rounded bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-xs text-foreground/80"
                   >
                     {name}
                   </span>

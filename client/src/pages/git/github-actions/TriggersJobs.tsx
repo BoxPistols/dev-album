@@ -239,14 +239,14 @@ export default function TriggersJobs() {
                         <p className="text-xs font-bold text-foreground">
                           test
                         </p>
-                        <p className="font-mono text-[11px] text-muted-foreground">
+                        <p className="font-mono text-xs text-muted-foreground">
                           node {v}
                         </p>
                       </div>
                     ))}
                   </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-3 text-center">
+                <p className="text-xs text-muted-foreground mt-3 text-center">
                   3 つは<strong>同時（並列）</strong>に走り、それぞれ独立に成否が出ます
                 </p>
               </div>

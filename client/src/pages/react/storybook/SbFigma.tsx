@@ -1022,7 +1022,7 @@ jobs:
               <div style={{ display: 'flex', alignItems: 'center', padding: '0 6px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
                   <svg width="28" height="20" viewBox="0 0 28 20"><path d="M2 10h20m0 0l-6-6m6 6l-6 6" stroke="#94a3b8" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  <span style={{ fontSize: '8px', color: 'var(--text-muted)', fontWeight: 600 }}>{i === 0 ? 'Transform' : 'Verify'}</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600 }}>{i === 0 ? 'Transform' : 'Verify'}</span>
                 </div>
               </div>
             )}

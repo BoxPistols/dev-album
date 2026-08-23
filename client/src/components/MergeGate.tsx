@@ -59,7 +59,7 @@ export default function MergeGate({ conditions, caption }: MergeGateProps) {
               </span>
               <span className="text-sm text-foreground">{c.label}</span>
               <span
-                className={`ml-auto text-[11px] font-bold ${
+                className={`ml-auto text-xs font-bold ${
                   c.met
                     ? "text-emerald-700 dark:text-emerald-400"
                     : "text-red-700 dark:text-red-400"
