@@ -426,7 +426,7 @@ SESSION_SECRET=change_me_to_a_long_random_value
               links={[
                 {
                   title: "MDN - Set-Cookie",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Set-Cookie",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Set-Cookie",
                   description:
                     "HttpOnly / Secure / SameSite など Cookie 属性の正確な定義",
                 },

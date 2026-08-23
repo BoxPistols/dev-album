@@ -590,12 +590,12 @@ export function EmotionExample() {
               links={[
                 {
                   title: 'CSS Modules - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/styling/css-modules',
+                  url: 'https://nextjs.org/docs/app/getting-started/css',
                   description: 'Next.js での CSS Modules の使い方',
                 },
                 {
                   title: 'CSS-in-JS - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/styling/css-in-js',
+                  url: 'https://nextjs.org/docs/app/guides/css-in-js',
                   description: 'styled-components 等の設定方法',
                 },
               ]}

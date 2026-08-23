@@ -377,7 +377,7 @@ export function AddToCartButton({ productId }: { productId: string }) {
               links={[
                 {
                   title: 'Server Components - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/rendering/server-components',
+                  url: 'https://nextjs.org/docs/app/getting-started/server-and-client-components',
                   description: 'Server Components のレンダリングとデータ取得',
                 },
                 {

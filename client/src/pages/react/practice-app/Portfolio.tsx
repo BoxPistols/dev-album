@@ -1511,7 +1511,7 @@ npx netlify deploy --prod --dir dist`}
                 },
                 {
                   title: 'Tailwind CSS 公式ドキュメント',
-                  url: 'https://tailwindcss.com/docs',
+                  url: 'https://tailwindcss.com/docs/installation/using-vite',
                   description: 'Tailwind CSS のユーティリティクラスリファレンス',
                 },
               ]}

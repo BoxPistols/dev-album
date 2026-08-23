@@ -403,7 +403,7 @@ GET    /users        # ユーザー一覧`}
                 },
                 {
                   title: "MDN - HTTP リクエストメソッド",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Methods",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Methods",
                   description:
                     "GET / POST / PUT / DELETE などメソッドの意味とべき等性の解説",
                 },

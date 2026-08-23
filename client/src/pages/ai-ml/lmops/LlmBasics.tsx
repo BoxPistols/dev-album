@@ -595,17 +595,17 @@ print(message.content[0].text)`}
               links={[
                 {
                   title: 'Anthropic API Documentation',
-                  url: 'https://docs.anthropic.com/en/docs/welcome',
+                  url: 'https://platform.claude.com/docs/en/intro',
                   description: 'Claude API の公式ドキュメント。認証、エンドポイント、パラメータの詳細。',
                 },
                 {
                   title: 'Anthropic Prompt Engineering Guide',
-                  url: 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview',
+                  url: 'https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview',
                   description: 'Anthropic 公式のプロンプトエンジニアリングガイド。',
                 },
                 {
                   title: 'LangChain Documentation',
-                  url: 'https://python.langchain.com/docs/introduction/',
+                  url: 'https://docs.langchain.com/oss/python/langchain/overview',
                   description: 'LLM アプリケーション開発フレームワーク。RAG パイプラインの構築に活用。',
                 },
                 {

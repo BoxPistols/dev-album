@@ -536,13 +536,13 @@ components:
                 },
                 {
                   title: "Swagger - Paths and Operations",
-                  url: "https://swagger.io/docs/specification/paths-and-operations/",
+                  url: "https://swagger.io/docs/specification/v3_0/paths-and-operations/",
                   description:
                     "paths・operations・parameters の書き方を例付きでまとめた解説",
                 },
                 {
                   title: "Swagger - Describing Parameters",
-                  url: "https://swagger.io/docs/specification/describing-parameters/",
+                  url: "https://swagger.io/docs/specification/v3_0/describing-parameters/",
                   description:
                     "parameters の in（path / query / header / cookie）と schema の詳細",
                 },

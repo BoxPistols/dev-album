@@ -470,7 +470,7 @@ definePageMeta({
               links={[
                 {
                   title: "Nuxt 公式 - Routing",
-                  url: "https://nuxt.com/docs/getting-started/routing",
+                  url: "https://nuxt.com/docs/4.x/getting-started/routing",
                   description:
                     "ファイルベースルーティング・動的ルート・NuxtPage の公式解説",
                 },

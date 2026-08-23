@@ -386,7 +386,7 @@ neonctl branches delete preview/pr-123`}
               links={[
                 {
                   title: "Neon - Serverless driver",
-                  url: "https://neon.tech/docs/serverless/serverless-driver",
+                  url: "https://neon.com/docs/serverless/serverless-driver",
                   description:
                     "HTTP/WebSocket でクエリを送るドライバの公式ガイド",
                 },

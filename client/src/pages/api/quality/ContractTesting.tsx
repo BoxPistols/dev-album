@@ -416,7 +416,7 @@ jobs:
                 },
                 {
                   title: "Schemathesis ドキュメント",
-                  url: "https://schemathesis.readthedocs.io/",
+                  url: "https://schemathesis.readthedocs.io/en/stable/",
                   description:
                     "OpenAPI を読み込み、実レスポンスをスキーマに照合するスキーマベース検証ツールの公式ドキュメント",
                 },

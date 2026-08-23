@@ -429,7 +429,7 @@ aws s3 sync ./dist s3://my-site-bucket`}
                 },
                 {
                   title: "Amazon EBS と Amazon EFS の概要",
-                  url: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html",
+                  url: "https://docs.aws.amazon.com/ebs/latest/userguide/what-is-ebs.html",
                   description:
                     "ブロックストレージ EBS の公式ドキュメント。EFS との使い分けの起点になる",
                 },

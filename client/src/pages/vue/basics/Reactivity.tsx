@@ -428,25 +428,25 @@ function increment() {
               links={[
                 {
                   title: "Vue 公式 - リアクティビティの基礎",
-                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals.html",
+                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals",
                   description:
                     "ref / reactive の基本と使い分けの公式ガイド（日本語）",
                 },
                 {
                   title: "Vue 公式 - リアクティビティの詳細",
-                  url: "https://ja.vuejs.org/guide/extras/reactivity-in-depth.html",
+                  url: "https://ja.vuejs.org/guide/extras/reactivity-in-depth",
                   description:
                     "Proxy による変更検知の仕組みを掘り下げた解説（日本語）",
                 },
                 {
                   title: "Vue 公式 API - reactivity: core",
-                  url: "https://ja.vuejs.org/api/reactivity-core.html",
+                  url: "https://ja.vuejs.org/api/reactivity-core",
                   description:
                     "ref / reactive / toRefs / toRef のシグネチャ一覧（日本語）",
                 },
                 {
                   title: "Vue 公式 - Reactive Props Destructure（3.5）",
-                  url: "https://ja.vuejs.org/guide/components/props.html#reactive-props-destructure",
+                  url: "https://ja.vuejs.org/guide/components/props",
                   description:
                     "props 分割代入でリアクティビティを維持する 3.5 の機能（日本語）",
                 },

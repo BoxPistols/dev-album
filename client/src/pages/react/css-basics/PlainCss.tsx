@@ -1347,7 +1347,7 @@ export default ProfileCard;`}
               links={[
                 {
                   title: 'Vite 公式 - CSS Modules',
-                  url: 'https://vite.dev/guide/features#css-modules',
+                  url: 'https://vite.dev/guide/features',
                   description: 'Vite における CSS Modules のサポートと設定オプションの公式ドキュメント',
                 },
                 {

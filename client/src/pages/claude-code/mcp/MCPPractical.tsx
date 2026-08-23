@@ -85,7 +85,7 @@ $ claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp
 # 使い方: プロンプトに "use context7" を含めるだけ
 > Next.js 15のApp Routerでページを作って (use context7)`} language="bash" />
               <InfoBox type="info" title="APIキー">
-                APIキーなしでも動作しますが、レート制限が厳しいため <a href="https://context7.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline">context7.com/dashboard</a> での無料取得を推奨します。
+                APIキーなしでも動作しますが、レート制限が厳しいため <a href="https://context7.com/sign-in?redirect_url=https%3A%2F%2Fcontext7.com%2Fdashboard" target="_blank" rel="noopener noreferrer" className="underline">context7.com/dashboard</a> での無料取得を推奨します。
               </InfoBox>
             </div>
           </section>

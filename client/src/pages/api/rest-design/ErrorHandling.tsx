@@ -542,7 +542,7 @@ content-type: application/problem+json
                 },
                 {
                   title: "MDN - HTTP レスポンスステータスコード",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status",
                   description:
                     "4xx / 5xx を含む各ステータスコードの意味。422 や 400 の使い分けの根拠になる",
                 },
@@ -554,7 +554,7 @@ content-type: application/problem+json
                 },
                 {
                   title: "MDN - 422 Unprocessable Content",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status/422",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status/422",
                   description:
                     "バリデーションエラーで使われる 422 の定義。400 との違いを確認できる",
                 },

@@ -452,24 +452,24 @@ const label = computed<string>(() =>
               links={[
                 {
                   title: "Vue 公式 - <script setup>",
-                  url: "https://ja.vuejs.org/api/sfc-script-setup.html",
+                  url: "https://ja.vuejs.org/api/sfc-script-setup",
                   description:
                     "script setup の構文・コンパイラマクロの公式リファレンス（日本語）",
                 },
                 {
                   title: "Vue 公式 - TypeScript で Composition API を使う",
-                  url: "https://ja.vuejs.org/guide/typescript/composition-api.html",
+                  url: "https://ja.vuejs.org/guide/typescript/composition-api",
                   description:
                     "props / emit / ref の型付けに関する公式ガイド（日本語）",
                 },
                 {
                   title: "Vue 公式 - Options API と Composition API",
-                  url: "https://ja.vuejs.org/guide/introduction.html#api-styles",
+                  url: "https://ja.vuejs.org/guide/introduction",
                   description: "2 つの API スタイルの比較（日本語）",
                 },
                 {
                   title: "Vue 公式 - リアクティビティの基礎（ref）",
-                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals.html",
+                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals",
                   description: "ref と .value の挙動の解説（日本語）",
                 },
               ]}

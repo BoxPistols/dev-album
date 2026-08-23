@@ -363,7 +363,7 @@ suggestion (non-blocking): この命名は好みなので、対応は任意で�
                 {
                   title:
                     "GitHub Docs - Reviewing proposed changes in a pull request",
-                  url: "https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request",
+                  url: "https://docs.github.com/ja/pull-requests/how-tos/review-pull-requests/reviewing-proposed-changes-in-a-pull-request",
                   description:
                     "GitHub 上でレビューコメントを残す具体的な操作と非同期レビューの流れ",
                 },

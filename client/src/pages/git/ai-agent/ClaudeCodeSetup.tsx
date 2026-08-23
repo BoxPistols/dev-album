@@ -88,7 +88,7 @@ export default function ClaudeCodeSetup() {
                 <p className="text-muted-foreground">
                   ブラウザで{' '}
                   <a
-                    href="https://console.anthropic.com/"
+                    href="https://platform.claude.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary underline underline-offset-2 font-medium"
@@ -190,7 +190,7 @@ node --version
 
           <CodeBlock
             code={`# ネイティブインストーラ（公式推奨）
-curl -fsSL https://claude.ai/install.sh | bash`}
+curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash`}
             language="bash"
             title="bash"
           />

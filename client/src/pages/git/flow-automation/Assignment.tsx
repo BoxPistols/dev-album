@@ -218,7 +218,7 @@ ___                @org/maintainers
                 },
                 {
                   title: "About assignees",
-                  url: "https://docs.github.com/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users",
+                  url: "https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/assigning-issues-and-pull-requests-to-other-github-users",
                   description: "Issue / PR の担当者アサインの基本",
                 },
               ]}

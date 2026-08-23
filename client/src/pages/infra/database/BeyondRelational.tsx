@@ -375,7 +375,7 @@ async function uploadAvatar(userId: number, file: Uint8Array) {
                 },
                 {
                   title: "Upstash Documentation",
-                  url: "https://upstash.com/docs",
+                  url: "https://upstash.com/docs/introduction",
                   description:
                     "HTTP/REST でアクセスするサーバーレス Redis のガイド",
                 },

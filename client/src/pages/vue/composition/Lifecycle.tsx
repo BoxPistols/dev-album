@@ -455,13 +455,13 @@ onUnmounted(() => {
               links={[
                 {
                   title: "Vue 公式 - ライフサイクルフック",
-                  url: "https://ja.vuejs.org/guide/essentials/lifecycle.html",
+                  url: "https://ja.vuejs.org/guide/essentials/lifecycle",
                   description:
                     "マウント・更新・破棄の各フックと呼ばれる順序の解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - Composition API: ライフサイクルフック API",
-                  url: "https://ja.vuejs.org/api/composition-api-lifecycle.html",
+                  url: "https://ja.vuejs.org/api/composition-api-lifecycle",
                   description:
                     "onMounted / onUnmounted など各関数の API リファレンス（日本語）",
                 },
@@ -473,7 +473,7 @@ onUnmounted(() => {
                 },
                 {
                   title: "Vue 公式 - watch とライフサイクル",
-                  url: "https://ja.vuejs.org/guide/essentials/watchers.html",
+                  url: "https://ja.vuejs.org/guide/essentials/watchers",
                   description:
                     "値の変化に応じた処理（watch / watchEffect）との使い分け（日本語）",
                 },

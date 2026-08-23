@@ -422,25 +422,25 @@ Accept: application/json`}
               links={[
                 {
                   title: "RFC 3339 - Date and Time on the Internet",
-                  url: "https://www.rfc-editor.org/rfc/rfc3339",
+                  url: "https://www.rfc-editor.org/info/rfc3339/",
                   description:
                     "インターネットで日時を表す標準。ISO 8601 のうち実用的なサブセットを規定している",
                 },
                 {
                   title: "MDN - Content-Type ヘッダー",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Type",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Type",
                   description:
                     "リクエスト / レスポンスのボディ形式を伝えるヘッダーの仕様",
                 },
                 {
                   title: "MDN - Content negotiation",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Content_negotiation",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Content_negotiation",
                   description:
                     "Accept ヘッダーによる内容交渉の仕組み。形式の切り替えを学べる",
                 },
                 {
                   title: "MDN - JSON",
-                  url: "https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/JSON",
+                  url: "https://developer.mozilla.org/ja/docs/Learn_web_development/Core/Scripting/JSON",
                   description:
                     "Web API のボディで最も使われる JSON の基礎と扱い方",
                 },

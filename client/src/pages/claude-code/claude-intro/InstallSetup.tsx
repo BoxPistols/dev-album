@@ -37,7 +37,7 @@ export default function InstallSetup() {
               ネイティブインストーラ（推奨・自動更新あり）または npm で導入できます。npm の場合は Node.js 22 以上が推奨です（インストールされる実体はネイティブバイナリ）。
             </p>
             <CodeBlock code={`# ネイティブインストール（推奨: macOS / Linux / WSL）
-$ curl -fsSL https://claude.ai/install.sh | bash
+$ curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash
 
 # npm でグローバルインストール
 $ npm install -g @anthropic-ai/claude-code

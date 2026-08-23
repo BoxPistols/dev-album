@@ -722,12 +722,12 @@ export default App`}
                 },
                 {
                   title: 'Vite 公式ドキュメント',
-                  url: 'https://vitejs.dev/guide/',
+                  url: 'https://vite.dev/guide/',
                   description: 'Vite の機能や設定について詳しく知りたい場合',
                 },
                 {
                   title: 'MDN: DOM の紹介',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/API/Document_Object_Model/Introduction',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/API/Document_Object_Model',
                   description: 'DOM とは何かを基礎から理解したい場合',
                 },
               ]}

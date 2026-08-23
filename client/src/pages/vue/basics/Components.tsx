@@ -461,24 +461,24 @@ import Card from './components/Card.vue'
               links={[
                 {
                   title: "Vue 公式 - コンポーネントの基礎",
-                  url: "https://ja.vuejs.org/guide/essentials/component-basics.html",
+                  url: "https://ja.vuejs.org/guide/essentials/component-basics",
                   description:
                     "コンポーネントの定義・利用・props の基本（日本語）",
                 },
                 {
                   title: "Vue 公式 - スロット",
-                  url: "https://ja.vuejs.org/guide/components/slots.html",
+                  url: "https://ja.vuejs.org/guide/components/slots",
                   description:
                     "デフォルトスロット・名前付きスロット・スコープ付きスロットの解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - 単一ファイルコンポーネント",
-                  url: "https://ja.vuejs.org/guide/scaling-up/sfc.html",
+                  url: "https://ja.vuejs.org/guide/scaling-up/sfc",
                   description: "SFC の構造と 3 ブロックの仕組み（日本語）",
                 },
                 {
                   title: "Vue 公式 - script setup",
-                  url: "https://ja.vuejs.org/api/sfc-script-setup.html",
+                  url: "https://ja.vuejs.org/api/sfc-script-setup",
                   description:
                     "import するだけで子を使える仕組みやコンパイラマクロの仕様（日本語）",
                 },

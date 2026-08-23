@@ -433,7 +433,7 @@ export default async function BlogPost({ params }: Props) {
               links={[
                 {
                   title: 'ルーティング - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/routing',
+                  url: 'https://nextjs.org/docs/app/getting-started/layouts-and-pages',
                   description: 'App Router のルーティングの仕組み',
                 },
                 {

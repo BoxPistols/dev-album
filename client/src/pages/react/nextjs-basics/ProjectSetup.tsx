@@ -415,7 +415,7 @@ export default function Home() {
                 },
                 {
                   title: 'プロジェクト構成 - Next.js',
-                  url: 'https://nextjs.org/docs/getting-started/project-structure',
+                  url: 'https://nextjs.org/docs/app/getting-started/project-structure',
                   description: 'Next.js プロジェクトのファイル・フォルダ構成',
                 },
               ]}

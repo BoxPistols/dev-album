@@ -319,7 +319,7 @@ export default function Why() {
               links={[
                 {
                   title: "GitHub の自動化とワークフロー",
-                  url: "https://docs.github.com/actions/using-workflows/about-workflows",
+                  url: "https://docs.github.com/actions/concepts/workflows-and-actions/workflows",
                   description: "ワークフローで開発プロセスを自動化する考え方",
                 },
                 {

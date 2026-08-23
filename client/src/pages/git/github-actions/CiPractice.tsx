@@ -309,13 +309,13 @@ jobs:
               links={[
                 {
                   title: "Building and testing Node.js",
-                  url: "https://docs.github.com/actions/automating-builds-and-tests/building-and-testing-nodejs",
+                  url: "https://docs.github.com/actions/tutorials/build-and-test-code/nodejs",
                   description:
                     "Node プロジェクトの CI 構成とキャッシュの公式ガイド",
                 },
                 {
                   title: "Storing workflow data as artifacts",
-                  url: "https://docs.github.com/actions/using-workflows/storing-workflow-data-as-artifacts",
+                  url: "https://docs.github.com/actions/tutorials/store-and-share-data",
                   description: "テストレポートやビルド成果物の保存と保持期間",
                 },
                 {

@@ -468,25 +468,25 @@ watch(id, (newId) => {
               links={[
                 {
                   title: "Vue 公式 - 算出プロパティ（Computed）",
-                  url: "https://ja.vuejs.org/guide/essentials/computed.html",
+                  url: "https://ja.vuejs.org/guide/essentials/computed",
                   description:
                     "computed の基本・キャッシュ・getter / setter の解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - ウォッチャー（Watchers）",
-                  url: "https://ja.vuejs.org/guide/essentials/watchers.html",
+                  url: "https://ja.vuejs.org/guide/essentials/watchers",
                   description:
                     "watch / watchEffect とオプション、onWatcherCleanup の解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - リアクティビティ API: コア",
-                  url: "https://ja.vuejs.org/api/reactivity-core.html",
+                  url: "https://ja.vuejs.org/api/reactivity-core",
                   description:
                     "computed / watch / watchEffect の API リファレンス（日本語）",
                 },
                 {
                   title: "Vue 公式 - リアクティビティの基礎",
-                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals.html",
+                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals",
                   description:
                     "ref / reactive とリアクティビティの仕組み（日本語）",
                 },

@@ -407,7 +407,7 @@ const name = useLocalStorage('user-name', '')
               links={[
                 {
                   title: "Vue 公式 - コンポーザブル",
-                  url: "https://ja.vuejs.org/guide/reusability/composables.html",
+                  url: "https://ja.vuejs.org/guide/reusability/composables",
                   description:
                     "composable の定義・命名規約・mixin との比較（日本語）",
                 },
@@ -419,7 +419,7 @@ const name = useLocalStorage('user-name', '')
                 },
                 {
                   title: "Vue 公式 - リアクティビティの基礎",
-                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals.html",
+                  url: "https://ja.vuejs.org/guide/essentials/reactivity-fundamentals",
                   description:
                     "composable の中で使う ref / reactive の基礎（日本語）",
                 },

@@ -945,7 +945,7 @@ export default nextConfig;
               links={[
                 {
                   title: 'Partial Prerendering - Next.js Docs',
-                  url: 'https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering',
+                  url: 'https://nextjs.org/docs/app/getting-started/caching',
                   description: 'PPR の公式ドキュメント。設定方法と仕組みの詳細',
                 },
                 {
@@ -960,7 +960,7 @@ export default nextConfig;
                 },
                 {
                   title: 'Rendering - Next.js Docs',
-                  url: 'https://nextjs.org/docs/app/building-your-application/rendering',
+                  url: 'https://nextjs.org/docs/app/getting-started/caching',
                   description: 'Next.js のレンダリング方式（SSR, SSG, ISR, PPR）の全体像',
                 },
               ]}

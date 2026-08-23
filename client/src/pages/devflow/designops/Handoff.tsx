@@ -362,7 +362,7 @@ figma.connect(Button, "https://figma.com/file/xxx?node-id=1:23", {
                 },
                 {
                   title: "Figma Code Connect ドキュメント",
-                  url: "https://www.figma.com/code-connect-docs/",
+                  url: "https://developers.figma.com/docs/code-connect/",
                   description: "Figma コンポーネントとコードを紐づける設定方法",
                 },
                 {

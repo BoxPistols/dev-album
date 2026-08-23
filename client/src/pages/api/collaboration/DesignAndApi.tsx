@@ -457,7 +457,7 @@ type Status = keyof typeof STATUS_LABEL;`}
                 },
                 {
                   title: "MDN - HTTP レスポンスステータスコード",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status",
                   description:
                     "成功（2xx）・クライアントエラー（4xx）・サーバエラー（5xx）の区別。空とエラーの表現に",
                 },

@@ -485,13 +485,13 @@ deletedAt:
               links={[
                 {
                   title: "OpenAPI Specification - Components Object",
-                  url: "https://spec.openapis.org/oas/latest.html#components-object",
+                  url: "https://spec.openapis.org/oas/latest.html",
                   description:
                     "components の各スロット（schemas / responses / parameters 等）と $ref の正式定義",
                 },
                 {
                   title: "OpenAPI Specification - Schema Object",
-                  url: "https://spec.openapis.org/oas/latest.html#schema-object",
+                  url: "https://spec.openapis.org/oas/latest.html",
                   description:
                     "type / properties / required / allOf / oneOf / discriminator などスキーマ記述の仕様",
                 },

@@ -420,20 +420,20 @@ const injected = inject(themeKey)
               links={[
                 {
                   title: "Vue 公式 - provide / inject",
-                  url: "https://ja.vuejs.org/guide/components/provide-inject.html",
+                  url: "https://ja.vuejs.org/guide/components/provide-inject",
                   description:
                     "provide / inject の基本・リアクティビティ・InjectionKey の解説（日本語）",
                 },
                 {
                   title:
                     "Vue 公式 - TypeScript で provide / inject を型付けする",
-                  url: "https://ja.vuejs.org/guide/typescript/composition-api.html#typing-provide-inject",
+                  url: "https://ja.vuejs.org/guide/typescript/composition-api",
                   description:
                     "InjectionKey を使った型安全な受け渡しの公式手順",
                 },
                 {
                   title: "Vue 公式 API - provide()",
-                  url: "https://ja.vuejs.org/api/composition-api-dependency-injection.html",
+                  url: "https://ja.vuejs.org/api/composition-api-dependency-injection",
                   description:
                     "provide / inject 関数の API リファレンス（日本語）",
                 },

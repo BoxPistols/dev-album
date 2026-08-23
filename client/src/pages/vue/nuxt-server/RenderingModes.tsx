@@ -368,13 +368,13 @@ npx nuxi preview
                 },
                 {
                   title: "Nuxt 公式 - routeRules",
-                  url: "https://nuxt.com/docs/guide/concepts/rendering#hybrid-rendering",
+                  url: "https://nuxt.com/docs/guide/concepts/rendering",
                   description:
                     "ルート単位で prerender / isr / ssr を指定するハイブリッドレンダリング",
                 },
                 {
                   title: "Nuxt 公式 - nuxi generate",
-                  url: "https://nuxt.com/docs/api/commands/generate",
+                  url: "https://nuxt.com/docs/4.x/api/commands/generate",
                   description: "全ルートをプリレンダーして静的化するコマンド",
                 },
                 {

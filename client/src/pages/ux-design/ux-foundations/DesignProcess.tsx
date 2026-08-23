@@ -455,7 +455,7 @@ export default function DesignProcess() {
             links={[
               {
                 title: 'Design Council - The Double Diamond',
-                url: 'https://www.designcouncil.org.uk/our-resources/the-double-diamond/',
+                url: 'https://www.designcouncil.org.uk/resources/the-double-diamond/',
                 description: 'ダブルダイヤモンドモデルの提唱元による解説',
               },
               {

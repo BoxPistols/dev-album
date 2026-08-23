@@ -561,17 +561,17 @@ print(f"合計トークン: {message.usage.input_tokens + message.usage.output_t
               links={[
                 {
                   title: 'Anthropic API Documentation',
-                  url: 'https://docs.anthropic.com/en/docs/welcome',
+                  url: 'https://platform.claude.com/docs/en/intro',
                   description: 'Claude API の公式ドキュメント。料金体系、モデル仕様の詳細。',
                 },
                 {
                   title: 'LangChain Documentation',
-                  url: 'https://python.langchain.com/docs/introduction/',
+                  url: 'https://docs.langchain.com/oss/python/langchain/overview',
                   description: 'LLM アプリケーション開発フレームワーク。RAG パイプラインの構築ガイド。',
                 },
                 {
                   title: 'Chroma Documentation',
-                  url: 'https://docs.trychroma.com/',
+                  url: 'https://docs.trychroma.com/docs/overview/introduction',
                   description: 'オープンソースのベクトルデータベース。ローカル環境での RAG 開発に。',
                 },
                 {

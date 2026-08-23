@@ -283,17 +283,17 @@ jobs:
               links={[
                 {
                   title: "Using secrets in GitHub Actions",
-                  url: "https://docs.github.com/actions/security-guides/using-secrets-in-github-actions",
+                  url: "https://docs.github.com/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
                   description: "シークレットの登録・参照・マスクの仕組み",
                 },
                 {
                   title: "Using environments for deployment",
-                  url: "https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+                  url: "https://docs.github.com/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
                   description: "staging / production の分離と保護環境・承認",
                 },
                 {
                   title: "OpenID Connect (OIDC) の利用",
-                  url: "https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect",
+                  url: "https://docs.github.com/actions/concepts/security/openid-connect",
                   description: "長期シークレットを持たずにクラウドへ認証する",
                 },
               ]}

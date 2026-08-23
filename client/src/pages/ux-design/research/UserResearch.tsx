@@ -449,7 +449,7 @@ export default function UserResearch() {
                 },
                 {
                   title: 'Steve Portigal: Interviewing Users',
-                  url: 'https://portigal.com/Books/interviewing-users/',
+                  url: 'https://portigal.com/Books/interviewing-users-2/',
                   description: 'ユーザーインタビューの設計と実施に関する実践的な書籍。',
                 },
               ]}

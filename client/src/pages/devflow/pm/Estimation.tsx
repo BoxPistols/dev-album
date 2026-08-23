@@ -439,7 +439,7 @@ export default function Estimation() {
                 },
                 {
                   title: "Mountain Goat Software - Planning Poker",
-                  url: "https://www.mountaingoatsoftware.com/agile/planning-poker",
+                  url: "https://www.mountaingoatsoftware.com/agile/story-points/planning-poker",
                   description:
                     "プランニングポーカーの進め方と狙いをまとめた一次的な解説",
                 },

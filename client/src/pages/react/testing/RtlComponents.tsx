@@ -491,7 +491,7 @@ export default defineConfig({
               },
               {
                 title: "クエリの優先順位（Priority）",
-                url: "https://testing-library.com/docs/queries/about/#priority",
+                url: "https://testing-library.com/docs/queries/about/",
                 description:
                   "getByRole を最優先とし getByTestId を最後の手段とする、公式の推奨順序",
               },

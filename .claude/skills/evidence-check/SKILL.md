@@ -134,6 +134,33 @@ pnpm check:sources               # 3. レジストリ全体を逐語照合する
 取得不可の出典は `fix:quotes` で登録から外れるので、一時的な障害でないかを個別に
 再実行して確かめてから反映する。
 
+## リダイレクトを恒久 URL へ寄せる
+
+`pnpm check:links` は「切れている」だけでなく「リダイレクトされる」も数える。
+リダイレクトは今は届くが、出典側が次に整理したときに切れる。届くうちに寄せておく。
+
+```bash
+pnpm check:links --json > /tmp/links.json   # 確認結果を機械可読で出す
+pnpm fix:links /tmp/links.json              # 何をどう書き換えるかを出すだけ
+pnpm fix:links /tmp/links.json --write      # 実際に書き換える
+pnpm check:links                            # 書き換えた URL が本当に届くか測る
+```
+
+**最後の再実行を省かない。** 書き換えは 2 種類の壊し方をする。どちらも実測しないと見えない。
+
+1 つ目は、短い URL が長い URL の内側に入っているとき。`/docs/installation` が
+`/docs/installation/using-vite` へ飛ぶ場合、同じファイルにある後者の前半が置き換わって
+`/docs/installation/using-vite/installation/using-vite` ができる。境界を見て、
+URL の直後に続きがあるなら触らない（`fix:links` は対応済み）。
+
+2 つ目は、ロケール接頭辞を落とせると思い込むこと。この検査は `accept-language: en` を
+送るので `docs.github.com/actions` は `/en/actions` へ飛ぶ。そのまま書くと日本語で読む人にも
+英語版を強制するので落としたいが、readthedocs の `/en/stable/` は実際のパスで落とすと 404 になる。
+静的には見分けが付かないので、落とした URL が届くかを取得して確かめてから採る（同上）。
+
+`fix:links` が書き換えないもの: 末尾スラッシュ・スキーム・クエリだけの差、
+ログイン画面や検索結果や別ホストのトップへ飛ばされるもの。
+
 ## 修正した後にやること（修正 pass の独立レビュー）
 
 修正 pass のあとに、**修正内容だけを対象にした独立レビュー**を工程として入れる。

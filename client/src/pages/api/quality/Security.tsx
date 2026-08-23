@@ -451,13 +451,13 @@ RateLimit-Reset: 30
                 },
                 {
                   title: "MDN - CORS（オリジン間リソース共有）",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/CORS",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS",
                   description:
                     "Access-Control-Allow-Origin の挙動と設定方法。ワイルドカードの扱いを正しく理解できる",
                 },
                 {
                   title: "MDN - HTTP 429 Too Many Requests",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status/429",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status/429",
                   description:
                     "レート制限時に返すステータスコードと Retry-After ヘッダーの仕様",
                 },

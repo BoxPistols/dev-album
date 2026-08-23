@@ -1012,7 +1012,7 @@ mediaQuery.addEventListener('change', (e) => {
               links={[
                 {
                   title: "MDN: prefers-color-scheme",
-                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme",
+                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme",
                   description: "メディアクエリの仕様と対応ブラウザ一覧",
                 },
                 {

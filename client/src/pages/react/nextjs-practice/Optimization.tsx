@@ -574,17 +574,17 @@ export default function RootLayout({
               links={[
                 {
                   title: 'Image 最適化 - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/optimizing/images',
+                  url: 'https://nextjs.org/docs/app/getting-started/images',
                   description: 'next/image による画像の自動最適化',
                 },
                 {
                   title: 'Font 最適化 - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/optimizing/fonts',
+                  url: 'https://nextjs.org/docs/app/getting-started/fonts',
                   description: 'next/font によるフォント最適化',
                 },
                 {
                   title: 'メタデータ API - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/optimizing/metadata',
+                  url: 'https://nextjs.org/docs/app/getting-started/metadata-and-og-images',
                   description: 'SEO のためのメタデータ設定',
                 },
               ]}

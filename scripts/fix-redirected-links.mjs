@@ -39,6 +39,56 @@ function isCosmetic(from, to) {
   return norm(from) === norm(to);
 }
 
+/**
+ * リダイレクト先に付いたロケール接頭辞を、元に無ければ落とす。
+ *
+ * この検査は accept-language: en を送るので、docs.github.com は /actions を
+ * /en/actions へ飛ばす。その結果をそのまま本文に焼き付けると、日本語で読む人にも
+ * 英語版を強制することになる。ロケールを持たない URL は読者の言語で出るので、
+ * 経路が変わった分だけ直してロケールは付けない。
+ * 元から /ja/ や /en-US/ を書いている URL（MDN 等）はその言語を選んでいるので触らない。
+ *
+ * ただし「ロケールに見える先頭の 2 文字」が省略できるとは限らない。
+ * readthedocs は /en/stable/ が実際のパスで、/en を落とすと 404 になる（実際に踏んだ）。
+ * 静的には見分けが付かないので、落とした URL が本当に届くかを取得して確かめ、
+ * 届かなければロケール付きのまま使う。
+ */
+const LOCALE_SEGMENT = /^\/(?:[a-z]{2})(?:-[A-Za-z]{2})?(?=\/|$)/;
+
+async function reachable(url) {
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      headers: { "user-agent": "dev-album-link-fixer" },
+      signal: AbortSignal.timeout(20000),
+    });
+    return res.status === 200;
+  } catch {
+    return false;
+  }
+}
+
+async function stripAddedLocale(from, to) {
+  let stripped;
+  try {
+    const a = new URL(from);
+    const b = new URL(to);
+    if (a.host !== b.host) return to;
+    if (LOCALE_SEGMENT.test(a.pathname)) return to;
+    const m = b.pathname.match(LOCALE_SEGMENT);
+    if (!m) return to;
+    stripped = new URL(b);
+    stripped.pathname = b.pathname.slice(m[0].length) || "/";
+  } catch {
+    return to;
+  }
+  const candidate = stripped.toString();
+  if (await reachable(candidate)) return candidate;
+  console.error(`  ロケールを落とすと届かないので付けたまま使う: ${candidate}`);
+  return to;
+}
+
 /** リダイレクト先が内容の違うページに見えるか（ログイン・検索・トップへの丸投げ） */
 function looksUnrelated(from, to) {
   if (/\/(login|signin|sign_in|auth)\b/i.test(to)) return true;
@@ -56,7 +106,8 @@ function looksUnrelated(from, to) {
 const targets = [];
 const skipped = [];
 for (const r of redirected) {
-  const { url, finalUrl, files } = r;
+  const { url, files } = r;
+  const finalUrl = r.finalUrl ? await stripAddedLocale(url, r.finalUrl) : r.finalUrl;
   if (!finalUrl || finalUrl === url) continue;
   if (isCosmetic(url, finalUrl)) {
     skipped.push([url, finalUrl, "末尾/スキーム/クエリのみの差"]);
@@ -73,15 +124,51 @@ let changedFiles = 0;
 let changedOccurrences = 0;
 const cache = new Map();
 
+/**
+ * URL の直後に続いてよい文字。ここに当たらない位置で終わっていれば、
+ * その出現は URL 全体であって、より長い URL の一部ではない。
+ *
+ * 単純な文字列置換だと、短い URL が長い URL の内側に入っているときに壊れる。
+ * 実際に踏んだ: /docs/installation が /docs/installation/using-vite へ飛ぶので、
+ * 同じファイルにある /docs/installation/using-vite の中の前半が置き換わり、
+ * /docs/installation/using-vite/installation/using-vite という 404 ができた。
+ */
+const URL_CONTINUES = /[A-Za-z0-9/_\-.~%?#&=+:@]/;
+
+function replaceWholeUrl(text, url, finalUrl) {
+  let out = "";
+  let from = 0;
+  let count = 0;
+  for (;;) {
+    const at = text.indexOf(url, from);
+    if (at === -1) break;
+    const next = text[at + url.length];
+    if (next !== undefined && URL_CONTINUES.test(next)) {
+      // より長い URL の一部なので触らない
+      out += text.slice(from, at + url.length);
+      from = at + url.length;
+      continue;
+    }
+    out += text.slice(from, at) + finalUrl;
+    from = at + url.length;
+    count++;
+  }
+  out += text.slice(from);
+  return { text: out, count };
+}
+
+// 長い URL から先に処理する。短いほうを先に当てると、長い URL の前半を
+// 書き換えてしまってから境界判定をすり抜ける組み合わせが残る
+targets.sort((a, b) => b.url.length - a.url.length);
+
 for (const { url, finalUrl, files } of targets) {
   for (const file of files) {
     if (!cache.has(file)) cache.set(file, readFileSync(file, "utf8"));
     const before = cache.get(file);
-    // URL がそのまま書かれている箇所だけを置き換える。前後の文字は触らない
-    const after = before.split(url).join(finalUrl);
-    if (after !== before) {
+    const { text: after, count } = replaceWholeUrl(before, url, finalUrl);
+    if (count > 0) {
       cache.set(file, after);
-      changedOccurrences += before.split(url).length - 1;
+      changedOccurrences += count;
     }
   }
 }

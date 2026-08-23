@@ -309,7 +309,7 @@ jobs:
               links={[
                 {
                   title: "Workflow syntax for GitHub Actions",
-                  url: "https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions",
+                  url: "https://docs.github.com/actions/reference/workflows-and-actions/workflow-syntax",
                   description: "name / on / jobs / steps など全キーの仕様",
                 },
                 {

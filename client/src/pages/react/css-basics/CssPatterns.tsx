@@ -1065,17 +1065,17 @@ function Layout() {
               links={[
                 {
                   title: 'MDN - CSS Container Queries',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/CSS_containment/Container_queries',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/Guides/Containment/Container_queries',
                   description: 'Container クエリの仕様、使い方、ブラウザサポートの公式リファレンス',
                 },
                 {
                   title: 'MDN - @layer',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/@layer',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@layer',
                   description: 'CSS レイヤーの仕様と使い方の公式リファレンス',
                 },
                 {
                   title: 'MDN - CSS Nesting',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/CSS_nesting',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/Guides/Nesting',
                   description: 'ネイティブ CSS ネスティングの仕様とブラウザサポート',
                 },
                 {

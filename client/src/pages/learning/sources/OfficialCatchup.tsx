@@ -160,7 +160,7 @@ git --version`}
               {[
                 {
                   label: "GitHub Docs: リポジトリの通知を設定する",
-                  url: "https://docs.github.com/ja/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications",
+                  url: "https://docs.github.com/ja/subscriptions-and-notifications/get-started/configuring-notifications",
                 },
                 {
                   label: "npm Docs: npm ls",

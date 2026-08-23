@@ -1065,7 +1065,7 @@ grep -rn 'text-\\[#' src/`}
                 },
                 {
                   title: "prefers-color-scheme - MDN",
-                  url: "https://developer.mozilla.org/ja/docs/Web/CSS/@media/prefers-color-scheme",
+                  url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme",
                   description:
                     "OS のカラースキーム設定を検出するメディアクエリの仕様",
                 },

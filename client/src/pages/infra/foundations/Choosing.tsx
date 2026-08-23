@@ -376,7 +376,7 @@ export default function Choosing() {
               links={[
                 {
                   title: "Vercel - Next.js on Vercel",
-                  url: "https://vercel.com/docs/frameworks/nextjs",
+                  url: "https://vercel.com/docs/frameworks/full-stack/nextjs",
                   description:
                     "SSR と ISR を Vercel 上でどう動かすかを説明した公式ドキュメント",
                 },
@@ -395,7 +395,7 @@ export default function Choosing() {
                 },
                 {
                   title: "Google Cloud - アーキテクチャ フレームワーク",
-                  url: "https://cloud.google.com/architecture/framework",
+                  url: "https://docs.cloud.google.com/architecture/framework",
                   description:
                     "コスト・運用・信頼性などの軸で設計を評価する観点を示す公式ガイド",
                 },

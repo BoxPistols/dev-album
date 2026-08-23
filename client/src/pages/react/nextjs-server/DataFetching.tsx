@@ -409,12 +409,12 @@ async function RecentOrders() {
               links={[
                 {
                   title: 'データ取得 - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/data-fetching/fetching',
+                  url: 'https://nextjs.org/docs/app/getting-started/fetching-data',
                   description: 'Server Components でのデータ取得パターン',
                 },
                 {
                   title: 'キャッシュ - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/caching',
+                  url: 'https://nextjs.org/docs/app/guides/caching-without-cache-components',
                   description: 'Next.js のキャッシュメカニズムの全体像',
                 },
                 {

@@ -460,17 +460,17 @@ export default function SecretsPermissions() {
                 },
                 {
                   title: "Actions でシークレットを使う",
-                  url: "https://docs.github.com/actions/security-guides/using-secrets-in-github-actions",
+                  url: "https://docs.github.com/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
                   description: "シークレットの登録とスコープ、参照方法",
                 },
                 {
                   title: "GITHUB_TOKEN の自動認証",
-                  url: "https://docs.github.com/actions/security-guides/automatic-token-authentication",
+                  url: "https://docs.github.com/actions/tutorials/authenticate-with-github_token",
                   description: "既定権限と permissions による制御",
                 },
                 {
                   title: "OIDC によるセキュリティ強化",
-                  url: "https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect",
+                  url: "https://docs.github.com/actions/concepts/security/openid-connect",
                   description: "長期鍵を置かずクラウドへデプロイする",
                 },
               ]}

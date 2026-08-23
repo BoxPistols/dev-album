@@ -1241,7 +1241,7 @@ function App() {
                 },
                 {
                   title: 'styled-components v5 → v6 マイグレーションガイド',
-                  url: 'https://styled-components.com/docs/faqs#what-do-i-need-to-do-to-migrate-to-v6',
+                  url: 'https://styled-components.com/docs/faqs',
                   description: 'v5 から v6 へのアップグレード手順と破壊的変更の一覧',
                 },
                 {

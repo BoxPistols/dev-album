@@ -391,7 +391,7 @@ export default function LikeButton() {
                 },
                 {
                   title: 'React 公式 - フレームワークから始める',
-                  url: 'https://ja.react.dev/learn/start-a-new-react-project',
+                  url: 'https://ja.react.dev/learn/creating-a-react-app',
                   description: 'React 公式が推奨するフレームワークの選び方',
                 },
               ]}

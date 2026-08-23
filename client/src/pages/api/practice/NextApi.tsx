@@ -542,13 +542,13 @@ export function ProductSearch() {
                 },
                 {
                   title: "Next.js Docs - Route Handlers",
-                  url: "https://nextjs.org/docs/app/building-your-application/routing/route-handlers",
+                  url: "https://nextjs.org/docs/app/api-reference/file-conventions/route",
                   description:
                     "app/api/<name>/route.ts に GET/POST 等を定義する方法。Request / NextResponse の扱い",
                 },
                 {
                   title: "Next.js Docs - Server Actions and Mutations",
-                  url: "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations",
+                  url: "https://nextjs.org/docs/app/getting-started/mutating-data",
                   description:
                     "'use server' によるフォーム mutation と revalidatePath / revalidateTag",
                 },

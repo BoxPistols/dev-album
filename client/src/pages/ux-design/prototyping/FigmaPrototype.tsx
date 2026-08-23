@@ -420,7 +420,7 @@ export default function FigmaPrototype() {
               },
               {
                 title: 'Model Context Protocol',
-                url: 'https://modelcontextprotocol.io/',
+                url: 'https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro',
                 description: 'MCP の公式ドキュメント',
               },
             ]}

@@ -477,7 +477,7 @@ Link: <https://api.example.com/v1/users?limit=20&cursor=eyJpZCI6MTAyfQ>; rel="ne
                 },
                 {
                   title: "RFC 8288 - Web Linking",
-                  url: "https://www.rfc-editor.org/rfc/rfc8288",
+                  url: "https://www.rfc-editor.org/info/rfc8288/",
                   description:
                     "Link ヘッダーと rel パラメータの仕様。next/prev などの関係を URL に付与する標準",
                 },
@@ -489,7 +489,7 @@ Link: <https://api.example.com/v1/users?limit=20&cursor=eyJpZCI6MTAyfQ>; rel="ne
                 },
                 {
                   title: "Slack API - Cursor-based pagination",
-                  url: "https://api.slack.com/apis/pagination",
+                  url: "https://docs.slack.dev/apis/web-api/pagination/",
                   description:
                     "カーソル方式を採用した実 API のドキュメント。response_metadata.next_cursor の受け渡しと不透明カーソルの考え方が掴める",
                 },

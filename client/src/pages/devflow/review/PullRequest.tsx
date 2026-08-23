@@ -342,7 +342,7 @@ Closes #
               links={[
                 {
                   title: "GitHub Docs - About pull requests",
-                  url: "https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+                  url: "https://docs.github.com/ja/pull-requests/reference/pull-requests",
                   description:
                     "PR の基本概念と Draft PR を含むライフサイクルの公式ドキュメント",
                 },

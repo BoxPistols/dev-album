@@ -107,7 +107,7 @@ curl https://pyenv.run | bash`}
               公式 README の「Set up your shell environment for pyenv」の手順をそのまま参照してください。
             </p>
             <a
-              href="https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv"
+              href="https://github.com/pyenv/pyenv"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"

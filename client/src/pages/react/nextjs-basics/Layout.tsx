@@ -479,12 +479,12 @@ const myFont = localFont({
               links={[
                 {
                   title: 'レイアウト - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates',
+                  url: 'https://nextjs.org/docs/app/getting-started/layouts-and-pages',
                   description: 'レイアウトとテンプレートの公式ガイド',
                 },
                 {
                   title: 'メタデータ API - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/optimizing/metadata',
+                  url: 'https://nextjs.org/docs/app/getting-started/metadata-and-og-images',
                   description: 'メタデータの設定方法',
                 },
               ]}
