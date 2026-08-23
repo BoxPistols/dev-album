@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-codeql-settings-path",
+    date: "2026-08-23",
+    title: "CodeQL の有効化手順: GitHub 側の設定画面の呼び名を現行に合わせた",
+    description:
+      "自動テストとリファクタリングのページで、CodeQL を有効化する経路を「Settings → サイドバーの Security → Advanced Security」と書いていた。GitHub のドキュメントを取り直したところ、サイドバーの節名は現在「Security and quality」になっていたので、表記を合わせた。Advanced Security の中で「CodeQL analysis」の Set up → Default を選ぶという操作自体は変わらない。",
+    category: "fix",
+    link: "/git/flow-automation/auto-test-refactor",
+  },
+  {
     id: "2026-08-23-min-font-size",
     date: "2026-08-23",
     title: "12px 未満の文字を無くし、下限を検査で固定した",

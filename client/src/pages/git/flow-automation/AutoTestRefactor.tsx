@@ -220,7 +220,9 @@ jobs:
               <strong>CodeQL</strong> は、GitHub が提供するコード解析で、
               脆弱性の疑いを自動で見つけます。
               リポジトリの{" "}
-              <strong>Settings → サイドバーの Security → Advanced Security</strong>{" "}
+              <strong>
+                Settings → サイドバーの Security and quality → Advanced Security
+              </strong>{" "}
               にある「CodeQL analysis」で Set up → Default を選ぶと有効化でき、PR
               ごとに走らせて結果を PR 上に表示できます。
               テストが「壊れていないか」を見るのに対し、CodeQL は
