@@ -148,9 +148,9 @@
     "claim": "Google SRE Book — Monitoring Distributed Systems / SLI / SLO・パーセンタイル・アラート設計の考え方を体系的に解説（無料公開）",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://sre.google/sre-book/monitoring-distributed-systems/",
-    "quote": "Copyright © 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0",
+    "quote": "Google's SRE teams have some basic principles and best practices for building successful monitoring and alerting systems. This chapter offers guidelines for what issues should interrupt a human via a page, and how to deal with issues that aren't serious enough to trigger a page. [...] Measuring your 99th percentile response time over some small window (e.g., one minute) can give a very early signal of saturation.",
     "correction": "",
-    "evidence": "該当章を認証なしで取得でき、全文が読める状態であることと CC BY-NC-ND 4.0 での公開表示を確認した。https://sre.google/books/ でも各書籍に「Read online」導線がある。章の内容としては 99th percentile の議論、アラート設計（As Simple as Possible, No Simpler／Bigtable の Over-Alerting 事例）、SLO への言及（\"measured against a service level objective (SLO; see Service Level Objectives)\"）を確認。ただし SLI / SLO を体系的に扱うのは同書 4 章 Service Level Objectives であり、この章の主題ではない点は説明の粒度として補足の余地がある。"
+    "evidence": "該当章を認証なしで取得でき、全文が読める状態であることと CC BY-NC-ND 4.0 での公開表示を確認した。https://sre.google/books/ でも各書籍に「Read online」導線がある。章の内容としては 99th percentile の議論、アラート設計（As Simple as Possible, No Simpler／Bigtable の Over-Alerting 事例）、SLO への言及（\"measured against a service level objective (SLO; see Service Level Objectives)\"）を確認。ただし SLI / SLO を体系的に扱うのは同書 4 章 Service Level Objectives であり、この章の主題ではない点は説明の粒度として補足の余地がある。 2026-08-23 に https://sre.google/sre-book/monitoring-distributed-systems/ を取得し直した。元の引用は著作権・ライセンス表示だけで、章が何を扱うかが引用から落ちていた。取り直した引用は章の冒頭（監視とアラートの原則、ページを鳴らす基準）と 99 パーセンタイルの記述。SLO はこの章では Bigtable の事例で別章 Service Level Objectives を参照するだけで、体系的な解説はしていない（SLI の語は本文に無い）。"
   },
   {
     "file": "git/advanced/Integration.tsx",
@@ -192,10 +192,10 @@
     "file": "git/advanced/VSCode.tsx",
     "claim": "ダウンロードされた VSCodeUserSetup-x64-x.xx.x.exe をダブルクリックして実行します。",
     "verdict": "CONFIRMED",
-    "sourceUrl": "local:curl -sI -L \"https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user\"",
-    "quote": "Content-Disposition: attachment; filename=VSCodeUserSetup-x64-1.133.0.exe",
+    "sourceUrl": "https://update.code.visualstudio.com/api/versions/1.134.0/win32-x64-user/stable",
+    "quote": "VSCodeUserSetup-x64-1.134.0.exe",
     "correction": "",
-    "evidence": "公式ダウンロードエンドポイント（Windows x64 User Installer）を辿ると https://vscode.download.prss.microsoft.com/.../VSCodeUserSetup-x64-1.133.0.exe へリダイレクトし、Content-Disposition のファイル名も VSCodeUserSetup-x64-1.133.0.exe だった。教材のプレースホルダ VSCodeUserSetup-x64-x.xx.x.exe と形が一致する。公式ドキュメント https://code.visualstudio.com/docs/setup/windows も「The User setup is the recommended installation for most people」と User Installer を推奨しており、教材が User Setup を前提にしている点も整合する。"
+    "evidence": "公式ダウンロードエンドポイント（Windows x64 User Installer）を辿ると https://vscode.download.prss.microsoft.com/.../VSCodeUserSetup-x64-1.133.0.exe へリダイレクトし、Content-Disposition のファイル名も VSCodeUserSetup-x64-1.133.0.exe だった。教材のプレースホルダ VSCodeUserSetup-x64-x.xx.x.exe と形が一致する。公式ドキュメント https://code.visualstudio.com/docs/setup/windows も「The User setup is the recommended installation for most people」と User Installer を推奨しており、教材が User Setup を前提にしている点も整合する。 2026-08-23 に再照合。元は code.visualstudio.com/sha/download?build=stable の実機 curl で、常に最新版へ解決されるため版が上がるたびに引用が外れる（実測でも 1.133.0 から 1.134.0 へ動いていた）。版を打った update.code.visualstudio.com/api/versions/1.134.0/win32-x64-user/stable へ固定し、返る JSON 中のインストーラ名を引用にした。build=stable の URL へ戻さないこと。"
   },
   {
     "file": "git/advanced/WSL2.tsx",
@@ -211,9 +211,9 @@
     "claim": "出力結果に Ubuntu が表示され、VERSION が 2 になっていれば成功です。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
-    "quote": "wsl --list --verbose See a list of the Linux distributions installed on your Windows machine, including the state (whether the distribution is running or stopped) and the version of WSL running the distribution (WSL 1 or WSL 2).",
+    "quote": "Install WSL and the default Ubuntu distribution of Linux. [...] See a list of the Linux distributions installed on your Windows machine, including the state (whether the distribution is running or stopped) and the version of WSL running the distribution (WSL 1 or WSL 2).",
     "correction": "",
-    "evidence": "Microsoft 公式の WSL Basic commands を取得。wsl --list --verbose がインストール済みディストリビューション名・状態・WSL バージョン（1 か 2）を一覧表示することを確認した。既定でインストールされるのが Ubuntu であることは https://learn.microsoft.com/en-us/windows/wsl/install の「This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux.」で確認。VERSION 列が 2 なら WSL2 という読み方は正しい（列見出し NAME/STATE/VERSION 自体は実行結果であり、Windows 実機は未検証）。"
+    "evidence": "Microsoft 公式の WSL Basic commands を取得。wsl --list --verbose がインストール済みディストリビューション名・状態・WSL バージョン（1 か 2）を一覧表示することを確認した。既定でインストールされるのが Ubuntu であることは https://learn.microsoft.com/en-us/windows/wsl/install の「This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux.」で確認。VERSION 列が 2 なら WSL2 という読み方は正しい（列見出し NAME/STATE/VERSION 自体は実行結果であり、Windows 実機は未検証）。 2026-08-23 に https://learn.microsoft.com/en-us/windows/wsl/basic-commands を取得し直し、Install 節と List installed Linux distributions 節を確認して引用を取り直した。元の引用は見出しに続くコマンド文字列『wsl --list --verbose』と説明文を 1 行に繋いだもので、文の頭がコマンド片から始まっていた。新しい引用は説明文だけを文として取り、加えて既定で入るディストリビューションが Ubuntu であると述べる文を [...] で繋いだ。"
   },
   {
     "file": "git/ai-agent/ClaudeCodeSetup.tsx",
@@ -231,7 +231,7 @@
     "sourceUrl": "https://vite.dev/config/server-options",
     "quote": "server.port Type: number Default: 5173 Specify server port. Note if the port is already being used, Vite will automatically try the next available port so this may not be the actual port the server ends up listening on.",
     "correction": "",
-    "evidence": "Vite 公式の Server Options を取得し、server.port の既定値が 5173 であること、使用中なら次の空きポートに自動でずれることを確認した。教材が「通常は」「など」と幅を持たせ、かつ「表示される URL」を見るよう書いているのは、この仕様（実際のポートは変わりうる）と整合している。"
+    "evidence": "Vite 公式の Server Options を取得し、server.port の既定値が 5173 であること、使用中なら次の空きポートに自動でずれることを確認した。教材が「通常は」「など」と幅を持たせ、かつ「表示される URL」を見るよう書いているのは、この仕様（実際のポートは変わりうる）と整合している。 2026-08-23 に https://vite.dev/config/server-options を取得し直し、現引用が今も逐語で在ることを check.mjs で確認した（OK）。5173 は server.port の定義（Type: number Default: 5173）にしか無く、他の出現は proxy 例のコードコメント内の http://localhost:5173 だけ。開発サーバーが URL を表示する・それをブラウザで開く、という記述はこのページに無い。"
   },
   {
     "file": "git/environment/Cursor.tsx",
@@ -294,7 +294,7 @@
     "sourceUrl": "https://petstore.swagger.io/swagger-initializer.js",
     "quote": "const defaultDefinitionUrl = \"https://petstore.swagger.io/v2/swagger.json\";",
     "correction": "",
-    "evidence": "https://petstore.swagger.io/ は認証なしで HTTP 200 を返し、HTML に <title>Swagger UI</title> と swagger-ui-bundle.js の読み込みがある。初期化スクリプト swagger-initializer.js が Petstore の OpenAPI 定義を読み込むよう設定されており、その定義 https://petstore.swagger.io/v2/swagger.json も 200 を返す。Try it out は Swagger UI 標準の機能で、この構成（StandaloneLayout、無効化オプションなし）で有効。"
+    "evidence": "https://petstore.swagger.io/ は認証なしで HTTP 200 を返し、HTML に <title>Swagger UI</title> と swagger-ui-bundle.js の読み込みがある。初期化スクリプト swagger-initializer.js が Petstore の OpenAPI 定義を読み込むよう設定されており、その定義 https://petstore.swagger.io/v2/swagger.json も 200 を返す。Try it out は Swagger UI 標準の機能で、この構成（StandaloneLayout、無効化オプションなし）で有効。 2026-08-23 に https://petstore.swagger.io/swagger-initializer.js を取得し直し、現在の引用 const defaultDefinitionUrl = \"https://petstore.swagger.io/v2/swagger.json\"; が逐語で在ること（check.mjs で OK）を確認した。ファイル全体は window.onload 内の SwaggerUIBundle 設定だけで、Try it out や「公開されている」に当たる散文は 1 文も無い。SwaggerUIBundle({...}) の呼び出しは複数行のコードブロックなので 1 行に詰めた引用は使えない。"
   },
   {
     "file": "react/Home.tsx",
@@ -310,9 +310,9 @@
     "claim": "Prometheus がメトリクスを収集・保存し、Grafana がそれを可視化する組み合わせ。オープンソースで、自前運用の定番。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://prometheus.io/docs/introduction/overview/",
-    "quote": "Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud [...] Prometheus collects and stores its metrics as time series data",
+    "quote": "Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud. [...] Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally and runs rules over this data to either aggregate and record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.",
     "correction": "",
-    "evidence": "Prometheus 公式 Overview を取得。OSS であること、メトリクスを収集・時系列で保存することを確認した（可視化は同ドキュメントの Visualization に Grafana が挙がっている）。"
+    "evidence": "Prometheus 公式 Overview を取得。OSS であること、メトリクスを収集・時系列で保存することを確認した（可視化は同ドキュメントの Visualization に Grafana が挙がっている）。 2026-08-23 に https://prometheus.io/docs/introduction/overview/ を取得し直し、Architecture 節に「収集 → ローカル保存 → Grafana などで可視化」を述べる連続 3 文が在ることを確認して、OSS を述べる冒頭文と [...] で繋いだ。元の引用には Grafana による可視化が入っていなかった。"
   },
   {
     "file": "infra/observability/Monitoring.tsx",
@@ -321,16 +321,16 @@
     "sourceUrl": "https://docs.sentry.io/",
     "quote": "Everything you need to catch errors, trace performance, and fix broken agents.",
     "correction": "",
-    "evidence": "Sentry 公式ドキュメントのトップを取得し、エラー捕捉を中心に据えた製品であることを確認した。スタックトレースの集約や発生頻度の集計という具体は、この一次情報では明示されていない。"
+    "evidence": "Sentry 公式ドキュメントのトップを取得し、エラー捕捉を中心に据えた製品であることを確認した。スタックトレースの集約や発生頻度の集計という具体は、この一次情報では明示されていない。 2026-08-23 に https://docs.sentry.io/ を取得し直したが、正規化後 1,208 文字のナビゲーション主体のページで、\"stack trace\" / \"frequency\" / \"frontend\" / \"backend\" / \"front-end\" / \"back-end\" はいずれも 0 件。スタックトレース・発生頻度・フロント/バック双方という断定を支える逐語は本出典から取れない。既存の引用（Everything you need to catch errors, trace performance, and fix broken agents.）は主語述語の閉じた 1 文で、エラー追跡という主張の中心を支えている。"
   },
   {
     "file": "infra/observability/Monitoring.tsx",
     "claim": "メトリクス・ログ・トレースを統合的に扱うマネージド SaaS。導入が速く、横断的な可観測性をまとめて得たいときに向く。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://docs.datadoghq.com/getting_started/",
-    "quote": "Datadog is an observability platform that supports every phase of software development on any stack.",
+    "quote": "Datadog is an observability platform that supports every phase of software development on any stack. [...] Learn how to collect metrics, traces, and logs with Datadog integrations.",
     "correction": "",
-    "evidence": "Datadog 公式ドキュメントの Getting Started を取得。ログ・メトリクス・トレースを取り込む統合オブザーバビリティ基盤である旨を確認した。"
+    "evidence": "Datadog 公式ドキュメントの Getting Started を取得。ログ・メトリクス・トレースを取り込む統合オブザーバビリティ基盤である旨を確認した。 2026-08-23 に https://docs.datadoghq.com/getting_started/ を取得し直し、メトリクス・トレース・ログを 1 文で並べている地の文（Integrations の案内文）を見つけて 2 断片で繋いだ。元の引用はプラットフォームであることまでしか言っておらず、三つのシグナルの扱いが引用に無かった。なお「導入が速い」に相当する記述はこのページには無い。"
   },
   {
     "file": "infra/observability/Sre.tsx",
@@ -443,11 +443,11 @@
   {
     "file": "threejs/Home.tsx",
     "claim": "その入り口として最も人気のあるライブラリが Three.js です。",
-    "verdict": "CONFIRMED",
-    "sourceUrl": "https://api.npmjs.org/downloads/point/2026-07-01:2026-07-31/three",
-    "quote": "\"downloads\":52444173,\"start\":\"2026-07-01\",\"end\":\"2026-07-31\",\"package\":\"three\"",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "https://api.npmjs.org/downloads/point/last-month/three",
+    "quote": "",
     "correction": "",
-    "evidence": "npm のダウンロード API で 2026-07-01〜2026-07-31 の 1 か月分を取得。three が 52,444,173 に対し、@babylonjs/core は同じ期間で 1,228,272（https://api.npmjs.org/downloads/point/2026-07-01:2026-07-31/@babylonjs/core）で、Web 3D ライブラリとして three.js の利用が突出していることを確認した（2026-08-23 再照合）。当初の出典は last-month だったが、値が毎日動いて引用が原文から外れるため、期間を固定した範囲指定に差し替えた。ダウンロード数は利用実態の代理指標であり、全ライブラリを網羅比較したものではない点は確認できていない。"
+    "evidence": "npm のダウンロード API で直近 1 か月を取得。three が約 5,539 万に対し @babylonjs/core は約 136 万で、Web 3D ライブラリとして three.js の利用が突出していることを確認した。 2026-08-23 に https://api.npmjs.org/downloads/point/last-month/three を取得し直したところ {\"downloads\":57243093,\"start\":\"2026-07-23\",\"end\":\"2026-08-21\",\"package\":\"three\"} が返り、記録されている 55393873 は既に一致しない（check.mjs も NG）。last-month は取得日ごとに集計期間が動く URL なので、固定するなら期間を打った https://api.npmjs.org/downloads/point/2026-07-01:2026-07-31/three の形になる。ただし固定版でも応答は three 単体の 1 行 JSON で、babylon.js など比較対象の数値も順位を述べる記述も含まないため、「最も人気のある」という比較の断定は URL を固定しても支えられない。差し替えても主張が支えられないので newSourceUrl は立てない。"
   },
   {
     "file": "threejs/basics/camera.tsx",
@@ -562,9 +562,9 @@
     "claim": "すべてのデータを 1 つのバイナリファイルにまとめた形式。 ファイルサイズが小さく、Web での配信に最適です。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://www.khronos.org/gltf/",
-    "quote": "which can be stored in a single binary glTF file (.glb)",
+    "quote": "glTF minimizes the size of 3D assets, and the runtime processing needed to unpack and use them. [...] The core of glTF is a JSON file that describes the structure and composition of a scene containing 3D models, which can be stored in a single binary glTF file (.glb).",
     "correction": "",
-    "evidence": "Khronos の glTF 公式ページで、シーン全体を単一のバイナリ glTF ファイル（.glb）に格納できることを確認した。"
+    "evidence": "Khronos の glTF 公式ページで、シーン全体を単一のバイナリ glTF ファイル（.glb）に格納できることを確認した。 2026-08-23 に https://www.khronos.org/gltf/ を取り直し、.glb が「単一のバイナリ glTF ファイル」であることと、glTF がアセットのサイズを最小化することの 2 点が別の文で述べられているのを確認した。元の引用は which 節の途中から始まり、何が単一バイナリになるのかが引用内で閉じていなかった。check.mjs で OK。"
   },
   {
     "file": "threejs/applied/orbit-controls.tsx",
@@ -618,7 +618,7 @@
     "sourceUrl": "https://physics.nist.gov/cgi-bin/cuu/Value?gn",
     "quote": "standard acceleration of gravity Numerical value 9.806 65 m s -2",
     "correction": "",
-    "evidence": "NIST の CODATA 値ページで standard acceleration of gravity が 9.80665 m/s^2（厳密値）であることを確認した。教材の 9.8 はその丸め。"
+    "evidence": "NIST の CODATA 値ページで standard acceleration of gravity が 9.80665 m/s^2（厳密値）であることを確認した。教材の 9.8 はその丸め。 2026-08-23 に https://physics.nist.gov/cgi-bin/cuu/Value?gn を取得し直し、平文化しても定数名と値の表しか無いことを確認した（全 540 文字、散文は 1 文も無い）。現在の引用は定数名 standard acceleration of gravity と Numerical value 9.806 65 m s -2 が対で閉じており、check.mjs でも OK。"
   },
   {
     "file": "threejs/game-dev/hud-gameloop.tsx",
@@ -652,9 +652,9 @@
     "claim": "さらに Firebase は Google Cloud の一部であり、 BigQuery などへ自然に拡張できます。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://firebase.google.com/docs/projects/learn-more",
-    "quote": "When you create a new Firebase project, you're actually creating a Google Cloud project behind the scenes.",
+    "quote": "A Firebase project is actually just a Google Cloud project that has additional Firebase-specific configurations and services enabled for it. [...] You can use products and APIs from both Firebase and Google Cloud in the project.",
     "correction": "",
-    "evidence": "Firebase プロジェクトの公式解説ページを取得し、Firebase プロジェクト＝Google Cloud プロジェクトである旨と、BigQuery へのエクスポートが用意されている旨を確認した。"
+    "evidence": "Firebase プロジェクトの公式解説ページを取得し、Firebase プロジェクト＝Google Cloud プロジェクトである旨と、BigQuery へのエクスポートが用意されている旨を確認した。 2026-08-23 に https://firebase.google.com/docs/projects/learn-more を取得し直し、Google Cloud / BigQuery を全文検索した。Key Point に「A Firebase project is actually just a Google Cloud project ...」、その直後の箇条書きに「You can use products and APIs from both Firebase and Google Cloud in the project.」がある。BigQuery という語は左サイドナビの「Export data to BigQuery」というリンク文字列にしか現れず、本文の散文には無い。"
   },
   {
     "file": "infra/devops/Containers.tsx",
@@ -859,9 +859,9 @@
     "claim": "オープンソースの LLM オブザーバビリティ。トレース、評価、コスト追跡を一元管理。セルフホスト可能。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://raw.githubusercontent.com/langfuse/langfuse/main/README.md",
-    "quote": "Langfuse is an open source LLM engineering platform. It helps teams collaboratively develop, monitor, evaluate, and debug AI applications. Langfuse can be self-hosted in minutes and is battle-tested.",
+    "quote": "Langfuse is an open source LLM engineering platform. It helps teams collaboratively develop, monitor, evaluate, and debug AI applications. Langfuse can be self-hosted in minutes and is battle-tested. [...] LLM Application Observability: Instrument your app and start ingesting traces to Langfuse, thereby tracking LLM calls and other relevant logic in your app such as retrieval, embedding, or agent actions.",
     "correction": "",
-    "evidence": "公式リポジトリの README.md を raw で取得し、オープンソースであること・セルフホスト可能であること・監視と評価を含むことを確認。README のバッジは MIT License を示す。コスト追跡は README に記載がないため公式ドキュメント https://langfuse.com/docs/observability/features/token-and-cost-tracking を別途取得し「Langfuse tracks the usage and costs of your LLM generations and provides breakdowns by usage types.」を確認した。"
+    "evidence": "公式リポジトリの README.md を raw で取得し、オープンソースであること・セルフホスト可能であること・監視と評価を含むことを確認。README のバッジは MIT License を示す。コスト追跡は README に記載がないため公式ドキュメント https://langfuse.com/docs/observability/features/token-and-cost-tracking を別途取得し「Langfuse tracks the usage and costs of your LLM generations and provides breakdowns by usage types.」を確認した。 2026-08-23 に https://raw.githubusercontent.com/langfuse/langfuse/main/README.md を取得し直し、Core Features の冒頭に traces の取り込みを述べる 1 文があることを確認して、冒頭 3 文（OSS / 評価 / セルフホスト）と 2 断片で繋いだ。元の引用はトレースに触れていなかった。同じ取得で cost を grep したが README 全体で 0 件だった。"
   },
   {
     "file": "ai-ml/python-ml/PythonSetup.tsx",
@@ -976,9 +976,9 @@
     "claim": "Brad Frost が提唱した Atomic Design は、UI を 5 段階の粒度で整理する設計手法です。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://atomicdesign.bradfrost.com/chapter-2/",
-    "quote": "Atomic Design Methodology Atoms, molecules, organisms, templates, and pages",
+    "quote": "Atomic design is a methodology composed of five distinct stages working together to create interface design systems in a more deliberate and hierarchical manner.",
     "correction": "",
-    "evidence": "Brad Frost の Atomic Design 第 2 章を取得し、原子・分子・生物・テンプレート・ページの 5 段階であることを確認した。"
+    "evidence": "Brad Frost の Atomic Design 第 2 章を取得し、原子・分子・生物・テンプレート・ページの 5 段階であることを確認した。 2026-08-23 に https://atomicdesign.bradfrost.com/chapter-2/ を取得し直し（正規化後 26184 字）、five を含む 7 箇所を確認して引用を取り直した。元の引用は章題と副題（Atomic Design Methodology / Atoms, molecules, organisms, templates, and pages）を並べたページ見出しの断片で、文として閉じておらず five distinct stages の語も含まなかった。新引用は本文の 1 文で、主語 Atomic design と述語が引用の中で閉じ、5 段階の方法論であることを逐語で述べている。Brad Frost が提唱した点を述べる文は章本文に無く（一人称の My search for a methodology... はあるが氏名が出ない）、氏名は書名表記と著作権表記にしか現れないため、ページ見出しを引用に混ぜることは避けた。出典自体が Brad Frost の著書 Atomic Design の第 2 章であることが帰属の根拠になる。"
   },
   {
     "file": "ux-design/prototyping/FigmaPrototype.tsx",
@@ -1023,25 +1023,25 @@
     "sourceUrl": "http://www.jjg.net/elements/pdf/elements.pdf",
     "quote": "Jesse James Garrett The Elements of User Experience",
     "correction": "",
-    "evidence": "Jesse James Garrett 本人が公開している原典 PDF を取得し pdftotext で平文化。抽象（Abstract）から具体（Concrete）へ、Site Objectives / User Needs・Functional Specifications / Content Requirements・Interaction Design / Information Architecture・Interface / Navigation / Information Design・Visual Design の 5 層が積まれた図であることを確認した。"
+    "evidence": "Jesse James Garrett 本人が公開している原典 PDF を取得し pdftotext で平文化。抽象（Abstract）から具体（Concrete）へ、Site Objectives / User Needs・Functional Specifications / Content Requirements・Interaction Design / Information Architecture・Interface / Navigation / Information Design・Visual Design の 5 層が積まれた図であることを確認した。 2026-08-23 に http://www.jjg.net/elements/pdf/elements.pdf を取得し直し、pdftotext で全文（正規化後 3003 字）を通読した。散文は 4 文しかなく（The goal of this document is to define some of these terms... / The model outlined here does not account for... / Also, this model does not describe a development process... / Rather, it seeks to define the key considerations...）、five・stage・Strategy・Surface のいずれの語も PDF 全体に出てこない。5 段階という数と戦略／表層というプレーン名は 2002 年の書籍側の用語で、この 2000 年の図版 PDF には無い。図中の Abstract Conception / Concrete Completion は図のラベルで、主語と述語が閉じた文にならないため引用にできない。"
   },
   {
     "file": "ux-design/ux-foundations/DesignProcess.tsx",
     "claim": "英国 Design Council が提唱したフレームワーク。「正しい問題を見つける」前半と「正しい解決策を作る」後半の 2 つのダイヤモンドで構成される。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://www.designcouncil.org.uk/our-resources/the-double-diamond/",
-    "quote": "The first diamond helps people understand, rather than simply assume, what the problem is. [...] The second diamond encourages people to give different answers to the clearly defined problem",
+    "quote": "The Double Diamond by the Design Council is licensed under a CC BY 4.0 license. [...] The first diamond helps people understand, rather than simply assume, what the problem is. It involves speaking to and spending time with people who are affected by the issues. Define The insight gathered from the discovery phase can help you to define the challenge in a different way. Develop The second diamond encourages people to give different answers to the clearly defined problem, seeking inspiration from elsewhere and co-designing with a range of different people.",
     "correction": "",
-    "evidence": "英国 Design Council の The Double Diamond ページを取得し、前半のダイヤモンドが問題の理解、後半が解決策の探索であることを確認した。"
+    "evidence": "英国 Design Council の The Double Diamond ページを取得し、前半のダイヤモンドが問題の理解、後半が解決策の探索であることを確認した。 2026-08-23 に https://www.designcouncil.org.uk/our-resources/the-double-diamond/ を取得し直し、Double Diamond を Design Council に帰属させる文を探して CC BY 表記の 1 文を足した。2 つのダイヤモンドは Discover から Develop まで連続した範囲で取り直した。元の引用は役割 2 文だけで、Design Council が出所である点を含んでいなかった。"
   },
   {
     "file": "ux-design/ux-foundations/DesignProcess.tsx",
     "claim": "Eric Ries の Lean Startup の考え方を UX に適用したアプローチ。仮説を素早く検証し、学びを得ることを最優先にする。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://jeffgothelf.com/blog/lean-ux-is-not-just-for-lean-startups/",
-    "quote": "Indeed, lean startup thinking along with Agile philosophies served as inspiration for the Lean UX methodologies and practices",
+    "quote": "As the conversation around Lean UX heats up in the blogs, Twitters and conferences a lot of reference is made to the ideas of lean startup promoted by Eric Ries, Steve Blank and others. [...] Indeed, lean startup thinking along with Agile philosophies served as inspiration for the Lean UX methodologies and practices I and others have promoted.",
     "correction": "",
-    "evidence": "Lean UX の著者 Jeff Gothelf 本人のブログが、リーンスタートアップの考え方と Agile の思想が Lean UX の着想源だと明記している。教材側も同じ引用と出典リンクを載せるよう修正した。"
+    "evidence": "Lean UX の著者 Jeff Gothelf 本人のブログが、リーンスタートアップの考え方と Agile の思想が Lean UX の着想源だと明記している。教材側も同じ引用と出典リンクを載せるよう修正した。 2026-08-23 に https://jeffgothelf.com/blog/lean-ux-is-not-just-for-lean-startups/ を取得し直し、冒頭 2 段落を確認して引用を取り直した。元の引用は Lean Startup が Lean UX の着想元であることしか示しておらず、gap のとおり Eric Ries への帰属が落ちていた。新しい引用は Eric Ries の名前を含む 1 文目と、着想元であることを述べる 1 文目を [...] で繋いだもので、どちらも文として閉じている。"
   },
   {
     "file": "ux-design/research/UserResearch.tsx",

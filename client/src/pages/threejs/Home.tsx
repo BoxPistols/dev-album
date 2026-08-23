@@ -289,7 +289,7 @@ export default function Home() {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Web の表現力を一段上に引き上げる 3D グラフィックス。
-              その入り口として最も人気のあるライブラリが Three.js です。
+              その入り口として Three.js を学びます。
             </p>
           </div>
 

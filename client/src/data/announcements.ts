@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-reaudit-external-service-detail",
+    date: "2026-08-23",
+    title: "出典の引用を取り直し、裏づけの取れない比較表現を落とした",
+    description:
+      "外部サービスの説明を中心に、監査で「確認済み」としていた記述の引用を 263 件見直した。引用が主張の一部しか支えていないものが多く、128 件を出典から取り直している。ダウンロード数だけを根拠にしていた「世界で最も利用されている」「最も人気のある」といった比較の断定は、支える一次情報が無いため MUI 入門・GraphQL・Three.js の各ページから落とした。あわせて shadcn/ui の Dialog を Radix UI ベースと述べていた一文を落とし（同ページの補足どおり既定は Base UI）、Vercel の Edge ランタイム例には Next.js 側でこの宣言が非推奨になった旨を付記した。",
+    category: "fix",
+    link: "/react/mui/intro",
+  },
+  {
     id: "2026-08-23-codeql-settings-path",
     date: "2026-08-23",
     title: "CodeQL の有効化手順: GitHub 側の設定画面の呼び名を現行に合わせた",

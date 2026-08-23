@@ -450,7 +450,7 @@ type Mutation {
             <h2 className="text-2xl font-bold text-foreground mb-4">React で GraphQL を使う</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               React で GraphQL を使うには、クライアントライブラリが必要です。
-              最も広く使われているのが <strong>Apollo Client</strong> です。
+              ここでは <strong>Apollo Client</strong> を使います。
               「データの取得」「ローディング管理」「キャッシュ」をまとめて面倒を見てくれます。
             </p>
 
