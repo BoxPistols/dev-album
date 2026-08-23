@@ -1,0 +1,146 @@
+[
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "cmux 内のターミナルには、起動時に cmux 自身が CMUX_WORKSPACE_ID / CMUX_SURFACE_ID / CMUX_SOCKET_PATH を差し込む。前 2 つはワークスペースとサーフェスの UUID 文字列。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/Packages/macOS/CmuxTerminal/Sources/CmuxTerminal/Spawn/TerminalSurface+StartupEnvironment.swift",
+    "quote": "\"CMUX_SURFACE_ID\": context.surfaceId.uuidString, \"CMUX_WORKSPACE_ID\": context.workspaceId.uuidString, \"CMUX_PANEL_ID\": context.surfaceId.uuidString, \"CMUX_TAB_ID\": context.workspaceId.uuidString, \"CMUX_TERMINAL_LIFECYCLE_ID\": context.terminalLifecycleId.uuidString, \"CMUX_SOCKET_PATH\": context.socketPath",
+    "correction": "",
+    "evidence": "ドキュメントではなく値を実際に設定している箇所を当てた。applyManagedCmuxContextEnvironment がターミナル起動時の environment に 6 つのキーを書き込み、protectedKeys に入れて上書きを防いでいる。値が uuidString であることもここで確定する。教材は従来 2 つしか挙げていなかったので CMUX_SOCKET_PATH を追記した（CMUX_PANEL_ID / CMUX_TAB_ID は surface / workspace の別名なので教材には出していない）。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "CMUX_WORKSPACE_ID は既定のワークスペースの起点、CMUX_SURFACE_ID は呼び出し元ターミナルの起点で、無いときは cmux identify --json にフォールバックする。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/skills/cmux-workspace/SKILL.md",
+    "quote": "`CMUX_WORKSPACE_ID` is the default workspace anchor and `CMUX_SURFACE_ID` the default caller terminal anchor. If they are missing, fall back to `cmux identify --json` and say explicitly that you are using the currently focused context.",
+    "correction": "",
+    "evidence": "cmux 自身がエージェント向けに配布している skill ドキュメント。教材にはフォールバック手段（cmux identify --json）と「フォーカス中の文脈を使っていると明示する」という但し書きが無かったので追記した。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "ソケットのパスは既定値を仮定せず CMUX_SOCKET_PATH を優先する。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/skills/cmux-workspace/SKILL.md",
+    "quote": "Use the socket path cmux provided before any default: `SOCK=\"${CMUX_SOCKET_PATH:-/tmp/cmux.sock}\"`.",
+    "correction": "",
+    "evidence": "同じ skill ドキュメントの Socket access 節。教材の CodeBlock に載せた SOCK= の行はここからの引用。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "cmux は 0.62.0（2026-03-12 リリース）でターミナルへの Cmd+V によるクリップボード画像ペーストに対応した。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/CHANGELOG.md",
+    "quote": "## [0.62.0] - 2026-03-12 […] - Clipboard image paste in terminal with Cmd+V ([#562](https://github.com/manaflow-ai/cmux/pull/562), [#853](https://github.com/manaflow-ai/cmux/pull/853))",
+    "correction": "",
+    "evidence": "タグ v0.62.0 には GitHub Release が無くリリースノートが読めないため、リポジトリ内の CHANGELOG.md を出典にした。版と日付は独立に 2 つの経路で一致する。(1) CHANGELOG の見出し。(2) gh api repos/manaflow-ai/cmux/git/refs/tags/v0.62.0 が指すコミット 74b0d893f481589e6fb41db96d10b3f19cabd83c の author date が 2026-03-12T08:28:29Z で、メッセージは Merge pull request #1240 from manaflow-ai/release/v0.62.0。実装コミット b6163cc は gh api repos/manaflow-ai/cmux/compare/v0.61.0...v0.62.0 の範囲に入り、v0.61.0 には含まれない。教材の記述は版・日付とも正しかったので、リリース日である旨だけ明示した。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "クリップボードの画像を一時ファイル（PNG）として書き出し、そのパスをターミナル入力へ送る。画像そのものを転送するのではなくパスの文字列を送っている。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/commit/b6163ccfad704b23d2ed674e2017c695683fa895.patch",
+    "quote": "When the macOS clipboard contains only image data (e.g. from Cmd+Ctrl+Shift+4 screenshot) and no text, Cmd+V now saves the image as a temporary PNG file and pastes the file path into the terminal. This allows CLI tools like Claude Code to receive pasted images.",
+    "correction": "",
+    "evidence": "実装コミット b6163ccfad704b23d2ed674e2017c695683fa895（Support pasting clipboard images in terminal (#562)）の .patch を取得。差分は Sources/GhosttyTerminalView.swift 1 ファイルで、saveClipboardImageIfNeeded() が NSTemporaryDirectory() 配下に clipboard-<timestamp>-<uuid8>.png を書き、paste(_:) が terminalSurface?.sendText(Self.escapeDropForShell(path)) でパス文字列を送る。教材の「一時ファイル + パス注入」という記述はコードで裏が取れた。.patch はコミット SHA に固定されているので動く URL ではない。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "介入するのはクリップボードに画像だけがあるときに限られ、テキスト・HTML・RTF が同時に載っている場合は通常のテキストペーストになる。10 MB を超える画像は既定の動作に委ねられる。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/commit/b6163ccfad704b23d2ed674e2017c695683fa895.patch",
+    "quote": "The pasteboard heuristic only intercepts when there is image data (TIFF/PNG) and no text/HTML/RTF, so normal text paste is unaffected. Images over 10 MB are skipped and fall through to default behavior.",
+    "correction": "",
+    "evidence": "同じコミットのメッセージ。コード側でも clipboardHasImageOnly() が .string / .html / .rtf / .rtfd を見て早期 return し、maxClipboardImageSize = 10 * 1024 * 1024 を超えると nil を返す。教材に無かった条件なので追記した。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "一時ファイルのパスはシェル向けにエスケープされてから送られる。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/commit/b6163ccfad704b23d2ed674e2017c695683fa895.patch",
+    "quote": "Use escapeDropForShell on the clipboard image temp path, consistent with how drag/drop paths are escaped, to avoid issues with shell-special characters in the path.",
+    "correction": "",
+    "evidence": "同じコミットの 3 番目のコミットメッセージ。差分の paste(_:) が sendText(Self.escapeDropForShell(path)) を呼ぶ行と一致する。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "（削除した記述）iTerm2 の OSC 1337 のような画像転送プロトコルとは仕組みが異なる。",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/commit/b6163ccfad704b23d2ed674e2017c695683fa895.patch",
+    "quote": "",
+    "correction": "iTerm2 との比較を落とし、「画像そのものを端末へ転送するのではなく、パスの文字列を送っている点が要になる」と cmux 側の実装だけで言える形に書き換えた。",
+    "evidence": "cmux 側の仕組み（一時ファイル + パス送出）はコミット b6163cc で確定できるが、比較対象である iTerm2 の OSC 1337 は cmux の一次情報では裏が取れない。教材の主題は cmux なので、別製品の仕様に依存する一文を残すより落とした。記述そのものが誤りだと確認したわけではなく、この教材の出典で支えられない一文だったため落とした。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "サイドバーの各行には git のブランチ名、紐づく PR の状態と番号、作業ディレクトリ、待ち受け中のポート、最新の通知テキストが並ぶ。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/README.md",
+    "quote": "Sidebar shows git branch, linked PR status/number, working directory, listening ports, and latest notification text. Split horizontally and vertically.",
+    "correction": "",
+    "evidence": "公式 README の Features 表にある「Vertical + horizontal tabs」の説明。issue #58 が「アプリを起動しないと確認できない」としていた 3 項目（git ブランチ・カレントディレクトリ・ポート）は、README がそのまま列挙しているうえ、描画側の型でも裏が取れた。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxIntro.tsx",
+    "claim": "サイドバーの行が持つ項目（PR・待ち受けポート）はソース上の描画値としても実在する。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/Sources/SidebarWorkspaceSnapshotBuilder.swift",
+    "quote": "let pullRequestRows: [PullRequestDisplay] let listeningPorts: [Int]",
+    "correction": "",
+    "evidence": "README だけでなく描画側でも確かめた。SidebarWorkspaceSnapshotBuilder.Snapshot は 1 ワークスペース行ぶんの描画値をまとめた struct で、branch / directoryCandidates / pullRequestRows / listeningPorts を持つ。行を組み立てる SidebarWorkspaceRowSnapshot 側に latestNotificationText と unreadCount がある。引用は原文で連続する 2 行に絞った。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxIntro.tsx",
+    "claim": "エージェントが入力待ち状態になると、該当ワークスペースのタブに青い環（リング）が点灯する。",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/README.md",
+    "quote": "Panes get a blue ring and tabs light up when coding agents need your attention",
+    "correction": "「該当ペインに青い環（リング）が付き、サイドバーのタブが点灯する」に直した。リングが付くのはペインで、タブは点灯する側。CmuxSetup.tsx の CodeBlock にあった「サイドバーのタブに青い通知リングが点灯する」も同様に直した。",
+    "evidence": "README の Features 表の Notification rings の説明。リングの掛かる対象を教材が取り違えていた。色（青）と対象（ペイン）はここで確定するので、見え方のうちこの範囲は GUI を起動しなくても書ける。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "エージェントが注意を求めると、ペインの周囲に通知リングが出て、サイドバーには未読バッジが付く。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/README.md",
+    "quote": "When a process needs attention, cmux shows notification rings around panes, unread badges in the sidebar, a notification popover, and a macOS desktop notification. These fire automatically via standard terminal escape sequences (OSC 9/99/777), or you can trigger them with the [cmux CLI](https://cmux.com/docs/notifications#cli-usage) and [agent hooks](https://cmux.com/docs/notifications#integration-examples).",
+    "correction": "",
+    "evidence": "README の FAQ「How do notifications work?」。通知が上がる契機（OSC 9/99/777 のエスケープシーケンス、cmux CLI、エージェントの hook）と、表出先が 4 つ（ペインのリング・サイドバーの未読バッジ・通知ポップオーバー・macOS のデスクトップ通知）であることがここで確定する。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxIntro.tsx",
+    "claim": "hook 経由で上がった通知には turn-complete / needs-permission / idle-reminder のいずれかの区分が付く。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/docs/notifications.md",
+    "quote": "`turn-complete`, `needs-permission`, or `idle-reminder`",
+    "correction": "",
+    "evidence": "docs/notifications.md の Agent-event context 節にある category フィールドの定義表。教材は通知の状態を「実行中・入力待ち・完了」と書いていたが、これは出典に無い区分だったので実在する 3 区分に置き換えた。同節には「エージェント由来でない通知（素の cmux notify、OSC 9/99/777、古い CLI）では agent オブジェクトごと省かれる」とあるので、教材でも hook 経由に限定して書いた。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "Cmd+Shift+U で最新の未読へジャンプできる。",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://github.com/manaflow-ai/cmux/blob/17466308a52cb53e417e07085f108800efedd267/docs/notifications.md",
+    "quote": "Use `Cmd+Shift+U` to jump to the latest unread notification.",
+    "correction": "",
+    "evidence": "docs/notifications.md の Navigation 節。教材の既存記述どおりで、変更は不要だった。出典は manaflow-ai/cmux の main を指す動く URL ではなく、コミット 17466308a52cb53e417e07085f108800efedd267（2026-08-23 時点の main）に固定した。main の blob URL は改稿で内容が変わり、判定が正しくてもいつか照合に落ちるため。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxSetup.tsx",
+    "claim": "$CMUX_SURFACE_ID / $CMUX_WORKSPACE_ID に実際に入る値の実例",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "local:cmux-gui-required",
+    "quote": "",
+    "correction": "",
+    "evidence": "値が UUID 文字列であることはソース（uuidString）で確定したが、走っている cmux から取れる具体値は GUI を起動しないと得られない。教材には具体値を書いていないので記述の修正は不要。実値は環境ごとに変わるため、確認できても教材には載せない。"
+  },
+  {
+    "file": "claude-code/cmux/CmuxIntro.tsx",
+    "claim": "通知リングの太さ・アニメーション・消えるまでの時間といった見え方の細部",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "local:cmux-gui-required",
+    "quote": "",
+    "correction": "",
+    "evidence": "色（青）と対象（ペイン）と契機（OSC 9/99/777・cmux notify・hook）は README と docs/notifications.md で確定した。それ以外の見え方は README のスクリーンショット（docs/assets/notification-rings.png）を見ないと分からず、画像は逐語照合の対象にできない。教材には見え方の細部を書いていないので、このまま未確認として残す。"
+  }
+]

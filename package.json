@@ -26,6 +26,7 @@
     "check:verdicts:reaudit": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-reaudit-verdicts.json",
     "claim:coverage": "node scripts/claim-coverage.mjs",
     "check:verdicts:followup": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-followup-verdicts.json",
+    "check:verdicts:cmux": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-cmux-verdicts.json",
     "check:quote-fragments": "node scripts/check-quote-fragments.mjs",
     "check:links": "node scripts/check-links.mjs",
     "fix:links": "node scripts/fix-redirected-links.mjs",
