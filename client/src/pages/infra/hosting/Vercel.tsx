@@ -202,6 +202,19 @@ export async function GET(request: Request) {
               ランタイム）として動きます。データベースクライアントなど Node.js
               依存のライブラリを使う場合は Serverless を選ぶのが基本です。
             </p>
+
+            <InfoBox type="warning" title="Next.js 側ではこの宣言が非推奨になった">
+              <p>
+                Vercel の Edge Functions は提供が続いていますが、Next.js の
+                route segment config では <code>runtime</code> の値{" "}
+                <code>'edge'</code> が非推奨になり、公式リファレンスは route
+                ファイルから <code>runtime</code> の export
+                を外すよう案内しています（2026-08-23 時点、Next.js 16.3
+                のリファレンスで確認）。上の例は Vercel の Edge
+                ランタイムがどう動くかを見るためのもので、Next.js
+                で新しく書くときはこの宣言を付けません。
+              </p>
+            </InfoBox>
           </section>
 
           {/* Quiz 1 */}

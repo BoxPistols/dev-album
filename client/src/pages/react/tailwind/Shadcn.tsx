@@ -276,7 +276,6 @@ function App() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Dialog（モーダル）コンポーネント</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Dialog はモーダルウィンドウを作るためのコンポーネントです。
-              Radix UI ベースなので、キーボード操作やアクセシビリティに対応済みです。
             </p>
 
             <CodeBlock
