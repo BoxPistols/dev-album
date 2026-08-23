@@ -40,7 +40,7 @@ const postgresStrengths = [
   {
     title: "拡張（EXTENSION）",
     description:
-      "PostGIS（地理空間）、pg_trgm（あいまい検索）など、CREATE EXTENSION 一行で機能を足せる。コア機能を拡張で補強する設計思想を持つ。",
+      "拡張本体がサーバに入っていれば、CREATE EXTENSION 一行で有効化できる。pg_trgm（あいまい検索）は PostgreSQL 同梱の追加モジュール、PostGIS（地理空間）は別途インストールしてから有効化する。コア機能を拡張で補強する設計思想を持つ。",
   },
   {
     title: "pgvector",

@@ -42,7 +42,7 @@ export default function Jsx() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">JSX とは何か？</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              JSX は <strong>JavaScript XML</strong> の略で、JavaScript の中に HTML のような構文を書ける拡張構文です。
+              JSX は、JavaScript の中に <strong>HTML のような構文</strong>を書ける拡張構文です。
               React のコンポーネントが「見た目」を定義するために使います。
             </p>
 

@@ -8,7 +8,12 @@ name: Source checks
 #   pnpm check:verdicts      監査 JSON（medium）の逐語引用が原文にあるか
 #   pnpm check:verdicts:low  監査 JSON（low）の逐語引用が原文にあるか
 #   pnpm check:verdicts:followup  追補監査の逐語引用が原文にあるか（実ブラウザ経由の出典を含む）
+#   pnpm check:verdicts:reaudit  再監査 JSON（2026-08-23）の逐語引用が原文にあるか
 #   pnpm check:freshness     verifiedAt が 180 日より古い出典が無いか
+#
+# 検査を足すときは 3 箇所に足す。step（id 付き・continue-on-error）、
+# 「失敗を issue に報告」の RESULTS、「結果を確定」の OUTCOMES。
+# 走るだけで報告されない検査は、無い検査より悪い。
 #
 # なぜ PR ゲートにしないか:
 #   700 以上の URL を取得するため 10 分以上かかり、相手側の一時的な障害で無関係な PR が落ちる。
@@ -52,7 +57,7 @@ env:
 jobs:
   check:
     runs-on: ubuntu-latest
-    # 6 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
+    # 7 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v7
@@ -104,6 +109,10 @@ jobs:
         id: verdicts-followup
         continue-on-error: true
         run: bash .github/scripts/run-check-with-retry.sh verdicts-followup pnpm check:verdicts:followup
+      - name: 再監査 JSON（2026-08-23）の逐語照合
+        id: verdicts-reaudit
+        continue-on-error: true
+        run: bash .github/scripts/run-check-with-retry.sh verdicts-reaudit pnpm check:verdicts:reaudit
 
       # ネットワークに出ないので再実行は無意味だが、ログの置き場を揃えるため同じ経路で回す
       - name: 出典の照合日の鮮度
@@ -135,6 +144,7 @@ jobs:
             verdicts=${{ steps.verdicts.outputs.status }}/${{ steps.verdicts.outputs.attempts }}
             verdicts-low=${{ steps.verdicts-low.outputs.status }}/${{ steps.verdicts-low.outputs.attempts }}
             verdicts-followup=${{ steps.verdicts-followup.outputs.status }}/${{ steps.verdicts-followup.outputs.attempts }}
+            verdicts-reaudit=${{ steps.verdicts-reaudit.outputs.status }}/${{ steps.verdicts-reaudit.outputs.attempts }}
             freshness=${{ steps.freshness.outputs.status }}/${{ steps.freshness.outputs.attempts }}
         run: bash .github/scripts/report-source-checks.sh
 
@@ -148,6 +158,7 @@ jobs:
             ${{ steps.verdicts.outcome }}
             ${{ steps.verdicts-low.outcome }}
             ${{ steps.verdicts-followup.outcome }}
+            ${{ steps.verdicts-reaudit.outcome }}
             ${{ steps.freshness.outcome }}
         run: |
           echo "各検査の結果: $OUTCOMES"

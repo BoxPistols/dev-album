@@ -4,6 +4,7 @@ import BookmarkButton from '@/components/BookmarkButton';
 import StepIndicator from '@/components/StepIndicator';
 import SectionBadge from '@/components/SectionBadge';
 import InfoBox from '@/components/InfoBox';
+import ReferenceLinks from '@/components/ReferenceLinks';
 
 export default function WhyClaudeCode() {
   return (
@@ -32,7 +33,7 @@ export default function WhyClaudeCode() {
               ターミナルファーストのAIエージェント
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Code は Anthropic が開発した公式の CLI ツールです。エディタのプラグインではなく、ターミナルで直接動作するエージェントとして設計されています。ファイルの読み書き、コマンド実行、Git操作を自律的に行い、開発者はコードレビューと方向性の判断に集中できます。
+              Claude Code は Anthropic が提供するエージェント型のコーディングツールです。公式ドキュメントは、コードベースを読み、ファイルを編集し、コマンドを実行し、開発ツールと連携すると説明しています。動作する面はターミナルだけではなく、IDE 拡張・デスクトップアプリ・Web も公式に用意されています。このガイドが主に扱うのはターミナルの CLI で、ファイルの読み書きとコマンド実行を任せながら、開発者はコードレビューと方向性の判断に時間を使えます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
@@ -49,62 +50,84 @@ export default function WhyClaudeCode() {
             </div>
           </section>
 
-          {/* 他ツールとの比較 */}
+          {/* 公式ドキュメントで裏が取れる範囲 */}
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
               <Zap className="text-[var(--claude-primary)]" />
-              他のAIコーディングツールとの違い
+              公式ドキュメントで確認できる動作
             </h2>
+            <p className="leading-relaxed mb-6 text-muted-foreground">
+              このページには以前、「エディタ拡張型」「Web UI 型」という匿名のカテゴリを相手にした比較表を置いていました。カテゴリには一次情報を出す提供元が存在しないため、「非対応」「不可」といったセルを裏づける出典を当てられません。表は外し、Anthropic の公式ドキュメントに記載がある Claude Code 側の動作だけを残します。製品名を挙げた比較は「AI コーディングエージェント」の章で扱います。
+            </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-slate-700">
-                    <th className="text-left py-3 px-4 font-bold">特徴</th>
-                    <th className="text-center py-3 px-4 font-bold text-[var(--claude-primary)]">Claude Code</th>
-                    <th className="text-center py-3 px-4 font-bold text-muted-foreground">エディタ拡張型</th>
-                    <th className="text-center py-3 px-4 font-bold text-muted-foreground">Web UI型</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-4 font-bold">項目</th>
+                    <th className="text-left py-3 px-4 font-bold">公式ドキュメントの記載</th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <td className="py-3 px-4 font-medium text-foreground">動作環境</td>
-                    <td className="py-3 px-4 text-center">ターミナル</td>
-                    <td className="py-3 px-4 text-center">VS Code等</td>
-                    <td className="py-3 px-4 text-center">ブラウザ</td>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">動作する面</td>
+                    <td className="py-3 px-4">ターミナル、IDE 拡張、デスクトップアプリ、Web の 4 つ。設定と MCP サーバーは面をまたいで共通に効く</td>
                   </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <td className="py-3 px-4 font-medium text-foreground">コマンド実行</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">直接実行</td>
-                    <td className="py-3 px-4 text-center">限定的</td>
-                    <td className="py-3 px-4 text-center">不可</td>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">ファイルとコマンド</td>
+                    <td className="py-3 px-4">コードベースを読み、ファイルを編集し、コマンドを実行する。複数ファイルにまたがる作業に対応する</td>
                   </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <td className="py-3 px-4 font-medium text-foreground">ファイル操作</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">自律的</td>
-                    <td className="py-3 px-4 text-center">エディタ経由</td>
-                    <td className="py-3 px-4 text-center">コピー&ペースト</td>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">権限の強制</td>
+                    <td className="py-3 px-4">権限のルールを強制するのはモデルではなく Claude Code 側。プロンプトや CLAUDE.md では許可範囲は変わらない</td>
                   </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <td className="py-3 px-4 font-medium text-foreground">MCP連携</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">対応</td>
-                    <td className="py-3 px-4 text-center">一部対応</td>
-                    <td className="py-3 px-4 text-center">非対応</td>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">Bash のサンドボックス</td>
+                    <td className="py-3 px-4">触れてよいファイルとネットワーク先を宣言し、境界を OS が強制する。macOS / Linux / WSL2 で動作する</td>
                   </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <td className="py-3 px-4 font-medium text-foreground">バックグラウンド実行</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">対応</td>
-                    <td className="py-3 px-4 text-center">エディタ依存</td>
-                    <td className="py-3 px-4 text-center">タブ必須</td>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">外部ツール連携</td>
+                    <td className="py-3 px-4">MCP を通じて外部ツールやデータソースに接続する</td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-3 px-4 font-medium text-foreground">Git / GitHub</td>
+                    <td className="py-3 px-4">GitHub Actions 上で PR や issue のコメントの @claude に反応し、変更を実装してコミットを push する</td>
                   </tr>
                   <tr>
-                    <td className="py-3 px-4 font-medium text-foreground">Git統合</td>
-                    <td className="py-3 px-4 text-center text-[var(--claude-primary)] font-bold">完全</td>
-                    <td className="py-3 px-4 text-center">部分的</td>
-                    <td className="py-3 px-4 text-center">非対応</td>
+                    <td className="py-3 px-4 font-medium text-foreground">CLI としての合成</td>
+                    <td className="py-3 px-4">Unix 哲学に沿った合成が可能で、ログをパイプで渡す・CI で回すといった使い方ができる</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <ReferenceLinks
+              links={[
+                {
+                  title: 'Claude Code — Overview',
+                  url: 'https://code.claude.com/docs/en/overview',
+                  description: '動作する面（ターミナル / IDE 拡張 / デスクトップ / Web）と、コードベースの読み取り・ファイル編集・コマンド実行の記載',
+                },
+                {
+                  title: 'Claude Code — Configure permissions',
+                  url: 'https://code.claude.com/docs/en/permissions',
+                  description: '権限ルールを強制するのはモデルではなく Claude Code 側であるという記載',
+                },
+                {
+                  title: 'Claude Code — Configure the sandboxed Bash tool',
+                  url: 'https://code.claude.com/docs/en/sandboxing',
+                  description: 'ファイルとネットワークの境界を OS が強制する仕組みと、対応 OS の記載',
+                },
+                {
+                  title: 'Claude Code — Connect Claude Code to tools via MCP',
+                  url: 'https://code.claude.com/docs/en/mcp',
+                  description: 'MCP を通じた外部ツール・データソースへの接続の記載',
+                },
+                {
+                  title: 'Claude Code — GitHub Actions',
+                  url: 'https://code.claude.com/docs/en/github-actions',
+                  description: 'PR / issue コメントの @claude に反応してコミットを push する記載',
+                },
+              ]}
+            />
           </section>
 
           {/* エージェンティック開発 */}

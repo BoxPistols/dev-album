@@ -144,7 +144,7 @@ React の Strict Mode が意図的に 2 回呼んでいる。
                 <tbody>
                   {[
                     ["CSS の 100vh はビューポートの高さ", "iOS Safari ではアドレスバーを含む。100dvh が現代の解"],
-                    ["semver の ^1.2.3 は 1.x を許容する", "実際に入るのは lockfile が固定した 1 つのバージョン"],
+                    ["semver の ^1.2.3 は 1.2.3 以上 2.0.0 未満を許容する", "実際に入るのは lockfile が固定した 1 つのバージョン"],
                     ["useEffect はレンダー後に実行される", "開発時の Strict Mode では 2 回走る"],
                     ["requestAnimationFrame は毎フレーム呼ばれる", "タブが非アクティブだと止まる。60fps は保証ではない"],
                   ].map(([a, b]) => (
