@@ -283,7 +283,7 @@ interface CardProps {
             </p>
             <CodeBlock
               code={`// ✅ 型を書かなくてOK（自動推論される）
-const brandColor = '#2563eb';        // string と推論
+const brandColor = '#2563eb';        // '#2563eb' というリテラル型
 const spacing = 16;                   // number と推論
 const isVisible = true;               // boolean と推論
 const variants = ['sm', 'md', 'lg'];  // string[] と推論
@@ -294,7 +294,7 @@ function getLabel(count: number) {
 }
 
 // ⚠️ 型を書くべき場面
-// 1. 関数の引数 → 推論できないので必須
+// 1. 関数の引数 → 文脈から推論できないときは書く（コールバックの引数は推論される）
 function Badge({ label, variant }: BadgeProps) { ... }
 
 // 2. 空の配列 → 中身がわからない
@@ -371,7 +371,7 @@ function App() {
               ジェネリクスは「型の引数」です。難しく聞こえますが、日常で使う場面は限られています。<strong>useState で null から始める場合</strong> だけ覚えておけば最初は十分です。
             </p>
             <CodeBlock
-              code={`// ジェネリクスを使う場面（ほぼこの2パターンだけ）
+              code={`// ジェネリクスをよく使う場面
 
 // 1. useState で初期値が null のとき
 interface User {
@@ -562,7 +562,7 @@ interface InputProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-// おまけ: React.FC は使わない（旧式の書き方）
+// おまけ: このマニュアルは React.FC を使わず、関数宣言に Props の型を付ける
 // ❌ const Card: React.FC<CardProps> = ({ children }) => { ... }
 // ✅ function Card({ children }: CardProps) { ... }`}
               language="tsx"
@@ -697,7 +697,7 @@ function StatusBadge({ label, status, size = 'sm' }: StatusBadgeProps) {
                   <li>バリアントはユニオン型で表現</li>
                   <li>型推論に任せ、必要なところだけ書く</li>
                   <li>ジェネリクスは useState{'<T | null>'}(null) で慣れる</li>
-                  <li>React.FC は使わない</li>
+                  <li>React.FC ではなく関数宣言に Props の型を付ける</li>
                   <li>迷ったらエディタにマウスホバーで確認</li>
                 </ul>
               </div>
@@ -741,7 +741,7 @@ function StatusBadge({ label, status, size = 'sm' }: StatusBadgeProps) {
                 },
                 {
                   question: 'interface と type はどちらを使うべきですか？',
-                  answer: 'チーム内で統一されていればどちらでもOKです。おすすめは「Props は interface、バリアントの選択肢は type」という使い分けです。interface は extends で拡張しやすく、エラーメッセージも読みやすいメリットがあります。',
+                  answer: 'チーム内で統一されていればどちらでもOKです。おすすめは「Props は interface、バリアントの選択肢は type」という使い分けです。interface は extends や宣言のマージで後から拡張でき、エラーメッセージには必ず名前が出ます。型エイリアスの名前がエラーメッセージに出ないことがあったのは TypeScript 4.2 より前の挙動です。',
                 },
               ]}
             />

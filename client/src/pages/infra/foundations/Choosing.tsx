@@ -375,10 +375,10 @@ export default function Choosing() {
             <ReferenceLinks
               links={[
                 {
-                  title: "Vercel - Rendering 戦略の概要",
+                  title: "Vercel - Next.js on Vercel",
                   url: "https://vercel.com/docs/frameworks/nextjs",
                   description:
-                    "CSR/SSR/SSG/ISR の使い分けをフレームワーク視点で整理した公式ドキュメント",
+                    "SSR と ISR を Vercel 上でどう動かすかを説明した公式ドキュメント",
                 },
                 {
                   title:

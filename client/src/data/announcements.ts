@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-reaudit-missed-claims",
+    date: "2026-08-23",
+    title: "拾えていなかった主張 441 件を一次情報と照合し、11 ページを修正した",
+    description:
+      "以前の照合が届いていなかった領域から主張を拾い直した。TypeScript 入門の「const はリテラル型に推論される」の取り違えと「React.FC は使わない」の断定、Claude Code の比較表、infra と api の断定を直した。裏づけの無い記述は弱めるのではなく落としている。",
+    category: "fix",
+    link: "/react/react-basics/typescript",
+  },
+  {
     id: "2026-08-23-reaudit-external-service-detail",
     date: "2026-08-23",
     title: "出典の引用を取り直し、裏づけの取れない比較表現を落とした",

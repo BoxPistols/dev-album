@@ -150,12 +150,12 @@ function UncontrolledInput() {
                   <tr className="border-b border-border">
                     <td className="py-2 px-3 font-medium">バリデーション</td>
                     <td className="py-2 px-3">リアルタイムに可能</td>
-                    <td className="py-2 px-3">送信時のみ</td>
+                    <td className="py-2 px-3">送信時が基本（onChange / onBlur で読めば入力中も可能）</td>
                   </tr>
                   <tr className="border-b border-border">
-                    <td className="py-2 px-3 font-medium">推奨度</td>
-                    <td className="py-2 px-3">React 推奨</td>
-                    <td className="py-2 px-3">特定のケースで使用</td>
+                    <td className="py-2 px-3 font-medium">向いている場面</td>
+                    <td className="py-2 px-3">入力のたびに UI を更新したいとき</td>
+                    <td className="py-2 px-3">送信時に値を読めば足りるとき</td>
                   </tr>
                 </tbody>
               </table>
@@ -908,7 +908,7 @@ function SignupWithRHF() {
             <InfoBox type="info" title="なぜフォームライブラリを使うのか？">
               <div className="space-y-2">
                 <p><strong>コード量の削減</strong>: useState、handleChange、バリデーション関数が不要になり、コードが大幅に短くなります。</p>
-                <p><strong>パフォーマンス</strong>: React Hook Form は非制御コンポーネントベースなので、入力のたびに再レンダリングが発生しません。大きなフォームでは大きな差になります。</p>
+                <p><strong>パフォーマンス</strong>: React Hook Form は非制御コンポーネントを前提にしているため、再レンダリングの回数を抑えられます（公式は「再レンダリングを最小化する」と説明しています）。</p>
                 <p><strong>バリデーション</strong>: Zod や Yup などのスキーマライブラリと統合できます。</p>
                 <p><strong>まずは基本を理解してから</strong>: ライブラリの内部で何が起きているかを理解するために、制御コンポーネントの基本は必ず押さえておきましょう。</p>
               </div>

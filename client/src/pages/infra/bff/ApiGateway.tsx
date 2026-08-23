@@ -186,7 +186,8 @@ export default function ApiGateway() {
                       集約
                     </td>
                     <td className="py-2 pr-4 text-muted-foreground align-top">
-                      原則行わない
+                      既定の役割ではない（nginx の SSI モジュールのように、別の
+                      リクエストの結果を応答に差し込む仕組みはある）
                     </td>
                     <td className="py-2 text-muted-foreground align-top">
                       複数サービスをまとめる機能を持つことがある
@@ -295,9 +296,10 @@ Service Service  Service`}
             </div>
 
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              両者は排他ではなく、併用できます。よくある構成は、フロントが BFF
-              を呼び、BFF が API Gateway
-              を通して背後のサービス群を呼ぶ並びです。 共通の認証やレート制限は
+              両者は排他ではなく、併用できます。Microsoft の BFF
+              パターンが示す並びは、フロントがまず API Gateway を呼び、Gateway
+              がクライアント種別ごとの BFF へ振り分け、BFF
+              が背後のサービス群を呼ぶ形です。 共通の認証やレート制限は入口の
               Gateway が引き受け、画面ごとの集約と整形は BFF
               が引き受けると、責務が綺麗に分かれます。
             </p>
@@ -306,8 +308,8 @@ Service Service  Service`}
               language="bash"
               title="併用時のリクエストの流れ"
               code={`Browser
-  -> BFF (画面ごとの集約・整形、フロント専用)
-       -> API Gateway (共通の認証・レート制限・ルーティング)
+  -> API Gateway (共通の認証・レート制限・ルーティング)
+       -> BFF (画面ごとの集約・整形、クライアント種別ごと)
             -> Users / Orders / Products サービス`}
             />
 
@@ -384,7 +386,7 @@ Service Service  Service`}
                 },
                 {
                   label:
-                    "フロントが BFF を呼び、BFF が API Gateway を通して背後のサービス群を呼ぶ",
+                    "フロントが API Gateway を呼び、Gateway がクライアント種別ごとの BFF へ振り分け、BFF が背後のサービス群を呼ぶ",
                   correct: true,
                 },
                 {
@@ -393,7 +395,7 @@ Service Service  Service`}
                 },
                 { label: "両者は排他で、どちらか一方しか同じ系では使えない" },
               ]}
-              explanation="BFF はフロント側を向いた画面ごとの集約・整形層、API Gateway はサービス側を向いた共通の入口です。フロント → BFF → Gateway → サービス群の並びにすると、画面最適化は BFF、共通の認証やレート制限は Gateway と責務が分かれます。"
+              explanation="BFF はフロント側を向いた画面ごとの集約・整形層、API Gateway はサービス側を向いた共通の入口です。Microsoft の BFF パターンは、クライアント → Gateway → クライアント種別ごとの BFF → マイクロサービス群という並びを示しています。画面最適化は BFF、共通の認証やレート制限は入口の Gateway と責務が分かれます。"
             />
           </section>
 

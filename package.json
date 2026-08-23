@@ -23,6 +23,7 @@
     "fix:quotes": "node scripts/trim-quotes.mjs --write",
     "check:verdicts": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-medium-verdicts.json",
     "check:verdicts:low": "node scripts/verify-verdicts.mjs docs/audits/2026-08-16-low-verdicts.json",
+    "check:verdicts:reaudit": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-reaudit-verdicts.json",
     "claim:coverage": "node scripts/claim-coverage.mjs",
     "check:verdicts:followup": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-followup-verdicts.json",
     "check:quote-fragments": "node scripts/check-quote-fragments.mjs",
