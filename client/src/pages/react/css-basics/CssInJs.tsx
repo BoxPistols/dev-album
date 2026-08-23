@@ -1137,7 +1137,7 @@ export const card = style({
               links={[
                 {
                   title: 'State of CSS 2024 - Libraries & Tools（CSS-in-JS）',
-                  url: 'https://2024.stateofcss.com/en-US/tools/#css_in_js',
+                  url: 'https://2024.stateofcss.com/en-US/tools/',
                   description: '毎年実施される大規模調査による CSS-in-JS ライブラリの利用率データ',
                 },
                 {

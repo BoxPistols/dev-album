@@ -373,7 +373,7 @@ prism proxy openapi.yaml http://localhost:3000
                 },
                 {
                   title: "OpenAPI Specification - Example Object",
-                  url: "https://spec.openapis.org/oas/latest.html#example-object",
+                  url: "https://spec.openapis.org/oas/latest.html",
                   description:
                     "OpenAPI 仕様の example / examples の定義。モックの質を左右する example の書き方の一次情報",
                 },

@@ -312,17 +312,17 @@ updates:
               links={[
                 {
                   title: "Configuring Dependabot version updates",
-                  url: "https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates",
+                  url: "https://docs.github.com/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-version-updates",
                   description: "dependabot.yml の書き方とグループ化",
                 },
                 {
                   title: "About code scanning with CodeQL",
-                  url: "https://docs.github.com/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql",
+                  url: "https://docs.github.com/code-security/concepts/code-scanning/codeql/codeql-code-scanning",
                   description: "自動セキュリティ解析の有効化と仕組み",
                 },
                 {
                   title: "Claude Code GitHub Actions",
-                  url: "https://docs.claude.com/en/docs/claude-code/github-actions",
+                  url: "https://code.claude.com/docs/en/github-actions",
                   description: "GitHub Actions と組み合わせる方法の公式ドキュメント",
                 },
               ]}

@@ -490,7 +490,7 @@ export async function POST(request: NextRequest) {
               links={[
                 {
                   title: 'Route Handlers - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/routing/route-handlers',
+                  url: 'https://nextjs.org/docs/app/api-reference/file-conventions/route',
                   description: 'API エンドポイントの作成方法',
                 },
                 {

@@ -491,23 +491,23 @@ const fruit = ref('apple')
               links={[
                 {
                   title: "Vue 公式 - テンプレート構文",
-                  url: "https://ja.vuejs.org/guide/essentials/template-syntax.html",
+                  url: "https://ja.vuejs.org/guide/essentials/template-syntax",
                   description: "補間・v-bind・ディレクティブの基本（日本語）",
                 },
                 {
                   title: "Vue 公式 - 条件付きレンダリング",
-                  url: "https://ja.vuejs.org/guide/essentials/conditional.html",
+                  url: "https://ja.vuejs.org/guide/essentials/conditional",
                   description:
                     "v-if / v-else / v-show の違いと使い分け（日本語）",
                 },
                 {
                   title: "Vue 公式 - リストレンダリング",
-                  url: "https://ja.vuejs.org/guide/essentials/list.html",
+                  url: "https://ja.vuejs.org/guide/essentials/list",
                   description: "v-for と :key の正しい使い方（日本語）",
                 },
                 {
                   title: "Vue 公式 - フォーム入力バインディング",
-                  url: "https://ja.vuejs.org/guide/essentials/forms.html",
+                  url: "https://ja.vuejs.org/guide/essentials/forms",
                   description: "v-model と入力種別ごとの挙動・修飾子（日本語）",
                 },
               ]}

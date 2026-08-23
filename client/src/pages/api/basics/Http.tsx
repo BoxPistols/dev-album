@@ -446,24 +446,24 @@ Location: /v1/users/42
               links={[
                 {
                   title: "MDN - HTTP の概要",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Overview",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Overview",
                   description:
                     "リクエスト/レスポンスの構造とヘッダーを図解付きで解説した入門ドキュメント",
                 },
                 {
                   title: "MDN - HTTP ヘッダー リファレンス",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers",
                   description:
                     "Content-Type・Accept・Authorization など各ヘッダーの詳細仕様",
                 },
                 {
                   title: "MDN - HTTP レスポンスステータスコード",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status",
                   description: "2xx/4xx/5xx などステータスコードの意味の一覧",
                 },
                 {
                   title: "RFC 9110 - HTTP Semantics",
-                  url: "https://www.rfc-editor.org/rfc/rfc9110",
+                  url: "https://www.rfc-editor.org/info/rfc9110/",
                   description:
                     "メソッド・ステータス・ヘッダーの意味を定義する HTTP の中核仕様（英語）",
                 },

@@ -1858,7 +1858,7 @@ function App() {
             links={[
               {
                 title: 'MDN - <dialog>: ダイアログ要素',
-                url: 'https://developer.mozilla.org/ja/docs/Web/HTML/Element/dialog',
+                url: 'https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Elements/dialog',
                 description: 'HTML dialog 要素の仕様と使い方',
               },
               {

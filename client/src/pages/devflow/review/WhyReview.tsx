@@ -331,7 +331,7 @@ export default function WhyReview() {
                 },
                 {
                   title: "GitHub Docs - About pull request reviews",
-                  url: "https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews",
+                  url: "https://docs.github.com/ja/pull-requests/reference/pull-request-reviews",
                   description:
                     "GitHub 上でのレビューの仕組みと、レビューが協働でどう機能するかの基礎",
                 },

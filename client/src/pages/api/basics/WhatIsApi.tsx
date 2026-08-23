@@ -266,7 +266,7 @@ export default function WhatIsApi() {
                 },
                 {
                   title: "MDN - HTTP の概要",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Overview",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Overview",
                   description:
                     "Web API の土台となる HTTP の基礎。次の章につながる",
                 },

@@ -363,13 +363,13 @@ curl -X DELETE https://api.example.com/v1/users/42`}
               links={[
                 {
                   title: "RFC 9110 - HTTP Semantics（Methods）",
-                  url: "https://www.rfc-editor.org/rfc/rfc9110.html#name-methods",
+                  url: "https://www.rfc-editor.org/rfc/rfc9110.html",
                   description:
                     "各 HTTP メソッドの安全性・冪等性を定義する一次仕様。GET/POST/PUT/PATCH/DELETE の正確な意味はここが基準",
                 },
                 {
                   title: "MDN - HTTP リクエストメソッド",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Methods",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Methods",
                   description:
                     "各メソッドの用途・安全・冪等を日本語でまとめた実用リファレンス",
                 },

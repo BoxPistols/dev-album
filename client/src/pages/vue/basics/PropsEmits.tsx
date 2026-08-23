@@ -486,25 +486,25 @@ const text = ref('')
               links={[
                 {
                   title: "Vue 公式 - Props",
-                  url: "https://ja.vuejs.org/guide/components/props.html",
+                  url: "https://ja.vuejs.org/guide/components/props",
                   description:
                     "defineProps の宣言方法・型付け・デフォルト値の解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - イベント（Emits）",
-                  url: "https://ja.vuejs.org/guide/components/events.html",
+                  url: "https://ja.vuejs.org/guide/components/events",
                   description:
                     "defineEmits と emit によるイベント発火の解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - v-model（コンポーネント）",
-                  url: "https://ja.vuejs.org/guide/components/v-model.html",
+                  url: "https://ja.vuejs.org/guide/components/v-model",
                   description:
                     "defineModel と双方向バインディングの公式解説（日本語）",
                 },
                 {
                   title: "Vue 公式 - Reactive Props Destructure",
-                  url: "https://ja.vuejs.org/guide/components/props.html#reactive-props-destructure",
+                  url: "https://ja.vuejs.org/guide/components/props",
                   description:
                     "Vue 3.5 の props 分割代入でリアクティビティを保つ仕組み（日本語）",
                 },

@@ -530,25 +530,25 @@ Content-Type: application/json
               links={[
                 {
                   title: "MDN - HTTP レスポンスステータスコード",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status",
                   description:
                     "全ステータスコードの一覧と説明。日本語で各コードの意味を確認できる",
                 },
                 {
                   title: "RFC 9110 - HTTP Semantics (Status Codes)",
-                  url: "https://www.rfc-editor.org/rfc/rfc9110#name-status-codes",
+                  url: "https://www.rfc-editor.org/info/rfc9110/",
                   description:
                     "HTTP セマンティクスの一次仕様。各ステータスコードの正式な定義",
                 },
                 {
                   title: "RFC 4918 - 422（旧称 Unprocessable Entity）",
-                  url: "https://www.rfc-editor.org/rfc/rfc4918#section-11.2",
+                  url: "https://www.rfc-editor.org/info/rfc4918/",
                   description:
                     "422 が初出した WebDAV 仕様。理由句は RFC 9110 で Unprocessable Content に改称された",
                 },
                 {
                   title: "RFC 9457 - Problem Details for HTTP APIs",
-                  url: "https://www.rfc-editor.org/rfc/rfc9457",
+                  url: "https://www.rfc-editor.org/info/rfc9457/",
                   description:
                     "エラーレスポンスの標準フォーマット。422 / 400 のボディ設計の指針になる",
                 },

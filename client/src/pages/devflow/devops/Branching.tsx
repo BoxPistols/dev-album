@@ -443,7 +443,7 @@ function renderCheckout() {
                 },
                 {
                   title: "Google Cloud - Trunk-based development (DORA)",
-                  url: "https://cloud.google.com/architecture/devops/devops-tech-trunk-based-development",
+                  url: "https://docs.cloud.google.com/architecture/devops",
                   description:
                     "トランクベース開発とデリバリーパフォーマンスの関係を扱う DORA の解説",
                 },

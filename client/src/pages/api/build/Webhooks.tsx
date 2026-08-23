@@ -478,20 +478,20 @@ Location: /v1/reports/rep_771/status
               links={[
                 {
                   title: "MDN - HTTP レスポンスステータスコード",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status",
                   description:
                     "202 Accepted など、非同期処理で使うステータスコードの定義を日本語で確認できる",
                 },
                 {
                   title: "RFC 9110 - HTTP Semantics（202 Accepted）",
-                  url: "https://www.rfc-editor.org/rfc/rfc9110#name-202-accepted",
+                  url: "https://www.rfc-editor.org/info/rfc9110/",
                   description:
                     "202 Accepted の正式な意味（受理したが処理は未完了）を定義する一次仕様",
                 },
                 {
                   title:
                     "RFC 2104 - HMAC: Keyed-Hashing for Message Authentication",
-                  url: "https://www.rfc-editor.org/rfc/rfc2104",
+                  url: "https://www.rfc-editor.org/info/rfc2104/",
                   description:
                     "HMAC の一次仕様。共有鍵を用いたメッセージ認証の仕組みを定義",
                 },

@@ -421,13 +421,13 @@ export const useUserStore = defineStore('user', () => {
                 },
                 {
                   title: "Pinia 公式 - ストアを使う（storeToRefs）",
-                  url: "https://pinia.vuejs.org/core-concepts/#Using-the-store",
+                  url: "https://pinia.vuejs.org/core-concepts/",
                   description:
                     "storeToRefs でリアクティビティを保って分割代入する",
                 },
                 {
                   title: "Vue 公式 - 状態管理",
-                  url: "https://ja.vuejs.org/guide/scaling-up/state-management.html",
+                  url: "https://ja.vuejs.org/guide/scaling-up/state-management",
                   description: "Pinia を含む Vue の状態管理の考え方（日本語）",
                 },
               ]}

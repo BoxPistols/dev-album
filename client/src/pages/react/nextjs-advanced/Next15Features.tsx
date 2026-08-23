@@ -806,7 +806,7 @@ export default nextConfig;`}
                 },
                 {
                   title: 'Next.js 15 アップグレードガイド',
-                  url: 'https://nextjs.org/docs/app/building-your-application/upgrading/version-15',
+                  url: 'https://nextjs.org/docs/app/guides/upgrading/version-15',
                   description: 'Next.js 14 からのアップグレード手順と破壊的変更の一覧',
                 },
                 {
@@ -816,7 +816,7 @@ export default nextConfig;`}
                 },
                 {
                   title: 'Turbopack - Next.js Docs',
-                  url: 'https://nextjs.org/docs/architecture/turbopack',
+                  url: 'https://nextjs.org/docs/app/api-reference/turbopack',
                   description: 'Turbopack のアーキテクチャと設定方法',
                 },
               ]}

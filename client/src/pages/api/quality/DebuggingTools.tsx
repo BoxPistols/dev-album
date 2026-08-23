@@ -664,13 +664,13 @@ access-control-allow-methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
                 },
                 {
                   title: "MDN - CORS（オリジン間リソース共有）",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/CORS",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/CORS",
                   description:
                     "preflight・許可ヘッダー・なぜブラウザだけが強制するかを日本語で解説",
                 },
                 {
                   title: "curl 公式マニュアル",
-                  url: "https://curl.se/docs/manual.html",
+                  url: "https://curl.se/docs/tutorial.html",
                   description:
                     "-i / -X / -H / -d / -v など主要オプションの一次情報",
                 },
@@ -682,7 +682,7 @@ access-control-allow-methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
                 },
                 {
                   title: "Bruno - Git 管理できる API クライアント",
-                  url: "https://docs.usebruno.com/",
+                  url: "https://docs.usebruno.com/introduction/getting-started",
                   description:
                     "リクエストをローカルファイルで保持し git 管理する設計の公式ドキュメント",
                 },

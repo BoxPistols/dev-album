@@ -405,17 +405,17 @@ jobs:
               links={[
                 {
                   title: "Reusing workflows",
-                  url: "https://docs.github.com/actions/using-workflows/reusing-workflows",
+                  url: "https://docs.github.com/actions/how-tos/reuse-automations/reuse-workflows",
                   description: "workflow_call による再利用ワークフローの作り方",
                 },
                 {
                   title: "Creating a composite action",
-                  url: "https://docs.github.com/actions/creating-actions/creating-a-composite-action",
+                  url: "https://docs.github.com/actions/tutorials/create-actions/create-a-composite-action",
                   description: "step の並びを再利用する合成アクション",
                 },
                 {
                   title: "Security hardening for GitHub Actions",
-                  url: "https://docs.github.com/actions/security-guides/security-hardening-for-github-actions",
+                  url: "https://docs.github.com/actions/reference/security/secure-use",
                   description: "権限の最小化・SHA 固定・secrets の守り方",
                 },
               ]}

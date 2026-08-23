@@ -28,6 +28,7 @@
     "check:verdicts:followup": "node scripts/verify-verdicts.mjs docs/audits/2026-08-23-followup-verdicts.json",
     "check:quote-fragments": "node scripts/check-quote-fragments.mjs",
     "check:links": "node scripts/check-links.mjs",
+    "fix:links": "node scripts/fix-redirected-links.mjs",
     "check:prerender": "node scripts/check-prerender.mjs",
     "check:freshness": "tsx scripts/check-source-freshness.mjs"
   },

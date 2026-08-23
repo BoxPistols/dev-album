@@ -576,13 +576,13 @@ onMounted(() => {
                 },
                 {
                   title: "Vue 公式 - defineModel",
-                  url: "https://ja.vuejs.org/api/sfc-script-setup.html#definemodel",
+                  url: "https://ja.vuejs.org/api/sfc-script-setup",
                   description:
                     "v-model を簡潔に扱う defineModel の公式リファレンス（日本語）",
                 },
                 {
                   title: "Nuxt 公式ドキュメント",
-                  url: "https://nuxt.com/docs",
+                  url: "https://nuxt.com/docs/getting-started/introduction",
                   description:
                     "srcDir=app/・useFetch・server/api など Nuxt 4 の公式ガイド",
                 },

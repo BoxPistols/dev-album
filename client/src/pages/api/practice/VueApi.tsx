@@ -577,7 +577,7 @@ npx openapi-typescript ./openapi.json -o ./src/types/api.d.ts`}
                 },
                 {
                   title: "VueUse - useFetch",
-                  url: "https://vueuse.org/core/useFetch/",
+                  url: "https://vueuse.org/core/usefetch/",
                   description:
                     "リアクティブな URL での自動再取得、isFetching / error / data の API リファレンス",
                 },

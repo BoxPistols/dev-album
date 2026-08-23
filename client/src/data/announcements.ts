@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-permanent-links",
+    date: "2026-08-23",
+    title: "教材の外部リンクを恒久 URL に寄せた",
+    description:
+      "リダイレクトされていた 191 件のリンクを、現在の正しいアドレスに書き換えた。リダイレクトは今は届くが出典側の次の整理で切れるので、届くうちに寄せている。GitHub のドキュメントなど言語を選べるものは、読者の言語で開くようロケールを付けずに残した。",
+    category: "fix",
+    link: "/git/github-actions/workflow-basics",
+  },
+  {
     id: "2026-08-23-reaudit-missed-claims",
     date: "2026-08-23",
     title: "拾えていなかった主張 441 件を一次情報と照合し、11 ページを修正した",

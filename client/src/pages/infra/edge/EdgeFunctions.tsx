@@ -386,7 +386,7 @@ export const config = { matcher: ["/dashboard/:path*"] };`}
               links={[
                 {
                   title: "Next.js - Middleware",
-                  url: "https://nextjs.org/docs/app/api-reference/file-conventions/middleware",
+                  url: "https://nextjs.org/docs/app/api-reference/file-conventions/proxy",
                   description:
                     "middleware.ts でリクエスト前にリダイレクト・リライトを行う公式ガイド",
                 },

@@ -491,12 +491,12 @@ export default function Page() {
               links={[
                 {
                   title: 'Client Components - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/rendering/client-components',
+                  url: 'https://nextjs.org/docs/app/getting-started/server-and-client-components',
                   description: 'Client Components の使い方と制約',
                 },
                 {
                   title: 'Composition Patterns - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns',
+                  url: 'https://nextjs.org/docs/app/getting-started/server-and-client-components',
                   description: 'Server/Client Component の構成パターン',
                 },
               ]}

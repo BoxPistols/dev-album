@@ -364,7 +364,7 @@ export default function WhatIsUx() {
               },
               {
                 title: 'Interaction Design Foundation - UX Design',
-                url: 'https://www.interaction-design.org/literature/topics/ux-design',
+                url: 'https://ixdf.org/literature/topics/ux-design',
                 description: 'UX デザインの包括的な学習リソース',
               },
             ]}

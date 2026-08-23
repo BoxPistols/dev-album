@@ -409,12 +409,12 @@ jobs:
                 },
                 {
                   title: "Workflow syntax for GitHub Actions",
-                  url: "https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions",
+                  url: "https://docs.github.com/actions/reference/workflows-and-actions/workflow-syntax",
                   description: "YAML の各キー（on / jobs / steps）の仕様",
                 },
                 {
                   title: "Using environments for deployment",
-                  url: "https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+                  url: "https://docs.github.com/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
                   description:
                     "staging / production の分離と保護環境・承認の設定",
                 },

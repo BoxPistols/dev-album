@@ -614,7 +614,7 @@ CREATE TABLE order_items (
                 },
                 {
                   title: "OpenAPI Specification - Schema Object",
-                  url: "https://spec.openapis.org/oas/latest.html#schema-object",
+                  url: "https://spec.openapis.org/oas/latest.html",
                   description:
                     "エンティティを API スキーマに写すときの components/schemas の仕様",
                 },

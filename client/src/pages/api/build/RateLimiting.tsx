@@ -503,19 +503,19 @@ async function fetchWithRetry(
               links={[
                 {
                   title: "MDN - 429 Too Many Requests",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status/429",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status/429",
                   description:
                     "429 ステータスと Retry-After ヘッダーの使い方を日本語で解説",
                 },
                 {
                   title: "MDN - Retry-After",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Retry-After",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Retry-After",
                   description:
                     "秒数 / HTTP 日時のどちらでも指定できる Retry-After の仕様",
                 },
                 {
                   title: "RFC 6585 - Additional HTTP Status Codes",
-                  url: "https://www.rfc-editor.org/rfc/rfc6585",
+                  url: "https://www.rfc-editor.org/info/rfc6585/",
                   description:
                     "429 Too Many Requests を定義した一次仕様（4 節）",
                 },

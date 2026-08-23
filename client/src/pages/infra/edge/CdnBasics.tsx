@@ -475,7 +475,7 @@ cache-control: public, s-maxage=60, stale-while-revalidate=600`}
                 },
                 {
                   title: "Vercel - Edge Network Caching",
-                  url: "https://vercel.com/docs/edge-network/caching",
+                  url: "https://vercel.com/docs/caching/cdn-cache",
                   description:
                     "s-maxage・stale-while-revalidate を使った CDN キャッシュ制御の実例",
                 },

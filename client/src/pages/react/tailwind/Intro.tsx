@@ -519,7 +519,7 @@ export default function ProductList() {
               links={[
                 {
                   title: 'Tailwind CSS 公式ドキュメント',
-                  url: 'https://tailwindcss.com/docs',
+                  url: 'https://tailwindcss.com/docs/installation/using-vite',
                   description: 'Tailwind CSS のユーティリティクラスリファレンス',
                 },
                 {

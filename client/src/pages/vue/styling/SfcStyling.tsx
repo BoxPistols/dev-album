@@ -505,13 +505,13 @@ body {
               links={[
                 {
                   title: "Vue 公式 - SFC の CSS 機能",
-                  url: "https://ja.vuejs.org/api/sfc-css-features.html",
+                  url: "https://ja.vuejs.org/api/sfc-css-features",
                   description:
                     "scoped / :deep() / module / v-bind の公式リファレンス（日本語）",
                 },
                 {
                   title: "Vue 公式 - 単一ファイルコンポーネント",
-                  url: "https://ja.vuejs.org/guide/scaling-up/sfc.html",
+                  url: "https://ja.vuejs.org/guide/scaling-up/sfc",
                   description:
                     "SFC の構造と style ブロックの位置づけ（日本語）",
                 },

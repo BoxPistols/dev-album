@@ -663,7 +663,7 @@ export async function createPost(formData: FormData) {
               links={[
                 {
                   title: 'Server Actions - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations',
+                  url: 'https://nextjs.org/docs/app/getting-started/mutating-data',
                   description: 'Server Actions によるデータ変更',
                 },
                 {

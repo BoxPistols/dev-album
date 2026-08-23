@@ -365,12 +365,12 @@ export default function SwaggerUi() {
     <title>API Docs</title>
     <link
       rel="stylesheet"
-      href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css"
+      href="https://unpkg.com/swagger-ui-dist@5.32.14/swagger-ui.css"
     />
   </head>
   <body>
     <div id="swagger-ui"></div>
-    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.32.14/swagger-ui-bundle.js"></script>
     <script>
       window.ui = SwaggerUIBundle({
         // 描画したい OpenAPI ファイルの場所を指す
@@ -464,7 +464,7 @@ npx @redocly/cli@1 preview-docs openapi.json`}
               links={[
                 {
                   title: "Swagger UI 公式ドキュメント",
-                  url: "https://swagger.io/tools/swagger-ui/",
+                  url: "https://swagger.io/open-source/swagger-ui/",
                   description:
                     "Swagger UI の概要と導入方法。Try it out や Authorize の挙動の一次情報",
                 },

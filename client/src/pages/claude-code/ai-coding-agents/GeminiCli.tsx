@@ -389,7 +389,7 @@ gemini -m <model>`}
                 },
                 {
                   title: "Google 公式ブログ: Introducing Gemini CLI",
-                  url: "https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/",
+                  url: "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-cli-open-source-ai-agent/",
                   description: "リリース発表。無料枠と提供方針の一次情報",
                 },
                 {

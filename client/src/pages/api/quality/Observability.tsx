@@ -430,7 +430,7 @@ X-Request-Id: f47ac10b-58cc-4372-a567-0e02b2c3d479`}
                 },
                 {
                   title: "MDN - HTTP ヘッダー一覧",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers",
                   description:
                     "X-Request-Id など各ヘッダーの位置づけを確認できる日本語リファレンス",
                 },

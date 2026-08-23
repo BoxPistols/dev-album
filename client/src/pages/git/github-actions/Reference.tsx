@@ -493,24 +493,24 @@ export default function Reference() {
               links={[
                 {
                   title: "Contexts reference",
-                  url: "https://docs.github.com/actions/learn-github-actions/contexts",
+                  url: "https://docs.github.com/actions/reference/workflows-and-actions/contexts",
                   description:
                     "github / env / secrets / matrix など全コンテキストの公式一覧",
                 },
                 {
                   title: "Expressions reference",
-                  url: "https://docs.github.com/actions/learn-github-actions/expressions",
+                  url: "https://docs.github.com/actions/reference/workflows-and-actions/expressions",
                   description:
                     "contains / hashFiles / success 等の関数リファレンス",
                 },
                 {
                   title: "GITHUB_TOKEN permissions",
-                  url: "https://docs.github.com/actions/security-guides/automatic-token-authentication",
+                  url: "https://docs.github.com/actions/tutorials/authenticate-with-github_token",
                   description: "permissions で指定できるスコープの全一覧",
                 },
                 {
                   title: "About GitHub-hosted runners",
-                  url: "https://docs.github.com/actions/using-github-hosted-runners/about-github-hosted-runners",
+                  url: "https://docs.github.com/actions/concepts/runners/github-hosted-runners",
                   description: "runs-on のラベルと仕様の公式リファレンス",
                 },
                 {

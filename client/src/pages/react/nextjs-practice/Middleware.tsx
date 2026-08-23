@@ -528,7 +528,7 @@ export const config = {
               links={[
                 {
                   title: 'Middleware - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/routing/middleware',
+                  url: 'https://nextjs.org/docs/app/api-reference/file-conventions/proxy',
                   description: 'ミドルウェアの設定と使い方',
                 },
                 {

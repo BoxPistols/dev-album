@@ -311,7 +311,7 @@ export default function ChoosingTools() {
                 },
                 {
                   title: "OpenAI Codex 公式ドキュメント",
-                  url: "https://developers.openai.com/codex",
+                  url: "https://learn.chatgpt.com/docs",
                   description: "Codex の提供形態と料金",
                 },
                 {

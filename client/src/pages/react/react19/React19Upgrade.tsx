@@ -758,7 +758,7 @@ test('カウンターが増加する', async () => {
                 },
                 {
                   title: 'React 19 Codemod',
-                  url: 'https://github.com/codemod-com/codemod',
+                  url: 'https://github.com/codemod/codemod',
                   description: 'コードの自動変換ツール。PropTypes 削除や API 変更を自動適用',
                 },
                 {

@@ -275,13 +275,13 @@ export default function Intro() {
                 },
                 {
                   title: "Understanding GitHub Actions",
-                  url: "https://docs.github.com/actions/learn-github-actions/understanding-github-actions",
+                  url: "https://docs.github.com/actions/get-started/understand-github-actions",
                   description:
                     "イベント・ジョブ・ランナーといった中核概念の解説",
                 },
                 {
                   title: "About billing for GitHub Actions",
-                  url: "https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions",
+                  url: "https://docs.github.com/billing/concepts/product-billing/github-actions",
                   description: "無料枠の分数と課金の考え方の公式リファレンス",
                 },
                 {

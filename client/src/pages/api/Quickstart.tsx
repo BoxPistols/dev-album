@@ -440,7 +440,7 @@ curl -i https://api.example.com/v1/users/42
               links={[
                 {
                   title: "MDN - HTTP の概要",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Overview",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Overview",
                   description:
                     "API の土台となる HTTP の最小知識。日本語で読める",
                 },

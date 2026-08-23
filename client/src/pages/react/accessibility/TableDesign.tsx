@@ -2043,12 +2043,12 @@ function UserTable({ users }: { users: User[] }) {
               links={[
                 {
                   title: 'MDN - <table>: The Table element',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/HTML/Element/table',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Elements/table',
                   description: 'HTML テーブル要素の公式リファレンス。セマンティクスとアクセシビリティの解説が充実',
                 },
                 {
                   title: 'MDN - table-layout',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/table-layout',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/table-layout',
                   description: 'table-layout: auto / fixed の詳細な仕様と挙動の解説',
                 },
                 {
@@ -2058,7 +2058,7 @@ function UserTable({ users }: { users: User[] }) {
                 },
                 {
                   title: 'MDN - CSS overflow',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/overflow',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/overflow',
                   description: 'overflow-x: auto による横スクロールの仕様と注意点',
                 },
               ]}

@@ -358,7 +358,7 @@ const doubled = computed(() => count.value * 2)
                 },
                 {
                   title: "Nuxt 公式 - Directory Structure",
-                  url: "https://nuxt.com/docs/guide/directory-structure/app",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/app/app",
                   description:
                     "Nuxt 4 の app/ ディレクトリ構成の公式リファレンス",
                 },

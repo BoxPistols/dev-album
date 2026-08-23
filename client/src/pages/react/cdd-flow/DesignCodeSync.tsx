@@ -1308,13 +1308,13 @@ await Promise.all([
               },
               {
                 title: "Design Tokens W3C Community Group",
-                url: "https://design-tokens.github.io/community-group/format/",
+                url: "https://www.designtokens.org/tr/drafts/format/",
                 description:
                   "Design Tokens の標準フォーマット仕様。$value、$type などのプロパティ名の仕様を定義。",
               },
               {
                 title: "Figma Variables - 公式ドキュメント",
-                url: "https://help.figma.com/hc/en-us/articles/15339657135383",
+                url: "https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma",
                 description:
                   "Figma Variables の作成と管理方法。コレクション、モード、スコープの設定を解説。",
               },

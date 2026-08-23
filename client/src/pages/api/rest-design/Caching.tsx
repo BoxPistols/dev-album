@@ -361,25 +361,25 @@ curl -i https://api.example.com/v1/articles/42 \\
               links={[
                 {
                   title: "MDN - HTTP キャッシュ",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Caching",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Caching",
                   description:
                     "鮮度・再検証・Cache-Control の全体像を日本語で解説。最初に読むと良い",
                 },
                 {
                   title: "MDN - Cache-Control",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Cache-Control",
                   description:
                     "各ディレクティブ（max-age / no-cache / private 等）の詳細",
                 },
                 {
                   title: "MDN - ETag",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/ETag",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/ETag",
                   description:
                     "ETag と If-None-Match による条件付きリクエストの仕組み",
                 },
                 {
                   title: "RFC 9111 - HTTP Caching",
-                  url: "https://www.rfc-editor.org/rfc/rfc9111",
+                  url: "https://www.rfc-editor.org/info/rfc9111/",
                   description:
                     "HTTP キャッシュの一次仕様。鮮度計算や再検証の正式な定義",
                 },

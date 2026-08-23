@@ -378,12 +378,12 @@ copilot -p "この PR の変更点を要約して"`}
                 },
                 {
                   title: "Copilot CLI について",
-                  url: "https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli",
+                  url: "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli",
                   description: "ターミナルエージェントの概念と使い方",
                 },
                 {
                   title: "コーディングエージェントについて",
-                  url: "https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent",
+                  url: "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
                   description: "Issue アサインから PR 作成までの仕組み",
                 },
               ]}

@@ -527,7 +527,7 @@ export default function PersonaJourney() {
               links={[
                 {
                   title: "Personas - Interaction Design Foundation",
-                  url: "https://www.interaction-design.org/literature/topics/personas",
+                  url: "https://ixdf.org/literature/topics/personas",
                   description:
                     "ペルソナの定義、作成手順、テンプレートを網羅した解説記事",
                 },

@@ -961,12 +961,12 @@ function App() {
                 },
                 {
                   title: 'MDN: Event reference',
-                  url: 'https://developer.mozilla.org/ja/docs/Web/Events',
+                  url: 'https://developer.mozilla.org/ja/docs/Web/API/Document_Object_Model/Events',
                   description: 'ブラウザが提供するすべてのイベントのリファレンス',
                 },
                 {
                   title: 'React 公式: SyntheticEvent',
-                  url: 'https://react.dev/reference/react-dom/components/common#react-event-object',
+                  url: 'https://react.dev/reference/react-dom/components/common',
                   description: 'React の合成イベントオブジェクトの詳細なリファレンス',
                 },
               ]}

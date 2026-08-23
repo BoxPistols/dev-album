@@ -483,7 +483,7 @@ export default function Wireframe() {
               links={[
                 {
                   title: "Wireframing - Interaction Design Foundation",
-                  url: "https://www.interaction-design.org/literature/topics/wireframing",
+                  url: "https://ixdf.org/literature/topics/wireframe",
                   description:
                     "ワイヤーフレームの定義から実践まで体系的にまとめた解説",
                 },

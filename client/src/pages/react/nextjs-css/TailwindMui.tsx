@@ -625,12 +625,12 @@ export default function PricingPage() {
               links={[
                 {
                   title: 'CSS スタイリング - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/styling',
+                  url: 'https://nextjs.org/docs/app/getting-started/css',
                   description: 'Next.js でのスタイリング手法の概要',
                 },
                 {
                   title: 'Tailwind CSS - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/styling/tailwind-css',
+                  url: 'https://nextjs.org/docs/app/getting-started/css',
                   description: 'Next.js での Tailwind CSS の設定',
                 },
                 {

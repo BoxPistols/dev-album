@@ -363,19 +363,19 @@ export const handler = async (event) => {
                 },
                 {
                   title: "netlify.toml リファレンス",
-                  url: "https://docs.netlify.com/configure-builds/file-based-configuration/",
+                  url: "https://docs.netlify.com/build/configure-builds/file-based-configuration/",
                   description:
                     "build / redirects / headers など設定ファイルの全項目",
                 },
                 {
                   title: "Edge Functions（Deno）",
-                  url: "https://docs.netlify.com/edge-functions/overview/",
+                  url: "https://docs.netlify.com/build/edge-functions/overview/",
                   description:
                     "Deno ベースのエッジ関数の仕組みとコンテキスト API",
                 },
                 {
                   title: "Redirects & Rewrites",
-                  url: "https://docs.netlify.com/routing/redirects/",
+                  url: "https://docs.netlify.com/manage/routing/redirects/overview/",
                   description:
                     "_redirects / リライトの記法とステータスコードの挙動",
                 },

@@ -478,7 +478,7 @@ async function handleCreateOrder(req: Request): Promise<Response> {
                 },
                 {
                   title: "MDN - 422 Unprocessable Content",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Status/422",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Status/422",
                   description:
                     "同一キーで内容が異なる場合などに使うステータスコードの定義",
                 },

@@ -373,13 +373,13 @@ export default function Culture() {
                 },
                 {
                   title: "Google Cloud - DevOps culture",
-                  url: "https://cloud.google.com/architecture/devops/devops-culture-transform",
+                  url: "https://docs.cloud.google.com/architecture/devops",
                   description:
                     "DORA の調査をもとにした文化変革のガイド。心理的安全性と責任共有を扱う",
                 },
                 {
                   title: "IT Revolution - The Three Ways",
-                  url: "https://itrevolution.com/the-three-ways-principles-underpinning-devops/",
+                  url: "https://itrevolution.com/articles/the-three-ways-principles-underpinning-devops/",
                   description:
                     "『The DevOps Handbook』著者による The Three Ways の解説記事",
                 },

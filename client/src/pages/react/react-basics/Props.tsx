@@ -1071,7 +1071,7 @@ function Badge({ label, color = 'blue', size = 'sm' }: BadgeProps) {
                 },
                 {
                   title: 'Component Props - TypeScript + React',
-                  url: 'https://react.dev/learn/typescript#typing-component-props',
+                  url: 'https://react.dev/learn/typescript',
                   description: 'Props に TypeScript の型をつける方法の公式ガイド',
                 },
               ]}

@@ -734,7 +734,7 @@ function AppShell() {
                 },
                 {
                   title: 'リソースの事前読み込み - React 公式',
-                  url: 'https://ja.react.dev/reference/react-dom#resource-preloading-apis',
+                  url: 'https://ja.react.dev/reference/react-dom',
                   description: 'preload, preinit, prefetchDNS, preconnect の API リファレンス',
                 },
               ]}

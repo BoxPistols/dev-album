@@ -98,7 +98,7 @@ export default function CursorInstall() {
                   以下のリンクから Cursor の公式サイトにアクセスしてください。
                 </p>
                 <a
-                  href="https://www.cursor.com"
+                  href="https://cursor.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
@@ -180,7 +180,7 @@ export default function CursorInstall() {
                   以下のリンクから Cursor の公式サイトにアクセスしてください。
                 </p>
                 <a
-                  href="https://www.cursor.com"
+                  href="https://cursor.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"

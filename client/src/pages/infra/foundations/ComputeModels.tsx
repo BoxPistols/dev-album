@@ -403,7 +403,7 @@ export default function handler() {
                 },
                 {
                   title: "MDN - HTTP の概要",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Overview",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Overview",
                   description:
                     "実行モデルの土台となるリクエスト/レスポンスの基礎",
                 },

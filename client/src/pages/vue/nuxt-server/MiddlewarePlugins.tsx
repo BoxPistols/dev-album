@@ -416,7 +416,7 @@ const greeting = $hello('Nuxt')  // → "Hello, Nuxt!"
                 },
                 {
                   title: "Nuxt 公式 - Modules",
-                  url: "https://nuxt.com/docs/guide/concepts/modules",
+                  url: "https://nuxt.com/docs/4.x/guide/modules/getting-started",
                   description: "modules 配列への登録とモジュールの仕組みの概要",
                 },
                 {

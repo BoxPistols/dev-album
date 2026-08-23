@@ -357,18 +357,18 @@ export default function TriggersJobs() {
               links={[
                 {
                   title: "Events that trigger workflows",
-                  url: "https://docs.github.com/actions/using-workflows/events-that-trigger-workflows",
+                  url: "https://docs.github.com/actions/reference/workflows-and-actions/events-that-trigger-workflows",
                   description:
                     "push / pull_request / schedule / workflow_dispatch の一覧",
                 },
                 {
                   title: "Using a matrix for your jobs",
-                  url: "https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs",
+                  url: "https://docs.github.com/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations",
                   description: "マトリクスの展開・include / exclude・fail-fast",
                 },
                 {
                   title: "Using concurrency",
-                  url: "https://docs.github.com/actions/using-jobs/using-concurrency",
+                  url: "https://docs.github.com/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency",
                   description: "同時実行の制御と古い実行のキャンセル",
                 },
               ]}

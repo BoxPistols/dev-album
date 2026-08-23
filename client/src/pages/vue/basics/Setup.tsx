@@ -224,7 +224,7 @@ h1 {
               links={[
                 {
                   title: "Vue 公式 - クイックスタート",
-                  url: "https://ja.vuejs.org/guide/quick-start.html",
+                  url: "https://ja.vuejs.org/guide/quick-start",
                   description:
                     "create-vue を使ったプロジェクト作成の公式手順（日本語）",
                 },
@@ -235,12 +235,12 @@ h1 {
                 },
                 {
                   title: "Vue 公式 - 単一ファイルコンポーネント",
-                  url: "https://ja.vuejs.org/guide/scaling-up/sfc.html",
+                  url: "https://ja.vuejs.org/guide/scaling-up/sfc",
                   description: "SFC の構造と仕組みの解説（日本語）",
                 },
                 {
                   title: "Vite 公式",
-                  url: "https://ja.vitejs.dev/",
+                  url: "https://ja.vite.dev/",
                   description:
                     "create-vue が内部で使うビルドツール Vite の公式（日本語）",
                 },

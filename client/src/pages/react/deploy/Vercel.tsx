@@ -546,7 +546,7 @@ export default nextConfig;`}
                 },
                 {
                   title: 'Next.js デプロイ - Next.js',
-                  url: 'https://nextjs.org/docs/app/building-your-application/deploying',
+                  url: 'https://nextjs.org/docs/app/getting-started/deploying',
                   description: 'Next.js アプリのデプロイ方法',
                 },
                 {

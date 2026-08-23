@@ -441,14 +441,14 @@ Link: <https://api.example.com/v2/users>; rel="successor-version",
               links={[
                 {
                   title: "RFC 8594 - The Sunset HTTP Header Field",
-                  url: "https://www.rfc-editor.org/rfc/rfc8594",
+                  url: "https://www.rfc-editor.org/info/rfc8594/",
                   description:
                     "リソースの廃止予定日時を伝える Sunset ヘッダーの仕様",
                 },
                 {
                   title:
                     "RFC 9745 - The Deprecation HTTP Response Header Field",
-                  url: "https://www.rfc-editor.org/rfc/rfc9745",
+                  url: "https://www.rfc-editor.org/info/rfc9745/",
                   description:
                     "API やリソースの非推奨を機械可読に伝える Deprecation ヘッダーの仕様",
                 },
@@ -460,7 +460,7 @@ Link: <https://api.example.com/v2/users>; rel="successor-version",
                 },
                 {
                   title: "MDN - HTTP コンテンツネゴシエーション",
-                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Content_negotiation",
+                  url: "https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Content_negotiation",
                   description:
                     "Accept ヘッダーによるバージョン指定（ヘッダー方式）の土台となる仕組み",
                 },

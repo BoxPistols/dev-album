@@ -150,7 +150,7 @@ export default function ClaudeCodeIntro() {
                 <h3 className="text-lg font-semibold mb-4 text-sm">1. インストール</h3>
                 <p className="text-xs text-muted-foreground mb-4">ネイティブインストーラ（推奨・自動更新あり）または npm でインストールします。</p>
                 <CodeBlock code={`# ネイティブインストール（推奨）
-$ curl -fsSL https://claude.ai/install.sh | bash
+$ curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash
 
 # npm でインストールする場合
 $ npm install -g @anthropic-ai/claude-code`} language="bash" />

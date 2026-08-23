@@ -69,7 +69,7 @@ npm install -g @openai/codex
 brew install --cask codex
 
 # インストールスクリプト (macOS / Linux)
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
+curl -fsSL https://releases.openai.com/codex/install.sh | sh
 
 # 起動
 codex`}
@@ -329,7 +329,7 @@ codex resume --last`}
               links={[
                 {
                   title: "OpenAI Codex 公式ドキュメント",
-                  url: "https://developers.openai.com/codex",
+                  url: "https://learn.chatgpt.com/docs",
                   description: "CLI・IDE・クラウドの全体像と各機能の一次情報",
                 },
                 {
@@ -339,12 +339,12 @@ codex resume --last`}
                 },
                 {
                   title: "Codex Pricing",
-                  url: "https://developers.openai.com/codex/pricing",
+                  url: "https://learn.chatgpt.com/docs/pricing",
                   description: "プラン別の利用枠・クレジット・API 従量課金",
                 },
                 {
                   title: "Codex Approvals & Security",
-                  url: "https://developers.openai.com/codex/agent-approvals-security",
+                  url: "https://learn.chatgpt.com/docs/agent-approvals-security",
                   description: "承認モードとサンドボックスの仕様",
                 },
               ]}

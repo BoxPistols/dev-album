@@ -303,7 +303,7 @@ gh pr merge 123 --auto --squash`}
                 },
                 {
                   title: "Automatically merging a pull request",
-                  url: "https://docs.github.com/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request",
+                  url: "https://docs.github.com/pull-requests/how-tos/merge-and-close-pull-requests/automatically-merging-a-pull-request",
                   description: "条件が揃ったら自動マージする auto-merge",
                 },
               ]}
