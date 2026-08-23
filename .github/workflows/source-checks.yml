@@ -57,8 +57,11 @@ env:
 jobs:
   check:
     runs-on: ubuntu-latest
-    # 7 つの検査を直列に回して 2 回目まで含めると長いので、既定の 6 時間より短い上限を置く
-    timeout-minutes: 90
+    # 7 つの検査を直列に回すうえ、失敗したものは 1 度やり直す。
+    # 実測で check:verdicts だけで 22 分（703 URL、ホストごとに間隔を空けるため）。
+    # 全部で 45 分前後、いくつか再実行が走ると 70 分を超える。既定の 6 時間は長すぎ、
+    # 90 分では再実行が重なったときに途中で切れるので、その間を取る。
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v7
         with:

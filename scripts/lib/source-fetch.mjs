@@ -118,7 +118,31 @@ const UA_BROWSER =
 // 403 のときだけこちらで取り直す。
 const UA_PLAIN = "dev-album-source-verifier";
 
+// 同じホストへ続けて当たると弾かれる。呼び出し側の一律 250ms では、
+// web.archive.org のように 1 回の実行で何十件も引くホストの間隔が足りず、
+// 503 が返って「取得できない」に落ちる（実測: 703 URL の実行で Wayback 3 件 / Cursor 2 件）。
+// ホストごとに最後の要求時刻を覚えて、足りない分だけ待つ。
+const HOST_INTERVAL_MS = 1200;
+const lastRequestAt = new Map();
+
+async function waitForHostSlot(url) {
+  let host;
+  try {
+    host = new URL(url).host;
+  } catch {
+    return;
+  }
+  const last = lastRequestAt.get(host);
+  const now = Date.now();
+  if (last !== undefined) {
+    const wait = HOST_INTERVAL_MS - (now - last);
+    if (wait > 0) await sleep(wait);
+  }
+  lastRequestAt.set(host, Date.now());
+}
+
 async function get(url, ua = UA_BROWSER) {
+  await waitForHostSlot(url);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -178,11 +202,16 @@ export async function fetchText(url) {
     return { ...res, browserUnavailable: browserUnavailableReason() ?? "unknown" };
   }
 
-  // 429 は連続アクセスで起こる。待って 1 度やり直す（生きている出典を落とさない）
-  for (let attempt = 0; attempt < 2; attempt++) {
+  // 429 と 503 は連続アクセスで起こる。待ってやり直す（生きている出典を落とさない）。
+  // web.archive.org は絞り込むとき 429 ではなく 503 を返すので、両方を対象にする。
+  // 単発で叩けば 200 が返るのに一括実行だけ落ちる、という差はここで吸収する。
+  const RETRY_STATUSES = new Set([429, 503]);
+  let wait = 4000;
+  for (let attempt = 0; attempt < 3; attempt++) {
     const res = await fetchOnce(url);
-    if (res.status !== 429) return res;
-    await sleep(4000);
+    if (!RETRY_STATUSES.has(res.status)) return res;
+    await sleep(wait);
+    wait *= 2;
   }
   return fetchOnce(url);
 }
