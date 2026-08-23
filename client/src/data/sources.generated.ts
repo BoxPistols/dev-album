@@ -152,9 +152,11 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/commands",
     url: "https://code.claude.com/docs/en/commands",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "Write a JavaScript heap snapshot and a memory breakdown to ~/Desktop, or your home directory on Linux without a Desktop folder, for diagnosing high memory usage. Attach only the -diagnostics.json file when reporting a memory issue; the.heapsnapshot contains your full conversation and credentials, so don't share it. Doesn't appear in the command menu; type it in full.",
+      // 2026-08-23 再照合。末尾が「Doesn't appear in the command menu」から
+      // 「Hidden from the command menu」へ書き換わっていた（挙動の説明は同じ）
+      "Write a JavaScript heap snapshot and a memory breakdown to `~/Desktop`, or your home directory on Linux without a Desktop folder, for diagnosing high memory usage. Attach only the `-diagnostics.json` file when reporting a memory issue; the `.heapsnapshot` contains your full conversation and credentials, so don't share it. [Hidden from the command menu](#how-the-command-menu-matches-what-you-type); type it in full.",
       "/clear [name] | Start a new conversation with empty context. Pass a name to label the previous conversation in the /resume picker. To free up context while continuing the same conversation, use /compact instead. Resume the previous conversation with /resume, or, in the same Claude Code process, restore it from the rewind menu's previous-session entry. Aliases: /reset, /new",
       "/init | Initialize project with a CLAUDE.md guide. Set CLAUDE_CODE_NEW_INIT=1 for an interactive flow that also walks through skills, hooks, and personal memory files. If /init finds configuration from a coding agent that /import supports, it offers to carry it over with /import",
     ],
@@ -212,9 +214,11 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/mcp",
     url: "https://code.claude.com/docs/en/mcp",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens * **Configurable limit**: you can adjust the maximum allowed MCP output tokens using the MAX_MCP_OUTPUT_TOKENS environment variable * **Default limit**: the default maximum is 25,000 tokens",
+      // 2026-08-23 再照合。本文は変わっていないが、箇条書きを 1 行に潰した引用は
+      // 行頭記号の正規化が効かず照合できない。原文の改行のまま持つ
+      "* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens\n* **Configurable limit**: you can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable\n* **Default limit**: the default maximum is 25,000 tokens",
       "Local scope is the default. A local-scoped server loads only in the project where you added it and stays private to you. Claude Code stores it in ~/.claude.json under that project's path, so the same server won't appear in your other projects. Use local scope for personal development servers, experimental configurations, or servers with credentials you don't want in version control.",
       "Project-scoped servers from.mcp.json that are awaiting your approval appear in claude mcp list and claude mcp get <name> as ⏸ Pending approval (run claude to approve). Run claude interactively to review and approve them.",
     ],
@@ -227,10 +231,12 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/memory",
     url: "https://code.claude.com/docs/en/memory",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
       "Both relative and absolute paths are allowed. Relative paths resolve relative to the file containing the import, not the working directory. Imported files can recursively import other files, with a maximum depth of four hops.",
-      "Claude Code reads CLAUDE.md files by walking up the directory tree from your current working directory, checking each directory along the way for CLAUDE.md and CLAUDE.local.md files.",
+      // 2026-08-23 再照合。「walking up the directory tree」の一文は
+      // 「How CLAUDE.md files load」節の下記の書き方に差し替わっていた（読み込み順の説明は同じ）
+      "Claude Code loads `CLAUDE.md` and `CLAUDE.local.md` from your current working directory and every directory above it. Run Claude Code in `foo/bar/` and it loads instructions from `foo/bar/CLAUDE.md`, `foo/CLAUDE.md`, and any `CLAUDE.local.md` files alongside them.",
       "Claude Code reads CLAUDE.md, not AGENTS.md. If your repository already uses AGENTS.md for other coding agents, create a CLAUDE.md that imports it so both tools read the same instructions without duplicating them.",
     ],
     usedByFiles: [
@@ -259,9 +265,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/model-config",
     url: "https://code.claude.com/docs/en/model-config",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* **Max, Team Premium, Enterprise pay-as-you-go, and Anthropic API**: defaults to Opus 5 * **Claude Platform on AWS, Amazon Bedrock, and Google Cloud's Agent Platform**: defaults to Opus 5 * **Pro, Team Standard, and Enterprise subscription seats**: defaults to Sonnet 5 * **Microsoft Foundry**: defaults to Sonnet 4.5",
+      // 2026-08-23 再照合。既定モデルの対応表は原文のまま。改行を戻して照合できる形にした
+      "* **Max, Team Premium, Enterprise pay-as-you-go, and Anthropic API**: defaults to Opus 5\n* **Claude Platform on AWS, Amazon Bedrock, and Google Cloud's Agent Platform**: defaults to Opus 5\n* **Pro, Team Standard, and Enterprise subscription seats**: defaults to Sonnet 5\n* **Microsoft Foundry**: defaults to Sonnet 4.5",
       "2. **At startup**: launch with claude --model <alias|name>",
       "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example claude-opus-5, or set the corresponding environment variable like ANTHROPIC_DEFAULT_OPUS_MODEL.",
     ],
@@ -275,9 +282,11 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/permission-modes",
     url: "https://code.claude.com/docs/en/permission-modes",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "**During a session**: press Shift+Tab to cycle modes. From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan.",
+      // 2026-08-23 再照合。「cycle modes」が「cycle permission modes」になり、
+      // 循環の記述に「→ back to default」が加わっていた
+      "**During a session**: press Shift+Tab to cycle permission modes. From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan → back to default.",
       "If you set dontAsk mode, Claude Code auto-denies every tool call that would otherwise prompt you. Claude runs only actions matching your permissions.allow rules, read-only Bash commands, and calls approved by a PreToolUse hook. Use this mode for CI pipelines or restricted environments where you pre-define exactly what Claude may do; the session never waits for input.",
     ],
     usedByFiles: [
@@ -315,9 +324,15 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/settings",
     url: "https://code.claude.com/docs/en/settings",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "1. **Managed** (highest): can't be overridden by any other scope, apart from the exceptions to managed settings precedence 2. **Command line arguments**: temporary session overrides 3. **Local**: overrides project and user settings 4. **Project**: overrides user settings 5. **User** (lowest): applies when nothing else specifies the setting",
+      // 2026-08-23 再照合。優先順位の節が書き直され、各段の呼び名が
+      // Managed settings / Command line arguments / Project local settings /
+      // Shared project settings / User settings になった（順位そのものは同じ 5 段）
+      "When the same key appears in more than one place, Claude Code uses the value from the highest level that sets it. The stack below shows the levels, highest on top; a key at a higher level overrides the same key anywhere below it.",
+      "1. **Managed settings**: settings your organization deploys, by a `managed-settings.json` file, an MDM policy, or [server-managed settings](/docs/en/server-managed-settings) from the claude.ai console. Nothing you set overrides them",
+      "2. **Command line arguments**: flags you pass when you start `claude` from a terminal, for one session",
+      "3. **Project local settings** (`.claude/settings.local.json`): your personal settings for this project.\n4. **Shared project settings** (`.claude/settings.json`): settings your team checks into source control.\n5. **User settings** (`~/.claude/settings.json`): your personal settings for every project.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/SecurityPermissions.tsx",
@@ -328,9 +343,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/setup",
     url: "https://code.claude.com/docs/en/setup",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* **Operating system**: * macOS 13.0+ * Windows 10 1809+ or Windows Server 2019+ * Ubuntu 20.04+ * Debian 10+ * Alpine Linux 3.19+ * **Hardware**: 4 GB+ RAM, x64 or ARM64 processor",
+      // 2026-08-23 再照合。動作要件は原文のまま。入れ子の箇条書きを改行のまま持つ
+      "* **Operating system**:\n  * macOS 13.0+\n  * Windows 10 1809+ or Windows Server 2019+\n  * Ubuntu 20.04+\n  * Debian 10+\n  * Alpine Linux 3.19+\n* **Hardware**: 4 GB+ RAM, x64 or ARM64 processor",
       "Claude Code requires a Pro, Max, Team, Enterprise, or Console account. The free Claude.ai plan does not include Claude Code access.",
       "You can also install Claude Code as a global npm package. As of v2.1.198, the npm package requires Node.js 22 or later. On an older Node.js version, npm prints an EBADENGINE warning during install rather than failing; the install completes and claude still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
     ],
@@ -783,9 +799,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizin",
     url: "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "# Order is important; the last matching pattern takes the most # precedence. When someone opens a pull request that only # modifies JS files, only @js-owner and not the global # owner(s) will be requested for a review.",
+      // 2026-08-23 再照合。CODEOWNERS の例は原文のまま。コメント行の改行を戻した
+      "# Order is important; the last matching pattern takes the most\n# precedence. When someone opens a pull request that only\n# modifies JS files, only @js-owner and not the global\n# owner(s) will be requested for a review.",
       "Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.",
       "To use a CODEOWNERS file, create a new file called CODEOWNERS in the.github/, root, or docs/ directory of the repository, in the branch where you'd like to add the code owners.",
     ],
@@ -834,13 +851,14 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
-    id: "github-com-actions-labeler-blob-main-readme-md",
-    title: "github.com/actions/labeler/blob/main/README.md",
-    url: "https://github.com/actions/labeler/blob/main/README.md",
+    id: "github-com-actions-labeler-blob-v7-0-0-readme-md",
+    title: "github.com/actions/labeler/blob/v7.0.0/README.md",
+    // 2026-08-23: main は動く出典で、引用が後から黙って外れる。リリースタグに固定した
+    url: "https://github.com/actions/labeler/blob/v7.0.0/README.md",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "# Add 'Documentation' label to any file changes within 'docs' or 'guides' folders Documentation: - changed-files: - any-glob-to-any-file: - docs/* - guides/*",
+      "# Add 'Documentation' label to any file changes within 'docs' or 'guides' folders\nDocumentation:\n- changed-files:\n  - any-glob-to-any-file:\n    - docs/*\n    - guides/*",
     ],
     usedByFiles: [
       "client/src/pages/git/flow-automation/Labels.tsx",
@@ -860,13 +878,14 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
-    id: "github-com-anthropics-claude-code-action-blob-main-docs-usage-md",
-    title: "github.com/anthropics/claude-code-action/blob/main/docs/usage.md",
-    url: "https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md",
+    id: "github-com-anthropics-claude-code-action-blob-v1-0-200-docs-usage-md",
+    title: "github.com/anthropics/claude-code-action/blob/v1.0.200/docs/usage.md",
+    // 2026-08-23: main も v1 も動く参照なので、不変のリリースタグに固定した
+    url: "https://github.com/anthropics/claude-code-action/blob/v1.0.200/docs/usage.md",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "- uses: anthropics/claude-code-action@v1 with: anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }} # Or use OAuth token instead: # claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}",
+      "- uses: anthropics/claude-code-action@v1\n  with:\n    anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}\n    # Or use OAuth token instead:\n    # claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}",
     ],
     usedByFiles: [
       "client/src/pages/git/flow-automation/AutoTestRefactor.tsx",
@@ -1021,9 +1040,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "github.com/vercel/next.js/blob/v15.5.4/packages/next/src/server/lib/experimental/ppr.ts",
     url: "https://github.com/vercel/next.js/blob/v15.5.4/packages/next/src/server/lib/experimental/ppr.ts",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "/** * If set to incremental, only those leaf pages that export * experimental_ppr = true will have partial prerendering enabled. If any * page exports this value as false or does not export it at all will not * have partial prerendering enabled. If set to a boolean, the options for * experimental_ppr will be ignored. */",
+      // 2026-08-23 再照合。v15.5.4 のソースは原文のまま。JSDoc の改行を戻した
+      "/**\n * If set to `incremental`, only those leaf pages that export\n * `experimental_ppr = true` will have partial prerendering enabled. If any\n * page exports this value as `false` or does not export it at all will not\n * have partial prerendering enabled. If set to a boolean, the options for\n * `experimental_ppr` will be ignored.\n */",
     ],
     usedByFiles: [
       "client/src/pages/react/nextjs-advanced/Next15Ppr.tsx",
@@ -1205,9 +1225,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "nextjs.org/docs/app/api-reference/functions/fetch",
     url: "https://nextjs.org/docs/app/api-reference/functions/fetch",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* **false** - Cache the resource indefinitely. Semantically equivalent to revalidate: Infinity. The HTTP cache may evict older resources over time. * **0** - Prevent the resource from being cached. * **number** - (in seconds) Specify the resource should have a cache lifetime of at most n seconds.",
+      // 2026-08-23 再照合。revalidate の説明は原文のまま。箇条書きの改行を戻した
+      "* **`false`** - Cache the resource indefinitely. Semantically equivalent to `revalidate: Infinity`. The HTTP cache may evict older resources over time.\n* **`0`** - Prevent the resource from being cached.\n* **`number`** - (in seconds) Specify the resource should have a cache lifetime of at most `n` seconds.",
     ],
     usedByFiles: [
       "client/src/pages/api/practice/NextApi.tsx",
@@ -1244,9 +1265,11 @@ export const GENERATED_SOURCES: Source[] = [
     title: "nextjs.org/docs/app/guides/upgrading/version-15",
     url: "https://nextjs.org/docs/app/guides/upgrading/version-15",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* cookies * headers * draftMode",
+      // 2026-08-23 再照合。3 語だけでは誤って一致しうるので、
+      // 非同期化の一文まで含めて原文の改行のまま持つ
+      "Previously synchronous Request-time APIs that rely on request information are now **asynchronous**:\n\n* [`cookies`](/docs/app/api-reference/functions/cookies)\n* [`headers`](/docs/app/api-reference/functions/headers)\n* [`draftMode`](/docs/app/api-reference/functions/draft-mode)",
     ],
     usedByFiles: [
       "client/src/pages/react/nextjs-advanced/Next15Features.tsx",
@@ -1451,26 +1474,28 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
-    id: "raw-githubusercontent-com-mrdoob-three-js-dev-examples-jsm-controls-ma",
-    title: "raw.githubusercontent.com/mrdoob/three.js/dev/examples/jsm/controls/MapControls.js",
-    url: "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/jsm/controls/MapControls.js",
+    id: "raw-githubusercontent-com-mrdoob-three-js-r185-examples-jsm-controls-ma",
+    title: "raw.githubusercontent.com/mrdoob/three.js/r185/examples/jsm/controls/MapControls.js",
+    // 2026-08-23: dev ブランチは動く出典。リリースタグ r185 に固定した
+    url: "https://raw.githubusercontent.com/mrdoob/three.js/r185/examples/jsm/controls/MapControls.js",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "/** * This class is intended for transforming a camera over a map from bird's eye perspective. * The class shares its implementation with {@link OrbitControls} but uses a specific preset * for mouse/touch interaction and disables screen space panning by default. * * - Orbit: Right mouse, or left mouse + ctrl/meta/shiftKey",
+      "/**\n * This class is intended for transforming a camera over a map from bird's eye perspective.\n * The class shares its implementation with {@link OrbitControls} but uses a specific preset\n * for mouse/touch interaction and disables screen space panning by default.\n *\n * - Orbit: Right mouse, or left mouse + ctrl/meta/shiftKey",
     ],
     usedByFiles: [
       "client/src/pages/threejs/applied/orbit-controls.tsx",
     ],
   },
   {
-    id: "raw-githubusercontent-com-mrdoob-three-js-dev-src-materials-meshphongm",
-    title: "raw.githubusercontent.com/mrdoob/three.js/dev/src/materials/MeshPhongMaterial.js",
-    url: "https://raw.githubusercontent.com/mrdoob/three.js/dev/src/materials/MeshPhongMaterial.js",
+    id: "raw-githubusercontent-com-mrdoob-three-js-r185-src-materials-meshphongm",
+    title: "raw.githubusercontent.com/mrdoob/three.js/r185/src/materials/MeshPhongMaterial.js",
+    // 2026-08-23: dev ブランチは動く出典。リリースタグ r185 に固定した
+    url: "https://raw.githubusercontent.com/mrdoob/three.js/r185/src/materials/MeshPhongMaterial.js",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "* @type {number} * @default 30 */ this.shininess = 30;",
+      "\t\t * @type {number}\n\t\t * @default 30\n\t\t */\n\t\tthis.shininess = 30;",
     ],
     usedByFiles: [
       "client/src/pages/threejs/basics/material.tsx",
@@ -1636,13 +1661,14 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
-    id: "raw-githubusercontent-com-vueuse-vueuse-main-packages-core-usefetch-in",
-    title: "raw.githubusercontent.com/vueuse/vueuse/main/packages/core/useFetch/index.ts",
-    url: "https://raw.githubusercontent.com/vueuse/vueuse/main/packages/core/useFetch/index.ts",
+    id: "raw-githubusercontent-com-vueuse-vueuse-v14-4-0-packages-core-usefetch-in",
+    title: "raw.githubusercontent.com/vueuse/vueuse/v14.4.0/packages/core/useFetch/index.ts",
+    // 2026-08-23: main は動く出典。リリースタグ v14.4.0 に固定した
+    url: "https://raw.githubusercontent.com/vueuse/vueuse/v14.4.0/packages/core/useFetch/index.ts",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-08-23",
     quotes: [
-      "/** * Will automatically refetch when: * - the URL is changed if the URL is a ref * - the payload is changed if the payload is a ref * * @default false */ refetch?: MaybeRefOrGetter<boolean>",
+      "   * Will automatically refetch when:\n   * - the URL is changed if the URL is a ref\n   * - the payload is changed if the payload is a ref\n   *\n   * @default false\n   */\n  refetch?: MaybeRefOrGetter<boolean>",
     ],
     usedByFiles: [
       "client/src/pages/api/practice/VueApi.tsx",

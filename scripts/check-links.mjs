@@ -28,6 +28,10 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 dev-album-link-checker";
 
+// 逆に、ブラウザを騙る UA だとサインインへのリダイレクトが終わらない出典もある。
+// 接続に失敗したときだけこちらで取り直す（verify-sources の UA_PLAIN と同じ考え方）。
+const UA_PLAIN = "dev-album-link-checker";
+
 /**
  * 教材のコード例に出てくる架空のホスト。到達しなくて当然なので対象から外す。
  * 「落ちている」と「そもそも実在しない例示」を混ぜると、結果が読めなくなる。
@@ -83,12 +87,26 @@ function walk(dir) {
   return out;
 }
 
+/**
+ * JSX 本文の `&lt;owner&gt;` を `<owner>` に戻す。
+ * 実体参照のままだと、描画後はテンプレートに見える URL が
+ * 「実在するはずの URL」として到達確認に回ってしまう。
+ */
+function decodeEntities(url) {
+  return url
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
 function extractUrls(text) {
   // 全角の括弧・句読点も終端として扱う。半角だけを見ていると
   // 「https://github.com）にログインします。」がまるごと URL になる
   const raw = text.match(/https:\/\/[^\s"'`)\\<>）（「」、。，．§]+/g) ?? [];
   return raw
-    .map((u) => u.replace(/[.,;:]+$/, ""))
+    .map((u) => decodeEntities(u).replace(/[.,;:]+$/, ""))
     .filter((u) => /^https:\/\/[a-zA-Z0-9]/.test(u));
 }
 
@@ -106,16 +124,19 @@ function isPlaceholder(url) {
   return PLACEHOLDER_PATTERNS.some((p) => p.test(url));
 }
 
-async function head(url) {
+async function head(url, ua = UA) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  // 言語を指定しないと、地域や既定で別言語版へ飛ばす出典がある（?hl=zh-tw / ?hl=pt-br 等）。
+  // 中身は同じなので、意味のないリダイレクト報告を減らすために英語で固定する。
+  const headers = { "user-agent": ua, "accept-language": "en" };
   try {
     // HEAD を拒否するサイトがあるので、405/501 なら GET で取り直す
     let res = await fetch(url, {
       method: "HEAD",
       redirect: "follow",
       signal: controller.signal,
-      headers: { "user-agent": UA },
+      headers,
     });
     // HEAD にだけ 404 を返すサイトがある（kaggle.com など）。
     // HEAD の結果だけで「切れている」と断じると、生きているページを殺す。
@@ -129,7 +150,7 @@ async function head(url) {
         method: "GET",
         redirect: "follow",
         signal: controller.signal,
-        headers: { "user-agent": UA },
+        headers,
       });
     }
     return { status: res.status, finalUrl: res.url };
@@ -138,6 +159,20 @@ async function head(url) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * ブラウザを騙る UA を出すと、逆に自動サインインへ飛ばしてリダイレクトが
+ * 終わらなくなる出典がある（www.tensorflow.org 等の Google devsite）。
+ * fetch はリダイレクトを 20 回で打ち切って例外にするので、接続に失敗したときだけ
+ * 素っ気ない UA で 1 度取り直す。素の UA を弾く側（cursor.com 等）は既定の UA で
+ * 通るので、順序は逆にしない。
+ */
+async function headWithUaFallback(url) {
+  const res = await head(url);
+  if (res.status !== 0) return res;
+  const retry = await head(url, UA_PLAIN);
+  return retry.status === 0 ? res : retry;
 }
 
 async function mapLimit(items, limit, fn) {
@@ -195,10 +230,10 @@ async function main() {
   const checked = await mapLimit(urls, CONCURRENCY, async (url) => {
     // 接続そのものに失敗した場合だけ 1 回やり直す。
     // 一過性の失敗を「切れている」と報告すると、実行のたびに結果が変わって信用されない。
-    let r = await head(url);
+    let r = await headWithUaFallback(url);
     if (r.status === 0) {
       await new Promise((ok) => setTimeout(ok, 1500));
-      r = await head(url);
+      r = await headWithUaFallback(url);
     }
     return { url, ...r, files: [...urlToFiles.get(url)] };
   });

@@ -66,10 +66,10 @@
   "file": "api/practice/ReactApi.tsx",
   "claim": "fetch の戻り値は既定で any 寄りになりがちで、 res.json() は標準の型定義で Promise<any> です（だからこそ放置すると危険）。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://github.com/microsoft/TypeScript/blob/main/src/lib/dom.generated.d.ts",
+  "sourceUrl": "https://github.com/microsoft/TypeScript/blob/v7.0.2/src/lib/dom.generated.d.ts",
   "quote": "interface Body {\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/body) */\n    readonly body: ReadableStream<Uint8Array<ArrayBuffer>> | null;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bodyUsed) */\n    readonly bodyUsed: boolean;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/arrayBuffer) */\n    arrayBuffer(): Promise<ArrayBuffer>;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/blob) */\n    blob(): Promise<Blob>;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bytes) */\n    bytes(): Promise<Uint8Array<ArrayBuffer>>;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */\n    formData(): Promise<FormData>;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */\n    json(): Promise<any>;\n    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/text) */\n    text(): Promise<string>;\n}",
   "correction": "",
-  "evidence": "curl -sL https://raw.githubusercontent.com/microsoft/TypeScript/main/src/lib/dom.generated.d.ts を取得し、grep -n 'json(): Promise' で 5111 行目「    json(): Promise<any>;」を、Body インターフェース (5097-5114 行) 全体とあわせて確認。Response はこの Body を継承するため res.json() の戻り値は Promise<any>。なお前半の「fetch の戻り値は既定で any 寄りになりがち」は評価的表現（fetch 自体は Promise<Response> で型付けされている）だが、検証対象である「標準の型定義で Promise<any>」は型定義そのもので確認できた。"
+  "evidence": "curl -sL https://raw.githubusercontent.com/microsoft/TypeScript/main/src/lib/dom.generated.d.ts を取得し、grep -n 'json(): Promise' で 5111 行目「    json(): Promise<any>;」を、Body インターフェース (5097-5114 行) 全体とあわせて確認。Response はこの Body を継承するため res.json() の戻り値は Promise<any>。なお前半の「fetch の戻り値は既定で any 寄りになりがち」は評価的表現（fetch 自体は Promise<Response> で型付けされている）だが、検証対象である「標準の型定義で Promise<any>」は型定義そのもので確認できた。 2026-08-23 再照合: main では TypeScript 7 のリポジトリ再編で src/lib/ が無くなり、この URL が 404 になっていた（実体は tsc/internal/bundled/source/dom.generated.d.ts へ移動）。動くブランチを指していたのが原因なので、リリースタグ v7.0.2 の https://github.com/microsoft/TypeScript/blob/v7.0.2/src/lib/dom.generated.d.ts に固定した。同タグの 5097-5114 行に Body インターフェースがあり、5111 行が json(): Promise<any> であることを再確認した。"
  },
  {
   "file": "git/ai-agent/Overview.tsx",
@@ -831,10 +831,10 @@
   "file": "git/flow-automation/AutoTestRefactor.tsx",
   "claim": "CodeQL は、GitHub が提供するコード解析で、 脆弱性の疑いを自動で見つけます。Security → Code scanning から有効化でき、PR ごとに走らせて結果を PR 上に表示できます。",
   "verdict": "REFUTED",
-  "sourceUrl": "https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning",
-  "quote": "In the \"Security\" section of the sidebar, click  Advanced Security.\n\nUnder \"Code Security\", to the right of \"CodeQL analysis\", select Set up , then click Default.",
+  "sourceUrl": "https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning",
+  "quote": "In the \"Security and quality\" section of the sidebar, click […] Under \"Code Security\", to the right of \"CodeQL analysis\", select […] then click **Default**.",
   "correction": "CodeQL の説明と PR 上での結果表示は正しいが、有効化の UI 経路が現行ドキュメントと食い違う。現在の既定セットアップの経路は「リポジトリの Settings → サイドバーの \"Security\" セクション → Advanced Security → \"Code Security\" の \"CodeQL analysis\" で Set up → Default」。「Security → Code scanning」というメニューから有効化する経路は現行ドキュメントに存在しない（\"Code scanning\" は Security タブでアラートを見る場所であって有効化のメニュー項目ではない）。なお前段・後段は公式記述と一致する: 「CodeQL is the code analysis engine developed by GitHub to automate security checks.」「CodeQL supports both compiled and interpreted languages, and can find vulnerabilities and errors in code that's written in the supported languages.」（https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql）、「Depending on your configuration, code scanning results may appear as check results and annotations on pull requests.」「Code scanning posts a pull request review that shows each alert as an annotation on the lines of code that triggered the alert.」（https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/triaging-code-scanning-alerts-in-pull-requests）",
-  "evidence": "curl -sL で configuring-default-setup-for-code-scanning / about-code-scanning-with-codeql / triaging-code-scanning-alerts-in-pull-requests の 3 ページ（いずれも HTTP 200）を取得し、本文を抽出して該当箇所を逐語確認した。有効化手順のステップに \"Code scanning\" というメニュー項目は出てこず、\"Advanced Security\" → \"CodeQL analysis\" → Set up → Default だった。CodeQL の定義文と PR 表示の記述は公式と一致。"
+  "evidence": "curl -sL で configuring-default-setup-for-code-scanning / about-code-scanning-with-codeql / triaging-code-scanning-alerts-in-pull-requests の 3 ページ（いずれも HTTP 200）を取得し、本文を抽出して該当箇所を逐語確認した。有効化手順のステップに \"Code scanning\" というメニュー項目は出てこず、\"Advanced Security\" → \"CodeQL analysis\" → Set up → Default だった。CodeQL の定義文と PR 表示の記述は公式と一致。 2026-08-23 再照合: 旧 URL は /code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning へ恒久移動していたので出典を差し替えた。手順の文面も変わっており、サイドバーの節名が「Security」から「Security and quality」になっている。Advanced Security →「Code Security」の「CodeQL analysis」で Set up → Default という経路自体は同じで、判定（教材が書いていた Security → Code scanning という経路は存在しない）は変わらない。教材側の該当箇所も節名を「Security and quality」に直した。手順の各ステップにはボタンのアイコンが SVG のまま埋まっていて逐語で 1 本に繋げられないため、中略記号で 3 断片に割った。"
  },
  {
   "file": "git/flow-automation/AutoTestRefactor.tsx",
@@ -2344,9 +2344,9 @@
   "claim": "サブエージェントはバックグラウンドで実行可能です。/tasks コマンドで実行中のタスク一覧を確認できます。別のターミナルタブで git diff を実行すれば、ファイル変更をリアルタイムに監視できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
-  "quote": "* **Background subagents** run concurrently while you continue working. As of v2.1.186, when a background subagent reaches a tool call that needs permission, the prompt surfaces in your main session and names the subagent that is asking.",
+  "quote": "* **Background subagents** run concurrently while you continue working. When a background subagent reaches a tool call that needs permission, Claude Code surfaces the prompt in your main session and names the subagent that is asking.",
   "correction": "",
-  "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md で raw markdown を取得。L790-793 の「Run subagents in foreground or background」節に上記の逐語文。/tasks については同ファイル L813「During those 30 seconds, run [`/tasks`](/docs/en/commands) and press `Enter` on the subagent to open its transcript.」、および https://code.claude.com/docs/en/commands.md L142「| `/tasks` | View and manage background work in the current session, including subagents that have finished. Also available as `/bashes`」で裏取り。3 文目（別ターミナルで git diff）は Claude Code の仕様ではなく一般的な作業手順の提案で、一次情報に対応記述はないが Claude Code の挙動に関する主張ではないため判定対象外とした。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md で raw markdown を取得。L790-793 の「Run subagents in foreground or background」節に上記の逐語文。/tasks については同ファイル L813「During those 30 seconds, run [`/tasks`](/docs/en/commands) and press `Enter` on the subagent to open its transcript.」、および https://code.claude.com/docs/en/commands.md L142「| `/tasks` | View and manage background work in the current session, including subagents that have finished. Also available as `/bashes`」で裏取り。3 文目（別ターミナルで git diff）は Claude Code の仕様ではなく一般的な作業手順の提案で、一次情報に対応記述はないが Claude Code の挙動に関する主張ではないため判定対象外とした。 2026-08-23 再照合: 該当段落が書き直され、v2.1.186 の言及が「Before v2.1.186, background subagents auto-denied any tool call that would have prompted.」という別の文へ移った。バックグラウンド実行そのものの記述は残っているので、引用を現行の文面に取り直した。判定は変わらない。"
  },
  {
   "file": "claude-code/agent-extensions/Subagents.tsx",
@@ -2452,9 +2452,9 @@
   "claim": "パイプモードでは会話履歴が保持されません。毎回新しいセッションとして実行されます。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/headless",
-  "quote": "### Continue conversations\n\nUse `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation. This example runs a review, then sends follow-up prompts:\n\n```bash theme={null}\n# First request\nclaude -p \"Review this codebase for performance issues\"\n\n# Continue the most recent conversation\nclaude -p \"Now focus on the database queries\" --continue\nclaude -p \"Generate a summary of all issues found\" --continue\n```",
+  "quote": "Use `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation. `--continue` skips [background sessions](/docs/en/sessions#resume-a-session). This example runs a review, then sends follow-up prompts:",
   "correction": "`-p`（パイプモード）でも会話履歴は保存されており、継続できる。既定ではフラグを付けない各実行が新しいセッションになるだけで、`claude -p \"...\" --continue` で直近の会話を継続でき、`session_id=$(claude -p \"Start a review\" --output-format json | jq -r '.session_id')` で ID を取り `claude -p \"...\" --resume \"$session_id\"` で特定セッションを継続できる。CLI reference にも `claude -c -p \"query\"`（Continue via SDK）が独立した項目として載っている。したがって「継続的な対話が必要な場合は REPL モードを使用」という誘導も不正確。",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。 2026-08-23 再照合: 同じ「Continue conversations」節に「`--continue` skips background sessions」の一文が加わっていたので引用を取り直した。-p でも --continue / --resume で会話を継続できるという判定の根拠は変わらない。"
  },
  {
   "file": "claude-code/claude-core/ContextEngineering.tsx",
@@ -2488,9 +2488,9 @@
   "claim": "deny ルールはどのパーミッションモードでも適用されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "Modes set the baseline. Layer [permission rules](/docs/en/permissions#manage-permissions) on top to pre-approve or block specific tools. These controls apply in every mode, including `bypassPermissions`:\n\n* deny rules and explicit ask rules, which apply to every tool but can't block [`EndConversation`](/docs/en/tools-reference#endconversation-tool-behavior) while any other tool remains",
+  "quote": "Modes set the baseline. Layer [permission rules](/docs/en/permissions#manage-permissions) on top to pre-approve or block specific tools. Deny rules block in every mode, including `bypassPermissions`.",
   "correction": "",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/permission-modes を取得し「deny」「bypassPermissions」で grep。上記の逐語記述が該当。裏付けとして https://code.claude.com/docs/en/permissions に「Rules are evaluated in order: deny, then ask, then allow.」「If a tool is denied at any level, no other level can allow it.」「Hook decisions don't bypass permission rules. Claude Code evaluates deny and ask rules regardless of what a PreToolUse hook returns」があり、同じ結論を支持する。唯一の例外は `EndConversation` ツールで、他ツールが残っている間は deny/ask で塞げない点（教材本文には無い留保）。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/permission-modes を取得し「deny」「bypassPermissions」で grep。上記の逐語記述が該当。裏付けとして https://code.claude.com/docs/en/permissions に「Rules are evaluated in order: deny, then ask, then allow.」「If a tool is denied at any level, no other level can allow it.」「Hook decisions don't bypass permission rules. Claude Code evaluates deny and ask rules regardless of what a PreToolUse hook returns」があり、同じ結論を支持する。唯一の例外は `EndConversation` ツールで、他ツールが残っている間は deny/ask で塞げない点（教材本文には無い留保）。 2026-08-23 再照合: 該当箇所が箇条書きから地の文になり、「Deny rules block in every mode, including `bypassPermissions`.」という 1 文になっていた。EndConversation の例外も「Deny and ask rules don't apply to EndConversation as long as Claude still has at least one other tool it can call.」として別の文に分かれている。deny がどのモードでも効くという判定は変わらない。"
  },
  {
   "file": "claude-code/claude-core/ExtendedThinking.tsx",
@@ -2542,9 +2542,9 @@
   "claim": "優先順位: 環境変数 CLAUDE_CODE_EFFORT_LEVEL > 設定値 > モデル既定。skill / subagent frontmatter の effort はその skill / subagent 実行時のみ上書き。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config#set-the-effort-level",
-  "quote": "* **Environment variable**: set `CLAUDE_CODE_EFFORT_LEVEL` to a level name or `auto`\n* **Settings**: set `effortLevel` to `low`, `medium`, `high`, or `xhigh` in your settings file. `max` and `ultracode` are [session-only](#adjust-effort-level) and are not accepted here\n* **Skill and subagent frontmatter**: set `effort` in a [skill](/docs/en/skills#frontmatter-reference) or [subagent](/docs/en/sub-agents#supported-frontmatter-fields) markdown file to override the effort level when that skill or subagent runs\n\nThe environment variable takes precedence over all other methods, then your configured level, then the model default. Frontmatter effort applies when that skill or subagent is active, overriding the session level but not the environment variable.",
+  "quote": "The environment variable takes precedence over all other methods, then your configured level, then the model default. Frontmatter effort applies when that skill or subagent is active, overriding the session level but not the environment variable.",
   "correction": "",
-  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md の \"Set the effort level\" 節（行 508-517）。優先順位の一文が主張とそのまま一致する（env var > configured level > model default）。frontmatter の扱いも \"applies when that skill or subagent is active\" で「その skill / subagent 実行時のみ上書き」に一致。環境変数名 `CLAUDE_CODE_EFFORT_LEVEL` も同節に実在。補足として、frontmatter は環境変数には勝たない旨が明記されている点も教材の記述と矛盾しない。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md の \"Set the effort level\" 節（行 508-517）。優先順位の一文が主張とそのまま一致する（env var > configured level > model default）。frontmatter の扱いも \"applies when that skill or subagent is active\" で「その skill / subagent 実行時のみ上書き」に一致。環境変数名 `CLAUDE_CODE_EFFORT_LEVEL` も同節に実在。補足として、frontmatter は環境変数には勝たない旨が明記されている点も教材の記述と矛盾しない。 2026-08-23 再照合: Settings の箇条書きが「`max` isn't accepted here, and `ultracode` has its own `ultracode` key」に書き換わっていた。主張は優先順位そのものなので、箇条書きではなく優先順位を明示している一文へ引用を取り直した。判定は変わらない。"
  },
  {
   "file": "claude-code/claude-intro/SlashCommands.tsx",
@@ -3883,9 +3883,9 @@
   "claim": "Claude Code は起動時のフォルダ以下のファイルを読み取れます。 Git リポジトリのルート（.git フォルダがある場所）で起動するのがベストです。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/security",
-  "quote": "**Working directory boundary**: Claude Code can only write to the folder where it was started and its subfolders, and cannot modify files in parent directories without explicit permission. Reading paths outside this boundary with the Read, Grep, and Glob tools is possible after an approval prompt.",
+  "quote": "**Working directory boundary**: In Manual mode, Claude Code can only write to the folder where it was started and its subfolders, and can't modify files in parent directories without explicit permission. In Manual mode, Claude Code also asks you before reading paths outside this boundary with the Read, Grep, and Glob tools. In auto mode it reads them without asking.",
   "correction": "",
-  "evidence": "https://code.claude.com/docs/en/security.md を curl 取得（HTTP 200, 11794 bytes）。公式が定義しているのは「書き込みは起動フォルダ以下に限られる」境界で、読み取りは境界の外でも承認プロンプト経由で可能とある。したがって前半「起動時のフォルダ以下のファイルを読み取れます」は誤りではないものの、公式の粒度（write の境界 / read は承認付きで外も可）とは一致せず逐語の裏付けが取れない。後半「Git リポジトリのルートで起動するのがベスト」に相当する記述は一次情報に見当たらない。https://code.claude.com/docs/en/quickstart.md（curl 200）は `cd /path/to/your/project` と書くのみでリポジトリルート推奨とは述べていない。周辺事実として https://code.claude.com/docs/en/permissions.md に「.claude/settings.local.json loads from the git repository root instead, even when you start Claude Code in a subdirectory」「Hooks and other .claude/settings.json keys load from the current working directory's .claude/ folder with no parent-directory fallback」とあり、ルート起動が有利になる根拠にはなるが、公式が「ベスト」と推奨している箇所ではないため断定を避ける。"
+  "evidence": "https://code.claude.com/docs/en/security.md を curl 取得（HTTP 200, 11794 bytes）。公式が定義しているのは「書き込みは起動フォルダ以下に限られる」境界で、読み取りは境界の外でも承認プロンプト経由で可能とある。したがって前半「起動時のフォルダ以下のファイルを読み取れます」は誤りではないものの、公式の粒度（write の境界 / read は承認付きで外も可）とは一致せず逐語の裏付けが取れない。後半「Git リポジトリのルートで起動するのがベスト」に相当する記述は一次情報に見当たらない。https://code.claude.com/docs/en/quickstart.md（curl 200）は `cd /path/to/your/project` と書くのみでリポジトリルート推奨とは述べていない。周辺事実として https://code.claude.com/docs/en/permissions.md に「.claude/settings.local.json loads from the git repository root instead, even when you start Claude Code in a subdirectory」「Hooks and other .claude/settings.json keys load from the current working directory's .claude/ folder with no parent-directory fallback」とあり、ルート起動が有利になる根拠にはなるが、公式が「ベスト」と推奨している箇所ではないため断定を避ける。 2026-08-23 再照合: 同じ「Working directory boundary」の項がモード別の記述に変わり、書き込み境界も読み取りの承認もいずれも Manual mode の話として書かれるようになった（auto mode は境界外を確認なしで読む）。公式の粒度と教材の断定が一致しないという判定は変わらないので UNDETERMINED のまま、引用だけ現行の文面に取り直した。"
  },
  {
   "file": "git/ai-agent/ClaudeCodeBasics.tsx",
@@ -4945,9 +4945,9 @@
   "claim": "MCPサーバのツール数が多い場合、ツール定義はdeferredとして登録される",
   "verdict": "REFUTED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/mcp.md",
-  "quote": "Tool search is enabled by default. MCP tools are deferred rather than loaded into context upfront",
+  "quote": "Tool search is enabled by default: MCP tools are deferred and discovered on demand.",
   "correction": "「ツール数が多い場合」という条件を外す。既定では登録ツール数によらず全 MCP ツールが deferred になる。ツール定義の合計がコンテキストウィンドウの 10% に達したら切り替える閾値方式は既定ではなく、`ENABLE_TOOL_SEARCH=auto` を明示した場合のみ。",
-  "evidence": "公式 MCP ドキュメントの「Scale with MCP tool search / How it works」を取得。deferred という用語自体は正しいが、発動条件がツール数ではなく既定の挙動である点が食い違う。同リポジトリの claude-code/mcp/MCPPractical.tsx は「ツール数に関係なくMCPツールは遅延ロードされ」と正しく書いており、ページ間でも不整合になっている。"
+  "evidence": "公式 MCP ドキュメントの「Scale with MCP tool search / How it works」を取得。deferred という用語自体は正しいが、発動条件がツール数ではなく既定の挙動である点が食い違う。同リポジトリの claude-code/mcp/MCPPractical.tsx は「ツール数に関係なくMCPツールは遅延ロードされ」と正しく書いており、ページ間でも不整合になっている。 2026-08-23 再照合: 文面が「Tool search is enabled by default: MCP tools are deferred and discovered on demand.」に変わっていた（句読点と後半の言い回しのみ）。既定で全 MCP ツールが deferred になるという内容は同じで、「ツール数が多い場合」という条件が公式に無いという判定も変わらない。"
  },
  {
   "file": "claude-code/mcp/MCPSetup.tsx",
@@ -8103,10 +8103,10 @@
   "file": "infra/devops/Iac.tsx",
   "claim": "aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 5.0\"\n    }",
   "verdict": "REFUTED",
-  "sourceUrl": "https://registry.terraform.io/v1/providers/hashicorp/aws",
-  "quote": "name\":\"aws\",\"alias\":\"aws\",\"version\":\"6.60.0\",\"tag\":\"v6.60.0\"",
+  "sourceUrl": "https://registry.terraform.io/v1/providers/hashicorp/aws/6.61.0",
+  "quote": "\"name\":\"aws\",\"alias\":\"aws\",\"version\":\"6.61.0\",\"tag\":\"v6.61.0\"",
   "correction": "version = \"~> 6.0\" に更新する（メジャーを上げるため、教材内の他の AWS プロバイダ例やコード断片も併せて確認する）。",
-  "evidence": "Terraform Registry API（https://registry.terraform.io/v1/providers/hashicorp/aws）を取得。現行 latest は version 6.60.0（published_at 2026-08-13）。教材の version = \"~> 5.0\" は 5.x 系に固定されるため、メジャー 1 つ前の指定になっている。"
+  "evidence": "Terraform Registry API（https://registry.terraform.io/v1/providers/hashicorp/aws）を取得。現行 latest は version 6.60.0（published_at 2026-08-13）。教材の version = \"~> 5.0\" は 5.x 系に固定されるため、メジャー 1 つ前の指定になっている。 2026-08-23 再照合: 元の URL は最新版を返す動く出典で、6.60.0 から 6.61.0 に上がった時点で引用が外れた。版を打った https://registry.terraform.io/v1/providers/hashicorp/aws/6.61.0 に固定した（published_at 2026-08-19）。この固定 URL が示すのは 6.61.0 が実在することまでで、「6 系が現行メジャー」は 2026-08-23 時点の最新版が 6.61.0 だったという確認に依る。教材側は既に version = \"~> 6.0\" と基準日付きの注記に直っている。"
  },
  {
   "file": "infra/edge/EdgeFunctions.tsx",
