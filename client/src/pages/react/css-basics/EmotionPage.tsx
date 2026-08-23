@@ -879,7 +879,7 @@ function Card({ image, title, description, tags }: CardProps) {
               css={{
                 padding: '2px 10px',
                 borderRadius: 9999,
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 fontWeight: 500,
                 background: '#eff6ff',
                 color: '#3b82f6',

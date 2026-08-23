@@ -47,7 +47,7 @@ export default function KanbanPreview({
                 <span className="text-xs font-bold text-foreground">
                   {col.title}
                 </span>
-                <span className="text-[11px] text-muted-foreground ml-auto tabular-nums">
+                <span className="text-xs text-muted-foreground ml-auto tabular-nums">
                   {col.cards.length}
                 </span>
               </div>
@@ -61,7 +61,7 @@ export default function KanbanPreview({
                       {card.title}
                     </p>
                     {card.tag && (
-                      <span className="inline-block mt-1.5 text-[10px] font-mono text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                      <span className="inline-block mt-1.5 text-xs font-mono text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                         {card.tag}
                       </span>
                     )}

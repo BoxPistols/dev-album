@@ -90,7 +90,7 @@ export default function ReuseTroubleshoot() {
                         <span className="font-mono text-xs text-foreground">
                           {r}
                         </span>
-                        <span className="font-mono text-[11px] text-muted-foreground ml-auto">
+                        <span className="font-mono text-xs text-muted-foreground ml-auto">
                           ci.yml（全文コピー）
                         </span>
                       </div>
@@ -110,7 +110,7 @@ export default function ReuseTroubleshoot() {
                         <span className="font-mono text-xs text-foreground">
                           {r}
                         </span>
-                        <span className="font-mono text-[11px] text-primary ml-auto">
+                        <span className="font-mono text-xs text-primary ml-auto">
                           uses: reusable-ci.yml →
                         </span>
                       </div>

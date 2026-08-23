@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-min-font-size",
+    date: "2026-08-23",
+    title: "12px 未満の文字を無くし、下限を検査で固定した",
+    description:
+      "GitHub Actions の図解、UX デザインの for-designers の補足、Kanban のプレビューなどに 10px と 11px の文字が残っていた。Tailwind の下限である text-xs（12px）に揃え、以後は 12px 未満が混入すると単体テストで落ちるようにした。",
+    category: "fix",
+    link: "/ux-design/for-designers/ai-collaboration-with-tokens",
+  },
+  {
     id: "2026-08-23-git-home-total-duration",
     date: "2026-08-23",
     title: "Git マニュアル入口の総学習時間を、各ステップの時間から計算するようにした",

@@ -66,7 +66,7 @@ export default function AiCollaborationWithTokens() {
                       className="block w-12 h-12 rounded-lg border border-border"
                       style={{ backgroundColor: "#3B82F6" }}
                     />
-                    <p className="text-[11px] text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       1 回目
                     </p>
                   </div>
@@ -75,7 +75,7 @@ export default function AiCollaborationWithTokens() {
                       className="block w-12 h-12 rounded-lg border border-border"
                       style={{ backgroundColor: "#0EA5E9" }}
                     />
-                    <p className="text-[11px] text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       2 回目
                     </p>
                   </div>
@@ -84,7 +84,7 @@ export default function AiCollaborationWithTokens() {
                       className="block w-12 h-12 rounded-lg border border-border"
                       style={{ backgroundColor: "#1E40AF" }}
                     />
-                    <p className="text-[11px] text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       3 回目
                     </p>
                   </div>
@@ -93,7 +93,7 @@ export default function AiCollaborationWithTokens() {
                       className="block w-12 h-12 rounded-lg border border-border"
                       style={{ backgroundColor: "#6366F1" }}
                     />
-                    <p className="text-[11px] text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       4 回目
                     </p>
                   </div>
@@ -111,7 +111,7 @@ export default function AiCollaborationWithTokens() {
                   {["1 回目", "2 回目", "3 回目", "4 回目"].map((label) => (
                     <div key={label} className="text-center">
                       <span className="block w-12 h-12 rounded-lg border border-border bg-primary" />
-                      <p className="text-[11px] text-muted-foreground mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         {label}
                       </p>
                     </div>

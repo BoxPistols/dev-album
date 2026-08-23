@@ -94,7 +94,7 @@ export default function WorkflowAnatomy({
                     {job.name}
                   </span>
                   {job.runsOn && (
-                    <span className="inline-flex items-center gap-1 font-mono text-[11px] text-muted-foreground bg-background border border-border px-2 py-0.5 rounded ml-auto">
+                    <span className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground bg-background border border-border px-2 py-0.5 rounded ml-auto">
                       <Cpu size={11} aria-hidden="true" />
                       {job.runsOn}
                     </span>
@@ -108,7 +108,7 @@ export default function WorkflowAnatomy({
                       className="flex items-center gap-2 rounded-md bg-card border border-border px-2.5 py-1.5"
                     >
                       <span
-                        className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-bold font-mono ${kindStyle[step.kind]}`}
+                        className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-bold font-mono ${kindStyle[step.kind]}`}
                       >
                         {step.kind === "uses" ? (
                           <Package size={10} aria-hidden="true" />
@@ -128,7 +128,7 @@ export default function WorkflowAnatomy({
           </div>
 
           {jobs.length > 1 && (
-            <p className="text-[11px] text-muted-foreground mt-3 text-center">
+            <p className="text-xs text-muted-foreground mt-3 text-center">
               依存関係（needs）がなければ、横に並んだジョブは既定で<strong>並列</strong>に実行されます
             </p>
           )}
