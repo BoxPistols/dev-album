@@ -64,6 +64,27 @@ function schemaProblems(verdicts) {
   return problems;
 }
 
+/**
+ * 検査を赤にするかを決める。
+ *
+ * 不一致（原文が変わった）は 1 件でも赤にする。検査が捉えたい変化そのもの。
+ * 取得できなかったものは割合で分ける。相手側の都合で数件取れないことは毎回起きるので
+ * （GitHub Actions のランナー IP は 403 で弾く出典があり、web.archive.org は時々応答しない）、
+ * それで毎週赤くすると通知が読まれなくなって本当の変化を運べなくなる。
+ * 逆に大半が取れていないなら、個別の出典ではなく検査そのものが動いていない。
+ */
+export const UNREACHABLE_LIMIT = 0.05;
+
+export function decideOutcome({ mismatched, problems, unreachable, attempted }) {
+  const ratio = attempted === 0 ? 1 : unreachable / attempted;
+  const tooManyUnreachable = ratio > UNREACHABLE_LIMIT;
+  return {
+    ratio,
+    tooManyUnreachable,
+    failed: mismatched > 0 || problems > 0 || tooManyUnreachable,
+  };
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const path = args.find((a) => !a.startsWith("--"));
@@ -218,21 +239,46 @@ async function main() {
         `\n判定そのものを読み直すこと。引用を通すために正規化を緩めない。`,
     );
   }
-  // 取得できなかったものを緑にしない。ネットワーク断・サイト移転・レート制限の
-  // いずれでも「1 件も照合していないのに成功」になるのが一番まずい。
-  // 一時的な失敗と恒久的な失敗はここでは区別できないので、落として人に見せる。
-  if (fetchFailed.length || notExtracted.length) {
+  // 取得できなかったものの扱い。
+  //
+  // 「1 件も照合していないのに成功」が一番まずいので、取れないものを黙って緑にはしない。
+  // ただし全部を等しく赤にすると、別の失敗の仕方をする。703 URL のうち 2〜3 件が
+  // 相手側の都合で取れないことは毎回起こり（GitHub Actions のランナー IP は
+  // orval.dev に 403 で弾かれ、web.archive.org は時々応答しない）、
+  // 毎週その 3 件で赤くなる通知は読まれなくなって、本当の変化を運ぶ力を失う。
+  //
+  // なので「照合できなかった割合」で分ける。取れた分がごく僅かなら検査そのものが
+  // 壊れているので赤にする。ほとんど取れていて数件だけ落ちたなら、報告はするが赤にしない。
+  // 不一致（原文が変わった）は 1 件でも赤にする。これは検査が捉えたい変化そのもの。
+  const unreachable = fetchFailed.length + notExtracted.length;
+  const outcome = decideOutcome({
+    mismatched: mismatched.length,
+    problems: problems.length,
+    unreachable,
+    attempted: byUrl.size,
+  });
+  const { ratio: unreachableRatio, tooManyUnreachable } = outcome;
+
+  if (unreachable) {
+    const pct = (unreachableRatio * 100).toFixed(1);
     console.log(
-      `\n照合できなかった出典がある。一時的な障害なら再実行で通る。` +
-        `\n通らないなら出典が動いたということなので、取得できる一次情報へ差し替える。`,
+      `\n照合できなかった出典が ${unreachable} URL（全体の ${pct}%）ある。` +
+        `\n一時的な障害なら再実行で通る。通らないなら出典が動いたということなので、` +
+        `取得できる一次情報へ差し替える。`,
     );
+    if (tooManyUnreachable) {
+      console.log(
+        `取れない割合が ${(UNREACHABLE_LIMIT * 100).toFixed(0)}% を超えている。` +
+          `個別の出典の問題ではなく、検査そのものが機能していない可能性が高い。`,
+      );
+    } else {
+      console.log(
+        `${(UNREACHABLE_LIMIT * 100).toFixed(0)}% 以内なので、これだけでは落とさない。` +
+          `同じ URL が続けて落ちるなら出典を差し替える。`,
+      );
+    }
   }
-  if (
-    mismatched.length ||
-    problems.length ||
-    fetchFailed.length ||
-    notExtracted.length
-  ) {
+  if (outcome.failed) {
     process.exitCode = 1;
   }
 }
