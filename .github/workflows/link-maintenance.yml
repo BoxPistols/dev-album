@@ -1,0 +1,139 @@
+name: Link maintenance
+
+# 外部リンクの週次点検と、機械で直せる範囲の自動修正。
+#
+# なぜ出典の照合と分けたか:
+#   変化の速さも所要時間も違う。リンクは連続的にゆっくり腐るのに対し、引用のズレは
+#   出典側が改稿したときにまとめて出る。実測でリンク検査は 5 分、引用の照合は
+#   medium だけで 22 分・全部で 45 分。同じ頻度で回す理由がない。
+#   引用のほうは source-checks.yml で月次に回す。
+#
+# 何をするか:
+#   1. pnpm check:links      727 件の外部 URL を確認する
+#   2. pnpm fix:links        リダイレクトされるものを恒久 URL に書き換える
+#   3. pnpm check:links      書き換えた URL が本当に届くか測り直す
+#   4. 切れが 0 件なら PR を出す。落ちたら PR を出さず issue に回す
+#
+# 3 を省かない理由:
+#   書き換えは 2 種類の壊し方をする。短い URL が長い URL の内側にあるときの二重置換と、
+#   落とせないロケール接頭辞。実際 2026-08-23 に 191 件書き換えて 4 件の 404 を作り、
+#   再検査で初めて気づいた。道具側は直したが、無人で本番に 404 を送らないための
+#   最後の関門としてここに残す。
+#
+# PR を自動マージしない理由:
+#   再検査が見るのは「届くか」だけで「同じ内容のページか」までは見ていない。
+#   リダイレクト先が別の内容に差し替わっている場合は検査を素通りする。
+#   diff は URL の置換だけなのでレビューは軽い。
+
+on:
+  schedule:
+    # 毎週月曜 07:23 UTC（日本時間 16:23）。
+    # 正時と 00:00 UTC は混むので避ける。週明けに出しておくと週内に見てもらえる。
+    - cron: '23 7 * * 1'
+  workflow_dispatch:
+
+# PR の作成に contents: write と pull-requests: write が要る。
+# 失敗を伝える先が issue なので issues: write も持つ
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: link-maintenance
+  cancel-in-progress: false
+
+env:
+  BRANCH: chore/auto-fix-links
+  ISSUE_TITLE: '[定期検査] 出典・リンクの検査が失敗'
+  ISSUE_LABEL: evidence
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    # 727 URL を 3 回ぶん（確認・書き換え時の確認・再確認）取りに行く。実測で 1 回 5 分
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: 依存をインストール
+        run: pnpm install --frozen-lockfile
+
+      - name: リンクを確認する
+        id: before
+        run: bash .github/scripts/link-maintenance.sh before
+
+      - name: リダイレクトを恒久 URL に書き換える
+        id: fix
+        run: bash .github/scripts/link-maintenance.sh fix
+
+      # 書き換えた結果を測り直す。ここが無人運用の最後の関門
+      - name: 書き換えた URL が届くか測り直す
+        id: after
+        run: bash .github/scripts/link-maintenance.sh after
+
+      - name: 検査の出力を保存
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: link-maintenance-reports
+          path: reports/
+          retention-days: 30
+
+      # 書き換えが成立していて差分があるときだけ PR を出す。
+      # 差分 0 件で毎週空の PR が出ると、それ自体がノイズになる
+      - name: 修正を PR にする
+        if: steps.after.outputs.status == 'ok' && steps.fix.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BEFORE_SUMMARY: ${{ steps.before.outputs.summary }}
+          AFTER_SUMMARY: ${{ steps.after.outputs.summary }}
+          FIX_SUMMARY: ${{ steps.fix.outputs.summary }}
+        run: bash .github/scripts/link-maintenance.sh pr
+
+      # 書き換えが壊れた（再検査で切れが出た）ときは PR を出さず、人に知らせる
+      - name: 書き換えが成立しなかったことを issue に伝える
+        if: steps.after.outputs.status != 'ok'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          AFTER_SUMMARY: ${{ steps.after.outputs.summary }}
+        run: bash .github/scripts/link-maintenance.sh report-failure
+
+      # 元から切れているリンクがあった場合も知らせる（書き換えでは直らない）
+      - name: 元から切れているリンクを issue に伝える
+        if: steps.before.outputs.broken != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BEFORE_SUMMARY: ${{ steps.before.outputs.summary }}
+        run: bash .github/scripts/link-maintenance.sh report-broken
+
+      # 赤にするのは「書き換えが壊れた」「元から切れている」のどちらか。
+      # リダイレクトが残っているだけでは赤にしない（今は届くので急がない）
+      - name: 結果を確定
+        if: always()
+        env:
+          AFTER_STATUS: ${{ steps.after.outputs.status }}
+          BROKEN: ${{ steps.before.outputs.broken }}
+        run: |
+          echo "書き換え後の状態: $AFTER_STATUS / 元から切れていたリンク: $BROKEN"
+          if [ "$AFTER_STATUS" != "ok" ]; then
+            echo "書き換えが成立しなかった。issue を見る"
+            exit 1
+          fi
+          if [ "$BROKEN" != "0" ]; then
+            echo "書き換えでは直らない切れたリンクがある。issue を見る"
+            exit 1
+          fi
+          echo "リンクは健全"

@@ -133,7 +133,13 @@ function parsePolicyTierRows(source: string): string[] {
  * の文から workflow 名 → scope を取り出す
  */
 function parseClaimedWritePermissions(source: string): PermissionMap {
-  const flat = source.replace(/\s+/g, " ");
+  // 読みたいのは描画後の文であって、ソースの整形ではない。
+  // prettier が行を折るときに入れる {" "} は、描画されると単なる空白になる。
+  // これを残したまま読むと、本文を書き換えていないのに整形だけで検査が落ちる
+  const flat = source
+    .replace(/\{"\s*"\}/g, " ")
+    .replace(/\{'\s*'\}/g, " ")
+    .replace(/\s+/g, " ");
   const claim = flat.match(/書き込み権限を持つのは(.+?)だけで/);
   if (!claim)
     throw new Error("「書き込み権限を持つのは…だけで」の文が見つからない");

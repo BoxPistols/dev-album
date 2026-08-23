@@ -23,7 +23,10 @@ pnpm build                       # 本番ビルド
 ```
 
 - CI は `verify`（型チェック → 単体テスト → ビルド）と `e2e`（Playwright 全スペック）の 2 ジョブ。**push 前にビルド + テスト通過を確認**する。
-- 外部に出る検査（`check:links` / `check:sources` / `check:verdicts` / `check:freshness`）は PR ゲートに入れず、`.github/workflows/source-checks.yml` が週次で回して失敗を issue に集約する。
+- 外部に出る検査は PR ゲートに入れず、定期実行で回す。頻度は変化の速さと所要時間で分ける。
+  - 週次: `.github/workflows/link-maintenance.yml`。`check:links`（727 URL・約 5 分）を回し、リダイレクトを `fix:links` で恒久 URL に書き換え、**書き換え後にもう一度 `check:links` を回してから** PR を出す。再検査で切れが増えたら PR を出さず issue に回す。自動マージはしない（再検査は「届くか」しか見ず「同じ内容か」は見ないため）。
+  - 月次: `.github/workflows/source-checks.yml`。引用の逐語照合（medium だけで 22 分・全部で 40 分）と `check:freshness`。引用のズレは出典側の改稿でまとめて出るので、週次で回しても同じものを何度も見るだけになる。
+- 定期実行の報告は**固定タイトルの issue 1 本に集約する**（`.github/scripts/append-or-create-issue.sh`）。実行ごとに issue を立てると件数が膨らんで運用が破綻する。機械で直せるものは自動修正に回し、issue には判断が要るものだけを残す。
 - ローカルで E2E を回すときは **空きポートを明示**する（`PORT=3400 pnpm test:e2e`）。既定の 3000 が他プロジェクトに使われていると、そのサーバを再利用して誤った結果になる。
 
 ## コーディング規約
