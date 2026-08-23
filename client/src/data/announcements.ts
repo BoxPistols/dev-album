@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-cmux-source-verified",
+    date: "2026-08-23",
+    title: "cmux の未確認だった記述を、公開リポジトリのソースで確かめて直した",
+    description:
+      "アプリを起動しないと分からないとしていた項目のうち、通知リング・サイドバーの表示項目・環境変数・クリップボード画像ペーストを cmux のソースと CHANGELOG で確かめた。リングが付くのはタブではなくペインだった点を訂正し、CMUX_SOCKET_PATH と cmux identify --json のフォールバック、サイドバーが並べる 5 項目を追記した。",
+    category: "fix",
+    link: "/claude-code/cmux/cmux-setup",
+  },
+  {
     id: "2026-08-23-link-maintenance",
     date: "2026-08-23",
     title: "外部リンクの点検を週次の自動修正に、出典の照合を月次に分けた",

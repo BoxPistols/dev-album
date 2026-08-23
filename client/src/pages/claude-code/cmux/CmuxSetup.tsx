@@ -28,6 +28,7 @@ export default function CmuxSetup() {
 
           <VerifiedBox
             verifiedAt="2026-08-16"
+            sourcesCheckedAt="2026-08-23"
             cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
             platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
@@ -209,6 +210,12 @@ cmux 0.64.20 (100) [14e3400b9]
               cmux を起動すると、デフォルトのワークスペースが開く。左サイドバーにワークスペース一覧が表示される。
             </p>
 
+            <p className="text-foreground mb-4 leading-relaxed">
+              サイドバーの各行には、git のブランチ名、紐づく PR の状態と番号、作業ディレクトリ、
+              待ち受け中のポート、最新の通知テキストが並ぶ。どのワークスペースがどのブランチで
+              どのポートを掴んでいるかを、ターミナルへ切り替えずに読める。
+            </p>
+
             <CodeBlock
               language="bash"
               code={`# アプリケーションから起動、または CLI から起動
@@ -258,8 +265,8 @@ cd ~/projects/my-app
 # 別のタスクで Claude Code を起動
 claude
 
-# WS 1 のエージェントが入力待ちになると、サイドバーのタブに
-# 青い通知リングが点灯する
+# WS 1 のエージェントが応答を待つと、そのペインに青いリングが付き
+# サイドバーのタブが点灯する
 # Cmd+Shift+U で未読のワークスペースに即ジャンプ`}
             />
 
@@ -408,13 +415,41 @@ cmux hooks codex uninstall`}
             </h3>
 
             <p className="text-foreground mb-4 leading-relaxed">
-              cmux 内のターミナルでは <code className="text-primary">CMUX_WORKSPACE_ID</code> と{" "}
-              <code className="text-primary">CMUX_SURFACE_ID</code> が自動で設定される
-              （<code className="text-primary">cmux --help</code> の Environment セクションに記載）。
-              CLI コマンドの <code className="text-primary">--workspace</code> /{" "}
+              cmux 内のターミナルには、起動時に cmux 自身が{" "}
+              <code className="text-primary">CMUX_WORKSPACE_ID</code> /{" "}
+              <code className="text-primary">CMUX_SURFACE_ID</code> /{" "}
+              <code className="text-primary">CMUX_SOCKET_PATH</code>{" "}
+              を差し込む（<code className="text-primary">cmux --help</code> の Environment セクションにも載る）。
+              前 2 つはワークスペースとサーフェスの UUID 文字列で、CLI コマンドの{" "}
+              <code className="text-primary">--workspace</code> /{" "}
               <code className="text-primary">--surface</code> の既定値として使われるため、
               自作スクリプトで「cmux 内で動いているか」を判定する材料にもなる。
             </p>
+
+            <p className="text-foreground mb-4 leading-relaxed">
+              公式リポジトリの skill ドキュメントは{" "}
+              <code className="text-primary">CMUX_WORKSPACE_ID</code>{" "}
+              を既定のワークスペースの起点、
+              <code className="text-primary mx-1">CMUX_SURFACE_ID</code>
+              を呼び出し元ターミナルの起点と位置づけている。
+              どちらも無いときは <code className="text-primary">cmux identify --json</code>{" "}
+              にフォールバックし、「今フォーカスされている文脈を使っている」と明示せよ、と書かれている。
+              ソケットのパスも同じで、既定値を仮定せず{" "}
+              <code className="text-primary">CMUX_SOCKET_PATH</code> を優先する。
+            </p>
+
+            <CodeBlock
+              language="bash"
+              code={`# cmux 内で動いているかと、その起点を確かめる
+printf 'workspace=%s\\nsurface=%s\\nsocket=%s\\n' \\
+  "\${CMUX_WORKSPACE_ID:-}" "\${CMUX_SURFACE_ID:-}" "\${CMUX_SOCKET_PATH:-}"
+
+# 空だったときのフォールバック
+cmux identify --json
+
+# ソケットは既定値を仮定せず、渡された値を優先する
+SOCK="\${CMUX_SOCKET_PATH:-/tmp/cmux.sock}"`}
+            />
 
             <h3 className="text-xl font-semibold text-foreground mt-8 mb-4">
               連携で起こること
@@ -422,9 +457,9 @@ cmux hooks codex uninstall`}
 
             <div className="space-y-3">
               <div className="p-4 rounded-lg border border-border bg-card">
-                <p className="font-semibold text-foreground mb-1">タスク完了で通知リングが点灯</p>
+                <p className="font-semibold text-foreground mb-1">ペインの通知リングとサイドバーの未読バッジ</p>
                 <p className="text-sm text-muted-foreground">
-                  エージェントが入力待ちになるとサイドバーに未読の印が付く。
+                  エージェントが注意を求めると、ペインの周囲に通知リングが出て、サイドバーには未読バッジが付く。
                   <code className="text-primary">Cmd+Shift+U</code> で最新の未読へジャンプできる。
                 </p>
               </div>
@@ -502,10 +537,10 @@ cmux hooks codex uninstall`}
             </div>
 
             <p className="text-foreground leading-relaxed">
-              通知リングにより、各ワークスペースのエージェント状態を一目で把握できる。WS
-              1 のエージェントが入力待ちになったら通知リングが点灯し、
+              どのワークスペースが応答を待っているかは、ペインの通知リングとサイドバーの未読バッジで分かる。WS
+              1 のエージェントが注意を求めたら、
               <code className="text-primary">Cmd+Shift+U</code>{" "}
-              で即座にジャンプして対応できる。
+              で最新の未読へジャンプして対応できる。
             </p>
           </section>
 
@@ -516,9 +551,15 @@ cmux hooks codex uninstall`}
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              cmux は 0.62.0（2026-03-12）でターミナルへの
+              cmux は 0.62.0（2026-03-12 リリース）でターミナルへの
               <code className="text-primary mx-1">Cmd+V</code>
-              によるクリップボード画像ペーストに対応した。クリップボードの画像を Mac 上の一時ファイルに書き出し、そのパスをターミナル入力として注入する方式で、実行中の TUI（Claude Code など）がそのパスから画像を読み込む。iTerm2 の OSC 1337 のような画像転送プロトコルとは仕組みが異なる。
+              によるクリップボード画像ペーストに対応した。クリップボードの画像を一時ファイル（PNG）として書き出し、そのパスをシェル向けにエスケープしてターミナル入力へ送る方式で、実行中の TUI（Claude Code など）がそのパスから画像を読み込む。画像そのものを端末へ転送するのではなく、パスの文字列を送っている点が要になる。
+            </p>
+
+            <p className="text-foreground mb-6 leading-relaxed">
+              介入するのはクリップボードに画像だけがあるときに限られる。テキスト・HTML・RTF
+              が同時に載っている場合は通常のテキストペーストとして扱われ、10 MB
+              を超える画像は既定の動作に委ねられる。
             </p>
 
             <div className="mb-6">

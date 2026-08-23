@@ -29,6 +29,7 @@ export default function CmuxIntro() {
 
           <VerifiedBox
             verifiedAt="2026-08-16"
+            sourcesCheckedAt="2026-08-23"
             cmuxVersion="cmux 0.64.20 (100) [14e3400b9]"
             platform="macOS (Apple Silicon)"
             officialDocs="https://github.com/manaflow-ai/cmux"
@@ -53,7 +54,7 @@ export default function CmuxIntro() {
               設計思想は「1 エージェント = 1
               ワークスペース」。各ワークスペースが独立したターミナル環境を持ち、Claude
               Code・Codex・OpenCode・Gemini CLI など主要な AI
-              コーディングエージェントに hook 連携を持つ。エージェントの状態（実行中・入力待ち・完了）を通知リングで可視化し、複数のエージェントを並行して運用できる。
+              コーディングエージェントに hook 連携を持つ。エージェントが注意を求めたときにペインの通知リングとサイドバーの未読バッジで知らせるため、複数のエージェントを並行して運用できる。
             </p>
 
             <CodeBlock
@@ -192,7 +193,16 @@ export default function CmuxIntro() {
                   通知リング
                 </h3>
                 <p className="text-muted-foreground mb-3">
-                  エージェントが入力待ち状態になると、該当ワークスペースのタブに青い環（リング）が点灯する。複数のエージェントを走らせていても、どのエージェントが応答を待っているかが一目でわかる。
+                  エージェントが注意を求めると、該当ペインに青い環（リング）が付き、サイドバーのタブが点灯する。複数のエージェントを走らせていても、どのエージェントが応答を待っているかが一目でわかる。
+                </p>
+                <p className="text-muted-foreground mb-3">
+                  通知はターミナルのエスケープシーケンス（OSC 9 / 99 / 777）で自動的に上がるほか、
+                  <code className="text-primary mx-1">cmux notify</code>
+                  や各エージェントの hook からも起こせる。hook 経由で上がった通知には{" "}
+                  <code className="text-primary">turn-complete</code> /{" "}
+                  <code className="text-primary">needs-permission</code> /{" "}
+                  <code className="text-primary">idle-reminder</code>{" "}
+                  のいずれかの区分が付き、通知フックのスクリプトから読める。
                 </p>
                 <CodeBlock
                   language="bash"
@@ -205,8 +215,13 @@ export default function CmuxIntro() {
                 <h3 className="text-lg font-semibold text-foreground mb-2">
                   垂直タブ
                 </h3>
+                <p className="text-muted-foreground mb-3">
+                  サイドバーにワークスペースの一覧が垂直表示される。各行には git
+                  のブランチ名、紐づく PR の状態と番号、作業ディレクトリ、待ち受け中のポート、
+                  最新の通知テキストが並ぶ。
+                </p>
                 <p className="text-muted-foreground">
-                  サイドバーにワークスペースの一覧が垂直表示される。各ワークスペースには名前・説明・ステータスを設定でき、
+                  各ワークスペースには名前・説明・ステータスを設定でき、
                   <code className="text-primary">cmux rename-workspace</code> /{" "}
                   <code className="text-primary">cmux workspace status</code> /{" "}
                   <code className="text-primary">cmux set-status</code>{" "}

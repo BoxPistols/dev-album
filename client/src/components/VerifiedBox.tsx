@@ -3,6 +3,9 @@ import { ShieldCheck, ExternalLink } from "lucide-react";
 interface VerifiedBoxProps {
   // 実機検証した日付（YYYY-MM-DD）
   verifiedAt: string;
+  // 一次情報（公式リポジトリ等）と逐語照合し直した日付（YYYY-MM-DD、任意）。
+  // 実機を動かした日とは別物なので、混ぜずに並べて出す
+  sourcesCheckedAt?: string;
   // 検証時の cmux バージョン（例: "0.63.x"）
   cmuxVersion: string;
   // 検証環境（例: "macOS 15.4 (Apple Silicon)"）
@@ -15,6 +18,7 @@ interface VerifiedBoxProps {
 
 export default function VerifiedBox({
   verifiedAt,
+  sourcesCheckedAt,
   cmuxVersion,
   platform,
   officialDocs,
@@ -33,6 +37,12 @@ export default function VerifiedBox({
           <span>{platform}</span>
           <span className="mx-2 text-border">/</span>
           <span>検証日 {verifiedAt}</span>
+          {sourcesCheckedAt && (
+            <>
+              <span className="mx-2 text-border">/</span>
+              <span>出典照合 {sourcesCheckedAt}</span>
+            </>
+          )}
         </div>
         {officialDocs && (
           <a
