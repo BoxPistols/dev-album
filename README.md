@@ -231,6 +231,79 @@ Vercel に自動デプロイ（main push で発火）。
 }
 ```
 
+## 品質の定期点検
+
+教材が引用する出典と外部リンクは、こちらが何もしなくても向こう側で変わる。リンク切れ、リダイレクト、本文の改稿、いずれも誰も気づかないまま教材が古くなるので、定期実行で見張る。
+
+頻度は変化の速さと所要時間で分けてある。リンクは連続的にゆっくり腐るのに対し、引用のズレは出典側が改稿したときにまとめて出る。実測でリンク検査は約 5 分、引用の照合は medium だけで 22 分・全部で 40 分。
+
+### 週次 — 外部リンク（`.github/workflows/link-maintenance.yml`）
+
+毎週月曜。人手を必要としない。
+
+1. `pnpm check:links` で 727 件の外部 URL を確認する
+2. `pnpm fix:links` でリダイレクトされるものを恒久 URL に書き換える
+3. **`pnpm check:links` をもう一度回して、書き換えた URL が本当に届くか測り直す**
+4. 切れが増えていなければ PR を出す。増えていたら PR を出さず issue に回す
+
+3 を省かない。書き換えは 2 種類の壊し方をする。短い URL が長い URL の内側にあるときの二重置換（`/docs/installation` が `/docs/installation/using-vite` の前半を書き換える）と、落とせないロケール接頭辞（readthedocs の `/en/stable/` は実際のパス）。どちらも道具側で対策済みだが、無人で本番に 404 を送らないための最後の関門として残している。
+
+差分が 0 件なら PR を作らない。毎週空の PR が出ると、それ自体がノイズになる。
+
+自動マージにはしていない。再検査が見るのは「届くか」だけで、「同じ内容のページか」までは見ない。リダイレクト先が別の内容に差し替わっている場合は素通りする。diff は URL の置換だけなので、そこだけ見ればよい。
+
+### 月次 — 出典の逐語照合（`.github/workflows/source-checks.yml`）
+
+毎月 1 日。引用が原文に今もあるかを照合する。
+
+| 検査 | 見るもの |
+|---|---|
+| `check:sources` | 出典レジストリの逐語引用が原文にあるか |
+| `check:verdicts` | 監査 JSON（medium）の引用が原文にあるか |
+| `check:verdicts:low` | 同（low） |
+| `check:verdicts:followup` | 追補監査。実ブラウザで描画する出典を含む |
+| `check:verdicts:reaudit` | 再監査 JSON |
+| `check:freshness` | `verifiedAt` が 180 日より古い出典が無いか |
+
+### 赤の扱い
+
+**PR ゲートには入れない。** 外部に取りに行く検査は相手側の一時的な障害で落ちるので、無関係な PR を止めてしまう。
+
+**通知は issue であって、ワークフローの赤ではない。** 失敗した検査は 60 秒おいて 1 度だけ再実行し、2 回目の結果だけを採る。報告先は**固定タイトルの issue 1 本**で、実行ごとに新しい issue は立てない（`.github/scripts/append-or-create-issue.sh`）。
+
+**取得失敗と不一致を区別する。** 引用の不一致は「原文が変わった」合図なので 1 件でも赤にする。取得できなかったものは全体の 5% を超えたときだけ赤にする。703 URL のうち数件が相手側の都合で取れないことは毎回起こり（GitHub Actions のランナー IP を 403 で弾く出典があり、`web.archive.org` は時々応答しない）、そのたびに赤くすると通知が読まれなくなって本当の変化を運べなくなる。逆に大半が取れていないなら、個別の出典ではなく検査そのものが動いていない。判定は `client/src/lib/verdict-outcome.test.ts` で固定してある。
+
+### 判断が要るものだけを人に回す
+
+件数が膨らむと運用は破綻する。機械で直せるものは自動修正へ回し、issue に残すのは判断が要るものだけにする。
+
+機械で足りるもの（LLM 不要）:
+
+- リダイレクト → 恒久 URL（`fix:links`）
+- 動く URL → 版や期間を打った固定 URL（`releases/latest` や `downloads/point/last-month` など）
+- 引用の書式ズレ（HTML 版の出典に Markdown の表行を引いている、桁揃えの空白を引用に含めている）
+
+人または AI の判断が要るもの:
+
+- 引用が主張を支えなくなった（出典側が内容を改稿した）
+- 主張そのものを落とすか書き直すか
+
+2026-08-23 の実測では、不一致 5 件のうち 4 件が前者、1 件だけが後者だった。AI に修正させる場合も、**PR を作らせるところまでにして機械照合をゲートにし、diff は人が見る**。修正 pass 自体が新しい誤りを持ち込むため（`docs/audits/` に実例がある）。
+
+### 手で回すとき
+
+```bash
+gh workflow run link-maintenance.yml   # 週次のリンク点検を今すぐ
+gh workflow run source-checks.yml      # 月次の出典照合を今すぐ
+
+pnpm check:links --json > /tmp/links.json   # 手元で確認結果を機械可読で出す
+pnpm fix:links /tmp/links.json              # 何をどう書き換えるかを出すだけ
+pnpm fix:links /tmp/links.json --write      # 実際に書き換える
+pnpm check:links                            # 書き換えた URL が届くか測る
+```
+
+手順の詳細と落とし穴は `.claude/skills/evidence-check/SKILL.md` にある。
+
 ## バグ報告
 
 - アプリ内: https://dev-album.vercel.app/bug-report
