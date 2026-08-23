@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-08-23-link-maintenance",
+    date: "2026-08-23",
+    title: "外部リンクの点検を週次の自動修正に、出典の照合を月次に分けた",
+    description:
+      "リンクは連続的にゆっくり腐り、引用のズレは出典側の改稿でまとめて出るので、同じ頻度で回す意味がない。週次はリンクを点検してリダイレクトを恒久 URL に書き換え、書き換え後にもう一度検査してから PR を出す。月次は引用の逐語照合。報告は固定タイトルの issue 1 本に集約する。「トークン・シークレット・権限の実務」の実例にも新しい workflow の権限を反映した。",
+    category: "update",
+    link: "/git/github-actions/secrets-permissions",
+  },
+  {
     id: "2026-08-23-permanent-links",
     date: "2026-08-23",
     title: "教材の外部リンクを恒久 URL に寄せた",

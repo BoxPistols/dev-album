@@ -1,9 +1,8 @@
 name: Source checks
 
-# 出典・外部リンクの定期検査。
+# 出典の逐語照合の月次検査。
 #
 # 何をするか:
-#   pnpm check:links         教材ページの外部 URL が実在するか
 #   pnpm check:sources       出典レジストリ（sources.ts）の逐語引用が原文にあるか
 #   pnpm check:verdicts      監査 JSON（medium）の逐語引用が原文にあるか
 #   pnpm check:verdicts:low  監査 JSON（low）の逐語引用が原文にあるか
@@ -15,8 +14,13 @@ name: Source checks
 # 「失敗を issue に報告」の RESULTS、「結果を確定」の OUTCOMES。
 # 走るだけで報告されない検査は、無い検査より悪い。
 #
+# 外部リンクの確認はここに無い:
+#   link-maintenance.yml へ分けた。変化の速さも所要時間も違うため。リンクは連続的に
+#   ゆっくり腐るのに対し、引用のズレは出典側が改稿したときにまとめて出る。
+#   実測でリンク検査は 5 分、こちらは medium だけで 22 分・全部で 45 分。
+#
 # なぜ PR ゲートにしないか:
-#   700 以上の URL を取得するため 10 分以上かかり、相手側の一時的な障害で無関係な PR が落ちる。
+#   700 以上の URL を取得するため 40 分以上かかり、相手側の一時的な障害で無関係な PR が落ちる。
 #   そのため schedule + workflow_dispatch だけで回し、pull_request では走らせない。
 #
 # 赤の扱い（方針）:
@@ -34,10 +38,10 @@ name: Source checks
 
 on:
   schedule:
-    # 毎週火曜 06:17 UTC（日本時間 15:17）。
-    # 月曜 00:00 UTC は stale.yml と GitHub 全体の混雑時間帯に重なるので避ける。
-    # 正時ちょうども混むので分をずらしている。平日の日中に issue が立てば当日中に見られる。
-    - cron: '17 6 * * 2'
+    # 毎月 1 日 06:17 UTC（日本時間 15:17）。
+    # 引用のズレは出典側の改稿でまとめて出るので、週次で回しても同じものを何度も見るだけ。
+    # 45 分かかる検査を毎週回す必要はない。正時と 00:00 UTC は混むので分をずらしている。
+    - cron: '17 6 1 * *'
   workflow_dispatch:
 
 # issue の作成 / コメントに issues: write が要る。それ以外は読み取りのみ
@@ -57,9 +61,9 @@ env:
 jobs:
   check:
     runs-on: ubuntu-latest
-    # 7 つの検査を直列に回すうえ、失敗したものは 1 度やり直す。
+    # 6 つの検査を直列に回すうえ、失敗したものは 1 度やり直す。
     # 実測で check:verdicts だけで 22 分（703 URL、ホストごとに間隔を空けるため）。
-    # 全部で 45 分前後、いくつか再実行が走ると 70 分を超える。既定の 6 時間は長すぎ、
+    # 全部で 40 分前後、いくつか再実行が走ると 70 分を超える。既定の 6 時間は長すぎ、
     # 90 分では再実行が重なったときに途中で切れるので、その間を取る。
     timeout-minutes: 150
     steps:
@@ -86,11 +90,6 @@ jobs:
       # 用意しないと「取れなかった」扱いで素通りし、照合していないのに緑になる
       - name: Playwright の chromium を用意
         run: pnpm exec playwright install --with-deps chromium
-
-      - name: 外部リンクの実在確認
-        id: links
-        continue-on-error: true
-        run: bash .github/scripts/run-check-with-retry.sh links pnpm check:links
 
       - name: 出典レジストリの逐語照合
         id: sources
@@ -142,7 +141,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           RESULTS: >-
-            links=${{ steps.links.outputs.status }}/${{ steps.links.outputs.attempts }}
             sources=${{ steps.sources.outputs.status }}/${{ steps.sources.outputs.attempts }}
             verdicts=${{ steps.verdicts.outputs.status }}/${{ steps.verdicts.outputs.attempts }}
             verdicts-low=${{ steps.verdicts-low.outputs.status }}/${{ steps.verdicts-low.outputs.attempts }}
@@ -156,7 +154,6 @@ jobs:
         if: always()
         env:
           OUTCOMES: >-
-            ${{ steps.links.outcome }}
             ${{ steps.sources.outcome }}
             ${{ steps.verdicts.outcome }}
             ${{ steps.verdicts-low.outcome }}

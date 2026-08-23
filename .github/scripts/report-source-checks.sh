@@ -69,16 +69,5 @@ body_file="$(mktemp)"
   done
 } > "$body_file"
 
-# 題名の完全一致で探す。--search は部分一致なので、取れた候補を題名で絞り直す
-existing="$(
-  gh issue list --state open --label "$ISSUE_LABEL" --search "\"$ISSUE_TITLE\" in:title" \
-    --json number,title --jq ".[] | select(.title == \"$ISSUE_TITLE\") | .number" | head -n 1
-)"
-
-if [ -n "$existing" ]; then
-  gh issue comment "$existing" --body-file "$body_file"
-  echo "既存の issue #${existing} に追記した"
-else
-  gh issue create --title "$ISSUE_TITLE" --label "$ISSUE_LABEL" --body-file "$body_file"
-  echo "issue を新規作成した"
-fi
+# 追記 / 新規作成は link-maintenance.sh と共通の実装を使う
+bash "$(dirname "$0")/append-or-create-issue.sh" --body-file "$body_file"
