@@ -415,7 +415,7 @@ const stats = await db.execute(sql\`
                 },
                 {
                   title: "Prisma - Relation queries（N+1 対策）",
-                  url: "https://www.prisma.io/docs/orm/prisma-client/queries/relation-queries",
+                  url: "https://www.prisma.io/docs/orm/fundamentals/relations-and-joins",
                   description: "include による関連取得と N+1 を避ける考え方",
                 },
                 {
