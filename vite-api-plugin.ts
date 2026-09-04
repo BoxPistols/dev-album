@@ -17,7 +17,12 @@ function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   });
 }
 
-const PREMIUM_MODELS = ["gpt-5.4-mini"];
+// gpt-5.4系（nano / mini）は提供終了し gpt-5.6-luna に統合された。
+// サーバーキーで使えるモデルは api/chat.ts の SERVER_KEY_ALLOWED_MODELS と揃える
+const PREMIUM_MODELS: string[] = [];
+
+// 出力上限の絞り込み対象。api/chat.ts の COMPACT_MODELS と揃える
+const COMPACT_MODELS = ["nano", "luna"];
 
 export function apiDevPlugin(): Plugin {
   return {
@@ -90,7 +95,7 @@ export function apiDevPlugin(): Plugin {
                 return;
               }
               client = new OpenAI({ apiKey });
-              resolvedModel = model || "gpt-5.4-nano";
+              resolvedModel = model || "gpt-5.6-luna";
             }
 
             // SSE ヘッダー
@@ -100,7 +105,9 @@ export function apiDevPlugin(): Plugin {
               Connection: "keep-alive",
             });
 
-            const maxTokens = resolvedModel.includes("nano") ? 2048 : 4096;
+            const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
+              ? 2048
+              : 4096;
 
             const stream = await client.chat.completions.create({
               model: resolvedModel,
