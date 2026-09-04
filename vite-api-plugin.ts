@@ -17,9 +17,9 @@ function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   });
 }
 
-// gpt-5.4系（nano / mini）は提供終了し gpt-5.6-luna に統合された。
-// サーバーキーで使えるモデルは api/chat.ts の SERVER_KEY_ALLOWED_MODELS と揃える
-const PREMIUM_MODELS: string[] = [];
+// サーバーキーで使えるモデルは api/chat.ts の SERVER_KEY_ALLOWED_MODELS と揃える。
+// Gemini Pro は無料枠の対象外なので自前キーが要る
+const PREMIUM_MODELS: string[] = ["gemini-2.5-pro"];
 
 // 出力上限の絞り込み対象。api/chat.ts の COMPACT_MODELS と揃える
 const COMPACT_MODELS = ["nano", "luna"];
@@ -86,7 +86,7 @@ export function apiDevPlugin(): Plugin {
                 baseURL:
                   "https://generativelanguage.googleapis.com/v1beta/openai/",
               });
-              resolvedModel = model || "gemini-2.5-flash";
+              resolvedModel = model || "gemini-3.8-flash";
             } else {
               const apiKey = userApiKey || env.OPENAI_API_KEY;
               if (!apiKey) {

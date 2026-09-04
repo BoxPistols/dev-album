@@ -18,6 +18,19 @@ export const MODEL_OPTIONS: ChatModelOption[] = [
     provider: "openai",
     requiresUserKey: false,
   },
+  {
+    id: "gemini-3.8-flash",
+    label: "Gemini 3.8 Flash",
+    provider: "gemini",
+    requiresUserKey: false,
+  },
+  // Pro は Gemini の無料枠対象外なので自前キーが要る
+  {
+    id: "gemini-2.5-pro",
+    label: "Gemini 2.5 Pro",
+    provider: "gemini",
+    requiresUserKey: true,
+  },
 ];
 
 interface ChatSettings {
