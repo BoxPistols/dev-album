@@ -17,7 +17,12 @@ function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   });
 }
 
-const PREMIUM_MODELS = ["gpt-5.4-mini"];
+// サーバーキーで使えるモデルは api/chat.ts の SERVER_KEY_ALLOWED_MODELS と揃える。
+// Gemini Pro は無料枠の対象外なので自前キーが要る
+const PREMIUM_MODELS: string[] = ["gemini-2.5-pro"];
+
+// 出力上限の絞り込み対象。api/chat.ts の COMPACT_MODELS と揃える
+const COMPACT_MODELS = ["nano", "luna"];
 
 export function apiDevPlugin(): Plugin {
   return {
@@ -81,7 +86,7 @@ export function apiDevPlugin(): Plugin {
                 baseURL:
                   "https://generativelanguage.googleapis.com/v1beta/openai/",
               });
-              resolvedModel = model || "gemini-2.5-flash";
+              resolvedModel = model || "gemini-3.8-flash";
             } else {
               const apiKey = userApiKey || env.OPENAI_API_KEY;
               if (!apiKey) {
@@ -90,7 +95,7 @@ export function apiDevPlugin(): Plugin {
                 return;
               }
               client = new OpenAI({ apiKey });
-              resolvedModel = model || "gpt-5.4-nano";
+              resolvedModel = model || "gpt-5.6-luna";
             }
 
             // SSE ヘッダー
@@ -100,7 +105,9 @@ export function apiDevPlugin(): Plugin {
               Connection: "keep-alive",
             });
 
-            const maxTokens = resolvedModel.includes("nano") ? 2048 : 4096;
+            const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
+              ? 2048
+              : 4096;
 
             const stream = await client.chat.completions.create({
               model: resolvedModel,

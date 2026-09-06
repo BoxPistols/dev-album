@@ -30,7 +30,7 @@ interface ChatRequestBody {
  */
 const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
   openai: ["gpt-5.6-luna"],
-  gemini: ["gemini-2.5-flash"],
+  gemini: ["gemini-3.8-flash"],
 };
 
 // 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする
@@ -48,7 +48,7 @@ function getClient(
         apiKey,
         baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
       }),
-      defaultModel: "gemini-2.5-flash",
+      defaultModel: "gemini-3.8-flash",
     };
   }
   const apiKey = userApiKey || process.env.OPENAI_API_KEY;
