@@ -554,7 +554,7 @@ export function ProductSearch() {
                 },
                 {
                   title: "TanStack Query - useQuery",
-                  url: "https://tanstack.com/query/latest/docs/framework/react/reference/useQuery",
+                  url: "https://tanstack.com/query/latest/docs/framework/react/reference/functions/useQuery",
                   description:
                     "Client Component でのクライアント側取得に使う useQuery の公式リファレンス",
                 },
