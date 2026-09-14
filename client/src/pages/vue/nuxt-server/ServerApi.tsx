@@ -485,7 +485,7 @@ async function createArticle(title: string) {
                 },
                 {
                   title: "Nuxt 公式 - runtimeConfig",
-                  url: "https://nuxt.com/docs/guide/going-further/runtime-config",
+                  url: "https://nuxt.com/docs/4.x/guide/going-further/runtime-config",
                   description: "サーバー専用シークレットと public 値の扱い方",
                 },
                 {

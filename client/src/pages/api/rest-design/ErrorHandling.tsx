@@ -548,7 +548,7 @@ content-type: application/problem+json
                 },
                 {
                   title: "OWASP - Improper Error Handling",
-                  url: "https://owasp.org/www-community/Improper_Error_Handling",
+                  url: "https://community.owasp.org/Improper_Error_Handling",
                   description:
                     "エラーレスポンスからの情報漏えいリスクと対策を解説。内部詳細を出さない設計の裏付け",
                 },
