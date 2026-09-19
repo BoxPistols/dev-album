@@ -12,6 +12,12 @@ import {
   todayUtc,
   type Tier,
 } from "./lib/quota.js";
+import {
+  DEFAULT_MODELS,
+  GEMINI_BASE_URL,
+  isAllowedForServerKey,
+  maxTokensFor,
+} from "./lib/chatModels.js";
 
 interface ChatRequestBody {
   messages: { role: "user" | "assistant"; content: string }[];
@@ -21,21 +27,6 @@ interface ChatRequestBody {
   userApiKey?: string;
 }
 
-/**
- * サーバ側の API キーで呼べるモデルの許可リスト (provider ごと)。
- * model はリクエストボディで指定できるため、検証しないと匿名クライアントが
- * オーナーのキーで任意の高コストモデルを呼べてしまう。
- * ここに無いモデルは BYOK (userApiKey) を必須にする。
- * クライアントの MODEL_OPTIONS を増やしたら、こちらにも追加する。
- */
-const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
-  openai: ["gpt-5.6-luna"],
-  gemini: ["gemini-3.8-flash"],
-};
-
-// 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする
-const COMPACT_MODELS = ["nano", "luna"];
-
 function getClient(
   provider: string,
   userApiKey?: string,
@@ -44,18 +35,15 @@ function getClient(
     const apiKey = userApiKey || process.env.GEMINI_API_KEY;
     if (!apiKey) return null;
     return {
-      client: new OpenAI({
-        apiKey,
-        baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-      }),
-      defaultModel: "gemini-3.8-flash",
+      client: new OpenAI({ apiKey, baseURL: GEMINI_BASE_URL }),
+      defaultModel: DEFAULT_MODELS.gemini,
     };
   }
   const apiKey = userApiKey || process.env.OPENAI_API_KEY;
   if (!apiKey) return null;
   return {
     client: new OpenAI({ apiKey }),
-    defaultModel: "gpt-5.6-luna",
+    defaultModel: DEFAULT_MODELS.openai,
   };
 }
 
@@ -92,8 +80,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const resolvedProvider = provider || "openai";
 
   // 許可リスト外のモデルはサーバのキーで実行させない (BYOK なら本人負担なので許可)
-  const allowedForServerKey = SERVER_KEY_ALLOWED_MODELS[resolvedProvider] ?? [];
-  if (model && !userApiKey && !allowedForServerKey.includes(model)) {
+  if (model && !userApiKey && !isAllowedForServerKey(resolvedProvider, model)) {
     return res
       .status(403)
       .json({ error: "このモデルの利用には API キーの設定が必要です" });
@@ -161,9 +148,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Connection", "keep-alive");
 
   try {
-    const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
-      ? 2048
-      : 4096;
+    const maxTokens = maxTokensFor(resolvedModel);
 
     const stream = await config.client.chat.completions.create({
       model: resolvedModel,

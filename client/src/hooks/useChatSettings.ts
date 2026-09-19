@@ -19,8 +19,8 @@ export const MODEL_OPTIONS: ChatModelOption[] = [
     requiresUserKey: false,
   },
   {
-    id: "gemini-3.8-flash",
-    label: "Gemini 3.8 Flash",
+    id: "gemini-3.5-flash-lite",
+    label: "Gemini 3.5 Flash-Lite",
     provider: "gemini",
     requiresUserKey: false,
   },
