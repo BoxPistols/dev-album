@@ -49,9 +49,9 @@ const sectionCards = [
   {
     number: 5,
     title: "Jev / System One モデル",
-    steps: "STEP 12-17",
+    steps: "STEP 12-20",
     description:
-      "文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築・質問の設計・サンプルアプリ・LLM との組み合わせまで扱う。",
+      "文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築・質問の設計・サンプルアプリ 3 本・LLM との組み合わせまで扱う。",
     href: "/ai-ml/jev/jev-overview",
     icon: <Scale className="w-6 h-6" />,
   },

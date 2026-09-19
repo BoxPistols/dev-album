@@ -14,14 +14,17 @@ AI・ML マニュアルに「Jev / System One モデル」セクションを新�
   2. `/ai-ml/jev/jev-setup` 開発環境の構築（API キー、Node / Python SDK、最初の呼び出し）
   3. `/ai-ml/jev/jev-primitives` 3 つの質問型と確率の読み方（noul / choice / score）
   4. `/ai-ml/jev/jev-state-design` state と質問の設計、複数質問の一括評価、エラーとリトライ
-  5. `/ai-ml/jev/jev-triage-app` サンプルアプリ: サポートチケットのトリアージ（Next.js Route Handler + React UI）
-  6. `/ai-ml/jev/jev-advanced` 応用: 信頼度ゲート、LLM との組み合わせ、評価、制約
+  5. `/ai-ml/jev/jev-app-ideas` サンプルアプリのアイデア 20（概要のみ。講座で作る 3 本を明示）
+  6. `/ai-ml/jev/jev-triage-app` サンプルアプリ 1: サポートチケットのトリアージ（Next.js Route Handler + React UI）
+  7. `/ai-ml/jev/jev-moderation-app` サンプルアプリ 2: 投稿のモデレーション（noul + score、レビュー待ちキュー、フェイルクローズ）
+  8. `/ai-ml/jev/jev-alerts-app` サンプルアプリ 3: アラートの優先度付け（配列 state の一括評価、score で並べ替え）
+  9. `/ai-ml/jev/jev-advanced` 応用: 信頼度ゲート、LLM との組み合わせ、評価、制約
 
 ## 処理フロー
 
-1. `client/src/lib/navigation.ts` に SectionInfo 1 件 + PageInfo 6 件を追加
+1. `client/src/lib/navigation.ts` に SectionInfo 1 件 + PageInfo 9 件を追加
 2. `client/src/lib/navigation.test.ts` の総ページ数・ai-ml のページ数を更新
-3. `client/src/App.tsx` に lazy import + Route を 6 件追加
+3. `client/src/App.tsx` に lazy import + Route を 9 件追加
 4. `client/src/pages/ai-ml/jev/*.tsx` を作成（既存 ai-ml ページの構造に準拠）
 5. `client/src/pages/ai-ml/Home.tsx` のカリキュラムカードに 1 件追加
 6. `client/src/lib/searchIndex.ts` に検索キーワードを追加
@@ -37,7 +40,8 @@ AI・ML マニュアルに「Jev / System One モデル」セクションを新�
 
 ## 出力
 
-- 正常系: 新セクションがサイドバーに表示され、6 ページが 3 テーマで描画・相互リンクする。TOP の「最新のお知らせ」に 6 件が出る
+- 正常系: 新セクションがサイドバーに表示され、9 ページが 3 テーマで描画・相互リンクする。TOP の「最新のお知らせ」に 9 件が出る
+- アイデア一覧は「できること」を 1 行で示すだけに留め、コードは載せない。実装は 3 本のサンプルアプリのページに置く
 
 ## 完了条件（検証可能な形で）
 

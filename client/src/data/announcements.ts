@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-19-jev-alerts-app",
+    date: "2026-09-19",
+    title: "Jev サンプルアプリ 3: アラートの優先度付け",
+    description:
+      "複数のアラートを 1 リクエストで評価し、score の期待値で並べる運用ダッシュボード。state を配列にして質問を動的に組む書き方と、UI 側の並び替えを扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-alerts-app",
+  },
+  {
+    id: "2026-09-19-jev-moderation-app",
+    date: "2026-09-19",
+    title: "Jev サンプルアプリ 2: 投稿のモデレーション",
+    description:
+      "投稿を公開前に noul と score で判定し、確実なものは自動、迷うものは人のレビュー待ちキューに積む。失敗時は公開を止める設計にした。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-moderation-app",
+  },
+  {
+    id: "2026-09-19-jev-app-ideas",
+    date: "2026-09-19",
+    title: "Jev で作れるサンプルアプリのアイデア 20 を一覧に",
+    description:
+      "サポート・コミュニティ・運用・開発・LLM との組み合わせの 5 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 3 本もここから選んでいる。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-app-ideas",
+  },
+  {
     id: "2026-09-19-jev-advanced",
     date: "2026-09-19",
     title: "Jev 応用: 信頼度ゲートと LLM との組み合わせ",
@@ -31,7 +58,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
   {
     id: "2026-09-19-jev-triage-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ: サポートチケットのトリアージ",
+    title: "Jev サンプルアプリ 1: サポートチケットのトリアージ",
     description:
       "Next.js の Route Handler で Jev を呼び、React 側で分類・緊急度・不満度を表示する小さなアプリを組む。UI 側の判定ロジックはブラウザ内で試せる CodingChallenge にした。",
     category: "feature",

@@ -622,9 +622,21 @@ export const searchIndex: Record<string, string[]> = {
     'Jev', 'state', '質問設計', '一括評価', 'バッチ', 'リトライ', 'タイムアウト',
     'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
   ],
+  '/ai-ml/jev/jev-app-ideas': [
+    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', 'モデレーション', 'トリアージ', 'アラート',
+    '仕分け', 'ジャッジ', 'テレメトリ', 'ゲーム', '事例',
+  ],
   '/ai-ml/jev/jev-triage-app': [
     'Jev', 'サンプルアプリ', 'トリアージ', 'サポートチケット', 'Next.js', 'Route Handler',
     'React', 'TypeScript', 'CodingChallenge', '信頼度', 'UI',
+  ],
+  '/ai-ml/jev/jev-moderation-app': [
+    'Jev', 'サンプルアプリ', 'モデレーション', '投稿', 'ガイドライン', '公開前チェック', 'キュー',
+    'レビュー待ち', 'noul', 'score', 'React', 'Next.js',
+  ],
+  '/ai-ml/jev/jev-alerts-app': [
+    'Jev', 'サンプルアプリ', 'アラート', '優先度', 'バッチ', '一括評価', '並び替え', '期待値',
+    'score', 'ダッシュボード', '運用', 'React',
   ],
   '/ai-ml/jev/jev-advanced': [
     'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLM ジャッジ', 'ハーネス',

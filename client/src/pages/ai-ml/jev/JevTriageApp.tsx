@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * サンプルアプリ: サポートチケットのトリアージ
- * STEP 16: Jev セクション
+ * STEP 17: Jev セクション
  * - 構成（React UI → Route Handler → Jev）
  * - サーバー側: Route Handler の実装
  * - クライアント側: 結果の表示と信頼度による分岐
@@ -22,11 +22,11 @@ export default function JevTriageApp() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 16</span>
+          <span className="step-badge">STEP 17</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ: サポートチケットのトリアージ
+          サンプルアプリ 1: サポートチケットのトリアージ
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ここまでの内容を 1
@@ -128,7 +128,7 @@ export function decide(r: TriageResult, threshold = 0.8): Disposition {
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
               しきい値は引数にして外から差し替えられるようにしておきます。STEP
-              17 で、実データからこの値を決める手順を扱います。
+              20 で、実データからこの値を決める手順を扱います。
             </p>
           </section>
 

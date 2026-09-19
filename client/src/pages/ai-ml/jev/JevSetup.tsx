@@ -312,7 +312,7 @@ print(response.choices["category"].choice)`}
               </div>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              STEP 16
+              STEP 17〜19
               のサンプルアプリはこの構成で組みます。この教材のブラウザ内プレビューは外部
               API へ出られないので、 UI
               側の練習ではサーバーが返したものと同じ形のモック応答を使います。
