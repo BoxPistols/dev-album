@@ -476,13 +476,13 @@ definePageMeta({
                 },
                 {
                   title: "Nuxt 公式 - Views（Layouts）",
-                  url: "https://nuxt.com/docs/getting-started/views",
+                  url: "https://nuxt.com/docs/4.x/getting-started/views",
                   description:
                     "app.vue / layouts / NuxtLayout / NuxtPage の関係",
                 },
                 {
                   title: "Nuxt 公式 - definePageMeta",
-                  url: "https://nuxt.com/docs/api/utils/define-page-meta",
+                  url: "https://nuxt.com/docs/4.x/api/utils/define-page-meta",
                   description:
                     "ページごとのレイアウト・ミドルウェア等のメタ指定",
                 },

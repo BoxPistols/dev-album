@@ -448,7 +448,7 @@ collaboration:
                 },
                 {
                   title: "OWASP API Security Top 10",
-                  url: "https://owasp.org/API-Security/editions/2023/en/0x11-t10/",
+                  url: "https://api-security.owasp.org/editions/2023/en/0x11-t10/",
                   description:
                     "認可不備（BOLA）など API 特有の脆弱性トップ 10。セキュリティ観点のチェックに使う",
                 },
