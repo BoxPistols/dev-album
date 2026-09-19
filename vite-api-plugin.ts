@@ -1,6 +1,12 @@
 import { type Plugin, loadEnv } from "vite";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import OpenAI from "openai";
+import {
+  DEFAULT_MODELS,
+  GEMINI_BASE_URL,
+  isAllowedForServerKey,
+  maxTokensFor,
+} from "./api/lib/chatModels.js";
 
 function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
@@ -16,13 +22,6 @@ function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
     req.on("error", reject);
   });
 }
-
-// サーバーキーで使えるモデルは api/chat.ts の SERVER_KEY_ALLOWED_MODELS と揃える。
-// Gemini Pro は無料枠の対象外なので自前キーが要る
-const PREMIUM_MODELS: string[] = ["gemini-2.5-pro"];
-
-// 出力上限の絞り込み対象。api/chat.ts の COMPACT_MODELS と揃える
-const COMPACT_MODELS = ["nano", "luna"];
 
 export function apiDevPlugin(): Plugin {
   return {
@@ -60,7 +59,10 @@ export function apiDevPlugin(): Plugin {
               return;
             }
 
-            if (model && PREMIUM_MODELS.includes(model) && !userApiKey) {
+            // 本番 (api/chat.ts) と同じ許可リスト方式にする。
+            // 拒否リストのままだと、dev では未登録のモデルがサーバのキーで素通りし、
+            // ローカルで通ったものが本番で403になる
+            if (model && !userApiKey && !isAllowedForServerKey(provider, model)) {
               res.writeHead(403, { "Content-Type": "application/json" });
               res.end(
                 JSON.stringify({
@@ -81,12 +83,8 @@ export function apiDevPlugin(): Plugin {
                 res.end(JSON.stringify({ error: "API key not configured" }));
                 return;
               }
-              client = new OpenAI({
-                apiKey,
-                baseURL:
-                  "https://generativelanguage.googleapis.com/v1beta/openai/",
-              });
-              resolvedModel = model || "gemini-3.8-flash";
+              client = new OpenAI({ apiKey, baseURL: GEMINI_BASE_URL });
+              resolvedModel = model || DEFAULT_MODELS.gemini;
             } else {
               const apiKey = userApiKey || env.OPENAI_API_KEY;
               if (!apiKey) {
@@ -95,7 +93,7 @@ export function apiDevPlugin(): Plugin {
                 return;
               }
               client = new OpenAI({ apiKey });
-              resolvedModel = model || "gpt-5.6-luna";
+              resolvedModel = model || DEFAULT_MODELS.openai;
             }
 
             // SSE ヘッダー
@@ -105,9 +103,7 @@ export function apiDevPlugin(): Plugin {
               Connection: "keep-alive",
             });
 
-            const maxTokens = COMPACT_MODELS.some((m) => resolvedModel.includes(m))
-              ? 2048
-              : 4096;
+            const maxTokens = maxTokensFor(resolvedModel);
 
             const stream = await client.chat.completions.create({
               model: resolvedModel,
