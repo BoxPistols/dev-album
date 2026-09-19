@@ -118,18 +118,25 @@ export default function PageSources({
       )}
 
       {measured.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-border">
-          <div className="flex items-center gap-2 mb-2">
+        <details className="group mt-4 pt-4 border-t border-border">
+          {/* 同じ観測を参照するページが並ぶと、長い注記と再現コマンドが毎ページ同じ形で出る。
+              何を根拠にしたかは一覧で分かるようにし、中身は開いたときだけ出す */}
+          <summary className="flex items-center gap-2 px-2 py-1.5 -mx-2 rounded-lg cursor-pointer list-none [&::-webkit-details-marker]:hidden hover:bg-muted transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <ChevronRight
+              size={14}
+              aria-hidden="true"
+              className="flex-shrink-0 text-muted-foreground transition-transform duration-150 group-open:rotate-90"
+            />
             <FlaskConical
               size={14}
               aria-hidden="true"
-              className="text-muted-foreground"
+              className="flex-shrink-0 text-muted-foreground"
             />
             <span className="text-xs font-bold text-foreground">
-              手元で再現した観測
+              手元で再現した観測 {measured.length} 件
             </span>
-          </div>
-          <ul className="space-y-3">
+          </summary>
+          <ul className="space-y-3 mt-2">
             {measured.map((s) => (
               <li key={s.id}>
                 <p className="text-xs font-medium text-foreground">
@@ -155,7 +162,7 @@ export default function PageSources({
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       )}
 
       {generated.length > 0 && (

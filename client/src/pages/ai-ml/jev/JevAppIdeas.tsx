@@ -39,7 +39,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         what: "レシートや明細の1行をカテゴリに仕分け、固定費かどうかと見直す価値を返す。迷ったものだけ自分で直す",
         types: ["choice", "noul", "score"],
         buildStep: 18,
-        href: "/ai-ml/jev/jev-ledger-app",
+        href: "/ai-ml/jev/jev-triage-app",
       },
       {
         title: "受信トレイの返信要否",
@@ -228,7 +228,7 @@ export default function JevAppIdeas() {
                   title: "家計簿の自動仕分け",
                   point:
                     "日常生活の題材。choice + noul + scoreを1リクエストで。Route HandlerとReactの基本形",
-                  href: "/ai-ml/jev/jev-ledger-app",
+                  href: "/ai-ml/jev/jev-triage-app",
                 },
                 {
                   step: 19,

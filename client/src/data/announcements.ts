@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-20-jev-triage-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ1: 問い合わせの選別",
+    description:
+      "メールやチャットで届く問い合わせを、担当チームと緊急度で振り分ける。選択肢に「どれでもない」を入れる前後の違いと、しきい値の決め方を、実際にJevを呼んで測った値で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
     id: "2026-09-20-permanent-links",
     date: "2026-09-20",
     title: "API・Vue/Nuxt・インフラの外部リンクを移転先のURLに直した",
@@ -90,15 +99,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "AI・MLマニュアルのJevセクション最終ページ。confidenceで自動処理と人の確認を分ける設計、LLMの前段・後段にJevを置く構成、しきい値の決め方と評価の回し方、Jevでは扱えないことを整理した。",
     category: "feature",
     link: "/ai-ml/jev/jev-advanced",
-  },
-  {
-    id: "2026-09-19-jev-ledger-app",
-    date: "2026-09-19",
-    title: "Jevサンプルアプリ1: 家計簿の自動仕分け",
-    description:
-      "支出1件を入れるとカテゴリ・固定費かどうか・見直す価値をJevが返し、確信が低いものだけ本人が直す。Next.jsプロジェクト作成からcurlでの確認、実ページまで、実際に呼ぶ手順で組む。",
-    category: "feature",
-    link: "/ai-ml/jev/jev-ledger-app",
   },
   {
     id: "2026-09-19-jev-state-design",

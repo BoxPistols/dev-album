@@ -630,9 +630,10 @@ export const searchIndex: Record<string, string[]> = {
     'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI文言', 'ユーザーの声', '医療', 'マーケティング',
     '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
   ],
-  '/ai-ml/jev/jev-ledger-app': [
-    'Jev', 'サンプルアプリ', '家計簿', '支出', '仕分け', 'カテゴリ', '固定費', '日常生活',
-    'Next.js', 'Route Handler', 'React', 'TypeScript', '確信度',
+  '/ai-ml/jev/jev-triage-app': [
+    'Jev', 'サンプルアプリ', '問い合わせ', 'メール', 'チャット', '選別', '振り分け', 'トリアージ',
+    '担当チーム', '緊急度', 'choice', 'noul', 'しきい値', 'どれでもない',
+    'Next.js', 'Route Handler', 'React', 'TypeScript', 'confidence',
   ],
   '/ai-ml/jev/jev-copycheck-app': [
     'Jev', 'サンプルアプリ', 'UI文言', 'マイクロコピー', 'ライティング指針', 'デザイナー', 'デザインシステム',

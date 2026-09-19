@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "ux-writing-dead-cliche": { "preset": "paper", "minSeverity": "warn" }
+  }
+}

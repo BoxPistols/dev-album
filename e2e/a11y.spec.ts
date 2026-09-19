@@ -40,7 +40,7 @@ const PAGES = [
   { path: "/threejs/basics/scene", name: "Three.js（ブランド色）" },
   { path: "/ai-ml/ai-overview/landscape", name: "AI・ML（ブランド色）" },
   // Jevセクション。プレビュー付きCodingChallengeと表を含む
-  { path: "/ai-ml/jev/jev-ledger-app", name: "Jev（プレビュー付きチャレンジ）" },
+  { path: "/ai-ml/jev/jev-triage-app", name: "Jev（プレビュー付きチャレンジ）" },
   { path: "/ai-ml/jev/jev-app-ideas", name: "Jev（アイデア一覧・内部リンク）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
   { path: "/vue/basics/setup", name: "Vue / Nuxt（ブランド色）" },

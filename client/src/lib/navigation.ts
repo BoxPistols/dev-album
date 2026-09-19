@@ -500,7 +500,7 @@ export const pages: PageInfo[] = [
   { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3つの質問型と確率の読み方', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 16, path: '/ai-ml/jev/jev-state-design', title: 'stateと質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'サンプルアプリのアイデア20', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 18, path: '/ai-ml/jev/jev-ledger-app', title: 'サンプルアプリ1: 家計簿の自動仕分け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: 'サンプルアプリ1: 問い合わせの選別', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 19, path: '/ai-ml/jev/jev-copycheck-app', title: 'サンプルアプリ2: UI文言チェッカー', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 20, path: '/ai-ml/jev/jev-feedback-app', title: 'サンプルアプリ3: ユーザーの声の分類ボード', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 21, path: '/ai-ml/jev/jev-clinic-app', title: 'サンプルアプリ4: 診療所の受付振り分け', sectionId: 'jev', manualId: 'ai-ml' },
@@ -706,6 +706,19 @@ export function getManualIdFromPath(path: string): ManualId | undefined {
   // パスの第 1 セグメントと完全一致で見る（/react-native を react と誤認しない）。
   const first = path.split("/")[1];
   return manuals.some((m) => m.id === first) ? (first as ManualId) : undefined;
+}
+
+/**
+ * セクション別にprimaryを差し替える対象（index.cssの[data-section]）。
+ * マニュアルの中の一部だけが別の製品を扱う場合に使う。前方一致で見る。
+ */
+const SECTION_THEMES: { prefix: string; id: string }[] = [
+  { prefix: "/ai-ml/jev", id: "jev" },
+];
+
+/** パスがセクション別の色を持つ範囲にあれば、そのIDを返す */
+export function getSectionThemeIdFromPath(path: string): string | undefined {
+  return SECTION_THEMES.find((s) => path.startsWith(s.prefix))?.id;
 }
 
 export function getNextSectionFirstPage(currentPath: string): PageInfo | undefined {
