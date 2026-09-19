@@ -98,7 +98,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         what: "レビューやアンケートの自由記述をまとめて「要望 / 不具合 / 使いにくさ / 称賛」に分け、深刻さ順に並べる",
         types: ["choice", "score", "noul"],
         buildStep: 20,
-        href: "/ai-ml/jev/jev-feedback-app",
+        href: "/ai-ml/jev/jev-dashboard-app",
       },
       {
         title: "問い合わせの担当振り分け",
@@ -242,7 +242,7 @@ export default function JevAppIdeas() {
                   title: "ユーザーの声の分類ボード",
                   point:
                     "プロダクト作り向け。配列stateで一括評価し、深刻さの期待値で並べる",
-                  href: "/ai-ml/jev/jev-feedback-app",
+                  href: "/ai-ml/jev/jev-dashboard-app",
                 },
                 {
                   step: 21,

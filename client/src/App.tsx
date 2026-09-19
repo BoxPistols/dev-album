@@ -264,7 +264,7 @@ const AiJevStateDesign = lazy(() => import("./pages/ai-ml/jev/JevStateDesign"));
 const AiJevAppIdeas = lazy(() => import("./pages/ai-ml/jev/JevAppIdeas"));
 const AiJevTriageApp = lazy(() => import("./pages/ai-ml/jev/JevTriageApp"));
 const AiJevChartPickerApp = lazy(() => import("./pages/ai-ml/jev/JevChartPickerApp"));
-const AiJevFeedbackApp = lazy(() => import("./pages/ai-ml/jev/JevFeedbackApp"));
+const AiJevDashboardApp = lazy(() => import("./pages/ai-ml/jev/JevDashboardApp"));
 const AiJevClinicApp = lazy(() => import("./pages/ai-ml/jev/JevClinicApp"));
 const AiJevLeadsApp = lazy(() => import("./pages/ai-ml/jev/JevLeadsApp"));
 const AiJevAdvanced = lazy(() => import("./pages/ai-ml/jev/JevAdvanced"));
@@ -727,7 +727,7 @@ function App() {
                 <Route path="/ai-ml/jev/jev-app-ideas" component={AiJevAppIdeas} />
                 <Route path="/ai-ml/jev/jev-triage-app" component={AiJevTriageApp} />
                 <Route path="/ai-ml/jev/jev-chart-picker-app" component={AiJevChartPickerApp} />
-                <Route path="/ai-ml/jev/jev-feedback-app" component={AiJevFeedbackApp} />
+                <Route path="/ai-ml/jev/jev-dashboard-app" component={AiJevDashboardApp} />
                 <Route path="/ai-ml/jev/jev-clinic-app" component={AiJevClinicApp} />
                 <Route path="/ai-ml/jev/jev-leads-app" component={AiJevLeadsApp} />
                 <Route path="/ai-ml/jev/jev-advanced" component={AiJevAdvanced} />

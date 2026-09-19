@@ -18,7 +18,7 @@ AI・MLマニュアルに「Jev / System Oneモデル」セクションを新設
   6. `/ai-ml/jev/jev-app-ideas` サンプルアプリのアイデア20（概要のみ。講座で作る3本を明示）
   7. `/ai-ml/jev/jev-triage-app` サンプルアプリ1: 問い合わせの選別（メールやチャットの典型例。Next.js Route Handler + React、choiceとnoulの基本形）
   8. `/ai-ml/jev/jev-chart-picker-app` サンプルアプリ2: UI文言チェッカー（デザイナー向け。指針をstateで渡す3分岐、フェイルクローズ）
-  9. `/ai-ml/jev/jev-feedback-app` サンプルアプリ3: ユーザーの声の分類ボード（プロダクト作り向け。配列stateの一括評価、scoreで並べ替え）
+  9. `/ai-ml/jev/jev-dashboard-app` サンプルアプリ3: ユーザーの声の分類ボード（プロダクト作り向け。配列stateの一括評価、scoreで並べ替え）
   10. `/ai-ml/jev/jev-clinic-app` サンプルアプリ4: 診療所の受付振り分け（医療現場。診断はしない。緊急兆候は低しきい値で人へ、失敗もスタッフへ）
   11. `/ai-ml/jev/jev-leads-app` サンプルアプリ5: マーケティングの反応分析（一括評価 + キャンペーン別集計）
   12. `/ai-ml/jev/jev-advanced` 応用: 信頼度ゲート、LLMとの組み合わせ、評価、制約

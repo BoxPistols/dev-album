@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-20-jev-dashboard-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ3: ダッシュボードの自動強調",
+    description:
+      "20個の指標を1リクエストでまとめて採点し、いま見るべきものが大きく前に出る画面を作る。平常時と障害の当日で並びが組み替わる様子と、同点をコードが変化の大きさで並べる方法を実測値で示す。訴求と相手の組を採点する表も同じ形で扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-dashboard-app",
+  },
+  {
     id: "2026-09-20-jev-chart-picker-app",
     date: "2026-09-20",
     title: "Jevサンプルアプリ2: データに合わせて図を選ぶ",
@@ -72,15 +81,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "TypeSafe AIと直接契約するルートとVercel AI Gateway経由のルートを比較し、ウェイトリスト、キー発行、支払い方法、予算上限、curlでの疎通確認までをまとめた。公式で確認できた事項と二次情報を分けて書いている。",
     category: "feature",
     link: "/ai-ml/jev/jev-account",
-  },
-  {
-    id: "2026-09-19-jev-feedback-app",
-    date: "2026-09-19",
-    title: "Jevサンプルアプリ3: ユーザーの声の分類ボード",
-    description:
-      "レビューやアンケートの自由記述をまとめてJevに渡し、要望・不具合・使いにくさ・称賛に分けて深刻さ順に並べるボード。配列stateで質問を動的に組む書き方と、実際に呼んで確認する手順付き。",
-    category: "feature",
-    link: "/ai-ml/jev/jev-feedback-app",
   },
   {
     id: "2026-09-19-jev-app-ideas",
