@@ -121,9 +121,10 @@ function git(args) {
 
 function collectAdded(base) {
   const mergeBase = git(["merge-base", base, "HEAD"]).trim();
-  // 作業ツリーとの差分にして、コミット前の変更も見る
+  // 作業ツリーとの差分にして、コミット前の変更も見る。
+  // Rを含めるのは、リネームしたファイルで書き換えた行を落とさないため
   const added = addedLines(
-    git(["diff", "-U0", "--no-color", "--diff-filter=AM", mergeBase, "--", "."]),
+    git(["diff", "-U0", "--no-color", "--diff-filter=AMR", mergeBase, "--", "."]),
   );
   // 未追跡の新規ファイルはdiffに出ないので、全行を追加として扱う
   const untracked = git(["ls-files", "--others", "--exclude-standard"])
