@@ -20,6 +20,60 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-19-jev-advanced",
+    date: "2026-09-19",
+    title: "Jev 応用: 信頼度ゲートと LLM との組み合わせ",
+    description:
+      "AI・ML マニュアルの Jev セクション最終ページ。confidence で自動処理と人の確認を分ける設計、LLM の前段・後段に Jev を置く構成、しきい値の決め方と評価の回し方、Jev では扱えないことを整理した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-advanced",
+  },
+  {
+    id: "2026-09-19-jev-triage-app",
+    date: "2026-09-19",
+    title: "Jev サンプルアプリ: サポートチケットのトリアージ",
+    description:
+      "Next.js の Route Handler で Jev を呼び、React 側で分類・緊急度・不満度を表示する小さなアプリを組む。UI 側の判定ロジックはブラウザ内で試せる CodingChallenge にした。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
+    id: "2026-09-19-jev-state-design",
+    date: "2026-09-19",
+    title: "Jev の state と質問の設計",
+    description:
+      "何を state に入れ、質問をどう分けるか。複数の質問を 1 リクエストで評価する形、usage の読み方、SDK のリトライとタイムアウトの既定値、エラー型ごとの対処をまとめた。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-state-design",
+  },
+  {
+    id: "2026-09-19-jev-primitives",
+    date: "2026-09-19",
+    title: "Jev の 3 つの質問型と確率の読み方",
+    description:
+      "noul（はい/いいえ）・choice（選択）・score（段階評価）の応答の形を、公式 SDK の型定義から起こした。confidence と probabilities の違い、score の期待値が整数の間に落ちる理由を扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-primitives",
+  },
+  {
+    id: "2026-09-19-jev-setup",
+    date: "2026-09-19",
+    title: "Jev の開発環境構築",
+    description:
+      "API キーの環境変数、Node.js / Python の公式 SDK の導入、最初の呼び出しまで。SDK がブラウザからの呼び出しを既定で拒否する理由と、サーバー側に置く構成を先に示した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-setup",
+  },
+  {
+    id: "2026-09-19-jev-overview",
+    date: "2026-09-19",
+    title: "AI・ML マニュアルに「Jev / System One モデル」セクションを追加",
+    description:
+      "TypeSafe AI が公開した、文章を生成せず型付きの判断を確率で返すモデル Jev を、ゼロからの解説・環境構築・基礎・設計・サンプルアプリ・応用の順で扱う。初回は LLM との違いと向いている仕事の見分け方。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-overview",
+  },
+  {
     id: "2026-08-23-cmux-source-verified",
     date: "2026-08-23",
     title: "cmux の未確認だった記述を、公開リポジトリのソースで確かめて直した",

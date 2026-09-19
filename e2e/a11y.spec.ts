@@ -39,6 +39,8 @@ const PAGES = [
   { path: "/claude-code/multi-ai/file-map", name: "AI 向けファイル早見表（表）" },
   { path: "/threejs/basics/scene", name: "Three.js（ブランド色）" },
   { path: "/ai-ml/ai-overview/landscape", name: "AI・ML（ブランド色）" },
+  // Jev セクション。プレビュー付き CodingChallenge と表を含む
+  { path: "/ai-ml/jev/jev-triage-app", name: "Jev（プレビュー付きチャレンジ）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
   { path: "/vue/basics/setup", name: "Vue / Nuxt（ブランド色）" },
 ] as const;

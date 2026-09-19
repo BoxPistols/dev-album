@@ -256,6 +256,12 @@ const AiSupervised = lazy(() => import("./pages/ai-ml/ml-fundamentals/Supervised
 const AiDeepLearning = lazy(() => import("./pages/ai-ml/ml-fundamentals/DeepLearning"));
 const AiLlmBasics = lazy(() => import("./pages/ai-ml/lmops/LlmBasics"));
 const AiLmopsWorkflow = lazy(() => import("./pages/ai-ml/lmops/LmopsWorkflow"));
+const AiJevOverview = lazy(() => import("./pages/ai-ml/jev/JevOverview"));
+const AiJevSetup = lazy(() => import("./pages/ai-ml/jev/JevSetup"));
+const AiJevPrimitives = lazy(() => import("./pages/ai-ml/jev/JevPrimitives"));
+const AiJevStateDesign = lazy(() => import("./pages/ai-ml/jev/JevStateDesign"));
+const AiJevTriageApp = lazy(() => import("./pages/ai-ml/jev/JevTriageApp"));
+const AiJevAdvanced = lazy(() => import("./pages/ai-ml/jev/JevAdvanced"));
 
 // ── UX デザインマニュアル (15ページ) ──
 const UxHome = lazy(() => import("./pages/ux-design/Home"));
@@ -707,6 +713,12 @@ function App() {
                 <Route path="/ai-ml/ml-fundamentals/deep-learning" component={AiDeepLearning} />
                 <Route path="/ai-ml/lmops/llm-basics" component={AiLlmBasics} />
                 <Route path="/ai-ml/lmops/lmops-workflow" component={AiLmopsWorkflow} />
+                <Route path="/ai-ml/jev/jev-overview" component={AiJevOverview} />
+                <Route path="/ai-ml/jev/jev-setup" component={AiJevSetup} />
+                <Route path="/ai-ml/jev/jev-primitives" component={AiJevPrimitives} />
+                <Route path="/ai-ml/jev/jev-state-design" component={AiJevStateDesign} />
+                <Route path="/ai-ml/jev/jev-triage-app" component={AiJevTriageApp} />
+                <Route path="/ai-ml/jev/jev-advanced" component={AiJevAdvanced} />
 
                 {/* === UX デザインマニュアル === */}
                 <Route path="/ux-design" component={UxHome} />

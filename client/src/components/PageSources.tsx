@@ -144,7 +144,12 @@ export default function PageSources({
                     {s.note}
                   </p>
                 )}
-                <pre className="mt-1 overflow-x-auto rounded bg-card border border-border p-2 text-xs leading-relaxed text-muted-foreground">
+                {/* 長いコマンドは横スクロールになる。キーボードでもスクロールできるようフォーカス可能にする */}
+                <pre
+                  tabIndex={0}
+                  aria-label="再現コマンド"
+                  className="mt-1 overflow-x-auto rounded bg-card border border-border p-2 text-xs leading-relaxed text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
                   <code>{s.reproduce}</code>
                 </pre>
               </li>

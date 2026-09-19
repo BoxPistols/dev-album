@@ -606,6 +606,30 @@ export const searchIndex: Record<string, string[]> = {
     'ファインチューニング', 'トークン', 'コスト最適化', 'ガードレール',
     '評価', 'Langfuse', 'ハルシネーション', 'AI 倫理',
   ],
+  '/ai-ml/jev/jev-overview': [
+    'Jev', 'TypeSafe AI', 'System One', 'システムワン', '確率', '分類', '判断',
+    '非自己回帰', 'LLM との違い', 'LLM ジャッジ', 'ルーティング',
+  ],
+  '/ai-ml/jev/jev-setup': [
+    'Jev', '環境構築', 'TYPESAFE_API_KEY', '@typesafe-ai/sdk', 'typesafe-sdk',
+    'npm install', 'uv add', 'TypeSafeClient', 'systemOne', 'system_one', 'jev-latest', '.env',
+  ],
+  '/ai-ml/jev/jev-primitives': [
+    'Jev', 'noul', 'choice', 'score', '質問型', '確率', 'confidence', 'probabilities',
+    '期待値', 'ルーブリック', 'criteria', 'instructions', 'キャリブレーション',
+  ],
+  '/ai-ml/jev/jev-state-design': [
+    'Jev', 'state', '質問設計', '一括評価', 'バッチ', 'リトライ', 'タイムアウト',
+    'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
+  ],
+  '/ai-ml/jev/jev-triage-app': [
+    'Jev', 'サンプルアプリ', 'トリアージ', 'サポートチケット', 'Next.js', 'Route Handler',
+    'React', 'TypeScript', 'CodingChallenge', '信頼度', 'UI',
+  ],
+  '/ai-ml/jev/jev-advanced': [
+    'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLM ジャッジ', 'ハーネス',
+    '評価', 'しきい値', 'コスト', '制約', 'ガードレール', '人の確認',
+  ],
 
   // ===== ux-design-manual =====
   '/ux-design': [

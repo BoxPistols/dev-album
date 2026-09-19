@@ -1,5 +1,13 @@
 import { Link } from "wouter";
-import { ArrowRight, Brain, Code2, Cpu, Server, Keyboard } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  Code2,
+  Cpu,
+  Server,
+  Keyboard,
+  Scale,
+} from "lucide-react";
 
 const sectionCards = [
   {
@@ -38,6 +46,15 @@ const sectionCards = [
     href: "/ai-ml/lmops/llm-basics",
     icon: <Server className="w-6 h-6" />,
   },
+  {
+    number: 5,
+    title: "Jev / System One モデル",
+    steps: "STEP 12-17",
+    description:
+      "文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築・質問の設計・サンプルアプリ・LLM との組み合わせまで扱う。",
+    href: "/ai-ml/jev/jev-overview",
+    icon: <Scale className="w-6 h-6" />,
+  },
 ];
 
 const shortcuts = [
@@ -65,8 +82,8 @@ export default function Home() {
           </h1>
 
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Python の基礎から機械学習・ディープラーニング・LLM・LMOps まで、Web
-            開発者の視点で実践的に学ぶマニュアルです。
+            Python の基礎から機械学習・ディープラーニング・LLM・LMOps・Jev
+            まで、Web 開発者の視点で実践的に学ぶマニュアルです。
             理論の深追いよりも、開発現場で必要になる概念と使い方に焦点を当てています。
           </p>
 
