@@ -628,7 +628,7 @@ export const searchIndex: Record<string, string[]> = {
   ],
   '/ai-ml/jev/jev-app-ideas': [
     'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', 'モデレーション', 'トリアージ', 'アラート',
-    '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '事例',
+    '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
   ],
   '/ai-ml/jev/jev-triage-app': [
     'Jev', 'サンプルアプリ', 'トリアージ', 'サポートチケット', 'Next.js', 'Route Handler',

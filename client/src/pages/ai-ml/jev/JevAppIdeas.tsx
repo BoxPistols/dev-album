@@ -1,5 +1,6 @@
-import { Lightbulb, Hammer } from "lucide-react";
+import { Lightbulb, Hammer, Plane } from "lucide-react";
 import { Link } from "wouter";
+import CodingChallenge from "@/components/CodingChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
@@ -154,9 +155,10 @@ const IDEA_GROUPS: IdeaGroup[] = [
         types: ["choice", "noul"],
       },
       {
-        title: "ゲーム・シミュレーションの行動選択",
-        what: "現在の盤面や状態を state にし、次に取る行動を選択肢から選ぶ。応答が速く型が固定なので、ループの中で呼べる",
-        types: ["choice", "noul"],
+        title: "フライトシミュレーターの自動操縦判断",
+        what: "Three.js 講座で作る飛行機ゲームの各フレームの状態（障害物までの距離、天候の変化、燃料）を state にし、回避・高度変更・帰還のどれを取るかを選ぶ。応答が速く型が固定なので、ゲームループの中で呼べる",
+        types: ["choice", "noul", "score"],
+        href: "/threejs/game-dev/aircraft",
       },
     ],
   },
@@ -288,6 +290,14 @@ export default function JevAppIdeas() {
                                     講座で作る（STEP {idea.buildStep}）
                                   </Link>
                                 )}
+                                {!idea.buildStep && idea.href && (
+                                  <Link
+                                    href={idea.href}
+                                    className="text-xs font-medium text-primary underline underline-offset-2"
+                                  >
+                                    関連: Three.js 講座の飛行機モデル
+                                  </Link>
+                                )}
                               </div>
                               <p className="text-sm text-muted-foreground leading-relaxed">
                                 {idea.what}
@@ -316,6 +326,199 @@ export default function JevAppIdeas() {
               3 条件を満たしています。 自分のサービスで題材を探すときも、この 3
               条件を先に確かめてから質問型を選ぶと、Jev
               に向かない仕事（文章を書く、候補を発明する）を避けられます。
+            </InfoBox>
+          </section>
+
+          {/* コラム: フライトシミュレーターのモックアップ */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
+              <Plane className="text-primary" size={28} />
+              コラム: フライトシミュレーターに Jev を載せるとしたら
+            </h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              Three.js 講座の「飛行機モデルと操作」で作るゲームを題材に、Jev
+              をゲームループの中で使う形を先に眺めます。
+              毎フレーム（または数フレームに 1 回）、機体の状態を state
+              にして「次に取る操作」と「今すぐ帰還すべきか」を聞き、
+              安全に飛ばして基地へ戻す、という流れです。
+            </p>
+            <div className="rounded-xl border border-border bg-card p-6 mb-4">
+              <p className="text-sm font-semibold text-foreground mb-3">
+                各ティックで Jev に渡すもの / 受け取るもの
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="rounded-lg border border-border bg-muted p-4">
+                  <p className="text-xs font-semibold text-foreground mb-2">
+                    state（ゲーム側が持っている値の要約）
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1 font-mono">
+                    <li>obstacleAhead: 前方の障害物までの距離</li>
+                    <li>weather: 晴れ / 強風 / 雷雨（天候は時間で変わる）</li>
+                    <li>fuel: 残燃料の割合</li>
+                    <li>distanceHome: 基地までの距離</li>
+                  </ul>
+                </div>
+                <div className="rounded-lg border border-border bg-muted p-4">
+                  <p className="text-xs font-semibold text-foreground mb-2">
+                    questions
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1 font-mono">
+                    <li>action: choice（hold / climb / descend / turn）</li>
+                    <li>returnNow: noul（今すぐ帰還すべきか）</li>
+                    <li>risk: score（0 安全 〜 2 危険）</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              下はその流れのモックアップです。教材のプレビューは API
+              を呼べないので、Jev の代わりに状態から同じ形の答えを返す関数
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                fakeJev()
+              </code>{" "}
+              を置いています。本物に差し替えるときは、この関数を Route Handler
+              経由の呼び出しに変えるだけです。 ___
+              を埋めると、帰還判断が効いてループが「帰還」で止まります。
+            </p>
+            <CodingChallenge
+              title="モックアップ: 安全に飛ばして帰還させる"
+              description="pilot() の ___ を埋めて、returnNow の確率が RETURN_AT 以上のときに 'return_home' を返すようにしてください。プレビューには各ティックの状態と判断が表示されます。"
+              preview={true}
+              initialCode={`// 天候と障害物が変わっていく 6 ティック分の状態（ゲーム側から来る想定）
+const ticks = [
+  { t: 1, obstacleAhead: 900, weather: "clear", fuel: 0.9, distanceHome: 400 },
+  { t: 2, obstacleAhead: 300, weather: "clear", fuel: 0.8, distanceHome: 450 },
+  { t: 3, obstacleAhead: 120, weather: "wind", fuel: 0.7, distanceHome: 500 },
+  { t: 4, obstacleAhead: 800, weather: "storm", fuel: 0.6, distanceHome: 520 },
+  { t: 5, obstacleAhead: 700, weather: "storm", fuel: 0.3, distanceHome: 540 },
+  { t: 6, obstacleAhead: 600, weather: "wind", fuel: 0.2, distanceHome: 560 },
+];
+
+const RETURN_AT = 0.5;
+
+// Jev の代わり。本物は Route Handler 経由で client.systemOne() を呼ぶ
+function fakeJev(s) {
+  const danger = (s.obstacleAhead < 200 ? 0.5 : 0) + (s.weather === "storm" ? 0.4 : s.weather === "wind" ? 0.15 : 0);
+  const action = s.obstacleAhead < 200 ? "climb" : s.weather === "storm" ? "descend" : "hold";
+  const returnP = Math.min(1, (s.fuel < 0.35 ? 0.6 : 0) + (s.weather === "storm" ? 0.3 : 0));
+  return {
+    action: { type: "choice", choice: action, confidence: 0.85, probabilities: {} },
+    returnNow: { type: "noul", noul: returnP },
+    risk: { type: "score", score: Math.min(2, danger * 2), confidence: 0.8 },
+  };
+}
+
+function pilot(answers) {
+  if (answers.returnNow.___ >= RETURN_AT) return "return_home";
+  return answers.action.choice;
+}
+
+function App() {
+  const rows = [];
+  for (const s of ticks) {
+    const a = fakeJev(s);
+    const cmd = pilot(a);
+    rows.push({ ...s, cmd, risk: a.risk.score, returnP: a.returnNow.noul });
+    if (cmd === "return_home") break;
+  }
+  const last = rows[rows.length - 1];
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <table style={{ borderCollapse: "collapse" }}>
+        <thead>
+          <tr><th>tick</th><th>障害物</th><th>天候</th><th>燃料</th><th>危険度</th><th>帰還確率</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.t}>
+              <td style={{ padding: 4 }}>{r.t}</td>
+              <td style={{ padding: 4 }}>{r.obstacleAhead}m</td>
+              <td style={{ padding: 4 }}>{r.weather}</td>
+              <td style={{ padding: 4 }}>{Math.round(r.fuel * 100)}%</td>
+              <td style={{ padding: 4 }}>{r.risk.toFixed(1)}</td>
+              <td style={{ padding: 4 }}>{Math.round(r.returnP * 100)}%</td>
+              <td style={{ padding: 4, fontWeight: 600 }}>{r.cmd}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>{last.cmd === "return_home" ? "帰還を開始しました" : "まだ飛行中です（帰還判断が効いていません）"}</p>
+    </div>
+  );
+}`}
+              answer={`// 天候と障害物が変わっていく 6 ティック分の状態（ゲーム側から来る想定）
+const ticks = [
+  { t: 1, obstacleAhead: 900, weather: "clear", fuel: 0.9, distanceHome: 400 },
+  { t: 2, obstacleAhead: 300, weather: "clear", fuel: 0.8, distanceHome: 450 },
+  { t: 3, obstacleAhead: 120, weather: "wind", fuel: 0.7, distanceHome: 500 },
+  { t: 4, obstacleAhead: 800, weather: "storm", fuel: 0.6, distanceHome: 520 },
+  { t: 5, obstacleAhead: 700, weather: "storm", fuel: 0.3, distanceHome: 540 },
+  { t: 6, obstacleAhead: 600, weather: "wind", fuel: 0.2, distanceHome: 560 },
+];
+
+const RETURN_AT = 0.5;
+
+// Jev の代わり。本物は Route Handler 経由で client.systemOne() を呼ぶ
+function fakeJev(s) {
+  const danger = (s.obstacleAhead < 200 ? 0.5 : 0) + (s.weather === "storm" ? 0.4 : s.weather === "wind" ? 0.15 : 0);
+  const action = s.obstacleAhead < 200 ? "climb" : s.weather === "storm" ? "descend" : "hold";
+  const returnP = Math.min(1, (s.fuel < 0.35 ? 0.6 : 0) + (s.weather === "storm" ? 0.3 : 0));
+  return {
+    action: { type: "choice", choice: action, confidence: 0.85, probabilities: {} },
+    returnNow: { type: "noul", noul: returnP },
+    risk: { type: "score", score: Math.min(2, danger * 2), confidence: 0.8 },
+  };
+}
+
+function pilot(answers) {
+  if (answers.returnNow.noul >= RETURN_AT) return "return_home";
+  return answers.action.choice;
+}
+
+function App() {
+  const rows = [];
+  for (const s of ticks) {
+    const a = fakeJev(s);
+    const cmd = pilot(a);
+    rows.push({ ...s, cmd, risk: a.risk.score, returnP: a.returnNow.noul });
+    if (cmd === "return_home") break;
+  }
+  const last = rows[rows.length - 1];
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <table style={{ borderCollapse: "collapse" }}>
+        <thead>
+          <tr><th>tick</th><th>障害物</th><th>天候</th><th>燃料</th><th>危険度</th><th>帰還確率</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.t}>
+              <td style={{ padding: 4 }}>{r.t}</td>
+              <td style={{ padding: 4 }}>{r.obstacleAhead}m</td>
+              <td style={{ padding: 4 }}>{r.weather}</td>
+              <td style={{ padding: 4 }}>{Math.round(r.fuel * 100)}%</td>
+              <td style={{ padding: 4 }}>{r.risk.toFixed(1)}</td>
+              <td style={{ padding: 4 }}>{Math.round(r.returnP * 100)}%</td>
+              <td style={{ padding: 4, fontWeight: 600 }}>{r.cmd}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>{last.cmd === "return_home" ? "帰還を開始しました" : "まだ飛行中です（帰還判断が効いていません）"}</p>
+    </div>
+  );
+}`}
+              hints={["noul の答えは returnNow.noul に 0〜1 で入ります"]}
+              keywords={["returnNow.noul"]}
+            />
+            <InfoBox type="info" title="本物にするときの注意">
+              ゲームループは 1
+              秒に何十回も回るので、毎フレーム呼ぶとリクエスト数と料金が伸びます。数フレームに
+              1 回、または状態が大きく変わったときだけ呼び、
+              間はゲーム側のルール（前回の判断を維持する）で埋めます。呼び出しは
+              STEP 14 のとおりサーバー経由にし、ブラウザからキーを使いません。
+              帰還判断のしきい値（RETURN_AT）は STEP 21
+              の手順で、記録したプレイログから決めます。
             </InfoBox>
           </section>
 
