@@ -12,7 +12,7 @@ export const GEMINI_BASE_URL =
 /** provider ごとの既定モデル（リクエストが model を指定しなかったとき） */
 export const DEFAULT_MODELS: Record<string, string> = {
   openai: "gpt-5.6-luna",
-  gemini: "gemini-3.8-flash",
+  gemini: "gemini-3.5-flash-lite",
 };
 
 /**
@@ -26,12 +26,10 @@ export const DEFAULT_MODELS: Record<string, string> = {
  * 実際に dev 側は拒否リスト方式で、中身が廃止済みの gpt-5.4-mini だけになっていた。
  */
 export const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
+  // 各社の最新世代で最も安いモデルだけを置く（2026-09-20に公式の料金ページで確認）。
+  // gpt-5.6-lunaはgpt-5.6の最安。gemini-3.5-flash-liteは最新のFlash-Lite。
   openai: ["gpt-5.6-luna"],
-  // 3.8が現行の最新Flash（2026-09-03にGAとして発表。docs/latest-model?hl=jaに
-  // 「一般提供（GA）」と明記があり、gemini-flash-latestの解決先でもある）。
-  // 3.6も許可するのは、無料枠が1日20回でプロジェクトとモデルごとに別勘定だから
-  // （429のquotaIdがGenerateRequestsPerDayPerProjectPerModel-FreeTier、quotaValueが20）。
-  gemini: ["gemini-3.8-flash", "gemini-3.6-flash"],
+  gemini: ["gemini-3.5-flash-lite"],
 };
 
 /** 低コスト帯のモデルは出力上限を抑え、無料枠の消費を緩やかにする */
