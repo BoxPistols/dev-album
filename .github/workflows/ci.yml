@@ -22,6 +22,9 @@ jobs:
         with:
           # チェックアウト後に認証情報を Git へ残さない（後続ステップでの再利用を防ぐ）
           persist-credentials: false
+          # 文章の検査がbaseブランチとの分岐点を求めるので、履歴を全部取る。
+          # 既定の1コミットだけだとmerge-baseが見つからず検査が落ちる
+          fetch-depth: 0
 
       # packageManager フィールド（pnpm@10.4.1）から pnpm を用意する
       - uses: pnpm/action-setup@v6
@@ -39,6 +42,15 @@ jobs:
 
       - name: 型チェック
         run: pnpm check
+
+      # PRで足した行だけを文章として検査する（和欧間のスペース、クリシェ）。
+      # 既存の行は対象外なので、触っていないページの書式では落ちない。
+      # baseブランチ名はenv経由で渡し、式をrunへ直に差し込まない
+      - name: 文章の検査（PRで足した行だけ）
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: pnpm check:prose --base "origin/$BASE_REF"
 
       - name: Unit テスト
         run: pnpm test
