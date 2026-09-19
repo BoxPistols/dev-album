@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-20-jev-chart-picker-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ2: データに合わせて図を選ぶ",
+    description:
+      "コードが計算したデータの要約をJevに渡し、折れ線・棒・散布・積み上げ帯のどれで見せるかと、最初に気づくべき点を決めて画面の図を切り替える。質問を1問1事に分けると何に反応しているかが見えることを、5つのデータの実測で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-chart-picker-app",
+  },
+  {
     id: "2026-09-20-jev-triage-app",
     date: "2026-09-20",
     title: "Jevサンプルアプリ1: 問い合わせの選別",
@@ -72,15 +81,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "レビューやアンケートの自由記述をまとめてJevに渡し、要望・不具合・使いにくさ・称賛に分けて深刻さ順に並べるボード。配列stateで質問を動的に組む書き方と、実際に呼んで確認する手順付き。",
     category: "feature",
     link: "/ai-ml/jev/jev-feedback-app",
-  },
-  {
-    id: "2026-09-19-jev-copycheck-app",
-    date: "2026-09-19",
-    title: "Jevサンプルアプリ2: UI文言チェッカー",
-    description:
-      "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける。指針をstateで渡し、失敗時は「直す」に倒す設計。デザインシステムのレビューを支える道具として実際に呼んで動かす。",
-    category: "feature",
-    link: "/ai-ml/jev/jev-copycheck-app",
   },
   {
     id: "2026-09-19-jev-app-ideas",

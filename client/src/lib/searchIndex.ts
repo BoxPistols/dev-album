@@ -635,9 +635,9 @@ export const searchIndex: Record<string, string[]> = {
     '担当チーム', '緊急度', 'choice', 'noul', 'しきい値', 'どれでもない',
     'Next.js', 'Route Handler', 'React', 'TypeScript', 'confidence',
   ],
-  '/ai-ml/jev/jev-copycheck-app': [
-    'Jev', 'サンプルアプリ', 'UI文言', 'マイクロコピー', 'ライティング指針', 'デザイナー', 'デザインシステム',
-    'ボタンラベル', 'エラーメッセージ', '空状態', 'ネガティブ訴求', '3分岐', 'フェイルクローズ',
+  '/ai-ml/jev/jev-chart-picker-app': [
+    'Jev', 'サンプルアプリ', '可視化', 'グラフ', 'チャート', '図の選択', '折れ線', '棒グラフ', '散布図', '積み上げ',
+    '強調', 'データの要約', '外れ値', 'SVG', '描画の切り替え', 'choice', 'noul', 'confidence',
   ],
   '/ai-ml/jev/jev-feedback-app': [
     'Jev', 'サンプルアプリ', 'ユーザーの声', 'フィードバック', 'レビュー', 'アンケート', '分類', 'ボード',

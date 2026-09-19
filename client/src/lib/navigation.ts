@@ -197,7 +197,7 @@ export const sections: SectionInfo[] = [
   { id: 'python-ml', title: 'Python for ML', manualId: 'ai-ml' },
   { id: 'ml-fundamentals', title: '機械学習の基礎', manualId: 'ai-ml' },
   { id: 'lmops', title: 'LMOps', manualId: 'ai-ml' },
-  { id: 'jev', title: 'Jev / System Oneモデル', manualId: 'ai-ml', description: '文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築から応用まで扱う' },
+  { id: 'jev', title: 'Jev / System One', manualId: 'ai-ml', description: '文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築から応用まで扱う' },
 
   // === UX デザインマニュアル ===
   { id: 'ux-intro', title: 'はじめに', manualId: 'ux-design' },
@@ -494,18 +494,18 @@ export const pages: PageInfo[] = [
   { step: 9, path: '/ai-ml/ml-fundamentals/deep-learning', title: 'ディープラーニング入門', sectionId: 'ml-fundamentals', manualId: 'ai-ml' },
   { step: 10, path: '/ai-ml/lmops/llm-basics', title: 'LLM の仕組みと活用', sectionId: 'lmops', manualId: 'ai-ml' },
   { step: 11, path: '/ai-ml/lmops/lmops-workflow', title: 'LMOps ワークフロー', sectionId: 'lmops', manualId: 'ai-ml' },
-  { step: 12, path: '/ai-ml/jev/jev-overview', title: 'Jevとは — System Oneモデル入門', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 13, path: '/ai-ml/jev/jev-account', title: 'アカウント登録とAPIキー・課金の準備', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 12, path: '/ai-ml/jev/jev-overview', title: 'Jevとは — System One', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 13, path: '/ai-ml/jev/jev-account', title: 'アカウント登録とAPIキー', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 14, path: '/ai-ml/jev/jev-setup', title: 'Jevの開発環境構築', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3つの質問型と確率の読み方', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3つの質問型と確率', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 16, path: '/ai-ml/jev/jev-state-design', title: 'stateと質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'サンプルアプリのアイデア20', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: 'サンプルアプリ1: 問い合わせの選別', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 19, path: '/ai-ml/jev/jev-copycheck-app', title: 'サンプルアプリ2: UI文言チェッカー', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 20, path: '/ai-ml/jev/jev-feedback-app', title: 'サンプルアプリ3: ユーザーの声の分類ボード', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 21, path: '/ai-ml/jev/jev-clinic-app', title: 'サンプルアプリ4: 診療所の受付振り分け', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 22, path: '/ai-ml/jev/jev-leads-app', title: 'サンプルアプリ5: マーケティングの反応分析', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートとLLMとの組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'アプリのアイデア20', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: '1. 問い合わせの選別', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 19, path: '/ai-ml/jev/jev-chart-picker-app', title: '2. 図の自動選択', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 20, path: '/ai-ml/jev/jev-feedback-app', title: '3. ユーザーの声の分類', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 21, path: '/ai-ml/jev/jev-clinic-app', title: '4. 受付の振り分け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 22, path: '/ai-ml/jev/jev-leads-app', title: '5. マーケの反応分析', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲート', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
   // UX デザインマニュアル (15ページ)

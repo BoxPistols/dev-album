@@ -66,7 +66,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         what: "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける",
         types: ["noul", "choice", "score"],
         buildStep: 19,
-        href: "/ai-ml/jev/jev-copycheck-app",
+        href: "/ai-ml/jev/jev-chart-picker-app",
       },
       {
         title: "代替テキストの妥当性採点",
@@ -235,7 +235,7 @@ export default function JevAppIdeas() {
                   title: "UI文言チェッカー",
                   point:
                     "デザイナー向け。指針をstateで渡し「そのまま / 直す / 出さない」の3分岐。失敗時は「直す」に倒す",
-                  href: "/ai-ml/jev/jev-copycheck-app",
+                  href: "/ai-ml/jev/jev-chart-picker-app",
                 },
                 {
                   step: 20,
