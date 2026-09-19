@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * サンプルアプリ: サポートチケットのトリアージ
- * STEP 17: Jev セクション
+ * STEP 18: Jev セクション
  * - 構成（React UI → Route Handler → Jev）
  * - サーバー側: Route Handler の実装
  * - クライアント側: 結果の表示と信頼度による分岐
@@ -22,7 +22,7 @@ export default function JevTriageApp() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 17</span>
+          <span className="step-badge">STEP 18</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -37,7 +37,13 @@ export default function JevTriageApp() {
         </p>
 
         <WhyNowBox
-          tags={["Next.js", "Route Handler", "React", "TypeScript", "モック"]}
+          tags={[
+            "Next.js",
+            "Route Handler",
+            "React",
+            "TypeScript",
+            "実際に呼ぶ",
+          ]}
         >
           <p>
             型付きの答えが返る利点は、UI
@@ -50,6 +56,44 @@ export default function JevTriageApp() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* 前提と準備 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">
+              0. 前提と準備
+            </h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              このアプリは実際に Jev を呼びます。STEP 13
+              の疎通確認（モデル一覧が 200 で返る）と、STEP 14
+              の最初の呼び出しが済んでいることが前提です。 3
+              本のサンプルアプリは 1 つの Next.js
+              プロジェクトに順に足していくので、ここで土台を作ります。
+            </p>
+            <CodeBlock
+              language="bash"
+              title="プロジェクトを作って SDK を入れる（Node.js 20 以上）"
+              code={`npx create-next-app@latest jev-apps --typescript --app --src-dir=false --import-alias "@/*"
+cd jev-apps
+pnpm add @typesafe-ai/sdk
+pnpm add -D vitest`}
+            />
+            <CodeBlock
+              language="bash"
+              title=".env.local（リポジトリに入れない。.gitignore に .env*.local があることを確認）"
+              code={`TYPESAFE_API_KEY=<コンソールで発行したキー>`}
+            />
+            <div className="rounded-xl border border-border bg-card p-5 mt-4">
+              <p className="text-sm font-bold text-foreground mb-2">
+                このページで作るファイル
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-1 font-mono">
+                <li>lib/triage.ts</li>
+                <li>app/api/triage/route.ts</li>
+                <li>app/triage/page.tsx</li>
+                <li>lib/triage.test.ts</li>
+              </ul>
+            </div>
+          </section>
+
           {/* 構成 */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -96,7 +140,7 @@ export default function JevTriageApp() {
             <p className="text-muted-foreground mt-4 leading-relaxed">
               判定ロジック（しきい値の比較）を純粋関数に分けておくのがポイントです。API
               を呼ばずに単体テストでき、
-              この教材のブラウザ内プレビューでも同じ関数を動かせます。
+              この教材のブラウザ内シミュレーションでも同じ関数を動かせます。
             </p>
           </section>
 
@@ -220,25 +264,133 @@ export async function POST(req: Request) {
             </InfoBox>
           </section>
 
+          {/* 実行して確認 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">
+              3. 実行して確認する
+            </h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              UI を作る前に、Route Handler 単体を curl で叩いて、本物の Jev
+              の答えが返ることを確かめます。
+            </p>
+            <CodeBlock
+              language="bash"
+              title="開発サーバーを起動"
+              code={`pnpm dev`}
+            />
+            <CodeBlock
+              language="bash"
+              title="別のターミナルから POST する"
+              code={`curl -sS http://localhost:3000/api/triage \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Duplicate charge","message":"I was charged twice this month. Please fix this today."}'`}
+            />
+            <CodeBlock
+              language="json"
+              title="返ってくる形（数値は呼ぶたびに変わり得る）"
+              code={`{"team":"billing","teamConfidence":0.9,"urgent":0.9,"frustration":1.5}`}
+            />
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              team が billing 以外になったり、確信度が低く出たりしても、それは
+              Jev
+              の判断です。本文を変えて何度か叩き、数値がどう動くかを見てください。
+              サーバーのログには実際に答えたモデル名が出ます。エラーになる場合は
+              STEP 14 の「よくあるエラー」を確認します。
+            </p>
+          </section>
+
           {/* クライアント */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              3. クライアント側の表示
+              4. クライアント側の表示
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              結果を受け取って描画する部分です。プレビューはブラウザ内で動くので、fetch
-              の代わりにサーバーが返すのと同じ形のモック応答を使っています。
+              Route Handler を呼んで結果を描画するページです。作ったら{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                http://localhost:3000/triage
+              </code>{" "}
+              を開き、
+              問い合わせ文を入れて「判定する」を押します。表示されるのは本物の
+              Jev の答えです。
+            </p>
+            <CodeBlock
+              language="tsx"
+              title="app/triage/page.tsx"
+              code={`"use client";
+
+import { useState } from "react";
+import { decide, type TriageResult } from "@/lib/triage";
+
+const LEVEL = ["Calm", "Annoyed", "Angry"];
+
+export default function TriagePage() {
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [result, setResult] = useState<TriageResult | null>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "unavailable">("idle");
+
+  async function submit() {
+    setStatus("loading");
+    setResult(null);
+    const res = await fetch("/api/triage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ subject, message }),
+    });
+    if (!res.ok) {
+      setStatus("unavailable");
+      return;
+    }
+    setResult((await res.json()) as TriageResult);
+    setStatus("idle");
+  }
+
+  return (
+    <main style={{ maxWidth: 640, margin: "40px auto", fontFamily: "sans-serif" }}>
+      <h1>チケットのトリアージ</h1>
+      <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
+        <label htmlFor="subject">件名</label>
+        <input id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ display: "block", width: "100%", marginBottom: 8 }} />
+        <label htmlFor="message">問い合わせ内容</label>
+        <textarea id="message" rows={5} value={message} onChange={(e) => setMessage(e.target.value)} style={{ display: "block", width: "100%", marginBottom: 8 }} />
+        <button type="submit" disabled={status === "loading" || !message.trim()}>
+          {status === "loading" ? "判定中…" : "判定する"}
+        </button>
+      </form>
+
+      {status === "unavailable" && (
+        <p role="alert">判定を取得できませんでした。手動で振り分けてください。</p>
+      )}
+
+      {result && (
+        <section style={{ marginTop: 24, border: "1px solid #ccc", borderRadius: 8, padding: 12 }}>
+          <p><strong>{decide(result) === "auto" ? "自動で振り分け" : "人が確認"}</strong></p>
+          <p>チーム: {result.team}（確信度 {Math.round(result.teamConfidence * 100)}%）</p>
+          <p>緊急: {result.urgent >= 0.5 ? "はい" : "いいえ"}（{Math.round(result.urgent * 100)}%）</p>
+          <p>不満度: {LEVEL[Math.round(result.frustration)]}（{result.frustration.toFixed(1)}）</p>
+        </section>
+      )}
+    </main>
+  );
+}`}
+            />
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              ブラウザ内シミュレーション: 判定ロジックだけを試す
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              この教材のプレビューは外部 API へ出られないので、ここだけは Jev
+              を呼びません。サーバーが返すのと同じ形の固定データで、
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 decide()
               </code>{" "}
-              の ___
-              を埋めて、確信度が低いときに「人が確認」と表示されるようにしてください。
+              の分岐だけを確認します。手元のアプリでは上の page.tsx
+              が本物の答えで同じ表示をします。
             </p>
             <CodingChallenge
-              title="確信度で表示を分ける"
-              description="decide() の ___ を埋めて、チームの確信度が threshold 未満なら 'review' を返すようにしてください。プレビューでは 2 件のモック結果が表示されます。"
+              title="シミュレーション: 確信度で表示を分ける"
+              description="decide() の ___ を埋めて、チームの確信度が threshold 未満なら 'review' を返すようにしてください。プレビューには固定データ 2 件が表示されます（Jev は呼びません）。"
               preview={true}
-              initialCode={`// サーバー（/api/triage）が返すのと同じ形のモック
+              initialCode={`// サーバー（/api/triage）が返すのと同じ形の固定データ（シミュレーション用）
 const mockResults = [
   { subject: "Duplicate charge", team: "billing", teamConfidence: 0.93, urgent: 0.88, frustration: 1.7 },
   { subject: "Question about plans", team: "sales", teamConfidence: 0.52, urgent: 0.12, frustration: 0.2 },
@@ -277,7 +429,7 @@ function App() {
     </div>
   );
 }`}
-              answer={`// サーバー（/api/triage）が返すのと同じ形のモック
+              answer={`// サーバー（/api/triage）が返すのと同じ形の固定データ（シミュレーション用）
 const mockResults = [
   { subject: "Duplicate charge", team: "billing", teamConfidence: 0.93, urgent: 0.88, frustration: 1.7 },
   { subject: "Question about plans", team: "sales", teamConfidence: 0.52, urgent: 0.12, frustration: 0.2 },
@@ -321,61 +473,13 @@ function App() {
               ]}
               keywords={["teamConfidence < threshold"]}
             />
-            <p className="text-muted-foreground mt-4 leading-relaxed">
-              実際のページでは、モック配列の代わりに{" "}
-              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
-                fetch("/api/triage", {"{"} method: "POST", … {"}"})
-              </code>{" "}
-              の結果を state に入れます。 503
-              が返ったら「判断が得られなかった」表示にして、手動で振り分けられる
-              UI を出します。
-            </p>
-            <CodeBlock
-              language="tsx"
-              title="app/triage/page.tsx（送信部分の抜粋）"
-              code={`"use client";
-
-import { useState } from "react";
-import { decide, type TriageResult } from "@/lib/triage";
-
-export default function TriagePage() {
-  const [message, setMessage] = useState("");
-  const [result, setResult] = useState<TriageResult | null>(null);
-  const [status, setStatus] = useState<"idle" | "loading" | "unavailable">("idle");
-
-  async function submit() {
-    setStatus("loading");
-    const res = await fetch("/api/triage", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ subject: "", message }),
-    });
-    if (!res.ok) {
-      setStatus("unavailable");
-      return;
-    }
-    setResult((await res.json()) as TriageResult);
-    setStatus("idle");
-  }
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
-      <label htmlFor="message">問い合わせ内容</label>
-      <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} />
-      <button type="submit" disabled={status === "loading"}>判定する</button>
-      {status === "unavailable" && <p role="alert">判定を取得できませんでした。手動で振り分けてください。</p>}
-      {result && <p>{decide(result) === "auto" ? "自動で振り分け" : "人が確認"}: {result.team}</p>}
-    </form>
-  );
-}`}
-            />
           </section>
 
           {/* テスト */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <TestTube2 className="text-primary" size={28} />
-              4. テスト — API を呼ばずに検証する
+              5. テスト — API を呼ばずに検証する
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               判定関数は純粋関数なので、そのまま単体テストできます。Route

@@ -257,6 +257,7 @@ const AiDeepLearning = lazy(() => import("./pages/ai-ml/ml-fundamentals/DeepLear
 const AiLlmBasics = lazy(() => import("./pages/ai-ml/lmops/LlmBasics"));
 const AiLmopsWorkflow = lazy(() => import("./pages/ai-ml/lmops/LmopsWorkflow"));
 const AiJevOverview = lazy(() => import("./pages/ai-ml/jev/JevOverview"));
+const AiJevAccount = lazy(() => import("./pages/ai-ml/jev/JevAccount"));
 const AiJevSetup = lazy(() => import("./pages/ai-ml/jev/JevSetup"));
 const AiJevPrimitives = lazy(() => import("./pages/ai-ml/jev/JevPrimitives"));
 const AiJevStateDesign = lazy(() => import("./pages/ai-ml/jev/JevStateDesign"));
@@ -717,6 +718,7 @@ function App() {
                 <Route path="/ai-ml/lmops/llm-basics" component={AiLlmBasics} />
                 <Route path="/ai-ml/lmops/lmops-workflow" component={AiLmopsWorkflow} />
                 <Route path="/ai-ml/jev/jev-overview" component={AiJevOverview} />
+                <Route path="/ai-ml/jev/jev-account" component={AiJevAccount} />
                 <Route path="/ai-ml/jev/jev-setup" component={AiJevSetup} />
                 <Route path="/ai-ml/jev/jev-primitives" component={AiJevPrimitives} />
                 <Route path="/ai-ml/jev/jev-state-design" component={AiJevStateDesign} />

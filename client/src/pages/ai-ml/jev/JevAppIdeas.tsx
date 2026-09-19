@@ -8,9 +8,9 @@ import Quiz from "@/components/Quiz";
 
 /**
  * サンプルアプリのアイデア 20
- * STEP 16: Jev セクション
+ * STEP 17: Jev セクション
  * - Jev の 3 つの質問型で「こんなことができる」を 20 個、概要だけ示す
- * - 講座で実際に作る 3 本を明示する（STEP 17〜19）
+ * - 講座で実際に作る 3 本を明示する（STEP 18〜20）
  */
 
 type QuestionType = "noul" | "choice" | "score";
@@ -36,7 +36,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         title: "サポートチケットのトリアージ",
         what: "担当チーム・緊急度・不満度を判定し、確信が低いものだけ人が振り分ける",
         types: ["choice", "noul", "score"],
-        buildStep: 17,
+        buildStep: 18,
         href: "/ai-ml/jev/jev-triage-app",
       },
       {
@@ -63,7 +63,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         title: "投稿のモデレーション",
         what: "ガイドライン違反の確率と深刻度で、自動公開・レビュー待ち・自動非表示に分ける",
         types: ["noul", "score", "choice"],
-        buildStep: 18,
+        buildStep: 19,
         href: "/ai-ml/jev/jev-moderation-app",
       },
       {
@@ -95,7 +95,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         title: "アラートの優先度付け",
         what: "複数のアラートを 1 リクエストで評価し、緊急度の期待値で並べたダッシュボードを作る",
         types: ["score", "choice"],
-        buildStep: 19,
+        buildStep: 20,
         href: "/ai-ml/jev/jev-alerts-app",
       },
       {
@@ -104,8 +104,8 @@ const IDEA_GROUPS: IdeaGroup[] = [
         types: ["noul"],
       },
       {
-        title: "ドローン飛行ログの注意度判定",
-        what: "テレメトリの要約（高度、風速、バッテリー、逸脱）から、次の点検で見るべき飛行かを判定する",
+        title: "SLO 違反の一次判定",
+        what: "複数メトリクスの要約から、インシデント宣言が要る状況かどうかと深刻度を判定し、当番への呼び出しを絞る",
         types: ["score", "noul"],
       },
       {
@@ -174,7 +174,7 @@ export default function JevAppIdeas() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 16</span>
+          <span className="step-badge">STEP 17</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -183,7 +183,7 @@ export default function JevAppIdeas() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jev の 3
           つの質問型で何が作れるかを、コードを書く前に一覧で眺めます。各項目は「こんなことができる」の概要だけです。
-          このうち 3 つを、続く STEP 17〜19 で実際に作ります。
+          このうち 3 つを、続く STEP 18〜20 で実際に作ります。
         </p>
 
         <WhyNowBox
@@ -210,21 +210,21 @@ export default function JevAppIdeas() {
             <div className="grid md:grid-cols-3 gap-4">
               {[
                 {
-                  step: 17,
+                  step: 18,
                   title: "チケットのトリアージ",
                   point:
                     "choice + noul + score を 1 リクエストで。Route Handler と React の基本形",
                   href: "/ai-ml/jev/jev-triage-app",
                 },
                 {
-                  step: 18,
+                  step: 19,
                   title: "投稿のモデレーション",
                   point:
                     "確率で「自動 / レビュー待ち / 非表示」の 3 分岐。失敗時に公開を止める設計",
                   href: "/ai-ml/jev/jev-moderation-app",
                 },
                 {
-                  step: 19,
+                  step: 20,
                   title: "アラートの優先度付け",
                   point:
                     "配列 state で複数件を一括評価し、score の期待値で並べる",
@@ -334,7 +334,7 @@ export default function JevAppIdeas() {
                 { label: "score で 3 段階に採点する" },
                 { label: "LLM に自由記述で書かせる" },
               ]}
-              explanation="choice は 1 つしか選べません。同時に当てはまり得るタグは、タグごとの noul にして確率で採否を決めます（STEP 15 の内容）。"
+              explanation="choice は 1 つしか選べません。同時に当てはまり得るタグは、タグごとの noul にして確率で採否を決めます（STEP 16 の内容）。"
             />
           </section>
 

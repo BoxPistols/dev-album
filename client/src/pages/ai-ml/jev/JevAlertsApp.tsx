@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * サンプルアプリ 3: アラートの優先度付け
- * STEP 19: Jev セクション
+ * STEP 20: Jev セクション
  * - 配列 state で複数件を 1 リクエストで評価する
  * - 質問を動的に組み立てる（TypeScript の型の扱い）
  * - score の期待値で並べ替えるダッシュボード
@@ -21,7 +21,7 @@ export default function JevAlertsApp() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 19</span>
+          <span className="step-badge">STEP 20</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -52,6 +52,18 @@ export default function JevAlertsApp() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* 前提 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">0. 前提</h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              STEP 18 の jev-apps プロジェクトに追加します。実際に Jev
+              を呼びます。作るファイルは
+              lib/alerts.ts、app/api/alerts/rank/route.ts、app/alerts/page.tsx
+              の 3 つです。 1 リクエストで複数件を評価するので、STEP 13
+              で付けた予算上限が効いていることを確認してから進めてください。
+            </p>
+          </section>
+
           {/* 設計 */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -71,7 +83,7 @@ export default function JevAlertsApp() {
 
 export interface Alert {
   id: string;
-  source: string;   // 例: "api-gateway", "drone-telemetry"
+  source: string;   // 例: "api-gateway", "payments-worker"
   message: string;
   count: number;    // 直近 10 分の発生回数
 }
@@ -174,25 +186,127 @@ export async function POST(req: Request) {
             </p>
           </section>
 
+          {/* 実行して確認 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">
+              3. 実行して確認する
+            </h2>
+            <CodeBlock
+              language="bash"
+              title="4 件をまとめて評価する"
+              code={`curl -sS http://localhost:3000/api/alerts/rank \
+  -H "Content-Type: application/json" \
+  -d '{"alerts":[
+    {"id":"a1","source":"api-gateway","message":"5xx rate 12% (threshold 2%)","count":40},
+    {"id":"a2","source":"cron","message":"nightly report finished 3 min late","count":1},
+    {"id":"a3","source":"payments-worker","message":"queue lag over 4 min on 3 workers","count":3},
+    {"id":"a4","source":"auth","message":"50 failed logins from one IP in 2 min","count":50}
+  ]}'`}
+            />
+            <CodeBlock
+              language="json"
+              title="返ってくる形（urgency の降順。数値は呼ぶたびに変わり得る）"
+              code={`{"ranked":[
+  {"id":"a1","source":"api-gateway","message":"5xx rate 12% (threshold 2%)","count":40,"urgency":1.9,"kind":"outage","kindConfidence":0.9},
+  {"id":"a3", ...},
+  {"id":"a4", ...},
+  {"id":"a2","source":"cron", ... ,"urgency":0.2,"kind":"noise","kindConfidence":0.9}
+]}`}
+            />
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              サーバーのログに出る input_tokens を見てください。件数を 4 → 20
+              に増やして、トークン数がどう伸びるかを一度測っておくと、バッチの単位を決める根拠になります。
+            </p>
+          </section>
+
           {/* UI */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <ArrowDownWideNarrow className="text-primary" size={28} />
-              3. 並べ替えたダッシュボード
+              4. 並べ替えたダッシュボード
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              サーバーが返す形のモックで、緊急度の期待値が高い順に並べ、「noise」と判定されたものは薄く表示します。
-              ___ を埋めて、降順の並べ替えを完成させてください。
+              アラートの一覧を送って、並べ替えられた結果を表にするページです。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                http://localhost:3000/alerts
+              </code>{" "}
+              で開きます。
+              入力は本来監視システムから来ますが、ここではボタンで固定の 4
+              件を送ります。
+            </p>
+            <CodeBlock
+              language="tsx"
+              title="app/alerts/page.tsx"
+              code={`"use client";
+
+import { useState } from "react";
+import type { Alert } from "@/lib/alerts";
+import type { RankedAlert } from "@/app/api/alerts/rank/route";
+
+const SAMPLE: Alert[] = [
+  { id: "a1", source: "api-gateway", message: "5xx rate 12% (threshold 2%)", count: 40 },
+  { id: "a2", source: "cron", message: "nightly report finished 3 min late", count: 1 },
+  { id: "a3", source: "payments-worker", message: "queue lag over 4 min on 3 workers", count: 3 },
+  { id: "a4", source: "auth", message: "50 failed logins from one IP in 2 min", count: 50 },
+];
+const LEVEL = ["情報", "今日中に調査", "今すぐ対応"];
+
+export default function AlertsPage() {
+  const [ranked, setRanked] = useState<RankedAlert[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  async function rank() {
+    setLoading(true);
+    const res = await fetch("/api/alerts/rank", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ alerts: SAMPLE }),
+    });
+    const data = (await res.json()) as { ranked: RankedAlert[] };
+    setRanked(data.ranked);
+    setLoading(false);
+  }
+
+  return (
+    <main style={{ maxWidth: 800, margin: "40px auto", fontFamily: "sans-serif" }}>
+      <h1>アラートの優先度付け</h1>
+      <button onClick={rank} disabled={loading}>{loading ? "評価中…" : "4 件を評価して並べる"}</button>
+      <table style={{ borderCollapse: "collapse", width: "100%", marginTop: 16 }}>
+        <thead>
+          <tr><th>緊急度</th><th>種類</th><th>発生元</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          {ranked.map((a) => (
+            <tr key={a.id} style={{ opacity: a.kind === "noise" ? 0.5 : 1 }}>
+              <td style={{ padding: 6 }}>{LEVEL[Math.round(a.urgency)]}（{a.urgency.toFixed(1)}）</td>
+              <td style={{ padding: 6 }}>{a.kind}（{Math.round(a.kindConfidence * 100)}%）</td>
+              <td style={{ padding: 6 }}>{a.source}</td>
+              <td style={{ padding: 6 }}>{a.message}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}`}
+            />
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              ブラウザ内シミュレーション: 並べ替えだけを試す
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              教材のプレビューは Jev
+              を呼べないので、サーバーが返す形の固定データで並べ替えだけを確認します。___
+              を埋めてください。
             </p>
             <CodingChallenge
-              title="期待値スコアで降順に並べる"
+              title="シミュレーション: 期待値スコアで降順に並べる"
               description="sort の比較関数の ___ を埋めて、urgency が高いアラートが先頭に来るようにしてください。"
               preview={true}
-              initialCode={`// /api/alerts/rank が返すのと同じ形のモック（並び順は未整列）
+              initialCode={`// /api/alerts/rank が返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
 const ranked = [
   { id: "a1", source: "api-gateway", message: "5xx rate 12% (threshold 2%)", count: 40, urgency: 1.9, kind: "outage", kindConfidence: 0.93 },
   { id: "a2", source: "cron", message: "nightly report finished 3 min late", count: 1, urgency: 0.2, kind: "noise", kindConfidence: 0.88 },
-  { id: "a3", source: "drone-telemetry", message: "battery below 20% on 3 units mid-flight", count: 3, urgency: 1.6, kind: "degradation", kindConfidence: 0.74 },
+  { id: "a3", source: "payments-worker", message: "queue lag over 4 min on 3 workers", count: 3, urgency: 1.6, kind: "degradation", kindConfidence: 0.74 },
   { id: "a4", source: "auth", message: "50 failed logins from one IP in 2 min", count: 50, urgency: 1.4, kind: "security", kindConfidence: 0.81 },
 ];
 
@@ -218,11 +332,11 @@ function App() {
     </table>
   );
 }`}
-              answer={`// /api/alerts/rank が返すのと同じ形のモック（並び順は未整列）
+              answer={`// /api/alerts/rank が返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
 const ranked = [
   { id: "a1", source: "api-gateway", message: "5xx rate 12% (threshold 2%)", count: 40, urgency: 1.9, kind: "outage", kindConfidence: 0.93 },
   { id: "a2", source: "cron", message: "nightly report finished 3 min late", count: 1, urgency: 0.2, kind: "noise", kindConfidence: 0.88 },
-  { id: "a3", source: "drone-telemetry", message: "battery below 20% on 3 units mid-flight", count: 3, urgency: 1.6, kind: "degradation", kindConfidence: 0.74 },
+  { id: "a3", source: "payments-worker", message: "queue lag over 4 min on 3 workers", count: 3, urgency: 1.6, kind: "degradation", kindConfidence: 0.74 },
   { id: "a4", source: "auth", message: "50 failed logins from one IP in 2 min", count: 50, urgency: 1.4, kind: "security", kindConfidence: 0.81 },
 ];
 
@@ -258,7 +372,7 @@ function App() {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 Math.round
               </code>{" "}
-              で段階に丸め、並べ替えは期待値のまま使っています。 STEP 14
+              で段階に丸め、並べ替えは期待値のまま使っています。 STEP 15
               で扱った「用途で使い分ける」の実例です。noise
               は薄く表示するだけで消してはいません。判定を疑えるように残します。
             </p>
@@ -267,7 +381,7 @@ function App() {
           {/* 運用 */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              4. 運用で足すもの
+              5. 運用で足すもの
             </h2>
             <div className="space-y-3">
               {[

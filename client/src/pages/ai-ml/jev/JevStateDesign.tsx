@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * state と質問の設計
- * STEP 15: Jev セクション
+ * STEP 16: Jev セクション
  * - state に何を入れるか（テキスト / JSON）
  * - 質問の分け方（1 質問 1 判断）
  * - 複数の質問を 1 リクエストで評価する
@@ -23,7 +23,7 @@ export default function JevStateDesign() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 15</span>
+          <span className="step-badge">STEP 16</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">

@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * Jev の開発環境構築
- * STEP 13: Jev セクション
+ * STEP 14: Jev セクション
  * - API キーと環境変数
  * - Node.js SDK / Python SDK の導入
  * - 最初の呼び出しと応答の確認
@@ -23,7 +23,7 @@ export default function JevSetup() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 13</span>
+          <span className="step-badge">STEP 14</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -72,7 +72,7 @@ export default function JevSetup() {
             <CodeBlock
               language="bash"
               title=".env（リポジトリにはコミットしない）"
-              code={`TYPESAFE_API_KEY=ts-xxxxxxxxxxxxxxxx`}
+              code={`TYPESAFE_API_KEY=<コンソールで発行したキーをそのまま貼る>`}
             />
             <p className="text-muted-foreground mt-3 mb-4 leading-relaxed">
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
@@ -312,10 +312,10 @@ print(response.choices["category"].choice)`}
               </div>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              STEP 17〜19
-              のサンプルアプリはこの構成で組みます。この教材のブラウザ内プレビューは外部
-              API へ出られないので、 UI
-              側の練習ではサーバーが返したものと同じ形のモック応答を使います。
+              STEP 18〜20 のサンプルアプリはこの構成で、実際に Jev
+              を呼んで動かします。学習ステップ（STEP
+              15〜16）のチャレンジはブラウザ内の練習なので API を呼びませんが、
+              サンプルアプリでは STEP 13 で用意した API キーが必要です。
             </p>
           </section>
 
@@ -395,7 +395,7 @@ print(response.choices["category"].choice)`}
             </div>
             <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
               タイムアウトの既定は JavaScript SDK が 1 試行あたり 10000
-              ミリ秒、Python SDK が 10.0 秒です。リトライの既定は STEP 15
+              ミリ秒、Python SDK が 10.0 秒です。リトライの既定は STEP 16
               で扱います。
               <code className="text-sm bg-muted px-1 rounded">
                 TYPESAFE_LOG_LEVEL=debug

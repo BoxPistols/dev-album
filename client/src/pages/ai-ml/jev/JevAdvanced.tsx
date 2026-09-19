@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * 応用: 信頼度ゲートと LLM との組み合わせ
- * STEP 20: Jev セクション
+ * STEP 21: Jev セクション
  * - 信頼度ゲート（自動 / 人 / 上位モデル）の 3 分岐
  * - LLM の前段・後段に Jev を置く構成
  * - しきい値の決め方と評価の回し方
@@ -22,7 +22,7 @@ export default function JevAdvanced() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 20</span>
+          <span className="step-badge">STEP 21</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -55,7 +55,7 @@ export default function JevAdvanced() {
               信頼度ゲート — 3 つの出口
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 17 では「自動 / 人が確認」の 2
+              STEP 18 では「自動 / 人が確認」の 2
               分岐でした。実運用では、間に「上位のモデルに聞き直す」を挟む 3
               分岐が使われます。
               速くて安い判断で大半を処理し、残りだけに時間とコストをかける形です。

@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * 3 つの質問型と確率の読み方
- * STEP 14: Jev セクション
+ * STEP 15: Jev セクション
  * - noul: はい/いいえ の確率
  * - choice: 選択肢とラベルごとの確率
  * - score: 順序付きルーブリックと期待値
@@ -22,7 +22,7 @@ export default function JevPrimitives() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 14</span>
+          <span className="step-badge">STEP 15</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -332,7 +332,7 @@ if (p >= 0.9) {
             <p className="text-muted-foreground mt-4 leading-relaxed">
               しきい値の値（0.9 や
               0.1）は仕様で決まる定数ではありません。誤検知のコストと見逃しのコストが業務ごとに違うからです。
-              STEP 20
+              STEP 21
               で、ラベル付きデータを使ってしきい値を決める手順を扱います。
             </p>
             <InfoBox type="warning" title="仕様値と実測値のギャップ">

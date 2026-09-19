@@ -610,6 +610,10 @@ export const searchIndex: Record<string, string[]> = {
     'Jev', 'TypeSafe AI', 'System One', 'システムワン', '確率', '分類', '判断',
     '非自己回帰', 'LLM との違い', 'LLM ジャッジ', 'ルーティング',
   ],
+  '/ai-ml/jev/jev-account': [
+    'Jev', 'アカウント', 'API キー', 'ウェイトリスト', '課金', 'クレジットカード', '前払い',
+    'Vercel AI Gateway', '予算', '請求', 'キーの管理', 'コンソール',
+  ],
   '/ai-ml/jev/jev-setup': [
     'Jev', '環境構築', 'TYPESAFE_API_KEY', '@typesafe-ai/sdk', 'typesafe-sdk',
     'npm install', 'uv add', 'TypeSafeClient', 'systemOne', 'system_one', 'jev-latest', '.env',
@@ -624,7 +628,7 @@ export const searchIndex: Record<string, string[]> = {
   ],
   '/ai-ml/jev/jev-app-ideas': [
     'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', 'モデレーション', 'トリアージ', 'アラート',
-    '仕分け', 'ジャッジ', 'テレメトリ', 'ゲーム', '事例',
+    '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '事例',
   ],
   '/ai-ml/jev/jev-triage-app': [
     'Jev', 'サンプルアプリ', 'トリアージ', 'サポートチケット', 'Next.js', 'Route Handler',

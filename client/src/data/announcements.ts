@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-19-jev-account",
+    date: "2026-09-19",
+    title: "Jev のアカウント登録・API キー・課金の準備ページを追加",
+    description:
+      "TypeSafe AI と直接契約するルートと Vercel AI Gateway 経由のルートを比較し、ウェイトリスト、キー発行、支払い方法、予算上限、curl での疎通確認までをまとめた。公式で確認できた事項と二次情報を分けて書いている。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-account",
+  },
+  {
     id: "2026-09-19-jev-alerts-app",
     date: "2026-09-19",
     title: "Jev サンプルアプリ 3: アラートの優先度付け",
@@ -60,7 +69,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-09-19",
     title: "Jev サンプルアプリ 1: サポートチケットのトリアージ",
     description:
-      "Next.js の Route Handler で Jev を呼び、React 側で分類・緊急度・不満度を表示する小さなアプリを組む。UI 側の判定ロジックはブラウザ内で試せる CodingChallenge にした。",
+      "Next.js プロジェクトを作り、Route Handler から実際に Jev を呼んで、React 側で分類・緊急度・不満度を表示する。curl での確認手順付き。UI 側の判定ロジックはブラウザ内のシミュレーションでも試せる。",
     category: "feature",
     link: "/ai-ml/jev/jev-triage-app",
   },

@@ -368,42 +368,42 @@ console.log(response.answers.category.choice);`}
               <div className="space-y-3">
                 {[
                   {
-                    step: "13",
+                    step: "14",
                     label: "開発環境の構築",
                     desc: "API キー、Node.js / Python の公式 SDK、最初の呼び出し",
                   },
                   {
-                    step: "14",
+                    step: "15",
                     label: "3 つの質問型と確率の読み方",
                     desc: "noul / choice / score の応答の形と、confidence の意味",
                   },
                   {
-                    step: "15",
+                    step: "16",
                     label: "state と質問の設計",
                     desc: "何を state に入れるか、質問の分け方、エラーとリトライ",
                   },
                   {
-                    step: "16",
+                    step: "17",
                     label: "サンプルアプリのアイデア 20",
                     desc: "Jev で何が作れるかを一覧で見て、講座で作る 3 つを選ぶ",
                   },
                   {
-                    step: "17",
+                    step: "18",
                     label: "サンプルアプリ 1: チケットのトリアージ",
                     desc: "Next.js の Route Handler と React UI で担当・緊急度・不満度を判定する",
                   },
                   {
-                    step: "18",
+                    step: "19",
                     label: "サンプルアプリ 2: 投稿のモデレーション",
                     desc: "公開前チェックと人のレビュー待ちキュー",
                   },
                   {
-                    step: "19",
+                    step: "20",
                     label: "サンプルアプリ 3: アラートの優先度付け",
                     desc: "複数件を 1 リクエストで評価し、期待値スコアで並べる",
                   },
                   {
-                    step: "20",
+                    step: "21",
                     label: "応用",
                     desc: "信頼度ゲート、LLM との組み合わせ、評価、Jev では扱えないこと",
                   },

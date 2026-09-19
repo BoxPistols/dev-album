@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * サンプルアプリ 2: 投稿のモデレーション
- * STEP 18: Jev セクション
+ * STEP 19: Jev セクション
  * - 公開前チェックを noul + score + choice で組む
  * - 「自動公開 / レビュー待ち / 自動非表示」の 3 分岐
  * - 失敗時は公開を止める（フェイルクローズ）
@@ -22,7 +22,7 @@ export default function JevModerationApp() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 18</span>
+          <span className="step-badge">STEP 19</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
@@ -53,6 +53,17 @@ export default function JevModerationApp() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          {/* 前提 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">0. 前提</h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              STEP 18 で作った jev-apps プロジェクトに追加します。API キーは同じ
+              .env.local を使い、実際に Jev を呼びます。 作るファイルは
+              lib/moderation.ts、app/api/moderate/route.ts、app/moderate/page.tsx
+              の 3 つです。
+            </p>
+          </section>
+
           {/* 設計 */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -126,7 +137,7 @@ export interface ModerationResult {
 export type Verdict = "publish" | "review" | "hide";
 
 // 見逃しのコストが高いので、公開側のしきい値は低く（0.1）、
-// 非表示側は誤検知を避けるため高く（0.9）置く。値は STEP 20 の手順で決め直す
+// 非表示側は誤検知を避けるため高く（0.9）置く。値は STEP 21 の手順で決め直す
 export function verdict(r: ModerationResult, publishBelow = 0.1, hideAbove = 0.9): Verdict {
   if (r.violates >= hideAbove && r.severity >= 1.5) return "hide";
   if (r.violates < publishBelow) return "publish";
@@ -215,26 +226,115 @@ export async function POST(req: Request) {
             </p>
           </section>
 
+          {/* 実行して確認 */}
+          <section>
+            <h2 className="text-3xl font-bold text-foreground mb-6">
+              3. 実行して確認する
+            </h2>
+            <CodeBlock
+              language="bash"
+              title="違反しそうな投稿と、問題ない投稿を 1 件ずつ叩く"
+              code={`curl -sS http://localhost:3000/api/moderate \
+  -H "Content-Type: application/json" \
+  -d '{"postId":"p2","body":"DM me for cheap followers, link in bio"}'
+
+curl -sS http://localhost:3000/api/moderate \
+  -H "Content-Type: application/json" \
+  -d '{"postId":"p1","body":"Great meetup last week, thanks all!"}'`}
+            />
+            <CodeBlock
+              language="json"
+              title="返ってくる形（数値は呼ぶたびに変わり得る）"
+              code={`{"postId":"p2","verdict":"hide","violates":0.97,"severity":1.8,"reason":"spam","reasonConfidence":0.9}`}
+            />
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              境界にありそうな文（皮肉、軽い暴言、連絡先の一部）も叩いてみてください。violates
+              が 0.4〜0.7 に落ちて verdict が review
+              になる帯を、自分の目で確かめておくと、しきい値の議論が実感を伴います。
+            </p>
+          </section>
+
           {/* UI */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <ListOrdered className="text-primary" size={28} />
-              3. レビュー待ちキューの UI
+              4. レビュー待ちキューの UI
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              モデレーターが見る画面です。レビュー待ちの投稿だけを出し、Jev
-              の確率と違反の種類を添えて判断を速くします。
-              プレビューはサーバーの応答と同じ形のモックで動きます。
+              モデレーターが見る画面です。投稿を送ると Route Handler が Jev
+              を呼び、verdict と確率、違反の種類を表示します。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                http://localhost:3000/moderate
+              </code>{" "}
+              で開きます。
+            </p>
+            <CodeBlock
+              language="tsx"
+              title="app/moderate/page.tsx"
+              code={`"use client";
+
+import { useState } from "react";
+import type { ModerationResult, Verdict } from "@/lib/moderation";
+
+type Row = ModerationResult & { postId: string; verdict: Verdict; body: string };
+const LABEL: Record<Verdict, string> = { publish: "自動公開", review: "レビュー待ち", hide: "自動非表示" };
+
+export default function ModeratePage() {
+  const [body, setBody] = useState("");
+  const [rows, setRows] = useState<Row[]>([]);
+
+  async function submit() {
+    const postId = crypto.randomUUID();
+    const res = await fetch("/api/moderate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId, body }),
+    });
+    const data = (await res.json()) as Omit<Row, "body">;
+    setRows((prev) => [{ ...data, body }, ...prev]);
+    setBody("");
+  }
+
+  const queue = rows.filter((r) => r.verdict === "review");
+
+  return (
+    <main style={{ maxWidth: 640, margin: "40px auto", fontFamily: "sans-serif" }}>
+      <h1>投稿のモデレーション</h1>
+      <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
+        <label htmlFor="body">投稿本文</label>
+        <textarea id="body" rows={3} value={body} onChange={(e) => setBody(e.target.value)} style={{ display: "block", width: "100%", marginBottom: 8 }} />
+        <button type="submit" disabled={!body.trim()}>判定する</button>
+      </form>
+      <p>全 {rows.length} 件のうち、レビュー待ち {queue.length} 件</p>
+      {rows.map((r) => (
+        <div key={r.postId} style={{ border: "1px solid #ccc", borderRadius: 8, padding: 10, marginBottom: 8 }}>
+          <div style={{ fontWeight: 600 }}>{LABEL[r.verdict]}</div>
+          <div>{r.body}</div>
+          <div style={{ fontSize: 12, color: "#555" }}>
+            違反 {Math.round(r.violates * 100)}% / 深刻度 {r.severity.toFixed(1)} / 種類 {r.reason}（{Math.round(r.reasonConfidence * 100)}%）
+          </div>
+        </div>
+      ))}
+    </main>
+  );
+}`}
+            />
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              ブラウザ内シミュレーション: 3 分岐だけを試す
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              教材のプレビューは Jev
+              を呼べないので、サーバーの応答と同じ形の固定データで{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 verdict()
               </code>{" "}
-              の ___ を埋めてください。
+              の分岐だけを確認します。___ を埋めてください。
             </p>
             <CodingChallenge
-              title="3 分岐の判定を完成させる"
+              title="シミュレーション: 3 分岐の判定を完成させる"
               description="verdict() の ___ を埋めて、違反確率が hideAbove 以上かつ深刻度 1.5 以上なら 'hide'、違反確率が publishBelow 未満なら 'publish'、それ以外を 'review' にしてください。"
               preview={true}
-              initialCode={`// /api/moderate が返すのと同じ形のモック
+              initialCode={`// /api/moderate が返すのと同じ形の固定データ（シミュレーション用）
 const results = [
   { postId: "p1", body: "Great meetup last week, thanks all!", violates: 0.03, severity: 0.1, reason: "none", reasonConfidence: 0.95 },
   { postId: "p2", body: "DM me for cheap followers, link in bio", violates: 0.97, severity: 1.8, reason: "spam", reasonConfidence: 0.92 },
@@ -267,7 +367,7 @@ function App() {
     </div>
   );
 }`}
-              answer={`// /api/moderate が返すのと同じ形のモック
+              answer={`// /api/moderate が返すのと同じ形の固定データ（シミュレーション用）
 const results = [
   { postId: "p1", body: "Great meetup last week, thanks all!", violates: 0.03, severity: 0.1, reason: "none", reasonConfidence: 0.95 },
   { postId: "p2", body: "DM me for cheap followers, link in bio", violates: 0.97, severity: 1.8, reason: "spam", reasonConfidence: 0.92 },
@@ -316,13 +416,13 @@ function App() {
           {/* 運用 */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              4. 運用で足すもの
+              5. 運用で足すもの
             </h2>
             <div className="space-y-3">
               {[
                 {
                   title: "人の判定を記録する",
-                  body: "レビュー待ちから人が「公開 / 非表示」を選んだ結果を保存する。これが STEP 20 でしきい値を決めるラベル付きデータになる。",
+                  body: "レビュー待ちから人が「公開 / 非表示」を選んだ結果を保存する。これが STEP 21 でしきい値を決めるラベル付きデータになる。",
                 },
                 {
                   title: "自動非表示にも異議申し立ての導線を付ける",

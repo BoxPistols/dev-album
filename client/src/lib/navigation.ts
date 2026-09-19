@@ -495,14 +495,15 @@ export const pages: PageInfo[] = [
   { step: 10, path: '/ai-ml/lmops/llm-basics', title: 'LLM の仕組みと活用', sectionId: 'lmops', manualId: 'ai-ml' },
   { step: 11, path: '/ai-ml/lmops/lmops-workflow', title: 'LMOps ワークフロー', sectionId: 'lmops', manualId: 'ai-ml' },
   { step: 12, path: '/ai-ml/jev/jev-overview', title: 'Jev とは — System One モデル入門', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 13, path: '/ai-ml/jev/jev-setup', title: 'Jev の開発環境構築', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 14, path: '/ai-ml/jev/jev-primitives', title: '3 つの質問型と確率の読み方', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 15, path: '/ai-ml/jev/jev-state-design', title: 'state と質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 16, path: '/ai-ml/jev/jev-app-ideas', title: 'サンプルアプリのアイデア 20', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 17, path: '/ai-ml/jev/jev-triage-app', title: 'サンプルアプリ 1: チケットのトリアージ', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 18, path: '/ai-ml/jev/jev-moderation-app', title: 'サンプルアプリ 2: 投稿のモデレーション', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 19, path: '/ai-ml/jev/jev-alerts-app', title: 'サンプルアプリ 3: アラートの優先度付け', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 20, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートと LLM との組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 13, path: '/ai-ml/jev/jev-account', title: 'アカウント登録と API キー・課金の準備', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 14, path: '/ai-ml/jev/jev-setup', title: 'Jev の開発環境構築', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3 つの質問型と確率の読み方', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 16, path: '/ai-ml/jev/jev-state-design', title: 'state と質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'サンプルアプリのアイデア 20', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: 'サンプルアプリ 1: チケットのトリアージ', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 19, path: '/ai-ml/jev/jev-moderation-app', title: 'サンプルアプリ 2: 投稿のモデレーション', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 20, path: '/ai-ml/jev/jev-alerts-app', title: 'サンプルアプリ 3: アラートの優先度付け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 21, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートと LLM との組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
   // UX デザインマニュアル (15ページ)
