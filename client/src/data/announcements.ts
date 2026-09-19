@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-20-permanent-links",
+    date: "2026-09-20",
+    title: "API・Vue/Nuxt・インフラの外部リンクを移転先のURLに直した",
+    description:
+      "週次のリンク点検で見つかった、リダイレクトされる外部リンク9件を移転先のURLに書き換えた。OWASP、TanStack Query、Prisma、Nuxtのドキュメントが対象で、書き換え後のURLが同じページを開くことを確かめている。",
+    category: "fix",
+    link: "/api/rest-design/error-handling",
+  },
+  {
     id: "2026-08-23-cmux-source-verified",
     date: "2026-08-23",
     title: "cmux の未確認だった記述を、公開リポジトリのソースで確かめて直した",
