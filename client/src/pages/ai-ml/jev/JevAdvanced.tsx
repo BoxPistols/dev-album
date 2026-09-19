@@ -55,7 +55,7 @@ export default function JevAdvanced() {
               信頼度ゲート — 3 つの出口
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 18 では「自動 / 人が確認」の 2
+              STEP 18 では「自動 / 本人に確認」の 2
               分岐でした。実運用では、間に「上位のモデルに聞き直す」を挟む 3
               分岐が使われます。
               速くて安い判断で大半を処理し、残りだけに時間とコストをかける形です。

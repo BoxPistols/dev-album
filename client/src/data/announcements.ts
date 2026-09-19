@@ -29,29 +29,29 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-account",
   },
   {
-    id: "2026-09-19-jev-alerts-app",
+    id: "2026-09-19-jev-feedback-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 3: アラートの優先度付け",
+    title: "Jev サンプルアプリ 3: ユーザーの声の分類ボード",
     description:
-      "複数のアラートを 1 リクエストで評価し、score の期待値で並べる運用ダッシュボード。state を配列にして質問を動的に組む書き方と、UI 側の並び替えを扱う。",
+      "レビューやアンケートの自由記述をまとめて Jev に渡し、要望・不具合・使いにくさ・称賛に分けて深刻さ順に並べるボード。配列 state で質問を動的に組む書き方と、実際に呼んで確認する手順付き。",
     category: "feature",
-    link: "/ai-ml/jev/jev-alerts-app",
+    link: "/ai-ml/jev/jev-feedback-app",
   },
   {
-    id: "2026-09-19-jev-moderation-app",
+    id: "2026-09-19-jev-copycheck-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 2: 投稿のモデレーション",
+    title: "Jev サンプルアプリ 2: UI 文言チェッカー",
     description:
-      "投稿を公開前に noul と score で判定し、確実なものは自動、迷うものは人のレビュー待ちキューに積む。失敗時は公開を止める設計にした。",
+      "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける。指針を state で渡し、失敗時は「直す」に倒す設計。デザインシステムのレビューを支える道具として実際に呼んで動かす。",
     category: "feature",
-    link: "/ai-ml/jev/jev-moderation-app",
+    link: "/ai-ml/jev/jev-copycheck-app",
   },
   {
     id: "2026-09-19-jev-app-ideas",
     date: "2026-09-19",
     title: "Jev で作れるサンプルアプリのアイデア 20 を一覧に",
     description:
-      "サポート・コミュニティ・運用・開発・LLM との組み合わせの 5 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 3 本もここから選んでいる。Three.js 講座の飛行機ゲームに Jev を載せて、障害物と天候を見ながら帰還させるモックアップも付けた。",
+      "日常生活・デザイナー・プロダクト作り・運用・ゲームと LLM の 5 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 3 本（家計簿・UI 文言チェッカー・ユーザーの声の分類）もここから選んでいる。Three.js 講座の飛行機ゲームに Jev を載せて帰還させる実装例も付けた。",
     category: "feature",
     link: "/ai-ml/jev/jev-app-ideas",
   },
@@ -65,13 +65,13 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-advanced",
   },
   {
-    id: "2026-09-19-jev-triage-app",
+    id: "2026-09-19-jev-ledger-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 1: サポートチケットのトリアージ",
+    title: "Jev サンプルアプリ 1: 家計簿の自動仕分け",
     description:
-      "Next.js プロジェクトを作り、Route Handler から実際に Jev を呼んで、React 側で分類・緊急度・不満度を表示する。curl での確認手順付き。UI 側の判定ロジックはブラウザ内のシミュレーションでも試せる。",
+      "支出 1 件を入れるとカテゴリ・固定費かどうか・見直す価値を Jev が返し、確信が低いものだけ本人が直す。Next.js プロジェクト作成から curl での確認、実ページまで、実際に呼ぶ手順で組む。",
     category: "feature",
-    link: "/ai-ml/jev/jev-triage-app",
+    link: "/ai-ml/jev/jev-ledger-app",
   },
   {
     id: "2026-09-19-jev-state-design",

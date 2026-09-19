@@ -16,9 +16,9 @@ AI・ML マニュアルに「Jev / System One モデル」セクションを新�
   4. `/ai-ml/jev/jev-primitives` 3 つの質問型と確率の読み方（noul / choice / score）
   5. `/ai-ml/jev/jev-state-design` state と質問の設計、複数質問の一括評価、エラーとリトライ
   6. `/ai-ml/jev/jev-app-ideas` サンプルアプリのアイデア 20（概要のみ。講座で作る 3 本を明示）
-  7. `/ai-ml/jev/jev-triage-app` サンプルアプリ 1: サポートチケットのトリアージ（Next.js Route Handler + React UI）
-  8. `/ai-ml/jev/jev-moderation-app` サンプルアプリ 2: 投稿のモデレーション（noul + score、レビュー待ちキュー、フェイルクローズ）
-  9. `/ai-ml/jev/jev-alerts-app` サンプルアプリ 3: アラートの優先度付け（配列 state の一括評価、score で並べ替え）
+  7. `/ai-ml/jev/jev-ledger-app` サンプルアプリ 1: 家計簿の自動仕分け（日常生活。Next.js Route Handler + React、基本形）
+  8. `/ai-ml/jev/jev-copycheck-app` サンプルアプリ 2: UI 文言チェッカー（デザイナー向け。指針を state で渡す 3 分岐、フェイルクローズ）
+  9. `/ai-ml/jev/jev-feedback-app` サンプルアプリ 3: ユーザーの声の分類ボード（プロダクト作り向け。配列 state の一括評価、score で並べ替え）
   10. `/ai-ml/jev/jev-advanced` 応用: 信頼度ゲート、LLM との組み合わせ、評価、制約
 
 ## 処理フロー
@@ -39,7 +39,9 @@ AI・ML マニュアルに「Jev / System One モデル」セクションを新�
 - サンプルアプリ 3 本は実際に Jev を呼ぶ前提（プロジェクト作成・.env.local・curl での疎通・実ページ）で書く。学習ステップのチャレンジはブラウザ内の練習でよい
 - API 呼び出しはブラウザから行えない（SDK が既定で拒否する）→ プレビュー付き CodingChallenge は「シミュレーション」と明記し、サーバー応答と同じ形の固定データで UI 側の判定ロジックだけを扱う
 - 公式サイト・コンソールの登録画面は執筆環境から確認できない → アカウントページでは根拠の強さ（公式 SDK / 二次情報 / Vercel 公式）を分けて書き、画面手順は公式 quickstart を正とする
-- 教材の題材に、執筆者の所属や業務領域を推測させる例を入れない（汎用的な Web サービスの例に留める）
+- 教材の題材に、執筆者の所属や業務領域を推測させる例を入れない
+- サンプルアプリの題材は「一般の人が日常生活ですぐ使えるもの」「デザイナーに役立つもの」「プロダクト作りに関わる人に役立つもの」から選ぶ。業務システム寄りの題材はアイデア一覧に留める
+- アイデア一覧のフライトシミュレーターのコラムは、Route Handler とゲームループ側の本物の呼び出しコードを載せたうえで、ブラウザ内はシミュレーションと明記する
 - Python / シェルのコードは実行プレビューできない → 静的 `CodeBlock`、または `preview={false}` の CodingChallenge を使う
 
 ## 出力

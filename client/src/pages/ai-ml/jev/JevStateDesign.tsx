@@ -232,7 +232,7 @@ urgent: noul("Does this need attention today?")`}
             </p>
             <CodeBlock
               language="ts"
-              title="トリアージに必要な判断をまとめて聞く"
+              title="問い合わせの振り分けに必要な判断をまとめて聞く"
               code={`const { answers, usage } = await client.systemOne({
   state: { subject, message },
   questions: {

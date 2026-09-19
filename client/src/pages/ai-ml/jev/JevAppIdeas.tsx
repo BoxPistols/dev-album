@@ -1,5 +1,6 @@
 import { Lightbulb, Hammer, Plane } from "lucide-react";
 import { Link } from "wouter";
+import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
@@ -31,134 +32,134 @@ interface IdeaGroup {
 
 const IDEA_GROUPS: IdeaGroup[] = [
   {
-    group: "サポート・問い合わせ",
+    group: "日常生活",
     ideas: [
       {
-        title: "サポートチケットのトリアージ",
-        what: "担当チーム・緊急度・不満度を判定し、確信が低いものだけ人が振り分ける",
+        title: "家計簿の自動仕分け",
+        what: "レシートや明細の 1 行をカテゴリに仕分け、固定費かどうかと見直す価値を返す。迷ったものだけ自分で直す",
         types: ["choice", "noul", "score"],
         buildStep: 18,
-        href: "/ai-ml/jev/jev-triage-app",
+        href: "/ai-ml/jev/jev-ledger-app",
       },
       {
-        title: "問い合わせフォームの担当自動振り分け",
-        what: "送信内容から営業・技術・経理のどこに届けるかを決め、通知先を変える",
-        types: ["choice"],
-      },
-      {
-        title: "FAQ で解決できるかの一次判定",
-        what: "LLM を呼ぶ前に「既存のヘルプ記事で答えられるか」を判定し、定型応答で済ませる",
+        title: "受信トレイの返信要否",
+        what: "メールや通知の本文から「今日返すべきか」「誰宛か（自分 / 家族 / 仕事）」を判定し、今日の分だけ並べる",
         types: ["noul", "choice"],
       },
       {
-        title: "チャットのエスカレーション判定",
-        what: "会話の途中で「人が引き継ぐべきか」を毎ターン判定し、しきい値を超えたらオペレーターへ",
+        title: "冷蔵庫の中身から献立の可否",
+        what: "手元の食材リストとレシピ候補を state にし、作れるか・買い足しが要るかを判定して候補を絞る",
         types: ["noul", "score"],
+      },
+      {
+        title: "予定の重なりと移動時間の無理判定",
+        what: "カレンダーの隣接する予定と場所を渡し、移動が間に合うか、リスケが要るかを判定して通知する",
+        types: ["noul", "score"],
+      },
+      {
+        title: "フリマ出品文の禁止事項チェック",
+        what: "出品の説明文が規約（転売禁止品、連絡先の記載など）に触れるかを投稿前に判定する",
+        types: ["noul", "choice"],
       },
     ],
   },
   {
-    group: "コミュニティ・コンテンツ",
+    group: "デザイナー・クリエイター",
     ideas: [
       {
-        title: "投稿のモデレーション",
-        what: "ガイドライン違反の確率と深刻度で、自動公開・レビュー待ち・自動非表示に分ける",
-        types: ["noul", "score", "choice"],
+        title: "UI 文言チェッカー",
+        what: "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける",
+        types: ["noul", "choice", "score"],
         buildStep: 19,
-        href: "/ai-ml/jev/jev-moderation-app",
-      },
-      {
-        title: "レビュー投稿の感情とタグ付け",
-        what: "感情のカテゴリと「配送」「品質」「価格」などのタグを同時に付け、集計に使う",
-        types: ["choice", "noul"],
-      },
-      {
-        title: "商品説明の禁止表現チェック",
-        what: "誇大表現や法令で制限される表現を含むかを判定し、公開前に差し戻す",
-        types: ["noul", "score"],
-      },
-      {
-        title: "UI 文言のトーン一貫性チェック",
-        what: "デザインシステムのライティング指針に対して、文言が敬体・簡潔さの基準を満たすかを採点する",
-        types: ["score", "noul"],
+        href: "/ai-ml/jev/jev-copycheck-app",
       },
       {
         title: "代替テキストの妥当性採点",
         what: "画像の説明文が「装飾か」「内容を十分に伝えるか」を段階で採点し、a11y レビューの優先順位に使う",
         types: ["score", "noul"],
       },
+      {
+        title: "デザイントークン命名の一貫性",
+        what: "新しいトークン名が命名規則（役割ベース / 階層）に沿うかを判定し、PR の前に直す",
+        types: ["noul", "choice"],
+      },
+      {
+        title: "デザインレビュー依頼の振り分け",
+        what: "レビュー依頼の文面から、必要な観点（a11y / ビジュアル / 情報設計 / 文言）と急ぎ度を判定して担当を決める",
+        types: ["choice", "score"],
+      },
+      {
+        title: "ポートフォリオ掲載可否の一次判定",
+        what: "制作物の説明が守秘義務や実名の扱いに触れないかを判定し、公開前に人が見る分を絞る",
+        types: ["noul", "score"],
+      },
     ],
   },
   {
-    group: "運用・監視",
+    group: "プロダクト作り・チーム",
     ideas: [
       {
-        title: "アラートの優先度付け",
-        what: "複数のアラートを 1 リクエストで評価し、緊急度の期待値で並べたダッシュボードを作る",
-        types: ["score", "choice"],
+        title: "ユーザーの声の分類ボード",
+        what: "レビューやアンケートの自由記述をまとめて「要望 / 不具合 / 使いにくさ / 称賛」に分け、深刻さ順に並べる",
+        types: ["choice", "score", "noul"],
         buildStep: 20,
-        href: "/ai-ml/jev/jev-alerts-app",
+        href: "/ai-ml/jev/jev-feedback-app",
       },
       {
-        title: "ログのノイズ判定",
-        what: "大量のエラーログから「本当に対応が要るか」を判定し、通知を間引く",
-        types: ["noul"],
+        title: "問い合わせの担当振り分け",
+        what: "フォームの内容から担当チームと急ぎ度を決め、確信が低いものだけ人が振り分ける",
+        types: ["choice", "noul", "score"],
       },
       {
-        title: "SLO 違反の一次判定",
-        what: "複数メトリクスの要約から、インシデント宣言が要る状況かどうかと深刻度を判定し、当番への呼び出しを絞る",
-        types: ["score", "noul"],
+        title: "会議メモからの決定事項抽出の可否",
+        what: "メモの各段落が「決定」「宿題」「雑談」のどれかを判定し、議事録の下書きに使う段落だけ残す",
+        types: ["choice"],
       },
-      {
-        title: "変更内容のリスク段階付け",
-        what: "デプロイ前の変更説明から、影響範囲の段階と「ロールバック手順の確認が要るか」を判定する",
-        types: ["score", "noul"],
-      },
-    ],
-  },
-  {
-    group: "開発・レビュー",
-    ideas: [
       {
         title: "コードレビューコメントの重要度ラベル",
         what: "コメントを「必須」「提案」「質問」に分け、必須だけをマージ条件に反映する",
         types: ["choice"],
       },
+    ],
+  },
+  {
+    group: "運用・開発",
+    ideas: [
+      {
+        title: "アラートの優先度付け",
+        what: "複数のアラートを 1 リクエストで評価し、緊急度の期待値で並べる",
+        types: ["score", "choice"],
+      },
       {
         title: "バグ報告の重複らしさと再現性",
-        what: "新しい報告が既存の報告と同じ現象か、再現手順が揃っているかを判定して担当者の一次確認を減らす",
+        what: "新しい報告が既存の報告と同じ現象か、再現手順が揃っているかを判定して一次確認を減らす",
         types: ["noul", "score"],
       },
       {
-        title: "ユーザーフィードバックの分類",
-        what: "自由記述を機能要望・不具合・質問・感想に分け、確信が低いものだけ人が読む",
-        types: ["choice"],
-      },
-      {
-        title: "ドキュメントの陳腐化判定",
-        what: "本文と最新のリリースノートを渡し、「記述が古くなっている疑い」を段階で採点する",
-        types: ["score"],
+        title: "SLO 違反の一次判定",
+        what: "複数メトリクスの要約から、インシデント宣言が要る状況かどうかと深刻度を判定し、当番への呼び出しを絞る",
+        types: ["noul", "score"],
       },
     ],
   },
   {
-    group: "LLM との組み合わせ・その他",
+    group: "ゲーム・LLM との組み合わせ",
     ideas: [
+      {
+        title: "フライトシミュレーターの自動操縦判断",
+        what: "Three.js 講座で作る飛行機ゲームの各フレームの状態（障害物までの距離、天候の変化、燃料）を state にし、回避・高度変更・帰還のどれを取るかを選ぶ。下のコラムで実装の形を示す",
+        types: ["choice", "noul", "score"],
+        href: "/threejs/game-dev/aircraft",
+      },
       {
         title: "LLM 回答の公開前チェック",
         what: "下書きが根拠資料と矛盾しないか、断るべき質問でないかを判定し、通過したものだけ送る",
         types: ["noul", "score"],
       },
       {
-        title: "メール受信箱の自動仕分け",
-        what: "件名と本文から、請求・契約・営業・個人のどれかと、今日返信すべきかを判定する",
-        types: ["choice", "noul"],
-      },
-      {
-        title: "フライトシミュレーターの自動操縦判断",
-        what: "Three.js 講座で作る飛行機ゲームの各フレームの状態（障害物までの距離、天候の変化、燃料）を state にし、回避・高度変更・帰還のどれを取るかを選ぶ。応答が速く型が固定なので、ゲームループの中で呼べる",
-        types: ["choice", "noul", "score"],
-        href: "/threejs/game-dev/aircraft",
+        title: "FAQ で解決できるかの一次判定",
+        what: "LLM を呼ぶ前に「既存のヘルプ記事で答えられるか」を判定し、定型応答で済ませる",
+        types: ["noul", "choice"],
       },
     ],
   },
@@ -213,24 +214,24 @@ export default function JevAppIdeas() {
               {[
                 {
                   step: 18,
-                  title: "チケットのトリアージ",
+                  title: "家計簿の自動仕分け",
                   point:
-                    "choice + noul + score を 1 リクエストで。Route Handler と React の基本形",
-                  href: "/ai-ml/jev/jev-triage-app",
+                    "日常生活の題材。choice + noul + score を 1 リクエストで。Route Handler と React の基本形",
+                  href: "/ai-ml/jev/jev-ledger-app",
                 },
                 {
                   step: 19,
-                  title: "投稿のモデレーション",
+                  title: "UI 文言チェッカー",
                   point:
-                    "確率で「自動 / レビュー待ち / 非表示」の 3 分岐。失敗時に公開を止める設計",
-                  href: "/ai-ml/jev/jev-moderation-app",
+                    "デザイナー向け。指針を state で渡し「そのまま / 直す / 出さない」の 3 分岐。失敗時は「直す」に倒す",
+                  href: "/ai-ml/jev/jev-copycheck-app",
                 },
                 {
                   step: 20,
-                  title: "アラートの優先度付け",
+                  title: "ユーザーの声の分類ボード",
                   point:
-                    "配列 state で複数件を一括評価し、score の期待値で並べる",
-                  href: "/ai-ml/jev/jev-alerts-app",
+                    "プロダクト作り向け。配列 state で一括評価し、深刻さの期待値で並べる",
+                  href: "/ai-ml/jev/jev-feedback-app",
                 },
               ].map((app) => (
                 <Link key={app.step} href={app.href} className="group block">
@@ -370,8 +371,97 @@ export default function JevAppIdeas() {
                 </div>
               </div>
             </div>
+            <h3 className="text-xl font-bold text-foreground mt-6 mb-3">
+              本物の呼び出し（Route Handler）
+            </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              下はその流れのモックアップです。教材のプレビューは API
+              これは Jev
+              のアプリです。ゲーム側は毎ティックの状態をこのエンドポイントに送り、返ってきた型付きの答えで操作を決めます。
+              STEP 18〜20 と同じ jev-apps プロジェクトに置けます。
+            </p>
+            <CodeBlock
+              language="ts"
+              title="app/api/flight/route.ts"
+              code={`import { choice, noul, score, TypeSafeClient, APIConnectionError } from "@typesafe-ai/sdk";
+
+const client = new TypeSafeClient();
+
+export interface FlightState {
+  obstacleAhead: number;                 // 前方の障害物までの距離（m）
+  weather: "clear" | "wind" | "storm";   // 天候（時間で変わる）
+  fuel: number;                          // 残燃料 0〜1
+  distanceHome: number;                  // 基地までの距離（m）
+}
+
+export async function POST(req: Request) {
+  const state = (await req.json()) as FlightState;
+  try {
+    const { answers } = await client.systemOne(
+      {
+        state,
+        questions: {
+          action: choice("Which maneuver keeps the aircraft safe right now?", {
+            hold: "Keep current heading and altitude",
+            climb: "Gain altitude to clear an obstacle or turbulence",
+            descend: "Lose altitude to get under weather or save fuel",
+            turn: "Change heading to avoid an obstacle ahead",
+          }),
+          returnNow: noul("Should the aircraft turn back to base immediately?", {
+            true: "Fuel or weather makes continuing unsafe",
+            false: "It is safe to continue the mission",
+          }),
+          risk: score("How dangerous is the current situation?", [
+            "Safe",
+            "Caution",
+            "Danger",
+          ]),
+        },
+      },
+      { timeout: 2000 }, // ゲームループなので短く。間に合わなければ前回の判断を維持する
+    );
+    return Response.json({
+      action: answers.action.choice,
+      actionConfidence: answers.action.confidence,
+      returnNow: answers.returnNow.noul,
+      risk: answers.risk.score,
+    });
+  } catch (err) {
+    if (err instanceof APIConnectionError) {
+      return Response.json({ error: "unavailable" }, { status: 503 });
+    }
+    throw err;
+  }
+}`}
+            />
+            <CodeBlock
+              language="tsx"
+              title="ゲーム側（React Three Fiber の useFrame から、数フレームに 1 回だけ呼ぶ）"
+              code={`const RETURN_AT = 0.5;
+const CALL_EVERY_FRAMES = 30; // 毎フレーム呼ばない。料金とレイテンシのため
+
+function Autopilot({ getState, onCommand }: { getState: () => FlightState; onCommand: (c: string) => void }) {
+  const frame = useRef(0);
+  const inFlight = useRef(false);
+  useFrame(() => {
+    frame.current += 1;
+    if (frame.current % CALL_EVERY_FRAMES !== 0 || inFlight.current) return;
+    inFlight.current = true;
+    fetch("/api/flight", { method: "POST", body: JSON.stringify(getState()) })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((a) => {
+        if (!a) return; // 判断が得られなかった: 前回のコマンドを維持
+        onCommand(a.returnNow >= RETURN_AT ? "return_home" : a.action);
+      })
+      .finally(() => { inFlight.current = false; });
+  });
+  return null;
+}`}
+            />
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              ブラウザ内シミュレーション
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              下はその流れのシミュレーションです。教材のプレビューは API
               を呼べないので、Jev の代わりに状態から同じ形の答えを返す関数
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 fakeJev()
@@ -381,7 +471,7 @@ export default function JevAppIdeas() {
               を埋めると、帰還判断が効いてループが「帰還」で止まります。
             </p>
             <CodingChallenge
-              title="モックアップ: 安全に飛ばして帰還させる"
+              title="シミュレーション: 安全に飛ばして帰還させる"
               description="pilot() の ___ を埋めて、returnNow の確率が RETURN_AT 以上のときに 'return_home' を返すようにしてください。プレビューには各ティックの状態と判断が表示されます。"
               preview={true}
               initialCode={`// 天候と障害物が変わっていく 6 ティック分の状態（ゲーム側から来る想定）
@@ -511,7 +601,7 @@ function App() {
               hints={["noul の答えは returnNow.noul に 0〜1 で入ります"]}
               keywords={["returnNow.noul"]}
             />
-            <InfoBox type="info" title="本物にするときの注意">
+            <InfoBox type="info" title="本物で動かすときの注意">
               ゲームループは 1
               秒に何十回も回るので、毎フレーム呼ぶとリクエスト数と料金が伸びます。数フレームに
               1 回、または状態が大きく変わったときだけ呼び、

@@ -627,20 +627,20 @@ export const searchIndex: Record<string, string[]> = {
     'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
   ],
   '/ai-ml/jev/jev-app-ideas': [
-    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', 'モデレーション', 'トリアージ', 'アラート',
+    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI 文言', 'ユーザーの声',
     '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
   ],
-  '/ai-ml/jev/jev-triage-app': [
-    'Jev', 'サンプルアプリ', 'トリアージ', 'サポートチケット', 'Next.js', 'Route Handler',
-    'React', 'TypeScript', 'CodingChallenge', '信頼度', 'UI',
+  '/ai-ml/jev/jev-ledger-app': [
+    'Jev', 'サンプルアプリ', '家計簿', '支出', '仕分け', 'カテゴリ', '固定費', '日常生活',
+    'Next.js', 'Route Handler', 'React', 'TypeScript', '確信度',
   ],
-  '/ai-ml/jev/jev-moderation-app': [
-    'Jev', 'サンプルアプリ', 'モデレーション', '投稿', 'ガイドライン', '公開前チェック', 'キュー',
-    'レビュー待ち', 'noul', 'score', 'React', 'Next.js',
+  '/ai-ml/jev/jev-copycheck-app': [
+    'Jev', 'サンプルアプリ', 'UI 文言', 'マイクロコピー', 'ライティング指針', 'デザイナー', 'デザインシステム',
+    'ボタンラベル', 'エラーメッセージ', '空状態', 'ネガティブ訴求', '3 分岐', 'フェイルクローズ',
   ],
-  '/ai-ml/jev/jev-alerts-app': [
-    'Jev', 'サンプルアプリ', 'アラート', '優先度', 'バッチ', '一括評価', '並び替え', '期待値',
-    'score', 'ダッシュボード', '運用', 'React',
+  '/ai-ml/jev/jev-feedback-app': [
+    'Jev', 'サンプルアプリ', 'ユーザーの声', 'フィードバック', 'レビュー', 'アンケート', '分類', 'ボード',
+    '一括評価', '配列 state', '深刻さ', '使いにくさ', 'プロダクト',
   ],
   '/ai-ml/jev/jev-advanced': [
     'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLM ジャッジ', 'ハーネス',

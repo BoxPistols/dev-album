@@ -262,9 +262,9 @@ const AiJevSetup = lazy(() => import("./pages/ai-ml/jev/JevSetup"));
 const AiJevPrimitives = lazy(() => import("./pages/ai-ml/jev/JevPrimitives"));
 const AiJevStateDesign = lazy(() => import("./pages/ai-ml/jev/JevStateDesign"));
 const AiJevAppIdeas = lazy(() => import("./pages/ai-ml/jev/JevAppIdeas"));
-const AiJevTriageApp = lazy(() => import("./pages/ai-ml/jev/JevTriageApp"));
-const AiJevModerationApp = lazy(() => import("./pages/ai-ml/jev/JevModerationApp"));
-const AiJevAlertsApp = lazy(() => import("./pages/ai-ml/jev/JevAlertsApp"));
+const AiJevLedgerApp = lazy(() => import("./pages/ai-ml/jev/JevLedgerApp"));
+const AiJevCopyCheckApp = lazy(() => import("./pages/ai-ml/jev/JevCopyCheckApp"));
+const AiJevFeedbackApp = lazy(() => import("./pages/ai-ml/jev/JevFeedbackApp"));
 const AiJevAdvanced = lazy(() => import("./pages/ai-ml/jev/JevAdvanced"));
 
 // ── UX デザインマニュアル (15ページ) ──
@@ -723,9 +723,9 @@ function App() {
                 <Route path="/ai-ml/jev/jev-primitives" component={AiJevPrimitives} />
                 <Route path="/ai-ml/jev/jev-state-design" component={AiJevStateDesign} />
                 <Route path="/ai-ml/jev/jev-app-ideas" component={AiJevAppIdeas} />
-                <Route path="/ai-ml/jev/jev-triage-app" component={AiJevTriageApp} />
-                <Route path="/ai-ml/jev/jev-moderation-app" component={AiJevModerationApp} />
-                <Route path="/ai-ml/jev/jev-alerts-app" component={AiJevAlertsApp} />
+                <Route path="/ai-ml/jev/jev-ledger-app" component={AiJevLedgerApp} />
+                <Route path="/ai-ml/jev/jev-copycheck-app" component={AiJevCopyCheckApp} />
+                <Route path="/ai-ml/jev/jev-feedback-app" component={AiJevFeedbackApp} />
                 <Route path="/ai-ml/jev/jev-advanced" component={AiJevAdvanced} />
 
                 {/* === UX デザインマニュアル === */}

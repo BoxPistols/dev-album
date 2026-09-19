@@ -500,9 +500,9 @@ export const pages: PageInfo[] = [
   { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3 つの質問型と確率の読み方', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 16, path: '/ai-ml/jev/jev-state-design', title: 'state と質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'サンプルアプリのアイデア 20', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: 'サンプルアプリ 1: チケットのトリアージ', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 19, path: '/ai-ml/jev/jev-moderation-app', title: 'サンプルアプリ 2: 投稿のモデレーション', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 20, path: '/ai-ml/jev/jev-alerts-app', title: 'サンプルアプリ 3: アラートの優先度付け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 18, path: '/ai-ml/jev/jev-ledger-app', title: 'サンプルアプリ 1: 家計簿の自動仕分け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 19, path: '/ai-ml/jev/jev-copycheck-app', title: 'サンプルアプリ 2: UI 文言チェッカー', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 20, path: '/ai-ml/jev/jev-feedback-app', title: 'サンプルアプリ 3: ユーザーの声の分類ボード', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 21, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートと LLM との組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
