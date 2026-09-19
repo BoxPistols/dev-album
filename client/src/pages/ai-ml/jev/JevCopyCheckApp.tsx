@@ -150,7 +150,7 @@ export interface CopyResult {
 
 export type Verdict = "ok" | "revise" | "block";
 
-// 指針が敬体（polite）のチームを想定。しきい値は STEP 21 の手順で決め直す
+// 指針が敬体（polite）のチームを想定。しきい値は STEP 23 の手順で決め直す
 export function verdict(r: CopyResult, okAbove = 0.85, blockNegativeAbove = 0.9): Verdict {
   if (r.negative >= blockNegativeAbove) return "block";
   if (r.clear >= okAbove && r.negative < 0.1 && r.tone === "polite" && r.quality >= 1.5) return "ok";
@@ -340,7 +340,7 @@ export default function CopyCheckPage() {
               は「直す必要がある」と数値で言えますが、直した文言は書けません。言い換え案が欲しければ、「直す」と判定された文言だけを
               LLM に渡します。 全件を LLM に渡すより安く速く、しかも LLM
               の出力をもう一度 Jev
-              に通せば「直った」ことも数値で確かめられます（STEP 21）。
+              に通せば「直った」ことも数値で確かめられます（STEP 23）。
             </InfoBox>
             <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
               ブラウザ内シミュレーション: 3 分岐だけを試す
@@ -441,7 +441,7 @@ function App() {
               {[
                 {
                   title: "レビュアーの最終判断を記録する",
-                  body: "「直す」と出た文言をレビュアーがどう扱ったかを保存する。これが STEP 21 でしきい値を決めるラベル付きデータになる。",
+                  body: "「直す」と出た文言をレビュアーがどう扱ったかを保存する。これが STEP 23 でしきい値を決めるラベル付きデータになる。",
                 },
                 {
                   title: "デザインツールやリポジトリと繋ぐ",

@@ -33,7 +33,7 @@ export default function JevAccount() {
           アカウント登録と API キー・課金の準備
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          コードを書く前に、Jev を呼ぶための契約とキーをそろえます。STEP 18〜20
+          コードを書く前に、Jev を呼ぶための契約とキーをそろえます。STEP 18〜22
           のサンプルアプリは実際に Jev を呼ぶので、
           ここを飛ばすと動きません。ルートは 2 つあります。TypeSafe AI
           と直接契約する方法と、Vercel AI Gateway 経由で使う方法です。

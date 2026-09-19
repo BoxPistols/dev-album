@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-19-jev-leads-app",
+    date: "2026-09-19",
+    title: "Jev サンプルアプリ 5: マーケティングの反応分析",
+    description:
+      "キャンペーン後の問い合わせ・SNS・アンケートをまとめて Jev に渡し、購買意図・検討段階・態度・今日連絡すべきかを判定する。個別の連絡リストとキャンペーン別の集計表を同じ応答から作る。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-leads-app",
+  },
+  {
+    id: "2026-09-19-jev-clinic-app",
+    date: "2026-09-19",
+    title: "Jev サンプルアプリ 4: 診療所の受付振り分け",
+    description:
+      "医療現場の受付業務を題材に、診療科の枠・予約の急ぎ度・電話確認の要否を判定する。診断はせず、緊急の兆候は低いしきい値で即スタッフへ、失敗もスタッフへ倒す。要配慮個人情報の扱いを先に書いた。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-clinic-app",
+  },
+  {
     id: "2026-09-19-jev-account",
     date: "2026-09-19",
     title: "Jev のアカウント登録・API キー・課金の準備ページを追加",
@@ -51,7 +69,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-09-19",
     title: "Jev で作れるサンプルアプリのアイデア 20 を一覧に",
     description:
-      "日常生活・デザイナー・プロダクト作り・運用・ゲームと LLM の 5 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 3 本（家計簿・UI 文言チェッカー・ユーザーの声の分類）もここから選んでいる。Three.js 講座の飛行機ゲームに Jev を載せて帰還させる実装例も付けた。",
+      "日常生活・デザイナー・プロダクト作り・医療とマーケティング・運用・ゲームと LLM の 6 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 5 本（家計簿・UI 文言チェッカー・ユーザーの声の分類・診療所の受付・マーケティングの反応分析）もここから選んでいる。Three.js 講座の飛行機ゲームに Jev を載せて帰還させる実装例も付けた。",
     category: "feature",
     link: "/ai-ml/jev/jev-app-ideas",
   },

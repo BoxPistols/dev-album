@@ -503,7 +503,9 @@ export const pages: PageInfo[] = [
   { step: 18, path: '/ai-ml/jev/jev-ledger-app', title: 'サンプルアプリ 1: 家計簿の自動仕分け', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 19, path: '/ai-ml/jev/jev-copycheck-app', title: 'サンプルアプリ 2: UI 文言チェッカー', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 20, path: '/ai-ml/jev/jev-feedback-app', title: 'サンプルアプリ 3: ユーザーの声の分類ボード', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 21, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートと LLM との組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 21, path: '/ai-ml/jev/jev-clinic-app', title: 'サンプルアプリ 4: 診療所の受付振り分け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 22, path: '/ai-ml/jev/jev-leads-app', title: 'サンプルアプリ 5: マーケティングの反応分析', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲートと LLM との組み合わせ', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
   // UX デザインマニュアル (15ページ)

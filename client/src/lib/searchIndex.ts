@@ -627,7 +627,7 @@ export const searchIndex: Record<string, string[]> = {
     'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
   ],
   '/ai-ml/jev/jev-app-ideas': [
-    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI 文言', 'ユーザーの声',
+    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI 文言', 'ユーザーの声', '医療', 'マーケティング',
     '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
   ],
   '/ai-ml/jev/jev-ledger-app': [
@@ -641,6 +641,14 @@ export const searchIndex: Record<string, string[]> = {
   '/ai-ml/jev/jev-feedback-app': [
     'Jev', 'サンプルアプリ', 'ユーザーの声', 'フィードバック', 'レビュー', 'アンケート', '分類', 'ボード',
     '一括評価', '配列 state', '深刻さ', '使いにくさ', 'プロダクト',
+  ],
+  '/ai-ml/jev/jev-clinic-app': [
+    'Jev', 'サンプルアプリ', '医療現場', '診療所', '受付', '予約', '振り分け', '診療科',
+    '要配慮個人情報', '緊急', 'フェイルクローズ', 'スタッフ確認',
+  ],
+  '/ai-ml/jev/jev-leads-app': [
+    'Jev', 'サンプルアプリ', 'マーケティング', '反応分析', '購買意図', 'キャンペーン', 'SNS', 'アンケート',
+    'リード', '集計', '検討段階', 'CRM',
   ],
   '/ai-ml/jev/jev-advanced': [
     'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLM ジャッジ', 'ハーネス',

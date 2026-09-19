@@ -344,7 +344,7 @@ export default function LedgerPage() {
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
               本人が確定した結果は、Jev の答えと一緒に保存しておきます。「Jev
-              が迷った支出に本人が付けた正解」が溜まると、STEP 21
+              が迷った支出に本人が付けた正解」が溜まると、STEP 23
               のしきい値決めに使えます。
             </p>
             <h3 className="text-xl font-bold text-foreground mt-8 mb-3">

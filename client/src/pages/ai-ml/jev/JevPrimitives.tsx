@@ -332,7 +332,7 @@ if (p >= 0.9) {
             <p className="text-muted-foreground mt-4 leading-relaxed">
               しきい値の値（0.9 や
               0.1）は仕様で決まる定数ではありません。誤検知のコストと見逃しのコストが業務ごとに違うからです。
-              STEP 21
+              STEP 23
               で、ラベル付きデータを使ってしきい値を決める手順を扱います。
             </p>
             <InfoBox type="warning" title="仕様値と実測値のギャップ">

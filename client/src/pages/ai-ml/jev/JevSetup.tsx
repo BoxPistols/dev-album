@@ -312,7 +312,7 @@ print(response.choices["category"].choice)`}
               </div>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              STEP 18〜20 のサンプルアプリはこの構成で、実際に Jev
+              STEP 18〜22 のサンプルアプリはこの構成で、実際に Jev
               を呼んで動かします。学習ステップ（STEP
               15〜16）のチャレンジはブラウザ内の練習なので API を呼びませんが、
               サンプルアプリでは STEP 13 で用意した API キーが必要です。

@@ -385,7 +385,7 @@ console.log(response.answers.category.choice);`}
                   {
                     step: "17",
                     label: "サンプルアプリのアイデア 20",
-                    desc: "Jev で何が作れるかを一覧で見て、講座で作る 3 つを選ぶ",
+                    desc: "Jev で何が作れるかを一覧で見て、講座で作る 5 つを選ぶ",
                   },
                   {
                     step: "18",
@@ -404,6 +404,16 @@ console.log(response.answers.category.choice);`}
                   },
                   {
                     step: "21",
+                    label: "サンプルアプリ 4: 診療所の受付振り分け",
+                    desc: "医療現場向け。診断はせず受付業務だけを判定し、緊急の兆候は人へ",
+                  },
+                  {
+                    step: "22",
+                    label: "サンプルアプリ 5: マーケティングの反応分析",
+                    desc: "一括評価して個別の次の行動とキャンペーン別の集計を出す",
+                  },
+                  {
+                    step: "23",
                     label: "応用",
                     desc: "信頼度ゲート、LLM との組み合わせ、評価、Jev では扱えないこと",
                   },

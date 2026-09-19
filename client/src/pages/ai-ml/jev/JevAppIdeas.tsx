@@ -12,7 +12,7 @@ import Quiz from "@/components/Quiz";
  * サンプルアプリのアイデア 20
  * STEP 17: Jev セクション
  * - Jev の 3 つの質問型で「こんなことができる」を 20 個、概要だけ示す
- * - 講座で実際に作る 3 本を明示する（STEP 18〜20）
+ * - 講座で実際に作る 5 本を明示する（STEP 18〜22）
  */
 
 type QuestionType = "noul" | "choice" | "score";
@@ -55,11 +55,6 @@ const IDEA_GROUPS: IdeaGroup[] = [
         title: "予定の重なりと移動時間の無理判定",
         what: "カレンダーの隣接する予定と場所を渡し、移動が間に合うか、リスケが要るかを判定して通知する",
         types: ["noul", "score"],
-      },
-      {
-        title: "フリマ出品文の禁止事項チェック",
-        what: "出品の説明文が規約（転売禁止品、連絡先の記載など）に触れるかを投稿前に判定する",
-        types: ["noul", "choice"],
       },
     ],
   },
@@ -111,14 +106,28 @@ const IDEA_GROUPS: IdeaGroup[] = [
         types: ["choice", "noul", "score"],
       },
       {
-        title: "会議メモからの決定事項抽出の可否",
-        what: "メモの各段落が「決定」「宿題」「雑談」のどれかを判定し、議事録の下書きに使う段落だけ残す",
-        types: ["choice"],
-      },
-      {
         title: "コードレビューコメントの重要度ラベル",
         what: "コメントを「必須」「提案」「質問」に分け、必須だけをマージ条件に反映する",
         types: ["choice"],
+      },
+    ],
+  },
+  {
+    group: "医療現場・マーケティング",
+    ideas: [
+      {
+        title: "診療所の受付振り分け",
+        what: "Web 予約や問い合わせの文面から、診療科の枠・予約の急ぎ度・電話確認の要否を判定する。診断はしない。緊急の兆候は即スタッフへ",
+        types: ["noul", "choice", "score"],
+        buildStep: 21,
+        href: "/ai-ml/jev/jev-clinic-app",
+      },
+      {
+        title: "マーケティングの反応分析",
+        what: "キャンペーン後の問い合わせ・SNS・アンケートをまとめて評価し、購買意図・段階・態度を集計してキャンペーンを比べ、今日連絡する人を決める",
+        types: ["score", "choice", "noul"],
+        buildStep: 22,
+        href: "/ai-ml/jev/jev-leads-app",
       },
     ],
   },
@@ -186,11 +195,11 @@ export default function JevAppIdeas() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jev の 3
           つの質問型で何が作れるかを、コードを書く前に一覧で眺めます。各項目は「こんなことができる」の概要だけです。
-          このうち 3 つを、続く STEP 18〜20 で実際に作ります。
+          このうち 5 つを、続く STEP 18〜22 で実際に作ります。
         </p>
 
         <WhyNowBox
-          tags={["ユースケース", "noul", "choice", "score", "3 本を作る"]}
+          tags={["ユースケース", "noul", "choice", "score", "5 本を作る"]}
         >
           <p>
             型が 3
@@ -204,13 +213,15 @@ export default function JevAppIdeas() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Hammer className="text-primary" size={28} />
-              講座で作る 3 本
+              講座で作る 5 本
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              3
-              本は、質問型の使い分けと構成パターンが重ならないように選んでいます。
+              5 本は、題材（日常生活 / デザイナー / プロダクト作り / 医療現場 /
+              マーケティング）と構成パターン（基本形 / 3 分岐とフェイルクローズ
+              / 一括評価 / 人へ倒す線引き /
+              集計）が重ならないように選んでいます。
             </p>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 {
                   step: 18,
@@ -232,6 +243,20 @@ export default function JevAppIdeas() {
                   point:
                     "プロダクト作り向け。配列 state で一括評価し、深刻さの期待値で並べる",
                   href: "/ai-ml/jev/jev-feedback-app",
+                },
+                {
+                  step: 21,
+                  title: "診療所の受付振り分け",
+                  point:
+                    "医療現場向け。診断はせず受付業務だけを判定。緊急の兆候は低いしきい値で人へ、失敗もスタッフへ",
+                  href: "/ai-ml/jev/jev-clinic-app",
+                },
+                {
+                  step: 22,
+                  title: "マーケティングの反応分析",
+                  point:
+                    "問い合わせ・SNS・アンケートを一括評価し、個別の次の行動とキャンペーン別の集計を出す",
+                  href: "/ai-ml/jev/jev-leads-app",
                 },
               ].map((app) => (
                 <Link key={app.step} href={app.href} className="group block">
@@ -377,7 +402,7 @@ export default function JevAppIdeas() {
             <p className="text-muted-foreground mb-4 leading-relaxed">
               これは Jev
               のアプリです。ゲーム側は毎ティックの状態をこのエンドポイントに送り、返ってきた型付きの答えで操作を決めます。
-              STEP 18〜20 と同じ jev-apps プロジェクトに置けます。
+              STEP 18〜22 と同じ jev-apps プロジェクトに置けます。
             </p>
             <CodeBlock
               language="ts"
@@ -607,7 +632,7 @@ function App() {
               1 回、または状態が大きく変わったときだけ呼び、
               間はゲーム側のルール（前回の判断を維持する）で埋めます。呼び出しは
               STEP 14 のとおりサーバー経由にし、ブラウザからキーを使いません。
-              帰還判断のしきい値（RETURN_AT）は STEP 21
+              帰還判断のしきい値（RETURN_AT）は STEP 23
               の手順で、記録したプレイログから決めます。
             </InfoBox>
           </section>

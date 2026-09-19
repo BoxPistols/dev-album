@@ -10,7 +10,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
  * 応用: 信頼度ゲートと LLM との組み合わせ
- * STEP 21: Jev セクション
+ * STEP 23: Jev セクション
  * - 信頼度ゲート（自動 / 人 / 上位モデル）の 3 分岐
  * - LLM の前段・後段に Jev を置く構成
  * - しきい値の決め方と評価の回し方
@@ -22,7 +22,7 @@ export default function JevAdvanced() {
     <div className="min-h-screen bg-background page-enter">
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-4">
-          <span className="step-badge">STEP 21</span>
+          <span className="step-badge">STEP 23</span>
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
