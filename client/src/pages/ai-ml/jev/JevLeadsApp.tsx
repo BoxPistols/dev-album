@@ -9,9 +9,9 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * サンプルアプリ 5: マーケティングの反応分析
- * STEP 22: Jev セクション
- * - キャンペーン後に届く問い合わせ・SNS の言及・アンケートをまとめて評価する
+ * サンプルアプリ5: マーケティングの反応分析
+ * STEP 22: Jevセクション
+ * - キャンペーン後に届く問い合わせ・SNSの言及・アンケートをまとめて評価する
  * - 購買意図（score）、検討段階（choice）、ブランドへの態度（choice）、担当が今日連絡すべきか（noul）
  * - 集計してキャンペーンごとに比較する（分析）+ 個別に次の行動を決める（運用）の両方
  */
@@ -25,11 +25,11 @@ export default function JevLeadsApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ 5: マーケティングの反応分析
+          サンプルアプリ5: マーケティングの反応分析
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           キャンペーンを打った後に届く問い合わせ、SNS
-          の言及、アンケートの自由記述をまとめて Jev に渡し、
+          の言及、アンケートの自由記述をまとめてJevに渡し、
           購買意図の強さ、検討段階、ブランドへの態度、今日連絡すべきかを判定します。
           個別には「誰に今日連絡するか」を決め、集計すれば「どのキャンペーンが検討段階の人を動かしたか」が数値で比べられます。
         </p>
@@ -45,8 +45,8 @@ export default function JevLeadsApp() {
         >
           <p>
             反応の分析は「読んで分類して集計する」作業で、人手だと母数が増えるほど遅れます。Jev
-            なら分類が確率で返るので、 集計はただの足し算になり、キャンペーン A
-            と B
+            なら分類が確率で返るので、 集計はただの足し算になり、キャンペーンA
+            とB
             の比較を当日中に出せます。個別の反応には確信度が付くので、担当者は迷った分だけ読めば済みます。
           </p>
         </WhyNowBox>
@@ -56,10 +56,10 @@ export default function JevLeadsApp() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">0. 前提</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 18 の jev-apps プロジェクトに追加し、実際に Jev
+              STEP 18のjev-appsプロジェクトに追加し、実際にJev
               を呼びます。作るファイルは
               lib/reactions.ts、app/api/reactions/analyze/route.ts、app/reactions/page.tsx
-              の 3 つです。 配列 state の一括評価（サンプルアプリ
+              の3つです。 配列stateの一括評価（サンプルアプリ
               3）を、集計まで伸ばした形です。
             </p>
             <InfoBox
@@ -68,7 +68,7 @@ export default function JevLeadsApp() {
             >
               SNS
               の投稿や問い合わせには、アカウント名・メールアドレス・電話番号が含まれます。分析に要るのは文面とキャンペーンの識別子だけなので、それ以外は
-              state に入れる前に落とします。
+              stateに入れる前に落とします。
               集計結果は個人に紐づけず、個別対応の判断は自社のデータベース側で本人と結びつけます。
             </InfoBox>
           </section>
@@ -106,7 +106,7 @@ export default function JevLeadsApp() {
                       score
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      購買意図の強さ（0 無し 〜 3 今すぐ買いたい）
+                      購買意図の強さ（0無し 〜 3今すぐ買いたい）
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       個別: 連絡の優先順。集計: キャンペーン別の平均
@@ -137,7 +137,7 @@ export default function JevLeadsApp() {
                       好意的 / 中立 / 否定的
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      集計: 否定的な反応の割合。個別: 否定的なら営業ではなく CS
+                      集計: 否定的な反応の割合。個別: 否定的なら営業ではなくCS
                       へ
                     </td>
                   </tr>
@@ -195,7 +195,7 @@ export function buildQuestions(items: Reaction[]) {
 }
 
 export interface Analyzed extends Reaction {
-  intent: number;          // 0〜3 の期待値
+  intent: number;          // 0〜3の期待値
   stage: Stage;
   attitude: Attitude;
   contactToday: number;    // 0〜1
@@ -256,8 +256,8 @@ export async function POST(req: Request) {
 }`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              1 リクエストで 1 件あたり 4 問なので、20 件なら 80
-              問です。usage.input_tokens を見ながら、1
+              1リクエストで1件あたり4問なので、20件なら80
+              問です。usage.input_tokensを見ながら、1
               回に入れる件数を決めます。
               キャンペーン期間中に毎時回すなら、その時間に届いた分をまとめるのが自然です。
             </p>
@@ -270,7 +270,7 @@ export async function POST(req: Request) {
             </h2>
             <CodeBlock
               language="bash"
-              title="2 つのキャンペーンの反応をまとめて評価する（文面は架空）"
+              title="2つのキャンペーンの反応をまとめて評価する（文面は架空）"
               code={`curl -sS http://localhost:3000/api/reactions/analyze \\
   -H "Content-Type: application/json" \\
   -d '{"items":[
@@ -295,8 +295,8 @@ export async function POST(req: Request) {
 }`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              r4 のように否定的で既存顧客らしい反応は、購買意図が低くても
-              contactToday が高く出ることがあります。営業ではなく CS
+              r4のように否定的で既存顧客らしい反応は、購買意図が低くても
+              contactTodayが高く出ることがあります。営業ではなくCS
               が連絡する対象です。
               「連絡すべきか」と「誰が連絡するか」を別の質問に分けている理由がここにあります。
             </p>
@@ -313,8 +313,8 @@ export async function POST(req: Request) {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 http://localhost:3000/reactions
               </code>{" "}
-              で開きます。入力は本来 CRM や SNS
-              の取得ツールから来ますが、ここでは固定の 4 件を送ります。
+              で開きます。入力は本来CRMやSNS
+              の取得ツールから来ますが、ここでは固定の4件を送ります。
             </p>
             <CodeBlock
               language="tsx"
@@ -354,7 +354,7 @@ export default function ReactionsPage() {
   return (
     <main style={{ maxWidth: 900, margin: "40px auto", fontFamily: "sans-serif" }}>
       <h1>マーケティングの反応分析</h1>
-      <button onClick={analyze}>4 件を分析する</button>
+      <button onClick={analyze}>4件を分析する</button>
 
       <h2>キャンペーン別の集計</h2>
       <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -391,7 +391,7 @@ export default function ReactionsPage() {
               ブラウザ内シミュレーション: 集計だけを試す
             </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              教材のプレビューは Jev
+              教材のプレビューはJev
               を呼べないので、サーバーが返す形の固定データで{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 summarize()
@@ -400,9 +400,9 @@ export default function ReactionsPage() {
             </p>
             <CodingChallenge
               title="シミュレーション: キャンペーン別に集計する"
-              description="summarize() の ___ を埋めて、決定段階（stage が 'decision'）の割合と、否定的（attitude が 'negative'）の割合を出してください。"
+              description="summarize() の ___ を埋めて、決定段階（stageが 'decision'）の割合と、否定的（attitudeが 'negative'）の割合を出してください。"
               preview={true}
-              initialCode={`// /api/reactions/analyze の rows と同じ形の固定データ（シミュレーション用。文面は架空）
+              initialCode={`// /api/reactions/analyzeのrowsと同じ形の固定データ（シミュレーション用。文面は架空）
 const rows = [
   { id: "r1", campaign: "spring-sale", intent: 2.8, stage: "decision", attitude: "positive", contactToday: 0.9 },
   { id: "r2", campaign: "spring-sale", intent: 1.2, stage: "consideration", attitude: "negative", contactToday: 0.3 },
@@ -444,7 +444,7 @@ function App() {
     </table>
   );
 }`}
-              answer={`// /api/reactions/analyze の rows と同じ形の固定データ（シミュレーション用。文面は架空）
+              answer={`// /api/reactions/analyzeのrowsと同じ形の固定データ（シミュレーション用。文面は架空）
 const rows = [
   { id: "r1", campaign: "spring-sale", intent: 2.8, stage: "decision", attitude: "positive", contactToday: 0.9 },
   { id: "r2", campaign: "spring-sale", intent: 1.2, stage: "consideration", attitude: "negative", contactToday: 0.3 },
@@ -487,15 +487,15 @@ function App() {
   );
 }`}
               hints={[
-                '決定段階は stage が "decision" の行です',
-                '否定的は attitude が "negative" の行です',
+                '決定段階はstageが "decision" の行です',
+                '否定的はattitudeが "negative" の行です',
               ]}
               keywords={['"decision"', '"negative"']}
             />
             <InfoBox type="info" title="平均を鵜呑みにしない">
-              avgIntent は score の期待値の平均で、件数が少ないうちは 1
+              avgIntentはscoreの期待値の平均で、件数が少ないうちは1
               件で大きく動きます。集計表には件数を必ず並べ、比較は同じ規模のキャンペーン同士で行います。
-              「なぜ否定的なのか」は Jev
+              「なぜ否定的なのか」はJev
               では分かりません。否定的な反応の文面を人が読むか、LLM
               に要約させる別工程が要ります。
             </InfoBox>
@@ -510,15 +510,15 @@ function App() {
               {[
                 {
                   title: "成約との突き合わせ",
-                  body: "「決定段階」と判定した人が実際に契約したかを後から記録する。これが intent と stage の質問文を直す材料であり、STEP 23 のしきい値決めのラベルになる。",
+                  body: "「決定段階」と判定した人が実際に契約したかを後から記録する。これがintentとstageの質問文を直す材料であり、STEP 23のしきい値決めのラベルになる。",
                 },
                 {
-                  title: "キャンペーンごとの criteria を変えない",
+                  title: "キャンペーンごとのcriteriaを変えない",
                   body: "比較のために、同じ期間は同じ質問文で評価する。質問文を変えたら、過去分も再評価してから比べる。",
                 },
                 {
                   title: "取り込みの自動化",
-                  body: "CRM・SNS 取得ツール・アンケートの書き出しから、個人情報を落とす前処理を通して毎時まとめて送る。",
+                  body: "CRM・SNS取得ツール・アンケートの書き出しから、個人情報を落とす前処理を通して毎時まとめて送る。",
                 },
               ].map((item) => (
                 <div
@@ -549,10 +549,10 @@ function App() {
                     "否定的な既存顧客のように、購買意図が低くても連絡すべき人がいるから",
                   correct: true,
                 },
-                { label: "noul の方が安いから" },
+                { label: "noulの方が安いから" },
                 { label: "集計表の列を増やすため" },
               ]}
-              explanation="連絡の要否は購買意図だけでは決まりません。1 質問 1 判断に分けると、営業向けと CS 向けを別々に取り出せます（STEP 16 の原則）。"
+              explanation="連絡の要否は購買意図だけでは決まりません。1質問1判断に分けると、営業向けとCS向けを別々に取り出せます（STEP 16の原則）。"
             />
           </section>
 
@@ -568,7 +568,7 @@ function App() {
                   title: "@typesafe-ai/sdk（npm）",
                   url: "https://www.npmjs.com/package/@typesafe-ai/sdk",
                   description:
-                    "配列 state と JSON の instructions が受け付けられることは型定義で確認できる。",
+                    "配列stateとJSONのinstructionsが受け付けられることは型定義で確認できる。",
                 },
               ]}
             />

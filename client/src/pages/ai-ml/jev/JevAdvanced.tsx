@@ -9,12 +9,12 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * 応用: 信頼度ゲートと LLM との組み合わせ
- * STEP 23: Jev セクション
- * - 信頼度ゲート（自動 / 人 / 上位モデル）の 3 分岐
- * - LLM の前段・後段に Jev を置く構成
+ * 応用: 信頼度ゲートとLLMとの組み合わせ
+ * STEP 23: Jevセクション
+ * - 信頼度ゲート（自動 / 人 / 上位モデル）の3分岐
+ * - LLMの前段・後段にJevを置く構成
  * - しきい値の決め方と評価の回し方
- * - Jev では扱えないこと
+ * - Jevでは扱えないこと
  */
 
 export default function JevAdvanced() {
@@ -26,23 +26,23 @@ export default function JevAdvanced() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          応用: 信頼度ゲートと LLM との組み合わせ
+          応用: 信頼度ゲートとLLMとの組み合わせ
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          Jev 単体で完結する仕事は多くありません。実際のシステムでは、Jev
-          の確率で分岐を作り、確信が持てない入力だけを LLM
+          Jev単体で完結する仕事は多くありません。実際のシステムでは、Jev
+          の確率で分岐を作り、確信が持てない入力だけをLLM
           や人に回す構成になります。 このページでは、その分岐の設計、LLM
-          との役割分担、しきい値を実データで決める手順、そして Jev
+          との役割分担、しきい値を実データで決める手順、そしてJev
           の守備範囲外を扱います。
         </p>
 
         <WhyNowBox
-          tags={["信頼度ゲート", "LLM ジャッジ", "評価", "しきい値", "制約"]}
+          tags={["信頼度ゲート", "LLMジャッジ", "評価", "しきい値", "制約"]}
         >
           <p>
-            LMOps の講座では「LLM
+            LMOpsの講座では「LLM
             の出力を評価する」課題を扱いました。評価そのものも「この回答は根拠と矛盾しないか」という型付きの判断です。
-            Jev をそこに置くと、LLM の出力を別の LLM
+            Jevをそこに置くと、LLMの出力を別のLLM
             に読ませる構成より、判断が数値で返り、しきい値で扱えます。
           </p>
         </WhyNowBox>
@@ -52,11 +52,11 @@ export default function JevAdvanced() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <SlidersHorizontal className="text-primary" size={28} />
-              信頼度ゲート — 3 つの出口
+              信頼度ゲート — 3つの出口
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 18 では「自動 / 本人に確認」の 2
-              分岐でした。実運用では、間に「上位のモデルに聞き直す」を挟む 3
+              STEP 18では「自動 / 本人に確認」の2
+              分岐でした。実運用では、間に「上位のモデルに聞き直す」を挟む3
               分岐が使われます。
               速くて安い判断で大半を処理し、残りだけに時間とコストをかける形です。
             </p>
@@ -66,17 +66,17 @@ export default function JevAdvanced() {
                   {
                     step: "1",
                     label: "確信が高い（confidence ≥ 上のしきい値）",
-                    desc: "Jev の答えで自動処理。大半の入力がここを通る",
+                    desc: "Jevの答えで自動処理。大半の入力がここを通る",
                   },
                   {
                     step: "2",
                     label: "中間の帯",
-                    desc: "LLM に state と Jev の答えを渡し、根拠付きで再判定させる。文章での説明が要る場面もここ",
+                    desc: "LLMにstateとJevの答えを渡し、根拠付きで再判定させる。文章での説明が要る場面もここ",
                   },
                   {
                     step: "3",
                     label: "確信が低い（confidence < 下のしきい値）",
-                    desc: "人のレビュー待ちに積む。Jev の probabilities を並べて表示すると判断が速い",
+                    desc: "人のレビュー待ちに積む。Jevのprobabilitiesを並べて表示すると判断が速い",
                   },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -99,7 +99,7 @@ export default function JevAdvanced() {
             </div>
             <CodeBlock
               language="ts"
-              title="3 分岐のゲート"
+              title="3分岐のゲート"
               code={`type Route = "auto" | "escalate" | "review";
 
 export function gate(confidence: number, upper = 0.85, lower = 0.5): Route {
@@ -110,14 +110,14 @@ export function gate(confidence: number, upper = 0.85, lower = 0.5): Route {
             />
           </section>
 
-          {/* LLM との組み合わせ */}
+          {/* LLMとの組み合わせ */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Workflow className="text-primary" size={28} />
-              LLM との組み合わせ方
+              LLMとの組み合わせ方
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Jev を LLM
+              JevをLLM
               の前に置くか後ろに置くかで、役割が変わります。両方使う構成もあります。
             </p>
             <div className="grid md:grid-cols-2 gap-4">
@@ -126,8 +126,8 @@ export function gate(confidence: number, upper = 0.85, lower = 0.5): Route {
                   前段: 振り分け
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  入力を Jev で分類し、LLM を呼ぶ必要があるものだけ呼ぶ。FAQ
-                  で済む問い合わせは定型応答、複雑なものだけ LLM に回す。
+                  入力をJevで分類し、LLMを呼ぶ必要があるものだけ呼ぶ。FAQ
+                  で済む問い合わせは定型応答、複雑なものだけLLMに回す。
                 </p>
                 <CodeBlock
                   language="ts"
@@ -142,17 +142,17 @@ export function gate(confidence: number, upper = 0.85, lower = 0.5): Route {
   },
 });
 if (answers.kind.choice === "complex") {
-  // ここで初めて LLM を呼ぶ
+  // ここで初めてLLMを呼ぶ
 }`}
                 />
               </div>
               <div className="rounded-xl border border-border bg-card p-5">
                 <p className="text-sm font-bold text-primary mb-2">
-                  後段: 検査（LLM ジャッジの置き換え）
+                  後段: 検査（LLMジャッジの置き換え）
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  LLM が書いた回答を公開前に Jev
-                  で採点する。根拠との矛盾、禁止事項、トーンを noul / score
+                  LLMが書いた回答を公開前にJev
+                  で採点する。根拠との矛盾、禁止事項、トーンをnoul / score
                   で聞く。
                 </p>
                 <CodeBlock
@@ -174,12 +174,12 @@ if (answers.kind.choice === "complex") {
                 />
               </div>
             </div>
-            <InfoBox type="info" title="LLM ジャッジとの違い">
-              LLM に「この回答を 1〜5
+            <InfoBox type="info" title="LLMジャッジとの違い">
+              LLMに「この回答を1〜5
               で採点して」と頼む方法（LLM-as-a-judge）は、採点がテキストで返るため、数値の取り出しと形式崩れの処理が要ります。
-              Jev の score は最初から数値で、probabilities
+              Jevのscoreは最初から数値で、probabilities
               も付きます。一方で「なぜその点数か」の説明は返らないので、
-              説明が要るレビュー画面では、Jev の数値と LLM の説明を併用します。
+              説明が要るレビュー画面では、Jevの数値とLLMの説明を併用します。
             </InfoBox>
           </section>
 
@@ -203,8 +203,8 @@ if (answers.kind.choice === "complex") {
                   },
                   {
                     step: "2",
-                    label: "全件を Jev に通し、答えと confidence を保存する",
-                    desc: "モデル名も一緒に保存する（jev-latest の指す先が変わるため）",
+                    label: "全件をJevに通し、答えとconfidenceを保存する",
+                    desc: "モデル名も一緒に保存する（jev-latestの指す先が変わるため）",
                   },
                   {
                     step: "3",
@@ -215,11 +215,11 @@ if (answers.kind.choice === "complex") {
                   {
                     step: "4",
                     label: "ぎりぎりの帯に何件入るかを見る",
-                    desc: "ここが人の負担になる。多すぎるなら質問の instructions と criteria を見直す",
+                    desc: "ここが人の負担になる。多すぎるなら質問のinstructionsとcriteriaを見直す",
                   },
                   {
                     step: "5",
-                    label: "モデル更新のたびに 2〜4 を回す",
+                    label: "モデル更新のたびに2〜4を回す",
                     desc: "同じデータで比較すると、更新で何が変わったかが数値で分かる",
                   },
                 ].map((item) => (
@@ -259,7 +259,7 @@ export function sweep(rows: Row[], thresholds: number[]) {
 }`}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              この表を見て「正解率 99%
+              この表を見て「正解率99%
               以上を保てる最も低いしきい値」を選ぶ、というのが典型的な決め方です。
               数値は業務ごとに違うので、この教材では固定しません。
             </p>
@@ -272,7 +272,7 @@ export function sweep(rows: Row[], thresholds: number[]) {
             </h2>
             <CodingChallenge
               title="しきい値を動かして表を作る"
-              description="___ を埋めて、confidence がしきい値以上の行だけを自動処理とみなし、その中の正解率を計算してください。プレビューに表が出ます。"
+              description="___ を埋めて、confidenceがしきい値以上の行だけを自動処理とみなし、その中の正解率を計算してください。プレビューに表が出ます。"
               preview={true}
               initialCode={`const rows = [
   { predicted: "billing", expected: "billing", confidence: 0.95 },
@@ -353,8 +353,8 @@ function App() {
   );
 }`}
               hints={[
-                "しきい値は map のコールバック引数 t です。confidence が t 以上なら自動処理です",
-                "正解かどうかは predicted と expected の一致で決めます",
+                "しきい値はmapのコールバック引数tです。confidenceがt以上なら自動処理です",
+                "正解かどうかはpredictedとexpectedの一致で決めます",
               ]}
               keywords={["confidence >= t", "r.expected"]}
             />
@@ -364,33 +364,33 @@ function App() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Ban className="text-primary" size={28} />
-              Jev では扱えないこと
+              Jevでは扱えないこと
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              守備範囲を先に知っておくと、設計で迷いません。以下は API
+              守備範囲を先に知っておくと、設計で迷いません。以下はAPI
               の入出力の形から言えることです。
             </p>
             <div className="space-y-3">
               {[
                 {
                   title: "文章の生成・要約・翻訳",
-                  body: "応答にテキストの枠が無い。これらは LLM の仕事。",
+                  body: "応答にテキストの枠が無い。これらはLLMの仕事。",
                 },
                 {
                   title: "候補を自分で発明する",
-                  body: "choice は渡したラベルからしか選ばない。「他に何がある？」は聞けない。新しい候補は人か LLM が出し、Jev は選ぶ。",
+                  body: "choiceは渡したラベルからしか選ばない。「他に何がある？」は聞けない。新しい候補は人かLLMが出し、Jevは選ぶ。",
                 },
                 {
                   title: "自由な数値の出力",
-                  body: "score は渡した段階の期待値。「金額を見積もって」のような連続値は、段階に切るか別の手段を使う。",
+                  body: "scoreは渡した段階の期待値。「金額を見積もって」のような連続値は、段階に切るか別の手段を使う。",
                 },
                 {
                   title: "判断理由の説明",
-                  body: "probabilities は「どれくらい迷ったか」は示すが「なぜか」は示さない。説明が要る画面では LLM を併用する。",
+                  body: "probabilitiesは「どれくらい迷ったか」は示すが「なぜか」は示さない。説明が要る画面ではLLMを併用する。",
                 },
                 {
                   title: "ストリーミング",
-                  body: "答えは 1 回でまとまって返る。SDK にもストリーミングの口は無い。",
+                  body: "答えは1回でまとまって返る。SDKにもストリーミングの口は無い。",
                 },
               ].map((item) => (
                 <div
@@ -407,9 +407,9 @@ function App() {
               ))}
             </div>
             <InfoBox type="warning" title="確率は「正しさの保証」ではない">
-              confidence が 0.95 でも、それは 5%
+              confidenceが0.95でも、それは5%
               は違うと言っているのと同じです。しきい値の上に乗った判断も、抜き取りで人が検査し続けます。
-              また、学習データに由来する偏りは Jev にも起こり得ます。LMOps
+              また、学習データに由来する偏りはJevにも起こり得ます。LMOps
               の講座で扱ったバイアスの点検を、Jev
               の判断にも同じように回してください。
             </InfoBox>
@@ -425,28 +425,28 @@ function App() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    Jev は state に対する noul / choice / score
+                    Jevはstateに対するnoul / choice / score
                     の質問に、確率で答えるモデル。テキストは返さない
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    API キーはサーバー側に置く。SDK
+                    APIキーはサーバー側に置く。SDK
                     はブラウザ実行を既定で拒否する
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    confidence と probabilities は別物。score
+                    confidenceとprobabilitiesは別物。score
                     は期待値で、整数の間に落ちる
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    1 質問 1 判断に分け、1
+                    1質問1判断に分け、1
                     リクエストにまとめる。失敗は「いいえ」と区別する
                   </span>
                 </li>
@@ -466,7 +466,7 @@ function App() {
               理解度チェック
             </h2>
             <Quiz
-              question="LLM が書いた回答を公開前に検査する役として Jev を使う利点は？"
+              question="LLMが書いた回答を公開前に検査する役としてJevを使う利点は？"
               options={[
                 { label: "検査結果が文章で返るので読みやすい" },
                 {
@@ -477,19 +477,19 @@ function App() {
                 { label: "回答の修正案まで生成してくれる" },
                 { label: "検査の理由を説明してくれる" },
               ]}
-              explanation="Jev の答えは数値なので、パースや形式崩れの処理なしにしきい値で分岐できます。理由の説明や修正案は返らないので、必要なら LLM を併用します。"
+              explanation="Jevの答えは数値なので、パースや形式崩れの処理なしにしきい値で分岐できます。理由の説明や修正案は返らないので、必要ならLLMを併用します。"
             />
             <Quiz
               question="しきい値の決め方として適切なのは？"
               options={[
-                { label: "0.5 に固定する（確率なので中央が妥当）" },
+                { label: "0.5に固定する（確率なので中央が妥当）" },
                 {
                   label:
                     "正解ラベル付きデータで自動処理率と正解率を表にし、業務が許容する誤り率で決める",
                   correct: true,
                 },
                 { label: "モデルの公式ドキュメントに書いてある推奨値を使う" },
-                { label: "最初の 10 件を見て決める" },
+                { label: "最初の10件を見て決める" },
               ]}
               explanation="しきい値は誤検知と見逃しのコストで決まり、業務ごとに違います。ラベル付きデータでしきい値を動かし、許容できる誤り率で線を引きます。モデル更新のたびに測り直します。"
             />
@@ -507,7 +507,7 @@ function App() {
                   title: "TypeSafe AI Blog",
                   url: "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
                   description:
-                    "System One モデルと Jev の発表記事（TypeSafe AI）。",
+                    "System OneモデルとJevの発表記事（TypeSafe AI）。",
                 },
               ]}
             />

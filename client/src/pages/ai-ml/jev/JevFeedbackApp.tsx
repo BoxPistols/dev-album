@@ -9,12 +9,12 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * サンプルアプリ 3: ユーザーの声の分類ボード
- * STEP 20: Jev セクション
+ * サンプルアプリ3: ユーザーの声の分類ボード
+ * STEP 20: Jevセクション
  * - プロダクト作りに関わる人向けの題材。アプリストアのレビューやアンケートの自由記述を分類して並べる
- * - 配列 state で複数件を 1 リクエストで評価する
- * - 質問を動的に組み立てる（TypeScript の型の扱い）
- * - score の期待値で並べ、種類ごとの列に置くボード UI
+ * - 配列stateで複数件を1リクエストで評価する
+ * - 質問を動的に組み立てる（TypeScriptの型の扱い）
+ * - scoreの期待値で並べ、種類ごとの列に置くボードUI
  */
 
 export default function JevFeedbackApp() {
@@ -26,12 +26,12 @@ export default function JevFeedbackApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ 3: ユーザーの声の分類ボード
+          サンプルアプリ3: ユーザーの声の分類ボード
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           アプリストアのレビュー、アンケートの自由記述、問い合わせに書かれた感想をまとめて
-          Jev に渡し、 「機能の要望 / 不具合 / 使いにくさ /
-          称賛」に分けて、困りごとの深刻さ順に並べたボードを作ります。 前の 2
+          Jevに渡し、 「機能の要望 / 不具合 / 使いにくさ /
+          称賛」に分けて、困りごとの深刻さ順に並べたボードを作ります。 前の2
           本と違うのは、state
           が配列になり、質問をコードで動的に組み立てる点です。
         </p>
@@ -40,14 +40,14 @@ export default function JevFeedbackApp() {
           tags={[
             "プロダクト作り",
             "一括評価",
-            "配列 state",
+            "配列state",
             "動的な質問",
-            "ボード UI",
+            "ボードUI",
           ]}
         >
           <p>
             ユーザーの声は数が多く、全部読むと時間が溶けます。「使いにくさ」だけを深刻な順に読みたい、というのがデザイナーの現実的な要望で、
-            それは分類と採点の組み合わせです。まとめて評価すれば往復が 1
+            それは分類と採点の組み合わせです。まとめて評価すれば往復が1
             回で済み、score
             の期待値は連続値なのでそのまま並べ替えのキーになります。
           </p>
@@ -58,10 +58,10 @@ export default function JevFeedbackApp() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">0. 前提</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 18 の jev-apps プロジェクトに追加します。実際に Jev
+              STEP 18のjev-appsプロジェクトに追加します。実際にJev
               を呼びます。作るファイルは
               lib/feedback.ts、app/api/feedback/classify/route.ts、app/feedback/page.tsx
-              の 3 つです。 1 リクエストで複数件を評価するので、STEP 13
+              の3つです。 1リクエストで複数件を評価するので、STEP 13
               で付けた予算上限が効いていることを確認してから進めてください。
             </p>
           </section>
@@ -70,14 +70,14 @@ export default function JevFeedbackApp() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <MessagesSquare className="text-primary" size={28} />
-              1. state を配列にし、質問を件数ぶん作る
+              1. stateを配列にし、質問を件数ぶん作る
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              API の state は配列を受け付けます。各要素に id
-              を付け、質問名にも同じ id
-              を含めれば、答えと元の声を突き合わせられます。 質問は 1
+              APIのstateは配列を受け付けます。各要素にid
+              を付け、質問名にも同じid
+              を含めれば、答えと元の声を突き合わせられます。 質問は1
               件につき「種類（choice）」「深刻さ（score）」「デザインで解決できる問題か（noul）」の
-              3 つです。
+              3つです。
             </p>
             <CodeBlock
               language="ts"
@@ -93,7 +93,7 @@ export interface Feedback {
 export const SEVERITY = ["Minor or cosmetic", "Hurts the experience", "Blocks the user from their goal"] as const;
 export type Kind = "request" | "bug" | "usability" | "praise";
 
-// 質問名は "k_<id>" / "s_<id>" / "d_<id>"。答えを id で引けるようにする
+// 質問名は "k_<id>" / "s_<id>" / "d_<id>"。答えをidで引けるようにする
 export function buildQuestions(items: Feedback[]) {
   const questions: Record<string, ChoiceQuestion | ScoreQuestion<typeof SEVERITY> | NoulQuestion> = {};
   for (const f of items) {
@@ -118,16 +118,16 @@ export function buildQuestions(items: Feedback[]) {
 }`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              instructions に JSON オブジェクトを渡しています。型定義では
-              instructions は文字列でも JSON でもよく、
+              instructionsにJSONオブジェクトを渡しています。型定義では
+              instructionsは文字列でもJSONでもよく、
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 feedback_id
               </code>{" "}
               を入れることで「配列のどの要素についての質問か」を明示しています。
             </p>
             <InfoBox type="info" title="動的に組むと型の推論は弱くなる">
-              質問をリテラルで書くと answers
-              の型は質問ごとに推論されますが、Record で組むと各答えは「3
+              質問をリテラルで書くとanswers
+              の型は質問ごとに推論されますが、Recordで組むと各答えは「3
               種類のどれか」になります。 答えを読むときは{" "}
               <code className="text-sm bg-muted px-1 rounded">
                 answer.type === "score"
@@ -153,7 +153,7 @@ const client = new TypeSafeClient();
 export interface ClassifiedFeedback extends Feedback {
   kind: Kind;
   kindConfidence: number;
-  severity: number;      // score の期待値 0〜2
+  severity: number;      // scoreの期待値0〜2
   designFixable: number; // noul 0〜1
 }
 
@@ -186,10 +186,10 @@ export async function POST(req: Request) {
 }`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              usage の input_tokens
+              usageのinput_tokens
               をログに残しています。件数を増やすとここが伸びるので、1
               リクエストに入れる件数の目安はこの値で決めます。
-              上限は手元で確認できた SDK
+              上限は手元で確認できたSDK
               とスキーマに記載が無いため、大きなバッチは自分で分割します。
             </p>
           </section>
@@ -201,19 +201,19 @@ export async function POST(req: Request) {
             </h2>
             <CodeBlock
               language="bash"
-              title="4 件をまとめて評価する"
+              title="4件をまとめて評価する"
               code={`curl -sS http://localhost:3000/api/feedback/classify \\
   -H "Content-Type: application/json" \\
   -d '{"items":[
     {"id":"f1","source":"app-store","text":"保存ボタンがどこにあるか分からず、入力した内容が消えました"},
     {"id":"f2","source":"survey","text":"ダークモードが欲しいです"},
-    {"id":"f3","source":"support","text":"CSV を書き出すと文字化けします"},
+    {"id":"f3","source":"support","text":"CSVを書き出すと文字化けします"},
     {"id":"f4","source":"app-store","text":"通知の設定画面が分かりやすくて助かっています"}
   ]}'`}
             />
             <CodeBlock
               language="json"
-              title="返ってくる形（severity の降順。数値は呼ぶたびに変わり得る）"
+              title="返ってくる形（severityの降順。数値は呼ぶたびに変わり得る）"
               code={`{"classified":[
   {"id":"f1","source":"app-store","text":"保存ボタンが…","kind":"usability","kindConfidence":0.9,"severity":1.8,"designFixable":0.9},
   {"id":"f3", ... ,"kind":"bug","severity":1.6,"designFixable":0.1},
@@ -222,7 +222,7 @@ export async function POST(req: Request) {
 ]}`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              サーバーのログに出る input_tokens を見てください。件数を 4 → 20
+              サーバーのログに出るinput_tokensを見てください。件数を4 → 20
               に増やして、トークン数がどう伸びるかを一度測っておくと、バッチの単位を決める根拠になります。
             </p>
           </section>
@@ -234,13 +234,13 @@ export async function POST(req: Request) {
               4. 種類ごとの列に並べるボード
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              分類結果を 4
+              分類結果を4
               列のボードに置き、各列は深刻さの高い順に並べます。「デザインで直せる」確率が高いものには印を付けます。
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 http://localhost:3000/feedback
               </code>{" "}
               で開きます。入力は本来ストアや調査ツールから来ますが、ここではボタンで固定の
-              4 件を送ります。
+              4件を送ります。
             </p>
             <CodeBlock
               language="tsx"
@@ -254,7 +254,7 @@ import type { ClassifiedFeedback } from "@/app/api/feedback/classify/route";
 const SAMPLE: Feedback[] = [
   { id: "f1", source: "app-store", text: "保存ボタンがどこにあるか分からず、入力した内容が消えました" },
   { id: "f2", source: "survey", text: "ダークモードが欲しいです" },
-  { id: "f3", source: "support", text: "CSV を書き出すと文字化けします" },
+  { id: "f3", source: "support", text: "CSVを書き出すと文字化けします" },
   { id: "f4", source: "app-store", text: "通知の設定画面が分かりやすくて助かっています" },
 ];
 const KINDS: Record<Kind, string> = { usability: "使いにくさ", bug: "不具合", request: "要望", praise: "称賛" };
@@ -278,7 +278,7 @@ export default function FeedbackPage() {
   return (
     <main style={{ maxWidth: 960, margin: "40px auto", fontFamily: "sans-serif" }}>
       <h1>ユーザーの声の分類ボード</h1>
-      <button onClick={classify} disabled={loading}>{loading ? "分類中…" : "4 件を分類する"}</button>
+      <button onClick={classify} disabled={loading}>{loading ? "分類中…" : "4件を分類する"}</button>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginTop: 16 }}>
         {(Object.keys(KINDS) as Kind[]).map((kind) => (
           <section key={kind} aria-labelledby={\`col-\${kind}\`}>
@@ -302,20 +302,20 @@ export default function FeedbackPage() {
               ブラウザ内シミュレーション: 並べ替えと列分けだけを試す
             </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              教材のプレビューは Jev
+              教材のプレビューはJev
               を呼べないので、サーバーが返す形の固定データで並べ替えと列分けだけを確認します。___
               を埋めてください。
             </p>
             <CodingChallenge
               title="シミュレーション: 深刻さの降順で列に並べる"
-              description="sort の比較関数の ___ を埋めて、severity が高い声が各列の先頭に来るようにしてください。"
+              description="sortの比較関数の ___ を埋めて、severityが高い声が各列の先頭に来るようにしてください。"
               preview={true}
-              initialCode={`// /api/feedback/classify が返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
+              initialCode={`// /api/feedback/classifyが返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
 const classified = [
   { id: "f2", text: "ダークモードが欲しいです", kind: "request", severity: 0.4, designFixable: 0.6 },
   { id: "f1", text: "保存ボタンがどこにあるか分からず、入力した内容が消えました", kind: "usability", severity: 1.8, designFixable: 0.9 },
   { id: "f5", text: "設定の項目名が何を指すのか分かりません", kind: "usability", severity: 1.1, designFixable: 0.85 },
-  { id: "f3", text: "CSV を書き出すと文字化けします", kind: "bug", severity: 1.6, designFixable: 0.1 },
+  { id: "f3", text: "CSVを書き出すと文字化けします", kind: "bug", severity: 1.6, designFixable: 0.1 },
   { id: "f4", text: "通知の設定画面が分かりやすくて助かっています", kind: "praise", severity: 0.1, designFixable: 0.2 },
 ];
 const KINDS = { usability: "使いにくさ", bug: "不具合", request: "要望", praise: "称賛" };
@@ -338,12 +338,12 @@ function App() {
     </div>
   );
 }`}
-              answer={`// /api/feedback/classify が返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
+              answer={`// /api/feedback/classifyが返すのと同じ形の固定データ（シミュレーション用。並び順は未整列）
 const classified = [
   { id: "f2", text: "ダークモードが欲しいです", kind: "request", severity: 0.4, designFixable: 0.6 },
   { id: "f1", text: "保存ボタンがどこにあるか分からず、入力した内容が消えました", kind: "usability", severity: 1.8, designFixable: 0.9 },
   { id: "f5", text: "設定の項目名が何を指すのか分かりません", kind: "usability", severity: 1.1, designFixable: 0.85 },
-  { id: "f3", text: "CSV を書き出すと文字化けします", kind: "bug", severity: 1.6, designFixable: 0.1 },
+  { id: "f3", text: "CSVを書き出すと文字化けします", kind: "bug", severity: 1.6, designFixable: 0.1 },
   { id: "f4", text: "通知の設定画面が分かりやすくて助かっています", kind: "praise", severity: 0.1, designFixable: 0.2 },
 ];
 const KINDS = { usability: "使いにくさ", bug: "不具合", request: "要望", praise: "称賛" };
@@ -367,13 +367,13 @@ function App() {
   );
 }`}
               hints={[
-                "降順にするには、比較関数で y の severity から x の severity を引きます",
+                "降順にするには、比較関数でyのseverityからxのseverityを引きます",
               ]}
               keywords={["y.severity - x.severity"]}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
               表示は列（種類）と順序（深刻さ）で情報を伝え、色だけに頼っていません。「デザインで直せそう」はテキストで付けています。
-              STEP 15 で扱った「期待値は並べ替えに、表示は丸めて」の実例です。
+              STEP 15で扱った「期待値は並べ替えに、表示は丸めて」の実例です。
             </p>
           </section>
 
@@ -386,15 +386,15 @@ function App() {
               {[
                 {
                   title: "バッチの単位を決める",
-                  body: "usage.input_tokens を見ながら、1 リクエストに入れる件数を決める。週に 1 回まとめて回す、のような運用が自然。",
+                  body: "usage.input_tokensを見ながら、1リクエストに入れる件数を決める。週に1回まとめて回す、のような運用が自然。",
                 },
                 {
                   title: "ボード上の移動を記録する",
-                  body: "デザイナーがカードを別の列に動かしたら、その差分を保存する。Jev の分類と人の分類のずれが、質問文と criteria の説明を直す材料になる。",
+                  body: "デザイナーがカードを別の列に動かしたら、その差分を保存する。Jevの分類と人の分類のずれが、質問文とcriteriaの説明を直す材料になる。",
                 },
                 {
                   title: "「デザインで直せそう」の列を作業リストにする",
-                  body: "designFixable が高い順に読めば、バックエンドを待たずに着手できる改善が先に見つかる。",
+                  body: "designFixableが高い順に読めば、バックエンドを待たずに着手できる改善が先に見つかる。",
                 },
               ].map((item) => (
                 <div
@@ -417,17 +417,17 @@ function App() {
               理解度チェック
             </h2>
             <Quiz
-              question="複数の声を 1 リクエストで評価するとき、答えと元の声を突き合わせる方法は？"
+              question="複数の声を1リクエストで評価するとき、答えと元の声を突き合わせる方法は？"
               options={[
                 { label: "答えは配列で返るので、インデックスで対応する" },
                 {
-                  label: "質問名に声の id を含め、答えを同じ名前で引く",
+                  label: "質問名に声のidを含め、答えを同じ名前で引く",
                   correct: true,
                 },
-                { label: "モデルが id を出力してくれる" },
-                { label: "1 件ずつ呼ぶしかない" },
+                { label: "モデルがidを出力してくれる" },
+                { label: "1件ずつ呼ぶしかない" },
               ]}
-              explanation="答えは質問名をキーにしたオブジェクトで返ります。質問名に id を含めておけば、配列 state のどの要素についての答えかを確実に引けます。"
+              explanation="答えは質問名をキーにしたオブジェクトで返ります。質問名にidを含めておけば、配列stateのどの要素についての答えかを確実に引けます。"
             />
           </section>
 
@@ -443,7 +443,7 @@ function App() {
                   title: "@typesafe-ai/sdk（npm）",
                   url: "https://www.npmjs.com/package/@typesafe-ai/sdk",
                   description:
-                    "state と instructions が JSON を受け付けることは型定義（EntryType）で確認できる。",
+                    "stateとinstructionsがJSONを受け付けることは型定義（EntryType）で確認できる。",
                 },
               ]}
             />

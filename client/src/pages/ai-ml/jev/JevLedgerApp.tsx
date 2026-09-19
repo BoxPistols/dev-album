@@ -9,11 +9,11 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * サンプルアプリ 1: 家計簿の自動仕分け
- * STEP 18: Jev セクション
- * - 日常生活の題材。支出 1 件をカテゴリに仕分け、固定費かどうか、見直し候補かを判定する
- * - choice + noul + score を 1 リクエストで使う基本形
- * - Next.js Route Handler + React。実際に Jev を呼ぶ
+ * サンプルアプリ1: 家計簿の自動仕分け
+ * STEP 18: Jevセクション
+ * - 日常生活の題材。支出1件をカテゴリに仕分け、固定費かどうか、見直し候補かを判定する
+ * - choice + noul + scoreを1リクエストで使う基本形
+ * - Next.js Route Handler + React。実際にJevを呼ぶ
  */
 
 export default function JevLedgerApp() {
@@ -25,24 +25,24 @@ export default function JevLedgerApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ 1: 家計簿の自動仕分け
+          サンプルアプリ1: 家計簿の自動仕分け
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          支出を 1 件入力すると、Jev
+          支出を1件入力すると、Jev
           がカテゴリ（食費・交通・住居・娯楽・医療・その他）を選び、固定費かどうかと「見直す価値があるか」を返します。
           確信が低いものだけ自分で直す、という家計簿アプリの土台です。1
-          本目なので、Jev を呼ぶ最も基本的な形を Next.js で組みます。
+          本目なので、Jevを呼ぶ最も基本的な形をNext.jsで組みます。
         </p>
 
         <WhyNowBox
           tags={["日常生活", "Next.js", "Route Handler", "React", "実際に呼ぶ"]}
         >
           <p>
-            家計簿が続かない理由の 1
+            家計簿が続かない理由の1
             つは仕分けの手間です。仕分けは「候補が決まっていて、毎日繰り返し、迷ったものだけ自分で決めればよい」判断で、STEP
-            12 で見た Jev 向きの 3 条件をそのまま満たします。 LLM
+            12で見たJev向きの3条件をそのまま満たします。 LLM
             に頼むと文章で返ってきてパースが要りますが、Jev
-            ならカテゴリ名と確率がそのまま UI に載ります。
+            ならカテゴリ名と確率がそのままUIに載ります。
           </p>
         </WhyNowBox>
 
@@ -53,14 +53,14 @@ export default function JevLedgerApp() {
               0. 前提と準備
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              このアプリは実際に Jev を呼びます。STEP 13 の疎通確認と STEP 14
+              このアプリは実際にJevを呼びます。STEP 13の疎通確認とSTEP 14
               の最初の呼び出しが済んでいることが前提です。 3
-              本のサンプルアプリは 1 つの Next.js
+              本のサンプルアプリは1つのNext.js
               プロジェクトに順に足していくので、ここで土台を作ります。
             </p>
             <CodeBlock
               language="bash"
-              title="プロジェクトを作って SDK を入れる（Node.js 20 以上）"
+              title="プロジェクトを作ってSDKを入れる（Node.js 20以上）"
               code={`npx create-next-app@latest jev-apps --typescript --app --src-dir=false --import-alias "@/*"
 cd jev-apps
 pnpm add @typesafe-ai/sdk
@@ -68,7 +68,7 @@ pnpm add -D vitest`}
             />
             <CodeBlock
               language="bash"
-              title=".env.local（リポジトリに入れない。.gitignore に .env*.local があることを確認）"
+              title=".env.local（リポジトリに入れない。.gitignoreに .env*.localがあることを確認）"
               code={`TYPESAFE_API_KEY=<コンソールで発行したキー>`}
             />
             <div className="rounded-xl border border-border bg-card p-5 mt-4">
@@ -106,9 +106,9 @@ export const CATEGORY_LABEL: Record<Category, string> = {
 
 export interface LedgerResult {
   category: Category;
-  categoryConfidence: number; // choice の confidence
-  fixedCost: number;          // noul: 固定費である確率 0〜1
-  reviewWorth: number;        // score: 見直す価値 0〜2 の期待値
+  categoryConfidence: number; // choiceのconfidence
+  fixedCost: number;          // noul: 固定費である確率0〜1
+  reviewWorth: number;        // score: 見直す価値0〜2の期待値
 }
 
 export type Disposition = "auto" | "confirm";
@@ -124,7 +124,7 @@ export function decide(r: LedgerResult, threshold = 0.8): Disposition {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Server className="text-primary" size={28} />
-              2. Route Handler — Jev を呼ぶ
+              2. Route Handler — Jevを呼ぶ
             </h2>
             <CodeBlock
               language="ts"
@@ -132,7 +132,7 @@ export function decide(r: LedgerResult, threshold = 0.8): Disposition {
               code={`import { choice, noul, score, TypeSafeClient, APIConnectionError } from "@typesafe-ai/sdk";
 import type { LedgerResult } from "@/lib/ledger";
 
-// モジュールスコープで 1 つ作る。リクエストごとに new しない
+// モジュールスコープで1つ作る。リクエストごとにnewしない
 const client = new TypeSafeClient();
 
 export async function POST(req: Request) {
@@ -182,7 +182,7 @@ export async function POST(req: Request) {
     return Response.json(result);
   } catch (err) {
     if (err instanceof APIConnectionError) {
-      // 判断が得られなかった。UI 側で「自分で選ぶ」に倒す
+      // 判断が得られなかった。UI側で「自分で選ぶ」に倒す
       return Response.json({ error: "unavailable" }, { status: 503 });
     }
     throw err;
@@ -193,7 +193,7 @@ export async function POST(req: Request) {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 answers.category.choice
               </code>{" "}
-              の型は criteria のキーから
+              の型はcriteriaのキーから
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 "food" | "transport" | …
               </code>{" "}
@@ -202,13 +202,13 @@ export async function POST(req: Request) {
                 LedgerResult.category
               </code>{" "}
               にそのまま代入できます。
-              カテゴリを増やしたら、この代入で型エラーになって Category
+              カテゴリを増やしたら、この代入で型エラーになってCategory
               の更新漏れに気づけます。
             </p>
-            <InfoBox type="info" title="金額を state に入れる意味">
-              「同じ店でも 500 円なら食費、30,000
+            <InfoBox type="info" title="金額をstateに入れる意味">
+              「同じ店でも500円なら食費、30,000
               円なら娯楽（会食）」のように、金額は判断材料になります。判断に使ってほしい値は
-              state に入れる、という STEP 16 の原則です。
+              stateに入れる、というSTEP 16の原則です。
               一方で口座番号やカード番号は判断に不要なので入れません。
             </InfoBox>
           </section>
@@ -219,7 +219,7 @@ export async function POST(req: Request) {
               3. 実行して確認する
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              UI を作る前に、Route Handler 単体を curl で叩いて、本物の Jev
+              UIを作る前に、Route Handler単体をcurlで叩いて、本物のJev
               の答えが返ることを確かめます。
             </p>
             <CodeBlock
@@ -229,7 +229,7 @@ export async function POST(req: Request) {
             />
             <CodeBlock
               language="bash"
-              title="別のターミナルから POST する"
+              title="別のターミナルからPOSTする"
               code={`curl -sS http://localhost:3000/api/ledger \\
   -H "Content-Type: application/json" \\
   -d '{"merchant":"セブンイレブン","amount":680,"memo":"昼ごはん","date":"2026-09-19"}'`}
@@ -240,10 +240,10 @@ export async function POST(req: Request) {
               code={`{"category":"food","categoryConfidence":0.9,"fixedCost":0.05,"reviewWorth":0.4}`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              「Netflix 1,490 円」「JR 東日本 220 円」「ドラッグストア 3,200
+              「Netflix 1,490円」「JR東日本220円」「ドラッグストア3,200
               円」など、手元のレシートで何件か叩いてみてください。 fixedCost
-              がサブスクで高く出るか、店名だけでは迷う支出で categoryConfidence
-              が下がるかを見ると、次の UI の分岐が実感できます。
+              がサブスクで高く出るか、店名だけでは迷う支出でcategoryConfidence
+              が下がるかを見ると、次のUIの分岐が実感できます。
             </p>
           </section>
 
@@ -343,7 +343,7 @@ export default function LedgerPage() {
 }`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              本人が確定した結果は、Jev の答えと一緒に保存しておきます。「Jev
+              本人が確定した結果は、Jevの答えと一緒に保存しておきます。「Jev
               が迷った支出に本人が付けた正解」が溜まると、STEP 23
               のしきい値決めに使えます。
             </p>
@@ -351,17 +351,17 @@ export default function LedgerPage() {
               ブラウザ内シミュレーション: 判定ロジックだけを試す
             </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              この教材のプレビューは外部 API へ出られないので、ここだけは Jev
+              この教材のプレビューは外部APIへ出られないので、ここだけはJev
               を呼びません。サーバーが返すのと同じ形の固定データで、
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 decide()
               </code>{" "}
-              の分岐だけを確認します。手元のアプリでは上の page.tsx
+              の分岐だけを確認します。手元のアプリでは上のpage.tsx
               が本物の答えで同じ表示をします。
             </p>
             <CodingChallenge
               title="シミュレーション: 確信度で「自動」と「確認」を分ける"
-              description="decide() の ___ を埋めて、カテゴリの確信度が threshold 未満なら 'confirm' を返すようにしてください。プレビューには固定データ 3 件が表示されます（Jev は呼びません）。"
+              description="decide() の ___ を埋めて、カテゴリの確信度がthreshold未満なら 'confirm' を返すようにしてください。プレビューには固定データ3件が表示されます（Jevは呼びません）。"
               preview={true}
               initialCode={`// サーバー（/api/ledger）が返すのと同じ形の固定データ（シミュレーション用）
 const LABEL = { food: "食費", transport: "交通", housing: "住居・光熱", leisure: "娯楽", health: "医療・健康", other: "その他" };
@@ -414,7 +414,7 @@ function App() {
   );
 }`}
               hints={[
-                "比較相手は引数の threshold です。確信度が threshold 未満なら本人に確認します",
+                "比較相手は引数のthresholdです。確信度がthreshold未満なら本人に確認します",
               ]}
               keywords={["categoryConfidence < threshold"]}
             />
@@ -424,11 +424,11 @@ function App() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <TestTube2 className="text-primary" size={28} />
-              5. テスト — API を呼ばずに検証する
+              5. テスト — APIを呼ばずに検証する
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               判定関数は純粋関数なのでそのまま単体テストできます。Route Handler
-              は SDK の{" "}
+              はSDKの{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 fetch
               </code>{" "}
@@ -441,17 +441,17 @@ function App() {
 import { decide } from "./ledger";
 
 describe("decide", () => {
-  it("確信度がしきい値未満なら confirm", () => {
+  it("確信度がしきい値未満ならconfirm", () => {
     expect(decide({ category: "other", categoryConfidence: 0.48, fixedCost: 0, reviewWorth: 0 })).toBe("confirm");
   });
-  it("確信度が高ければ auto", () => {
+  it("確信度が高ければauto", () => {
     expect(decide({ category: "food", categoryConfidence: 0.93, fixedCost: 0, reviewWorth: 0 })).toBe("auto");
   });
 });`}
             />
             <CodeBlock
               language="ts"
-              title="SDK の通信を差し替える（型定義の fetch オプション）"
+              title="SDKの通信を差し替える（型定義のfetchオプション）"
               code={`import { TypeSafeClient, choice } from "@typesafe-ai/sdk";
 
 const fakeFetch = async () =>
@@ -481,17 +481,17 @@ const { answers } = await client.systemOne({
               理解度チェック
             </h2>
             <Quiz
-              question="このアプリで TypeSafeClient を生成する場所として適切なのは？"
+              question="このアプリでTypeSafeClientを生成する場所として適切なのは？"
               options={[
-                { label: "POST 関数の中で毎回 new する" },
+                { label: "POST関数の中で毎回newする" },
                 {
-                  label: "route.ts のモジュールスコープで 1 回だけ生成する",
+                  label: "route.tsのモジュールスコープで1回だけ生成する",
                   correct: true,
                 },
                 { label: "page.tsx（クライアントコンポーネント）で生成する" },
-                { label: "lib/ledger.ts で生成してクライアントにも渡す" },
+                { label: "lib/ledger.tsで生成してクライアントにも渡す" },
               ]}
-              explanation="クライアントはモジュールスコープで 1 つ作って使い回します。ブラウザ側で生成すると SDK が拒否し、仮に許可してもキーが漏れます。"
+              explanation="クライアントはモジュールスコープで1つ作って使い回します。ブラウザ側で生成するとSDKが拒否し、仮に許可してもキーが漏れます。"
             />
           </section>
 
@@ -502,17 +502,17 @@ const { answers } = await client.systemOne({
                   title: "Next.js — Route Handlers",
                   url: "https://nextjs.org/docs/app/building-your-application/routing/route-handlers",
                   description:
-                    "app ディレクトリでの API エンドポイントの書き方。",
+                    "appディレクトリでのAPIエンドポイントの書き方。",
                 },
                 {
                   title: "Next.js — Environment Variables",
                   url: "https://nextjs.org/docs/app/building-your-application/configuring/environment-variables",
-                  description: ".env.local と NEXT_PUBLIC_ の扱い。",
+                  description: ".env.localとNEXT_PUBLIC_ の扱い。",
                 },
                 {
                   title: "@typesafe-ai/sdk（npm）",
                   url: "https://www.npmjs.com/package/@typesafe-ai/sdk",
-                  description: "クライアントオプション fetch の型定義。",
+                  description: "クライアントオプションfetchの型定義。",
                 },
               ]}
             />

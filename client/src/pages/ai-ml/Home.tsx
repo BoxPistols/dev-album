@@ -48,10 +48,10 @@ const sectionCards = [
   },
   {
     number: 5,
-    title: "Jev / System One モデル",
+    title: "Jev / System Oneモデル",
     steps: "STEP 12-23",
     description:
-      "文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築・質問の設計・サンプルアプリ 5 本・LLM との組み合わせまで扱う。",
+      "文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築・質問の設計・サンプルアプリ5本・LLMとの組み合わせまで扱う。",
     href: "/ai-ml/jev/jev-overview",
     icon: <Scale className="w-6 h-6" />,
   },
@@ -82,8 +82,8 @@ export default function Home() {
           </h1>
 
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Python の基礎から機械学習・ディープラーニング・LLM・LMOps・Jev
-            まで、Web 開発者の視点で実践的に学ぶマニュアルです。
+            Pythonの基礎から機械学習・ディープラーニング・LLM・LMOps・Jev
+            まで、Web開発者の視点で実践的に学ぶマニュアルです。
             理論の深追いよりも、開発現場で必要になる概念と使い方に焦点を当てています。
           </p>
 

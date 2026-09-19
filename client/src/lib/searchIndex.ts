@@ -608,10 +608,10 @@ export const searchIndex: Record<string, string[]> = {
   ],
   '/ai-ml/jev/jev-overview': [
     'Jev', 'TypeSafe AI', 'System One', 'システムワン', '確率', '分類', '判断',
-    '非自己回帰', 'LLM との違い', 'LLM ジャッジ', 'ルーティング',
+    '非自己回帰', 'LLMとの違い', 'LLMジャッジ', 'ルーティング',
   ],
   '/ai-ml/jev/jev-account': [
-    'Jev', 'アカウント', 'API キー', 'ウェイトリスト', '課金', 'クレジットカード', '前払い',
+    'Jev', 'アカウント', 'APIキー', 'ウェイトリスト', '課金', 'クレジットカード', '前払い',
     'Vercel AI Gateway', '予算', '請求', 'キーの管理', 'コンソール',
   ],
   '/ai-ml/jev/jev-setup': [
@@ -627,7 +627,7 @@ export const searchIndex: Record<string, string[]> = {
     'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
   ],
   '/ai-ml/jev/jev-app-ideas': [
-    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI 文言', 'ユーザーの声', '医療', 'マーケティング',
+    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI文言', 'ユーザーの声', '医療', 'マーケティング',
     '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
   ],
   '/ai-ml/jev/jev-ledger-app': [
@@ -635,12 +635,12 @@ export const searchIndex: Record<string, string[]> = {
     'Next.js', 'Route Handler', 'React', 'TypeScript', '確信度',
   ],
   '/ai-ml/jev/jev-copycheck-app': [
-    'Jev', 'サンプルアプリ', 'UI 文言', 'マイクロコピー', 'ライティング指針', 'デザイナー', 'デザインシステム',
-    'ボタンラベル', 'エラーメッセージ', '空状態', 'ネガティブ訴求', '3 分岐', 'フェイルクローズ',
+    'Jev', 'サンプルアプリ', 'UI文言', 'マイクロコピー', 'ライティング指針', 'デザイナー', 'デザインシステム',
+    'ボタンラベル', 'エラーメッセージ', '空状態', 'ネガティブ訴求', '3分岐', 'フェイルクローズ',
   ],
   '/ai-ml/jev/jev-feedback-app': [
     'Jev', 'サンプルアプリ', 'ユーザーの声', 'フィードバック', 'レビュー', 'アンケート', '分類', 'ボード',
-    '一括評価', '配列 state', '深刻さ', '使いにくさ', 'プロダクト',
+    '一括評価', '配列state', '深刻さ', '使いにくさ', 'プロダクト',
   ],
   '/ai-ml/jev/jev-clinic-app': [
     'Jev', 'サンプルアプリ', '医療現場', '診療所', '受付', '予約', '振り分け', '診療科',
@@ -651,7 +651,7 @@ export const searchIndex: Record<string, string[]> = {
     'リード', '集計', '検討段階', 'CRM',
   ],
   '/ai-ml/jev/jev-advanced': [
-    'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLM ジャッジ', 'ハーネス',
+    'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLMジャッジ', 'ハーネス',
     '評価', 'しきい値', 'コスト', '制約', 'ガードレール', '人の確認',
   ],
 

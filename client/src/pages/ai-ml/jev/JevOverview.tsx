@@ -8,11 +8,11 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * Jev とは — System One モデル入門
- * STEP 12: Jev セクション
- * - Jev / System One モデルの位置づけ
+ * Jevとは — System Oneモデル入門
+ * STEP 12: Jevセクション
+ * - Jev / System Oneモデルの位置づけ
  * - 「文章を生成しない」の意味（入出力の形）
- * - LLM との違いと、向いている仕事の見分け方
+ * - LLMとの違いと、向いている仕事の見分け方
  * - このセクションの進み方
  */
 
@@ -25,10 +25,10 @@ export default function JevOverview() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          Jev とは — System One モデル入門
+          Jevとは — System Oneモデル入門
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          Jev は TypeSafe AI
+          JevはTypeSafe AI
           が公開した、文章を一切生成しないモデルです。入力された状況（state）に対する
           「はい /
           いいえ」「どれか」「何段階目か」という型付きの質問に、確率値で答えます。
@@ -43,27 +43,27 @@ export default function JevOverview() {
             後者は、スパムかどうか、どの担当に回すか、どれくらい急ぎか、といった分類・採点・振り分けです。
           </p>
           <p>
-            判断だけの場面で LLM
+            判断だけの場面でLLM
             に文章を書かせると、出力をパースする層と、形式が崩れたときの例外処理が要ります。
-            Jev はこの場面専用に作られていて、答えの型が最初から決まっています。
-            LLM の講座（STEP
+            Jevはこの場面専用に作られていて、答えの型が最初から決まっています。
+            LLMの講座（STEP
             10–11）を終えた今なら、両者の役割分担を設計に落とせます。
           </p>
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
-          {/* Jev とは */}
+          {/* Jevとは */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Scale className="text-primary" size={28} />
-              Jev と System One モデル
+              JevとSystem Oneモデル
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              TypeSafe AI は Jev を「System One
+              TypeSafe AIはJevを「System One
               モデル」という新しい分類の最初のモデルとして公開しました。 公式
-              SDK に同梱されたスキーマでは、モデルの説明例が「General-purpose
-              system one model.」、 リリース日の例が 2026-09-15
-              になっています。名前はモデル ID にも使われていて、SDK
+              SDKに同梱されたスキーマでは、モデルの説明例が「General-purpose
+              system one model.」、 リリース日の例が2026-09-15
+              になっています。名前はモデルIDにも使われていて、SDK
               の既定モデルは
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 jev-latest
@@ -73,7 +73,7 @@ export default function JevOverview() {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               「System
               One」は心理学で言う、速く自動的に働く判断のことです。文章を組み立てて推論する
-              「System Two」的な LLM に対して、Jev
+              「System Two」的なLLMに対して、Jev
               は状況を見て即座に判断を返す役を担う、という位置づけです。
               ただし本教材では比喩に深入りせず、API
               の入出力の形で理解を固めます。
@@ -91,18 +91,18 @@ export default function JevOverview() {
                   <ul className="text-sm text-muted-foreground space-y-1.5">
                     <li>
                       <span className="font-mono text-foreground">state</span>:
-                      判断の対象。テキスト、JSON オブジェクト、配列のいずれか
+                      判断の対象。テキスト、JSONオブジェクト、配列のいずれか
                     </li>
                     <li>
                       <span className="font-mono text-foreground">
                         questions
                       </span>
-                      : 名前付きの質問の集まり。型は noul / choice / score の 3
+                      : 名前付きの質問の集まり。型はnoul / choice / scoreの3
                       つ
                     </li>
                     <li>
                       <span className="font-mono text-foreground">model</span>:
-                      モデル名。省略時は SDK が{" "}
+                      モデル名。省略時はSDKが{" "}
                       <span className="font-mono">jev-latest</span> を補う
                     </li>
                   </ul>
@@ -139,14 +139,14 @@ export default function JevOverview() {
               最小の例で形を見る
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              公式 JavaScript SDK の README
-              にある例をそのまま示します。サポートチケットの本文を state
-              に入れ、 「このチケットは何についてか」を 3
+              公式JavaScript SDKのREADME
+              にある例をそのまま示します。サポートチケットの本文をstate
+              に入れ、 「このチケットは何についてか」を3
               択で聞いています。動かし方は次のページで扱うので、ここでは形だけ追ってください。
             </p>
             <CodeBlock
               language="ts"
-              title="公式 README の例（@typesafe-ai/sdk）"
+              title="公式READMEの例（@typesafe-ai/sdk）"
               code={`import { choice, TypeSafeClient } from "@typesafe-ai/sdk";
 
 const client = new TypeSafeClient();
@@ -179,16 +179,16 @@ console.log(response.answers.category.choice);`}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 probabilities
               </code>{" "}
-              が入ります。 SDK の型定義では、質問の選択肢キーがそのまま{" "}
+              が入ります。 SDKの型定義では、質問の選択肢キーがそのまま{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 probabilities
               </code>{" "}
               のキーの型になります。 選択肢に無いラベルが返る余地は、型の上でも
-              API の上でもありません。
+              APIの上でもありません。
             </p>
             <CodeBlock
               language="json"
-              title="answers.category の形（型定義から起こした例。数値は説明用）"
+              title="answers.categoryの形（型定義から起こした例。数値は説明用）"
               code={`{
   "type": "choice",
   "choice": "billing",
@@ -198,11 +198,11 @@ console.log(response.answers.category.choice);`}
             />
           </section>
 
-          {/* LLM との違い */}
+          {/* LLMとの違い */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <GitCompare className="text-primary" size={28} />
-              LLM との違い
+              LLMとの違い
             </h2>
             <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-sm">
@@ -212,7 +212,7 @@ console.log(response.answers.category.choice);`}
                       観点
                     </th>
                     <th className="text-left py-3 px-4 font-bold text-foreground">
-                      LLM（Claude など）
+                      LLM（Claudeなど）
                     </th>
                     <th className="text-left py-3 px-4 font-bold text-foreground">
                       Jev
@@ -225,7 +225,7 @@ console.log(response.answers.category.choice);`}
                       出力
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      自由記述のテキスト。JSON を頼んでも形式はテキスト経由
+                      自由記述のテキスト。JSONを頼んでも形式はテキスト経由
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       型付きの答え（確率・ラベル・スコア）のみ。テキスト出力の枠が無い
@@ -247,11 +247,11 @@ console.log(response.answers.category.choice);`}
                       確信度
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      「自信は 80%
+                      「自信は80%
                       です」と書かせても、それは文章であり数値保証ではない
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      確率と confidence が数値で返る。しきい値で分岐できる
+                      確率とconfidenceが数値で返る。しきい値で分岐できる
                     </td>
                   </tr>
                   <tr className="bg-card">
@@ -259,7 +259,7 @@ console.log(response.answers.category.choice);`}
                       複数の質問
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      1 つのプロンプトにまとめるか、複数回呼ぶ
+                      1つのプロンプトにまとめるか、複数回呼ぶ
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       1
@@ -281,10 +281,10 @@ console.log(response.answers.category.choice);`}
               </table>
             </div>
             <InfoBox type="info" title="速さと料金について">
-              TypeSafe AI は Jev を、LLM
+              TypeSafe AIはJevを、LLM
               より速く安く判断を返すモデルとして位置づけています。具体的な応答時間と料金は
               提供側の改定で変わるため、本教材には固定しません。公式サイトの料金ページで現在の値を確認してください。
-              公式 SDK に同梱されたスキーマには、出力トークンが「currently free
+              公式SDKに同梱されたスキーマには、出力トークンが「currently free
               of charge」と記されています（執筆時点）。
             </InfoBox>
           </section>
@@ -296,8 +296,8 @@ console.log(response.answers.category.choice);`}
               向いている仕事の見分け方
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              次の 3 つがそろう仕事は Jev の型にはまります。逆に 1
-              つでも欠けるなら、LLM か従来のルールの方が素直です。
+              次の3つがそろう仕事はJevの型にはまります。逆に1
+              つでも欠けるなら、LLMか従来のルールの方が素直です。
             </p>
             <div className="grid md:grid-cols-3 gap-4 mb-6">
               <div className="rounded-xl border border-border bg-card p-5">
@@ -305,7 +305,7 @@ console.log(response.answers.category.choice);`}
                   1. 答えの候補が先に分かる
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  「請求 / 技術 / その他」「急ぎか否か」「0〜2 の 3
+                  「請求 / 技術 / その他」「急ぎか否か」「0〜2の3
                   段階」のように、選択肢を先に列挙できる。
                 </p>
               </div>
@@ -328,7 +328,7 @@ console.log(response.answers.category.choice);`}
             </div>
             <div className="rounded-xl border border-border bg-card p-6">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                例: Web サービスの中で Jev が担える判断
+                例: Webサービスの中でJevが担える判断
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -370,52 +370,52 @@ console.log(response.answers.category.choice);`}
                   {
                     step: "14",
                     label: "開発環境の構築",
-                    desc: "API キー、Node.js / Python の公式 SDK、最初の呼び出し",
+                    desc: "APIキー、Node.js / Pythonの公式SDK、最初の呼び出し",
                   },
                   {
                     step: "15",
-                    label: "3 つの質問型と確率の読み方",
-                    desc: "noul / choice / score の応答の形と、confidence の意味",
+                    label: "3つの質問型と確率の読み方",
+                    desc: "noul / choice / scoreの応答の形と、confidenceの意味",
                   },
                   {
                     step: "16",
-                    label: "state と質問の設計",
-                    desc: "何を state に入れるか、質問の分け方、エラーとリトライ",
+                    label: "stateと質問の設計",
+                    desc: "何をstateに入れるか、質問の分け方、エラーとリトライ",
                   },
                   {
                     step: "17",
-                    label: "サンプルアプリのアイデア 20",
-                    desc: "Jev で何が作れるかを一覧で見て、講座で作る 5 つを選ぶ",
+                    label: "サンプルアプリのアイデア20",
+                    desc: "Jevで何が作れるかを一覧で見て、講座で作る5つを選ぶ",
                   },
                   {
                     step: "18",
-                    label: "サンプルアプリ 1: 家計簿の自動仕分け",
-                    desc: "日常生活の題材。Next.js の Route Handler と React で支出をカテゴリに仕分ける",
+                    label: "サンプルアプリ1: 家計簿の自動仕分け",
+                    desc: "日常生活の題材。Next.jsのRoute HandlerとReactで支出をカテゴリに仕分ける",
                   },
                   {
                     step: "19",
-                    label: "サンプルアプリ 2: UI 文言チェッカー",
-                    desc: "デザイナー向け。ライティング指針に照らして文言を 3 分岐する",
+                    label: "サンプルアプリ2: UI文言チェッカー",
+                    desc: "デザイナー向け。ライティング指針に照らして文言を3分岐する",
                   },
                   {
                     step: "20",
-                    label: "サンプルアプリ 3: ユーザーの声の分類ボード",
-                    desc: "プロダクト作り向け。複数の声を 1 リクエストで評価し、深刻さ順に並べる",
+                    label: "サンプルアプリ3: ユーザーの声の分類ボード",
+                    desc: "プロダクト作り向け。複数の声を1リクエストで評価し、深刻さ順に並べる",
                   },
                   {
                     step: "21",
-                    label: "サンプルアプリ 4: 診療所の受付振り分け",
+                    label: "サンプルアプリ4: 診療所の受付振り分け",
                     desc: "医療現場向け。診断はせず受付業務だけを判定し、緊急の兆候は人へ",
                   },
                   {
                     step: "22",
-                    label: "サンプルアプリ 5: マーケティングの反応分析",
+                    label: "サンプルアプリ5: マーケティングの反応分析",
                     desc: "一括評価して個別の次の行動とキャンペーン別の集計を出す",
                   },
                   {
                     step: "23",
                     label: "応用",
-                    desc: "信頼度ゲート、LLM との組み合わせ、評価、Jev では扱えないこと",
+                    desc: "信頼度ゲート、LLMとの組み合わせ、評価、Jevでは扱えないこと",
                   },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -435,9 +435,9 @@ console.log(response.answers.category.choice);`}
               </div>
             </div>
             <InfoBox type="warning" title="一次情報の扱いについて">
-              本セクションの API の記述は、TypeSafe AI が公開している公式
-              SDK（npm の @typesafe-ai/sdk、PyPI の typesafe-sdk）に
-              同梱された型定義と、API の OpenAPI
+              本セクションのAPIの記述は、TypeSafe AIが公開している公式
+              SDK（npmの @typesafe-ai/sdk、PyPIのtypesafe-sdk）に
+              同梱された型定義と、APIのOpenAPI
               定義から生成されたスキーマを読んで書いています。
               各ページ末尾の出典欄に、手元で同じものを取り出す再現コマンドを載せています。
               公式ドキュメント（docs.typesafe.ai）の記述が更新されて食い違う場合は、公式を正としてください。
@@ -450,7 +450,7 @@ console.log(response.answers.category.choice);`}
               理解度チェック
             </h2>
             <Quiz
-              question="Jev の応答に含まれないものはどれ？"
+              question="Jevの応答に含まれないものはどれ？"
               options={[
                 { label: "選ばれたラベルとその確信度" },
                 { label: "選択肢ごとの確率" },
@@ -460,10 +460,10 @@ console.log(response.answers.category.choice);`}
                 },
                 { label: "入力・出力トークン数" },
               ]}
-              explanation="Jev の応答は、質問の型に対応する数値（確率・ラベル・スコア）と usage で構成されます。自由記述のテキストを返す枠は API の応答にありません。理由の説明が必要なら LLM の役割です。"
+              explanation="Jevの応答は、質問の型に対応する数値（確率・ラベル・スコア）とusageで構成されます。自由記述のテキストを返す枠はAPIの応答にありません。理由の説明が必要ならLLMの役割です。"
             />
             <Quiz
-              question="Jev に向いている仕事の条件として適切でないものは？"
+              question="Jevに向いている仕事の条件として適切でないものは？"
               options={[
                 { label: "答えの候補を先に列挙できる" },
                 { label: "同じ形の判断を繰り返す" },
@@ -473,7 +473,7 @@ console.log(response.answers.category.choice);`}
                   correct: true,
                 },
               ]}
-              explanation="文章の生成は Jev の対象外です。候補が決まっていて、繰り返し発生し、確率で行動を変えられる判断が Jev の守備範囲です。"
+              explanation="文章の生成はJevの対象外です。候補が決まっていて、繰り返し発生し、確率で行動を変えられる判断がJevの守備範囲です。"
             />
           </section>
 
@@ -490,12 +490,12 @@ console.log(response.answers.category.choice);`}
                   title: "@typesafe-ai/sdk（npm）",
                   url: "https://www.npmjs.com/package/@typesafe-ai/sdk",
                   description:
-                    "公式 JavaScript / TypeScript SDK。README に最小の例がある。",
+                    "公式JavaScript / TypeScript SDK。READMEに最小の例がある。",
                 },
                 {
                   title: "typesafe-sdk（PyPI）",
                   url: "https://pypi.org/project/typesafe-sdk/",
-                  description: "公式 Python SDK。",
+                  description: "公式Python SDK。",
                 },
               ]}
             />

@@ -9,10 +9,10 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * Jev の開発環境構築
- * STEP 14: Jev セクション
- * - API キーと環境変数
- * - Node.js SDK / Python SDK の導入
+ * Jevの開発環境構築
+ * STEP 14: Jevセクション
+ * - APIキーと環境変数
+ * - Node.js SDK / Python SDKの導入
  * - 最初の呼び出しと応答の確認
  * - ブラウザから呼ばない構成
  * - 環境変数と既定値の一覧、よくあるエラー
@@ -27,10 +27,10 @@ export default function JevSetup() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          Jev の開発環境構築
+          Jevの開発環境構築
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          API キーの取得から、Node.js と Python それぞれの公式 SDK
+          APIキーの取得から、Node.jsとPythonそれぞれの公式SDK
           の導入、最初の呼び出しまでを一通り行います。 SDK
           がブラウザからの呼び出しを既定で拒否する理由も、ここで先に押さえます。
         </p>
@@ -45,28 +45,28 @@ export default function JevSetup() {
           ]}
         >
           <p>
-            Jev の API はキー 1
+            JevのAPIはキー1
             つで呼べます。環境構築で詰まる箇所は、キーの置き場所と、どこから呼ぶかの
-            2 点です。 この 2
+            2点です。 この2
             点を最初に正しく決めておくと、後のサンプルアプリでそのまま使い回せます。
           </p>
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
-          {/* API キー */}
+          {/* APIキー */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <KeyRound className="text-primary" size={28} />
-              1. API キーと環境変数
+              1. APIキーと環境変数
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              公式の両 SDK は、環境変数{" "}
+              公式の両SDKは、環境変数{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 TYPESAFE_API_KEY
               </code>{" "}
-              から キーを読みます。Python SDK の README は「Set TYPESAFE_API_KEY
+              から キーを読みます。Python SDKのREADMEは「Set TYPESAFE_API_KEY
               in your environment, then instantiate and use the
-              client:」と書いています。 キーは TypeSafe AI
+              client:」と書いています。 キーはTypeSafe AI
               のコンソールで発行します（公式サイトの案内に従ってください）。
             </p>
             <CodeBlock
@@ -82,23 +82,23 @@ export default function JevSetup() {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 .env
               </code>{" "}
-              が入っていることを先に確認します。 Next.js は{" "}
+              が入っていることを先に確認します。 Next.jsは{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 .env.local
               </code>{" "}
-              をサーバー側で自動で読みます。 Python では{" "}
+              をサーバー側で自動で読みます。 Pythonでは{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 python-dotenv
               </code>{" "}
-              を使うか、シェルで export します。
+              を使うか、シェルでexportします。
             </p>
             <InfoBox type="warning" title="NEXT_PUBLIC_ を付けない">
-              Next.js で環境変数名に{" "}
+              Next.jsで環境変数名に{" "}
               <code className="text-sm bg-muted px-1 rounded">
                 NEXT_PUBLIC_
               </code>{" "}
               を付けると、その値はブラウザに配布されるバンドルへ埋め込まれます。
-              API キーは必ずプレフィックス無しのまま、サーバー側（Route Handler
+              APIキーは必ずプレフィックス無しのまま、サーバー側（Route Handler
               / Server Actions）からだけ参照します。
             </InfoBox>
           </section>
@@ -114,7 +114,7 @@ export default function JevSetup() {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 @typesafe-ai/sdk
               </code>{" "}
-              です。 README は Node.js 20
+              です。 READMEはNode.js 20
               以上を前提にしています。ESM・CommonJS・TypeScript
               の型宣言が同梱されています。
             </p>
@@ -122,7 +122,7 @@ export default function JevSetup() {
               language="bash"
               title="インストール"
               code={`npm install @typesafe-ai/sdk
-# pnpm add @typesafe-ai/sdk / yarn add @typesafe-ai/sdk でも同じ`}
+# pnpm add @typesafe-ai/sdk / yarn add @typesafe-ai/sdkでも同じ`}
             />
             <p className="text-muted-foreground mt-6 mb-4 leading-relaxed">
               最初の呼び出しです。
@@ -158,12 +158,12 @@ const { answers, model, usage } = await client.systemOne({
 });
 
 console.log(model);                 // 例: "jev-latest"（実際に答えたモデル名）
-console.log(answers.billing.noul);  // 0〜1 の数値。1 に近いほど「はい」
+console.log(answers.billing.noul);  // 0〜1の数値。1に近いほど「はい」
 console.log(usage);                 // { input_tokens, output_tokens }`}
             />
             <CodeBlock
               language="bash"
-              title="実行（Node.js 20 以上。TypeScript は tsx で直接実行）"
+              title="実行（Node.js 20以上。TypeScriptはtsxで直接実行）"
               code={`npx tsx hello-jev.ts`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
@@ -174,7 +174,7 @@ console.log(usage);                 // { input_tokens, output_tokens }`}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 answers
               </code>{" "}
-              のキーと答えの型は、渡した questions から推論されます。 README
+              のキーと答えの型は、渡したquestionsから推論されます。 README
               はこれを「Answer types are inferred from your
               questions.」と説明しています。
             </p>
@@ -190,11 +190,11 @@ console.log(usage);                 // { input_tokens, output_tokens }`}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 typesafe-sdk
               </code>
-              （Python 3.10 以上）です。 README は{" "}
+              （Python 3.10以上）です。 READMEは{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 uv add
               </code>{" "}
-              で案内していますが、pip でも入ります。 名前の似た別パッケージ（
+              で案内していますが、pipでも入ります。 名前の似た別パッケージ（
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 typesafe
               </code>{" "}
@@ -209,7 +209,7 @@ pip install typesafe-sdk`}
             />
             <CodeBlock
               language="python"
-              title="hello_jev.py（公式 README の例）"
+              title="hello_jev.py（公式READMEの例）"
               code={`from typesafe_sdk import Choice, TypeSafeClient
 
 with TypeSafeClient() as client:
@@ -226,7 +226,7 @@ with TypeSafeClient() as client:
 print(response.choices["category"].choice)`}
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
-              Python 側は{" "}
+              Python側は{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 with
               </code>{" "}
@@ -268,8 +268,8 @@ print(response.choices["category"].choice)`}
                 dangerouslyAllowBrowser
               </code>{" "}
               の説明は 「Allow browser use, exposing the API key to page users.
-              Default: false.」です。 名前のとおり、これを true
-              にするとページを開いた全員に API キーを渡すことになります。
+              Default: false.」です。 名前のとおり、これをtrue
+              にするとページを開いた全員にAPIキーを渡すことになります。
             </p>
             <div className="rounded-xl border border-border bg-card p-6">
               <p className="text-sm font-semibold text-foreground mb-4">
@@ -280,12 +280,12 @@ print(response.choices["category"].choice)`}
                   {
                     step: "1",
                     label: "ブラウザ（React）",
-                    desc: "判断したい内容を自分のサーバーの API に POST する",
+                    desc: "判断したい内容を自分のサーバーのAPIにPOSTする",
                   },
                   {
                     step: "2",
-                    label: "サーバー（Next.js Route Handler など）",
-                    desc: "TYPESAFE_API_KEY を持ち、SDK で Jev を呼ぶ",
+                    label: "サーバー（Next.js Route Handlerなど）",
+                    desc: "TYPESAFE_API_KEYを持ち、SDKでJevを呼ぶ",
                   },
                   {
                     step: "3",
@@ -312,10 +312,10 @@ print(response.choices["category"].choice)`}
               </div>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              STEP 18〜22 のサンプルアプリはこの構成で、実際に Jev
+              STEP 18〜22のサンプルアプリはこの構成で、実際にJev
               を呼んで動かします。学習ステップ（STEP
-              15〜16）のチャレンジはブラウザ内の練習なので API を呼びませんが、
-              サンプルアプリでは STEP 13 で用意した API キーが必要です。
+              15〜16）のチャレンジはブラウザ内の練習なのでAPIを呼びませんが、
+              サンプルアプリではSTEP 13で用意したAPIキーが必要です。
             </p>
           </section>
 
@@ -326,9 +326,9 @@ print(response.choices["category"].choice)`}
               5. 環境変数と既定値
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              両 SDK
+              両SDK
               は同じ環境変数名を使います。コードで渡した値が環境変数より優先されます。既定値は
-              SDK に同梱された定義から起こしています。
+              SDKに同梱された定義から起こしています。
             </p>
             <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-sm">
@@ -351,7 +351,7 @@ print(response.choices["category"].choice)`}
                       TYPESAFE_API_KEY
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      API キー（必須）
+                      APIキー（必須）
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       無し。未設定だと初期化時にエラー
@@ -362,7 +362,7 @@ print(response.choices["category"].choice)`}
                       TYPESAFE_BASE_URL
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      API のルート URL
+                      APIのルートURL
                     </td>
                     <td className="py-3 px-4 text-muted-foreground font-mono text-xs">
                       https://api.typesafe.ai
@@ -373,7 +373,7 @@ print(response.choices["category"].choice)`}
                       TYPESAFE_DEFAULT_MODEL
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      model を省略したときのモデル名
+                      modelを省略したときのモデル名
                     </td>
                     <td className="py-3 px-4 text-muted-foreground font-mono text-xs">
                       jev-latest
@@ -384,7 +384,7 @@ print(response.choices["category"].choice)`}
                       TYPESAFE_LOG_LEVEL
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      SDK のログ量（debug / info / warn / error / off）
+                      SDKのログ量（debug / info / warn / error / off）
                     </td>
                     <td className="py-3 px-4 text-muted-foreground font-mono text-xs">
                       warn
@@ -394,8 +394,8 @@ print(response.choices["category"].choice)`}
               </table>
             </div>
             <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-              タイムアウトの既定は JavaScript SDK が 1 試行あたり 10000
-              ミリ秒、Python SDK が 10.0 秒です。リトライの既定は STEP 16
+              タイムアウトの既定はJavaScript SDKが1試行あたり10000
+              ミリ秒、Python SDKが10.0秒です。リトライの既定はSTEP 16
               で扱います。
               <code className="text-sm bg-muted px-1 rounded">
                 TYPESAFE_LOG_LEVEL=debug
@@ -418,7 +418,7 @@ print(response.choices["category"].choice)`}
                   environment variable.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  環境変数が読めていません。Next.js なら .env.local
+                  環境変数が読めていません。Next.jsなら .env.local
                   の置き場所（プロジェクトルート）と、dev
                   サーバーの再起動を確認します。
                 </p>
@@ -429,8 +429,8 @@ print(response.choices["category"].choice)`}
                   would expose your API key to anyone using the page. …
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  クライアントコンポーネントから SDK を import
-                  しています。呼び出しを Route Handler か Server Action
+                  クライアントコンポーネントからSDKをimport
+                  しています。呼び出しをRoute HandlerかServer Action
                   に移します。
                 </p>
               </div>
@@ -447,8 +447,8 @@ print(response.choices["category"].choice)`}
                   TypeSafeError: At least one question is required.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  questions が空です。SDK は送信前に検査して弾きます。score の
-                  criteria が 2 段階未満のときも同様にローカルで弾かれます。
+                  questionsが空です。SDKは送信前に検査して弾きます。scoreの
+                  criteriaが2段階未満のときも同様にローカルで弾かれます。
                 </p>
               </div>
             </div>
@@ -461,7 +461,7 @@ print(response.choices["category"].choice)`}
             </h2>
             <CodingChallenge
               title="最初の呼び出しを完成させる"
-              description="___ を埋めて、環境変数からキーを読むクライアントで noul の質問を 1 つ投げ、確率を表示するコードにしてください。"
+              description="___ を埋めて、環境変数からキーを読むクライアントでnoulの質問を1つ投げ、確率を表示するコードにしてください。"
               preview={false}
               previewType="terminal"
               initialCode={`import { noul, ___ } from "@typesafe-ai/sdk";
@@ -489,9 +489,9 @@ const { answers } = await client.systemOne({
 
 console.log(answers.technical.noul);`}
               hints={[
-                "クライアントのクラス名は TypeSafeClient です。引数なしで環境変数を読みます",
-                "質問を投げるメソッドは systemOne です（Python では system_one）",
-                "noul の答えは、質問名の下の noul プロパティに 0〜1 の数値で入ります",
+                "クライアントのクラス名はTypeSafeClientです。引数なしで環境変数を読みます",
+                "質問を投げるメソッドはsystemOneです（Pythonではsystem_one）",
+                "noulの答えは、質問名の下のnoulプロパティに0〜1の数値で入ります",
               ]}
               keywords={["TypeSafeClient", "systemOne", ".noul"]}
             />
@@ -503,20 +503,20 @@ console.log(answers.technical.noul);`}
               理解度チェック
             </h2>
             <Quiz
-              question="Next.js アプリで Jev を呼ぶ場所として適切なのは？"
+              question="Next.jsアプリでJevを呼ぶ場所として適切なのは？"
               options={[
-                { label: "クライアントコンポーネントの useEffect の中" },
+                { label: "クライアントコンポーネントのuseEffectの中" },
                 {
-                  label: "Route Handler や Server Action などサーバー側",
+                  label: "Route HandlerやServer Actionなどサーバー側",
                   correct: true,
                 },
                 {
                   label:
-                    "NEXT_PUBLIC_TYPESAFE_API_KEY を定義してブラウザから直接",
+                    "NEXT_PUBLIC_TYPESAFE_API_KEYを定義してブラウザから直接",
                 },
                 { label: "どこでも同じ" },
               ]}
-              explanation="SDK はブラウザ実行を既定で拒否します。API キーはサーバー側だけが持ち、ブラウザには整形済みの結果だけを返す構成にします。"
+              explanation="SDKはブラウザ実行を既定で拒否します。APIキーはサーバー側だけが持ち、ブラウザには整形済みの結果だけを返す構成にします。"
             />
           </section>
 
@@ -527,13 +527,13 @@ console.log(answers.technical.noul);`}
                   title: "TypeSafe AI Docs — JavaScript SDK",
                   url: "https://docs.typesafe.ai/sdk/javascript",
                   description:
-                    "npm パッケージの homepage に指定されている SDK ドキュメント。",
+                    "npmパッケージのhomepageに指定されているSDKドキュメント。",
                 },
                 {
                   title: "TypeSafe AI Docs — Python SDK",
                   url: "https://docs.typesafe.ai/sdk/python/",
                   description:
-                    "PyPI パッケージの Documentation に指定されている SDK ドキュメント。",
+                    "PyPIパッケージのDocumentationに指定されているSDKドキュメント。",
                 },
               ]}
             />
