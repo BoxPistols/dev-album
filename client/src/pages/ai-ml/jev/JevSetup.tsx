@@ -67,7 +67,11 @@ export default function JevSetup() {
               から キーを読みます。Python SDKのREADMEは「Set TYPESAFE_API_KEY
               in your environment, then instantiate and use the
               client:」と書いています。 キーはTypeSafe AI
-              のコンソールで発行します（公式サイトの案内に従ってください）。
+              のコンソール（
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                https://console.typesafe.ai/keys
+              </code>
+              ）で発行します。公式のQuick startがこの場所を案内しています。
             </p>
             <CodeBlock
               language="bash"
@@ -145,7 +149,7 @@ export default function JevSetup() {
             </p>
             <CodeBlock
               language="ts"
-              title="hello-jev.ts"
+              title="hello-jev.mts"
               code={`import { noul, TypeSafeClient } from "@typesafe-ai/sdk";
 
 const client = new TypeSafeClient();
@@ -157,15 +161,50 @@ const { answers, model, usage } = await client.systemOne({
   },
 });
 
-console.log(model);                 // 例: "jev-latest"（実際に答えたモデル名）
+console.log(model);                 // 答えたモデルの名前
 console.log(answers.billing.noul);  // 0〜1の数値。1に近いほど「はい」
 console.log(usage);                 // { input_tokens, output_tokens }`}
             />
             <CodeBlock
               language="bash"
               title="実行（Node.js 20以上。TypeScriptはtsxで直接実行）"
-              code={`npx tsx hello-jev.ts`}
+              code={`npx tsx hello-jev.mts`}
             />
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              拡張子を{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                .mts
+              </code>{" "}
+              にしているのは、このコードがトップレベルのawaitを使うためです。
+              package.jsonに{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                {'"type": "module"'}
+              </code>{" "}
+              が無いディレクトリ（npm initの既定）で同じ内容を{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                .ts
+              </code>{" "}
+              として実行すると、tsxは「Top-level await is currently not
+              supported with the {'"cjs"'} output format」で止まります（2026-09-20
+              にtsx 4.23.12とNode.js 24.20.0で確認）。{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                .mts
+              </code>{" "}
+              はESモジュールとして扱われるので、そのまま動きます。
+            </p>
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              公式ドキュメントのModelsページは、応答のmodelには答えたモデルのバージョン付きID（2026-09-20
+              時点では{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                jev-1.13.0
+              </code>
+              ）が入るとしています。同じページによると、バージョン付きIDはリクエストのmodel
+              にも指定できます。版を固定したいときは、systemOneの引数に{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                {'model: "jev-1.13.0"'}
+              </code>{" "}
+              を足すか、後述の環境変数TYPESAFE_DEFAULT_MODELに同じ値を入れます。
+            </p>
             <p className="text-muted-foreground mt-3 leading-relaxed">
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 answers.billing.noul
@@ -328,7 +367,9 @@ print(response.choices["category"].choice)`}
             <p className="text-muted-foreground mb-4 leading-relaxed">
               両SDK
               は同じ環境変数名を使います。コードで渡した値が環境変数より優先されます。既定値は
-              SDKに同梱された定義から起こしています。
+              SDKに同梱された定義（JavaScript SDK 0.6.0、Python SDK
+              0.7.0）と、公式ドキュメントの環境変数の表（2026-09-20時点）から起こしています。
+              TYPESAFE_LOG_LEVELはSDKによって値の書き方と既定が違います。
             </p>
             <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-sm">
@@ -384,10 +425,13 @@ print(response.choices["category"].choice)`}
                       TYPESAFE_LOG_LEVEL
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      SDKのログ量（debug / info / warn / error / off）
+                      SDKのログ量。JavaScript SDKはdebug / info / warn / error
+                      / off、Python SDKはdebug / info / warning / error / off
                     </td>
-                    <td className="py-3 px-4 text-muted-foreground font-mono text-xs">
-                      warn
+                    <td className="py-3 px-4 text-muted-foreground">
+                      JavaScript SDKはwarn。Python SDK
+                      は未設定（公式の表でunset。ログの設定はPython標準の
+                      loggingに従う）
                     </td>
                   </tr>
                 </tbody>
@@ -528,6 +572,17 @@ console.log(answers.technical.noul);`}
                   url: "https://docs.typesafe.ai/sdk/javascript",
                   description:
                     "npmパッケージのhomepageに指定されているSDKドキュメント。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Quick start",
+                  url: "https://docs.typesafe.ai/introduction/quickstart",
+                  description: "APIキーを発行する場所の案内。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Models",
+                  url: "https://docs.typesafe.ai/models",
+                  description:
+                    "応答のmodelに入るバージョン付きIDとエイリアスの説明。",
                 },
                 {
                   title: "TypeSafe AI Docs — Python SDK",

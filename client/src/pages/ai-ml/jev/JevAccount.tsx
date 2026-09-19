@@ -18,7 +18,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * STEP 13: Jevセクション
  * - 直接契約（TypeSafe AIコンソール）と、Vercel AI Gateway経由の2ルート
  * - ウェイトリスト、キー発行、支払い方法、予算上限
- * - 公式に確認できたことと、二次情報でしか確認できていないことを分けて書く
+ * - 公式に確認できたことと、公式ドキュメントに記載が無いことを分けて書く
  */
 
 export default function JevAccount() {
@@ -51,8 +51,7 @@ export default function JevAccount() {
           <p>
             有料API
             は「キーを取る」だけでは動かず、支払い方法の登録や残高が要ることが多いです。
-            どこで何を登録し、いくらまで使われ得るかを先に把握しておくと、初回の呼び出しで
-            401や402系のエラーに当たっても落ち着いて対処できます。
+            どこで何を登録し、いくらまで使われ得るかを先に把握しておくと、初回の呼び出しで401のエラーに当たっても原因を順に確かめられます。
           </p>
         </WhyNowBox>
 
@@ -60,11 +59,10 @@ export default function JevAccount() {
           {/* 前提 */}
           <section>
             <InfoBox type="warning" title="このページの根拠の強さについて">
-              執筆環境からTypeSafe AI
-              の公式サイトとコンソールに到達できなかったため、登録画面の手順は公式ドキュメントの逐語引用ではありません。
-              「公式SDK
-              で確認できたこと」「公開されている紹介記事で報告されていること」「Vercel
-              の公式ドキュメントに書かれていること」を分けて書きます。
+              ルートAの始め方（ウェイトリスト）、キーを発行する場所、単価と課金の対象は、TypeSafe
+              AIの公式サイトと公式ドキュメントで2026-09-20に確認した内容です。ルートBはVercel
+              の公式ドキュメントに基づきます。
+              コンソールにログインした後の画面は確認していません。支払い方法の登録など、公式ドキュメントに記載が無い手順はコンソールの案内に従ってください。
               画面の文言や手順は変わるので、迷ったら各節のリンク先（公式）を正としてください。
             </InfoBox>
           </section>
@@ -100,7 +98,8 @@ export default function JevAccount() {
                       typesafe-sdk）。本セクションのコードはこちら
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      Vercel AI SDK（aiパッケージ）の評価用API。書き方が変わる
+                      同じ公式SDK。baseURLとキーを替えて、VercelのTypeSafe互換API
+                      に向ける。新しく書くコードならAI SDKの評価用APIも選べる
                     </td>
                   </tr>
                   <tr className="bg-card">
@@ -108,7 +107,8 @@ export default function JevAccount() {
                       登録
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      公開情報では早期アクセスのウェイトリスト制と報告されている
+                      ウェイトリストに登録する（公式サイトのFAQ「Join the
+                      waitlist!」）
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       Vercel
@@ -132,7 +132,7 @@ export default function JevAccount() {
                       向く人
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      公式SDKの型と機能をそのまま使いたい。本教材の前提
+                      TypeSafe AIのコンソールとPlaygroundも使いたい。本教材の前提
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       すでにVercelに課金していて、複数モデルの請求を1
@@ -145,8 +145,9 @@ export default function JevAccount() {
             <p className="text-muted-foreground mt-4 leading-relaxed">
               本セクションはAを前提に進めます。A
               のウェイトリストが通るまでの間にB
-              で先に触る、という使い方もできます。 ただしBはVercel AI SDK
-              の書き方になるため、STEP 14以降のコードをそのままは使えません。
+              で先に触る、という使い方もできます。BでもSTEP 14以降のコードは公式
+              SDKのまま使えます。替えるのは接続先とキー、モデル名の指定です（「3.
+              ルートB」で扱います）。
             </p>
           </section>
 
@@ -161,28 +162,28 @@ export default function JevAccount() {
                 {[
                   {
                     step: "1",
-                    label: "公式サイト（typesafe.ai）で早期アクセスに申し込む",
-                    desc: "公開されている紹介記事では、ウェイトリストに登録し、承認されるとメールが届くと報告されている。承認までの日数は記事によって異なる",
+                    label: "公式サイト（typesafe.ai）でウェイトリストに登録する",
+                    desc: "公式サイトのFAQは、始め方を「Join the waitlist!」と案内している。トップページの「Join Waitlist」から登録する。登録後に使えるようになるまでの連絡方法と期間は、公式に記載なし",
                   },
                   {
                     step: "2",
                     label: "コンソール（console.typesafe.ai）にログインする",
-                    desc: "承認メールの案内に従う。紹介記事では設定画面の「keys」からキーを発行すると報告されている",
+                    desc: "公式のQuick startは、Playground（https://console.typesafe.ai/playground）にログインして質問を試す手順から始めている。コードを書く前に、ここで質問の形を試せる",
                   },
                   {
                     step: "3",
                     label: "APIキーを発行し、表示された直後に控える",
-                    desc: "多くのAPIサービスと同じく、キーの全文は発行時にしか表示されない前提で扱う。用途別（開発 / 本番）に分けて発行する",
+                    desc: "発行する場所はhttps://console.typesafe.ai/keys（公式のQuick start）。キーの全文を後から見られるかは公式ドキュメントに記載なし。発行時にしか表示されない前提で扱い、用途別（開発 / 本番）に分けて発行する",
                   },
                   {
                     step: "4",
-                    label: "支払い方法を登録する",
-                    desc: "公開情報では、公開時点で無料枠やトライアルクレジットの記載は無く、最初のリクエストから従量課金と報告されている。カード登録画面の有無と手順はコンソールの案内に従う",
+                    label: "支払いの設定をコンソールで確認する",
+                    desc: "支払い方法の登録手順は公式ドキュメントに記載なし。コンソールの画面の案内に従う",
                   },
                   {
                     step: "5",
-                    label: "料金ページで単価を確認する",
-                    desc: "課金は入力トークンのみで、出力トークンは無料（公式SDK同梱のスキーマに「Output tokens are currently free of charge.」と明記）。単価は改定されるので本教材には固定しない",
+                    label: "公式ドキュメントのModelsページで単価を確認する",
+                    desc: "Modelsページ（https://docs.typesafe.ai/models）は「Charged per input token. Output tokens are free.」としている。2026-09-20時点の単価は、Jev 1.13が入力100万トークンあたり$0.042。単価は改定されるので、使う前に同じページで確かめる",
                   },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -205,7 +206,7 @@ export default function JevAccount() {
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               キーが取れたら、次の1行で疎通を確かめます。SDK
-              を入れる前に、キーと課金が有効かだけを切り分けるためです。
+              を入れる前に、キーが通るかだけを切り分けるためです。
               エンドポイントは公式SDKの既定値（
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 https://api.typesafe.ai
@@ -230,7 +231,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
                   200でモデル一覧
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  キーと契約が有効。STEP 14へ進む
+                  キーが通っている。STEP 14へ進む
                 </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
@@ -241,13 +242,21 @@ curl -sS https://api.typesafe.ai/v1/models \\
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <p className="text-sm font-bold text-foreground mb-1">
-                  403 / 402系
+                  403と「Must supply an API key!」
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  権限か支払いの問題。コンソールの請求設定と、早期アクセスの承認状態を確認
+                  キーがリクエストに付いていない。exportした変数名と、値が空でないかを確認
                 </p>
               </div>
             </div>
+            <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+              公式のAPIリファレンスのエラー表にあるステータスは401（キーが無いか無効）、422（リクエスト本文の検証エラー）、429（レート制限）、529（一時的な過負荷）です。
+              403はこの表にありませんが、2026-09-20にキーを付けずに上のcurl
+              を実行したところ、403と「Must supply an API key! Check your
+              request and try again.」が返りました。422と429
+              をコードでどう受けるかはSTEP 16で扱います。529はSDK
+              の既定のリトライ対象（500〜599）に含まれます。
+            </p>
           </section>
 
           {/* B: Vercel AI Gateway */}
@@ -277,7 +286,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
                   {
                     step: "2",
                     label: "AI GatewayのAPIキーを発行する",
-                    desc: "ダッシュボードかCLI（vercel ai-gateway api-keys create）。キーごとに予算上限（--budget）と更新周期（--refresh-period）を付けられる",
+                    desc: "ダッシュボードかCLI（vercel ai-gateway api-keys create）。キーごとに予算上限（--limit）と更新周期（--refresh-period）を付けられる。2026-09-20時点のVercelのドキュメントは、--limitが使えるのはVercel CLI v59.13.0以降で、それより前の版では非推奨の--budgetを使うとしている",
                   },
                   {
                     step: "3",
@@ -311,17 +320,61 @@ curl -sS https://api.typesafe.ai/v1/models \\
             </div>
             <CodeBlock
               language="bash"
-              title="予算上限付きのキーをCLIで作る（Vercel公式ドキュメントの例）"
-              code={`vercel ai-gateway api-keys create --name jev-dev --budget 10 --refresh-period monthly`}
+              title="予算上限付きのキーをCLIで作る（Vercel公式ドキュメントの例を元に、キーの名前だけ変えたもの）"
+              code={`vercel ai-gateway api-keys create --name jev-dev --limit 10 --refresh-period monthly`}
             />
+            <p className="text-muted-foreground mt-6 mb-4 leading-relaxed">
+              Vercelは、TypeSafeのAPIと同じ形で呼べる互換API（ベースURLは{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                https://ai-gateway.vercel.sh/typesafe
+              </code>
+              ）を公開しています。Vercelのドキュメントは移行の手順を「Change the
+              base URL and the API key」「Everything else stays the
+              same」と説明しています。公式SDKの初期化を次の形にすれば、STEP 14
+              以降のコードをそのまま使えます。
+            </p>
+            <CodeBlock
+              language="ts"
+              title="公式SDKをAI Gatewayに向ける（Vercel公式ドキュメントの例から）"
+              code={`import { TypeSafeClient } from "@typesafe-ai/sdk";
+
+const client = new TypeSafeClient({
+  apiKey: process.env.AI_GATEWAY_API_KEY,
+  baseURL: "https://ai-gateway.vercel.sh/typesafe",
+});
+
+const result = await client.systemOne({
+  model: "typesafe-ai/jev",
+  state: "I was charged twice for my subscription.",
+  questions: {
+    refund: {
+      type: "noul",
+      instructions: "Is the customer asking for money back?",
+    },
+  },
+});`}
+            />
+            <p className="text-muted-foreground mt-3 mb-4 leading-relaxed">
+              Vercelの例はmodelに{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                typesafe-ai/jev
+              </code>{" "}
+              を指定しています。本教材のコードはmodelを省略しているので、ルートB
+              ではmodelを明示するか、STEP 14の表にある環境変数
+              TYPESAFE_DEFAULT_MODELに同じ値を入れます。Vercel
+              のドキュメントは、この互換APIの応答がTypeSafeのフィールド名（answers、noul、usage.input_tokens）を使うとしています。
+            </p>
             <InfoBox type="info" title="ルートBでの呼び出し方">
-              Vercelの案内では、AI SDKの評価用API（experimental_evaluate）で
-              Jevのchoice / score / booleanを扱います。 本教材の3
-              本のアプリは公式SDKで書いているため、ルートBで進める場合は
-              Vercelのナレッジベース記事「How to classify, route, and score
-              with Jev and AI SDK」に沿って呼び出し部分を置き換えてください。
-              置き換えるのはRoute Handlerの中の呼び出しだけで、判定ロジックと
-              UIはそのまま使えます。
+              上の互換APIとは別に、Vercelは新しく書くコード向けにAI SDK
+              の評価用API（experimental_evaluate）を案内しています。こちらは応答の形が公式
+              SDKと違います。Vercelのナレッジベース記事「How to classify,
+              route, and score with Jev and AI SDK」によると、noulに当たる質問は
+              booleanという型になり、答えはprobabilityに入ります。confidence
+              は答えの中ではなくresult.providerMetadata.typesafe.confidence
+              に質問IDごとに入ります。
+              本教材のサンプルアプリは公式SDKの応答の形（answers.x.noulや
+              answers.x.confidence）を読むので、AI SDK
+              で書く場合は呼び出しに加えて、応答を読む部分も書き換えます。
             </InfoBox>
           </section>
 
@@ -335,7 +388,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
               {[
                 {
                   title: "開発用と本番用でキーを分ける",
-                  body: "漏えい時に本番だけ残して開発用を無効化できる。予算上限も別に付けられる。",
+                  body: "漏えい時に本番だけ残して開発用を無効化できる。ルートBではキーごとに予算上限も付けられる。",
                 },
                 {
                   title: "予算上限を先に付ける",
@@ -393,7 +446,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    料金ページで現在の単価を見て、1
+                    公式ドキュメントのModelsページで現在の単価を見て、1
                     リクエストあたりの概算を自分で出した
                   </span>
                 </li>
@@ -417,7 +470,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
                 { label: "リクエスト回数で課金される" },
                 { label: "月額固定" },
               ]}
-              explanation="スキーマのUsageはinput_tokensをbillable、output_tokensを「currently free of charge」と説明しています。単価そのものは改定されるので公式の料金ページで確認します。"
+              explanation="スキーマのUsageはinput_tokensをbillable、output_tokensを「currently free of charge」と説明しています。単価そのものは改定されるので、公式ドキュメントのModelsページ（https://docs.typesafe.ai/models）で確認します。"
             />
           </section>
 
@@ -428,12 +481,22 @@ curl -sS https://api.typesafe.ai/v1/models \\
                   title: "TypeSafe AI — Quick start",
                   url: "https://docs.typesafe.ai/introduction/quickstart",
                   description:
-                    "公式のはじめ方。登録・キー発行の手順はここを正とする。",
+                    "公式のはじめ方。Playgroundとキーを発行する場所の案内。",
                 },
                 {
                   title: "TypeSafe AI",
                   url: "https://typesafe.ai/",
-                  description: "公式サイト。早期アクセスの申し込み。",
+                  description: "公式サイト。ウェイトリストの登録とFAQ。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Models",
+                  url: "https://docs.typesafe.ai/models",
+                  description: "単価と課金の対象、エイリアス、モデル一覧のAPI。",
+                },
+                {
+                  title: "TypeSafe AI Docs — API reference",
+                  url: "https://docs.typesafe.ai/api",
+                  description: "エラーのステータス一覧（401 / 422 / 429 / 529）。",
                 },
                 {
                   title:
@@ -445,7 +508,19 @@ curl -sS https://api.typesafe.ai/v1/models \\
                   title:
                     "Vercel KB — How to classify, route, and score with Jev and AI SDK",
                   url: "https://vercel.com/kb/guide/typesafe-jev-and-ai-sdk",
-                  description: "ルートBでの呼び出し方。",
+                  description:
+                    "AI SDKの評価用APIで書く場合の呼び出し方と応答の形。",
+                },
+                {
+                  title: "Vercel Docs — TypeSafe API with AI Gateway",
+                  url: "https://vercel.com/docs/ai-gateway/sdks-and-apis/typesafe",
+                  description:
+                    "公式SDKのままAI Gatewayを使うための互換API。ベースURLと認証。",
+                },
+                {
+                  title: "Vercel Docs — vercel ai-gateway（CLI）",
+                  url: "https://vercel.com/docs/cli/ai-gateway",
+                  description: "api-keys createの--limitと--refresh-period。",
                 },
                 {
                   title: "Vercel Docs — AI Gateway API keys",

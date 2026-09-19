@@ -41,10 +41,10 @@ export default function JevStateDesign() {
           tags={["state", "質問設計", "一括評価", "usage", "リトライ"]}
         >
           <p>
-            LLMのプロンプト設計に相当する部分です。ただしJev
-            には「文体を指定する」「例を見せて真似させる」といった
-            余地が少なく、代わりに「判断に必要な情報をstate
-            に過不足なく入れる」「質問を1判断ずつに切る」ことが効きます。
+            LLMのプロンプト設計に相当する部分です。Jev
+            は答えの形が型で決まっているので、文体の指定は要りません。設計の対象は「判断に必要な情報をstate
+            に過不足なく入れる」「質問を1判断ずつに切る」の2
+            つで、判断の例を見せたいときはcriteriaの説明に入れます。
           </p>
         </WhyNowBox>
 
@@ -226,7 +226,9 @@ urgent: noul("Does this need attention today?")`}
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               questions
-              は名前付きのオブジェクトなので、いくつでも入れられます。答えは同じ名前で返ります。
+              は名前付きのオブジェクトで、複数の質問を入れられます。答えは同じ名前で返ります。
+              入れられる数は、stateと質問が共有する1
+              リクエストのトークン予算で決まります（後述）。
               ネットワークの往復は1回で済み、TypeScript
               では各答えの型が質問ごとに推論されます。
             </p>
@@ -255,12 +257,25 @@ urgent: noul("Does this need attention today?")`}
 // 型: answers.frustration.probabilitiesのキーは "0" | "1" | "2"`}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              複数の入力（チケット10件）を1回で評価したい場合は、state
-              を配列にして、質問名に番号を含める形が公式SDK
-              の型の範囲で書けます。 1
-              リクエストに入れられる質問数の上限は、手元で確認できたSDKと
-              スキーマには記載がありません。 大量のバッチは自分で分割し、usage
-              を見ながら単位を決めてください。
+              1リクエストの大きさには上限があります。公式ドキュメントのModels
+              のページは、Jev 1.13のContext lengthを「64k tokens per request;
+              32k tokens for `state` plus the longest
+              question」としています（2026-09-20時点）。64kはstate
+              と全質問の合計、32kはstateと最も長い質問1つの合計に掛かります。
+            </p>
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              複数の入力を評価する形は、公式ドキュメントに2つ出てきます。jaggedness
+              のページの数え上げの例は、短い項目の配列を1つのstate
+              に入れ、instructionsで{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                items[3]
+              </code>{" "}
+              のように位置を指して、項目ごとにnoul
+              を聞いています。文書の断片を分類するクックブック（Classifying
+              RAG passages）は、断片ごとに1リクエストを送っています。同じjaggedness
+              のページは「Accuracy falls as the state grows with content
+              unrelated to the
+              decision.」と書き、質問に必要なフィールドだけを送るよう勧めています。
             </p>
           </section>
 
@@ -321,8 +336,13 @@ for (const m of models) {
               エラー・リトライ・タイムアウト
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              JavaScript SDKの既定値を型定義から起こします。Python SDK
-              も同じ考え方で、タイムアウトは10.0秒です。
+              JavaScript SDK（@typesafe-ai/sdk
+              0.6.0）の既定値を型定義から起こします。Python SDK（typesafe-sdk
+              0.7.0）も1回のHTTP操作のタイムアウトは10.0
+              秒ですが、リトライの上限の持ち方が違います。Python
+              は初回の試行と待ち時間を含むリトライ全体の時間予算（RetryPolicy.timeout、既定30.0
+              秒）を持ち、JavaScriptは1
+              試行あたりのtimeoutだけで全体の上限を持ちません。
             </p>
             <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-sm">
@@ -366,7 +386,9 @@ for (const m of models) {
                   <tr className="bg-card">
                     <td className="py-3 px-4 text-foreground">Retry-After</td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      尊重する（上限60000ミリ秒）
+                      Retry-Afterとretry-after-msの値が60000
+                      ミリ秒以下ならその時間だけ待つ。超える値は使わず、通常のbackoff
+                      で待つ
                     </td>
                   </tr>
                   <tr className="bg-card">
@@ -380,6 +402,19 @@ for (const m of models) {
                 </tbody>
               </table>
             </div>
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              JavaScript SDKのtimeoutは1
+              試行あたりの値です。既定のmaxRetriesは2なので、timeout
+              に5000を指定しても、3回とも時間切れになると5000ミリ秒の約3
+              倍にbackoffの待ち時間を足した時間がかかります。応答時間の上限を決めたいときは、retry
+              のmaxRetriesを併せて指定します。
+            </p>
+            <CodeBlock
+              language="ts"
+              title="1回の呼び出しにかかる時間の上限を決める"
+              code={`// リトライなし: 最長でほぼ5000ミリ秒
+await client.systemOne(request, { timeout: 5000, retry: { maxRetries: 0 } });`}
+            />
             <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
               エラー型で分岐する
             </h3>
@@ -487,6 +522,23 @@ const tags = Object.entries(answers)
                   title: "TypeSafe AI Docs — System One",
                   url: "https://docs.typesafe.ai/concepts/system-one",
                   description: "SDKの応答型がリンクしている概念ページ。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Models",
+                  url: "https://docs.typesafe.ai/models",
+                  description: "1リクエストのトークン上限（Context length）の表。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Jev 1.13 jaggedness",
+                  url: "https://docs.typesafe.ai/model-jaggedness/jev-1.13",
+                  description:
+                    "判断に関係しない内容でstateが大きくなると精度が下がるという記述。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Python SDK Retries",
+                  url: "https://docs.typesafe.ai/sdk/python/api/retries",
+                  description:
+                    "Python SDKのRetryPolicy。リトライ全体の時間予算（timeout）の説明。",
                 },
                 {
                   title: "@typesafe-ai/sdk（npm）",

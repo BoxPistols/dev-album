@@ -56,9 +56,9 @@ export default function JevAdvanced() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               STEP 18では「自動 / 本人に確認」の2
-              分岐でした。実運用では、間に「上位のモデルに聞き直す」を挟む3
-              分岐が使われます。
-              速くて安い判断で大半を処理し、残りだけに時間とコストをかける形です。
+              分岐でした。公式ドキュメントのConfidenceのページは、confidence
+              を高・中・低の3つの帯に分ける形を出発点として示しています。高は自動で進め、中は確認やレビューを挟み、低は人に回すか別のシステムに任せます。ここでは、中間の帯をLLM
+              に回す例を作ります。
             </p>
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="space-y-3">
@@ -66,7 +66,7 @@ export default function JevAdvanced() {
                   {
                     step: "1",
                     label: "確信が高い（confidence ≥ 上のしきい値）",
-                    desc: "Jevの答えで自動処理。大半の入力がここを通る",
+                    desc: "Jevの答えで自動処理。ここを通る割合はデータとしきい値で決まるので、後述の手順で測る",
                   },
                   {
                     step: "2",
@@ -176,9 +176,12 @@ if (answers.kind.choice === "complex") {
             </div>
             <InfoBox type="info" title="LLMジャッジとの違い">
               LLMに「この回答を1〜5
-              で採点して」と頼む方法（LLM-as-a-judge）は、採点がテキストで返るため、数値の取り出しと形式崩れの処理が要ります。
-              Jevのscoreは最初から数値で、probabilities
-              も付きます。一方で「なぜその点数か」の説明は返らないので、
+              で採点して」と頼む方法（LLM-as-a-judge）でも、JSON
+              の形で点数を受け取れます。TypeSafe AIのFAQ
+              は違いを「returning typed answers with calibrated
+              probabilities」と説明しています。Jevのscoreには段階ごとの
+              probabilitiesとconfidence
+              が付くので、迷いの大きい採点だけを人に回す分岐が書けます。一方で「なぜその点数か」の説明は返らないので、
               説明が要るレビュー画面では、Jevの数値とLLMの説明を併用します。
             </InfoBox>
           </section>
@@ -219,8 +222,8 @@ if (answers.kind.choice === "complex") {
                   },
                   {
                     step: "5",
-                    label: "モデル更新のたびに2〜4を回す",
-                    desc: "同じデータで比較すると、更新で何が変わったかが数値で分かる",
+                    label: "モデルの版を固定し、版を上げる前に2〜4を回す",
+                    desc: "公式はjev-latestのような別名が新しい版へ移ると書き、しきい値を調整した版のIDを指定して固定することを勧めている。リクエストのmodelに版のID（2026-09-20時点ではjev-1.13.0）を渡すと固定できる。新しい版でも同じデータで表を作り直してから切り替える",
                   },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -259,8 +262,10 @@ export function sweep(rows: Row[], thresholds: number[]) {
 }`}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              この表を見て「正解率99%
-              以上を保てる最も低いしきい値」を選ぶ、というのが典型的な決め方です。
+              この表から、たとえば「正解率99%
+              以上を保てる最も低いしきい値」のように線を引きます（99%
+              は説明用の例）。公式ドキュメントは「Thresholds scale with
+              risk」として、同じシステムの中でも、誤ったときの影響が大きい行動ほど高いしきい値を置くとしています。
               数値は業務ごとに違うので、この教材では固定しません。
             </p>
           </section>
@@ -364,11 +369,11 @@ function App() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Ban className="text-primary" size={28} />
-              Jevでは扱えないこと
+              Jevに任せる範囲と、コードやLLMに任せる範囲
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              守備範囲を先に知っておくと、設計で迷いません。以下はAPI
-              の入出力の形から言えることです。
+              守備範囲を先に知っておくと、設計で迷いません。まずAPI
+              の入出力の形から言えることを挙げ、そのあとに公式が挙げている得意・不得意を挙げます。
             </p>
             <div className="space-y-3">
               {[
@@ -406,9 +411,77 @@ function App() {
                 </div>
               ))}
             </div>
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              公式が挙げている得意・不得意
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              TypeSafe AIのFAQは、Jevを分類・振り分け・採点・評価のような
+              「common-sense
+              judgments」向けとし、複雑な数学やチェスのような計画など長い推論が要る仕事は大規模な推論モデルのほうが向く場合があるとしています。Jev
+              1.13のjaggedness
+              のページは、次の仕事をコード側に置くよう勧めています（2026-09-20時点）。
+            </p>
+            <div className="space-y-3">
+              {[
+                {
+                  title: "数え上げ",
+                  body: "単語の文字数、文中の出現回数、長いリストの件数。コードで数える。条件に合う件数が欲しいときは、候補ごとにnoulで聞き、合計はコードで出す。",
+                },
+                {
+                  title: "日付と時刻の比較",
+                  body: "どちらが先か、何日離れているか、期間に入るか。日付の読み取りはchoiceで行い、並べ替えや差の計算はコードで行う。",
+                },
+                {
+                  title: "数値表現の近さの判断",
+                  body: "16進の色コードやRGBの値どうしが近いか。コードで変換し、計算済みの数値か名前の付いた区分を渡す。",
+                },
+                {
+                  title: "計算",
+                  body: "公式は「Jev is not a calculator.」と書き、計算のロジックはコードで実装するよう勧めている。",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-xl border border-border bg-card p-5"
+                >
+                  <p className="text-sm font-bold text-foreground mb-1">
+                    {item.title}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
+              日本語で使うとき
+            </h3>
+            <p className="text-muted-foreground mb-3 leading-relaxed">
+              公式ドキュメントのModelsのページは、言語について次のように書いています。
+            </p>
+            <blockquote className="border-l-4 border-primary/40 pl-4 text-sm text-muted-foreground mb-4 leading-relaxed">
+              English is the primary training language and where accuracy is
+              currently best. Other languages, including CJK scripts, are
+              handled but not equally well; test on your own content before
+              relying on Jev for a non-English workload
+              <span className="block mt-1 text-xs">
+                — TypeSafe AI Docs「Models」Language support（2026-09-20時点）
+              </span>
+            </blockquote>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              日本語のstate
+              で使うときは、「しきい値を実データで決める」の手順をそのまま当てます。自分の日本語データに正解ラベルを付けてJev
+              に通し、confidence
+              ごとの正解率を表にして、人の確認に回す範囲を決めます。
+            </p>
             <InfoBox type="warning" title="確率は「正しさの保証」ではない">
-              confidenceが0.95でも、それは5%
-              は違うと言っているのと同じです。しきい値の上に乗った判断も、抜き取りで人が検査し続けます。
+              公式ドキュメントのScoreのページは、confidence 1.0
+              の例について「This describes the model's answer, not a guarantee
+              that the answer is correct.」と注記しています。confidence
+              はprobabilitiesの分布がどれだけ1
+              点に集まっているかを表す値で、正解率ではありません。confidence
+              が高い判断にどの程度の誤りが含まれるかは、自分のデータでconfidence
+              と正解率を並べて測ります。しきい値の上に乗った判断も、抜き取りで人が検査し続けます。
               また、学習データに由来する偏りはJevにも起こり得ます。LMOps
               の講座で扱ったバイアスの点検を、Jev
               の判断にも同じように回してください。
@@ -439,8 +512,8 @@ function App() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    confidenceとprobabilitiesは別物。score
-                    は期待値で、整数の間に落ちる
+                    confidenceはprobabilitiesの分布の集中度から計算される値で、noul
+                    には付かない。scoreは期待値で、整数の間に落ちる
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -453,7 +526,8 @@ function App() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    しきい値はラベル付きデータで決め、モデル更新のたびに測り直す
+                    しきい値はラベル付きデータで決める。モデルは版のID
+                    で固定し、版を上げる前に測り直す
                   </span>
                 </li>
               </ul>
@@ -491,7 +565,7 @@ function App() {
                 { label: "モデルの公式ドキュメントに書いてある推奨値を使う" },
                 { label: "最初の10件を見て決める" },
               ]}
-              explanation="しきい値は誤検知と見逃しのコストで決まり、業務ごとに違います。ラベル付きデータでしきい値を動かし、許容できる誤り率で線を引きます。モデル更新のたびに測り直します。"
+              explanation="しきい値は誤検知と見逃しのコストで決まり、業務ごとに違います。ラベル付きデータでしきい値を動かし、許容できる誤り率で線を引きます。モデルの版を上げる前に測り直します。"
             />
           </section>
 
@@ -502,6 +576,23 @@ function App() {
                   title: "TypeSafe AI Docs",
                   url: "https://docs.typesafe.ai/",
                   description: "公式ドキュメント。ガイドと事例。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Confidence",
+                  url: "https://docs.typesafe.ai/confidence",
+                  description:
+                    "confidenceの定義、3つの帯、行動ごとにしきい値を変える考え方。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Jev 1.13 jaggedness",
+                  url: "https://docs.typesafe.ai/model-jaggedness/jev-1.13",
+                  description:
+                    "数え上げ、日付の比較、数値表現など、コード側に置くよう勧めている仕事の一覧。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Models",
+                  url: "https://docs.typesafe.ai/models",
+                  description: "版のIDと別名、対応言語の記述。",
                 },
                 {
                   title: "TypeSafe AI Blog",

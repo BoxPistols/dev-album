@@ -14,7 +14,7 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - noul: はい/いいえ の確率
  * - choice: 選択肢とラベルごとの確率
  * - score: 順序付きルーブリックと期待値
- * - confidenceとprobabilitiesの違い、しきい値の考え方
+ * - confidenceとprobabilitiesの関係、しきい値の考え方
  */
 
 export default function JevPrimitives() {
@@ -66,8 +66,8 @@ export default function JevPrimitives() {
                 criteria
               </code>
               （答えの候補の説明）で構成されます。 instructionsと各criteria
-              の説明は、文字列のほかJSONオブジェクトや配列も渡せます。 choice
-              とscoreのcriteriaの説明は{" "}
+              の説明は、文字列のほかJSONオブジェクトや配列も渡せます。
+              choiceのcriteriaの説明は{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 null
               </code>{" "}
@@ -155,16 +155,17 @@ export default function JevPrimitives() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               criteria
-              はラベル名をキーにしたオブジェクトです。答えには最も確率の高いラベル、その確信度、全ラベルの確率が入ります。
+              はラベル名をキーにしたオブジェクトです。答えには最も確率の高いラベル（choice）、全ラベルの確率（probabilities）、その分布から計算されるconfidence
+              が入ります。
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <CodeBlock
                 language="ts"
                 title="質問"
-                code={`choice("What is the tone of this message?", {
-  angry: "An upset or hostile message",
-  calm: "A neutral or polite message",
-  excited: "An enthusiastic or eager message",
+                code={`choice("What is the customer's tone?", {
+  calm: null,
+  frustrated: null,
+  angry: null,
 })`}
               />
               <CodeBlock
@@ -172,17 +173,21 @@ export default function JevPrimitives() {
                 title="答え（answers.tone）"
                 code={`{
   "type": "choice",
-  "choice": "angry",
-  "confidence": 0.9,
+  "choice": "frustrated",
+  "confidence": 0.88,
   "probabilities": {
-    "angry": 0.8, "calm": 0.1, "excited": 0.1
+    "angry": 0.08, "frustrated": 0.92, "calm": 0.0
   }
 }`}
               />
             </div>
+            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+              質問と答えは、公式ドキュメントのChoiceのページにあるtone
+              の例です。ラベル名だけで意味が通るので、説明はnullにしています。
+            </p>
             <div className="rounded-xl border border-border bg-card p-6 mt-4">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                confidenceとprobabilitiesは別物
+                confidenceはprobabilitiesから計算される
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -201,17 +206,20 @@ export default function JevPrimitives() {
                     <span className="font-mono text-foreground">
                       confidence
                     </span>{" "}
-                    は「選んだラベルへの確信度」。スキーマは「use lower values
-                    to flag uncertain selections for
+                    はprobabilitiesの分布の形を0〜1の1つの数値にまとめた値です。公式ドキュメントのConfidenceのページは「Confidence
+                    is derived from the
+                    probabilities」と見出しを立て、分布が1つのラベルに集中しているほど高く、平らに広がっているほど低くなると説明しています。スキーマは「use
+                    lower values to flag uncertain selections for
                     review」と用途を示しています。
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    スキーマの例ではchoiceがangry、confidenceが
-                    0.9、probabilitiesのangryが0.8
-                    と、両者は一致していません。confidence
+                    公式ドキュメントのChoiceのページの応答例では、choiceがreturns、probabilitiesがreturns
+                    0.6 / billing 0.38 / shipping 0.02で、confidenceは0.39
+                    です。2番目の候補にも確率が残っているぶん、confidence
+                    は最大の確率より低くなっています。confidence
                     を「最大の確率」と同一視しないでください。
                   </span>
                 </li>
@@ -251,50 +259,66 @@ export default function JevPrimitives() {
               <CodeBlock
                 language="ts"
                 title="質問"
-                code={`score("How urgent is this message?", [
-  "Can wait",                    // 0
-  "Needs attention this week",   // 1
-  "Needs attention today",       // 2
+                code={`score("How severe is the reported issue?", [
+  "Cosmetic; no impact to functionality",              // 0
+  "Broken or degraded feature, but workaround exists", // 1
+  "Blocking issue; no workaround exists",              // 2
 ])`}
               />
               <CodeBlock
                 language="json"
-                title="答え（answers.urgency）"
+                title="答え（answers.bug_severity）"
                 code={`{
   "type": "score",
-  "score": 1.7,
-  "confidence": 0.9,
+  "score": 1.3,
+  "confidence": 0.54,
   "legend": {
-    "0": "Can wait",
-    "1": "Needs attention this week",
-    "2": "Needs attention today"
+    "0": "Cosmetic; no impact to functionality",
+    "1": "Broken or degraded feature, but workaround exists",
+    "2": "Blocking issue; no workaround exists"
   },
-  "probabilities": { "0": 0.1, "1": 0.1, "2": 0.8 }
+  "probabilities": { "0": 0.0, "1": 0.7, "2": 0.3 }
 }`}
               />
             </div>
+            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+              質問と答えは、公式ドキュメントのScoreのページにあるbug_severity
+              の例です。
+            </p>
             <div className="rounded-xl border border-border bg-card p-6 mt-4">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                scoreが1.7のような小数になる理由
+                scoreが1.3のような小数になる理由
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                 score
                 は「確率で重み付けした段階の平均（期待値）」です。スキーマは
                 「Expected score: the probability-weighted average of the rubric
                 levels. May fall between integer levels.」と説明しています。
-                上の例なら0×0.1 + 1×0.1 + 2×0.8 = 1.7です。
+                上の例なら0×0.0 + 1×0.7 + 2×0.3 = 1.3です。
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                段階として扱いたいなら{" "}
-                <code className="text-sm bg-muted px-1 rounded">
-                  probabilities
-                </code>{" "}
-                の最大値のキーを取るか、
+                公式ドキュメントのScoreのページは、小数のscore
+                の使い道として、並び替えに使うことと、1
+                つの結果が必要なときに最も近い段階へ丸めることを挙げています。同じページは「Different
+                distributions can produce the same score.」とも書いていて、score
+                が1.0になるのは、段階1に確率が集まっている場合と、段階0と2
+                に半分ずつ分かれている場合の両方です。後者を{" "}
                 <code className="text-sm bg-muted px-1 rounded">
                   Math.round(score)
                 </code>{" "}
-                で丸めます。どちらを使うかは用途で決まります。
-                並び替え（優先度順にソート）なら期待値のまま、表示ラベルを選ぶなら最大確率の段階が素直です。
+                で丸めると、確率が付いていない段階1
+                が返ります。公式は、この2つを区別するために{" "}
+                <code className="text-sm bg-muted px-1 rounded">
+                  probabilities
+                </code>{" "}
+                とconfidenceをscoreと併せて読むよう書いています。丸めた段階を使う前に、confidence
+                が低くないかを確認します。
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                同じページは、confidenceが1.0
+                の例について「This describes the model's answer, not a guarantee
+                that the answer is correct.」と注記しています。confidence
+                は分布がどれだけ1点に集まっているかを表す値として読みます。
               </p>
             </div>
             <InfoBox type="info" title="legendのキーは文字列">
@@ -335,12 +359,11 @@ if (p >= 0.9) {
               STEP 23
               で、ラベル付きデータを使ってしきい値を決める手順を扱います。
             </p>
-            <InfoBox type="warning" title="仕様値と実測値のギャップ">
-              仕様ではnoulは0〜1の確率、choiceのprobabilitiesは合計が約1
-              です。実測では、同じ入力でもモデルの更新（jev-latest
-              の指す先が変わる）で
-              数値が少し動くことがあります。しきい値ぎりぎりの入力は、モデル更新のたびに判定が入れ替わり得ます。
-              運用では「ぎりぎりの帯」を人に回す設計にしておくと、更新の影響が自動処理に直撃しません。
+            <InfoBox type="warning" title="jev-latestは指す先が移る別名">
+              公式ドキュメントのModelsのページは、jev-latest
+              のような別名は新しい版が出ると指す先が移り、利用者側が何も変えなくても答えが変わり得ると書いています。特定の版でしきい値を調整した場合は、別名ではなく版のID
+              を指定して固定し、自分の予定で新しい版へ移ることを勧めています。応答のmodel
+              フィールドには実際に答えた版のIDが入るので、ログに残しておくと後から照合できます。
             </InfoBox>
           </section>
 
@@ -401,17 +424,17 @@ console.log(answers.urgency.score);`}
               理解度チェック
             </h2>
             <Quiz
-              question="scoreの答えが1.7のとき、正しい解釈は？"
+              question="scoreの答えが1.3のとき、正しい解釈は？"
               options={[
-                { label: "段階1.7という新しい段階が作られた" },
+                { label: "段階1.3という新しい段階が作られた" },
                 {
-                  label: "段階ごとの確率で重み付けした期待値が1.7",
+                  label: "段階ごとの確率で重み付けした期待値が1.3",
                   correct: true,
                 },
-                { label: "確率1.7で段階1が選ばれた" },
+                { label: "確率1.3で段階1が選ばれた" },
                 { label: "エラー値" },
               ]}
-              explanation="scoreは「probability-weighted average of the rubric levels」で、整数の段階の間に落ちることがあります。段階として扱うならprobabilitiesの最大値を取るか丸めます。"
+              explanation="scoreは「probability-weighted average of the rubric levels」で、整数の段階の間に落ちることがあります。公式は、1つの結果が必要なときは最も近い段階へ丸める使い方を挙げ、違う分布から同じscoreが出ることがあるので、probabilitiesとconfidenceを併せて読むよう書いています。"
             />
             <Quiz
               question="choiceのconfidenceについて正しいのは？"
@@ -419,13 +442,13 @@ console.log(answers.urgency.score);`}
                 { label: "probabilitiesの最大値と常に等しい" },
                 {
                   label:
-                    "選んだラベルへの確信度で、低いものをレビューに回す用途が示されている",
+                    "probabilitiesの分布の集中度から計算される値で、低いものをレビューに回す用途が示されている",
                   correct: true,
                 },
                 { label: "probabilitiesの合計" },
                 { label: "ラベルの数の逆数" },
               ]}
-              explanation="スキーマはconfidenceを「Confidence in the selected choice」と定義し、「use lower values to flag uncertain selections for review」と用途を示しています。例では最大確率（0.8）とconfidence（0.9）が異なります。"
+              explanation="スキーマはconfidenceを「Confidence in the selected choice」と定義し、「use lower values to flag uncertain selections for review」と用途を示しています。公式ドキュメントはconfidenceをprobabilitiesの分布から計算される値と説明していて、Choiceのページの応答例では最大確率が0.6、confidenceが0.39です。"
             />
           </section>
 
@@ -445,7 +468,14 @@ console.log(answers.urgency.score);`}
                 {
                   title: "TypeSafe AI Docs — score",
                   url: "https://docs.typesafe.ai/primitives/score",
-                  description: "scoreの解説。",
+                  description:
+                    "scoreの解説。同じscoreになる分布の違いと、丸めの使い道。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Confidence",
+                  url: "https://docs.typesafe.ai/confidence",
+                  description:
+                    "confidenceがprobabilitiesの分布から計算されることの説明。",
                 },
               ]}
             />

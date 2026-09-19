@@ -72,11 +72,11 @@ export default function JevOverview() {
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               「System
-              One」は心理学で言う、速く自動的に働く判断のことです。文章を組み立てて推論する
-              「System Two」的なLLMに対して、Jev
-              は状況を見て即座に判断を返す役を担う、という位置づけです。
-              ただし本教材では比喩に深入りせず、API
-              の入出力の形で理解を固めます。
+              One」は心理学で言う、速く自動的に働く判断のことです。公式ドキュメントは名前の由来を
+              Daniel Kahnemanの著書に置き、「System 1 thinking is fast and
+              intuitive. System 2 is slower and more deliberate. Here, the
+              emphasis is on fast, focused judgments.」と説明しています。
+              本教材では比喩に深入りせず、APIの入出力の形で理解を固めます。
             </p>
 
             <div className="rounded-xl border border-border bg-card p-6">
@@ -171,7 +171,7 @@ console.log(response.answers.category.choice);`}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 choice
               </code>{" "}
-              のほかに、その確信度
+              のほかに、答えの分布から計算される
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 confidence
               </code>{" "}
@@ -188,14 +188,21 @@ console.log(response.answers.category.choice);`}
             </p>
             <CodeBlock
               language="json"
-              title="answers.categoryの形（型定義から起こした例。数値は説明用）"
+              title="choiceの答えの形（公式Quick startの応答例から、departmentの部分）"
               code={`{
   "type": "choice",
   "choice": "billing",
-  "confidence": 0.9,
-  "probabilities": { "billing": 0.9, "technical": 0.06, "other": 0.04 }
+  "probabilities": { "billing": 0.84, "technical": 0.159, "sales": 0.001 },
+  "confidence": 0.596
 }`}
             />
+            <p className="text-muted-foreground mt-3 leading-relaxed">
+              この数値は公式ドキュメントのQuick
+              startに載っている応答例（2026-09-20時点）のもので、上のREADMEの例とは別の質問（担当チームをbilling
+              / technical / salesから選ぶ）への答えです。confidenceは選ばれたラベルの確率（0.84）とは別の値（0.596）になっています。
+              公式ドキュメントはconfidenceを、確率分布から計算される統計量と説明しています。読み方はSTEP
+              15で扱います。
+            </p>
           </section>
 
           {/* LLMとの違い */}
@@ -236,7 +243,7 @@ console.log(response.answers.category.choice);`}
                       答えの範囲
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      プロンプトで制約するが、外れることがある
+                      プロンプトだけで制約すると外れることがある。スキーマ付きの構造化出力を使えば形式はそろう
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
                       質問で渡した選択肢・段階の中に必ず収まる
@@ -283,7 +290,7 @@ console.log(response.answers.category.choice);`}
             <InfoBox type="info" title="速さと料金について">
               TypeSafe AIはJevを、LLM
               より速く安く判断を返すモデルとして位置づけています。具体的な応答時間と料金は
-              提供側の改定で変わるため、本教材には固定しません。公式サイトの料金ページで現在の値を確認してください。
+              提供側の改定で変わるため、本教材には固定しません。単価は公式ドキュメントのModelsページ（https://docs.typesafe.ai/models）で現在の値を確認してください。
               公式SDKに同梱されたスキーマには、出力トークンが「currently free
               of charge」と記されています（執筆時点）。
             </InfoBox>
@@ -326,7 +333,25 @@ console.log(response.answers.category.choice);`}
                 </p>
               </div>
             </div>
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="space-y-4">
+              <InfoBox type="info" title="形は保証されるが、正しさは別に確かめる">
+                公式サイトのFAQは「Jev guarantees the shape of its answers, not
+                that every decision is
+                correct」と書いています。選択肢の外の答えは返りませんが、選択肢の中で違うものを選ぶことはあります。
+                FAQは続けて、確率とconfidenceを使って、自動で処理するか人の確認に回すかのしきい値を決めるよう案内しています。
+              </InfoBox>
+              <InfoBox type="info" title="日本語で使うときは自分のデータで確かめる">
+                この講座の例文とサンプルアプリの入力は日本語です。公式ドキュメントのModels
+                ページ（2026-09-20時点）は言語について「English is the primary training language
+                and where accuracy is currently best. Other languages, including
+                CJK scripts, are handled but not equally well; test on your own
+                content before relying on Jev for a non-English
+                workload」と書いています。
+                日本語の業務に組み込むときは、先に自分のデータで正解付きの小さな評価セットを作り、判定の一致率とconfidenceの分布を見てからしきい値を決めます。評価の手順はSTEP
+                23で扱います。
+              </InfoBox>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6 mt-6">
               <h3 className="text-lg font-bold text-foreground mb-3">
                 例: Webサービスの中でJevが担える判断
               </h3>
@@ -452,7 +477,7 @@ console.log(response.answers.category.choice);`}
             <Quiz
               question="Jevの応答に含まれないものはどれ？"
               options={[
-                { label: "選ばれたラベルとその確信度" },
+                { label: "選ばれたラベルとconfidence" },
                 { label: "選択肢ごとの確率" },
                 {
                   label: "判断理由を説明する自由記述のテキスト",
@@ -485,6 +510,22 @@ console.log(response.answers.category.choice);`}
                   url: "https://docs.typesafe.ai/",
                   description:
                     "公式ドキュメント。概念（System One）と質問型（primitives）の解説。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Quick start",
+                  url: "https://docs.typesafe.ai/introduction/quickstart",
+                  description: "応答例の出どころ。choice / score / noulの応答の形。",
+                },
+                {
+                  title: "TypeSafe AI Docs — Models",
+                  url: "https://docs.typesafe.ai/models",
+                  description:
+                    "単価、エイリアス、対応言語（Language support）の記述。",
+                },
+                {
+                  title: "TypeSafe AI",
+                  url: "https://typesafe.ai/",
+                  description: "公式サイト。FAQに答えの形と正しさについての説明がある。",
                 },
                 {
                   title: "@typesafe-ai/sdk（npm）",
