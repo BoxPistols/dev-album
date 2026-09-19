@@ -445,7 +445,7 @@ RateLimit-Reset: 30
               links={[
                 {
                   title: "OWASP API Security Top 10 (2023)",
-                  url: "https://owasp.org/API-Security/editions/2023/en/0x11-t10/",
+                  url: "https://api-security.owasp.org/editions/2023/en/0x11-t10/",
                   description:
                     "API に特化した代表的リスクの公式ランキング。BOLA など各項目の解説と対策の一次情報",
                 },

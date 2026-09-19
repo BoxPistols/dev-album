@@ -494,7 +494,7 @@ export default defineEventHandler(async (event) => {
                 },
                 {
                   title: "Nuxt 公式 - runtimeConfig",
-                  url: "https://nuxt.com/docs/guide/going-further/runtime-config",
+                  url: "https://nuxt.com/docs/4.x/guide/going-further/runtime-config",
                   description:
                     "サーバー専用 / public の使い分けと環境変数による上書き",
                 },
