@@ -1,0 +1,13 @@
+{
+  "plugins": {
+    "@textlint/text": {
+      "extensions": [".ts", ".tsx", ".mjs", ".js", ".mdx", ".yml", ".yaml"]
+    }
+  },
+  "rules": {
+    "ux-writing-dead-cliche": {
+      "preset": "paper",
+      "minSeverity": "warn"
+    }
+  }
+}

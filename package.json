@@ -31,7 +31,8 @@
     "check:links": "node scripts/check-links.mjs",
     "fix:links": "node scripts/fix-redirected-links.mjs",
     "check:prerender": "node scripts/check-prerender.mjs",
-    "check:freshness": "tsx scripts/check-source-freshness.mjs"
+    "check:freshness": "tsx scripts/check-source-freshness.mjs",
+    "check:prose": "node scripts/check-prose.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.19",
@@ -94,6 +95,8 @@
     "prettier": "^3.9.6",
     "storybook": "^10.5.10",
     "tailwindcss": "^4.1.14",
+    "textlint": "^15.8.0",
+    "textlint-rule-ux-writing-dead-cliche": "^0.17.0",
     "tsx": "^4.23.12",
     "tw-animate-css": "^1.4.0",
     "typescript": "7.0.2",
