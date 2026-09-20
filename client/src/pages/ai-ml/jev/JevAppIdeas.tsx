@@ -120,7 +120,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         what: "Web予約や問い合わせの文面から、診療科の枠・予約の急ぎ度・電話確認の要否を判定する。診断はしない。緊急の兆候は即スタッフへ",
         types: ["noul", "choice", "score"],
         buildStep: 21,
-        href: "/ai-ml/jev/jev-clinic-app",
+        href: "/ai-ml/jev/jev-design-search-app",
       },
       {
         title: "マーケティングの反応分析",
@@ -249,7 +249,7 @@ export default function JevAppIdeas() {
                   title: "診療所の受付振り分け",
                   point:
                     "医療現場向け。診断はせず受付業務だけを判定。緊急の兆候は低いしきい値で人へ、失敗もスタッフへ",
-                  href: "/ai-ml/jev/jev-clinic-app",
+                  href: "/ai-ml/jev/jev-design-search-app",
                 },
                 {
                   step: 22,

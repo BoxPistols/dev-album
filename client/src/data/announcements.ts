@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-20-jev-design-search-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ4: デザイン案の探索",
+    description:
+      "ボタンの案をコードが組み合わせで作り、観点ごとにJevが採点し、重みを掛けて順位を決める。重みを切り替えると順位が変わる様子と、採点の揺れより小さい差は順位として読めないことを、実測値で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-design-search-app",
+  },
+  {
     id: "2026-09-20-jev-dashboard-app",
     date: "2026-09-20",
     title: "Jevサンプルアプリ3: ダッシュボードの自動強調",
@@ -63,15 +72,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "キャンペーン後の問い合わせ・SNS・アンケートをまとめてJevに渡し、購買意図・検討段階・態度・今日連絡すべきかを判定する。個別の連絡リストとキャンペーン別の集計表を同じ応答から作る。",
     category: "feature",
     link: "/ai-ml/jev/jev-leads-app",
-  },
-  {
-    id: "2026-09-19-jev-clinic-app",
-    date: "2026-09-19",
-    title: "Jevサンプルアプリ4: 診療所の受付振り分け",
-    description:
-      "医療現場の受付業務を題材に、診療科の枠・予約の急ぎ度・電話確認の要否を判定する。診断はせず、緊急の兆候は低いしきい値で即スタッフへ、失敗もスタッフへ倒す。要配慮個人情報の扱いを先に書いた。",
-    category: "feature",
-    link: "/ai-ml/jev/jev-clinic-app",
   },
   {
     id: "2026-09-19-jev-account",

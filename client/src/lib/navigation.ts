@@ -503,7 +503,7 @@ export const pages: PageInfo[] = [
   { step: 18, path: '/ai-ml/jev/jev-triage-app', title: '1. 問い合わせの選別', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 19, path: '/ai-ml/jev/jev-chart-picker-app', title: '2. 図の自動選択', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 20, path: '/ai-ml/jev/jev-dashboard-app', title: '3. 画面の自動強調', sectionId: 'jev', manualId: 'ai-ml' },
-  { step: 21, path: '/ai-ml/jev/jev-clinic-app', title: '4. 受付の振り分け', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 21, path: '/ai-ml/jev/jev-design-search-app', title: '4. デザイン案の探索', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 22, path: '/ai-ml/jev/jev-leads-app', title: '5. マーケの反応分析', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲート', sectionId: 'jev', manualId: 'ai-ml' },
 
