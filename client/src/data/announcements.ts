@@ -31,16 +31,16 @@ export const ANNOUNCEMENTS: Announcement[] = [
   {
     id: "2026-09-19-jev-leads-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 5: マーケティングの反応分析",
+    title: "Jevサンプルアプリ5: マーケティングの反応分析",
     description:
-      "キャンペーン後の問い合わせ・SNS・アンケートをまとめて Jev に渡し、購買意図・検討段階・態度・今日連絡すべきかを判定する。個別の連絡リストとキャンペーン別の集計表を同じ応答から作る。",
+      "キャンペーン後の問い合わせ・SNS・アンケートをまとめてJevに渡し、購買意図・検討段階・態度・今日連絡すべきかを判定する。個別の連絡リストとキャンペーン別の集計表を同じ応答から作る。",
     category: "feature",
     link: "/ai-ml/jev/jev-leads-app",
   },
   {
     id: "2026-09-19-jev-clinic-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 4: 診療所の受付振り分け",
+    title: "Jevサンプルアプリ4: 診療所の受付振り分け",
     description:
       "医療現場の受付業務を題材に、診療科の枠・予約の急ぎ度・電話確認の要否を判定する。診断はせず、緊急の兆候は低いしきい値で即スタッフへ、失敗もスタッフへ倒す。要配慮個人情報の扱いを先に書いた。",
     category: "feature",
@@ -49,90 +49,90 @@ export const ANNOUNCEMENTS: Announcement[] = [
   {
     id: "2026-09-19-jev-account",
     date: "2026-09-19",
-    title: "Jev のアカウント登録・API キー・課金の準備ページを追加",
+    title: "Jevのアカウント登録・APIキー・課金の準備ページを追加",
     description:
-      "TypeSafe AI と直接契約するルートと Vercel AI Gateway 経由のルートを比較し、ウェイトリスト、キー発行、支払い方法、予算上限、curl での疎通確認までをまとめた。公式で確認できた事項と二次情報を分けて書いている。",
+      "TypeSafe AIと直接契約するルートとVercel AI Gateway経由のルートを比較し、ウェイトリスト、キー発行、支払い方法、予算上限、curlでの疎通確認までをまとめた。公式で確認できた事項と二次情報を分けて書いている。",
     category: "feature",
     link: "/ai-ml/jev/jev-account",
   },
   {
     id: "2026-09-19-jev-feedback-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 3: ユーザーの声の分類ボード",
+    title: "Jevサンプルアプリ3: ユーザーの声の分類ボード",
     description:
-      "レビューやアンケートの自由記述をまとめて Jev に渡し、要望・不具合・使いにくさ・称賛に分けて深刻さ順に並べるボード。配列 state で質問を動的に組む書き方と、実際に呼んで確認する手順付き。",
+      "レビューやアンケートの自由記述をまとめてJevに渡し、要望・不具合・使いにくさ・称賛に分けて深刻さ順に並べるボード。配列stateで質問を動的に組む書き方と、実際に呼んで確認する手順付き。",
     category: "feature",
     link: "/ai-ml/jev/jev-feedback-app",
   },
   {
     id: "2026-09-19-jev-copycheck-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 2: UI 文言チェッカー",
+    title: "Jevサンプルアプリ2: UI文言チェッカー",
     description:
-      "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける。指針を state で渡し、失敗時は「直す」に倒す設計。デザインシステムのレビューを支える道具として実際に呼んで動かす。",
+      "ボタン・エラー・空状態の文言を、チームのライティング指針に照らして「そのまま / 直す / 出さない」に分ける。指針をstateで渡し、失敗時は「直す」に倒す設計。デザインシステムのレビューを支える道具として実際に呼んで動かす。",
     category: "feature",
     link: "/ai-ml/jev/jev-copycheck-app",
   },
   {
     id: "2026-09-19-jev-app-ideas",
     date: "2026-09-19",
-    title: "Jev で作れるサンプルアプリのアイデア 20 を一覧に",
+    title: "Jevで作れるサンプルアプリのアイデア20を一覧に",
     description:
-      "日常生活・デザイナー・プロダクト作り・医療とマーケティング・運用・ゲームと LLM の 6 領域で、Jev の 3 つの質問型で何が判定できるかを 1 行ずつ示した。講座で実際に作る 5 本（家計簿・UI 文言チェッカー・ユーザーの声の分類・診療所の受付・マーケティングの反応分析）もここから選んでいる。Three.js 講座の飛行機ゲームに Jev を載せて帰還させる実装例も付けた。",
+      "日常生活・デザイナー・プロダクト作り・医療とマーケティング・運用・ゲームとLLMの6領域で、Jevの3つの質問型で何が判定できるかを1行ずつ示した。講座で実際に作る5本（家計簿・UI文言チェッカー・ユーザーの声の分類・診療所の受付・マーケティングの反応分析）もここから選んでいる。Three.js講座の飛行機ゲームにJevを載せて帰還させる実装例も付けた。",
     category: "feature",
     link: "/ai-ml/jev/jev-app-ideas",
   },
   {
     id: "2026-09-19-jev-advanced",
     date: "2026-09-19",
-    title: "Jev 応用: 信頼度ゲートと LLM との組み合わせ",
+    title: "Jev応用: 信頼度ゲートとLLMとの組み合わせ",
     description:
-      "AI・ML マニュアルの Jev セクション最終ページ。confidence で自動処理と人の確認を分ける設計、LLM の前段・後段に Jev を置く構成、しきい値の決め方と評価の回し方、Jev では扱えないことを整理した。",
+      "AI・MLマニュアルのJevセクション最終ページ。confidenceで自動処理と人の確認を分ける設計、LLMの前段・後段にJevを置く構成、しきい値の決め方と評価の回し方、Jevでは扱えないことを整理した。",
     category: "feature",
     link: "/ai-ml/jev/jev-advanced",
   },
   {
     id: "2026-09-19-jev-ledger-app",
     date: "2026-09-19",
-    title: "Jev サンプルアプリ 1: 家計簿の自動仕分け",
+    title: "Jevサンプルアプリ1: 家計簿の自動仕分け",
     description:
-      "支出 1 件を入れるとカテゴリ・固定費かどうか・見直す価値を Jev が返し、確信が低いものだけ本人が直す。Next.js プロジェクト作成から curl での確認、実ページまで、実際に呼ぶ手順で組む。",
+      "支出1件を入れるとカテゴリ・固定費かどうか・見直す価値をJevが返し、確信が低いものだけ本人が直す。Next.jsプロジェクト作成からcurlでの確認、実ページまで、実際に呼ぶ手順で組む。",
     category: "feature",
     link: "/ai-ml/jev/jev-ledger-app",
   },
   {
     id: "2026-09-19-jev-state-design",
     date: "2026-09-19",
-    title: "Jev の state と質問の設計",
+    title: "Jevのstateと質問の設計",
     description:
-      "何を state に入れ、質問をどう分けるか。複数の質問を 1 リクエストで評価する形、usage の読み方、SDK のリトライとタイムアウトの既定値、エラー型ごとの対処をまとめた。",
+      "何をstateに入れ、質問をどう分けるか。複数の質問を1リクエストで評価する形、usageの読み方、SDKのリトライとタイムアウトの既定値、エラー型ごとの対処をまとめた。",
     category: "feature",
     link: "/ai-ml/jev/jev-state-design",
   },
   {
     id: "2026-09-19-jev-primitives",
     date: "2026-09-19",
-    title: "Jev の 3 つの質問型と確率の読み方",
+    title: "Jevの3つの質問型と確率の読み方",
     description:
-      "noul（はい/いいえ）・choice（選択）・score（段階評価）の応答の形を、公式 SDK の型定義から起こした。confidence と probabilities の違い、score の期待値が整数の間に落ちる理由を扱う。",
+      "noul（はい/いいえ）・choice（選択）・score（段階評価）の応答の形を、公式SDKの型定義から起こした。confidenceとprobabilitiesの違い、scoreの期待値が整数の間に落ちる理由を扱う。",
     category: "feature",
     link: "/ai-ml/jev/jev-primitives",
   },
   {
     id: "2026-09-19-jev-setup",
     date: "2026-09-19",
-    title: "Jev の開発環境構築",
+    title: "Jevの開発環境構築",
     description:
-      "API キーの環境変数、Node.js / Python の公式 SDK の導入、最初の呼び出しまで。SDK がブラウザからの呼び出しを既定で拒否する理由と、サーバー側に置く構成を先に示した。",
+      "APIキーの環境変数、Node.js / Pythonの公式SDKの導入、最初の呼び出しまで。SDKがブラウザからの呼び出しを既定で拒否する理由と、サーバー側に置く構成を先に示した。",
     category: "feature",
     link: "/ai-ml/jev/jev-setup",
   },
   {
     id: "2026-09-19-jev-overview",
     date: "2026-09-19",
-    title: "AI・ML マニュアルに「Jev / System One モデル」セクションを追加",
+    title: "AI・MLマニュアルに「Jev / System Oneモデル」セクションを追加",
     description:
-      "TypeSafe AI が公開した、文章を生成せず型付きの判断を確率で返すモデル Jev を、ゼロからの解説・環境構築・基礎・設計・サンプルアプリ・応用の順で扱う。初回は LLM との違いと向いている仕事の見分け方。",
+      "TypeSafe AIが公開した、文章を生成せず型付きの判断を確率で返すモデルJevを、ゼロからの解説・環境構築・基礎・設計・サンプルアプリ・応用の順で扱う。初回はLLMとの違いと向いている仕事の見分け方。",
     category: "feature",
     link: "/ai-ml/jev/jev-overview",
   },

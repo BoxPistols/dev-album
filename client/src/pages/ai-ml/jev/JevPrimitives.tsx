@@ -9,12 +9,12 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * 3 つの質問型と確率の読み方
- * STEP 15: Jev セクション
+ * 3つの質問型と確率の読み方
+ * STEP 15: Jevセクション
  * - noul: はい/いいえ の確率
  * - choice: 選択肢とラベルごとの確率
  * - score: 順序付きルーブリックと期待値
- * - confidence と probabilities の違い、しきい値の考え方
+ * - confidenceとprobabilitiesの違い、しきい値の考え方
  */
 
 export default function JevPrimitives() {
@@ -26,12 +26,12 @@ export default function JevPrimitives() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          3 つの質問型と確率の読み方
+          3つの質問型と確率の読み方
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-          Jev に投げられる質問は noul / choice / score の 3
+          Jevに投げられる質問はnoul / choice / scoreの3
           種類だけです。それぞれの質問の書き方と、返ってくる答えの形を、 公式
-          SDK の型定義と API
+          SDKの型定義とAPI
           スキーマから起こして確認します。最後に、確率をどう行動に変換するかを扱います。
         </p>
 
@@ -41,7 +41,7 @@ export default function JevPrimitives() {
           <p>
             3
             つしかないので覚えるのは簡単ですが、答えに含まれる数値の意味を取り違えると設計を誤ります。
-            特に choice の confidence と probabilities、score
+            特にchoiceのconfidenceとprobabilities、score
             の期待値は、最初に正確に押さえる価値があります。
           </p>
         </WhyNowBox>
@@ -65,9 +65,9 @@ export default function JevPrimitives() {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 criteria
               </code>
-              （答えの候補の説明）で構成されます。 instructions と各 criteria
-              の説明は、文字列のほか JSON オブジェクトや配列も渡せます。 choice
-              と score の criteria の説明は{" "}
+              （答えの候補の説明）で構成されます。 instructionsと各criteria
+              の説明は、文字列のほかJSONオブジェクトや配列も渡せます。 choice
+              とscoreのcriteriaの説明は{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 null
               </code>{" "}
@@ -75,7 +75,7 @@ export default function JevPrimitives() {
             </p>
             <CodeBlock
               language="json"
-              title="HTTP で直接送る場合の形（POST /v1/systemone）"
+              title="HTTPで直接送る場合の形（POST /v1/systemone）"
               code={`{
   "model": "jev-latest",
   "state": { "subject": "Duplicate charge", "message": "Please help." },
@@ -95,8 +95,8 @@ export default function JevPrimitives() {
 }`}
             />
             <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-              SDK を使うとこの JSON を組み立てる必要はありません。以下では
-              JavaScript SDK のヘルパー
+              SDKを使うとこのJSONを組み立てる必要はありません。以下では
+              JavaScript SDKのヘルパー
               <code className="text-sm bg-muted px-1 rounded">noul()</code> /
               <code className="text-sm bg-muted px-1 rounded">choice()</code> /
               <code className="text-sm bg-muted px-1 rounded">score()</code>{" "}
@@ -111,7 +111,7 @@ export default function JevPrimitives() {
               noul — はい / いいえ
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              「はい」である確率を 1 つの数値で返します。API
+              「はい」である確率を1つの数値で返します。API
               スキーマの説明はこうです。
             </p>
             <blockquote className="border-l-4 border-primary/40 pl-4 text-sm text-muted-foreground mb-4 leading-relaxed">
@@ -119,7 +119,7 @@ export default function JevPrimitives() {
               Values near 1 favor yes or true, values near 0 favor no or false,
               and values near 0.5 indicate uncertainty.
               <span className="block mt-1 text-xs">
-                — typesafe-sdk 0.7.0 に同梱の OpenAPI
+                — typesafe-sdk 0.7.0に同梱のOpenAPI
                 生成スキーマ（NoulAnswer.noul）
               </span>
             </blockquote>
@@ -142,7 +142,7 @@ export default function JevPrimitives() {
               instructions
               は疑問文でも平叙文でも構いません。スキーマの例には「Is this
               message spam?」と 「This message contains unsolicited
-              advertising.」の両方が挙げられています。 criteria の true / false
+              advertising.」の両方が挙げられています。 criteriaのtrue / false
               は省略できます。付けると「何を“はい”と数えるか」の境界が明確になります。
             </p>
           </section>
@@ -151,7 +151,7 @@ export default function JevPrimitives() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <ListTree className="text-primary" size={28} />
-              choice — 名前付きの選択肢から 1 つ
+              choice — 名前付きの選択肢から1つ
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               criteria
@@ -182,7 +182,7 @@ export default function JevPrimitives() {
             </div>
             <div className="rounded-xl border border-border bg-card p-6 mt-4">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                confidence と probabilities は別物
+                confidenceとprobabilitiesは別物
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -209,8 +209,8 @@ export default function JevPrimitives() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    スキーマの例では choice が angry、confidence が
-                    0.9、probabilities の angry が 0.8
+                    スキーマの例ではchoiceがangry、confidenceが
+                    0.9、probabilitiesのangryが0.8
                     と、両者は一致していません。confidence
                     を「最大の確率」と同一視しないでください。
                   </span>
@@ -218,7 +218,7 @@ export default function JevPrimitives() {
               </ul>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              TypeScript では、criteria のキーがそのまま{" "}
+              TypeScriptでは、criteriaのキーがそのまま{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 choice
               </code>{" "}
@@ -244,8 +244,7 @@ export default function JevPrimitives() {
               criteria
               は配列で、並び順がそのままスコアになります。スキーマの説明は
               「Each description's position determines its score, starting at
-              zero.」です。 JavaScript SDK は 2
-              段階未満の配列を送信前に弾きます。
+              zero.」です。 JavaScript SDKは2段階未満の配列を送信前に弾きます。
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <CodeBlock
@@ -275,14 +274,14 @@ export default function JevPrimitives() {
             </div>
             <div className="rounded-xl border border-border bg-card p-6 mt-4">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                score が 1.7 のような小数になる理由
+                scoreが1.7のような小数になる理由
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                 score
                 は「確率で重み付けした段階の平均（期待値）」です。スキーマは
                 「Expected score: the probability-weighted average of the rubric
                 levels. May fall between integer levels.」と説明しています。
-                上の例なら 0×0.1 + 1×0.1 + 2×0.8 = 1.7 です。
+                上の例なら0×0.1 + 1×0.1 + 2×0.8 = 1.7です。
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 段階として扱いたいなら{" "}
@@ -297,10 +296,10 @@ export default function JevPrimitives() {
                 並び替え（優先度順にソート）なら期待値のまま、表示ラベルを選ぶなら最大確率の段階が素直です。
               </p>
             </div>
-            <InfoBox type="info" title="legend のキーは文字列">
-              JSON のキーは文字列なので、legend と probabilities のキーは "0" /
-              "1" / "2" です。 Python SDK はこれを int キーの dict
-              に変換して返します。TypeScript では criteria
+            <InfoBox type="info" title="legendのキーは文字列">
+              JSONのキーは文字列なので、legendとprobabilitiesのキーは "0" / "1"
+              / "2" です。 Python SDKはこれをintキーのdict
+              に変換して返します。TypeScriptではcriteria
               を固定長のタプルで渡すと、キーの型が "0" | "1" | "2"
               に絞られます。
             </InfoBox>
@@ -318,7 +317,7 @@ export default function JevPrimitives() {
             </p>
             <CodeBlock
               language="ts"
-              title="しきい値で 3 つに分ける（noul の例）"
+              title="しきい値で3つに分ける（noulの例）"
               code={`const p = answers.spam.noul;
 
 if (p >= 0.9) {
@@ -330,13 +329,13 @@ if (p >= 0.9) {
 }`}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              しきい値の値（0.9 や
+              しきい値の値（0.9や
               0.1）は仕様で決まる定数ではありません。誤検知のコストと見逃しのコストが業務ごとに違うからです。
               STEP 23
               で、ラベル付きデータを使ってしきい値を決める手順を扱います。
             </p>
             <InfoBox type="warning" title="仕様値と実測値のギャップ">
-              仕様では noul は 0〜1 の確率、choice の probabilities は合計が約 1
+              仕様ではnoulは0〜1の確率、choiceのprobabilitiesは合計が約1
               です。実測では、同じ入力でもモデルの更新（jev-latest
               の指す先が変わる）で
               数値が少し動くことがあります。しきい値ぎりぎりの入力は、モデル更新のたびに判定が入れ替わり得ます。
@@ -350,8 +349,8 @@ if (p >= 0.9) {
               コーディングチャレンジ
             </h2>
             <CodingChallenge
-              title="3 種類の質問を 1 リクエストに入れる"
-              description="___ を埋めて、noul / choice / score の質問を 1 つずつ持つリクエストを完成させてください。score の criteria は配列、choice の criteria はオブジェクトです。"
+              title="3種類の質問を1リクエストに入れる"
+              description="___ を埋めて、noul / choice / scoreの質問を1つずつ持つリクエストを完成させてください。scoreのcriteriaは配列、choiceのcriteriaはオブジェクトです。"
               preview={false}
               previewType="terminal"
               initialCode={`import { noul, choice, score, TypeSafeClient } from "@typesafe-ai/sdk";
@@ -387,9 +386,9 @@ console.log(answers.billing.noul);
 console.log(answers.tone.choice, answers.tone.confidence);
 console.log(answers.urgency.score);`}
               hints={[
-                "はい/いいえ の質問は noul() です",
-                "choice の criteria は { ラベル: 説明 | null } のオブジェクトです",
-                "score の criteria は配列で、先頭が 0 点。2 要素以上が必要です",
+                "はい/いいえ の質問はnoul() です",
+                "choiceのcriteriaは { ラベル: 説明 | null } のオブジェクトです",
+                "scoreのcriteriaは配列で、先頭が0点。2要素以上が必要です",
               ]}
               keywords={["noul(", "{ angry", '["Can wait"']}
             />
@@ -401,31 +400,31 @@ console.log(answers.urgency.score);`}
               理解度チェック
             </h2>
             <Quiz
-              question="score の答えが 1.7 のとき、正しい解釈は？"
+              question="scoreの答えが1.7のとき、正しい解釈は？"
               options={[
-                { label: "段階 1.7 という新しい段階が作られた" },
+                { label: "段階1.7という新しい段階が作られた" },
                 {
-                  label: "段階ごとの確率で重み付けした期待値が 1.7",
+                  label: "段階ごとの確率で重み付けした期待値が1.7",
                   correct: true,
                 },
-                { label: "確率 1.7 で段階 1 が選ばれた" },
+                { label: "確率1.7で段階1が選ばれた" },
                 { label: "エラー値" },
               ]}
-              explanation="score は「probability-weighted average of the rubric levels」で、整数の段階の間に落ちることがあります。段階として扱うなら probabilities の最大値を取るか丸めます。"
+              explanation="scoreは「probability-weighted average of the rubric levels」で、整数の段階の間に落ちることがあります。段階として扱うならprobabilitiesの最大値を取るか丸めます。"
             />
             <Quiz
-              question="choice の confidence について正しいのは？"
+              question="choiceのconfidenceについて正しいのは？"
               options={[
-                { label: "probabilities の最大値と常に等しい" },
+                { label: "probabilitiesの最大値と常に等しい" },
                 {
                   label:
                     "選んだラベルへの確信度で、低いものをレビューに回す用途が示されている",
                   correct: true,
                 },
-                { label: "probabilities の合計" },
+                { label: "probabilitiesの合計" },
                 { label: "ラベルの数の逆数" },
               ]}
-              explanation="スキーマは confidence を「Confidence in the selected choice」と定義し、「use lower values to flag uncertain selections for review」と用途を示しています。例では最大確率（0.8）と confidence（0.9）が異なります。"
+              explanation="スキーマはconfidenceを「Confidence in the selected choice」と定義し、「use lower values to flag uncertain selections for review」と用途を示しています。例では最大確率（0.8）とconfidence（0.9）が異なります。"
             />
           </section>
 
@@ -435,17 +434,17 @@ console.log(answers.urgency.score);`}
                 {
                   title: "TypeSafe AI Docs — noul",
                   url: "https://docs.typesafe.ai/primitives/noul",
-                  description: "SDK の型定義がリンクしている noul の解説。",
+                  description: "SDKの型定義がリンクしているnoulの解説。",
                 },
                 {
                   title: "TypeSafe AI Docs — choice",
                   url: "https://docs.typesafe.ai/primitives/choice",
-                  description: "choice の解説。",
+                  description: "choiceの解説。",
                 },
                 {
                   title: "TypeSafe AI Docs — score",
                   url: "https://docs.typesafe.ai/primitives/score",
-                  description: "score の解説。",
+                  description: "scoreの解説。",
                 },
               ]}
             />

@@ -9,11 +9,11 @@ import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
 
 /**
- * サンプルアプリ 2: UI 文言チェッカー
- * STEP 19: Jev セクション
+ * サンプルアプリ2: UI文言チェッカー
+ * STEP 19: Jevセクション
  * - デザイナー向けの題材。ボタン・エラー・空状態の文言を、チームのライティング指針に照らして判定する
- * - 「そのまま OK / 直す / 出さない」の 3 分岐。判定に失敗したら「直す」側へ倒す
- * - 指針の本文を state で渡す（基準をモデルの常識に任せない）
+ * - 「そのままOK / 直す / 出さない」の3分岐。判定に失敗したら「直す」側へ倒す
+ * - 指針の本文をstateで渡す（基準をモデルの常識に任せない）
  */
 
 export default function JevCopyCheckApp() {
@@ -25,11 +25,11 @@ export default function JevCopyCheckApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ 2: UI 文言チェッカー
+          サンプルアプリ2: UI文言チェッカー
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ボタンのラベル、エラーメッセージ、空状態の文言を入れると、チームのライティング指針に照らして
-          Jev が判定します。
+          Jevが判定します。
           「意図が伝わるか」「敬体・常体が指針と合っているか」「ネガティブな言い回しか」「総合品質」を数値で返し、
           そのまま出せるもの、直すもの、出してはいけないものに分けます。デザインシステムのレビューを支える道具です。
         </p>
@@ -38,7 +38,7 @@ export default function JevCopyCheckApp() {
           tags={[
             "デザイナー向け",
             "マイクロコピー",
-            "3 分岐",
+            "3分岐",
             "フェイルクローズ",
             "React",
           ]}
@@ -46,7 +46,7 @@ export default function JevCopyCheckApp() {
           <p>
             UI
             文言のレビューは、指針を知っている人がボトルネックになりがちです。指針の本文を
-            state に渡して Jev に一次判定させると、
+            stateに渡してJevに一次判定させると、
             レビュー依頼の前に自分で直せる部分が増え、レビュアーは迷った文言だけを見ればよくなります。
             この教材自体のライティング指針（ネガティブ訴求禁止、フラットなトーン）も同じやり方で機械にかけられます。
           </p>
@@ -57,10 +57,10 @@ export default function JevCopyCheckApp() {
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">0. 前提</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              STEP 18 で作った jev-apps プロジェクトに追加します。API キーは同じ
-              .env.local を使い、実際に Jev を呼びます。 作るファイルは
+              STEP 18で作ったjev-appsプロジェクトに追加します。APIキーは同じ
+              .env.localを使い、実際にJevを呼びます。 作るファイルは
               lib/copycheck.ts、app/api/copycheck/route.ts、app/copycheck/page.tsx
-              の 3 つです。
+              の3つです。
             </p>
           </section>
 
@@ -127,7 +127,7 @@ export default function JevCopyCheckApp() {
                       score
                     </td>
                     <td className="py-3 px-4 text-muted-foreground">
-                      指針全体に照らした総合品質（0 出せない 〜 2
+                      指針全体に照らした総合品質（0出せない 〜 2
                       そのまま出せる）
                     </td>
                   </tr>
@@ -136,7 +136,7 @@ export default function JevCopyCheckApp() {
             </div>
             <CodeBlock
               language="ts"
-              title="lib/copycheck.ts — 型と 3 分岐"
+              title="lib/copycheck.ts — 型と3分岐"
               code={`export type Component = "button" | "error" | "empty_state" | "notification";
 export type Tone = "polite" | "plain" | "mixed";
 
@@ -145,12 +145,12 @@ export interface CopyResult {
   tone: Tone;
   toneConfidence: number;
   negative: number;  // noul 0〜1
-  quality: number;   // score 0〜2 の期待値
+  quality: number;   // score 0〜2の期待値
 }
 
 export type Verdict = "ok" | "revise" | "block";
 
-// 指針が敬体（polite）のチームを想定。しきい値は STEP 23 の手順で決め直す
+// 指針が敬体（polite）のチームを想定。しきい値はSTEP 23の手順で決め直す
 export function verdict(r: CopyResult, okAbove = 0.85, blockNegativeAbove = 0.9): Verdict {
   if (r.negative >= blockNegativeAbove) return "block";
   if (r.clear >= okAbove && r.negative < 0.1 && r.tone === "polite" && r.quality >= 1.5) return "ok";
@@ -166,7 +166,7 @@ export function verdict(r: CopyResult, okAbove = 0.85, blockNegativeAbove = 0.9)
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Server className="text-primary" size={28} />
-              2. Route Handler — 指針を state で渡し、失敗したら「直す」に倒す
+              2. Route Handler — 指針をstateで渡し、失敗したら「直す」に倒す
             </h2>
             <CodeBlock
               language="ts"
@@ -228,15 +228,15 @@ export async function POST(req: Request) {
 }`}
             />
             <InfoBox type="warning" title="フェイルクローズにする">
-              サンプルアプリ 1 では失敗を 503
+              サンプルアプリ1では失敗を503
               で返し、本人に選んでもらいました。ここでは失敗を「直す」として扱い、「OK」側には倒しません。
-              API の障害中に未チェックの文言が OK 扱いで流れる事故を、この 1
+              APIの障害中に未チェックの文言がOK扱いで流れる事故を、この1
               行で防いでいます。
             </InfoBox>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              指針の本文を state
+              指針の本文をstate
               に入れているのがポイントです。「何が良い文言か」をモデルの常識に任せず、自分たちの基準を毎回渡します。
-              指針を改訂したら、コードを変えずに GUIDELINE
+              指針を改訂したら、コードを変えずにGUIDELINE
               の配列を変えるだけで判定が変わります。
             </p>
           </section>
@@ -248,7 +248,7 @@ export async function POST(req: Request) {
             </h2>
             <CodeBlock
               language="bash"
-              title="良い文言と、直したい文言を 1 件ずつ叩く"
+              title="良い文言と、直したい文言を1件ずつ叩く"
               code={`curl -sS http://localhost:3000/api/copycheck \\
   -H "Content-Type: application/json" \\
   -d '{"component":"error","copy":"保存できませんでした。通信状況を確認して、もう一度お試しください。"}'
@@ -264,7 +264,7 @@ curl -sS http://localhost:3000/api/copycheck \\
             />
             <p className="text-muted-foreground mt-3 leading-relaxed">
               「入力に誤りがあります」「今すぐ登録しないと損をします」「削除する」なども叩いてみてください。
-              negative が跳ねる文言、clear が下がる文言、tone が mixed
+              negativeが跳ねる文言、clearが下がる文言、toneがmixed
               になる文言を自分の目で見ると、指針の文を直す材料にもなります。
             </p>
           </section>
@@ -312,7 +312,7 @@ export default function CopyCheckPage() {
 
   return (
     <main style={{ maxWidth: 640, margin: "40px auto", fontFamily: "sans-serif" }}>
-      <h1>UI 文言チェッカー</h1>
+      <h1>UI文言チェッカー</h1>
       <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
         <label htmlFor="component">コンポーネント</label>
         <select id="component" value={component} onChange={(e) => setComponent(e.target.value as Component)} style={{ display: "block", marginBottom: 8 }}>
@@ -335,18 +335,18 @@ export default function CopyCheckPage() {
   );
 }`}
             />
-            <InfoBox type="info" title="言い換え案は Jev の仕事ではない">
+            <InfoBox type="info" title="言い換え案はJevの仕事ではない">
               Jev
               は「直す必要がある」と数値で言えますが、直した文言は書けません。言い換え案が欲しければ、「直す」と判定された文言だけを
-              LLM に渡します。 全件を LLM に渡すより安く速く、しかも LLM
-              の出力をもう一度 Jev
+              LLMに渡します。 全件をLLMに渡すより安く速く、しかもLLM
+              の出力をもう一度Jev
               に通せば「直った」ことも数値で確かめられます（STEP 23）。
             </InfoBox>
             <h3 className="text-xl font-bold text-foreground mt-8 mb-3">
-              ブラウザ内シミュレーション: 3 分岐だけを試す
+              ブラウザ内シミュレーション: 3分岐だけを試す
             </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              教材のプレビューは Jev
+              教材のプレビューはJev
               を呼べないので、サーバーの応答と同じ形の固定データで{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 verdict()
@@ -354,10 +354,10 @@ export default function CopyCheckPage() {
               の分岐だけを確認します。___ を埋めてください。
             </p>
             <CodingChallenge
-              title="シミュレーション: 3 分岐の判定を完成させる"
-              description="verdict() の ___ を埋めて、ネガティブ確率が blockNegativeAbove 以上なら 'block'、伝わる確率が okAbove 以上で他の条件も満たせば 'ok'、それ以外を 'revise' にしてください。"
+              title="シミュレーション: 3分岐の判定を完成させる"
+              description="verdict() の ___ を埋めて、ネガティブ確率がblockNegativeAbove以上なら 'block'、伝わる確率がokAbove以上で他の条件も満たせば 'ok'、それ以外を 'revise' にしてください。"
               preview={true}
-              initialCode={`// /api/copycheck が返すのと同じ形の固定データ（シミュレーション用）
+              initialCode={`// /api/copycheckが返すのと同じ形の固定データ（シミュレーション用）
 const results = [
   { copy: "保存できませんでした。通信状況を確認して、もう一度お試しください。", clear: 0.95, tone: "polite", negative: 0.02, quality: 1.8 },
   { copy: "OK", clear: 0.3, tone: "polite", negative: 0.01, quality: 0.6 },
@@ -388,7 +388,7 @@ function App() {
     </div>
   );
 }`}
-              answer={`// /api/copycheck が返すのと同じ形の固定データ（シミュレーション用）
+              answer={`// /api/copycheckが返すのと同じ形の固定データ（シミュレーション用）
 const results = [
   { copy: "保存できませんでした。通信状況を確認して、もう一度お試しください。", clear: 0.95, tone: "polite", negative: 0.02, quality: 1.8 },
   { copy: "OK", clear: 0.3, tone: "polite", negative: 0.01, quality: 0.6 },
@@ -420,13 +420,13 @@ function App() {
   );
 }`}
               hints={[
-                "出さない条件は引数 blockNegativeAbove 以上です",
-                "そのまま出せる条件の 1 つ目は引数 okAbove 以上です",
+                "出さない条件は引数blockNegativeAbove以上です",
+                "そのまま出せる条件の1つ目は引数okAbove以上です",
               ]}
               keywords={[">= blockNegativeAbove", ">= okAbove"]}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              正しく埋まると、1 件目が「そのまま出せる」、3
+              正しく埋まると、1件目が「そのまま出せる」、3
               件目が「出さない」、残りが「直す」になります。
               「OK」というボタンラベルは、ネガティブではないが何が起きるか伝わらない、という理由で「直す」に入ります。
             </p>
@@ -441,15 +441,15 @@ function App() {
               {[
                 {
                   title: "レビュアーの最終判断を記録する",
-                  body: "「直す」と出た文言をレビュアーがどう扱ったかを保存する。これが STEP 23 でしきい値を決めるラベル付きデータになる。",
+                  body: "「直す」と出た文言をレビュアーがどう扱ったかを保存する。これがSTEP 23でしきい値を決めるラベル付きデータになる。",
                 },
                 {
                   title: "デザインツールやリポジトリと繋ぐ",
-                  body: "文言を 1 件ずつ手で入れるのは最初だけ。Figma のテキストレイヤーやリポジトリの i18n ファイルから一括で読み、STEP 20 の一括評価の形で回す。",
+                  body: "文言を1件ずつ手で入れるのは最初だけ。Figmaのテキストレイヤーやリポジトリのi18nファイルから一括で読み、STEP 20の一括評価の形で回す。",
                 },
                 {
                   title: "指針の改訂を判定で検証する",
-                  body: "GUIDELINE を変えたら、同じ文言セットを再評価して verdict の分布がどう動くかを見る。指針の文が曖昧だと分布が動かない。",
+                  body: "GUIDELINEを変えたら、同じ文言セットを再評価してverdictの分布がどう動くかを見る。指針の文が曖昧だと分布が動かない。",
                 },
               ].map((item) => (
                 <div
@@ -472,15 +472,15 @@ function App() {
               理解度チェック
             </h2>
             <Quiz
-              question="Jev の呼び出しが失敗したとき、このアプリが文言を「直す」列に置く理由は？"
+              question="Jevの呼び出しが失敗したとき、このアプリが文言を「直す」列に置く理由は？"
               options={[
                 { label: "「直す」が最も処理コストが低いから" },
                 {
                   label:
-                    "障害中に未チェックの文言が OK 扱いで流れる事故を防ぐため（OK 側に倒さない）",
+                    "障害中に未チェックの文言がOK扱いで流れる事故を防ぐため（OK側に倒さない）",
                   correct: true,
                 },
-                { label: "SDK がそう返すから" },
+                { label: "SDKがそう返すから" },
                 { label: "出さない扱いにするとデザイナーが困るから" },
               ]}
               explanation="判定が得られなかった状態を「OK」と同一視すると、障害中に全件が通過します。失敗は人が見る側（直す）に倒します。"
@@ -494,7 +494,7 @@ function App() {
                   title: "TypeSafe AI Docs — noul",
                   url: "https://docs.typesafe.ai/primitives/noul",
                   description:
-                    "criteria の true / false で「何を伝わると数えるか」を明示する。",
+                    "criteriaのtrue / falseで「何を伝わると数えるか」を明示する。",
                 },
                 {
                   title: "Next.js — Route Handlers",

@@ -19,6 +19,7 @@ pnpm test                        # 単体テスト（Vitest）
 pnpm test:e2e                    # E2E 全スペック（Playwright, a11y 含む）
 pnpm test:a11y                   # a11y のみ（axe-core, 3テーマ）
 pnpm test:storybook              # story ごとの a11y 検査（chromium で実描画）
+pnpm check:prose                 # 文章の検査（差分で足した行だけ。textlint）
 pnpm build                       # 本番ビルド
 ```
 
@@ -66,6 +67,7 @@ pnpm build                       # 本番ビルド
 - トーンはフラットで実用的（Progate / オライリー）。エモーショナルなコピー・ネガティブ訴求・クリシェを禁止。
 - 教材ページの追加/更新時は `client/src/data/announcements.ts` の先頭にエントリを追加する。
 - 「仕様値 vs 実測値」がズレる箇所は先に明示する（学習者が折れないため）。
+- 新しく書く文章では、日本語と英数字の間に半角スペースを入れない。コード内のコメントと文字列も対象にする。既存の行は一括で直さず、`pnpm check:prose`が差分で足した行だけを検査する（CIのverifyでもPRごとに回る）。検出された行は手で直し、`textlint --fix`や整形をファイル全体に掛けない。
 
 ## スペック駆動（新機能の進め方）
 
