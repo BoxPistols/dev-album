@@ -647,9 +647,9 @@ export const searchIndex: Record<string, string[]> = {
     'Jev', 'サンプルアプリ', 'デザイン', '案の比較', '評価関数', '組み合わせ', '重み付け', '合成',
     'ボタン', 'ラベル', '順位', '揺れ', 'ノイズ', 'confidence', '決められない', 'score',
   ],
-  '/ai-ml/jev/jev-leads-app': [
-    'Jev', 'サンプルアプリ', 'マーケティング', '反応分析', '購買意図', 'キャンペーン', 'SNS', 'アンケート',
-    'リード', '集計', '検討段階', 'CRM',
+  '/ai-ml/jev/jev-flight-app': [
+    'Jev', 'サンプルアプリ', '自動操縦', 'フライト', '制御ループ', 'Three.js', '3D', 'ゲーム',
+    '衝突回避', '判断の周期', 'ガード', '安全', 'choice', 'noul', 'confidence',
   ],
   '/ai-ml/jev/jev-advanced': [
     'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLMジャッジ', 'ハーネス',

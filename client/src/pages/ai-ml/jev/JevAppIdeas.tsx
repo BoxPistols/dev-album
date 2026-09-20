@@ -127,7 +127,7 @@ const IDEA_GROUPS: IdeaGroup[] = [
         what: "キャンペーン後の問い合わせ・SNS・アンケートをまとめて評価し、購買意図・段階・態度を集計してキャンペーンを比べ、今日連絡する人を決める",
         types: ["score", "choice", "noul"],
         buildStep: 22,
-        href: "/ai-ml/jev/jev-leads-app",
+        href: "/ai-ml/jev/jev-flight-app",
       },
     ],
   },
@@ -256,7 +256,7 @@ export default function JevAppIdeas() {
                   title: "マーケティングの反応分析",
                   point:
                     "問い合わせ・SNS・アンケートを一括評価し、個別の次の行動とキャンペーン別の集計を出す",
-                  href: "/ai-ml/jev/jev-leads-app",
+                  href: "/ai-ml/jev/jev-flight-app",
                 },
               ].map((app) => (
                 <Link key={app.step} href={app.href} className="group block">

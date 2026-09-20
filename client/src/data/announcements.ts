@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-jev-flight-app",
+    date: "2026-09-21",
+    title: "Jevサンプルアプリ5: フライトの自動操縦",
+    description:
+      "地形を避けて目標へ向かう機体を、2秒ごとの判断で操縦する。判断の周期と描画の周期を分ける組み立てと、取り返しがつかない場面の分岐をコードが持つ理由を、実際に飛ばした記録で示す。判断だけでは衝突し、差し替えを1回入れると到達した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-flight-app",
+  },
+  {
     id: "2026-09-20-jev-design-search-app",
     date: "2026-09-20",
     title: "Jevサンプルアプリ4: デザイン案の探索",
@@ -63,15 +72,6 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "週次のリンク点検で見つかった、リダイレクトされる外部リンク9件を移転先のURLに書き換えた。OWASP、TanStack Query、Prisma、Nuxtのドキュメントが対象で、書き換え後のURLが同じページを開くことを確かめている。",
     category: "fix",
     link: "/api/rest-design/error-handling",
-  },
-  {
-    id: "2026-09-19-jev-leads-app",
-    date: "2026-09-19",
-    title: "Jevサンプルアプリ5: マーケティングの反応分析",
-    description:
-      "キャンペーン後の問い合わせ・SNS・アンケートをまとめてJevに渡し、購買意図・検討段階・態度・今日連絡すべきかを判定する。個別の連絡リストとキャンペーン別の集計表を同じ応答から作る。",
-    category: "feature",
-    link: "/ai-ml/jev/jev-leads-app",
   },
   {
     id: "2026-09-19-jev-account",

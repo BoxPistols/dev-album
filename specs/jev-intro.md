@@ -20,7 +20,7 @@ AI・MLマニュアルに「Jev / System Oneモデル」セクションを新設
   8. `/ai-ml/jev/jev-chart-picker-app` サンプルアプリ2: UI文言チェッカー（デザイナー向け。指針をstateで渡す3分岐、フェイルクローズ）
   9. `/ai-ml/jev/jev-dashboard-app` サンプルアプリ3: ユーザーの声の分類ボード（プロダクト作り向け。配列stateの一括評価、scoreで並べ替え）
   10. `/ai-ml/jev/jev-design-search-app` サンプルアプリ4: 診療所の受付振り分け（医療現場。診断はしない。緊急兆候は低しきい値で人へ、失敗もスタッフへ）
-  11. `/ai-ml/jev/jev-leads-app` サンプルアプリ5: マーケティングの反応分析（一括評価 + キャンペーン別集計）
+  11. `/ai-ml/jev/jev-flight-app` サンプルアプリ5: マーケティングの反応分析（一括評価 + キャンペーン別集計）
   12. `/ai-ml/jev/jev-advanced` 応用: 信頼度ゲート、LLMとの組み合わせ、評価、制約
 
 ## 処理フロー

@@ -7,7 +7,7 @@ import { getPageByPath } from './navigation';
  */
 
 export const STORAGE_MIGRATION_KEY = 'storage-migration-version';
-export const STORAGE_MIGRATION_VERSION = 5;
+export const STORAGE_MIGRATION_VERSION = 6;
 
 const PATH_ARRAY_KEYS = ['completed-pages', 'bookmarked-pages'] as const;
 const NOTE_PREFIX = 'page-note:';
@@ -20,6 +20,7 @@ const PATH_RENAMES: ReadonlyArray<[from: string, to: string]> = [
   ['/ai-ml/jev/jev-copycheck-app', '/ai-ml/jev/jev-chart-picker-app'],
   ['/ai-ml/jev/jev-feedback-app', '/ai-ml/jev/jev-dashboard-app'],
   ['/ai-ml/jev/jev-clinic-app', '/ai-ml/jev/jev-design-search-app'],
+  ['/ai-ml/jev/jev-leads-app', '/ai-ml/jev/jev-flight-app'],
 ];
 
 export function migratePath(path: string): string | undefined {

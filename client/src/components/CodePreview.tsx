@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
-import { useDebouncedPreview, type PreviewLib } from '@/lib/preview';
+import {
+  buildThreePreviewHtml,
+  useDebouncedPreview,
+  type PreviewLib,
+} from '@/lib/preview';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 
 interface CodePreviewProps {
@@ -15,6 +19,10 @@ interface CodePreviewProps {
   previewOnly?: boolean;
   /** プレビュー iframe に読み込む外部ライブラリ（MUI は import 文から自動検出される） */
   libs?: PreviewLib[];
+  /**
+   * 素のThree.js（Reactを使わないコード）はJSX用の組み立てでは動かない。
+   * THREEを使うコードは自動でThree.js用の組み立てに切り替える。
+   */
 }
 
 const languageMap: Record<string, Language> = {
@@ -53,10 +61,23 @@ export default function CodePreview({
   const { theme } = useTheme();
   const isModified = editableCode !== code;
   const prismLanguage = resolveLanguage(language);
+  // 素のThree.jsはReactを経由しないので、JSX用の組み立てでは描画されない
+  const isThree = /\bTHREE\b/.test(editableCode);
   const canPreview = language === 'tsx' || language === 'jsx';
   const isHorizontal = layout === 'horizontal';
 
-  const previewHtml = useDebouncedPreview(editableCode, css, canPreview, 300, isDarkTheme(theme), libs);
+  const jsxPreviewHtml = useDebouncedPreview(
+    editableCode,
+    css,
+    canPreview && !isThree,
+    300,
+    isDarkTheme(theme),
+    libs,
+  );
+  const previewHtml =
+    canPreview && isThree
+      ? buildThreePreviewHtml(editableCode, isDarkTheme(theme))
+      : jsxPreviewHtml;
 
   const handleReset = () => setEditableCode(code);
 
