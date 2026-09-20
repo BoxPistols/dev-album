@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-jev-adoption",
+    date: "2026-09-21",
+    title: "Jev: 既存のアプリに後から入れるページを追加",
+    description:
+      "動いているアプリにJevを足すときの順序を、実際に手元のアプリで測った記録から書いた。先に基準を決めてから測ること、すでにLLMを使っているアプリとそうでないアプリで入口が違うこと、入れないと決めた4件の理由を扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-adoption",
+  },
+  {
     id: "2026-09-21-jev-flight-app",
     date: "2026-09-21",
     title: "Jevサンプルアプリ5: フライトの自動操縦",

@@ -506,6 +506,7 @@ export const pages: PageInfo[] = [
   { step: 21, path: '/ai-ml/jev/jev-design-search-app', title: '4. デザイン案の探索', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 22, path: '/ai-ml/jev/jev-flight-app', title: '5. フライトの自動操縦', sectionId: 'jev', manualId: 'ai-ml' },
   { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲート', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 24, path: '/ai-ml/jev/jev-adoption', title: '既存アプリへの導入', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
   // UX デザインマニュアル (15ページ)

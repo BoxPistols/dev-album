@@ -655,6 +655,10 @@ export const searchIndex: Record<string, string[]> = {
     'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLMジャッジ', 'ハーネス',
     '評価', 'しきい値', 'コスト', '制約', 'ガードレール', '人の確認',
   ],
+  '/ai-ml/jev/jev-adoption': [
+    'Jev', '導入', '既存アプリ', '置き換え', 'LLMの置き換え', 'ガードレール', '振り分け',
+    '測り方', '基準', 'しきい値', 'フォールバック', '段階導入', 'opt-in', '入れない判断',
+  ],
 
   // ===== ux-design-manual =====
   '/ux-design': [

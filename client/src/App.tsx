@@ -268,6 +268,7 @@ const AiJevDashboardApp = lazy(() => import("./pages/ai-ml/jev/JevDashboardApp")
 const AiJevDesignSearchApp = lazy(() => import("./pages/ai-ml/jev/JevDesignSearchApp"));
 const AiJevFlightApp = lazy(() => import("./pages/ai-ml/jev/JevFlightApp"));
 const AiJevAdvanced = lazy(() => import("./pages/ai-ml/jev/JevAdvanced"));
+const AiJevAdoption = lazy(() => import("./pages/ai-ml/jev/JevAdoption"));
 
 // ── UX デザインマニュアル (15ページ) ──
 const UxHome = lazy(() => import("./pages/ux-design/Home"));
@@ -731,6 +732,7 @@ function App() {
                 <Route path="/ai-ml/jev/jev-design-search-app" component={AiJevDesignSearchApp} />
                 <Route path="/ai-ml/jev/jev-flight-app" component={AiJevFlightApp} />
                 <Route path="/ai-ml/jev/jev-advanced" component={AiJevAdvanced} />
+                <Route path="/ai-ml/jev/jev-adoption" component={AiJevAdoption} />
 
                 {/* === UX デザインマニュアル === */}
                 <Route path="/ux-design" component={UxHome} />
