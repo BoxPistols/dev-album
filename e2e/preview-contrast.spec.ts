@@ -40,10 +40,6 @@ const THEMES = [
 
 const MIN_CONTRAST = 2;
 
-// 穴埋め課題（`___` を含む）のうち、空欄がメソッド名やJSXのタグ名の位置にあるものは
-// 初期状態では描画できない（items.___()など）。その分を#root非空の判定から外す。
-// 値の位置にある空欄は宣言済みの識別子として実行されるので、描画されるのが正しい
-const BLANK_PLACEHOLDER = /\b___\b/;
 
 interface ContrastFailure {
   text: string;
@@ -208,17 +204,17 @@ function measureFrame(minContrast: number): FrameReport {
 
 interface PreviewFrame {
   frame: Frame;
-  isBlankExercise: boolean;
   usesTailwind: boolean;
 }
 
 // React UMD の読み込みと描画を待つ（createRoot の描画は非同期なので srcDoc 確定後も遅れる）。
-// 穴埋め課題は描画できないのが正しいので、React の読み込みだけ待って先へ進む。
+// 穴埋め課題も、空欄を宣言してから実行するので描画される。埋める前に実行できない形
+// （メソッド名が空欄など）はエラー表示が出るので、どちらにしても#rootは空にならない。
 // Tailwind ブラウザ版はクラスを実行時にコンパイルするので、compiled CSS の注入も待つ。
 async function waitForPreview(pf: PreviewFrame): Promise<boolean> {
   try {
     await pf.frame.waitForFunction(
-      ({ blank, tailwind }) => {
+      ({ tailwind }) => {
         const root = document.getElementById("root");
         if (tailwind) {
           // ブラウザ版 Tailwind は DOM 変化を見て再コンパイルするので、React 描画後のクラスが
@@ -236,10 +232,9 @@ async function waitForPreview(pf: PreviewFrame): Promise<boolean> {
           for (const c of used) if (!css.includes(`.${c}`)) return false;
         }
         if (!root) return document.body.childNodes.length > 0;
-        if (blank) return typeof (window as { React?: unknown }).React !== "undefined";
         return root.childNodes.length > 0;
       },
-      { blank: pf.isBlankExercise, tailwind: pf.usesTailwind },
+      { tailwind: pf.usesTailwind },
       { timeout: 10_000 },
     );
     return true;
@@ -268,7 +263,6 @@ async function collectPreviewFrames(page: Page): Promise<PreviewFrame[]> {
     const srcDoc = (await handle.getAttribute("srcdoc")) ?? "";
     frames.push({
       frame,
-      isBlankExercise: BLANK_PLACEHOLDER.test(srcDoc),
       usesTailwind: /tailwindcss-browser/.test(srcDoc),
     });
   }
@@ -305,7 +299,7 @@ for (const theme of THEMES) {
           const report = await pf.frame.evaluate(measureFrame, MIN_CONTRAST);
           const label = `#${index + 1} (bg ${report.bodyBackground})`;
           if (!ready) problems.push(`${label}: 描画が完了しない`);
-          if (report.rootEmpty && !pf.isBlankExercise)
+          if (report.rootEmpty)
             problems.push(`${label}: #root が空`);
           // Light 以外では iframe の地がライト（白）のままなら判定漏れ。Light では逆を見る
           // （エラー表示は常に暗い地なので #root を持つ文書だけ見る）

@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-preview-silent-errors",
+    date: "2026-09-21",
+    title: "プレビューが無言で消えず、原因を表示するように",
+    description:
+      "描画の途中で起きたエラーが拾われず、プレビューが空白のままになることがあった。何が起きたかを枠の中に表示する。あわせて、タグ名が空欄のチャレンジも初期状態から描画されるようにした。",
+    category: "fix",
+    link: "/react/ui-patterns/form-group",
+  },
+  {
     id: "2026-09-21-challenge-preview-blanks",
     date: "2026-09-21",
     title: "チャレンジのプレビューが、空欄のままでも動くように",

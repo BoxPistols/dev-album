@@ -504,6 +504,35 @@ describe("チャレンジの空欄", () => {
     expect(html).toContain('___: "email"');
     expect(html).toContain("const [value, ___] = useState(0)");
   });
+
+  it("JSXのタグ名が空欄なら、描画できるタグに差し替える", () => {
+    // 空文字のままだとcreateElement('')で落ちる。文字列の中の___は巻き込まない
+    const code = `function App() {
+  const note = "___ を埋める";
+  return <___ className="box">{note}</___>;
+}`;
+    const html = buildPreviewHtml(code, "", false);
+    expect(html).toContain("React.createElement('div'");
+    expect(html).not.toContain("React.createElement(___");
+    expect(html).toContain('"___ を埋める"');
+  });
+});
+
+// ============================================================
+// 描画中に起きたエラーの表示
+// ============================================================
+describe("プレビューのエラー表示", () => {
+  it("非同期に起きたエラーも拾って表示する", () => {
+    // Reactの描画は非同期に進むので、try/catchだけでは#rootが空のまま残る
+    const html = buildPreviewHtml("function App() { return <p>x</p>; }", "", false);
+    expect(html).toContain("addEventListener('error'");
+    expect(html).toContain("addEventListener('unhandledrejection'");
+  });
+
+  it("すでに描画できているときは、あとから出たエラーで消さない", () => {
+    const html = buildPreviewHtml("function App() { return <p>x</p>; }", "", false);
+    expect(html).toContain("root.childElementCount>0");
+  });
 });
 
 // ============================================================

@@ -102,7 +102,11 @@ export function buildPreviewHtml(
       ...(needsEmotion ? { jsxPragma: 'emotionReact.jsx' } : {}),
       production: false,
     });
-    transpiledCode = result.code;
+    // JSXのタグ名が空欄のとき（<___>）、宣言した空文字がそのままタグ名になり
+    // createElement('') で落ちる。トランスパイル後に当てるので、文字列の中の
+    // ___ や属性名の ___ は巻き込まない
+    const jsxFactory = needsEmotion ? 'emotionReact.jsx' : 'React.createElement';
+    transpiledCode = result.code.replaceAll(`${jsxFactory}(___`, `${jsxFactory}('div'`);
   } catch (e: unknown) {
     errorMessage = e instanceof Error ? e.message : String(e);
   }
@@ -166,6 +170,19 @@ ${cssCode}
 </style></head><body>
 <div id="root"></div>
 <script>
+// Reactの描画は非同期に進むので、そこで投げられた例外は下のcatchには入らない。
+// 拾わないと#rootが空のままになり、プレビューが無言で消える
+function __showError(message){
+  var root=document.getElementById('root');
+  if(!root||root.childElementCount>0)return;
+  root.innerHTML=
+    '<div style="color:#ef4444;padding:16px;font-size:13px;font-family:monospace;">'+
+    '<strong>Error:</strong> '+String(message).replace(/</g,'&lt;')+'</div>';
+}
+window.addEventListener('error',function(ev){__showError(ev.message);});
+window.addEventListener('unhandledrejection',function(ev){
+  __showError(ev.reason&&ev.reason.message?ev.reason.message:ev.reason);
+});
 try{
   ${BLANK_DECLARATION}
   var {useState,useEffect,useRef,useCallback,useMemo,useReducer,useContext,createContext}=React;
@@ -198,9 +215,7 @@ ${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${is
 ` : ''}    ReactDOM.createRoot(document.getElementById('root')).render(__element);
   }
 }catch(e){
-  document.getElementById('root').innerHTML=
-    '<div style="color:#ef4444;padding:16px;font-size:13px;font-family:monospace;">'+
-    '<strong>Error:</strong> '+e.message.replace(/</g,'&lt;')+'</div>';
+  __showError(e.message);
 }
 <\/script></body></html>`;
 }
