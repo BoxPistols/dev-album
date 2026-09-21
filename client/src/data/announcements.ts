@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-challenge-preview-blanks",
+    date: "2026-09-21",
+    title: "チャレンジのプレビューが、空欄のままでも動くように",
+    description:
+      "穴埋めのチャレンジで、空欄が値の位置にあるとプレビューが空のままになっていた。書き始める前に完成形の動きを見られるよう、空欄を仮の値として実行するようにした。全マニュアルのチャレンジが対象。",
+    category: "fix",
+    link: "/devflow/pm/estimation",
+  },
+  {
     id: "2026-09-21-jev-adoption",
     date: "2026-09-21",
     title: "Jev: 既存のアプリに後から入れるページを追加",

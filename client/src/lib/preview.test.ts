@@ -470,6 +470,41 @@ describe("buildConfigPreviewHtml", () => {
 });
 
 // ============================================================
+// チャレンジの空欄（___）の扱い
+// ============================================================
+// 置き換えないと、値の位置にある空欄でReferenceErrorになりプレビューが空になる。
+// 本番の/ai-ml/jev/jev-triage-appと/devflow/pm/estimationで実際に起きていた。
+// JSXとThree.jsの両方の組み立てで同じ扱いにする。
+describe("チャレンジの空欄", () => {
+  const withBlank = `function App() {
+  const ok = 1 < ___;
+  return <p>{ok ? "yes" : "no"}</p>;
+}`;
+
+  it("JSXの組み立てで、値の位置の空欄が実行できる形になる", () => {
+    const html = buildPreviewHtml(withBlank, "", false);
+    expect(html).not.toContain("1 < ___");
+    expect(html).toContain("1 < ''");
+  });
+
+  it("Three.jsの組み立てでも同じ", () => {
+    const html = buildThreePreviewHtml("const x = ___;", false);
+    expect(html).not.toContain("= ___");
+    expect(html).toContain("= ''");
+  });
+
+  it("引用符に挟まれた空欄は置き換えない（置き換えると構文が壊れる）", () => {
+    // トレーニングの問題がこの形。中身だけを置き換えると引用符が4つ並ぶ
+    const quoted = `function App() {
+  return <div style={{ position: '___' }} />;
+}`;
+    const html = buildPreviewHtml(quoted, "", false);
+    expect(html).toContain("position: '___'");
+    expect(html).not.toContain("''''");
+  });
+});
+
+// ============================================================
 // resolvePreviewType（プレビュータイプ自動判定）
 // ============================================================
 describe("resolvePreviewType", () => {

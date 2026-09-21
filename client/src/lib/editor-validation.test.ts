@@ -5,7 +5,7 @@
  * - プレビューHTML のフォーム要素対応
  */
 import { describe, it, expect } from 'vitest';
-import { buildPreviewHtml } from './preview';
+import { buildPreviewHtml, fillBlanks } from './preview';
 import { resolvePreviewType } from '@/components/CodingChallenge';
 import { transform } from 'sucrase';
 import fs from 'node:fs';
@@ -149,6 +149,65 @@ describe('全チャレンジコードのトランスパイル検証', () => {
       }
     });
   }
+});
+
+// ============================================================
+// チャレンジの空欄（___）が実行できる形になるか
+// ============================================================
+// トランスパイルは通るが実行時にReferenceErrorで落ちる形なので、上の検証では捕まらない。
+// 判定はfillBlanksの正規表現をなぞらず、文字列リテラルを伏せてから識別子として
+// 残っていないかを見る（同じ書き方で検査すると、実装の取りこぼしも一緒に見逃す）。
+describe('チャレンジの空欄', () => {
+  /** 文字列・テンプレートリテラルの中身を伏せる。残った___は識別子の位置にある */
+  function maskStrings(code: string): string {
+    return code
+      .replace(/`(?:\\[\s\S]|[^`\\])*`/g, '``')
+      .replace(/'(?:\\[\s\S]|[^'\\\n])*'/g, "''")
+      .replace(/"(?:\\[\s\S]|[^"\\\n])*"/g, '""');
+  }
+
+  function collectChallengeCodes(dir: string): { file: string; code: string }[] {
+    const found: { file: string; code: string }[] = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        found.push(...collectChallengeCodes(full));
+        continue;
+      }
+      if (!full.endsWith('.tsx') && !full.endsWith('.ts')) continue;
+      if (full.endsWith('.test.ts') || full.endsWith('.test.tsx')) continue;
+      const src = fs.readFileSync(full, 'utf-8');
+      for (const pattern of [/initialCode=\{`([\s\S]*?)`\}/g, /initialCode:\s*`([\s\S]*?)`/g]) {
+        for (const m of src.matchAll(pattern)) {
+          found.push({ file: path.relative(path.resolve(__dirname, '..'), full), code: m[1] });
+        }
+      }
+    }
+    return found;
+  }
+
+  const all = collectChallengeCodes(path.resolve(__dirname, '..'));
+  const blanks = all.filter(c => c.code.includes('___'));
+  const quoted = all.filter(c => /['"`]___['"`]/.test(c.code));
+
+  it('走査そのものが壊れていない（拾えた件数を固定する）', () => {
+    // 走査が壊れて0件になったときに素通りするのを防ぐ。件数は増える方向にしか動かないので下限だけ置く
+    expect(all.length).toBeGreaterThanOrEqual(240);
+    expect(blanks.length).toBeGreaterThanOrEqual(235);
+    expect(quoted.length).toBeGreaterThanOrEqual(60);
+  });
+
+  it('値の位置の空欄が、実行できる形に置き換わる', () => {
+    const remaining = blanks
+      .filter(c => maskStrings(fillBlanks(c.code)).includes('___'))
+      .map(c => c.file);
+    expect(remaining).toEqual([]);
+  });
+
+  it('引用符に挟まれた空欄は、問題文のまま残る', () => {
+    const broken = quoted.filter(c => fillBlanks(c.code).includes("''''")).map(c => c.file);
+    expect(broken).toEqual([]);
+  });
 });
 
 // ============================================================

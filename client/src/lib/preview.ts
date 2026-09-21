@@ -61,6 +61,20 @@ function detectComponentName(code: string): string {
 }
 
 /**
+ * チャレンジの空欄（___）を、埋める前でも実行できる値に置き換える。
+ *
+ * 値の位置にある空欄（`x < ___`、`{ key: ___ }`）はそのままだとReferenceErrorで落ち、
+ * プレビューが空になる。本番の/ai-ml/jev/jev-triage-appと/devflow/pm/estimationで
+ * 実際に起きていた。
+ *
+ * 引用符に挟まれた空欄（`display: '___'`）は置き換えない。中身だけを置き換えると
+ * 引用符が4つ並んで構文が壊れる（トレーニングの問題がこの形で、e2eが落ちて気づいた）。
+ */
+export function fillBlanks(code: string): string {
+  return code.replace(/(^|[^'"`])___(?=$|[^'"`])/g, "$1''");
+}
+
+/**
  * JSX/TSX コードを iframe 用 HTML に変換する
  * libs: 明示的に読み込む外部ライブラリ（import 文からの自動検出とマージされる）
  */
@@ -70,7 +84,7 @@ export function buildPreviewHtml(
   isDark = false,
   libs?: readonly PreviewLib[],
 ): string {
-  const cleanedCode = stripModuleSyntax(jsxCode);
+  const cleanedCode = fillBlanks(stripModuleSyntax(jsxCode));
   const componentName = detectComponentName(cleanedCode);
   const activeLibs = new Set<PreviewLib>([...detectPreviewLibs(jsxCode), ...(libs ?? [])]);
   const needsMui = activeLibs.has('mui');
@@ -195,7 +209,7 @@ ${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${is
  * Three.js コードをプレビュー用HTMLに変換する（vanilla Three.js 用）
  */
 export function buildThreePreviewHtml(code: string, isDark = true): string {
-  const safeCode = code.replace(/___/g, "''");
+  const safeCode = fillBlanks(code);
   const bgColor = isDark ? '#1a1a2e' : '#e8e8f0';
 
   return `<!DOCTYPE html>
