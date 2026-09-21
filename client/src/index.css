@@ -438,6 +438,45 @@
   --sidebar-ring: #50FA7B;
 }
 
+/* ── セクション別ブランドカラー ──
+   マニュアルの中の一部だけが別の製品を扱う場合に、そのセクションでだけ primary を差し替える
+   （<html data-section="..."> を useManualTheme フックが付ける）。data-manual より後に書き、
+   詳細度も [data-manual] と同じなので、後勝ちでセクション側が優先される。
+   Jev は AI・ML マニュアルの中の TypeSafe AI 製品のセクション。地の色は変えない。
+   値は公式サイトのマゼンタ #D45BB6 の色相（314.9 度）を保ったまま明度だけ動かしたもので、
+   そのままだと text-primary × bg-primary/10 が 3 テーマとも AA 4.5:1 に届かない
+   （bg-primary/5 のティントの上で、ライト 3.15 / ダーク 4.48 / Dracula 3.10）。theme-contrast.test.ts が 3 テーマぶん検査する。 */
+[data-section="jev"] {
+  --primary: #AA2C8B;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #AA2C8B;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #AA2C8B;
+  --accent-foreground: #F9FAFB;
+  --ring: #AA2C8B;
+  --sidebar-ring: #AA2C8B;
+}
+.dark[data-section="jev"] {
+  --primary: #D869BC;
+  --primary-foreground: #0C1425;
+  --sidebar-primary: #D869BC;
+  --sidebar-primary-foreground: #0C1425;
+  --accent: #D869BC;
+  --accent-foreground: #0C1425;
+  --ring: #D869BC;
+  --sidebar-ring: #D869BC;
+}
+.dark-soft[data-section="jev"] {
+  --primary: #E7A2D6;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #E7A2D6;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #E7A2D6;
+  --accent-foreground: #282A36;
+  --ring: #E7A2D6;
+  --sidebar-ring: #E7A2D6;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

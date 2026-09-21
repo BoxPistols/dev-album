@@ -20,6 +20,60 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-jev-adoption",
+    date: "2026-09-21",
+    title: "Jev: 既存のアプリに後から入れるページを追加",
+    description:
+      "動いているアプリにJevを足すときの順序を、実際に手元のアプリで測った記録から書いた。先に基準を決めてから測ること、すでにLLMを使っているアプリとそうでないアプリで入口が違うこと、入れないと決めた4件の理由を扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-adoption",
+  },
+  {
+    id: "2026-09-21-jev-flight-app",
+    date: "2026-09-21",
+    title: "Jevサンプルアプリ5: フライトの自動操縦",
+    description:
+      "地形を避けて目標へ向かう機体を、2秒ごとの判断で操縦する。判断の周期と描画の周期を分ける組み立てと、取り返しがつかない場面の分岐をコードが持つ理由を、実際に飛ばした記録で示す。判断だけでは衝突し、差し替えを1回入れると到達した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-flight-app",
+  },
+  {
+    id: "2026-09-20-jev-design-search-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ4: デザイン案の探索",
+    description:
+      "ボタンの案をコードが組み合わせで作り、観点ごとにJevが採点し、重みを掛けて順位を決める。重みを切り替えると順位が変わる様子と、採点の揺れより小さい差は順位として読めないことを、実測値で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-design-search-app",
+  },
+  {
+    id: "2026-09-20-jev-dashboard-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ3: ダッシュボードの自動強調",
+    description:
+      "20個の指標を1リクエストでまとめて採点し、いま見るべきものが大きく前に出る画面を作る。平常時と障害の当日で並びが組み替わる様子と、同点をコードが変化の大きさで並べる方法を実測値で示す。訴求と相手の組を採点する表も同じ形で扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-dashboard-app",
+  },
+  {
+    id: "2026-09-20-jev-chart-picker-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ2: データに合わせて図を選ぶ",
+    description:
+      "コードが計算したデータの要約をJevに渡し、折れ線・棒・散布・積み上げ帯のどれで見せるかと、最初に気づくべき点を決めて画面の図を切り替える。質問を1問1事に分けると何に反応しているかが見えることを、5つのデータの実測で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-chart-picker-app",
+  },
+  {
+    id: "2026-09-20-jev-triage-app",
+    date: "2026-09-20",
+    title: "Jevサンプルアプリ1: 問い合わせの選別",
+    description:
+      "メールやチャットで届く問い合わせを、担当チームと緊急度で振り分ける。選択肢に「どれでもない」を入れる前後の違いと、しきい値の決め方を、実際にJevを呼んで測った値で示す。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
     id: "2026-09-20-permanent-links",
     date: "2026-09-20",
     title: "API・Vue/Nuxt・インフラの外部リンクを移転先のURLに直した",
@@ -27,6 +81,69 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "週次のリンク点検で見つかった、リダイレクトされる外部リンク9件を移転先のURLに書き換えた。OWASP、TanStack Query、Prisma、Nuxtのドキュメントが対象で、書き換え後のURLが同じページを開くことを確かめている。",
     category: "fix",
     link: "/api/rest-design/error-handling",
+  },
+  {
+    id: "2026-09-19-jev-account",
+    date: "2026-09-19",
+    title: "Jevのアカウント登録・APIキー・課金の準備ページを追加",
+    description:
+      "TypeSafe AIと直接契約するルートとVercel AI Gateway経由のルートを比較し、ウェイトリスト、キー発行、支払い方法、予算上限、curlでの疎通確認までをまとめた。公式で確認できた事項と二次情報を分けて書いている。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-account",
+  },
+  {
+    id: "2026-09-19-jev-app-ideas",
+    date: "2026-09-19",
+    title: "Jevで作れるサンプルアプリのアイデア20を一覧に",
+    description:
+      "日常生活・デザイナー・プロダクト作り・医療とマーケティング・運用・ゲームとLLMの6領域で、Jevの3つの質問型で何が判定できるかを1行ずつ示した。講座で実際に作る5本（家計簿・UI文言チェッカー・ユーザーの声の分類・診療所の受付・マーケティングの反応分析）もここから選んでいる。Three.js講座の飛行機ゲームにJevを載せて帰還させる実装例も付けた。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-app-ideas",
+  },
+  {
+    id: "2026-09-19-jev-advanced",
+    date: "2026-09-19",
+    title: "Jev応用: 信頼度ゲートとLLMとの組み合わせ",
+    description:
+      "AI・MLマニュアルのJevセクション最終ページ。confidenceで自動処理と人の確認を分ける設計、LLMの前段・後段にJevを置く構成、しきい値の決め方と評価の回し方、Jevでは扱えないことを整理した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-advanced",
+  },
+  {
+    id: "2026-09-19-jev-state-design",
+    date: "2026-09-19",
+    title: "Jevのstateと質問の設計",
+    description:
+      "何をstateに入れ、質問をどう分けるか。複数の質問を1リクエストで評価する形、usageの読み方、SDKのリトライとタイムアウトの既定値、エラー型ごとの対処をまとめた。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-state-design",
+  },
+  {
+    id: "2026-09-19-jev-primitives",
+    date: "2026-09-19",
+    title: "Jevの3つの質問型と確率の読み方",
+    description:
+      "noul（はい/いいえ）・choice（選択）・score（段階評価）の応答の形を、公式SDKの型定義から起こした。confidenceとprobabilitiesの違い、scoreの期待値が整数の間に落ちる理由を扱う。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-primitives",
+  },
+  {
+    id: "2026-09-19-jev-setup",
+    date: "2026-09-19",
+    title: "Jevの開発環境構築",
+    description:
+      "APIキーの環境変数、Node.js / Pythonの公式SDKの導入、最初の呼び出しまで。SDKがブラウザからの呼び出しを既定で拒否する理由と、サーバー側に置く構成を先に示した。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-setup",
+  },
+  {
+    id: "2026-09-19-jev-overview",
+    date: "2026-09-19",
+    title: "AI・MLマニュアルに「Jev / System Oneモデル」セクションを追加",
+    description:
+      "TypeSafe AIが公開した、文章を生成せず型付きの判断を確率で返すモデルJevを、ゼロからの解説・環境構築・基礎・設計・サンプルアプリ・応用の順で扱う。初回はLLMとの違いと向いている仕事の見分け方。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-overview",
   },
   {
     id: "2026-08-23-cmux-source-verified",

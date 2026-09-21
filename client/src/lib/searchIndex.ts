@@ -606,6 +606,59 @@ export const searchIndex: Record<string, string[]> = {
     'ファインチューニング', 'トークン', 'コスト最適化', 'ガードレール',
     '評価', 'Langfuse', 'ハルシネーション', 'AI 倫理',
   ],
+  '/ai-ml/jev/jev-overview': [
+    'Jev', 'TypeSafe AI', 'System One', 'システムワン', '確率', '分類', '判断',
+    '非自己回帰', 'LLMとの違い', 'LLMジャッジ', 'ルーティング',
+  ],
+  '/ai-ml/jev/jev-account': [
+    'Jev', 'アカウント', 'APIキー', 'ウェイトリスト', '課金', 'クレジットカード', '前払い',
+    'Vercel AI Gateway', '予算', '請求', 'キーの管理', 'コンソール',
+  ],
+  '/ai-ml/jev/jev-setup': [
+    'Jev', '環境構築', 'TYPESAFE_API_KEY', '@typesafe-ai/sdk', 'typesafe-sdk',
+    'npm install', 'uv add', 'TypeSafeClient', 'systemOne', 'system_one', 'jev-latest', '.env',
+  ],
+  '/ai-ml/jev/jev-primitives': [
+    'Jev', 'noul', 'choice', 'score', '質問型', '確率', 'confidence', 'probabilities',
+    '期待値', 'ルーブリック', 'criteria', 'instructions', 'キャリブレーション',
+  ],
+  '/ai-ml/jev/jev-state-design': [
+    'Jev', 'state', '質問設計', '一括評価', 'バッチ', 'リトライ', 'タイムアウト',
+    'RateLimitError', 'AuthenticationError', 'usage', 'input_tokens', 'モデル一覧',
+  ],
+  '/ai-ml/jev/jev-app-ideas': [
+    'Jev', 'サンプルアプリ', 'アイデア', 'ユースケース', '日常生活', 'デザイナー', '家計簿', 'UI文言', 'ユーザーの声', '医療', 'マーケティング',
+    '仕分け', 'ジャッジ', 'SLO', 'ゲーム', '飛行機', 'フライトシミュレーター', '衝突回避', '天候', '帰還', '事例',
+  ],
+  '/ai-ml/jev/jev-triage-app': [
+    'Jev', 'サンプルアプリ', '問い合わせ', 'メール', 'チャット', '選別', '振り分け', 'トリアージ',
+    '担当チーム', '緊急度', 'choice', 'noul', 'しきい値', 'どれでもない',
+    'Next.js', 'Route Handler', 'React', 'TypeScript', 'confidence',
+  ],
+  '/ai-ml/jev/jev-chart-picker-app': [
+    'Jev', 'サンプルアプリ', '可視化', 'グラフ', 'チャート', '図の選択', '折れ線', '棒グラフ', '散布図', '積み上げ',
+    '強調', 'データの要約', '外れ値', 'SVG', '描画の切り替え', 'choice', 'noul', 'confidence',
+  ],
+  '/ai-ml/jev/jev-dashboard-app': [
+    'Jev', 'サンプルアプリ', 'ダッシュボード', '指標', '一括採点', 'fan-out', '並べ替え', '強調',
+    'レイアウト', 'ヒートマップ', 'マーケティング', '訴求', 'セグメント', 'score', '同点', 'タイブレーク',
+  ],
+  '/ai-ml/jev/jev-design-search-app': [
+    'Jev', 'サンプルアプリ', 'デザイン', '案の比較', '評価関数', '組み合わせ', '重み付け', '合成',
+    'ボタン', 'ラベル', '順位', '揺れ', 'ノイズ', 'confidence', '決められない', 'score',
+  ],
+  '/ai-ml/jev/jev-flight-app': [
+    'Jev', 'サンプルアプリ', '自動操縦', 'フライト', '制御ループ', 'Three.js', '3D', 'ゲーム',
+    '衝突回避', '判断の周期', 'ガード', '安全', 'choice', 'noul', 'confidence',
+  ],
+  '/ai-ml/jev/jev-advanced': [
+    'Jev', '応用', '信頼度ゲート', 'confidence gate', 'LLMジャッジ', 'ハーネス',
+    '評価', 'しきい値', 'コスト', '制約', 'ガードレール', '人の確認',
+  ],
+  '/ai-ml/jev/jev-adoption': [
+    'Jev', '導入', '既存アプリ', '置き換え', 'LLMの置き換え', 'ガードレール', '振り分け',
+    '測り方', '基準', 'しきい値', 'フォールバック', '段階導入', 'opt-in', '入れない判断',
+  ],
 
   // ===== ux-design-manual =====
   '/ux-design': [

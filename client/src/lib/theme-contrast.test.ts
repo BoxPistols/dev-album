@@ -48,6 +48,19 @@ const MANUALS = [
 ] as const;
 type Manual = (typeof MANUALS)[number];
 
+/**
+ * マニュアルの中の一部だけprimaryを差し替えるセクション（index.cssの[data-section]）。
+ * data-manualの後に書いて後勝ちさせているので、検査でも同じ順で重ねる。
+ */
+const SECTIONS = ["jev"] as const;
+type Section = (typeof SECTIONS)[number];
+
+/** 検査する色の適用範囲。sectionが付くとマニュアル色の上にさらに重なる */
+type Scope = { manual: Manual | null; section: Section | null };
+
+/** ページのパスから、そのファイルに効くセクション色を判定する */
+const SECTION_DIRS: Record<Section, string> = { jev: "jev" };
+
 const THEMES = ["light", "dark", "dracula"] as const;
 type Theme = (typeof THEMES)[number];
 
@@ -55,6 +68,7 @@ type Theme = (typeof THEMES)[number];
 function tokensFor(
   theme: Theme,
   manual: Manual | null,
+  section: Section | null = null,
 ): Record<string, string> {
   const themeBase =
     theme === "light"
@@ -66,15 +80,26 @@ function tokensFor(
             ...readTokens(".dark"),
             ...readTokens(".dark-soft"),
           };
-  if (!manual) return themeBase;
+  const withManual = !manual
+    ? themeBase
+    : theme === "light"
+      ? { ...themeBase, ...readTokens(`[data-manual="${manual}"]`) }
+      : theme === "dark"
+        ? { ...themeBase, ...readTokens(`.dark[data-manual="${manual}"]`) }
+        : {
+            ...themeBase,
+            ...readTokens(`.dark[data-manual="${manual}"]`),
+            ...readTokens(`.dark-soft[data-manual="${manual}"]`),
+          };
+  if (!section) return withManual;
   if (theme === "light")
-    return { ...themeBase, ...readTokens(`[data-manual="${manual}"]`) };
+    return { ...withManual, ...readTokens(`[data-section="${section}"]`) };
   if (theme === "dark")
-    return { ...themeBase, ...readTokens(`.dark[data-manual="${manual}"]`) };
+    return { ...withManual, ...readTokens(`.dark[data-section="${section}"]`) };
   return {
-    ...themeBase,
-    ...readTokens(`.dark[data-manual="${manual}"]`),
-    ...readTokens(`.dark-soft[data-manual="${manual}"]`),
+    ...withManual,
+    ...readTokens(`.dark[data-section="${section}"]`),
+    ...readTokens(`.dark-soft[data-section="${section}"]`),
   };
 }
 
@@ -173,16 +198,31 @@ type Pair = {
   opacity: number;
 };
 
-/** ページのパスからそのファイルが描画されるマニュアルを判定する（共有部品は全マニュアル） */
-function manualsFor(file: string): (Manual | null)[] {
+/**
+ * ページのパスから、そのファイルが描画される適用範囲を判定する。
+ * 共有部品はどのマニュアル・セクションでも描かれるので全通りを返す。
+ */
+function scopesFor(file: string): Scope[] {
   const m = file.match(/[/\\]pages[/\\]([^/\\]+)[/\\]/);
   const found = MANUALS.find((x) => x === m?.[1]);
-  return found ? [found] : [null, ...MANUALS];
+  if (!found) {
+    return [
+      { manual: null, section: null },
+      ...MANUALS.map((manual) => ({ manual, section: null })),
+      ...SECTIONS.map((section) => ({ manual: "ai-ml" as Manual, section })),
+    ];
+  }
+  const section = SECTIONS.find((x) =>
+    new RegExp(`[/\\\\]${SECTION_DIRS[x]}[/\\\\]`).test(file),
+  );
+  return section
+    ? [{ manual: found, section }]
+    : [{ manual: found, section: null }];
 }
 
 const occurrences = new Map<
   string,
-  { pair: Pair; manuals: Set<Manual | null>; file: string }
+  { pair: Pair; scopes: Scope[]; file: string }
 >();
 for (const file of getAllTsxFiles(SRC_DIR)) {
   const src = readFileSync(file, "utf8");
@@ -234,12 +274,19 @@ for (const file of getAllTsxFiles(SRC_DIR)) {
                 alpha: bg.alpha,
                 opacity,
               },
-              manuals: new Set(),
+              scopes: [],
               file,
             });
           }
-          for (const manual of manualsFor(file))
-            occurrences.get(key)!.manuals.add(manual);
+          const seen = occurrences.get(key)!;
+          for (const scope of scopesFor(file)) {
+            if (
+              !seen.scopes.some(
+                (x) => x.manual === scope.manual && x.section === scope.section,
+              )
+            )
+              seen.scopes.push(scope);
+          }
         }
       }
     }
@@ -266,10 +313,10 @@ function baseSurfaces(t: Record<string, string>): RGB[] {
 describe("カラートークンのコントラスト", () => {
   it("実在する文字色 × 背景色の組が、全テーマ × 全マニュアルで AA 4.5:1 を満たす", () => {
     const failures: string[] = [];
-    for (const { pair, manuals, file } of occurrences.values()) {
-      for (const manual of manuals) {
+    for (const { pair, scopes, file } of occurrences.values()) {
+      for (const { manual, section } of scopes) {
         for (const theme of THEMES) {
-          const t = tokensFor(theme, manual);
+          const t = tokensFor(theme, manual, section);
           const fg = parseHex(t[pair.text]);
           // 不透明な面に不透明な文字なら下地は要らない。半透明が絡むときだけ、
           // その要素が載り得る地を総当たりする
@@ -294,7 +341,7 @@ describe("カラートークンのコントラスト", () => {
             if (ratio < AA_MIN) {
               const cls = `text-${pair.text}${pair.textAlpha < 1 ? `/${pair.textAlpha * 100}` : ""} × bg-${pair.bg}${pair.alpha < 1 ? `/${pair.alpha * 100}` : ""}${pair.opacity < 1 ? ` × opacity-${pair.opacity * 100}` : ""}`;
               failures.push(
-                `${ratio.toFixed(2)}:1  [${theme}/${manual ?? "既定"}] ${cls}  例: ${file.replace(/.*client\//, "client/")}`,
+                `${ratio.toFixed(2)}:1  [${theme}/${section ?? manual ?? "既定"}] ${cls}  例: ${file.replace(/.*client\//, "client/")}`,
               );
             }
           }
@@ -310,14 +357,18 @@ describe("カラートークンのコントラスト", () => {
   it("本文・補助テキストが background / card / muted の上で AA 4.5:1 を満たす", () => {
     const failures: string[] = [];
     for (const theme of THEMES) {
-      for (const manual of [null, ...MANUALS] as (Manual | null)[]) {
-        const t = tokensFor(theme, manual);
+      for (const { manual, section } of [
+        { manual: null, section: null },
+        ...MANUALS.map((manual) => ({ manual, section: null })),
+        ...SECTIONS.map((section) => ({ manual: "ai-ml" as Manual, section })),
+      ] as Scope[]) {
+        const t = tokensFor(theme, manual, section);
         for (const fg of ["foreground", "muted-foreground"]) {
           for (const bg of ["background", "card", "muted"]) {
             const ratio = contrast(parseHex(t[fg]), parseHex(t[bg]));
             if (ratio < AA_MIN) {
               failures.push(
-                `${ratio.toFixed(2)}:1  [${theme}/${manual ?? "既定"}] text-${fg} × bg-${bg}`,
+                `${ratio.toFixed(2)}:1  [${theme}/${section ?? manual ?? "既定"}] text-${fg} × bg-${bg}`,
               );
             }
           }

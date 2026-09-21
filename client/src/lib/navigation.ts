@@ -197,6 +197,7 @@ export const sections: SectionInfo[] = [
   { id: 'python-ml', title: 'Python for ML', manualId: 'ai-ml' },
   { id: 'ml-fundamentals', title: '機械学習の基礎', manualId: 'ai-ml' },
   { id: 'lmops', title: 'LMOps', manualId: 'ai-ml' },
+  { id: 'jev', title: 'Jev / System One', manualId: 'ai-ml', description: '文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築から応用まで扱う' },
 
   // === UX デザインマニュアル ===
   { id: 'ux-intro', title: 'はじめに', manualId: 'ux-design' },
@@ -493,6 +494,19 @@ export const pages: PageInfo[] = [
   { step: 9, path: '/ai-ml/ml-fundamentals/deep-learning', title: 'ディープラーニング入門', sectionId: 'ml-fundamentals', manualId: 'ai-ml' },
   { step: 10, path: '/ai-ml/lmops/llm-basics', title: 'LLM の仕組みと活用', sectionId: 'lmops', manualId: 'ai-ml' },
   { step: 11, path: '/ai-ml/lmops/lmops-workflow', title: 'LMOps ワークフロー', sectionId: 'lmops', manualId: 'ai-ml' },
+  { step: 12, path: '/ai-ml/jev/jev-overview', title: 'Jevとは — System One', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 13, path: '/ai-ml/jev/jev-account', title: 'アカウント登録とAPIキー', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 14, path: '/ai-ml/jev/jev-setup', title: 'Jevの開発環境構築', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 15, path: '/ai-ml/jev/jev-primitives', title: '3つの質問型と確率', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 16, path: '/ai-ml/jev/jev-state-design', title: 'stateと質問の設計', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 17, path: '/ai-ml/jev/jev-app-ideas', title: 'アプリのアイデア20', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 18, path: '/ai-ml/jev/jev-triage-app', title: '1. 問い合わせの選別', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 19, path: '/ai-ml/jev/jev-chart-picker-app', title: '2. 図の自動選択', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 20, path: '/ai-ml/jev/jev-dashboard-app', title: '3. 画面の自動強調', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 21, path: '/ai-ml/jev/jev-design-search-app', title: '4. デザイン案の探索', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 22, path: '/ai-ml/jev/jev-flight-app', title: '5. フライトの自動操縦', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 23, path: '/ai-ml/jev/jev-advanced', title: '応用: 信頼度ゲート', sectionId: 'jev', manualId: 'ai-ml' },
+  { step: 24, path: '/ai-ml/jev/jev-adoption', title: '既存アプリへの導入', sectionId: 'jev', manualId: 'ai-ml' },
 
   // ===========================
   // UX デザインマニュアル (15ページ)
@@ -693,6 +707,19 @@ export function getManualIdFromPath(path: string): ManualId | undefined {
   // パスの第 1 セグメントと完全一致で見る（/react-native を react と誤認しない）。
   const first = path.split("/")[1];
   return manuals.some((m) => m.id === first) ? (first as ManualId) : undefined;
+}
+
+/**
+ * セクション別にprimaryを差し替える対象（index.cssの[data-section]）。
+ * マニュアルの中の一部だけが別の製品を扱う場合に使う。前方一致で見る。
+ */
+const SECTION_THEMES: { prefix: string; id: string }[] = [
+  { prefix: "/ai-ml/jev", id: "jev" },
+];
+
+/** パスがセクション別の色を持つ範囲にあれば、そのIDを返す */
+export function getSectionThemeIdFromPath(path: string): string | undefined {
+  return SECTION_THEMES.find((s) => path.startsWith(s.prefix))?.id;
 }
 
 export function getNextSectionFirstPage(currentPath: string): PageInfo | undefined {

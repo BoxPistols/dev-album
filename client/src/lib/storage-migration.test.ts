@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { migratePath, migrateStorage, runStorageMigration, STORAGE_MIGRATION_KEY } from './storage-migration';
+import { migratePath, migrateStorage, runStorageMigration, STORAGE_MIGRATION_KEY, STORAGE_MIGRATION_VERSION } from './storage-migration';
 import { pages } from './navigation';
 
 const cc = pages.find((p) => p.path.startsWith('/claude-code/'))!;
@@ -30,7 +30,9 @@ describe('storage-migration', () => {
     expect(runStorageMigration()).toEqual({ moved: 1, dropped: 0 });
     localStorage.setItem('completed-pages', JSON.stringify([oldPath]));
     expect(runStorageMigration()).toBeUndefined();
-    expect(localStorage.getItem(STORAGE_MIGRATION_KEY)).toBe('1');
+    expect(localStorage.getItem(STORAGE_MIGRATION_KEY)).toBe(
+      String(STORAGE_MIGRATION_VERSION),
+    );
   });
 
   it('壊れた JSON があっても落ちない', () => {
