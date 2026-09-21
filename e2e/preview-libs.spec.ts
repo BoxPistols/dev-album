@@ -129,6 +129,10 @@ test.describe("プレビューのエラー不変条件（全 iframe 走査）", 
     "/react/tailwind/shadcn",
     "/react/css-basics/styled-components",
     "/react/css-basics/emotion",
+    // 穴埋めのチャレンジが並ぶページ。空欄のまま実行されて描画が空になる形を、
+    // ライブラリの読み込みとは別の理由で拾う（本番で実際に起きた）
+    "/ai-ml/jev/jev-triage-app",
+    "/ai-ml/jev/jev-chart-picker-app",
   ];
 
   for (const path of PAGES) {

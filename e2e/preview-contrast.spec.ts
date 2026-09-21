@@ -40,7 +40,9 @@ const THEMES = [
 
 const MIN_CONTRAST = 2;
 
-// 穴埋め課題（`___` を含む）は初期状態で描画できないのが正しいので、#root 非空の判定から外す
+// 穴埋め課題（`___` を含む）のうち、空欄がメソッド名やJSXのタグ名の位置にあるものは
+// 初期状態では描画できない（items.___()など）。その分を#root非空の判定から外す。
+// 値の位置にある空欄は宣言済みの識別子として実行されるので、描画されるのが正しい
 const BLANK_PLACEHOLDER = /\b___\b/;
 
 interface ContrastFailure {

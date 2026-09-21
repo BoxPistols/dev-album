@@ -468,7 +468,7 @@ export const level3Challenges: TrainingChallenge[] = [
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#f7fafc' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, background: '#fff', padding: '16px 24px', borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
         <button
-          onClick={() => setCount(c => Math.max(___, c ___ 1))} // ← ここを埋める（最小値と演算子）
+          onClick={() => setCount(c => Math.max(___, ___))} // ← ここを埋める（最小値と、1つ減らす式）
           disabled={count === 0}
           style={{
             width: 40,
@@ -488,7 +488,7 @@ export const level3Challenges: TrainingChallenge[] = [
           {count}
         </span>
         <button
-          onClick={() => setCount(c => Math.min(___, c ___ 1))} // ← ここを埋める（最大値と演算子）
+          onClick={() => setCount(c => Math.min(___, ___))} // ← ここを埋める（最大値と、1つ増やす式）
           disabled={count === 99}
           style={{
             width: 40,
