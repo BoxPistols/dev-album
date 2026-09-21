@@ -20,6 +20,51 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-21-jev-flight-interval-lab",
+    date: "2026-09-21",
+    title: "Jev: 判断の間隔を動かして試せるようにした",
+    description:
+      "フライトの自動操縦に、判断の間隔を動かすスライダーを足した。1分あたりの判断の回数と、間隔のうち応答待ちが占める割合が変わる。実測の応答時間（平均400ms、最長738ms）を下回る間隔にすると、その旨が出る。",
+    category: "update",
+    link: "/ai-ml/jev/jev-flight-app",
+  },
+  {
+    id: "2026-09-21-jev-design-weight-lab",
+    date: "2026-09-21",
+    title: "Jev: デザイン案の重みをスライダーで動かせるようにした",
+    description:
+      "12案の採点を実測のまま固定し、4つの観点の重みを連続で動かせるようにした。順位が組み替わり、1位と2位の差が揺れ（0.04）より大きいかどうかが同時に出る。案の数を増やしたときの時間と料金を見る計測パネルも足した。",
+    category: "update",
+    link: "/ai-ml/jev/jev-design-search-app",
+  },
+  {
+    id: "2026-09-21-jev-dashboard-meter",
+    date: "2026-09-21",
+    title: "Jev: まとめて送る効果を数字で見る計測パネルを追加",
+    description:
+      "ダッシュボードのページに、判断の数を増やしたときのリクエスト回数・応答時間・入力トークン・料金を出すパネルを足した。1,000件を1問ずつ送ると11分、20問ずつまとめると15秒になる。実測値の再生で、ページからJevは呼ばない。",
+    category: "update",
+    link: "/ai-ml/jev/jev-dashboard-app",
+  },
+  {
+    id: "2026-09-21-jev-chart-threshold-lab",
+    date: "2026-09-21",
+    title: "Jev: 1問で聞くか2問に分けるかを、線を動かして比べられるようにした",
+    description:
+      "注意書きを出すしきい値を動かすと、まとめて1問で聞いた場合と2問に分けた場合の結果が並んで変わる。狙いどおりになる線の幅が0.07と0.35で違うことが、動かすと分かる。",
+    category: "update",
+    link: "/ai-ml/jev/jev-chart-picker-app",
+  },
+  {
+    id: "2026-09-21-jev-triage-threshold-lab",
+    date: "2026-09-21",
+    title: "Jev: しきい値を動かして問い合わせの行き先を見るラボを追加",
+    description:
+      "実測の緊急度をそのまま使い、2本の線だけを動かす。0.48の1件が線の置き方で3つのどこにでも動くこと、1件ずつの値を記録していない帯の中に線を置くと決められないことが、触って分かる。",
+    category: "update",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
     id: "2026-09-21-jev-adoption",
     date: "2026-09-21",
     title: "Jev: 既存のアプリに後から入れるページを追加",

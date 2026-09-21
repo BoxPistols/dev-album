@@ -1,6 +1,7 @@
 import { Inbox, Server, SlidersHorizontal } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import SliderChallenge from "@/components/SliderChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
@@ -16,6 +17,25 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - 選択肢に「どれでもない」を入れる前後を実測で比べる
  * - 応答例の値は2026-09-20にjev-1.13.0を実際に呼んで得たもの
  */
+
+/** 緊急度のnoul（2026-09-20、jev-1.13.0で実測）。しきい値ラボが使う */
+const URGENCY_MEASURED = [
+  { text: "本番のAPIが500を返し続けている", noul: 0.95 },
+  { text: "ログインできず業務が止まっている", noul: 0.93 },
+  { text: "請求が2回引き落とされた。至急", noul: 0.8 },
+  { text: "解約したのに今月も請求が来た", noul: 0.48 },
+];
+
+/** 残り7件は1件ずつの値を記録しておらず、0.05〜0.15の帯としてだけ分かっている */
+const URGENCY_REST = { count: 7, min: 0.05, max: 0.15 };
+
+type Bucket = "即時対応" | "人の確認" | "自動で振り分け";
+
+function bucketOf(noul: number, low: number, high: number): Bucket {
+  if (noul >= high) return "即時対応";
+  if (noul >= low) return "人の確認";
+  return "自動で振り分け";
+}
 
 export default function JevTriageApp() {
   return (
@@ -348,6 +368,94 @@ export async function POST(request: Request) {
             <h2 className="text-3xl font-bold text-foreground mb-6">
               5. 振り分けの規則を試す
             </h2>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              まず、しきい値だけを動かしてみます。判定の値は上の実測をそのまま使い、動かすのは2本の線だけです。0.3と0.7を少しずつずらすと、どの問い合わせがどこへ行くかが入れ替わります。数字を決める作業がどういうものか、先に触って確かめてください。
+            </p>
+            <SliderChallenge
+              title="しきい値を動かして、12件の行き先を見る"
+              description="上の線を超えたら即時対応、下の線を下回ったら自動で振り分け、間は人が確認します。lib/triage.tsの既定は0.3と0.7です。"
+              layout="stacked"
+              sliders={[
+                {
+                  id: "low",
+                  label: "下の線（これを下回ったら自動）",
+                  min: 0,
+                  max: 1,
+                  step: 0.01,
+                  defaultValue: 0.3,
+                },
+                {
+                  id: "high",
+                  label: "上の線（これ以上なら即時対応）",
+                  min: 0,
+                  max: 1,
+                  step: 0.01,
+                  defaultValue: 0.7,
+                },
+              ]}
+              render={(v) => {
+                const low = Math.min(v.low, v.high);
+                const high = Math.max(v.low, v.high);
+                // 帯の下端と上端で行き先が変わるなら、7件がどちらへ行くか決められない
+                const restBucket = bucketOf(URGENCY_REST.max, low, high);
+                const restSplit =
+                  bucketOf(URGENCY_REST.min, low, high) !== restBucket;
+                const counts: Record<Bucket, number> = {
+                  即時対応: 0,
+                  人の確認: 0,
+                  自動で振り分け: 0,
+                };
+                for (const r of URGENCY_MEASURED)
+                  counts[bucketOf(r.noul, low, high)] += 1;
+                if (!restSplit) counts[restBucket] += URGENCY_REST.count;
+                return (
+                  <div className="w-full">
+                    <ul className="space-y-2 mb-4">
+                      {URGENCY_MEASURED.map((r) => {
+                        const b = bucketOf(r.noul, low, high);
+                        return (
+                          <li
+                            key={r.text}
+                            className="flex items-baseline justify-between gap-3 text-sm"
+                          >
+                            <span className="text-foreground">{r.text}</span>
+                            <span className="shrink-0 font-mono tabular-nums text-muted-foreground">
+                              {r.noul.toFixed(2)}
+                              <span className="ml-2 font-sans font-medium text-primary">
+                                {b}
+                              </span>
+                            </span>
+                          </li>
+                        );
+                      })}
+                      <li className="flex items-baseline justify-between gap-3 text-sm">
+                        <span className="text-foreground">
+                          料金の質問、急がない不具合、宛名の変更など7件
+                        </span>
+                        <span className="shrink-0 font-mono tabular-nums text-muted-foreground">
+                          0.05〜0.15
+                          <span className="ml-2 font-sans font-medium text-primary">
+                            {restSplit ? "帯をまたぐ" : restBucket}
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                    {restSplit ? (
+                      <p className="text-sm text-foreground leading-relaxed">
+                        線が0.05〜0.15の帯の中に入りました。この7件は1件ずつの値を記録していないため、どちらへ行くか決められません。帯の中に線を置くなら、まず個別の値を測り直します。
+                      </p>
+                    ) : (
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        即時対応{counts["即時対応"]}件、人の確認
+                        {counts["人の確認"]}件、自動で振り分け
+                        {counts["自動で振り分け"]}件。
+                      </p>
+                    )}
+                  </div>
+                );
+              }}
+              explanation="0.48の「解約したのに今月も請求が来た」が、線の置き方で3つのどこにでも動きます。急ぎの3件（0.80以上）と急がない7件（0.15以下）の間は空いているので、その帯のどこに線を置くかだけが判断になります。空きが無いデータでは、線を引くより前に質問の書き方を見直します。"
+            />
             <CodingChallenge
               title="シミュレーション: 人の確認に回す条件（Jevは呼ばない）"
               description="decideの ___ を埋めて、confidenceが低い判定と、緊急度が中間の判定をreviewに回してください。データは上の実測値です。"

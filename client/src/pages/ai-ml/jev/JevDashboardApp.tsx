@@ -1,5 +1,6 @@
 import { LayoutGrid, Server, Flame } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
+import JevMeter from "@/components/JevMeter";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import InfoBox from "@/components/InfoBox";
@@ -33,7 +34,9 @@ export default function JevDashboardApp() {
           20個の指標を1リクエストでまとめて採点し、いま見るべきものが大きく前に出る画面を作ります。データが変われば、並びも大きさも色の帯も組み替わります。判断を1つずつ呼んでいては成り立たない作りで、まとめて聞けることが設計の前提になります。
         </p>
 
-        <WhyNowBox tags={["一括採点", "score", "レイアウトの組み替え", "実測値つき"]}>
+        <WhyNowBox
+          tags={["一括採点", "score", "レイアウトの組み替え", "実測値つき"]}
+        >
           <p>
             ダッシュボードは、置いた人が「大事な順」を決めた時点で固定されます。実際に見るべきものは日によって変わりますが、その順序をコードで書こうとすると、指標ごとのしきい値を人が全部決めることになります。人が数秒で決められる「今日はこれを先に見るべきか」を、指標の数だけまとめて聞きます。
           </p>
@@ -137,9 +140,24 @@ function App() {
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">質問の数</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">応答時間</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">入力トークン</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      質問の数
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      応答時間
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      入力トークン
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
@@ -168,6 +186,34 @@ function App() {
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               このダッシュボードでは、20問を1リクエストにまとめて入力2,666トークンでした。指標ごとに分けて送ると、1件あたり約415トークンで、20件なら約8,300トークンになります。まとめたほうが少なく、待ち時間も1回分で済みます。
+            </p>
+            <JevMeter
+              title="判断の数を増やすと、2つの送り方の差がどこに出るか"
+              description="ボタンを押すと、処理した判断の数が増えます。上の表の1問（669ms、404トークン）と20問（289ms、1,407トークン）を、そのまま掛け算しています。"
+              unitLabel="判断"
+              steps={[20, 100, 1000]}
+              strategies={[
+                {
+                  id: "single",
+                  label: "1問ずつ送る",
+                  note: "判断1つにつき1リクエスト",
+                  unitsPerRequest: 1,
+                  latencyMs: 669,
+                  inputTokens: 404,
+                },
+                {
+                  id: "batch",
+                  label: "20問を1リクエスト",
+                  note: "stateは1回だけ送れば済む",
+                  unitsPerRequest: 20,
+                  latencyMs: 289,
+                  inputTokens: 1407,
+                },
+              ]}
+              measuredNote="2026-09-20、jev-1.13.0で実測"
+            />
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              1,000件まで押すと、1問ずつでは11分ほどかかり、まとめれば15秒ほどで終わります。料金はどちらも$0.02に届きません。差が出るのは料金より待ち時間のほうです。判断をループの中や一覧の全件に置いてよいかどうかは、この桁を見てから決めます。
             </p>
             <CodeBlock
               language="ts"
@@ -403,13 +449,16 @@ function App() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">確認クイズ</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              確認クイズ
+            </h2>
             <Quiz
               question="20個の指標を採点するとき、1指標につき1リクエストを送るのと、20問を1リクエストにまとめるのとでは何が変わりますか？"
               options={[
                 { label: "答えの精度が上がる" },
                 {
-                  label: "入力トークンと待ち時間が減る。手元では約8,300トークンが2,666トークンになった",
+                  label:
+                    "入力トークンと待ち時間が減る。手元では約8,300トークンが2,666トークンになった",
                   correct: true,
                 },
                 { label: "confidenceが高くなる" },
@@ -425,17 +474,20 @@ function App() {
                 {
                   title: "TypeSafe AI Docs — Speculative fan-out",
                   url: "https://docs.typesafe.ai/patterns/fan-out",
-                  description: "多くの質問を1リクエストに入れ、使う答えをコードが選ぶ設計。",
+                  description:
+                    "多くの質問を1リクエストに入れ、使う答えをコードが選ぶ設計。",
                 },
                 {
                   title: "TypeSafe AI Docs — Score",
                   url: "https://docs.typesafe.ai/primitives/score",
-                  description: "段階の作り方と、期待値が段階の間に落ちることの説明。",
+                  description:
+                    "段階の作り方と、期待値が段階の間に落ちることの説明。",
                 },
                 {
                   title: "TypeSafe AI Docs — Composite scoring",
                   url: "https://docs.typesafe.ai/patterns/composite-scoring",
-                  description: "判断を分けて聞き、重みはコードが持つという組み立て方。",
+                  description:
+                    "判断を分けて聞き、重みはコードが持つという組み立て方。",
                 },
               ]}
             />
