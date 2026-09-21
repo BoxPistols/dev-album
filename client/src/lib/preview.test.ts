@@ -340,12 +340,12 @@ describe("buildThreePreviewHtml", () => {
     expect(html).toContain("THREE.Scene()");
   });
 
-  it("___ を空文字に置換", () => {
+  it("空欄を宣言済みの識別子にする（コードは書き換えない）", () => {
     const html = buildThreePreviewHtml(
       "const texture = new THREE.___(canvas);",
     );
-    expect(html).not.toContain("___");
-    expect(html).toContain("''");
+    expect(html).toContain("var ___ = ''");
+    expect(html).toContain("new THREE.___(canvas)");
   });
 
   it("ダークモードで背景色が変わる", () => {
@@ -375,14 +375,11 @@ describe("buildThreePreviewHtml", () => {
     expect(html).not.toContain("0.183");
   });
 
-  it("___ プレースホルダが複数箇所あっても全て置換される", () => {
+  it("空欄が複数あっても、宣言は1つで足りる", () => {
     const code = "const a = new THREE.___(___); const b = ___;";
     const html = buildThreePreviewHtml(code);
-    expect(html).not.toContain("___");
-    // 3箇所すべてが '' に置換される
-    const matches = html.match(/''/g);
-    expect(matches).not.toBeNull();
-    expect(matches!.length).toBeGreaterThanOrEqual(3);
+    expect(html.match(/var ___ = ''/g)).toHaveLength(1);
+    expect(html).toContain(code);
   });
 
   it("onerror ハンドラが日本語エラーメッセージを含む", () => {
@@ -472,35 +469,40 @@ describe("buildConfigPreviewHtml", () => {
 // ============================================================
 // チャレンジの空欄（___）の扱い
 // ============================================================
-// 置き換えないと、値の位置にある空欄でReferenceErrorになりプレビューが空になる。
-// 本番の/ai-ml/jev/jev-triage-appと/devflow/pm/estimationで実際に起きていた。
-// JSXとThree.jsの両方の組み立てで同じ扱いにする。
+// 埋める前でも実行できるよう、空欄を識別子として宣言してから実行する。
+// 宣言が無いと、値の位置にある空欄でReferenceErrorになりプレビューが空になる。
+// 本番の/ai-ml/jev/jev-triage-appで実際に起きていた。
 describe("チャレンジの空欄", () => {
   const withBlank = `function App() {
   const ok = 1 < ___;
   return <p>{ok ? "yes" : "no"}</p>;
 }`;
 
-  it("JSXの組み立てで、値の位置の空欄が実行できる形になる", () => {
+  it("JSXの組み立てで、空欄が宣言済みの識別子になる", () => {
     const html = buildPreviewHtml(withBlank, "", false);
-    expect(html).not.toContain("1 < ___");
-    expect(html).toContain("1 < ''");
+    expect(html).toContain("var ___ = ''");
+    // コード自体は書き換えない
+    expect(html).toContain("1 < ___");
   });
 
   it("Three.jsの組み立てでも同じ", () => {
     const html = buildThreePreviewHtml("const x = ___;", false);
-    expect(html).not.toContain("= ___");
-    expect(html).toContain("= ''");
+    expect(html).toContain("var ___ = ''");
+    expect(html).toContain("const x = ___;");
   });
 
-  it("引用符に挟まれた空欄は置き換えない（置き換えると構文が壊れる）", () => {
-    // トレーニングの問題がこの形。中身だけを置き換えると引用符が4つ並ぶ
-    const quoted = `function App() {
-  return <div style={{ position: '___' }} />;
+  it("文字列・JSXの属性名・分割代入の中にある空欄も、そのまま残る", () => {
+    // どれも文字列に置き換えると構文が壊れる位置。実際に教材で使われている形
+    const tricky = `function App() {
+  const style = { gridTemplateColumns: 'repeat(___, minmax(100px, ___))' };
+  const [value, ___] = useState(0);
+  return <label ___="email" style={style}>{value}</label>;
 }`;
-    const html = buildPreviewHtml(quoted, "", false);
-    expect(html).toContain("position: '___'");
-    expect(html).not.toContain("''''");
+    const html = buildPreviewHtml(tricky, "", false);
+    expect(html).toContain("'repeat(___, minmax(100px, ___))'");
+    // JSXの属性名はトランスパイルでオブジェクトのキーになる
+    expect(html).toContain('___: "email"');
+    expect(html).toContain("const [value, ___] = useState(0)");
   });
 });
 

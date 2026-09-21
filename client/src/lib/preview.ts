@@ -61,18 +61,17 @@ function detectComponentName(code: string): string {
 }
 
 /**
- * チャレンジの空欄（___）を、埋める前でも実行できる値に置き換える。
+ * チャレンジの空欄（___）を、埋める前でも実行できるようにする宣言。
  *
- * 値の位置にある空欄（`x < ___`、`{ key: ___ }`）はそのままだとReferenceErrorで落ち、
- * プレビューが空になる。本番の/ai-ml/jev/jev-triage-appと/devflow/pm/estimationで
- * 実際に起きていた。
+ * 値の位置にある空欄（`x < ___`）はそのままだとReferenceErrorで落ち、プレビューが
+ * 空になる。本番の/ai-ml/jev/jev-triage-appで実際に起きていた。
  *
- * 引用符に挟まれた空欄（`display: '___'`）は置き換えない。中身だけを置き換えると
- * 引用符が4つ並んで構文が壊れる（トレーニングの問題がこの形で、e2eが落ちて気づいた）。
+ * コードは書き換えない。空欄は文字列の中（`'repeat(___, ...)'`）、JSXの属性名
+ * （`<label ___="email">`）、分割代入の左辺（`const [a, ___] = ...`）にも現れ、
+ * 文字列に置き換えるとそれぞれ構文が壊れる。識別子として宣言すれば、どの位置でも
+ * 元の構文のまま通る。
  */
-export function fillBlanks(code: string): string {
-  return code.replace(/(^|[^'"`])___(?=$|[^'"`])/g, "$1''");
-}
+const BLANK_DECLARATION = "var ___ = '';";
 
 /**
  * JSX/TSX コードを iframe 用 HTML に変換する
@@ -84,7 +83,7 @@ export function buildPreviewHtml(
   isDark = false,
   libs?: readonly PreviewLib[],
 ): string {
-  const cleanedCode = fillBlanks(stripModuleSyntax(jsxCode));
+  const cleanedCode = stripModuleSyntax(jsxCode);
   const componentName = detectComponentName(cleanedCode);
   const activeLibs = new Set<PreviewLib>([...detectPreviewLibs(jsxCode), ...(libs ?? [])]);
   const needsMui = activeLibs.has('mui');
@@ -168,6 +167,7 @@ ${cssCode}
 <div id="root"></div>
 <script>
 try{
+  ${BLANK_DECLARATION}
   var {useState,useEffect,useRef,useCallback,useMemo,useReducer,useContext,createContext}=React;
 ${needsMui ? `  if(typeof MaterialUI==='undefined'){
     throw new Error('MUI ライブラリ(/vendor)の読み込みに失敗しました。ページを再読み込みしてください。');
@@ -209,7 +209,6 @@ ${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${is
  * Three.js コードをプレビュー用HTMLに変換する（vanilla Three.js 用）
  */
 export function buildThreePreviewHtml(code: string, isDark = true): string {
-  const safeCode = fillBlanks(code);
   const bgColor = isDark ? '#1a1a2e' : '#e8e8f0';
 
   return `<!DOCTYPE html>
@@ -232,7 +231,8 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
   s.src = '${THREE_UMD_URL}';
   s.onload = function() {
     try {
-      ${safeCode}
+      ${BLANK_DECLARATION}
+      ${code}
     } catch(e) {
       document.getElementById('error').textContent = e.message;
     }

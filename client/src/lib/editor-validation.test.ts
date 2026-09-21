@@ -5,11 +5,12 @@
  * - プレビューHTML のフォーム要素対応
  */
 import { describe, it, expect } from 'vitest';
-import { buildPreviewHtml, fillBlanks } from './preview';
+import { buildPreviewHtml } from './preview';
 import { resolvePreviewType } from '@/components/CodingChallenge';
 import { transform } from 'sucrase';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 
 // preview.ts の stripModuleSyntax と同一実装（複数行 import 対応）
 function stripModuleSyntax(code: string): string {
@@ -155,18 +156,18 @@ describe('全チャレンジコードのトランスパイル検証', () => {
 // チャレンジの空欄（___）が実行できる形になるか
 // ============================================================
 // トランスパイルは通るが実行時にReferenceErrorで落ちる形なので、上の検証では捕まらない。
-// 判定はfillBlanksの正規表現をなぞらず、文字列リテラルを伏せてから識別子として
-// 残っていないかを見る（同じ書き方で検査すると、実装の取りこぼしも一緒に見逃す）。
-describe('チャレンジの空欄', () => {
-  /** 文字列・テンプレートリテラルの中身を伏せる。残った___は識別子の位置にある */
-  function maskStrings(code: string): string {
-    return code
-      .replace(/`(?:\\[\s\S]|[^`\\])*`/g, '``')
-      .replace(/'(?:\\[\s\S]|[^'\\\n])*'/g, "''")
-      .replace(/"(?:\\[\s\S]|[^"\\\n])*"/g, '""');
+// 見るのは組み立てたHTMLそのもの。空欄を文字列へ書き換える実装にしていた間は、
+// 文字列の中・JSXの属性名・分割代入の左辺にある空欄で構文が壊れ、ブラウザが
+// 読み込んだ時点でSyntaxErrorになっていた（try/catchの外なので何も表示されない）。
+describe("チャレンジの空欄", () => {
+  /** 組み立てたHTMLから、実際にブラウザが読むインラインスクリプトを取り出す */
+  function inlineScripts(html: string): string[] {
+    return [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
   }
 
-  function collectChallengeCodes(dir: string): { file: string; code: string }[] {
+  function collectChallengeCodes(
+    dir: string,
+  ): { file: string; code: string }[] {
     const found: { file: string; code: string }[] = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
@@ -174,39 +175,71 @@ describe('チャレンジの空欄', () => {
         found.push(...collectChallengeCodes(full));
         continue;
       }
-      if (!full.endsWith('.tsx') && !full.endsWith('.ts')) continue;
-      if (full.endsWith('.test.ts') || full.endsWith('.test.tsx')) continue;
-      const src = fs.readFileSync(full, 'utf-8');
-      for (const pattern of [/initialCode=\{`([\s\S]*?)`\}/g, /initialCode:\s*`([\s\S]*?)`/g]) {
-        for (const m of src.matchAll(pattern)) {
-          found.push({ file: path.relative(path.resolve(__dirname, '..'), full), code: m[1] });
-        }
+      if (!full.endsWith(".tsx") && !full.endsWith(".ts")) continue;
+      if (full.includes(".test.")) continue;
+      const src = fs.readFileSync(full, "utf-8");
+      // ネストしたテンプレートリテラルを含むファイルは、正規表現での抽出が途中で切れる
+      if (src.includes("\\`\\${")) continue;
+      // previewTypeで別の組み立てに回るチャレンジを含むファイルは、コードだけ見ても経路が分からない
+      if (/previewType=["'](config|terminal|markdown)["']/.test(src)) continue;
+      const file = path.relative(path.resolve(__dirname, ".."), full);
+      for (const code of extractCodes(src)) {
+        // 空欄が無いコードはこの検査の対象外（トランスパイルは上のdescribeが見ている）
+        if (!code.includes("___")) continue;
+        if (!isJsxCode(code)) continue;
+        // 断片（型定義だけ、コメントだけ、<style>入り）は単体では組み立てられない
+        if (/<style>/.test(code)) continue;
+        if (
+          /^\s*(interface|type)\s/.test(code.trim()) &&
+          !/\bfunction\b/.test(code)
+        )
+          continue;
+        const nonEmpty = code.split("\n").filter((l) => l.trim());
+        if (
+          nonEmpty.length > 0 &&
+          nonEmpty.every((l) => l.trim().startsWith("//"))
+        )
+          continue;
+        found.push({ file, code });
       }
     }
     return found;
   }
 
-  const all = collectChallengeCodes(path.resolve(__dirname, '..'));
-  const blanks = all.filter(c => c.code.includes('___'));
-  const quoted = all.filter(c => /['"`]___['"`]/.test(c.code));
+  const blanks = collectChallengeCodes(path.resolve(__dirname, ".."));
 
-  it('走査そのものが壊れていない（拾えた件数を固定する）', () => {
-    // 走査が壊れて0件になったときに素通りするのを防ぐ。件数は増える方向にしか動かないので下限だけ置く
-    expect(all.length).toBeGreaterThanOrEqual(240);
-    expect(blanks.length).toBeGreaterThanOrEqual(235);
-    expect(quoted.length).toBeGreaterThanOrEqual(60);
+  it("走査そのものが壊れていない（拾えた件数を固定する）", () => {
+    // 走査が壊れて0件になったときに素通りするのを防ぐ。実測74件で、増える方向にしか動かない
+    expect(blanks.length).toBeGreaterThanOrEqual(70);
+    // 文字列やJSXの属性名の中にある空欄も対象に入っていること（書き換え方式が壊した位置）
+    expect(
+      blanks.filter((c) => /['"`][^'"`\n]*___/.test(c.code)).length,
+    ).toBeGreaterThanOrEqual(10);
   });
 
-  it('値の位置の空欄が、実行できる形に置き換わる', () => {
-    const remaining = blanks
-      .filter(c => maskStrings(fillBlanks(c.code)).includes('___'))
-      .map(c => c.file);
-    expect(remaining).toEqual([]);
-  });
-
-  it('引用符に挟まれた空欄は、問題文のまま残る', () => {
-    const broken = quoted.filter(c => fillBlanks(c.code).includes("''''")).map(c => c.file);
+  it("組み立てたスクリプトが、ブラウザの読める構文になっている", () => {
+    const broken: string[] = [];
+    for (const { file, code } of blanks) {
+      for (const script of inlineScripts(buildPreviewHtml(code, "", false))) {
+        try {
+          new vm.Script(script);
+        } catch (e) {
+          broken.push(
+            `${file}: ${e instanceof Error ? e.message.split("\n")[0] : e}`,
+          );
+        }
+      }
+    }
     expect(broken).toEqual([]);
+  });
+
+  it("空欄が識別子として宣言されている（値の位置で落ちない）", () => {
+    const missing = blanks
+      .filter(
+        (c) => !buildPreviewHtml(c.code, "", false).includes("var ___ = ''"),
+      )
+      .map((c) => c.file);
+    expect(missing).toEqual([]);
   });
 });
 
