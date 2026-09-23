@@ -6,6 +6,7 @@ import {
   GEMINI_BASE_URL,
   isAllowedForServerKey,
   maxTokensFor,
+  reasoningEffortFor,
 } from "./api/lib/chatModels.js";
 
 function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
@@ -108,6 +109,9 @@ export function apiDevPlugin(): Plugin {
             const stream = await client.chat.completions.create({
               model: resolvedModel,
               max_completion_tokens: maxTokens,
+              ...(reasoningEffortFor(resolvedModel) && {
+                reasoning_effort: reasoningEffortFor(resolvedModel),
+              }),
               stream: true,
               messages: [
                 { role: "system", content: systemPrompt },

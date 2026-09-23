@@ -128,7 +128,7 @@ describe("buildChatMarkdown", () => {
     exportedAt: AT,
     currentPagePath: "/git/flow-automation/labels",
     currentPageTitle: "ラベルと分類の自動化",
-    modelLabel: "GPT-5.6 Luna",
+    modelLabel: "GPT-6 Luna",
   };
 
   it("タイトル・日時・ページ・モデルをヘッダに出す", () => {
@@ -138,7 +138,7 @@ describe("buildChatMarkdown", () => {
     expect(md).toContain(
       "- 書き出したページ: ラベルと分類の自動化（/git/flow-automation/labels）",
     );
-    expect(md).toContain("- モデル: GPT-5.6 Luna");
+    expect(md).toContain("- モデル: GPT-6 Luna");
   });
 
   it("質問と回答を本文として並べる", () => {
