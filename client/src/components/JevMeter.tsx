@@ -120,12 +120,22 @@ export default function JevMeter({
       </div>
 
       <div>
-        <p className="text-sm text-muted-foreground mb-3" role="status">
-          これまでに処理した{unitLabel}:{" "}
-          <span className="font-mono tabular-nums font-bold text-foreground">
-            {units.toLocaleString()}
-          </span>
-        </p>
+        {/* 表そのものを読み上げ対象にすると毎回全体を読むので、要約だけを伝える */}
+        <div role="status">
+          <p className="text-sm text-muted-foreground mb-3">
+            これまでに処理した{unitLabel}:{" "}
+            <span className="font-mono tabular-nums font-bold text-foreground">
+              {units.toLocaleString()}
+            </span>
+          </p>
+          <p className="sr-only">
+            {rows.map((r) => {
+              const cost =
+                r.usd === undefined ? "" : `、料金の概算は${formatUsd(r.usd)}`;
+              return `${r.strategy.label}はリクエスト${r.requests.toLocaleString()}回、応答時間の合計は${formatDuration(r.totalMs)}${cost}。`;
+            })}
+          </p>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border border-border">
             <caption className="sr-only">
