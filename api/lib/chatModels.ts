@@ -28,8 +28,8 @@ export const DEFAULT_MODELS: Record<string, string> = {
 export const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
   // 各社の最新世代で最も安いモデルだけを置く。
   // gemini-3.5-flash-liteは最新のFlash-Lite（2026-09-20に公式の料金ページで確認）。
-  // gpt-6-lunaはgpt-6の最安。2026-09-23にgpt-5.6-lunaから更新した。このときは
-  // 料金ページに到達できていないため、モデルIDの綴りは公式の一覧で確かめること。
+  // gpt-6-lunaはgpt-6の最安。2026-09-23にgpt-5.6-lunaから更新した。作業環境から
+  // 料金ページに到達できないため、綴りはリポジトリのオーナーの指示に拠っている。
   openai: ["gpt-6-luna"],
   gemini: ["gemini-3.5-flash-lite"],
 };
