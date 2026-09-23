@@ -47,7 +47,7 @@ export function maxTokensFor(model: string): number {
 }
 
 /**
- * そのモデルに渡す reasoning_effort（渡さないときは undefined）。
+ * そのモデルに渡すreasoning_effort（渡さないときはundefined）。
  * OpenAIの推論モデルは既定がmediumで、上限2048では推論だけで上限を使い切り本文が空になる
  * （2026-09-23にgpt-6-luna / gpt-5.6-lunaで実測。lowなら同じ上限で本文が出た）。
  * Geminiの互換エンドポイントには送らない。
