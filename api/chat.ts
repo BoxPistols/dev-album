@@ -17,6 +17,7 @@ import {
   GEMINI_BASE_URL,
   isAllowedForServerKey,
   maxTokensFor,
+  reasoningEffortFor,
 } from "./lib/chatModels.js";
 
 interface ChatRequestBody {
@@ -153,6 +154,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const stream = await config.client.chat.completions.create({
       model: resolvedModel,
       max_completion_tokens: maxTokens,
+      ...(reasoningEffortFor(resolvedModel) && {
+        reasoning_effort: reasoningEffortFor(resolvedModel),
+      }),
       stream: true,
       messages: [
         { role: "system", content: systemPrompt || "" },

@@ -46,6 +46,17 @@ export function maxTokensFor(model: string): number {
     : DEFAULT_MAX_TOKENS;
 }
 
+/**
+ * そのモデルに渡す reasoning_effort（渡さないときは undefined）。
+ * OpenAIの推論モデルは既定がmediumで、上限2048では推論だけで上限を使い切り本文が空になる
+ * （2026-09-23にgpt-6-luna / gpt-5.6-lunaで実測。lowなら同じ上限で本文が出た）。
+ * Geminiの互換エンドポイントには送らない。
+ */
+export function reasoningEffortFor(model: string): "low" | undefined {
+  const isCompact = COMPACT_MODELS.some((m) => model.includes(m));
+  return model.startsWith("gpt-") && isCompact ? "low" : undefined;
+}
+
 /** サーバのキーで実行してよいモデルか（BYOK なら本人負担なので呼び出し側で許可する） */
 export function isAllowedForServerKey(provider: string, model: string): boolean {
   return (SERVER_KEY_ALLOWED_MODELS[provider] ?? []).includes(model);
