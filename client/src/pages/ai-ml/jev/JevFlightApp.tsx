@@ -1,5 +1,6 @@
 import { Plane, Gauge, ShieldAlert } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
+import SliderChallenge from "@/components/SliderChallenge";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import InfoBox from "@/components/InfoBox";
@@ -32,7 +33,9 @@ export default function JevFlightApp() {
           地形を避けて目標へ向かう機体を、Jevの判断で操縦します。ここまでの4本と違い、判断が1回で終わりません。飛んでいる間ずっと繰り返されます。判断の周期と描画の周期をどう分けるか、そして安全に関わる分岐をどちらが持つかが主題です。
         </p>
 
-        <WhyNowBox tags={["制御ループ", "choice", "noul", "Three.js", "実測値つき"]}>
+        <WhyNowBox
+          tags={["制御ループ", "choice", "noul", "Three.js", "実測値つき"]}
+        >
           <p>
             操縦は、状況を見て次の操作を選ぶことの繰り返しです。1回あたりの判断は人でも数秒で決められますが、飛んでいる間は何度も繰り返されます。判断が速くて安ければ、この繰り返しの中に置けます。
           </p>
@@ -225,9 +228,75 @@ while (!crashed && !reached) {
   }
 }`}
             />
-            <InfoBox type="info" title="仕様では操作を選び、実測では0.3〜1.0秒かかる">
+            <InfoBox
+              type="info"
+              title="仕様では操作を選び、実測では0.3〜1.0秒かかる"
+            >
               手元の測定では、7回の判断の平均が400ms、最長が738msでした。2秒ごとの判断なら、応答を待つ間も機体は前の操作で飛び続けます。間隔を詰めるほど反応は良くなりますが、応答時間より短くはできません。
             </InfoBox>
+            <SliderChallenge
+              title="判断の間隔を動かして、反応の良さと呼ぶ回数を見る"
+              description="実測の応答時間（平均400ms、最長738ms）を固定して、間隔だけを動かします。短くするほど反応は良くなり、呼ぶ回数は増えます。"
+              layout="stacked"
+              sliders={[
+                {
+                  id: "interval",
+                  label: "判断の間隔",
+                  min: 0.3,
+                  max: 5,
+                  step: 0.1,
+                  defaultValue: 2,
+                  unit: "秒",
+                },
+              ]}
+              render={(v) => {
+                const interval = v.interval;
+                const perMinute = 60 / interval;
+                const perTenMinutes = Math.round(perMinute * 10);
+                const waitShare = Math.min(
+                  100,
+                  (400 / (interval * 1000)) * 100,
+                );
+                const belowWorst = interval * 1000 < 738;
+                const belowAverage = interval * 1000 < 400;
+                return (
+                  <div className="w-full space-y-2 text-sm">
+                    <p className="text-foreground">
+                      1分あたり
+                      <span className="font-mono tabular-nums font-bold">
+                        {perMinute.toFixed(1)}
+                      </span>
+                      回、10分の飛行で
+                      <span className="font-mono tabular-nums font-bold">
+                        {perTenMinutes.toLocaleString()}
+                      </span>
+                      回の判断になります。
+                    </p>
+                    <p className="text-muted-foreground">
+                      間隔のうち、平均的な応答待ちが占める割合は
+                      <span className="font-mono tabular-nums">
+                        {waitShare.toFixed(0)}%
+                      </span>
+                      です。待っている間、機体は前の操作のまま飛び続けます。
+                    </p>
+                    {belowAverage ? (
+                      <p className="text-foreground leading-relaxed">
+                        平均の応答時間（400ms）より短い間隔です。前の判断が返る前に次の判断の時刻が来るので、この間隔は詰めても実現しません。
+                      </p>
+                    ) : belowWorst ? (
+                      <p className="text-foreground leading-relaxed">
+                        平均には間に合いますが、最長の応答（738ms）には間に合いません。遅い回だけ判断が飛ぶので、返るまでの既定の操作をコードが持っておきます。
+                      </p>
+                    ) : (
+                      <p className="text-muted-foreground leading-relaxed">
+                        最長の応答（738ms）でも間に合う間隔です。
+                      </p>
+                    )}
+                  </div>
+                );
+              }}
+              explanation="間隔は応答時間より短くできません。そして、短くしても取り返しがつかない場面には間に合いません。0.3秒まで詰めても、前方に地形が現れてから次の判断までに機体は進みます。衝突のような分岐は、判断を待つ側ではなくコードが持ちます。入力トークンを測っていないため、ここでは料金を出していません。"
+            />
             <CodeBlock
               language="ts"
               title="質問は2つ。次の操作と、危険が迫っているか"
@@ -266,39 +335,73 @@ while (!crashed && !reached) {
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">経過</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">高度</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">前方の地形</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">選んだ操作</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">危険の判定</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      経過
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      高度
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      前方の地形
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      選んだ操作
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      危険の判定
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr>
                     <td className="p-3 border-b border-border">0秒</td>
                     <td className="p-3 border-b border-border">200m</td>
-                    <td className="p-3 border-b border-border">283m先・高さ240m</td>
+                    <td className="p-3 border-b border-border">
+                      283m先・高さ240m
+                    </td>
                     <td className="p-3 border-b border-border">上昇</td>
                     <td className="p-3 border-b border-border">0.78</td>
                   </tr>
                   <tr>
                     <td className="p-3 border-b border-border">2秒</td>
                     <td className="p-3 border-b border-border">236m</td>
-                    <td className="p-3 border-b border-border">165m先・高さ240m</td>
+                    <td className="p-3 border-b border-border">
+                      165m先・高さ240m
+                    </td>
                     <td className="p-3 border-b border-border">上昇</td>
                     <td className="p-3 border-b border-border">0.84</td>
                   </tr>
                   <tr>
                     <td className="p-3 border-b border-border">4秒</td>
                     <td className="p-3 border-b border-border">272m</td>
-                    <td className="p-3 border-b border-border">57m先・高さ240m</td>
+                    <td className="p-3 border-b border-border">
+                      57m先・高さ240m
+                    </td>
                     <td className="p-3 border-b border-border">上昇</td>
                     <td className="p-3 border-b border-border">0.58</td>
                   </tr>
                   <tr>
                     <td className="p-3">6秒</td>
                     <td className="p-3">308m</td>
-                    <td className="p-3">209m先・<strong className="text-foreground">高さ420m</strong></td>
+                    <td className="p-3">
+                      209m先・
+                      <strong className="text-foreground">高さ420m</strong>
+                    </td>
                     <td className="p-3">上昇</td>
                     <td className="p-3">0.78</td>
                   </tr>
@@ -331,10 +434,30 @@ if (
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">設計</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">結果</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">判断の回数</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">コードが差し替えた回数</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      設計
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      結果
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      判断の回数
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      コードが差し替えた回数
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
@@ -459,13 +582,16 @@ function App() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">確認クイズ</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              確認クイズ
+            </h2>
             <Quiz
               question="自動操縦で、危険の判定が0.78と高いのに、選ばれた操作は「上昇」のままで衝突しました。最初に直すのはどこですか？"
               options={[
                 { label: "確信度のしきい値を上げて、低い判断を捨てる" },
                 {
-                  label: "越えられない地形が近いときは、判断を待たずにコードが旋回へ差し替える",
+                  label:
+                    "越えられない地形が近いときは、判断を待たずにコードが旋回へ差し替える",
                   correct: true,
                 },
                 { label: "判断の間隔を0.5秒に縮める" },

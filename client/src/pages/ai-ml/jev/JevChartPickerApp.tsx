@@ -2,6 +2,7 @@ import { BarChart3, Server, Ruler } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
+import SliderChallenge from "@/components/SliderChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
@@ -17,6 +18,36 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - 質問を1問1事に分けると何に反応しているかが見える、を実測で示す
  * - 数値は2026-09-20にjev-1.13.0を実際に呼んで得たもの
  */
+
+/**
+ * 注意書きの判定（2026-09-20、jev-1.13.0で実測）。
+ * combinedは「点が少ない、または偏りが強い」の1問、fewとskewは2問に分けた場合。
+ * wantは、ページ本文が「注意書きが要る」と読んだデータかどうか。
+ */
+const WARNING_MEASURED = [
+  { name: "月次の売上12点", combined: 0.72, few: 0.18, skew: 0.55, want: true },
+  {
+    name: "カテゴリ別の件数6件",
+    combined: 0.84,
+    few: 0.59,
+    skew: 0.81,
+    want: true,
+  },
+  {
+    name: "四半期×セグメント",
+    combined: 0.65,
+    few: 0.18,
+    skew: 0.2,
+    want: false,
+  },
+  {
+    name: "3点しかないデータ",
+    combined: 0.92,
+    few: 0.62,
+    skew: 0.58,
+    want: true,
+  },
+];
 
 export default function JevChartPickerApp() {
   return (
@@ -206,6 +237,92 @@ export function summarize(
             <p className="text-muted-foreground mt-4 leading-relaxed">
               月次の売上は、点の数では0.18、偏りでは0.55でした。まとめて聞いたときの0.72は、点の数ではなく偏りのほうに反応していたと分かります。四半期のデータは、分ければどちらも低く、注意書きは要りません。
             </p>
+            <SliderChallenge
+              title="しきい値を1本動かして、2つの聞き方を並べる"
+              description="注意書きを出す線を動かします。左は「まとめて1問」の値、右は2問に分けたときの高いほうの値で判定します。狙いは、四半期だけ注意書きを出さないことです。"
+              layout="stacked"
+              sliders={[
+                {
+                  id: "t",
+                  label: "注意書きを出す線",
+                  min: 0,
+                  max: 1,
+                  step: 0.01,
+                  defaultValue: 0.5,
+                },
+              ]}
+              render={(v) => {
+                const t = v.t;
+                const rows = WARNING_MEASURED.map((d) => {
+                  const split = Math.max(d.few, d.skew);
+                  return {
+                    ...d,
+                    combinedWarn: d.combined >= t,
+                    splitWarn: split >= t,
+                    reason: d.skew >= d.few ? "偏り" : "点が少ない",
+                  };
+                });
+                const combinedOk = rows.every((r) => r.combinedWarn === r.want);
+                const splitOk = rows.every((r) => r.splitWarn === r.want);
+                return (
+                  <div className="w-full">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left text-muted-foreground">
+                          <th scope="col" className="pb-2 font-medium">
+                            データ
+                          </th>
+                          <th scope="col" className="pb-2 font-medium">
+                            まとめて1問
+                          </th>
+                          <th scope="col" className="pb-2 font-medium">
+                            2問に分けた
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows.map((r) => (
+                          <tr key={r.name} className="border-t border-border">
+                            <th
+                              scope="row"
+                              className="py-2 pr-3 text-left font-normal text-foreground"
+                            >
+                              {r.name}
+                              <span className="block text-xs text-muted-foreground">
+                                {r.want
+                                  ? "注意書きが要る"
+                                  : "注意書きは要らない"}
+                              </span>
+                            </th>
+                            <td className="py-2 pr-3 font-mono tabular-nums text-muted-foreground">
+                              {r.combined.toFixed(2)}
+                              <span className="ml-2 font-sans text-foreground">
+                                {r.combinedWarn ? "出す" : "出さない"}
+                              </span>
+                            </td>
+                            <td className="py-2 font-mono tabular-nums text-muted-foreground">
+                              {Math.max(r.few, r.skew).toFixed(2)}
+                              <span className="ml-2 font-sans text-foreground">
+                                {r.splitWarn
+                                  ? `出す（${r.reason}）`
+                                  : "出さない"}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                      この線での結果: まとめて1問は
+                      {combinedOk ? "狙いどおり" : "狙いと違う"}
+                      、2問に分けた場合は
+                      {splitOk ? "狙いどおり" : "狙いと違う"}。
+                    </p>
+                  </div>
+                );
+              }}
+              explanation="狙いどおりになる線の幅が違います。まとめて1問では0.65より上、0.72以下の0.07しかありません。2問に分けると0.20より上、0.55以下で0.35あります。幅が狭いほど、データが少し変わっただけで結果がひっくり返ります。さらに、まとめて聞いた値が高いときは、点の数と偏りのどちらに反応したのかが読めません。"
+            />
             <CodeBlock
               language="ts"
               title="app/api/chart/route.ts（質問の定義）"

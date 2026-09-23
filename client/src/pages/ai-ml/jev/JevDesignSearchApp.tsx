@@ -2,6 +2,8 @@ import { Shapes, Scale, Server } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
+import JevMeter from "@/components/JevMeter";
+import SliderChallenge from "@/components/SliderChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
@@ -18,6 +20,113 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - 数値は2026-09-20にjev-1.13.0を実際に呼んで得たもの
  */
 
+type CriterionKey = "clarity" | "findable" | "mistake" | "fit";
+
+/** コードが組み合わせで作った12案と、Jevの採点（2026-09-20、jev-1.13.0で実測） */
+const DESIGN_CANDIDATES: {
+  id: string;
+  label: string;
+  outline: boolean;
+  padding: string;
+  s: Record<CriterionKey, number>;
+}[] = [
+  {
+    id: "c1",
+    label: "保存",
+    outline: false,
+    padding: "余白小",
+    s: { clarity: 0.96, findable: 1.89, mistake: 1.33, fit: 1.78 },
+  },
+  {
+    id: "c2",
+    label: "保存",
+    outline: false,
+    padding: "余白大",
+    s: { clarity: 0.68, findable: 1.88, mistake: 1.45, fit: 1.77 },
+  },
+  {
+    id: "c3",
+    label: "保存",
+    outline: true,
+    padding: "余白小",
+    s: { clarity: 0.63, findable: 1.14, mistake: 1.48, fit: 0.26 },
+  },
+  {
+    id: "c4",
+    label: "保存",
+    outline: true,
+    padding: "余白大",
+    s: { clarity: 0.5, findable: 1.19, mistake: 1.39, fit: 0.25 },
+  },
+  {
+    id: "c5",
+    label: "保存して次へ",
+    outline: false,
+    padding: "余白小",
+    s: { clarity: 1.98, findable: 1.9, mistake: 1.38, fit: 1.82 },
+  },
+  {
+    id: "c6",
+    label: "保存して次へ",
+    outline: false,
+    padding: "余白大",
+    s: { clarity: 1.97, findable: 1.89, mistake: 1.36, fit: 1.81 },
+  },
+  {
+    id: "c7",
+    label: "保存して次へ",
+    outline: true,
+    padding: "余白小",
+    s: { clarity: 1.94, findable: 1.02, mistake: 1.4, fit: 0.34 },
+  },
+  {
+    id: "c8",
+    label: "保存して次へ",
+    outline: true,
+    padding: "余白大",
+    s: { clarity: 1.94, findable: 1.05, mistake: 1.38, fit: 0.29 },
+  },
+  {
+    id: "c9",
+    label: "変更を保存",
+    outline: false,
+    padding: "余白小",
+    s: { clarity: 1.28, findable: 1.89, mistake: 1.4, fit: 1.83 },
+  },
+  {
+    id: "c10",
+    label: "変更を保存",
+    outline: false,
+    padding: "余白大",
+    s: { clarity: 1.33, findable: 1.89, mistake: 1.36, fit: 1.81 },
+  },
+  {
+    id: "c11",
+    label: "変更を保存",
+    outline: true,
+    padding: "余白小",
+    s: { clarity: 1.04, findable: 1.16, mistake: 1.45, fit: 0.29 },
+  },
+  {
+    id: "c12",
+    label: "変更を保存",
+    outline: true,
+    padding: "余白大",
+    s: { clarity: 0.99, findable: 1.23, mistake: 1.41, fit: 0.31 },
+  },
+];
+
+/** 同じ案を3回採点したときの合計点の振れ幅（実測で0.005〜0.038）から決めた */
+const DESIGN_NOISE = 0.04;
+
+/** 振れ幅を測ったときの重み。これ以外の重みでの振れ幅は測っていない */
+const DESIGN_MEASURED_WEIGHTS: Record<CriterionKey, number> = {
+  clarity: 0.4,
+  findable: 0.2,
+  mistake: 0.3,
+  fit: 0.1,
+};
+
 export default function JevDesignSearchApp() {
   return (
     <div className="min-h-screen bg-background page-enter">
@@ -33,7 +142,15 @@ export default function JevDesignSearchApp() {
           ボタンの案をコードが組み合わせで作り、観点ごとにJevが採点し、重みを掛けて順位を決めます。ここでのJevは、探索の中で候補を評価する関数です。案を作るのも、重みを決めるのも、最後に選ぶのもコードの側にあります。
         </p>
 
-        <WhyNowBox tags={["評価関数", "組み合わせ", "重み付け", "順位の揺れ", "実測値つき"]}>
+        <WhyNowBox
+          tags={[
+            "評価関数",
+            "組み合わせ",
+            "重み付け",
+            "順位の揺れ",
+            "実測値つき",
+          ]}
+        >
           <p>
             案を3つ4つ見比べるだけなら人が決めれば済みます。軸が増えて十数通りになると、全部を同じ観点で見比べる手間が増え、途中で基準がぶれます。採点だけを任せれば、案の数が増えても同じ基準で並べられます。
           </p>
@@ -210,20 +327,43 @@ function App() {
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">案</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">3回の合計点</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">振れ幅</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      案
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      3回の合計点
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      振れ幅
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr>
-                    <td className="p-3 border-b border-border">保存して次へ・主ボタン・余白小</td>
-                    <td className="p-3 border-b border-border">1.754 / 1.728 / 1.716</td>
+                    <td className="p-3 border-b border-border">
+                      保存して次へ・主ボタン・余白小
+                    </td>
+                    <td className="p-3 border-b border-border">
+                      1.754 / 1.728 / 1.716
+                    </td>
                     <td className="p-3 border-b border-border">0.038</td>
                   </tr>
                   <tr>
-                    <td className="p-3 border-b border-border">保存して次へ・主ボタン・余白大</td>
-                    <td className="p-3 border-b border-border">1.734 / 1.751 / 1.729</td>
+                    <td className="p-3 border-b border-border">
+                      保存して次へ・主ボタン・余白大
+                    </td>
+                    <td className="p-3 border-b border-border">
+                      1.734 / 1.751 / 1.729
+                    </td>
                     <td className="p-3 border-b border-border">0.022</td>
                   </tr>
                   <tr>
@@ -237,6 +377,114 @@ function App() {
             <p className="text-muted-foreground mt-4 leading-relaxed">
               1位と2位の差は0.013で、振れ幅（0.005〜0.038）より小さい値でした。この2案は、採点では区別が付きません。違いは余白だけで、余白の差は採点にほとんど出ていません。一方、1位と3位の差は0.269あり、振れ幅より十分大きいので、この順位は読めます。
             </p>
+            <SliderChallenge
+              title="重みを動かして、12案の順位と「決まるかどうか」を見る"
+              description="採点は実測のまま固定し、重みだけを動かします。重みはコードが持つ値で、Jevは採点しか担当しません。合計点は重みで正規化しています。"
+              layout="stacked"
+              sliders={[
+                {
+                  id: "clarity",
+                  label: "何が起きるか分かる",
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  defaultValue: 0.4,
+                },
+                {
+                  id: "findable",
+                  label: "見つけやすい",
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  defaultValue: 0.2,
+                },
+                {
+                  id: "mistake",
+                  label: "間違えて押しにくい",
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  defaultValue: 0.3,
+                },
+                {
+                  id: "fit",
+                  label: "画面になじむ",
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  defaultValue: 0.1,
+                },
+              ]}
+              render={(v) => {
+                const keys: CriterionKey[] = [
+                  "clarity",
+                  "findable",
+                  "mistake",
+                  "fit",
+                ];
+                const sum = keys.reduce((a, k) => a + v[k], 0);
+                if (sum === 0) {
+                  return (
+                    <p className="text-sm text-foreground">
+                      重みがすべて0です。どれか1つでも上げてください。
+                    </p>
+                  );
+                }
+                const ranked = DESIGN_CANDIDATES.map((c) => ({
+                  ...c,
+                  total: keys.reduce((a, k) => a + c.s[k] * (v[k] / sum), 0),
+                })).sort((a, b) => b.total - a.total);
+                const gap = ranked[0].total - ranked[1].total;
+                // 振れ幅は既定の重みでの合計点について測った値。重みを変えると
+                // 合計点の取り方が変わるので、同じ0.04をそのまま当てられない
+                const measured = keys.every(
+                  (k) =>
+                    Math.abs(v[k] / sum - DESIGN_MEASURED_WEIGHTS[k]) < 0.001,
+                );
+                const decided = gap > DESIGN_NOISE;
+                return (
+                  <div className="w-full">
+                    <p className="text-sm text-foreground mb-3 leading-relaxed">
+                      {measured
+                        ? decided
+                          ? `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）より大きい。1案に決まります。`
+                          : `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）以下。この重みでは決められません。`
+                        : `1位と2位の差は${gap.toFixed(3)}。揺れ（${DESIGN_NOISE}）は既定の重みでの合計点について測った値なので、この重みでは決め手になりません。採り直して確かめてください。`}
+                    </p>
+                    <ol className="space-y-2">
+                      {ranked.slice(0, 5).map((c, i) => (
+                        <li
+                          key={c.id}
+                          className="flex items-center justify-between gap-3 text-sm"
+                        >
+                          <span className="flex items-center gap-3">
+                            <span className="font-mono tabular-nums text-muted-foreground">
+                              {i + 1}
+                            </span>
+                            <span
+                              className={
+                                c.outline
+                                  ? `rounded-lg border border-primary text-primary ${c.padding === "余白小" ? "px-4 py-2.5" : "px-6 py-3.5"}`
+                                  : `rounded-lg border border-primary bg-primary text-primary-foreground ${c.padding === "余白小" ? "px-4 py-2.5" : "px-6 py-3.5"}`
+                              }
+                            >
+                              {c.label}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {c.padding}
+                            </span>
+                          </span>
+                          <span className="font-mono tabular-nums text-foreground">
+                            {c.total.toFixed(3)}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                );
+              }}
+              explanation="「間違えて押しにくい」を上げていくと、4つの観点のうち案ごとの差がいちばん小さい観点（1.33〜1.48）が支配的になり、どの案も横並びになります。重みは、どの観点で差を付けたいかの宣言です。採点はJevが返しますが、何を重く見るかはコードが持ちます。なお、揺れの0.04は既定の重みでの合計点について測った値です。重みを変えると合計点の取り方が変わるため、同じ値を当てられません。本番では、使う重みで採り直して振れ幅を測ります。"
+            />
             <CodeBlock
               language="ts"
               title="lib/design.ts（決められないことを返す）"
@@ -268,30 +516,60 @@ export function pickTop(scored: Scored[]): { top: Scored; decided: boolean } {
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">観点</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">score</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">confidence</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">probabilities</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      観点
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      score
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      confidence
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      probabilities
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr>
-                    <td className="p-3 border-b border-border">ラベルから分かる</td>
+                    <td className="p-3 border-b border-border">
+                      ラベルから分かる
+                    </td>
                     <td className="p-3 border-b border-border">1.96</td>
                     <td className="p-3 border-b border-border">0.94</td>
-                    <td className="p-3 border-b border-border">0.01 / 0.01 / 0.98</td>
+                    <td className="p-3 border-b border-border">
+                      0.01 / 0.01 / 0.98
+                    </td>
                   </tr>
                   <tr>
                     <td className="p-3 border-b border-border">見つけやすい</td>
                     <td className="p-3 border-b border-border">1.88</td>
                     <td className="p-3 border-b border-border">0.82</td>
-                    <td className="p-3 border-b border-border">0.01 / 0.09 / 0.90</td>
+                    <td className="p-3 border-b border-border">
+                      0.01 / 0.09 / 0.90
+                    </td>
                   </tr>
                   <tr>
-                    <td className="p-3 border-b border-border">間違えて押しにくい</td>
+                    <td className="p-3 border-b border-border">
+                      間違えて押しにくい
+                    </td>
                     <td className="p-3 border-b border-border">1.35</td>
                     <td className="p-3 border-b border-border">0.02</td>
-                    <td className="p-3 border-b border-border">0.18 / 0.28 / 0.54</td>
+                    <td className="p-3 border-b border-border">
+                      0.18 / 0.28 / 0.54
+                    </td>
                   </tr>
                   <tr>
                     <td className="p-3">見た目の強さが適切</td>
@@ -303,7 +581,8 @@ export function pickTop(scored: Scored[]): { top: Scored; decided: boolean } {
               </table>
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              「間違えて押しにくい」は3段階に0.18 / 0.28 / 0.54と散っていて、confidenceは0.02です。scoreの1.35は、散った分布の期待値として出た数字にすぎません。合計点に入れる前に、confidenceの低い観点は重みを下げるか、人に確認してもらう対象にします。
+              「間違えて押しにくい」は3段階に0.18 / 0.28 /
+              0.54と散っていて、confidenceは0.02です。scoreの1.35は、散った分布の期待値として出た数字にすぎません。合計点に入れる前に、confidenceの低い観点は重みを下げるか、人に確認してもらう対象にします。
             </p>
           </section>
 
@@ -322,16 +601,40 @@ export function pickTop(scored: Scored[]): { top: Scored; decided: boolean } {
                 </caption>
                 <thead className="bg-muted">
                   <tr>
-                    <th scope="col" className="text-left p-3 border-b border-border">方式</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">リクエスト</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">入力トークン</th>
-                    <th scope="col" className="text-left p-3 border-b border-border">時間</th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      方式
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      リクエスト
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      入力トークン
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-left p-3 border-b border-border"
+                    >
+                      時間
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
                   <tr>
-                    <td className="p-3 border-b border-border">案ごとに分ける</td>
-                    <td className="p-3 border-b border-border">12回（4問ずつ）</td>
+                    <td className="p-3 border-b border-border">
+                      案ごとに分ける
+                    </td>
+                    <td className="p-3 border-b border-border">
+                      12回（4問ずつ）
+                    </td>
                     <td className="p-3 border-b border-border">7,998</td>
                     <td className="p-3 border-b border-border">3,874ms</td>
                   </tr>
@@ -346,6 +649,34 @@ export function pickTop(scored: Scored[]): { top: Scored; decided: boolean } {
             </div>
             <p className="text-muted-foreground mt-4 leading-relaxed">
               順位のずれは平均1.17位、最大4位で、上位3案のうち一致したのは2案でした。まとめて聞くと、他の案が見えている状態での採点になります。接戦のところで順位が変わるので、案ごとに分けて聞いています。前のSTEPのダッシュボードのように、対象どうしが競合しない場合は、まとめたほうが有利です。
+            </p>
+            <JevMeter
+              title="案の数を増やすと、どちらの送り方がどこで効くか"
+              description="ボタンを押すと、採点した案の数が増えます。上の表の12案での実測（案ごとは12回で3,874ms・7,998トークン、まとめては1回で660ms・4,649トークン）を1リクエストあたりに割り、リクエスト数を掛けています。"
+              unitLabel="案"
+              steps={[12, 100, 1000]}
+              strategies={[
+                {
+                  id: "each",
+                  label: "案ごとに分ける",
+                  note: "1案につき4問。順位は読める",
+                  unitsPerRequest: 1,
+                  latencyMs: 322.8,
+                  inputTokens: 666.5,
+                },
+                {
+                  id: "batch",
+                  label: "12案をまとめて1回",
+                  note: "48問。接戦の順位は変わる",
+                  unitsPerRequest: 12,
+                  latencyMs: 660,
+                  inputTokens: 4649,
+                },
+              ]}
+              measuredNote="2026-09-20、jev-1.13.0で実測"
+            />
+            <p className="text-muted-foreground mt-4 leading-relaxed">
+              1,000案でも、案ごとに分けて5分20秒ほど、まとめれば1分弱です。料金はどちらも$0.03に届きません。人が1案ずつ見て選ぶのとは桁が違うので、案を絞ってから採点するのではなく、作れるだけ作ってから採点する順番にできます。
             </p>
           </section>
 
@@ -413,13 +744,16 @@ function App() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">確認クイズ</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              確認クイズ
+            </h2>
             <Quiz
               question="12案を採点したところ、1位1.768、2位1.755でした。同じ案を3回採点した振れ幅は0.005〜0.038です。どうしますか？"
               options={[
                 { label: "1位を採用する。0.013でも差は差" },
                 {
-                  label: "差が振れ幅より小さいので、この2案は人に見せて決めてもらう",
+                  label:
+                    "差が振れ幅より小さいので、この2案は人に見せて決めてもらう",
                   correct: true,
                 },
                 { label: "10回採点して平均を取れば決まる" },
@@ -435,12 +769,14 @@ function App() {
                 {
                   title: "TypeSafe AI Docs — Composite scoring",
                   url: "https://docs.typesafe.ai/patterns/composite-scoring",
-                  description: "判断を観点ごとに分け、重みはコードが持つという組み立て方。",
+                  description:
+                    "判断を観点ごとに分け、重みはコードが持つという組み立て方。",
                 },
                 {
                   title: "TypeSafe AI Docs — Score",
                   url: "https://docs.typesafe.ai/primitives/score",
-                  description: "段階の作り方と、期待値が段階の間に落ちることの説明。",
+                  description:
+                    "段階の作り方と、期待値が段階の間に落ちることの説明。",
                 },
                 {
                   title: "TypeSafe AI Docs — Confidence",

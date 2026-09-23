@@ -42,6 +42,9 @@ const PAGES = [
   // Jevセクション。プレビュー付きCodingChallengeと表を含む
   { path: "/ai-ml/jev/jev-triage-app", name: "Jev（プレビュー付きチャレンジ）" },
   { path: "/ai-ml/jev/jev-app-ideas", name: "Jev（アイデア一覧・内部リンク）" },
+  // 計測パネルとしきい値ラボ。スライダー、ライブリージョン、行見出しつきの表を含む
+  { path: "/ai-ml/jev/jev-dashboard-app", name: "Jev（計測パネル）" },
+  { path: "/ai-ml/jev/jev-design-search-app", name: "Jev（重みのスライダー）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
   { path: "/vue/basics/setup", name: "Vue / Nuxt（ブランド色）" },
 ] as const;
