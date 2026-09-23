@@ -26,10 +26,9 @@ export const DEFAULT_MODELS: Record<string, string> = {
  * 実際に dev 側は拒否リスト方式で、中身が廃止済みの gpt-5.4-mini だけになっていた。
  */
 export const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
-  // 各社の最新世代で最も安いモデルだけを置く。
-  // gemini-3.5-flash-liteは最新のFlash-Lite（2026-09-20に公式の料金ページで確認）。
-  // gpt-6-lunaはgpt-6の最安。2026-09-23にgpt-5.6-lunaから更新した。作業環境から
-  // 料金ページに到達できないため、綴りはリポジトリのオーナーの指示に拠っている。
+  // 各社の最新世代で最も安いモデルだけを置く（2026-09-20に公式の料金ページで確認）。
+  // gpt-6-lunaは単価（入力$0.10 / 出力$0.50）を2026-09-23に確認した。gpt-6世代で最安かは未確認。
+  // gemini-3.5-flash-liteは最新のFlash-Lite。
   openai: ["gpt-6-luna"],
   gemini: ["gemini-3.5-flash-lite"],
 };
@@ -45,6 +44,17 @@ export function maxTokensFor(model: string): number {
   return COMPACT_MODELS.some((m) => model.includes(m))
     ? COMPACT_MAX_TOKENS
     : DEFAULT_MAX_TOKENS;
+}
+
+/**
+ * そのモデルに渡すreasoning_effort（渡さないときはundefined）。
+ * OpenAIの推論モデルは既定がmediumで、上限2048では推論だけで上限を使い切り本文が空になる
+ * （2026-09-23にgpt-6-luna / gpt-5.6-lunaで実測。lowなら同じ上限で本文が出た）。
+ * Geminiの互換エンドポイントには送らない。
+ */
+export function reasoningEffortFor(model: string): "low" | undefined {
+  const isCompact = COMPACT_MODELS.some((m) => model.includes(m));
+  return model.startsWith("gpt-") && isCompact ? "low" : undefined;
 }
 
 /** サーバのキーで実行してよいモデルか（BYOK なら本人負担なので呼び出し側で許可する） */
