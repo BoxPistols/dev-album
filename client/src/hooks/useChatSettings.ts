@@ -24,13 +24,7 @@ export const MODEL_OPTIONS: ChatModelOption[] = [
     provider: "gemini",
     requiresUserKey: false,
   },
-  // Pro は Gemini の無料枠対象外なので自前キーが要る
-  {
-    id: "gemini-2.5-pro",
-    label: "Gemini 2.5 Pro",
-    provider: "gemini",
-    requiresUserKey: true,
-  },
+  // gemini-2.5-proは新規利用者に404を返すため外した。保存値に残っていてもselectedModelの照合でMODEL_OPTIONS[0]に戻る
 ];
 
 interface ChatSettings {
