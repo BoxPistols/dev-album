@@ -61,6 +61,19 @@ function detectComponentName(code: string): string {
 }
 
 /**
+ * チャレンジの空欄（___）を、埋める前でも実行できるようにする宣言。
+ *
+ * 値の位置にある空欄（`x < ___`）はそのままだとReferenceErrorで落ち、プレビューが
+ * 空になる。本番の/ai-ml/jev/jev-triage-appで実際に起きていた。
+ *
+ * コードは書き換えない。空欄は文字列の中（`'repeat(___, ...)'`）、JSXの属性名
+ * （`<label ___="email">`）、分割代入の左辺（`const [a, ___] = ...`）にも現れ、
+ * 文字列に置き換えるとそれぞれ構文が壊れる。識別子として宣言すれば、どの位置でも
+ * 元の構文のまま通る。
+ */
+const BLANK_DECLARATION = "var ___ = '';";
+
+/**
  * JSX/TSX コードを iframe 用 HTML に変換する
  * libs: 明示的に読み込む外部ライブラリ（import 文からの自動検出とマージされる）
  */
@@ -89,7 +102,11 @@ export function buildPreviewHtml(
       ...(needsEmotion ? { jsxPragma: 'emotionReact.jsx' } : {}),
       production: false,
     });
-    transpiledCode = result.code;
+    // JSXのタグ名が空欄のとき（<___>）、宣言した空文字がそのままタグ名になり
+    // createElement('') で落ちる。トランスパイル後に当てるので、文字列の中の
+    // ___ や属性名の ___ は巻き込まない
+    const jsxFactory = needsEmotion ? 'emotionReact.jsx' : 'React.createElement';
+    transpiledCode = result.code.replaceAll(`${jsxFactory}(___`, `${jsxFactory}('div'`);
   } catch (e: unknown) {
     errorMessage = e instanceof Error ? e.message : String(e);
   }
@@ -153,7 +170,21 @@ ${cssCode}
 </style></head><body>
 <div id="root"></div>
 <script>
+// Reactの描画は非同期に進むので、そこで投げられた例外は下のcatchには入らない。
+// 拾わないと#rootが空のままになり、プレビューが無言で消える
+function __showError(message){
+  var root=document.getElementById('root');
+  if(!root||root.childElementCount>0)return;
+  root.innerHTML=
+    '<div style="color:#ef4444;padding:16px;font-size:13px;font-family:monospace;">'+
+    '<strong>Error:</strong> '+String(message).replace(/</g,'&lt;')+'</div>';
+}
+window.addEventListener('error',function(ev){__showError(ev.message);});
+window.addEventListener('unhandledrejection',function(ev){
+  __showError(ev.reason&&ev.reason.message?ev.reason.message:ev.reason);
+});
 try{
+  ${BLANK_DECLARATION}
   var {useState,useEffect,useRef,useCallback,useMemo,useReducer,useContext,createContext}=React;
 ${needsMui ? `  if(typeof MaterialUI==='undefined'){
     throw new Error('MUI ライブラリ(/vendor)の読み込みに失敗しました。ページを再読み込みしてください。');
@@ -184,9 +215,7 @@ ${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${is
 ` : ''}    ReactDOM.createRoot(document.getElementById('root')).render(__element);
   }
 }catch(e){
-  document.getElementById('root').innerHTML=
-    '<div style="color:#ef4444;padding:16px;font-size:13px;font-family:monospace;">'+
-    '<strong>Error:</strong> '+e.message.replace(/</g,'&lt;')+'</div>';
+  __showError(e.message);
 }
 <\/script></body></html>`;
 }
@@ -195,7 +224,6 @@ ${needsMui ? `    var __previewTheme=MaterialUI.createTheme({palette:{mode:'${is
  * Three.js コードをプレビュー用HTMLに変換する（vanilla Three.js 用）
  */
 export function buildThreePreviewHtml(code: string, isDark = true): string {
-  const safeCode = code.replace(/___/g, "''");
   const bgColor = isDark ? '#1a1a2e' : '#e8e8f0';
 
   return `<!DOCTYPE html>
@@ -218,7 +246,8 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
   s.src = '${THREE_UMD_URL}';
   s.onload = function() {
     try {
-      ${safeCode}
+      ${BLANK_DECLARATION}
+      ${code}
     } catch(e) {
       document.getElementById('error').textContent = e.message;
     }

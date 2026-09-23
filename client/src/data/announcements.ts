@@ -20,8 +20,8 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
-    id: "2026-09-21-jev-flight-interval-lab",
-    date: "2026-09-21",
+    id: "2026-09-23-jev-flight-interval-lab",
+    date: "2026-09-23",
     title: "Jev: 判断の間隔を動かして試せるようにした",
     description:
       "フライトの自動操縦に、判断の間隔を動かすスライダーを足した。1分あたりの判断の回数と、間隔のうち応答待ちが占める割合が変わる。実測の応答時間（平均400ms、最長738ms）を下回る間隔にすると、その旨が出る。",
@@ -29,8 +29,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-flight-app",
   },
   {
-    id: "2026-09-21-jev-design-weight-lab",
-    date: "2026-09-21",
+    id: "2026-09-23-jev-design-weight-lab",
+    date: "2026-09-23",
     title: "Jev: デザイン案の重みをスライダーで動かせるようにした",
     description:
       "12案の採点を実測のまま固定し、4つの観点の重みを連続で動かせるようにした。順位が組み替わり、1位と2位の差が揺れ（0.04）より大きいかどうかが同時に出る。案の数を増やしたときの時間と料金を見る計測パネルも足した。",
@@ -38,8 +38,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-design-search-app",
   },
   {
-    id: "2026-09-21-jev-dashboard-meter",
-    date: "2026-09-21",
+    id: "2026-09-23-jev-dashboard-meter",
+    date: "2026-09-23",
     title: "Jev: まとめて送る効果を数字で見る計測パネルを追加",
     description:
       "ダッシュボードのページに、判断の数を増やしたときのリクエスト回数・応答時間・入力トークン・料金を出すパネルを足した。1,000件を1問ずつ送ると11分、20問ずつまとめると15秒になる。実測値の再生で、ページからJevは呼ばない。",
@@ -47,8 +47,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-dashboard-app",
   },
   {
-    id: "2026-09-21-jev-chart-threshold-lab",
-    date: "2026-09-21",
+    id: "2026-09-23-jev-chart-threshold-lab",
+    date: "2026-09-23",
     title: "Jev: 1問で聞くか2問に分けるかを、線を動かして比べられるようにした",
     description:
       "注意書きを出すしきい値を動かすと、まとめて1問で聞いた場合と2問に分けた場合の結果が並んで変わる。狙いどおりになる線の幅が0.07と0.35で違うことが、動かすと分かる。",
@@ -56,12 +56,30 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-chart-picker-app",
   },
   {
-    id: "2026-09-21-jev-triage-threshold-lab",
-    date: "2026-09-21",
+    id: "2026-09-23-jev-triage-threshold-lab",
+    date: "2026-09-23",
     title: "Jev: しきい値を動かして問い合わせの行き先を見るラボを追加",
     description:
       "実測の緊急度をそのまま使い、2本の線だけを動かす。0.48の1件が線の置き方で3つのどこにでも動くこと、1件ずつの値を記録していない帯の中に線を置くと決められないことが、触って分かる。",
     category: "update",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
+    id: "2026-09-21-preview-silent-errors",
+    date: "2026-09-21",
+    title: "プレビューが無言で消えず、原因を表示するように",
+    description:
+      "描画の途中で起きたエラーが拾われず、プレビューが空白のままになることがあった。何が起きたかを枠の中に表示する。あわせて、タグ名が空欄のチャレンジも初期状態から描画されるようにした。",
+    category: "fix",
+    link: "/react/ui-patterns/form-group",
+  },
+  {
+    id: "2026-09-21-challenge-preview-blanks",
+    date: "2026-09-21",
+    title: "チャレンジのプレビューが、空欄のままでも動くように",
+    description:
+      "穴埋めのチャレンジで、空欄が値の位置にあるとプレビューが空のままになっていた。書き始める前に動きを見られるよう、空欄を空の値として宣言してから実行するようにした。あわせて、埋める前は構文が成立しない形だったカウンターの問題を、空欄の位置を変えて直した。",
+    category: "fix",
     link: "/ai-ml/jev/jev-triage-app",
   },
   {

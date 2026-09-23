@@ -890,7 +890,7 @@ export const level4Challenges: TrainingChallenge[] = [
                 style={{
                   fontSize: 12,
                   marginTop: 6,
-                  color: i <= step ? '#0f3460' : '#999',
+                  color: i <= step ? 'var(--text-accent)' : 'var(--text-muted)',
                   fontWeight: i === step ? 'bold' : 'normal',
                   whiteSpace: 'nowrap',
                 }}
@@ -924,7 +924,7 @@ export const level4Challenges: TrainingChallenge[] = [
           marginBottom: 24,
         }}
       >
-        <h3 style={{ margin: '0 0 8px' }}>{steps[step].label}</h3>
+        <h3 style={{ margin: '0 0 8px', color: '#222' }}>{steps[step].label}</h3>
         <p style={{ color: '#555', margin: 0 }}>{steps[step].content}</p>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -936,6 +936,7 @@ export const level4Challenges: TrainingChallenge[] = [
             borderRadius: 6,
             border: '1px solid #ccc',
             background: step === 0 ? '#eee' : '#fff',
+            color: step === 0 ? '#888' : '#222',
             cursor: step === 0 ? 'not-allowed' : 'pointer',
             fontSize: 14,
           }}
@@ -996,7 +997,7 @@ export const level4Challenges: TrainingChallenge[] = [
                 style={{
                   fontSize: 12,
                   marginTop: 6,
-                  color: i <= step ? '#0f3460' : '#999',
+                  color: i <= step ? 'var(--text-accent)' : 'var(--text-muted)',
                   fontWeight: i === step ? 'bold' : 'normal',
                   whiteSpace: 'nowrap',
                 }}
@@ -1030,7 +1031,7 @@ export const level4Challenges: TrainingChallenge[] = [
           marginBottom: 24,
         }}
       >
-        <h3 style={{ margin: '0 0 8px' }}>{steps[step].label}</h3>
+        <h3 style={{ margin: '0 0 8px', color: '#222' }}>{steps[step].label}</h3>
         <p style={{ color: '#555', margin: 0 }}>{steps[step].content}</p>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -1042,6 +1043,7 @@ export const level4Challenges: TrainingChallenge[] = [
             borderRadius: 6,
             border: '1px solid #ccc',
             background: step === 0 ? '#eee' : '#fff',
+            color: step === 0 ? '#888' : '#222',
             cursor: step === 0 ? 'not-allowed' : 'pointer',
             fontSize: 14,
           }}
