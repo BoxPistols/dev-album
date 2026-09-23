@@ -394,8 +394,18 @@ export async function POST(request: Request) {
                 },
               ]}
               render={(v) => {
-                const low = Math.min(v.low, v.high);
-                const high = Math.max(v.low, v.high);
+                const low = v.low;
+                const high = v.high;
+                // 線が交差したまま結果を出すと、表示した線と行き先の対応が読めない
+                if (low > high) {
+                  return (
+                    <p className="text-sm text-foreground leading-relaxed">
+                      下の線が上の線を追い越しています。下の線を
+                      {high.toFixed(2)}以下にするか、上の線を{low.toFixed(2)}
+                      以上にしてください。
+                    </p>
+                  );
+                }
                 // 帯の下端と上端で行き先が変わるなら、7件がどちらへ行くか決められない
                 const restBucket = bucketOf(URGENCY_REST.max, low, high);
                 const restSplit =

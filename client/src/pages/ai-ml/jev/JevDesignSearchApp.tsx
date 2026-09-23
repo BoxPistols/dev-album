@@ -119,6 +119,14 @@ const DESIGN_CANDIDATES: {
 /** 同じ案を3回採点したときの合計点の振れ幅（実測で0.005〜0.038）から決めた */
 const DESIGN_NOISE = 0.04;
 
+/** 振れ幅を測ったときの重み。これ以外の重みでの振れ幅は測っていない */
+const DESIGN_MEASURED_WEIGHTS: Record<CriterionKey, number> = {
+  clarity: 0.4,
+  findable: 0.2,
+  mistake: 0.3,
+  fit: 0.1,
+};
+
 export default function JevDesignSearchApp() {
   return (
     <div className="min-h-screen bg-background page-enter">
@@ -427,13 +435,21 @@ function App() {
                   total: keys.reduce((a, k) => a + c.s[k] * (v[k] / sum), 0),
                 })).sort((a, b) => b.total - a.total);
                 const gap = ranked[0].total - ranked[1].total;
+                // 振れ幅は既定の重みでの合計点について測った値。重みを変えると
+                // 合計点の取り方が変わるので、同じ0.04をそのまま当てられない
+                const measured = keys.every(
+                  (k) =>
+                    Math.abs(v[k] / sum - DESIGN_MEASURED_WEIGHTS[k]) < 0.001,
+                );
                 const decided = gap > DESIGN_NOISE;
                 return (
                   <div className="w-full">
                     <p className="text-sm text-foreground mb-3 leading-relaxed">
-                      {decided
-                        ? `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）より大きい。1案に決まります。`
-                        : `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）以下。この重みでは決められません。`}
+                      {measured
+                        ? decided
+                          ? `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）より大きい。1案に決まります。`
+                          : `1位と2位の差は${gap.toFixed(3)}で、揺れ（${DESIGN_NOISE}）以下。この重みでは決められません。`
+                        : `1位と2位の差は${gap.toFixed(3)}。揺れ（${DESIGN_NOISE}）は既定の重みでの合計点について測った値なので、この重みでは決め手になりません。採り直して確かめてください。`}
                     </p>
                     <ol className="space-y-2">
                       {ranked.slice(0, 5).map((c, i) => (
@@ -467,7 +483,7 @@ function App() {
                   </div>
                 );
               }}
-              explanation="「間違えて押しにくい」を上げていくと、4つの観点のうち案ごとの差がいちばん小さい観点（1.33〜1.48）が支配的になり、どの案も横並びになって決まらなくなります。重みは、どの観点で差を付けたいかの宣言です。採点はJevが返しますが、何を重く見るかはコードが持ちます。"
+              explanation="「間違えて押しにくい」を上げていくと、4つの観点のうち案ごとの差がいちばん小さい観点（1.33〜1.48）が支配的になり、どの案も横並びになります。重みは、どの観点で差を付けたいかの宣言です。採点はJevが返しますが、何を重く見るかはコードが持ちます。なお、揺れの0.04は既定の重みでの合計点について測った値です。重みを変えると合計点の取り方が変わるため、同じ値を当てられません。本番では、使う重みで採り直して振れ幅を測ります。"
             />
             <CodeBlock
               language="ts"
