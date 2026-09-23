@@ -11,7 +11,7 @@ export const GEMINI_BASE_URL =
 
 /** provider ごとの既定モデル（リクエストが model を指定しなかったとき） */
 export const DEFAULT_MODELS: Record<string, string> = {
-  openai: "gpt-5.6-luna",
+  openai: "gpt-6-luna",
   gemini: "gemini-3.5-flash-lite",
 };
 
@@ -26,9 +26,11 @@ export const DEFAULT_MODELS: Record<string, string> = {
  * 実際に dev 側は拒否リスト方式で、中身が廃止済みの gpt-5.4-mini だけになっていた。
  */
 export const SERVER_KEY_ALLOWED_MODELS: Record<string, string[]> = {
-  // 各社の最新世代で最も安いモデルだけを置く（2026-09-20に公式の料金ページで確認）。
-  // gpt-5.6-lunaはgpt-5.6の最安。gemini-3.5-flash-liteは最新のFlash-Lite。
-  openai: ["gpt-5.6-luna"],
+  // 各社の最新世代で最も安いモデルだけを置く。
+  // gemini-3.5-flash-liteは最新のFlash-Lite（2026-09-20に公式の料金ページで確認）。
+  // gpt-6-lunaはgpt-6の最安。2026-09-23にgpt-5.6-lunaから更新した。このときは
+  // 料金ページに到達できていないため、モデルIDの綴りは公式の一覧で確かめること。
+  openai: ["gpt-6-luna"],
   gemini: ["gemini-3.5-flash-lite"],
 };
 
