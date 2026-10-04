@@ -7,6 +7,7 @@ import WhyNowBox from "@/components/WhyNowBox";
 import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリのアイデア20
@@ -190,13 +191,14 @@ export default function JevAppIdeas() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリのアイデア20
+          サンプルアプリのアイデア20（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jevの3
           つの質問型で何が作れるかを、コードを書く前に一覧で眺めます。各項目は「こんなことができる」の概要だけです。
           このうち5つを、続くSTEP 18〜22で実際に作ります。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={["ユースケース", "noul", "choice", "score", "5本を作る"]}

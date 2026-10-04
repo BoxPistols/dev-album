@@ -8,6 +8,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリ3: ダッシュボードの自動強調
@@ -27,11 +28,12 @@ export default function JevDashboardApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ3: ダッシュボードの自動強調
+          サンプルアプリ3: ダッシュボードの自動強調（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           20個の指標を1リクエストでまとめて採点し、いま見るべきものが大きく前に出る画面を作ります。データが変われば、並びも大きさも色の帯も組み替わります。判断を1つずつ呼んでいては成り立たない作りで、まとめて聞けることが設計の前提になります。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["一括採点", "score", "レイアウトの組み替え", "実測値つき"]}>
           <p>

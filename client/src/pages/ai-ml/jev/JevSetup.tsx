@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * Jevの開発環境構築
@@ -27,13 +28,14 @@ export default function JevSetup() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          Jevの開発環境構築
+          Jevの開発環境構築（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           APIキーの取得から、Node.jsとPythonそれぞれの公式SDK
           の導入、最初の呼び出しまでを一通り行います。 SDK
           がブラウザからの呼び出しを既定で拒否する理由も、ここで先に押さえます。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={[

@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリ1: 問い合わせの選別
@@ -26,12 +27,13 @@ export default function JevTriageApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ1: 問い合わせの選別
+          サンプルアプリ1: 問い合わせの選別（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           メールやチャットで届く問い合わせを、担当チームと緊急度で振り分けます。Jevの使い道としていちばん典型的な形で、公式のQuick
           startも同じ題材を使っています。このページでは、日本語の問い合わせを実際にJevへ送った結果をもとに、選択肢の設計としきい値の決め方を組み立てます。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["典型例", "choice", "noul", "Next.js", "実測値つき"]}>
           <p>

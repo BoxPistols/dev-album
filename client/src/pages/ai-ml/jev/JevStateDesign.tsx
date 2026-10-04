@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * stateと質問の設計
@@ -27,7 +28,7 @@ export default function JevStateDesign() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          stateと質問の設計
+          stateと質問の設計（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jevの使い方は「stateを渡して質問する」だけですが、何をstate
@@ -36,6 +37,7 @@ export default function JevStateDesign() {
           リクエストで複数の質問を評価する形、そして失敗したときのSDK
           の振る舞いを扱います。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={["state", "質問設計", "一括評価", "usage", "リトライ"]}

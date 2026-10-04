@@ -8,6 +8,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリ2: データに合わせて図を選ぶ
@@ -27,11 +28,12 @@ export default function JevChartPickerApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ2: データに合わせて図を選ぶ
+          サンプルアプリ2: データに合わせて図を選ぶ（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           手元のデータを渡すと、折れ線・棒・散布・積み上げ帯のどれで見せるかと、読み手が最初に気づくべき点をJevが決め、画面の図がそれに合わせて切り替わります。判断の結果が、文字ではなく見た目に出るアプリです。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={["可視化", "choice", "noul", "描画の切り替え", "実測値つき"]}

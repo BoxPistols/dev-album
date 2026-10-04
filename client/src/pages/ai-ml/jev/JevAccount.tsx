@@ -12,6 +12,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * アカウント登録とAPIキー・課金の準備
@@ -30,7 +31,7 @@ export default function JevAccount() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          アカウント登録とAPIキー・課金の準備
+          アカウント登録とAPIキー・課金の準備（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           コードを書く前に、Jevを呼ぶための契約とキーをそろえます。STEP 18〜22
@@ -38,6 +39,7 @@ export default function JevAccount() {
           ここを飛ばすと動きません。ルートは2つあります。TypeSafe AI
           と直接契約する方法と、Vercel AI Gateway経由で使う方法です。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={[

@@ -8,6 +8,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリ4: デザイン案の探索
@@ -27,11 +28,12 @@ export default function JevDesignSearchApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ4: デザイン案の探索
+          サンプルアプリ4: デザイン案の探索（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ボタンの案をコードが組み合わせで作り、観点ごとにJevが採点し、重みを掛けて順位を決めます。ここでのJevは、探索の中で候補を評価する関数です。案を作るのも、重みを決めるのも、最後に選ぶのもコードの側にあります。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["評価関数", "組み合わせ", "重み付け", "順位の揺れ", "実測値つき"]}>
           <p>

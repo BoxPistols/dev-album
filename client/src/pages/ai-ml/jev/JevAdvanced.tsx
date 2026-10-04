@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * 応用: 信頼度ゲートとLLMとの組み合わせ
@@ -26,7 +27,7 @@ export default function JevAdvanced() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          応用: 信頼度ゲートとLLMとの組み合わせ
+          応用: 信頼度ゲートとLLMとの組み合わせ（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jev単体で完結する仕事は多くありません。実際のシステムでは、Jev
@@ -35,6 +36,7 @@ export default function JevAdvanced() {
           との役割分担、しきい値を実データで決める手順、そしてJev
           の守備範囲外を扱います。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={["信頼度ゲート", "LLMジャッジ", "評価", "しきい値", "制約"]}

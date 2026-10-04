@@ -6,6 +6,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * Jevとは — System Oneモデル入門
@@ -25,7 +26,7 @@ export default function JevOverview() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          Jevとは — System Oneモデル入門
+          Jevとは — System Oneモデル入門（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           JevはTypeSafe AI
@@ -35,6 +36,7 @@ export default function JevOverview() {
           このページでは、LLM
           と何が違うのか、どんな仕事に向いているのかを、実際の入出力の形から確かめます。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["Jev", "System One", "確率", "分類", "ルーティング"]}>
           <p>

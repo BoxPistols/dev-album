@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * 既存のアプリに後から入れる
@@ -25,11 +26,12 @@ export default function JevAdoption() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          既存のアプリに後から入れる
+          既存のアプリに後から入れる（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           ここまでは新しく作る前提でした。動いているアプリに後から足すときは、どこに入れるかより先に、入れる価値があるかを測る順序が要ります。このページは、実際に手元のアプリで測って入れた記録です。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["導入", "置き換え", "測り方", "実例つき"]}>
           <p>

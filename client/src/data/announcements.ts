@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-09-22-jev-in-review",
+    date: "2026-09-22",
+    title: "Jevのセクションが検証中であることを明示",
+    description:
+      "Jev / System Oneの各ページの見出しに「検証中」を付け、冒頭に注意書きを置いた。公開から日が浅いモデルで、実測値は特定の日と版で得たものであることを示す。",
+    category: "update",
+    link: "/ai-ml/jev/jev-overview",
+  },
+  {
     id: "2026-09-21-preview-silent-errors",
     date: "2026-09-21",
     title: "プレビューが無言で消えず、原因を表示するように",

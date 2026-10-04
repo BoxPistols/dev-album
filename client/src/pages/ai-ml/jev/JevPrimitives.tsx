@@ -7,6 +7,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * 3つの質問型と確率の読み方
@@ -26,7 +27,7 @@ export default function JevPrimitives() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          3つの質問型と確率の読み方
+          3つの質問型と確率の読み方（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Jevに投げられる質問はnoul / choice / scoreの3
@@ -34,6 +35,7 @@ export default function JevPrimitives() {
           SDKの型定義とAPI
           スキーマから起こして確認します。最後に、確率をどう行動に変換するかを扱います。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox
           tags={["noul", "choice", "score", "confidence", "probabilities"]}

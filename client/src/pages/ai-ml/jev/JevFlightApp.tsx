@@ -8,6 +8,7 @@ import PageNavigation from "@/components/PageNavigation";
 import PageSources from "@/components/PageSources";
 import Quiz from "@/components/Quiz";
 import ReferenceLinks from "@/components/ReferenceLinks";
+import JevStatusNotice from "@/components/JevStatusNotice";
 
 /**
  * サンプルアプリ5: フライトの自動操縦
@@ -26,11 +27,12 @@ export default function JevFlightApp() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-extrabold text-foreground mb-6">
-          サンプルアプリ5: フライトの自動操縦
+          サンプルアプリ5: フライトの自動操縦（検証中）
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           地形を避けて目標へ向かう機体を、Jevの判断で操縦します。ここまでの4本と違い、判断が1回で終わりません。飛んでいる間ずっと繰り返されます。判断の周期と描画の周期をどう分けるか、そして安全に関わる分岐をどちらが持つかが主題です。
         </p>
+        <JevStatusNotice />
 
         <WhyNowBox tags={["制御ループ", "choice", "noul", "Three.js", "実測値つき"]}>
           <p>

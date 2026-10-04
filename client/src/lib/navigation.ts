@@ -197,7 +197,7 @@ export const sections: SectionInfo[] = [
   { id: 'python-ml', title: 'Python for ML', manualId: 'ai-ml' },
   { id: 'ml-fundamentals', title: '機械学習の基礎', manualId: 'ai-ml' },
   { id: 'lmops', title: 'LMOps', manualId: 'ai-ml' },
-  { id: 'jev', title: 'Jev / System One', manualId: 'ai-ml', description: '文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築から応用まで扱う' },
+  { id: 'jev', title: 'Jev / System One（検証中）', manualId: 'ai-ml', description: '文章を生成せず、型付きの質問に確率で答えるモデルを、環境構築から応用まで扱う' },
 
   // === UX デザインマニュアル ===
   { id: 'ux-intro', title: 'はじめに', manualId: 'ux-design' },
