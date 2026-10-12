@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// API 設計 / Vue・Nuxt マニュアルの全ページが実際に描画されることを検証するスモークテスト。
+// API設計・Vue/Nuxt・Goマニュアルの全ページが実際に描画されることを検証するスモークテスト。
 // tsc / ビルドでは捕捉できない「描画時の例外」を検出する目的。
 
 const RENDER_ROUTES = [
@@ -67,6 +67,20 @@ const RENDER_ROUTES = [
   "/vue/nuxt-server/middleware-plugins",
   "/vue/nuxt-server/deploy",
   "/vue/advanced/latest-features",
+  "/go",
+  "/go/basics/setup",
+  "/go/basics/syntax",
+  "/go/basics/functions",
+  "/go/basics/collections",
+  "/go/types/structs-methods",
+  "/go/types/interfaces",
+  "/go/types/generics",
+  "/go/types/errors",
+  "/go/concurrency/goroutines-channels",
+  "/go/concurrency/context-sync",
+  "/go/practice/modules-tooling",
+  "/go/practice/testing",
+  "/go/practice/http-server",
 ];
 
 test("API / Vue・Nuxt マニュアルの全ページが例外なく描画される", async ({ page }) => {

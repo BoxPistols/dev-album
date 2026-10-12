@@ -2,7 +2,7 @@
 
 Web 開発の実践リファレンス。
 
-Git・React・Claude Code・Three.js・AI/ML・UX デザイン・API 設計・Vue/Nuxt・インフラ/DevOps・開発フローの 10 マニュアルを、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティック HTML、ARIA、Table/Dialog/Form の設計、ダークパターン回避なども扱う。
+学び方・Git・React・Claude Code・Three.js・AI/ML・UXデザイン・API設計・Vue/Nuxt・Go・インフラ/DevOps・開発フローの各マニュアルを、Web標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティックHTML、ARIA、Table/Dialog/Formの設計、ダークパターン回避なども扱う。
 
 https://dev-album.vercel.app
 
@@ -44,7 +44,7 @@ pnpm dev
 
 ## コンテンツ構成
 
-10 マニュアル・300 ページ超。ページ・セクション・ステップの単一の真実は `client/src/lib/navigation.ts` が持つ（件数は `navigation.test.ts` が固定している）。
+ページ・セクション・ステップの単一の真実は`client/src/lib/navigation.ts`が持つ（マニュアル数とページ数は`navigation.test.ts`が固定している）。
 
 | マニュアル | 内容 |
 |-----------|------|
@@ -56,6 +56,7 @@ pnpm dev
 | UX デザイン入門 | ユーザーリサーチからプロトタイピング・評価まで |
 | API 設計 / OpenAPI 入門 | REST API 設計、OpenAPI/Swagger、API 検証 |
 | Vue 3 / Nuxt 入門 | Composition API、Pinia、Nuxt |
+| Go入門 | 文法、構造体とインターフェース、goroutine、go test、net/http |
 | バックエンド / インフラ / DevOps 入門 | ホスティング、エッジ、BaaS、DB、BFF、CI/CD |
 | 開発フロー / チーム / DesignOps 入門 | アジャイル、スクラム、コードレビュー、DesignOps |
 
@@ -82,7 +83,7 @@ client/src/
 └── pages/
     ├── git/ react/ claude-code/ threejs/     マニュアル別ページ
     ├── ai-ml/ ux-design/ api/ vue/          〃
-    ├── infra/ devflow/                      〃
+    ├── go/ infra/ devflow/                  〃
     ├── Training.tsx     UI トレーニング
     ├── Landing.tsx      LP
     └── BugReport.tsx    バグ報告ページ
@@ -179,12 +180,13 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 | `ux-design` | #BE185D | #F9A8D4 | #F9A8D4 |
 | `api` | #047253 | #34D399 | #34D399 |
 | `vue` | #047253 | #42B883 | #50FA7B |
+| `go` | #006C84 | #00ADD8 | #8BE9FD |
 
 `infra` / `devflow` は上書きを持たず、既定の `--primary` を使う。
 
 色は**情報を伝える手段ではなく、現在地の手がかり**として使う。マニュアルの識別は番号・アイコン・テキストで行い、色だけに依存しない（色覚多様性への配慮）。
 
-ブランド色は 9 マニュアル × 3 テーマ = 27 通りに分岐するため、目視や代表ページの抜き取りでは AA 未達を取りこぼす。`client/src/lib/theme-contrast.test.ts` がソースに実在する「文字色クラス × 背景色クラス」の組だけを全 27 通りで評価し、WCAG AA 4.5:1 を下回ったら失敗する。ここの色を変えるときはそのテストを通してから確定する。
+ブランド色はマニュアル数×3テーマに分岐するため、目視や代表ページの抜き取りではAA未達を取りこぼす。`client/src/lib/theme-contrast.test.ts`がソースに実在する「文字色クラス×背景色クラス」の組だけを、ブランド色を持つ全マニュアル×3テーマで評価し、WCAG AA 4.5:1を下回ったら失敗する。ここの色を変えるときはそのテストを通してから確定する。
 
 `text-primary` を重ねる自己色ティントは `bg-primary/10` を上限とする。`bg-primary/α` は下地を文字色そのものへ寄せるため、α を上げるほどコントラストの余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145 になる）。
 

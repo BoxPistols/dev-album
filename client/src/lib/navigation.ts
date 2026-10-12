@@ -1,4 +1,4 @@
-export type ManualId = 'learning' | 'react' | 'git' | 'threejs' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'infra' | 'devflow';
+export type ManualId = 'learning' | 'react' | 'git' | 'threejs' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'go' | 'infra' | 'devflow';
 
 export interface ManualInfo {
   id: ManualId;
@@ -100,6 +100,14 @@ export const manuals: ManualInfo[] = [
     description: 'Vue 3・Composition API・Pinia・Nuxt を実践的に学ぶ',
     icon: 'V',
     color: '#42B883',
+  },
+  {
+    id: 'go',
+    title: 'Go入門',
+    shortTitle: 'Go',
+    description: 'TypeScript経験者向けに、Goの文法・並行処理・標準ライブラリでのAPI実装を学ぶ',
+    icon: 'Go',
+    color: '#00ADD8',
   },
   {
     id: 'infra',
@@ -230,6 +238,13 @@ export const sections: SectionInfo[] = [
   { id: 'nuxt-basics', title: 'Nuxt 基礎', manualId: 'vue' },
   { id: 'nuxt-server', title: 'Nuxt サーバーと実践', manualId: 'vue' },
   { id: 'vue-advanced', title: '最新と総まとめ', manualId: 'vue' },
+
+  // === Goマニュアル ===
+  { id: 'go-intro', title: 'はじめに', manualId: 'go' },
+  { id: 'go-basics', title: 'Goの基礎', manualId: 'go' },
+  { id: 'go-types', title: '型とインターフェース', manualId: 'go' },
+  { id: 'go-concurrency', title: '並行処理', manualId: 'go' },
+  { id: 'go-practice', title: '実践', manualId: 'go' },
 
   // === バックエンド / インフラ / DevOps マニュアル ===
   { id: 'infra-intro', title: 'はじめに', manualId: 'infra' },
@@ -597,6 +612,24 @@ export const pages: PageInfo[] = [
   { step: 20, path: '/vue/nuxt-server/middleware-plugins', title: 'ミドルウェア・プラグイン・モジュール', sectionId: 'nuxt-server', manualId: 'vue' },
   { step: 21, path: '/vue/nuxt-server/deploy', title: 'Nuxt のデプロイ', sectionId: 'nuxt-server', manualId: 'vue' },
   { step: 22, path: '/vue/advanced/latest-features', title: 'Vue 3.5 / Nuxt 4 の最新機能と総まとめ', sectionId: 'vue-advanced', manualId: 'vue' },
+
+  // ===========================
+  // Goマニュアル
+  // ===========================
+  { step: 1, path: '/go', title: 'このマニュアルについて', sectionId: 'go-intro', manualId: 'go' },
+  { step: 2, path: '/go/basics/setup', title: '環境構築とHello World', sectionId: 'go-basics', manualId: 'go' },
+  { step: 3, path: '/go/basics/syntax', title: '変数・型・制御構文', sectionId: 'go-basics', manualId: 'go' },
+  { step: 4, path: '/go/basics/functions', title: '関数・複数戻り値・defer', sectionId: 'go-basics', manualId: 'go' },
+  { step: 5, path: '/go/basics/collections', title: '配列・スライス・マップ', sectionId: 'go-basics', manualId: 'go' },
+  { step: 6, path: '/go/types/structs-methods', title: '構造体とメソッド', sectionId: 'go-types', manualId: 'go' },
+  { step: 7, path: '/go/types/interfaces', title: 'インターフェース', sectionId: 'go-types', manualId: 'go' },
+  { step: 8, path: '/go/types/generics', title: 'ジェネリクス', sectionId: 'go-types', manualId: 'go' },
+  { step: 9, path: '/go/types/errors', title: 'エラーハンドリング', sectionId: 'go-types', manualId: 'go' },
+  { step: 10, path: '/go/concurrency/goroutines-channels', title: 'goroutineとchannel', sectionId: 'go-concurrency', manualId: 'go' },
+  { step: 11, path: '/go/concurrency/context-sync', title: 'contextとsync', sectionId: 'go-concurrency', manualId: 'go' },
+  { step: 12, path: '/go/practice/modules-tooling', title: 'モジュールと標準ツール', sectionId: 'go-practice', manualId: 'go' },
+  { step: 13, path: '/go/practice/testing', title: 'テスト', sectionId: 'go-practice', manualId: 'go' },
+  { step: 14, path: '/go/practice/http-server', title: 'net/httpでJSON API', sectionId: 'go-practice', manualId: 'go' },
 
   // ===========================
   // バックエンド / インフラ / DevOps マニュアル (27ページ)

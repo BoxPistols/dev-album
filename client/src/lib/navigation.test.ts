@@ -30,13 +30,14 @@ describe("navigation データ整合性", () => {
       "ux-design",
       "api",
       "vue",
+      "go",
       "infra",
       "devflow",
     ]);
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(363);
+    expect(pages.length).toBe(377);
   });
 
   it("マニュアル別ページ数", () => {
@@ -49,6 +50,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("ux-design").length).toBe(15);
     expect(getManualPages("api").length).toBe(41);
     expect(getManualPages("vue").length).toBe(22);
+    expect(getManualPages("go").length).toBe(14);
     expect(getManualPages("infra").length).toBe(34);
     expect(getManualPages("devflow").length).toBe(21);
   });
@@ -100,6 +102,7 @@ describe("navigation データ整合性", () => {
       "ux-design",
       "api",
       "vue",
+      "go",
       "infra",
       "devflow",
     ];
