@@ -44,7 +44,7 @@ TSとの対比で文法を押さえ、型・インターフェース・エラー
 - 正常系: Goマニュアルがマニュアル一覧・切り替えに出て、14ページが3テーマで描画され、前後ナビでつながる
 
 ## 完了条件
-- [ ] `pnpm check`・`pnpm test`・`pnpm build`が緑
-- [ ] `pnpm check:prose`が緑（新しい文章に和欧間スペースを入れない）
-- [ ] 全コード例が`go vet`を通り、出力コメントが実行結果と一致する
-- [ ] `e2e/manuals.spec.ts`で全ページの描画を確認
+- [x] `pnpm check`・`pnpm test`・`pnpm build`が緑
+- [x] `pnpm check:prose`が緑（新しい文章に和欧間スペースを入れない）
+- [x] 全コード例が`go vet`を通り、出力コメントが実行結果と一致する
+- [x] `e2e/manuals.spec.ts`で全ページの描画を確認
