@@ -334,7 +334,7 @@ export default function HttpServer() {
             </div>
             <CodeBlock
               code={`todoapi/
-├── go.mod           module example.com/todoapi（go 1.24.7）
+├── go.mod           module example.com/todoapi
 ├── store.go         Todo型とメモリ上のストア
 ├── handler.go       ルーティングとハンドラ
 ├── handler_test.go  httptestを使ったテスト
@@ -471,7 +471,7 @@ export default function HttpServer() {
                 メソッド付きのパターンとワイルドカードが有効になるのは、ビルドするモジュール（mainモジュール）のgo.modで
                 <code className={CODE_CLASS}>go</code>
                 の行が1.22以上のときです。
-                それより古い宣言では互換性のため以前の解釈になり、メソッドとワイルドカードが認識されません。go.modにgo 1.21と書いたモジュールで同じコードを試すと、GET /todos/1は404になりました。
+                それより古い宣言では互換性のため以前の解釈になり、<code className={CODE_CLASS}>{'"GET /todos/{id}"'}</code>は、先頭の<code className={CODE_CLASS}>GET </code>がホスト名、<code className={CODE_CLASS}>{"{id}"}</code>がただの文字列として解釈されます。そのため実際のリクエストはどのパターンにも一致せず、404が返ります。
                 ルーティングが期待どおりに動かないときは、go.modを確認します。
               </p>
             </InfoBox>
@@ -680,7 +680,7 @@ curl -i -X DELETE localhost:8080/todos/1
 #     --- PASS: TestGetTodoErrors/存在しないid (0.00s)
 #     --- PASS: TestGetTodoErrors/整数でないid (0.00s)
 # PASS
-# ok  	example.com/todoapi	0.004s`}
+# ok  	example.com/todoapi	<所要時間>`}
               language="bash"
               title="実行結果"
             />

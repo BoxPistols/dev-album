@@ -143,10 +143,9 @@ func main() {
               showLineNumbers
             />
             <p className="text-muted-foreground my-4 leading-relaxed">
-              仕様では、データ競合のあるプログラムの結果は保証されません。実測では、1000回足したのに
-              <Code>978</Code>や<Code>839</Code>
-              のように実行ごとに違う値になり、たまたま1000になることもあります。
-              理由は、どの更新が上書きされるかがスケジューリング次第だからです。
+              仕様では、データ競合のあるプログラムの結果は保証されません。
+              <Code>count++</Code>は「読む・足す・書く」の3段階に分かれていて、2つのgoroutineが同じ値を読んでから書くと、片方の更新が上書きで消えます。
+              どの更新が消えるかはスケジューリング次第なので、表示される値は実行ごとに変わり、たまたま期待どおりの値になることもあります。
               たまたま正しい値が出ても安全とは言えないので、
               <Code>-race</Code>フラグを付けて競合検出器で確かめます。
             </p>
@@ -167,14 +166,15 @@ func main() {
 #       .../main.go:13 +0x7d
 # ...（同じ形の報告が続く）
 # ==================
-# 839
-# Found 2 data race(s)
+# （合計。期待値以下の、実行ごとに違う値）
+# Found N data race(s)
 # exit status 66`}
               language="bash"
-              title="実行結果（アドレス・goroutine番号・件数は実行ごとに変わる）"
+              title="実行結果（アドレス・goroutine番号・件数・合計値は実行ごとに変わる）"
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
               「15行目の読み込み」と「別のgoroutineによる15行目の書き込み」がぶつかっていること、どちらも13行目で起動したgoroutineであることが読み取れます。
+              競合を見つけると、競合検出器は既定で終了コード66を返してプロセスを終えます（GORACE環境変数のexitcodeで変えられます）。
               競合検出器は実際に実行された経路だけを調べるので、テストでも
               <Code>go test -race</Code>として日常的に回します。
             </p>
@@ -320,7 +320,7 @@ func main() {
             />
             <p className="text-muted-foreground my-4 leading-relaxed">
               期限は<Code>ctx</Code>
-              に結び付いているので、2回目の呼び出しは残りの約50msで打ち切られます。
+              に結び付いているので、2回目の呼び出しは「期限からそれまでに使った時間を引いた残り」で打ち切られます。呼び出しごとに時間がリセットされるわけではありません。
               ctxは構造体のフィールドにしまわず、関数の第1引数
               <Code>ctx context.Context</Code>
               として渡すのが慣習です。標準ライブラリの

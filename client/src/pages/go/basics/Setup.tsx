@@ -50,7 +50,7 @@ brew install go
 
 # インストールできたか確認する
 go version
-# 例: go version go1.24.7 linux/amd64（数字は入れた版による）`}
+# go version go<版> <OS>/<CPU>の形で出る`}
               language="bash"
               title="インストールと確認"
             />
@@ -96,7 +96,7 @@ go mod init example.com/hello
             <CodeBlock
               code={`module example.com/hello
 
-go 1.24.7`}
+go <go mod initを実行したGoの版>`}
               language="text"
               title="go.mod"
             />

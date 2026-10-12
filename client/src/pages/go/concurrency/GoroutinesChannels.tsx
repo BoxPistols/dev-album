@@ -341,9 +341,10 @@ func main() {
               showLineNumbers
             />
             <CodeBlock
-              code={`# 6回実行した結果（Go 1.24.7、linux/amd64）。順番は環境と実行ごとに変わる
-goroutine 2 / goroutine 0 / goroutine 1   # 5回
-goroutine 2 / goroutine 1 / goroutine 0   # 1回`}
+              code={`# 出力の一例。0・1・2の3行が出るが、並び順はスケジューラーが決める
+goroutine 2
+goroutine 0
+goroutine 1`}
               language="bash"
               title="実行結果"
             />

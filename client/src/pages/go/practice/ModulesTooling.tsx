@@ -285,7 +285,7 @@ go build .
             <CodeBlock
               code={`module example.com/app
 
-go 1.24.7
+go <go mod initを実行したGoの版>
 
 require github.com/google/uuid v1.6.0 // indirect`}
               language="text"
@@ -344,7 +344,7 @@ go run ./cmd/server
             <CodeBlock
               code={`module example.com/app
 
-go 1.24.7
+go <go mod initを実行したGoの版>
 
 require github.com/google/uuid v1.6.0`}
               language="text"

@@ -191,7 +191,7 @@ func TestAtoi(t *testing.T) {
 # --- FAIL: TestAtoi (0.00s)
 #     atoi_test.go:12: Atoi: strconv.Atoi: parsing "4x": invalid syntax
 # FAIL
-# FAIL	example.com/demo/atoi	0.003s
+# FAIL	example.com/demo/atoi	<所要時間>
 # FAIL`}
               language="bash"
               title="実行結果"
@@ -308,7 +308,7 @@ func TestSlug(t *testing.T) {
             </p>
             <CodeBlock
               code={`go test ./...
-# ok  	example.com/calc/mathx	0.003s`}
+# ok  	example.com/calc/mathx	<所要時間>`}
               language="bash"
               title="すべてのパッケージをテストする"
             />
@@ -333,7 +333,7 @@ func TestSlug(t *testing.T) {
 #     --- PASS: TestSlug/前後の空白 (0.00s)
 #     --- PASS: TestSlug/空文字 (0.00s)
 # PASS
-# ok  	example.com/calc/mathx	0.002s`}
+# ok  	example.com/calc/mathx	<所要時間>`}
               language="bash"
               title="詳細表示"
             />
@@ -355,13 +355,13 @@ func TestSlug(t *testing.T) {
 #     --- PASS: TestSlug/空白区切り (0.00s)
 #     --- PASS: TestSlug/前後の空白 (0.00s)
 # PASS
-# ok  	example.com/calc/mathx	0.003s`}
+# ok  	example.com/calc/mathx	<所要時間>`}
               language="bash"
               title="絞り込み"
             />
             <CodeBlock
               code={`go test -cover ./...
-# ok  	example.com/calc/mathx	0.006s	coverage: 100.0% of statements`}
+# ok  	example.com/calc/mathx	<所要時間>	coverage: 100.0% of statements`}
               language="bash"
               title="カバレッジ"
             />
@@ -415,16 +415,17 @@ go test -bench=. -benchmem -run='^$' ./mathx
 # goos: linux
 # goarch: amd64
 # pkg: example.com/calc/mathx
-# cpu: Intel(R) Xeon(R) Processor @ 2.10GHz
-# BenchmarkSlug-4   	 6824068	       200.4 ns/op	      80 B/op	       3 allocs/op
+# cpu: <CPUの名前>
+# BenchmarkSlug-<P>   <回数>   <時間> ns/op   <バイト数> B/op   <回数> allocs/op
 # PASS
-# ok  	example.com/calc/mathx	1.372s`}
+# ok  	example.com/calc/mathx	<所要時間>`}
               language="bash"
               title="ベンチマークの実行"
             />
             <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">
-              左から、繰り返した回数・1回あたりの時間・1回あたりに確保したメモリ量・確保の回数です。
-              時間はマシンや負荷で変わるので、同じマシンで変更前後を比べる用途に使います。
+              名前の後ろの<code className={CODE_CLASS}>-P</code>は実行に使ったCPU数（GOMAXPROCS）、続く列は左から、繰り返した回数・1回あたりの時間・1回あたりに確保したメモリ量・確保の回数です。
+              繰り返す回数は、計測が安定するまでテストランナーが自動で増やすので、自分では決めません。
+              値はマシン・負荷・Goのバージョンで変わるため、絶対値ではなく、同じマシンで変更前後を比べる用途に使います。
             </p>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               <code className={CODE_CLASS}>Example</code>
@@ -459,7 +460,7 @@ func ExampleSlug() {
 # === RUN   ExampleSlug
 # --- PASS: ExampleSlug (0.00s)
 # PASS
-# ok  	example.com/calc/mathx	0.003s`}
+# ok  	example.com/calc/mathx	<所要時間>`}
               language="bash"
               title="Exampleの実行"
             />
@@ -527,10 +528,8 @@ func TestCounter(t *testing.T) {
               <p>
                 このテストは仕様上は誤りですが、
                 <code className={CODE_CLASS}>-race</code>
-                なしで3回続けて実行したところ、1回目は
-                <code className={CODE_CLASS}>Value() = 98, want 100</code>
-                で失敗し、2回目と3回目は成功しました。
-                goroutineの実行の順序とタイミングは実行ごとに変わるためです。
+                なしで実行すると、失敗するときと通るときがあります。
+                goroutineの実行の順序とタイミングは実行ごとに変わり、更新がぶつかって消えるかどうかもそれに左右されるためです。
                 「手元で通った」は競合がない証拠にならないので、並行処理を含むテストは
                 <code className={CODE_CLASS}>-race</code>
                 付きで回します。
@@ -593,7 +592,7 @@ func (c *Counter) Value() int {
             />
             <CodeBlock
               code={`go test -race -count=1 .
-# ok  	example.com/race	1.016s`}
+# ok  	example.com/race	<所要時間>`}
               language="bash"
               title="修正後の実行"
             />
