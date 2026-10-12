@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// API 設計 / Vue・Nuxt / Goマニュアルの全ページが実際に描画されることを検証するスモークテスト。
+// API設計・Vue/Nuxt・Goマニュアルの全ページが実際に描画されることを検証するスモークテスト。
 // tsc / ビルドでは捕捉できない「描画時の例外」を検出する目的。
 
 const RENDER_ROUTES = [
