@@ -126,7 +126,8 @@ export default function CodeBlock({
             role="region"
             aria-label={title ? `コード: ${title}` : 'コードブロック'}
           >
-            <pre className="p-4 font-mono text-sm leading-relaxed m-0">
+            {/* Goなどgofmtがタブで字下げする言語を、既定の8桁で横に間延びさせない */}
+            <pre className="p-4 font-mono text-sm leading-relaxed m-0" style={{ tabSize: 4 }}>
               {tokens.map((line, i) => {
                 const { key: _lk, ...lineProps } = getLineProps({ line });
                 return (

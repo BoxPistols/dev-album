@@ -56,6 +56,7 @@ pnpm dev
 | UX デザイン入門 | ユーザーリサーチからプロトタイピング・評価まで |
 | API 設計 / OpenAPI 入門 | REST API 設計、OpenAPI/Swagger、API 検証 |
 | Vue 3 / Nuxt 入門 | Composition API、Pinia、Nuxt |
+| Go入門 | 文法、構造体とインターフェース、goroutine、go test、net/http |
 | バックエンド / インフラ / DevOps 入門 | ホスティング、エッジ、BaaS、DB、BFF、CI/CD |
 | 開発フロー / チーム / DesignOps 入門 | アジャイル、スクラム、コードレビュー、DesignOps |
 
@@ -82,7 +83,7 @@ client/src/
 └── pages/
     ├── git/ react/ claude-code/ threejs/     マニュアル別ページ
     ├── ai-ml/ ux-design/ api/ vue/          〃
-    ├── infra/ devflow/                      〃
+    ├── go/ infra/ devflow/                  〃
     ├── Training.tsx     UI トレーニング
     ├── Landing.tsx      LP
     └── BugReport.tsx    バグ報告ページ
@@ -179,6 +180,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 | `ux-design` | #BE185D | #F9A8D4 | #F9A8D4 |
 | `api` | #047253 | #34D399 | #34D399 |
 | `vue` | #047253 | #42B883 | #50FA7B |
+| `go` | #006C84 | #00ADD8 | #8BE9FD |
 
 `infra` / `devflow` は上書きを持たず、既定の `--primary` を使う。
 

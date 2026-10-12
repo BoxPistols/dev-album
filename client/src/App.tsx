@@ -322,6 +322,20 @@ const VueRenderingModes = lazy(() => import("./pages/vue/nuxt-server/RenderingMo
 const VueMiddlewarePlugins = lazy(() => import("./pages/vue/nuxt-server/MiddlewarePlugins"));
 const VueDeploy = lazy(() => import("./pages/vue/nuxt-server/Deploy"));
 const VueLatestFeatures = lazy(() => import("./pages/vue/advanced/LatestFeatures"));
+const GoHome = lazy(() => import("./pages/go/Home"));
+const GoSetup = lazy(() => import("./pages/go/basics/Setup"));
+const GoSyntax = lazy(() => import("./pages/go/basics/Syntax"));
+const GoFunctions = lazy(() => import("./pages/go/basics/Functions"));
+const GoCollections = lazy(() => import("./pages/go/basics/Collections"));
+const GoStructsMethods = lazy(() => import("./pages/go/types/StructsMethods"));
+const GoInterfaces = lazy(() => import("./pages/go/types/Interfaces"));
+const GoGenerics = lazy(() => import("./pages/go/types/Generics"));
+const GoErrors = lazy(() => import("./pages/go/types/Errors"));
+const GoGoroutinesChannels = lazy(() => import("./pages/go/concurrency/GoroutinesChannels"));
+const GoContextSync = lazy(() => import("./pages/go/concurrency/ContextSync"));
+const GoModulesTooling = lazy(() => import("./pages/go/practice/ModulesTooling"));
+const GoTesting = lazy(() => import("./pages/go/practice/Testing"));
+const GoHttpServer = lazy(() => import("./pages/go/practice/HttpServer"));
 
 // === バックエンド / インフラ / DevOps マニュアル ===
 const InfraHome = lazy(() => import("./pages/infra/Home"));
@@ -817,6 +831,20 @@ function App() {
                 <Route path="/vue/nuxt-server/middleware-plugins" component={VueMiddlewarePlugins} />
                 <Route path="/vue/nuxt-server/deploy" component={VueDeploy} />
                 <Route path="/vue/advanced/latest-features" component={VueLatestFeatures} />
+                <Route path="/go" component={GoHome} />
+                <Route path="/go/basics/setup" component={GoSetup} />
+                <Route path="/go/basics/syntax" component={GoSyntax} />
+                <Route path="/go/basics/functions" component={GoFunctions} />
+                <Route path="/go/basics/collections" component={GoCollections} />
+                <Route path="/go/types/structs-methods" component={GoStructsMethods} />
+                <Route path="/go/types/interfaces" component={GoInterfaces} />
+                <Route path="/go/types/generics" component={GoGenerics} />
+                <Route path="/go/types/errors" component={GoErrors} />
+                <Route path="/go/concurrency/goroutines-channels" component={GoGoroutinesChannels} />
+                <Route path="/go/concurrency/context-sync" component={GoContextSync} />
+                <Route path="/go/practice/modules-tooling" component={GoModulesTooling} />
+                <Route path="/go/practice/testing" component={GoTesting} />
+                <Route path="/go/practice/http-server" component={GoHttpServer} />
 
                 {/* === バックエンド / インフラ / DevOps マニュアル === */}
                 <Route path="/infra" component={InfraHome} />

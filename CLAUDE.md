@@ -64,6 +64,7 @@ client/src/
     ├── ux-design/  UX デザインマニュアル
     ├── api/        API 設計マニュアル
     ├── vue/        Vue / Nuxt マニュアル
+    ├── go/         Goマニュアル
     ├── infra/      インフラマニュアル
     ├── devflow/    開発フローマニュアル
     ├── Training.tsx  UI トレーニング
@@ -131,6 +132,7 @@ client/src/
 | ux-design | #BE185D | #F9A8D4 | #F9A8D4 |
 | api | #047253 | #34D399 | #34D399 |
 | vue | #047253 | #42B883 | #50FA7B |
+| go | #006C84 | #00ADD8 | #8BE9FD |
 
 `infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
 

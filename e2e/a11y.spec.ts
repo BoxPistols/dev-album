@@ -47,6 +47,9 @@ const PAGES = [
   { path: "/ai-ml/jev/jev-design-search-app", name: "Jev（重みのスライダー）" },
   { path: "/api/quickstart", name: "API 設計（ブランド色）" },
   { path: "/vue/basics/setup", name: "Vue / Nuxt（ブランド色）" },
+  // Goマニュアル。ブランド色・表・タブ字下げのコードブロック・チャレンジを含む
+  { path: "/go", name: "Go Home" },
+  { path: "/go/basics/setup", name: "Go（ブランド色・表・チャレンジ）" },
 ] as const;
 
 // ThemeContext は html に付与するクラスでテーマを切り替える（dark / dark+dark-soft）
