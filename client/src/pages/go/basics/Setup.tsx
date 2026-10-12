@@ -247,8 +247,8 @@ func main() {
             <InfoBox type="info" title="ブラウザで試す">
               <p>
                 手元に環境がなくても、公式のGo
-                Playground（go.dev/play）にコードを貼れば実行できます。このマニュアルのコード例はすべてPlaygroundでも動きます（STEP
-                14のサーバーを除く）。
+                Playground（go.dev/play）にコードを貼れば実行できます。1ファイルで完結するコード例はPlaygroundでも動きます。
+                -raceを使う例、複数のパッケージや外部モジュールを使う例、手元のファイルを読む例、STEP 14のサーバーは手元で実行します。
               </p>
             </InfoBox>
           </section>
