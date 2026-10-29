@@ -75,8 +75,8 @@ importers:
         specifier: ^11.17.2
         version: 11.17.2
       openai:
-        specifier: ^6.32.0
-        version: 6.32.0(ws@8.21.1)(zod@4.6.5)
+        specifier: ^7.20.0
+        version: 7.20.0(undici@7.22.0)(ws@8.21.1)(zod@4.6.5)
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@19.2.8)
@@ -5360,13 +5360,25 @@ packages:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
-  openai@6.32.0:
-    resolution: {integrity: sha512-j3k+BjydAf8yQlcOI7WUQMQTbbF5GEIMAE2iZYCOzwwB3S2pCheaWYp+XZRNAch4jWVc52PMDGRRjutao3lLCg==}
-    hasBin: true
+  openai@7.20.0:
+    resolution: {integrity: sha512-5x5ru4cKEvEqHqYZbdIbT57OE7KqmP9YYxZiUKuKng016grOHXqom1vmu34MTPPW30q+lcP9RhxAbaRse+Xlcw==}
+    engines: {node: '>=22.0.0'}
     peerDependencies:
-      ws: ^8.18.0
+      '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
+      '@smithy/hash-node': '>=4.3.0 <5'
+      '@smithy/signature-v4': '>=5.4.0 <6'
+      undici: '>=5 <9'
+      ws: ^8.21.0
       zod: ^3.25 || ^4.0
     peerDependenciesMeta:
+      '@aws-sdk/credential-provider-node':
+        optional: true
+      '@smithy/hash-node':
+        optional: true
+      '@smithy/signature-v4':
+        optional: true
+      undici:
+        optional: true
       ws:
         optional: true
       zod:
@@ -12026,8 +12038,9 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  openai@6.32.0(ws@8.21.1)(zod@4.6.5):
+  openai@7.20.0(undici@7.22.0)(ws@8.21.1)(zod@4.6.5):
     optionalDependencies:
+      undici: 7.22.0
       ws: 8.21.1
       zod: 4.6.5
 
