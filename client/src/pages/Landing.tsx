@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow } from "lucide-react";
+import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow, Gauge } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
@@ -30,6 +30,7 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
   "ux-design": <Palette size={20} />,
   api: <Network size={20} />,
   vue: <Triangle size={20} />,
+  go: <Gauge size={20} />,
   infra: <Cloud size={20} />,
   devflow: <Workflow size={20} />,
 };
@@ -115,6 +116,15 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "Pinia / Vue Router",
       "Nuxt 4 / SSR・SSG・ISR",
       "server/api / デプロイ",
+    ],
+  },
+  go: {
+    tagline: "TypeScriptとの対比でGoの文法を押さえ、標準ライブラリだけでJSON APIを書くところまで進める",
+    topics: [
+      "変数・関数・スライス・マップ",
+      "構造体 / インターフェース / ジェネリクス",
+      "エラー処理 / goroutine / channel",
+      "go test / net/http",
     ],
   },
   infra: {

@@ -20,6 +20,51 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-10-12-go-manual",
+    date: "2026-10-12",
+    title: "Goマニュアルを追加した",
+    description:
+      "TypeScript経験者向けのGo入門を新設した。TSとの対比で文法を押さえ、型・エラー・並行処理を経て、標準ライブラリだけでJSON APIを書くところまで進める。コード例はすべてGo 1.24で実行し、出力を実行結果から写している。",
+    category: "release",
+    link: "/go",
+  },
+  {
+    id: "2026-10-12-go-basics",
+    date: "2026-10-12",
+    title: "Go: 環境構築から文法・関数・スライスまで",
+    description:
+      "go mod initとgo run・go build、変数とゼロ値、for・switch、複数戻り値とdefer、スライス式で切り出した側への書き込みが元の配列に反映されること、mapの反復順が毎回変わることを、実行結果つきで確認できる。",
+    category: "feature",
+    link: "/go/basics/setup",
+  },
+  {
+    id: "2026-10-12-go-types",
+    date: "2026-10-12",
+    title: "Go: 構造体・インターフェース・ジェネリクス・エラー",
+    description:
+      "値レシーバとポインタレシーバ、暗黙に満たすインターフェース、nilポインタを入れたインターフェースが!= nilになること、制約と~の意味、%wでのラップとerrors.Is・errors.Asを、TypeScriptと比べながら試せる。",
+    category: "feature",
+    link: "/go/types/structs-methods",
+  },
+  {
+    id: "2026-10-12-go-concurrency",
+    date: "2026-10-12",
+    title: "Go: goroutine・channel・context",
+    description:
+      "async/awaitとの違いから、channelとselect、デッドロック、go run -raceで見つけるデータ競合とMutex、contextによる期限とキャンセルまでを扱う。",
+    category: "feature",
+    link: "/go/concurrency/goroutines-channels",
+  },
+  {
+    id: "2026-10-12-go-practice",
+    date: "2026-10-12",
+    title: "Go: モジュール・テスト・net/httpでJSON API",
+    description:
+      "go getとgo.sum、gofmtとgo vet、テーブル駆動テストとt.Run、Go 1.22のServeMuxパターンで書くTODO APIとhttptestでのテストまでを一通り試せる。",
+    category: "feature",
+    link: "/go/practice/modules-tooling",
+  },
+  {
     id: "2026-09-23-jev-flight-interval-lab",
     date: "2026-09-23",
     title: "Jev: 判断の間隔を動かして試せるようにした",

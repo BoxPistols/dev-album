@@ -437,6 +437,36 @@
   --ring: #50FA7B;
   --sidebar-ring: #50FA7B;
 }
+[data-manual="go"] {
+  --primary: #006C84;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #006C84;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #006C84;
+  --accent-foreground: #F9FAFB;
+  --ring: #006C84;
+  --sidebar-ring: #006C84;
+}
+.dark[data-manual="go"] {
+  --primary: #00ADD8;
+  --primary-foreground: #04202A;
+  --sidebar-primary: #00ADD8;
+  --sidebar-primary-foreground: #04202A;
+  --accent: #00ADD8;
+  --accent-foreground: #04202A;
+  --ring: #00ADD8;
+  --sidebar-ring: #00ADD8;
+}
+.dark-soft[data-manual="go"] {
+  --primary: #8BE9FD;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #8BE9FD;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #8BE9FD;
+  --accent-foreground: #282A36;
+  --ring: #8BE9FD;
+  --sidebar-ring: #8BE9FD;
+}
 
 /* ── セクション別ブランドカラー ──
    マニュアルの中の一部だけが別の製品を扱う場合に、そのセクションでだけ primary を差し替える

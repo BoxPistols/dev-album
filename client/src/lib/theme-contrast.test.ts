@@ -45,6 +45,7 @@ const MANUALS = [
   "ux-design",
   "api",
   "vue",
+  "go",
 ] as const;
 type Manual = (typeof MANUALS)[number];
 
@@ -546,13 +547,13 @@ describe("ManualGlyph のバッジ地色", () => {
       .matchAll(/color:\s*'(#[0-9A-Fa-f]{6})'/g),
   ].map((m) => m[1]);
 
-  it("ソースから alpha と 10 マニュアルぶんの色を取り出せる", () => {
+  it("ソースからalphaと全マニュアルぶんの色を取り出せる", () => {
     // 取り出しに失敗したまま 0 件を検査して緑になるのを防ぐ
     expect(
       alphaMatch,
       "TINT_ALPHA を ManualGlyph.tsx から読めない",
     ).toBeTruthy();
-    expect(brandColors).toHaveLength(11);
+    expect(brandColors).toHaveLength(12);
   });
 
   it("頭文字（--foreground）がバッジ地色の上で AA 4.5:1 を満たす", () => {

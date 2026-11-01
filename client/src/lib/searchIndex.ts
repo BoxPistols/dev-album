@@ -1117,6 +1117,27 @@ export const searchIndex: Record<string, string[]> = {
     'タグ', '従量課金', '無料利用枠', 'コスト最適化', 'CloudTrail',
   ],
 
+  // ===== go-manual =====
+  '/go': [
+    'このマニュアルについて', 'Go', 'Golang', 'カリキュラム', 'TypeScriptとの対応', 'Go Playground',
+  ],
+  '/go/basics/setup': [
+    '環境構築とHello World', 'インストール', 'go mod init', 'go.mod', 'go run', 'go build',
+    'クロスコンパイル', 'GOOS', 'GOARCH', 'package main', 'gopls', '使っていないimport',
+  ],
+  '/go/basics/syntax': ['変数と定数を宣言する', '基本の型とゼロ値', '型変換は明示的に書く', '文字列はUTF-8のバイト列', 'ifとfor', 'switchはbreakを書かない', 'TypeScriptとの対応', 'var', ':=', 'const', 'iota', 'rune', 'byte', 'strconv', 'range', 'fallthrough', 'FizzBuzz'],
+  '/go/basics/functions': ['関数を宣言する', '名前付き戻り値', '可変長引数', '関数は値として扱える', 'deferで後始末を予約する', 'func', '複数戻り値', 'v, err :=', 'error', 'クロージャ', 'closure', 'defer', 'LIFO', 'panic', 'recover'],
+  '/go/basics/collections': ['配列は長さまで含めて1つの型', 'スライスの長さと容量', 'スライス式は元の配列を共有する', 'map', 'nilスライスとnil map', 'TypeScriptとの対応', 'slice', 'append', 'len', 'cap', 'copy', 'slices.Contains', 'slices.Sort', 'maps.Keys', 'slices.Sorted', '反復順', 'nil map'],
+  '/go/types/structs-methods': ['構造体を定義して使う', '値のコピーとポインタ', 'メソッドと2種類のレシーバ', 'コンストラクタ関数NewXxx', '埋め込みで機能を組み合わせる', '構造体タグとclassとの対比', 'struct', 'ゼロ値', 'ポインタ', '値レシーバ', 'ポインタレシーバ', 'embedding', 'json tag', 'method'],
+  '/go/types/interfaces': ['暗黙の実装', '小さいインターフェース', 'インターフェースは使う側で定義する', 'any・型アサーション・型スイッチ', 'nilを入れたインターフェースはnilと一致しない', 'ポインタレシーバとインターフェースの充足', 'interface', 'io.Reader', 'io.Writer', 'fmt.Stringer', 'type assertion', 'type switch', 'nil interface', 'メソッド集合'],
+  '/go/types/generics': ['型パラメータ付きの関数', '制約: any・comparable・cmp.Ordered', 'ジェネリックな型', 'TypeScriptのジェネリクスとの違い', '使いどころ', 'generics', '型パラメータ', 'comparable', 'cmp.Ordered', '~（基になる型）', 'Stack[T]', 'slices', 'maps', '型推論'],
+'/go/types/errors': ['エラーは値として返す', 'エラーを作る・包む・見分ける', 'センチネルエラーとerrors.Join', 'エラーメッセージの慣習', 'エラーを握りつぶさない・panicは回復不能なときだけ', 'error', 'if err != nil', 'errors.Is', 'errors.As', 'fmt.Errorf', '%w', 'io.EOF', 'panic', 'try/catch'],
+  '/go/concurrency/goroutines-channels': ['goroutineを起動する', 'channelで値を受け渡す', 'closeとrange、selectとタイムアウト', '実行順は決まっていない', 'デッドロック', 'ワーカープール', 'goroutine', 'channel', 'select', 'time.After', 'deadlock', 'async/await', 'バッファ付きchannel', '並行処理'],
+  '/go/concurrency/context-sync': ['sync.WaitGroupで終わりを待つ', 'データ競合を-raceで見つける', 'sync.Mutexで守る', 'contextで期限とキャンセルを伝える', 'errgroup', 'WaitGroup', 'Mutex', 'data race', 'go run -race', 'context.WithTimeout', 'context.WithCancel', 'ctx.Done', 'AbortController'],
+  '/go/practice/modules-tooling': ['モジュールと標準ツール', 'パッケージはディレクトリ単位', '公開範囲は大文字とinternalで決まる', '依存を追加する：go getとgo.sum', '整形とチェック：gofmt・go vet・goimports', 'go docで読み、go installでCLIを入れる', 'go.mod', 'go.sum', 'go mod tidy', 'internal', 'cmd', 'Minimal Version Selection', 'npm', 'goimports'],
+  '/go/practice/testing': ['テスト', '最初のテストを書く', 't.Errorfとt.Fatalfの違い', 'テーブル駆動テストとサブテスト', 'go testを実行する', 'ベンチマークとExample', '-raceでデータ競合を見つける', 'testing', 't.Run', 't.Helper', 'b.Loop', '-cover', 'Vitest', 'table-driven test'],
+  '/go/practice/http-server': ['net/httpでJSON API', '作るAPIとファイル構成', 'JSONと構造体タグ', 'ストアをsync.Mutexで守る', 'ServeMuxのパターンでルーティングする', 'http.Serverにタイムアウトを設定して起動する', 'curlで叩いてみる', 'httptestでハンドラをテストする', 'PathValue', 'encoding/json', 'httptest', 'ReadHeaderTimeout', 'REST API', 'TODO'],
+
   // ===== devflow-manual =====
   '/devflow': [
     'このマニュアルについて', '開発フロー', 'チーム', 'DesignOps', 'カリキュラム', 'アジャイル',

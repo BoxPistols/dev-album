@@ -64,6 +64,7 @@ client/src/
     ├── ux-design/  UX デザインマニュアル
     ├── api/        API 設計マニュアル
     ├── vue/        Vue / Nuxt マニュアル
+    ├── go/         Goマニュアル
     ├── infra/      インフラマニュアル
     ├── devflow/    開発フローマニュアル
     ├── Training.tsx  UI トレーニング
@@ -131,10 +132,11 @@ client/src/
 | ux-design | #BE185D | #F9A8D4 | #F9A8D4 |
 | api | #047253 | #34D399 | #34D399 |
 | vue | #047253 | #42B883 | #50FA7B |
+| go | #006C84 | #00ADD8 | #8BE9FD |
 
 `infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
 
-**色を変えるときの手順**: `index.css` を編集したら `pnpm test client/src/lib/theme-contrast.test.ts` を通す。このテストはソースに実在する「文字色クラス × 背景色クラス」の組を 9 マニュアル × 3 テーマ = 27 通りで評価し、AA 4.5:1 未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。コンポーネント単位は `pnpm test:storybook` が story ごとに axe を通す。
+**色を変えるときの手順**: `index.css`を編集したら`pnpm test client/src/lib/theme-contrast.test.ts`を通す。このテストはソースに実在する「文字色クラス×背景色クラス」の組を、ブランド色を持つ全マニュアル×3テーマで評価し、AA 4.5:1未満で失敗する。axe（`pnpm test:a11y`）は実描画の裏取りだが代表ページの抜き取りなので、こちらだけでは足りない。コンポーネント単位は`pnpm test:storybook`がstoryごとにaxeを通す。
 
 **ティントの上限**: `text-primary` を載せる背景は `bg-primary/10` まで。`bg-primary/α` は下地を primary 側へ寄せるので α を上げるほど余地が減る（`bg-primary/5` のセクションヘッダ内に置くと実効 α は 0.145）。`/20` は AA を割る。
 
