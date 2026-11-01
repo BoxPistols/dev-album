@@ -549,7 +549,7 @@ func TestCounter(t *testing.T) {
 #   ...
 # ==================
 # --- FAIL: TestCounter (0.00s)
-#     counter_test.go:20: Value() = 93, want 100
+#     counter_test.go:20: Value() = <100以下の、実行ごとに違う値>, want 100
 #     testing.go:1490: race detected during execution of test
 # FAIL`}
               language="bash"

@@ -404,8 +404,10 @@ require github.com/google/uuid v1.6.0`}
                 <code className={CODE_CLASS}>^1.2.3</code>
                 のような範囲指定はなく、依存ツリー全体の要件のうち最も高い版がビルドに使われます（Minimal
                 Version Selection）。
-                そのため、go.modに書いた版と実際に使われる版がずれることがあります。理由は、別の依存がより新しい版を要求しているためです。
-                実際の版は
+                別の依存がより新しい版を要求していると、go getやgo mod tidyはgo.modのrequireをその版まで引き上げます。手で書いた版より新しい版が入るのはこのためです。
+                go.modを手で古い版に書き戻すと、goコマンドはgo.modを黙って書き換えず、go buildは
+                <code className={CODE_CLASS}>updates to go.mod needed</code>
+                で止まってgo mod tidyを促します（Go 1.16以降の既定の動作）。依存ツリー全体で使われる版は
                 <code className={CODE_CLASS}>go list -m all</code>
                 で確認できます。
               </p>
