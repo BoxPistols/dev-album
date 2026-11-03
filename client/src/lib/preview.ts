@@ -24,6 +24,8 @@ const EMOTION_CSS_UMD_URL = '/vendor/emotion-css-11.13.5.umd.min.js';
 // script/style は自己ホスト(/vendor='self')とトランスパイル済みインラインを許可。
 // connect-src 'none' で fetch/XHR/WebSocket を封じ、万一のコードでも外部送信を不可能にする
 // （srcDoc は allow-same-origin で親オリジンを継承するため、この多層防御を併用する）。
+// allow-same-originを外すとlocalStorageがSecurityErrorになり、useLocalStorage等の教材デモが
+// 永続化できなくなる。そのためsandboxでの隔離は諦め、外部送信の遮断をCSPに任せている。
 const PREVIEW_CSP = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https:; connect-src 'none'; base-uri 'none'";
 
 /**

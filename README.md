@@ -12,7 +12,7 @@ Web開発を「読んで、書いて、その場で動かして」学ぶ日本�
 
 | 項目 | 内容 | 実装 |
 |---|---|---|
-| 安全なライブプレビュー | 学習者が書いたJSX/Three.jsをSucraseで変換し、sandbox付きiframe + CSP（`connect-src 'none'`）で実行する。描画用のUMDはセルフホスト | [`client/src/lib/preview.ts`](client/src/lib/preview.ts) |
+| 安全なライブプレビュー | 学習者が書いたJSX/Three.jsをSucraseで変換し、srcDoc iframe + CSP（`connect-src 'none'`）で実行する。iframeは親と同一オリジンのため、外部送信の遮断はCSPが担う。描画用のUMDはセルフホスト | [`client/src/lib/preview.ts`](client/src/lib/preview.ts) |
 | AIが書いた内容のファクトチェック | 監査結果の逐語引用を出典から実際に取得して照合し、言い換え・捏造を機械で弾く。月次で定期実行 | [`scripts/verify-verdicts.mjs`](scripts/verify-verdicts.mjs) / [`docs/audits/`](docs/audits/) / [`source-checks.yml`](.github/workflows/source-checks.yml) |
 | Claude Codeでの運用 | 役割別のサブエージェント7種・スキル8種・照合コマンドを持つ。規約は[AGENTS.md](AGENTS.md)、設計判断は[ARCHITECTURE.md](ARCHITECTURE.md)、仕様は[specs/](specs/README.md)に一元化 | [`.claude/`](.claude/) |
 
@@ -127,7 +127,8 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 
 - プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
 - iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
-- `allow-same-origin` は同一オリジンの `/vendor/` を解決するために必要。緩めた分を CSP で多層防御する。
+- `sandbox`に`allow-scripts`と`allow-same-origin`を併せて付けているため、プレビュー内のコードは親ページと同じオリジンで動き、sandboxによる隔離は効かない（Chromeもコンソールでそう警告する）。プレビューが実行するのは教材のコードと学習者が自分で書いたコードに限られる。
+- `allow-same-origin`を外さないのは`localStorage`を使う教材のため。外すとiframeが不透明オリジンになり、`localStorage`が`SecurityError`を投げる。例: `/react/hooks-deep/custom-hooks`のuseLocalStorageデモは、外すとリロード後に値が残らない（Chromiumで確認）。`/vendor/`のUMD読み込みは外しても動く。
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）
 - Tab / Shift+Tab でインデント操作対応
