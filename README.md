@@ -1,10 +1,29 @@
 # Dev Album
 
-Web 開発の実践リファレンス。
+Web開発を「読んで、書いて、その場で動かして」学ぶ日本語の技術マニュアル。React・Claude Code・Three.jsなど12のマニュアルを、Web標準とアクセシビリティの観点で解説する。
 
-学び方・Git・React・Claude Code・Three.js・AI/ML・UXデザイン・API設計・Vue/Nuxt・Go・インフラ/DevOps・開発フローの各マニュアルを、Web標準とアクセシビリティの観点を含めて解説する技術マニュアル。セマンティックHTML、ARIA、Table/Dialog/Formの設計、ダークパターン回避なども扱う。
+**デモ: https://dev-album.vercel.app**
 
-https://dev-album.vercel.app
+[![CI](https://github.com/BoxPistols/dev-album/actions/workflows/ci.yml/badge.svg)](https://github.com/BoxPistols/dev-album/actions/workflows/ci.yml)
+
+[![Dev Albumのトップページ](docs/images/hero.png)](https://dev-album.vercel.app)
+
+## 見どころ
+
+| 項目 | 内容 | 実装 |
+|---|---|---|
+| 安全なライブプレビュー | 学習者が書いたJSX/Three.jsをSucraseで変換し、sandbox付きiframe + CSP（`connect-src 'none'`）で実行する。描画用のUMDはセルフホスト | [`client/src/lib/preview.ts`](client/src/lib/preview.ts) |
+| AIが書いた内容のファクトチェック | 監査結果の逐語引用を出典から実際に取得して照合し、言い換え・捏造を機械で弾く。月次で定期実行 | [`scripts/verify-verdicts.mjs`](scripts/verify-verdicts.mjs) / [`docs/audits/`](docs/audits/) / [`source-checks.yml`](.github/workflows/source-checks.yml) |
+| Claude Codeでの運用 | 役割別のサブエージェント7種・スキル8種・照合コマンドを持つ。規約は[AGENTS.md](AGENTS.md)、設計判断は[ARCHITECTURE.md](ARCHITECTURE.md)、仕様は[specs/](specs/README.md)に一元化 | [`.claude/`](.claude/) |
+
+## クイックスタート
+
+```bash
+pnpm install
+pnpm dev     # 起動時に表示されるURLを開く
+```
+
+作者: Ito Atsushi（[ポートフォリオ](https://asagiri-design.carrd.co/) / [GitHub](https://github.com/BoxPistols)）
 
 ## ドキュメント
 
@@ -125,6 +144,8 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 | `/build-check` | ビルド + テスト + デプロイ確認 |
 | `/fix-preview` | プレビューエラー調査・修正 |
 | `/create-page` | 新規教材ページ作成（ルーティング込み） |
+| `/academic-page` | 一次情報に基づく教材ページ作成（出典を機械検証できる形で残す） |
+| `/evidence-check` | 教材の記述が一次情報に基づいているかを検証 |
 
 ### Commands（`/project:コマンド名` で呼び出し）
 
@@ -243,7 +264,7 @@ Vercel に自動デプロイ（main push で発火）。
 
 毎週月曜。人手を必要としない。
 
-1. `pnpm check:links` で 727 件の外部 URL を確認する
+1. `pnpm check:links` で教材内の外部URL（約800件）を確認する
 2. `pnpm fix:links` でリダイレクトされるものを恒久 URL に書き換える
 3. **`pnpm check:links` をもう一度回して、書き換えた URL が本当に届くか測り直す**
 4. 切れが増えていなければ PR を出す。増えていたら PR を出さず issue に回す

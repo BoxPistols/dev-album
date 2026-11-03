@@ -77,6 +77,16 @@ const PLACEHOLDER_PATTERNS = [
   /-username\.vercel\.app/i,
 ];
 
+/**
+ * SDKの設定値として載せているAPIのベースURL。ルート自体はページを持たず404を返すのが仕様なので、
+ * そのまま測ると「切れている」と誤報する。ベースの下の実在するエンドポイントで代わりに測る。
+ * 代わりのURLは測るためだけに使い、リダイレクトの書き換え対象にはしない。
+ */
+const API_BASE_PROBES = new Map([
+  ["https://api.typesafe.ai", "https://api.typesafe.ai/v1/models"],
+  ["https://ai-gateway.vercel.sh/typesafe", "https://ai-gateway.vercel.sh/typesafe/v1/models"],
+]);
+
 function walk(dir) {
   const out = [];
   for (const name of readdirSync(dir)) {
@@ -230,12 +240,14 @@ async function main() {
   const checked = await mapLimit(urls, CONCURRENCY, async (url) => {
     // 接続そのものに失敗した場合だけ 1 回やり直す。
     // 一過性の失敗を「切れている」と報告すると、実行のたびに結果が変わって信用されない。
-    let r = await headWithUaFallback(url);
+    const probe = API_BASE_PROBES.get(url);
+    const target = probe ?? url;
+    let r = await headWithUaFallback(target);
     if (r.status === 0) {
       await new Promise((ok) => setTimeout(ok, 1500));
-      r = await headWithUaFallback(url);
+      r = await headWithUaFallback(target);
     }
-    return { url, ...r, files: [...urlToFiles.get(url)] };
+    return { url, ...(probe ? { probe } : {}), ...r, files: [...urlToFiles.get(url)] };
   });
 
   // 403 / 405 / 429 は bot 対策で拒否されただけのことが多く、リンク切れとは別物。
@@ -248,7 +260,8 @@ async function main() {
     (c) => !BLOCKED_STATUSES.has(c.status) && (c.status === 0 || c.status >= 400),
   );
   const redirected = checked.filter(
-    (c) => c.status >= 200 && c.status < 400 && c.finalUrl && c.finalUrl !== c.url,
+    (c) =>
+      !c.probe && c.status >= 200 && c.status < 400 && c.finalUrl && c.finalUrl !== c.url,
   );
 
   if (asJson) {
