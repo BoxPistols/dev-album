@@ -9,6 +9,7 @@ import {
 import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow, Gauge } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
+import AboutSiteMaking from "@/components/AboutSiteMaking";
 import { ANNOUNCEMENTS, type AnnouncementCategory } from "@/data/announcements";
 
 /* ── お知らせカテゴリ ── */
@@ -281,6 +282,12 @@ export default function Landing() {
             >
               マニュアル一覧
             </a>
+            <a
+              href="#about"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded border border-zinc-700 text-zinc-300 font-medium text-sm hover:border-zinc-500 hover:text-white transition-colors"
+            >
+              このサイトの作り方
+            </a>
           </div>
         </div>
       </section>
@@ -484,6 +491,8 @@ export default function Landing() {
           />
         </div>
       </section>
+
+      <AboutSiteMaking />
 
       {/* ═══ CTA ═══ */}
       <section className="border-t border-border">

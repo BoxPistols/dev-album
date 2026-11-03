@@ -1,6 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import { join, relative } from "path";
+import {
+  COMMANDS,
+  FLOW_STEPS,
+  SKILLS,
+  SUBAGENTS,
+  VERIFY_STEPS,
+} from "../data/site-making";
 
 /**
  * 教材がこのリポジトリ自身の実装を写している箇所と、実装の現在値を突き合わせる。
@@ -24,6 +31,7 @@ const REGISTRY = {
   useChatApi: "hooks/useChatApi.ts",
   seo: "lib/seo.ts",
   secretsPermissions: "pages/git/github-actions/SecretsPermissions.tsx",
+  siteMaking: "data/site-making.ts",
 } as const;
 
 function read(relFromRoot: string): string {
@@ -250,6 +258,51 @@ describe("実装と教材のズレ検出: workflow の permissions", () => {
 
   it("SecretsPermissions が「CI は読み取り固定」と書く通り、ci.yml に write が無い", () => {
     expect(actual.has("ci")).toBe(false);
+  });
+});
+
+describe("実装と表示のズレ検出: トップページの「このサイトの作り方」", () => {
+  // トップページに載せる名前は、.claude/ の実ファイルから増減しても気づけるよう集合で比べる
+  const basenames = (dir: string, ext: string) =>
+    readdirSync(join(ROOT, dir))
+      .filter((n) => n.endsWith(ext))
+      .map((n) => n.slice(0, -ext.length))
+      .sort();
+
+  it("サブエージェントの名前が.claude/subagentsと一致する", () => {
+    expect(SUBAGENTS.map((a) => a.name).sort()).toEqual(
+      basenames(".claude/subagents", ".md"),
+    );
+  });
+
+  it("スキルの名前が.claude/skillsと一致する", () => {
+    const dirs = readdirSync(join(ROOT, ".claude/skills"))
+      .filter((n) => existsSync(join(ROOT, ".claude/skills", n, "SKILL.md")))
+      .sort();
+    expect([...SKILLS].sort()).toEqual(dirs);
+  });
+
+  it("コマンドの名前が.claude/commandsと一致する", () => {
+    expect([...COMMANDS].sort()).toEqual(basenames(".claude/commands", ".md"));
+  });
+
+  it("手順が指すファイルが実在する", () => {
+    const missing = [...VERIFY_STEPS, ...FLOW_STEPS]
+      .map((s) => s.path)
+      .filter((p) => !existsSync(join(ROOT, p)));
+    expect(missing).toEqual([]);
+  });
+
+  it("手順の本文に書いたpnpmスクリプトがpackage.jsonにある", () => {
+    const scripts = JSON.parse(read("package.json")).scripts as Record<
+      string,
+      string
+    >;
+    for (const step of VERIFY_STEPS) {
+      for (const m of step.body.matchAll(/pnpm ([a-z:]+)/g)) {
+        expect(scripts, `pnpm ${m[1]}`).toHaveProperty([m[1]]);
+      }
+    }
   });
 });
 
