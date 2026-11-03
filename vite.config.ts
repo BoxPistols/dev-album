@@ -137,14 +137,23 @@ export default defineConfig({
     chunkSizeWarningLimit: 1200,
     rollupOptions: {
       output: {
-        manualChunks: {
-          "vendor-react": ["react", "react-dom"],
-          "vendor-three": [
-            "three",
-            "@react-three/fiber",
-            "@react-three/drei",
-            "@react-three/postprocessing",
-          ],
+        // 手動チャンクは、どのチャンクにも割り当てていない依存を自分の側へ取り込む。
+        // 以前のオブジェクト指定ではpreloadヘルパとuse-sync-external-storeがvendor-threeに入り、
+        // エントリがvendor-three（約1MB）を静的importして全ページでmodulepreloadしていた。
+        // パッケージ単位で振り分け、本体も使うものは常に読むvendor-reactに置く。
+        manualChunks(id) {
+          if (id.includes("vite/preload-helper")) return "vendor-react";
+          if (!id.includes("/node_modules/")) return undefined;
+          const pkg = id.split("/node_modules/").pop() ?? "";
+          if (/^(react|react-dom|scheduler|use-sync-external-store)\//.test(pkg))
+            return "vendor-react";
+          if (
+            /^(three|three-stdlib|three-mesh-bvh|@react-three\/[^/]+|postprocessing|camera-controls|maath|troika-[^/]+|@monogrid\/[^/]+|meshline|stats-gl|stats\.js)\//.test(
+              pkg,
+            )
+          )
+            return "vendor-three";
+          return undefined;
         },
       },
     },
