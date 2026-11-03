@@ -15,11 +15,13 @@ REPORTS_DIR=reports
 mkdir -p "$REPORTS_DIR"
 
 # check:links --json は pnpm のバナー行を先に出すので、JSON の開始行から切り出す。
-# jq に直接食わせると「Extra data」で落ちる（実際に踏んだ）
+# jq に直接食わせると「Extra data」で落ちる（実際に踏んだ）。
+# 切れたリンクがあると check:links は終了コード1で終わり、pnpm が JSON の後ろに
+# 「ELIFECYCLE Command failed」を標準出力へ足すので、終わりも閉じ括弧の行で切る
 run_check() {
   local out=$1
   pnpm check:links --json 2>"$REPORTS_DIR/links-stderr.log" |
-    sed -n '/^{$/,$p' >"$out" || true
+    sed -n '/^{$/,/^}$/p' >"$out" || true
   if ! jq -e . "$out" >/dev/null 2>&1; then
     echo "check:links の JSON を読めなかった" >&2
     return 1
