@@ -47,7 +47,7 @@
     "@radix-ui/react-tabs": "^1.1.21",
     "@radix-ui/react-tooltip": "^1.2.16",
     "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.7.0",
+    "@react-three/fiber": "^9.8.2",
     "@react-three/postprocessing": "^3.0.4",
     "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^2.0.1",
