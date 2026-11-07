@@ -38,6 +38,8 @@
 
 スタックは1本に固定する。「どれでもよい」と書くと手順が書けなくなる。代替は各セクション末尾の置き換え表で「何が変わるか」だけ示す。
 
+この表は本番の構成。演習はブラウザの中のラボ（[fullstack-lab.md](./fullstack-lab.md)）で行い、ラボの中ではNext.js 16が動かないため、Vite + Hono + PGliteで同じ設計を組む（ラボの仕様の「判断を仰ぎたい点」1）。本番の構成への載せ替えはfullstack-shipで扱う。
+
 ### セクションとページ（stepは1から連番）
 
 | section | ページ | path | 既存で代替できる部分 |
@@ -79,14 +81,14 @@
 - 分ける: 計画書は1か月目に5要件すべてを求めるが、要件3と4（時系列・リアルタイム、非同期の検知と通知）はインフラ（ワーカー分離）と一緒でないと説明できない。コースでは第1段階（要件1・2・5）と第2段階（3・4＋配備）に分ける
 
 ## 処理フロー
-1. 題材アプリを実際に作る。公開リポジトリ`dev-album-fullstack-app`（仮）に置き、本番URLとデモアカウントを用意する。教材のコードは全部このリポジトリから写し、出力は実行結果から写す（Goマニュアルと同じ規律）
+1. 題材アプリを実際に作る。ラボのリポジトリ（`dev-album-lab`、仮）の`exercises/fullstack/`に、課題ごとのstarter・テスト・ルーブリック・模範解答として置く（形はfullstack-lab.mdの「課題の定義」）。教材のコードは全部ここから写し、出力は実行結果から写す（Goマニュアルと同じ規律）
 2. 第1段階（10ページ）: fullstack-intro / data / auth。`navigation.ts`に`fullstack`を追加し、`navigation.test.ts`・`SectionBadge`・`Landing`の`Record<ManualId>`・`index.css`のブランド色（3テーマ。`theme-contrast.test.ts`の対象に足す）・`App.tsx`・`searchIndex.ts`・`e2e/manuals.spec.ts`・`e2e/a11y.spec.ts`（代表1ページ）・`announcements.ts`を更新
 3. 第2段階（9ページ）: fullstack-api / ui / jobsの前半。ワーカー分離とHonoの切り出しはここ
 4. 第3段階（7ページ）: fullstack-jobsの後半/ audit / ship
 5. 各段階の最後に、題材リポジトリと教材の整合（コードと出力が一致するか）を`evidence-check`で確認する
 
 ## エッジケース
-- ブラウザでバックエンドは動かない → `CodePreview` / `CodingChallenge`のJSXプレビューは使わない。コードは`CodeBlock`、実行結果は`previewType="terminal"`の`CodingChallenge`（`preview={false}`）か別の`CodeBlock`で示す。UIの見た目だけはJSXプレビューで出せるので、`fullstack-ui`の検索フォームや表の見た目はプレビュー可
+- Dev Album本体のプレビューではバックエンドは動かない → 教材ページでは`CodePreview` / `CodingChallenge`のJSXプレビューを使わず、コードは`CodeBlock`、実行結果は別の`CodeBlock`で示す。手を動かす演習は各ページの「ラボで開く」からラボで行う。UIの見た目だけはJSXプレビューで出せるので、`fullstack-ui`の検索フォームや表の見た目はプレビュー可
 - サービスの画面・料金・無料枠は変わる → Supabase / Cloud Run / Vercelの無料枠や上限の数値は書かない。「確認した日付と版」を`VerifiedBox`で付け、数値は公式ページへのリンクにする
 - 秘密情報 → `.env.local`の例は値を伏せ字にする。Webhookの送り先URLやAPIキーをコードに書かない
 - RLSは効いていなくてもアプリは動く → RLSのページでは「ポリシーを外すと他テナントのデータが見える」ことを、実際に外した状態の実行結果で示す（仕様値と実測値のズレを先に明示する規律）
@@ -107,3 +109,4 @@
 1. 新マニュアル`fullstack`として作る（2026-11-07決定）。Reactマニュアルのpartにはしない。マニュアル一覧では`devflow`の後ろに置く
 2. 非同期の基盤はpg-boss（Postgres内）にする（2026-11-07、推奨案で確定。実装前なら変更できる）。学習の見通しを優先し、Upstash QStashなどには置き換え表で触れる
 3. 題材アプリのリポジトリはdev-albumと分ける（2026-11-07、推奨案で確定。実装前なら変更できる）。dev-albumのCIが重くなり、スタックも混ざるため
+4. 演習はブラウザ内のラボ（別アプリ、WebContainer方式）で行い、自由に書いたコードを機械判定とAIレビューで見る（2026-11-07決定）。仕様は[fullstack-lab.md](./fullstack-lab.md)。決定事項2のpg-bossは、ラボの第0段階でPGliteで動くかを確かめてから確定し直す
