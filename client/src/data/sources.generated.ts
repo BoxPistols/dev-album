@@ -1198,9 +1198,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "nextjs.org/docs/app/api-reference/functions/cacheLife",
     url: "https://nextjs.org/docs/app/api-reference/functions/cacheLife",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "tsx filename=\"app/blog/page.tsx\" highlight={1,5} 'use cache' import { cacheLife } from 'next/cache'",
+      "'use cache' import { cacheLife } from 'next/cache' export default async function BlogPage() { cacheLife('days')",
     ],
     usedByFiles: [
       "client/src/pages/react/nextjs-advanced/Next15Ppr.tsx",

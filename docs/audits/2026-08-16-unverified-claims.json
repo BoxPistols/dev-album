@@ -321,7 +321,7 @@
  },
  {
   "file": "react/nextjs-practice/Optimization.tsx",
-  "claim": "    // 生成する画像サイズ（deviceSizes + imageSizes）\n    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],\n    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],",
+  "claim": "    // 生成する画像サイズ（deviceSizes + imageSizes）\n    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],\n    imageSizes: [32, 48, 64, 96, 128, 256, 384],",
   "category": "statistic-or-number",
   "risk": "medium",
   "why": "デフォルト値として提示される数列は公式の設定リファレンスと一致するか確認が要る。",
