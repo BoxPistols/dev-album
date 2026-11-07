@@ -272,14 +272,14 @@ export default function AgentDocs() {
               最も近いものが優先される」としている。
             </p>
 
-            <InfoBox type="warning" title="Claude Code は AGENTS.md を読まない">
-              公式ドキュメントは
+            <InfoBox type="warning" title="CLAUDE.mdがあるとAGENTS.mdは読まれない">
+              Claude Codeはv2.1.277からAGENTS.mdを直接読む。ただし公式ドキュメントは
               <span className="font-semibold">
-                「Claude Code reads CLAUDE.md, not AGENTS.md.」
+                「By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.」
               </span>
-              と明記している。すでに AGENTS.md がある場合は、CLAUDE.md から
-              import して 同じ内容を両方のツールに読ませる。Claude Code
-              固有の指示は import の下に足す。
+              としている。CLAUDE.mdも置くなら、CLAUDE.mdからimportして
+              同じ内容を両方のツールに読ませる。Claude Code固有の指示はimportの下に足す。
+              importしていれば、AGENTS.mdが二重に読まれることはない。
             </InfoBox>
 
             <CodeBlock
@@ -406,9 +406,9 @@ paths:
               type="info"
               title="第 3 層は CLAUDE.md / AGENTS.md のどちらの仕様にも含まれない"
             >
-              Claude Code の公式ドキュメントは「Claude Code reads CLAUDE.md, not
-              AGENTS.md.」と述べ、agents.md はリポジトリのルートに AGENTS.md
-              を置く形式を定めている。 3 つ目のファイルはそのどちらにも登場しない。
+              Claude Codeが自動で読むのはCLAUDE.mdと、CLAUDE.mdが無いときのAGENTS.mdで、
+              agents.mdはリポジトリのルートにAGENTS.mdを置く形式を定めている。
+              3つ目のファイルはそのどちらにも登場しない。
               読ませたいなら CLAUDE.md / AGENTS.md から明示的に参照する。
               置くだけで読まれることを前提にしない。
             </InfoBox>

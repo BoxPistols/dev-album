@@ -156,7 +156,7 @@ export default function SecurityPermissions() {
             <div className="space-y-2">
               {[
                 { priority: '1', name: 'マネージドポリシー', path: 'managed-settings.json', desc: '組織管理者が配置。最優先。' },
-                { priority: '2', name: 'コマンドライン引数', path: '--permission-mode 等', desc: 'セッション単位の一時オーバーライド。' },
+                { priority: '2', name: 'コマンドライン', path: '--settings <ファイルまたはJSON>', desc: 'そのセッションだけ有効。プロジェクトとユーザーの設定ファイルより優先。' },
                 { priority: '3', name: 'プロジェクトローカル', path: '.claude/settings.local.json', desc: '個人のプロジェクト固有設定。' },
                 { priority: '4', name: 'プロジェクト共有', path: '.claude/settings.json', desc: 'チーム共有の設定。Git管理対象。' },
                 { priority: '5', name: 'ユーザー設定', path: '~/.claude/settings.json', desc: '全プロジェクト共通の個人設定。' },

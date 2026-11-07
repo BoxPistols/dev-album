@@ -106,7 +106,7 @@ model: haiku
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">frontmatter設定</h4>
-                <p className="text-xs text-muted-foreground"><code>name</code> と <code>description</code> は必須（description は Claude が委譲を判断する基準）。他に <code>tools</code>、<code>model</code>（sonnet / opus / haiku / fable / inherit）、<code>maxTurns</code>、<code>mcpServers</code>、<code>memory</code> 等を指定。</p>
+                <p className="text-xs text-muted-foreground"><code>name</code> と <code>description</code> は必須（descriptionはClaudeが委譲を判断する基準）。他に <code>tools</code>、<code>model</code>（sonnet / opus / haiku / fable / 完全なモデルID / inherit。省略すると環境変数 <code>CLAUDE_CODE_SUBAGENT_MODEL</code>、それも無ければメイン会話のモデルになる）、<code>maxTurns</code>、<code>mcpServers</code>、<code>memory</code> 等を指定。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2">コスト最適化</h4>

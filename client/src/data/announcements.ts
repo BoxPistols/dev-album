@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-claude-code-agents-md",
+    date: "2026-11-07",
+    title: "Claude CodeがAGENTS.mdを直接読むようになった件を、マルチAI構成のページに反映した",
+    description:
+      "v2.1.277からClaude CodeはAGENTS.mdを直接読む。ただしCLAUDE.mdがあるときは読まないので、両方を置く構成では今もCLAUDE.mdからのimportが要る。「AGENTS.mdは読まない」と書いていた4ページを、この条件つきの書き方に直した。",
+    category: "fix",
+    link: "/claude-code/multi-ai/agent-docs",
+  },
+  {
+    id: "2026-11-07-claude-code-docs-sync",
+    date: "2026-11-07",
+    title: "Claude Codeの既定モデル・effort・/rewindなどの記述を公式ドキュメントの現状に合わせた",
+    description:
+      "既定モデルがOpus 5.5になった件、Opus 5.5などのeffortの既定がmediumになった件、/rewindがBashでの変更も条件つきで戻すようになった件、--max-budget-usdがprintモード専用の見積もりである件などを反映した。",
+    category: "fix",
+    link: "/claude-code/claude-intro/slash-commands",
+  },
+  {
     id: "2026-11-07-nextjs-16-features",
     date: "2026-11-07",
     title: "「Next.js 15 / 16の新機能」にNext.js 16の節を足した",

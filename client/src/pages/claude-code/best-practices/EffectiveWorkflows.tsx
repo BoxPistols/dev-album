@@ -230,7 +230,7 @@ $ claude --continue        # 最後のセッションを即座に継続`}
               Fast Mode の活用
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Fast Mode は <code>/fast</code> コマンド、Option+O（macOS）/ Alt+O（Windows・Linux）、または設定の <code>"fastMode": true</code> で切り替えます。Opus を高速な API 構成で動かすもので、対応モデルは Opus 5 / Opus 4.8 です。トークン単価は通常より高く（Opus 5 / Opus 4.8 で入力 $10 / 出力 $50 per MTok）、応答速度を優先したい場面で使います。軽量なモデルに切り替えたい場合は <code>/model</code> でモデルを選びます。
+              Fast Modeは <code>/fast</code> コマンド、Option+O（macOS）/ Alt+O（Windows・Linux）、または設定の <code>"fastMode": true</code> で切り替えます。Opusを高速なAPI構成で動かすもので、対応モデルはOpus 5.5 / Opus 5 / Opus 4.8です（2026年11月時点。Opus 5とOpus 4.8はリサーチプレビューで、Opus 4.8のFast Modeは2026年11月30日に廃止予定）。トークン単価は通常より高く（Opus 5.5で入力 $8 / 出力 $40、Opus 5 / Opus 4.8で $10 / $50 per MTok）、応答速度を優先したい場面で使います。軽量なモデルに切り替えたい場合は <code>/model</code> でモデルを選びます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">

@@ -289,7 +289,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   モデルの effort level（adaptive reasoning の強度）を切替。引数なしでスライダー、<code>auto</code> でモデル既定値にリセット。<strong>応答完了を待たず即時反映</strong>。<code>/model</code> 内でも左右キーで調整可能。
                 </p>
                 <p className="text-xs text-muted-foreground mb-3">
-                  対応モデル: Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（effort に対応する全モデルで既定は <code>high</code>。<code>xhigh</code> が既定なのは Opus 4.7 のみ）
+                  対応モデル: Fable 5.1 / 5、Opus 5.5 / Sonnet 5.5 / Haiku 5.5、Opus 5 / Sonnet 5、Opus 4.8 / 4.7 / 4.6、Sonnet 4.6（既定は <code>high</code>。Opus 5.5・Sonnet 5.5・Haiku 5.5は <code>medium</code>、Opus 4.7は <code>xhigh</code>）
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -319,7 +319,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">xhigh</td>
                         <td className="p-2">より深い推論を高トークン消費で。Opus 4.7 の既定</td>
-                        <td className="p-2">Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7（Opus 4.6・Sonnet 4.6 は非対応）</td>
+                        <td className="p-2">Fable 5.1 / 5、Opus 5.5 / Sonnet 5.5 / Haiku 5.5、Opus 5 / Sonnet 5、Opus 4.8 / 4.7（Opus 4.6・Sonnet 4.6は非対応）</td>
                       </tr>
                       <tr>
                         <td className="p-2 font-mono">max</td>
@@ -353,7 +353,7 @@ claude --effort xhigh
                   <span className="text-xs font-normal text-muted-foreground ml-2">エイリアス: /checkpoint, /undo / ショートカット: Esc Esc</span>
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
-                  チェックポイントは Claude のファイル編集ツールが書き込む直前に自動取得され、ユーザーの各プロンプト時点でも作成される。セッション越しにも保持され、デフォルト 30 日で自動掃除。
+                  チェックポイントはClaudeのファイル編集ツールが書き込む直前に自動取得され、ユーザーの各プロンプト時点でも作成される。セッション越しにも保持される。ファイルのスナップショットは、既定でセッションが最後に保存してからおよそ30日で削除される（<code>cleanupPeriodDays</code> で延ばせる）。
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -395,7 +395,7 @@ claude --effort xhigh
                   コード復元の 2 つ（Restore code and conversation / Restore code）は、選択したチェックポイントに追跡済みのファイル変更がある場合のみ表示される。変更が記録されていない場合のメニューは Restore conversation と要約系、Never mind になる。
                 </p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5">
-                  <li><strong>制約</strong>: bash コマンド経由のファイル変更（<code>rm</code> / <code>mv</code> / <code>cp</code> 等）は追跡されない。Claude のファイル編集ツール経由の編集のみ。</li>
+                  <li><strong>制約</strong>: Claudeがファイル編集ツールで一度編集したファイルは、そのあとにbashコマンドが加えた変更も戻る。bashコマンドだけが変更したファイル（<code>rm</code> / <code>mv</code> / <code>cp</code> 等で作った・消したもの）は追跡されないので、gitで戻す。</li>
                   <li>外部からの変更（手動編集、別セッションの編集）は同じファイルに触れた場合を除き取り込まれない。</li>
                   <li>git の代替ではない。コミット・ブランチは別途 git で管理する。</li>
                 </ul>

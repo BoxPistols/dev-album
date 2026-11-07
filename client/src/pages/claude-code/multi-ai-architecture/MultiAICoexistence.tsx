@@ -125,13 +125,13 @@ export default function MultiAICoexistence() {
               モノレポではパッケージごとに置け、ディレクトリツリー上で最も近いものが優先されます。
             </InfoBox>
 
-            <InfoBox type="warning" title="Claude Code は AGENTS.md を自動では読まない">
-              Claude Code の公式ドキュメントは
-              <span className="font-semibold">「Claude Code reads CLAUDE.md, not AGENTS.md.」</span>
-              と明記しています。読ませたい場合は CLAUDE.md に <code>@AGENTS.md</code> と書いて
+            <InfoBox type="warning" title="CLAUDE.mdがあるとClaude CodeはAGENTS.mdを読まない">
+              Claude Codeはv2.1.277からAGENTS.mdを直接読みます。ただし公式ドキュメントは
+              <span className="font-semibold">「By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.」</span>
+              としています。CLAUDE.mdと併用するなら、CLAUDE.mdに <code>@AGENTS.md</code> と書いて
               import するか、<code>ln -s AGENTS.md CLAUDE.md</code> でシンボリックリンクを張ります
               （Windows はシンボリックリンクに管理者権限が要るため import が推奨）。
-              「置けばどのツールも読んでくれる」と考えると、規約が効いていないことに気づけません。
+              「置けばどのツールも読んでくれる」と考えると、CLAUDE.mdを足した時点で規約が効かなくなったことに気づけません。
             </InfoBox>
           </section>
 
@@ -400,7 +400,7 @@ description: code-review の指摘を Cursor で差分適用するときに使�
             answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .claude/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
             hints={[
               'AGENTS.md は対応を表明した各ツールが読むツール横断のファイルです',
-              'Claude Code は AGENTS.md を自動では読まないので、CLAUDE.md から @AGENTS.md で import します',
+              'Claude CodeはCLAUDE.mdがあるとAGENTS.mdを読まないので、CLAUDE.mdから @AGENTS.mdでimportします',
             ]}
             keywords={['AGENTS.md', 'CLAUDE.md']}
           />

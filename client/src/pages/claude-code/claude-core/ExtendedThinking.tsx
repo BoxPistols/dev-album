@@ -44,7 +44,7 @@ export default function ExtendedThinking() {
                   <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">高性能</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-2">
-                  高い推論能力。複雑なアーキテクチャ設計、大規模リファクタリング、難解なバグの調査に適する。Max プラン・API では既定モデル。
+                  高い推論能力。複雑なアーキテクチャ設計、大規模リファクタリング、難解なバグの調査に適する。Pro / Max / Ultra / Team / Enterprise・APIでは既定モデル（2026年11月時点でOpus 5.5）。
                 </p>
                 <code className="text-xs text-muted-foreground font-mono">claude --model opus</code>
               </div>
@@ -55,7 +55,7 @@ export default function ExtendedThinking() {
                   <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">バランス型</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-2">
-                  速度とコストのバランスに優れる。日常的なコーディング、機能追加、テスト作成に最適。Pro プランでは既定モデル。
+                  速度とコストのバランスに優れる。日常的なコーディング、機能追加、テスト作成に最適。
                 </p>
                 <code className="text-xs text-muted-foreground font-mono">claude --model sonnet</code>
               </div>
@@ -77,7 +77,7 @@ export default function ExtendedThinking() {
 # モデル選択メニューを表示
 > /model`} language="bash" />
             <p className="text-xs text-muted-foreground mt-4">
-              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6 等）を指定します。最上位の Fable 5（<code>--model fable</code>）は長時間の自律タスク向けで、既定モデルではありません。
+              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6等）を指定します。最上位のFable（<code>--model fable</code>。2026年11月時点ではFable 5.1に解決される）は長時間の自律タスク向けで、既定モデルではありません。
             </p>
           </section>
 
@@ -94,7 +94,7 @@ export default function ExtendedThinking() {
               {[
                 { level: 'low', desc: '最小限の推論。短く影響範囲が限定されたタスク向き。', color: 'emerald' },
                 { level: 'medium', desc: 'コスト重視の推論深度。知能を多少犠牲にできるタスク向き。', color: 'blue' },
-                { level: 'high', desc: '既定値。トークン消費と知能のバランス。大半のタスクに適する。', color: 'purple' },
+                { level: 'high', desc: '多くのモデルの既定値（Opus 5.5・Sonnet 5.5・Haiku 5.5はmediumが既定）。トークン消費と知能のバランス。', color: 'purple' },
               ].map(item => (
                 <div key={item.level} className={`p-4 rounded-xl border border-${item.color}-200 dark:border-${item.color}-900 bg-${item.color}-50 dark:bg-${item.color}-950/20`}>
                   <div className="flex items-center gap-2 mb-2">

@@ -207,7 +207,7 @@ $ claude --permission-mode acceptEdits
             <InfoBox type="warning" title="利用条件がある">
               auto
               モードにはプラン・組織設定・モデル・プロバイダの条件があります（Anthropic
-              API では Opus 4.6 以降 / Sonnet 4.6 以降 / Fable 5）。「auto mode
+              APIではOpus 4.6以降 / Sonnet 4.6以降 / Haiku 5.5 / Fable）。「auto mode
               unavailable」と表示される場合は条件が満たされていないことを意味し、一時的な障害ではありません。
             </InfoBox>
           </section>
