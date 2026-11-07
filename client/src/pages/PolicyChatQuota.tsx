@@ -1,6 +1,12 @@
 // implementation-mirror: api/lib/quota.ts
 import { Link } from "wouter";
 import { Shield, Key, Activity, ArrowLeft } from "lucide-react";
+import {
+  MAX_CHAT_MESSAGES,
+  MAX_CHAT_MESSAGE_CHARS,
+  MAX_CHAT_SYSTEM_PROMPT_CHARS,
+  MAX_CHAT_TOTAL_CHARS,
+} from "../../../api/lib/chatRequest";
 
 export default function PolicyChatQuota() {
   return (
@@ -107,6 +113,15 @@ export default function PolicyChatQuota() {
               時間で自動失効します
             </li>
             <li>個人を特定する情報 (氏名・メール等) は記録しません</li>
+            <li>
+              1回の送信で受け付ける大きさには上限があります。会話は
+              {MAX_CHAT_MESSAGES}件まで、1件
+              {MAX_CHAT_MESSAGE_CHARS.toLocaleString()}文字まで、合計
+              {MAX_CHAT_TOTAL_CHARS.toLocaleString()}
+              文字まで、システムプロンプトは
+              {MAX_CHAT_SYSTEM_PROMPT_CHARS.toLocaleString()}
+              文字までです（BYOKでも同じ）
+            </li>
             <li>
               会話履歴はブラウザの localStorage
               にのみ保存され、サーバー側に残しません
