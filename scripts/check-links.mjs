@@ -185,6 +185,17 @@ async function headWithUaFallback(url) {
   return retry.status === 0 ? res : retry;
 }
 
+/**
+ * fetchの最終URLにはフラグメントが残らない（サーバーへ送らないため）。そのまま比べると
+ * #errors付きのURLがすべて「リダイレクトされる」に数えられ、fix:linksが見出しへの
+ * アンカーを消してしまう。元のURLのフラグメントを最終URLへ引き継いでから比べる。
+ */
+function keepFragment(url, finalUrl) {
+  const at = url.indexOf("#");
+  if (at === -1 || !finalUrl || finalUrl.includes("#")) return finalUrl;
+  return finalUrl + url.slice(at);
+}
+
 async function mapLimit(items, limit, fn) {
   const results = new Array(items.length);
   let next = 0;
@@ -247,7 +258,13 @@ async function main() {
       await new Promise((ok) => setTimeout(ok, 1500));
       r = await headWithUaFallback(target);
     }
-    return { url, ...(probe ? { probe } : {}), ...r, files: [...urlToFiles.get(url)] };
+    return {
+      url,
+      ...(probe ? { probe } : {}),
+      ...r,
+      finalUrl: keepFragment(url, r.finalUrl),
+      files: [...urlToFiles.get(url)],
+    };
   });
 
   // 403 / 405 / 429 は bot 対策で拒否されただけのことが多く、リンク切れとは別物。

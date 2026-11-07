@@ -93,6 +93,7 @@ jobs:
         if: steps.after.outputs.status == 'ok' && steps.fix.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           BEFORE_SUMMARY: ${{ steps.before.outputs.summary }}
           AFTER_SUMMARY: ${{ steps.after.outputs.summary }}

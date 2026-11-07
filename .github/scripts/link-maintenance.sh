@@ -108,10 +108,26 @@ EOF
   if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
     gh pr edit "$BRANCH" --body "$body"
     echo "既存の PR を更新した"
-  else
-    gh pr create --head "$BRANCH" \
-      --title "リダイレクトされる外部リンクを恒久 URL に寄せる" \
-      --body "$body"
+  elif ! gh pr create --head "$BRANCH" \
+    --title "リダイレクトされる外部リンクを恒久 URL に寄せる" \
+    --body "$body"; then
+    # リポジトリ設定で GITHUB_TOKEN の PR 作成が許可されていないと、ここで
+    # 「GitHub Actions is not permitted to create or approve pull requests」になる。
+    # 2026-09-14 に実際に踏んだ。書き換えは push 済みなので赤にせず、issue から開けるようにする
+    : "${GH_REPO:?}" "${ISSUE_TITLE:?}" "${ISSUE_LABEL:?}"
+    issue_body=$(
+      cat <<EOF
+週次のリンク点検で書き換えを ${BRANCH} へ push しましたが、PR を作れませんでした。Settings > Actions > General の「Allow GitHub Actions to create and approve pull requests」が無効だと、この失敗になります。
+
+差分を確認して PR を開いてください: https://github.com/${GH_REPO}/compare/main...${BRANCH}?expand=1
+
+書き換え: ${FIX_SUMMARY:-不明}
+書き換え後: ${AFTER_SUMMARY:-不明}
+
+実行ログ: ${RUN_URL}
+EOF
+    )
+    bash "$(dirname "$0")/append-or-create-issue.sh" "$issue_body"
   fi
   ;;
 
