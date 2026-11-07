@@ -37,7 +37,7 @@ export default function SkillsDeepDive() {
           </p>
           <VerifiedBox
             verifiedAt="2026-08-22"
-            cmuxVersion="Claude Code 2.1.239"
+            verifiedVersion="Claude Code 2.1.239"
             platform="macOS (Apple Silicon)"
             officialDocs="https://code.claude.com/docs/en/skills"
             officialDocsLabel="公式: Extend Claude with skills"

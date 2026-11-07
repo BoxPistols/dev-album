@@ -163,10 +163,10 @@ export default function WhyClaudeCode() {
           <section className="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
             <h2 className="text-2xl font-bold mb-4">ターミナル環境との親和性</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              Claude Code はターミナルで動作するため、複数のターミナルタブや cmux のようなワークスペース管理ツールとの相性が優れています。エージェントの実行状況、サーバーログ、Git操作を並列で監視しながら開発を進められます。
+              Claude Codeはターミナルで動作するため、複数のターミナルタブや画面分割との相性が優れています。エージェントの実行状況、サーバーログ、Git操作を並列で監視しながら開発を進められます。
             </p>
             <InfoBox type="info" title="本ガイドの構成">
-              前半で Claude Code の機能を体系的に学び、中盤で主要な AI コーディングエージェントの比較と cmux による環境管理を習得した上で、最後にベストプラクティスと自動化を扱います。
+              前半でClaude Codeの機能を体系的に学び、中盤で主要なAIコーディングエージェントの比較と使い分けを習得した上で、最後にベストプラクティスと自動化を扱います。
             </InfoBox>
           </section>
         </div>

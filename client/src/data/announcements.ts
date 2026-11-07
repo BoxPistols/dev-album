@@ -29,6 +29,15 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-triage-app",
   },
   {
+    id: "2026-11-07-remove-cmux-section",
+    date: "2026-11-07",
+    title: "Claude Codeマニュアルからcmuxの章を外した",
+    description:
+      "cmuxの5ページを外し、旧URLは内容が近いページへ転送する。完了・ブックマーク・メモは転送先のページへ自動で写すので消えるものはない。同じ転送先に集まる完了とブックマークは1件にまとまり、メモは既存のメモの後ろに続けて残す。転送先のページは未読でも完了として表示される。",
+    category: "update",
+    link: "/claude-code/multi-ai/multi-ai-coexistence",
+  },
+  {
     id: "2026-11-07-react-home-step-count",
     date: "2026-11-07",
     title: "Reactマニュアルの入口の「全77ステップ」を実際の数に直した",

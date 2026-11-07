@@ -35,7 +35,7 @@ export default function BrowserVerification() {
           </p>
           <VerifiedBox
             verifiedAt="2026-08-22"
-            cmuxVersion="Claude Code 2.1.239"
+            verifiedVersion="Claude Code 2.1.239"
             platform="macOS (Apple Silicon)"
             officialDocs="https://code.claude.com/docs/en/chrome"
             officialDocsLabel="公式: Use Claude Code with Chrome"

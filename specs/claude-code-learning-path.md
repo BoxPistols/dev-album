@@ -75,7 +75,7 @@ Claude Code マニュアル（claude-code、現行 41 ページ）を「基礎 �
 3. claude-core: **explore-plan-code-commit（新）** → context-management → context-engineering → **permission-modes（新）** → security-permissions → token-optimization → extended-thinking
 4. agent-extensions: subagents → custom-skills → **skills-deep-dive（新）**
 5. mcp（CLAUDE.md → subagents → skills → MCP → hooks の公式順に合わせ、agent-extensions の後ろへ移動）
-6. 以降（ai-coding-agents / cmux / reference / advanced パート）は現状維持。best-practices に **verification-and-trust（新）** を追加
+6. 以降（ai-coding-agents / reference / advancedパート）は現状維持。best-practicesに**verification-and-trust（新）**を追加
 
 制約（すべて遵守済み）:
 - 既存 URL は変えない（step 番号と表示順のみ変更）。ページの物理移動はしない

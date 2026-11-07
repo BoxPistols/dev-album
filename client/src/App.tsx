@@ -222,11 +222,6 @@ const CmHarnessEngineering = lazy(() => import("./pages/claude-code/best-practic
 const CmFileMap = lazy(() => import("./pages/claude-code/multi-ai-architecture/FileMap"));
 const CmAgentDocs = lazy(() => import("./pages/claude-code/multi-ai-architecture/AgentDocs"));
 const CmDesignMd = lazy(() => import("./pages/claude-code/multi-ai-architecture/DesignMd"));
-const CmCmuxIntro = lazy(() => import("./pages/claude-code/cmux/CmuxIntro"));
-const CmCmuxSetup = lazy(() => import("./pages/claude-code/cmux/CmuxSetup"));
-const CmCmuxAgentTeams = lazy(() => import("./pages/claude-code/cmux/CmuxAgentTeams"));
-const CmCmuxBrowserAPI = lazy(() => import("./pages/claude-code/cmux/CmuxBrowserAPI"));
-const CmCmuxWorktrees = lazy(() => import("./pages/claude-code/cmux/CmuxWorktrees"));
 const CmTroubleshooting = lazy(() => import("./pages/claude-code/reference/Troubleshooting"));
 const CmClaudeCheatsheet = lazy(() => import("./pages/claude-code/reference/ClaudeCheatsheet"));
 const CmEffectiveWorkflows = lazy(() => import("./pages/claude-code/best-practices/EffectiveWorkflows"));
@@ -679,11 +674,14 @@ function App() {
                   <Redirect to="/claude-code" replace />
                 </Route>
                 {/* /claude-mux/… を /claude-code/… へ。mux は tmux の名残で、tmux の章を
-                    外した時点で意味を失っていた（cmux とも無関係）。外部リンクと
+                    外した時点で意味を失っていた。外部リンクと
                     ブックマークを壊さないため、この転送は恒久的に残す。 */}
                 <Route path="/claude-mux/*">
                   {(params) => (
+                    // Redirectはマウント時に1度だけ転送する。転送先がさらに転送するとき
+                    // （/claude-mux/cmux/...）に作り直されるよう、keyで別の要素にする
                     <Redirect
+                      key="claude-mux"
                       to={`/claude-code${params["*"] ? `/${params["*"]}` : ""}`}
                       replace
                     />
@@ -700,11 +698,23 @@ function App() {
                 <Route path="/claude-code/multi-ai/file-map" component={CmFileMap} />
                 <Route path="/claude-code/multi-ai/agent-docs" component={CmAgentDocs} />
                 <Route path="/claude-code/multi-ai/design-md" component={CmDesignMd} />
-                <Route path="/claude-code/cmux/cmux-intro" component={CmCmuxIntro} />
-                <Route path="/claude-code/cmux/cmux-setup" component={CmCmuxSetup} />
-                <Route path="/claude-code/cmux/agent-teams" component={CmCmuxAgentTeams} />
-                <Route path="/claude-code/cmux/browser-api" component={CmCmuxBrowserAPI} />
-                <Route path="/claude-code/cmux/worktrees" component={CmCmuxWorktrees} />
+                {/* cmuxの章は外した。公開済みのURLなので、内容が最も近いページへ転送する。
+                    転送先はstorage-migration.tsのPATH_RENAMESと揃える。 */}
+                <Route path="/claude-code/cmux/cmux-intro">
+                  <Redirect to="/claude-code/multi-ai/multi-ai-coexistence" replace />
+                </Route>
+                <Route path="/claude-code/cmux/cmux-setup">
+                  <Redirect to="/claude-code/multi-ai/multi-ai-coexistence" replace />
+                </Route>
+                <Route path="/claude-code/cmux/agent-teams">
+                  <Redirect to="/claude-code/ide-agent-teams/agent-orchestration" replace />
+                </Route>
+                <Route path="/claude-code/cmux/browser-api">
+                  <Redirect to="/claude-code/best-practices/browser-verification" replace />
+                </Route>
+                <Route path="/claude-code/cmux/worktrees">
+                  <Redirect to="/claude-code/ide-agent-teams/agent-orchestration" replace />
+                </Route>
                 <Route path="/claude-code/reference/troubleshooting" component={CmTroubleshooting} />
                 <Route path="/claude-code/reference/claude-cheatsheet" component={CmClaudeCheatsheet} />
                 <Route path="/claude-code/best-practices/effective-workflows" component={CmEffectiveWorkflows} />
