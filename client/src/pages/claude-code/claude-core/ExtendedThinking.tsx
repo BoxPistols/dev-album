@@ -77,7 +77,7 @@ export default function ExtendedThinking() {
 # モデル選択メニューを表示
 > /model`} language="bash" />
             <p className="text-xs text-muted-foreground mt-4">
-              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6等）を指定します。最上位のFable（<code>--model fable</code>。2026年11月時点ではFable 5.1に解決される）は長時間の自律タスク向けで、既定モデルではありません。
+              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6等）を指定します。最上位のFable（<code>--model fable</code>。2026年11月時点ではFable 5.1に解決される。Claude apps gatewayのセッションではFable 5に解決されるので、5.1を使うには <code>claude-fable-5-1</code> を指定する）は長時間の自律タスク向けで、既定モデルではありません。
             </p>
           </section>
 

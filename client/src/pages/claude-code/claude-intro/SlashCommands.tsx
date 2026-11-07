@@ -344,7 +344,7 @@ claude --effort xhigh
 
 # 永続設定: /effort highのように打つと、モデルごとに
 # ~/.claude/settings.jsonのmodelSettingsへ保存される
-# （最上位の "effortLevel" は旧形式で、Opus 5.5には効かない）`}</code></pre>
+# （ユーザー設定ファイルの最上位の "effortLevel" は旧形式で、Opus 5.5には効かない）`}</code></pre>
               </div>
 
               {/* /rewind */}

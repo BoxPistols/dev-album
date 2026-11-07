@@ -20,6 +20,33 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-claude-code-default-model",
+    date: "2026-11-07",
+    title: "Claude Codeの既定モデルがOpus 5.5になった件と、effortの既定がモデルで分かれる件を反映した",
+    description:
+      "Pro / Max / Ultra / Team / EnterpriseとAPIの既定モデルはOpus 5.5。Opus 5.5・Sonnet 5.5・Haiku 5.5はeffortの既定がmediumで、ユーザー設定の最上位effortLevelはOpus 5.5に効かない。",
+    category: "fix",
+    link: "/claude-code/claude-core/extended-thinking",
+  },
+  {
+    id: "2026-11-07-claude-code-max-budget",
+    date: "2026-11-07",
+    title: "--max-budget-usdがprintモード専用で、見積もりにもとづく上限であることを書いた",
+    description:
+      "上限は請求額ではなく見積もりで判定され、支出が上限を超えることもある。余裕を持たせて設定するよう、トークン最適化のページに書いた。",
+    category: "fix",
+    link: "/claude-code/claude-core/token-optimization",
+  },
+  {
+    id: "2026-11-07-claude-code-permission-default",
+    date: "2026-11-07",
+    title: "auto modeが全プランで既定の開始モードになった件を、パーミッションのページに反映した",
+    description:
+      "v2.1.283以降、対話型のターミナルとVS Codeはプランに関係なくauto modeで始まる。claude -pとAgent SDKはv2.1.302以降Manual（default）で始まる。",
+    category: "fix",
+    link: "/claude-code/claude-core/permission-modes",
+  },
+  {
     id: "2026-11-07-claude-code-agents-md",
     date: "2026-11-07",
     title: "Claude CodeがAGENTS.mdを直接読むようになった件を、マルチAI構成のページに反映した",

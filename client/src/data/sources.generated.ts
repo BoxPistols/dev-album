@@ -116,6 +116,7 @@ export const GENERATED_SOURCES: Source[] = [
       "A file that only Bash commands changed isn't tracked and stays as it is.",
       "by default about 30 days after the session last saved one",
       "rewinding restores only the files Claude had already edited in your conversation",
+      "**Foreground forked skill**: a [skill with `context: fork`](https://code.claude.com/docs/en/skills#run-skills-in-a-subagent) that runs in the foreground edits your working tree during your own turn, so rewinding restores its edits as usual.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
@@ -261,6 +262,10 @@ export const GENERATED_SOURCES: Source[] = [
       "Claude Code loads `CLAUDE.md` and `CLAUDE.local.md` from your current working directory and every directory above it. Run Claude Code in `foo/bar/` and it loads instructions from `foo/bar/CLAUDE.md`, `foo/CLAUDE.md`, and any `CLAUDE.local.md` files alongside them.",
       "By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.",
       "Reading `AGENTS.md` directly requires Claude Code v2.1.277 or later.",
+      "**Don't count, and keep loading alongside `AGENTS.md`**: your `~/.claude/CLAUDE.md`, your organization's managed `CLAUDE.md`, and `.claude/rules/` files",
+      "You used `/plugin` to disable the built-in plugin that reads `AGENTS.md`",
+      "Before v2.1.281, some sessions, such as those on Amazon Bedrock or with telemetry disabled, read `CLAUDE.md` files only.",
+      "If you don't need Claude-specific content, a symlink also works:",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
@@ -302,6 +307,7 @@ export const GENERATED_SOURCES: Source[] = [
       "`s` in the `/effort` slider or the `/model` picker: apply the level to this session only",
       "2. A level you pick in the session, such as with `/effort`, the `/model` picker, or [`applyFlagSettings()`](https://code.claude.com/docs/en/agent-sdk/typescript#applyflagsettings)",
       "3. Launching with `--effort`",
+      "except in [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) sessions, where `fable` and `best` resolve to Fable 5.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ExtendedThinking.tsx",
@@ -324,6 +330,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Use this mode for CI pipelines or restricted environments where you pre-define what Claude may do; the session never waits for input.",
       "With Claude Code v2.1.283 or later, auto mode is the built-in starting permission mode for interactive terminal and VS Code sessions. On earlier versions, it's the built-in starting permission mode only on Pro, Max, Ultra, and Team plans.",
       "**Plan**: All plans.",
+      "In Claude Code v2.1.302 or later, `claude -p` and [Agent SDK](https://code.claude.com/docs/en/agent-sdk/permissions.md#permission-modes) runs with [no permission mode set](#which-mode-a-session-starts-in) start in Manual mode.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
@@ -932,6 +939,19 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/git/flow-automation/AutoTestRefactor.tsx",
+    ],
+  },
+  {
+    id: "github-com-anthropics-claude-code-changelog-2-1-186",
+    title: "anthropics/claude-code CHANGELOG（2.1.186）",
+    url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "Added `teammateMode: \"iterm2\"` setting with a warning when auto mode cannot find the `it2` CLI",
+    ],
+    usedByFiles: [
+      "client/src/pages/claude-code/ide-agent-teams/AgentOrchestration.tsx",
     ],
   },
   {

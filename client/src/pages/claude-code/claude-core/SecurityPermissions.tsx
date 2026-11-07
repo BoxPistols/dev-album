@@ -34,7 +34,7 @@ export default function SecurityPermissions() {
               承認フロー（Human-in-the-loop）
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              Claude Codeはデフォルトで「人間による承認」を基本としています。操作の種類に応じて承認の要否が決まります。
+              承認の要否はパーミッションモードで決まります。下の流れはManualモード（<code>default</code>）のもので、操作の種類に応じて人間の承認を求めます。v2.1.283以降の対話型ターミナルとVS Codeはautoモードで始まり、分類器が安全と判断した操作は承認プロンプトを出さずに実行されます（モードの一覧は後述）。
             </p>
             <div className="space-y-4">
               {[

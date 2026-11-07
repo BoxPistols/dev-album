@@ -280,6 +280,9 @@ export default function AgentDocs() {
               としている。CLAUDE.mdも置くなら、CLAUDE.mdからimportして
               同じ内容を両方のツールに読ませる。Claude Code固有の指示はimportの下に足す。
               importしていれば、AGENTS.mdが二重に読まれることはない。
+              また、v2.1.277以降でも直接読めないセッションがある（AGENTS.mdを読む組み込みプラグインを無効にした場合、
+              v2.1.280以前のAmazon Bedrockやテレメトリ無効のセッションなど）。そうしたセッションにも届けたいなら、
+              CLAUDE.mdからの <code>@AGENTS.md</code> のimportを残しておく。
             </InfoBox>
 
             <CodeBlock

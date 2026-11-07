@@ -11,17 +11,17 @@
 
 | 出典 | 件数 | この記録での扱い |
 |---|---|---|
-| code.claude.com（Claude Code） | 18 | 原文を取り直し、本文と引用を直した（下記） |
+| code.claude.com（Claude Code） | 21 | 原文を取り直し、本文と引用を直した（下記）。生成レジストリ18件と、手で登録した`claude-code-memory`の3件 |
 | TypeSafe AI（Jev）のdocs | 20 | 未対応。Jevのページは別のPR（#177）が触っているため、そちらと衝突しない形で別に直す |
 | GitHub（Copilot・Actionsの課金） | 2 | 未対応 |
 | Gemini Code Assist | 2 | 未対応 |
 | Next.js（cacheLife）・Nitro・Vercel・Figma | 各1 | 未対応 |
 
-未対応の31件は、定期検査のissue（#121）が出している失敗と同じ系統。
+未対応の28件は、定期検査のissue（#121）が出している失敗と同じ系統。
 
-## Claude Codeの18件: 言い回しの変化と、内容の変化
+## Claude Codeの21件: 言い回しの変化と、内容の変化
 
-18件のうち、教材の記述が誤りになっていたのは次の7点。残りは言い回しだけの変化で、引用を現在の原文に取り直した。
+21件のうち、教材の記述が誤りになっていたのは次の7点。残りは言い回しだけの変化で、引用を現在の原文に取り直した。
 
 | 変化 | 公式の現在の記述 | 直したページ |
 |---|---|---|
@@ -51,7 +51,7 @@
 ## 残っていること
 
 - L5（レジストリに載っていない主張の洗い出し）は、対象5ディレクトリのうちモデル名・設定キー・AGENTS.mdまわりだけを見た。hookのイベント名と入出力、MCPのスコープ、スラッシュコマンドの一覧は今回見ていない
-- 上の未対応31件
+- 上の未対応28件
 
 ## 修正内容の独立レビュー
 
@@ -66,3 +66,10 @@
 直したあと、15出典の引用60件が原文と一致することを確かめた。
 
 レビューが「軽微」としたもののうち、SecurityPermissionsの優先順位の`desc`が画面に描画されていない件は、この修正の範囲外として残した。
+
+## CodeRabbitのレビュー（2026-11-07）
+
+12件の指摘を公式と突き合わせ、裏が取れたものを直した。
+
+- 直した: SecurityPermissionsの「既定は人間の承認」（モードで決まり、対話型はautoで始まる）、AgentDocsで直接読めないセッションの条件、FileMapの条件が既定設定のものであることと`~/.claude/CLAUDE.md`を数えないこと、MultiAICoexistenceのsymlinkの案内、ExtendedThinkingのFableのgateway例外、EffectiveWorkflowsのサブエージェントの復元条件、SlashCommandsの`effortLevel`が効かない範囲、Cheatsheetにautoの行と`claude -p`の既定（v2.1.302以降はManual）、AgentOrchestrationの`iterm2`の版（CHANGELOGで2.1.186の追加を確認して戻した）、この記録の件数（Claude Codeは21件で、未対応は28件）
+- 直していない: CursorClineの「月次APIクレジット」の追記。出典のsupport.claude.comをこの環境から取得できず、裏を取れなかった。この差分が触った箇所でもない
