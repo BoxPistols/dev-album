@@ -90,9 +90,8 @@ export default function GithubCopilot() {
                 </h3>
                 <p className="text-muted-foreground">
                   GitHub 上の Issue に「Copilot」をアサインするか{" "}
-                  <code>@copilot</code> にメンションすると、GitHub Actions
-                  上の一時的な開発環境でタスクを実行し、ドラフト PR
-                  を作成する。GitHub MCP サーバーと Playwright MCP
+                  <code>@copilot</code> にメンションすると、クラウドの開発環境（cloud sandbox、GitHub Actionsランナー、リモートのカスタム環境のいずれか）でタスクを実行し、ドラフトPR
+                  を作成する。有料プランではCloudが既定で、FreeはGitHub Actionsベースの環境を使う。GitHub MCPサーバーとPlaywright MCP
                   サーバーが既定で有効。
                 </p>
               </div>
@@ -346,7 +345,7 @@ copilot -p "この PR の変更点を要約して"`}
                   },
                   { label: "どちらも CLI 専用の機能" },
                 ]}
-                explanation="エージェントモードはエディタ内のリアルタイム協働（ローカル環境を直接編集）、コーディングエージェントは Issue のアサインやメンションを起点に GitHub Actions 上の環境で非同期に作業してドラフト PR を作る機能です。同期/非同期・ローカル/クラウドという軸で使い分けます。"
+                explanation="エージェントモードはエディタ内のリアルタイム協働（ローカル環境を直接編集）、コーディングエージェントはIssueのアサインやメンションを起点にクラウドの環境で非同期に作業してドラフトPRを作る機能です。同期/非同期・ローカル/クラウドという軸で使い分けます。"
               />
 
               <Quiz
@@ -378,12 +377,12 @@ copilot -p "この PR の変更点を要約して"`}
                 },
                 {
                   title: "Copilot CLI について",
-                  url: "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli",
+                  url: "https://docs.github.com/en/copilot/concepts/copilot-surfaces/copilot-cli",
                   description: "ターミナルエージェントの概念と使い方",
                 },
                 {
                   title: "コーディングエージェントについて",
-                  url: "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
+                  url: "https://docs.github.com/en/copilot/concepts/copilot-surfaces/copilot-on-github",
                   description: "Issue アサインから PR 作成までの仕組み",
                 },
               ]}

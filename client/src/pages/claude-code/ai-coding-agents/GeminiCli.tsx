@@ -26,19 +26,19 @@ export default function GeminiCli() {
 
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
             Google が提供するオープンソースのターミナル AI エージェント。Gemini
-            モデルをコマンドラインから直接利用でき、 個人の Google
-            アカウントによる無料枠が用意されている。
+            モデルをコマンドラインから直接利用できる。2026-06-18に個人の無料利用はAntigravity CLIへ移り、
+            現在のGemini CLIはGemini Code Assist Standard / Enterpriseなどのライセンスを持つ組織向けになっている。
           </p>
         </div>
 
         <WhyNowBox
-          tags={["Gemini CLI", "Google", "オープンソース", "無料枠", "MCP"]}
+          tags={["Gemini CLI", "Google", "オープンソース", "Code Assist", "MCP"]}
         >
           <p>
             Claude Code と同じ「ターミナルで動く AI
             エージェント」というカテゴリの中で、 Gemini CLI は Apache 2.0
             ライセンスのオープンソースであること、
-            そして個人アカウントでの無料枠が大きいことが特徴です。
+            そしてGoogle Cloudの組織向けライセンスで使えることが特徴です。
             複数のエージェントを比較・併用するうえで、まず押さえておきたい選択肢のひとつです。
           </p>
         </WhyNowBox>
@@ -71,10 +71,9 @@ gemini`}
             />
 
             <p className="text-foreground mt-6 mb-4 leading-relaxed">
-              認証は 3 つの方法から選べる。個人の Google
-              アカウントでログインする方法が最も手軽で、公式ブログによると 1
-              分あたり 60 リクエスト・1 日 1,000
-              リクエストまで無料で利用できる。
+              認証は3つの方法から選べる。公開当初は個人のGoogleアカウントで無料枠を使えたが、
+              READMEによると個人の無料利用とGoogle AI Pro / Ultraは2026-06-18にAntigravity CLIへ移った。
+              Gemini CLIのGoogleログインは組織のCode Assistライセンスで使う。
             </p>
 
             <div className="overflow-x-auto mb-6">
@@ -95,7 +94,7 @@ gemini`}
                       Google アカウント (OAuth)
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      無料。60 リクエスト/分・1,000 リクエスト/日
+                      組織のGemini Code Assist Standard / Enterpriseライセンスで使う
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -291,7 +290,7 @@ gemini -m <model>`}
                       無料での利用
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      個人 Google アカウントで 1,000 リクエスト/日
+                      個人の無料利用は2026-06-18にAntigravity CLIへ移行
                     </td>
                     <td className="p-3 text-muted-foreground">
                       サブスクリプションまたは API 従量課金が前提
@@ -331,8 +330,7 @@ gemini -m <model>`}
             </div>
 
             <InfoBox type="info" title="併用する場合の視点">
-              Gemini CLI の無料枠は「まず AI
-              エージェントの働き方を体験する」入口として使いやすい。
+              Gemini CLIは組織のCode Assistライセンス向けなので、個人で試すならAntigravity CLIを使う。
               コンテキストファイルは GEMINI.md と CLAUDE.md
               で分かれるため、共通ルールを AGENTS.md
               等に集約して参照させる設計（マルチ AI
@@ -359,14 +357,14 @@ gemini -m <model>`}
               />
 
               <Quiz
-                question="Gemini CLI を個人の Google アカウントで無料利用する場合の 1 日あたりのリクエスト上限は？"
+                question="現在のGemini CLIが想定している利用者は？"
                 options={[
-                  { label: "100 リクエスト" },
-                  { label: "500 リクエスト" },
-                  { label: "1,000 リクエスト", correct: true },
-                  { label: "無制限" },
+                  { label: "個人の無料アカウント" },
+                  { label: "Google AI Pro / Ultraの契約者" },
+                  { label: "Gemini Code Assist Standard / Enterpriseのライセンスを持つ組織", correct: true },
+                  { label: "Gemini 4系のベンチマークを取る人" },
                 ]}
-                explanation="公式発表では、個人 Google アカウントでのログイン利用は 60 リクエスト/分・1,000 リクエスト/日まで無料です。より多く使う場合は API キーの従量課金や Gemini Code Assist の有料ライセンスに切り替えます。"
+                explanation="READMEは、個人の無料利用とGoogle AI Pro / Ultraが2026-06-18にAntigravity CLIへ移ったとしています。Gemini CLIは組織のCode Assistライセンス向けです。"
               />
             </div>
           </section>
@@ -390,7 +388,7 @@ gemini -m <model>`}
                 {
                   title: "Google 公式ブログ: Introducing Gemini CLI",
                   url: "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-cli-open-source-ai-agent/",
-                  description: "リリース発表。無料枠と提供方針の一次情報",
+                  description: "2025年のリリース発表。当時の無料枠と提供方針の一次情報（無料枠はその後Antigravity CLIへ移行）",
                 },
                 {
                   title: "run-gemini-cli (GitHub Actions)",

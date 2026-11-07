@@ -467,7 +467,7 @@ onUnmounted(() => {
                 },
                 {
                   title: "Nuxt 公式 - Rendering Modes",
-                  url: "https://nuxt.com/docs/guide/concepts/rendering",
+                  url: "https://nuxt.com/docs/4.x/guide/concepts/rendering",
                   description:
                     "SSR でクライアント専用処理をどこに置くかの判断材料",
                 },

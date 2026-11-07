@@ -488,7 +488,7 @@ export default defineEventHandler(async (event) => {
               links={[
                 {
                   title: "Nuxt 公式 - Deployment",
-                  url: "https://nuxt.com/docs/getting-started/deployment",
+                  url: "https://nuxt.com/docs/4.x/getting-started/deployment",
                   description:
                     "build / generate とプラットフォーム別デプロイの公式ガイド",
                 },
@@ -500,7 +500,7 @@ export default defineEventHandler(async (event) => {
                 },
                 {
                   title: "Nuxt 公式 - Rendering Modes",
-                  url: "https://nuxt.com/docs/guide/concepts/rendering",
+                  url: "https://nuxt.com/docs/4.x/guide/concepts/rendering",
                   description:
                     "SSR / SSG / SPA / ハイブリッド（routeRules）の解説",
                 },

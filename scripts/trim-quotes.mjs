@@ -15,87 +15,24 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
+// 取得と正規化はcheck:sourcesと同じものを使う。独自の正規化を持っていた頃は
+// **太字** や箇条書きの行頭記号を吸収できず、check:sourcesが通る引用まで
+// 「破棄」と判定していた（版を固定した出典でも起きた）
+import {
+  closeBrowser,
+  fetchText,
+  isPdf,
+  normalize,
+  pdfToText,
+  sleep,
+  toPlainText,
+} from "./lib/source-fetch.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const GEN = resolve(HERE, "../client/src/data/sources.generated.ts");
 
 const MIN_LEN = 40;
-const TIMEOUT_MS = 25000;
 const DELAY_MS = 400; // 連続アクセスで 429 を食うので間を空ける
-
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
-  "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 dev-album-source-verifier";
-
-function normalize(s) {
-  return s
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-    .replace(/`/g, "")
-    .replace(/[‘’]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/[–—]/g, "-")
-    .replace(/\s+/g, " ")
-    .replace(/\s+([,.;:!?])/g, "$1")
-    .replace(/\(\s+/g, "(")
-    .replace(/\s+\)/g, ")")
-    .trim();
-}
-
-function toPlainText(body, contentType) {
-  let t = body;
-  if (contentType.includes("html")) {
-    t = t
-      .replace(/<script[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style[\s\S]*?<\/style>/gi, " ")
-      .replace(/<[^>]+>/g, " ");
-  }
-  return t
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&#x27;/g, "'")
-    .replace(/&rsquo;|&#8217;/g, "’");
-}
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-async function get(url) {
-  const c = new AbortController();
-  const t = setTimeout(() => c.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch(url, {
-      signal: c.signal,
-      redirect: "follow",
-      headers: { "user-agent": UA },
-    });
-    return {
-      status: res.status,
-      contentType: res.headers.get("content-type") ?? "",
-      body: await res.text(),
-    };
-  } finally {
-    clearTimeout(t);
-  }
-}
-
-async function fetchDoc(url) {
-  // 429 は待って 1 度だけやり直す
-  for (let attempt = 0; attempt < 2; attempt++) {
-    if (!/\.(md|txt|json)$/.test(url) && !url.includes("?")) {
-      try {
-        const md = await get(url.replace(/\/$/, "") + ".md");
-        if (md.status === 200 && /markdown|plain/.test(md.contentType)) return md;
-      } catch {
-        /* Markdown 版が無いのは普通 */
-      }
-    }
-    const html = await get(url);
-    if (html.status !== 429) return html;
-    await sleep(3000);
-  }
-  return { status: 429, contentType: "", body: "" };
-}
 
 /** 引用のうち、原文に連続して現れる最長の先頭部分を返す。無ければ空文字 */
 function longestPrefix(quote, haystack) {
@@ -132,8 +69,9 @@ function parseEntries(src) {
     const id = /id: "([^"]+)"/.exec(body)?.[1];
     const url = /url: "([^"]+)"/.exec(body)?.[1];
     const qBlock = /quotes: \[\n([\s\S]*?)\n    \],/.exec(body)?.[1] ?? "";
+    // 改行を含む引用（\n）もあるので、エスケープはJSONとして解く
     const quotes = [...qBlock.matchAll(/^      "((?:[^"\\]|\\.)*)",$/gm)].map((x) =>
-      x[1].replace(/\\"/g, '"').replace(/\\\\/g, "\\"),
+      JSON.parse(`"${x[1]}"`),
     );
     out.push({ id, url, quotes, raw: m[0], start: m.index });
   }
@@ -156,7 +94,7 @@ async function main() {
   for (const e of entries) {
     let doc;
     try {
-      doc = await fetchDoc(e.url);
+      doc = await fetchText(e.url);
     } catch {
       doc = { status: 0, contentType: "", body: "" };
     }
@@ -168,7 +106,17 @@ async function main() {
       result.set(e.id, []);
       continue;
     }
-    const hay = normalize(toPlainText(doc.body, doc.contentType));
+    const plain = isPdf(doc.contentType, doc.body)
+      ? pdfToText(doc.bytes)
+      : toPlainText(doc.body, doc.contentType);
+    if (plain === null) {
+      // pdftotextが無いだけで引用が誤っているとは言えないので、落とさない
+      unreachable++;
+      console.log(`[${e.id}] PDF を平文化できない — 引用はそのまま残す`);
+      result.set(e.id, e.quotes);
+      continue;
+    }
+    const hay = normalize(plain);
     const good = [];
     for (const q of e.quotes) {
       const p = longestPrefix(q, hay);
@@ -225,7 +173,10 @@ async function main() {
   console.log(`\nsources.generated.ts を更新: エントリ ${entries.length} → ${remaining}`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exitCode = 1;
-});
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  })
+  // 許可リストの出典で起動したchromiumを残さない
+  .finally(() => closeBrowser());

@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 // @ts-expect-error -- .mjs の素の JS を型定義なしで読む
 import {
   decideOutcome,
+  pageRemoved,
   UNREACHABLE_LIMIT,
 } from "../../../scripts/verify-verdicts.mjs";
 
@@ -60,5 +61,31 @@ describe("定期検査の赤/緑の判定", () => {
     });
     expect(r.tooManyUnreachable).toBe(false);
     expect(r.failed).toBe(true);
+  });
+});
+
+// 監査記録は履歴なので、教材を消しても判定は書き換えない。消えたページの判定で
+// 検査が赤くならないことと、在るページの判定を外さないことの両方を固定する
+describe("pageRemoved", () => {
+  it("client/src/pagesに無いファイルの判定は照合から外す", () => {
+    expect(pageRemoved("claude-code/cmux/CmuxSetup.tsx", () => false)).toBe(true);
+  });
+
+  it("在るページの判定は照合を続ける", () => {
+    expect(pageRemoved("react/Home.tsx", () => true)).toBe(false);
+  });
+
+  it("client/src/pagesを起点に確かめる", () => {
+    const seen: string[] = [];
+    pageRemoved("react/Home.tsx", (p: string) => {
+      seen.push(p);
+      return true;
+    });
+    expect(seen).toEqual(["client/src/pages/react/Home.tsx"]);
+  });
+
+  it("fileを持たない判定は外さない", () => {
+    expect(pageRemoved(undefined, () => false)).toBe(false);
+    expect(pageRemoved("", () => false)).toBe(false);
   });
 });

@@ -356,7 +356,7 @@ figma.connect(Button, "https://figma.com/file/xxx?node-id=1:23", {
               links={[
                 {
                   title: "Figma Dev Mode 公式ガイド",
-                  url: "https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode",
+                  url: "https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode-in-Figma",
                   description:
                     "Dev Mode の使い方と、エンジニア向けの機能を解説",
                 },

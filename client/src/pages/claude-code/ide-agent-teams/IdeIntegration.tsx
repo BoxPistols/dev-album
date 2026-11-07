@@ -149,7 +149,7 @@ code --install-extension anthropic.claude-code
 claude /terminal-setup
 
 # 実行内容はターミナルごとに異なる
-# - VS Code / Cursor / Devin Desktop / Alacritty / Zed
+# - VS Code / Cursor / Devin Desktop / Alacritty 0.16より前 / Zed
 #   → Shift+Enter のキーバインドを設定ファイルに書き込む
 # - iTerm2 → クリップボードアクセスの許可（/copy 用）
 # - Apple Terminal → Option as Meta の有効化とベルの無効化`} />
@@ -159,7 +159,7 @@ claude /terminal-setup
                 デフォルトでは Enter でプロンプトが送信されます。改行を入れるには Ctrl+J、または <code>\</code> を打ってから Enter。この 2 つはどのターミナルでも設定なしで動きます。
               </p>
               <p className="mb-2">
-                Shift+Enter はターミナルによって対応が分かれます。Ghostty / Kitty / iTerm2 / WezTerm / Warp / Apple Terminal / Windows Terminal は設定なしで動作。VS Code / Cursor / Devin Desktop / Alacritty / Zed は <code>/terminal-setup</code> を 1 度実行します。
+                Shift+Enterはターミナルによって対応が分かれます。Ghostty / Kitty / iTerm2 / WezTerm / Warp / Apple Terminal / Windows Terminalは設定なしで動作。VS Code / Cursor / Devin Desktop / Alacritty 0.16より前 / Zedは<code>/terminal-setup</code>を1度実行します。Alacritty 0.16以降などkittyキーボードプロトコル対応の端末は、Claude Code v2.1.269以降なら設定なしで動作します。
               </p>
               <p>
                 gnome-terminal と JetBrains IDE（PyCharm / Android Studio 等）のターミナルでは Shift+Enter を使えないため、Ctrl+J か <code>\</code> + Enter を使います。

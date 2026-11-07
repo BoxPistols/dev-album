@@ -31,8 +31,7 @@ export default function ExplorePlanCodeCommit() {
           </h1>
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-medium">
             調査と計画を実装から分離する、Claude Code
-            の日常ワークフローの基本形。公式が推奨する 4
-            フェーズを一通り体験する。
+            の日常ワークフローの基本形。探索・計画・コード・コミットの4フェーズを一通り体験する。
           </p>
           <VerifiedBox
             verifiedAt="2026-08-22"
@@ -52,8 +51,8 @@ export default function ExplorePlanCodeCommit() {
             <p className="leading-relaxed mb-6 text-muted-foreground">
               指示を受けた Claude がいきなりコードを書き始めると、
               <strong>間違った問題を解いたコード</strong>
-              ができあがることがあります。公式ドキュメントはこれを避けるために、プランモードで調査・計画を先に行い、承認してから実装に移る
-              4 フェーズのワークフローを推奨しています。
+              ができあがることがあります。公式ドキュメントは複雑なタスクで実装前にプランモードへ切り替え、提案されたアプローチを承認してから進めることを勧めています。
+              この教材ではその流れを探索・計画・コード・コミットの4フェーズに整理します。
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
@@ -228,7 +227,7 @@ $ claude --permission-mode plan
               計画フェーズを飛ばしてよいとき
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              プランモードは有用ですが、オーバーヘッドも増えます。公式ドキュメントは次の判断基準を示しています。
+              プランモードは有用ですが、オーバーヘッドも増えます。次を目安にします。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
@@ -242,7 +241,7 @@ $ claude --permission-mode plan
               <div className="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                 <h4 className="font-bold text-sm mb-2">計画が効く</h4>
                 <p className="text-xs text-muted-foreground">
-                  アプローチに確信が持てない、変更が複数ファイルにまたがる、触るコードに馴染みがない、のいずれかに当てはまるタスク。
+                  複雑で、実装前にアプローチを確認したいタスク。アプローチに確信が持てない、変更が複数ファイルにまたがる、触るコードに馴染みがない、が目安です。
                 </p>
               </div>
             </div>

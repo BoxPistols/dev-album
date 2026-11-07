@@ -476,24 +476,24 @@ const { data: user } = await useAsyncData(
               links={[
                 {
                   title: "Nuxt 公式 - Data Fetching",
-                  url: "https://nuxt.com/docs/getting-started/data-fetching",
+                  url: "https://nuxt.com/docs/4.x/getting-started/data-fetching",
                   description:
                     "useFetch / useAsyncData / $fetch の使い分けと SSR 連携の公式解説",
                 },
                 {
                   title: "Nuxt 公式 - useFetch",
-                  url: "https://nuxt.com/docs/api/composables/use-fetch",
+                  url: "https://nuxt.com/docs/4.x/api/composables/use-fetch",
                   description: "useFetch のオプションと返り値のリファレンス",
                 },
                 {
                   title: "Nuxt 公式 - useAsyncData",
-                  url: "https://nuxt.com/docs/api/composables/use-async-data",
+                  url: "https://nuxt.com/docs/4.x/api/composables/use-async-data",
                   description:
                     "key と非同期関数、getCachedData オプションのリファレンス",
                 },
                 {
                   title: "Nuxt 公式 - $fetch（ofetch）",
-                  url: "https://nuxt.com/docs/api/utils/dollarfetch",
+                  url: "https://nuxt.com/docs/4.x/api/utils/dollarfetch",
                   description:
                     "命令的な $fetch（内部は ofetch）の使い方と注意点",
                 },

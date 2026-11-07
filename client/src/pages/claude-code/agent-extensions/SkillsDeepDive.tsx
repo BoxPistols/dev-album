@@ -108,9 +108,9 @@ export default function SkillsDeepDive() {
               <code>.claude/commands/deploy.md</code> と{" "}
               <code>.claude/skills/deploy/SKILL.md</code> が両方あるときは
               <strong>スキルが優先</strong>
-              されます。モノレポでは作業ディレクトリ配下の入れ子の{" "}
-              <code>.claude/skills/</code> も <code>apps/web:deploy</code>{" "}
-              のようなディレクトリ修飾名で読み込まれます。
+              されます。モノレポでは作業ディレクトリ配下の入れ子の
+              <code>.claude/skills/</code>は、Claudeがそのサブディレクトリのファイルを読むか編集した時点で読み込まれます。
+              別のスキルと同名のときは両方残り、入れ子側は<code>/apps/web:deploy</code>のようなディレクトリ修飾名で起動します。
             </InfoBox>
           </section>
 
@@ -205,11 +205,10 @@ GitHub issue $ARGUMENTS をコーディング規約に従って修正してく�
               ))}
             </div>
             <InfoBox type="info" title="$ARGUMENTS を書き忘れても引数は届く">
-              スキル本文に <code>$ARGUMENTS</code> が無い場合、Claude Code
-              は入力を <code>ARGUMENTS: &lt;入力&gt;</code>{" "}
-              として本文末尾に追記します。また{" "}
-              <code>/write-tests /fix-issue 123</code> のように 1
-              メッセージで複数スキルを重ねて起動できます。
+              引数を受け取るプレースホルダー（<code>$ARGUMENTS</code>、<code>$1</code>などの位置指定、名前付き引数）が
+              スキル本文に無い場合、Claude Codeは入力を<code>ARGUMENTS: &lt;入力&gt;</code>として本文末尾に追記します。
+              またターミナルのプロンプトでは、<code>/write-tests /fix-issue 123</code>のように1メッセージで複数スキルを重ねて起動できます
+              （<code>claude -p</code>とAgent SDKでは最初のスキルだけが読み込まれ、残りはその引数になります）。
             </InfoBox>
           </section>
 

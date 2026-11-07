@@ -611,7 +611,7 @@ function App() {
                 },
                 {
                   title: "TypeSafe AI Docs — Intent routing",
-                  url: "https://docs.typesafe.ai/patterns/intent-routing",
+                  url: "https://docs.typesafe.ai/patterns/probability-routing",
                   description: "判断の結果で処理の行き先を分ける組み立て方。",
                 },
                 {

@@ -362,13 +362,13 @@ npx nuxi preview
               links={[
                 {
                   title: "Nuxt 公式 - Rendering Modes",
-                  url: "https://nuxt.com/docs/guide/concepts/rendering",
+                  url: "https://nuxt.com/docs/4.x/guide/concepts/rendering",
                   description:
                     "SSR / SSG / SPA・ハイブリッドレンダリングの概念解説",
                 },
                 {
                   title: "Nuxt 公式 - routeRules",
-                  url: "https://nuxt.com/docs/guide/concepts/rendering",
+                  url: "https://nuxt.com/docs/4.x/guide/concepts/rendering",
                   description:
                     "ルート単位で prerender / isr / ssr を指定するハイブリッドレンダリング",
                 },
@@ -379,7 +379,7 @@ npx nuxi preview
                 },
                 {
                   title: "Nuxt 公式 - Nitro デプロイプリセット",
-                  url: "https://nuxt.com/docs/getting-started/deployment",
+                  url: "https://nuxt.com/docs/4.x/getting-started/deployment",
                   description:
                     "ISR などの対応はデプロイ先（Nitro プリセット）に依存する",
                 },

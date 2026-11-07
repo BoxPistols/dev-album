@@ -20,6 +20,177 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-jev-live-triage",
+    date: "2026-11-07",
+    title: "問い合わせの選別のページから、Jevを実際に呼べるようにした",
+    description:
+      "入力した文章を送ると、担当チーム、confidence、緊急度、応答時間、入力トークン数を表示する。実行はAIチャットと共通の利用枠を使い、文章は外部のAPI（TypeSafe）へ送られる。実行できない環境では理由を示し、実測の記録を札を分けて見せる。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
+    id: "2026-11-07-claude-code-default-model",
+    date: "2026-11-07",
+    title: "Claude Codeの既定モデルがOpus 5.5になった件と、effortの既定がモデルで分かれる件を反映した",
+    description:
+      "Pro / Max / Ultra / Team / EnterpriseとAPIの既定モデルはOpus 5.5。Opus 5.5・Sonnet 5.5・Haiku 5.5はeffortの既定がmediumで、ユーザー設定の最上位effortLevelはOpus 5.5に効かない。",
+    category: "fix",
+    link: "/claude-code/claude-core/extended-thinking",
+  },
+  {
+    id: "2026-11-07-claude-code-max-budget",
+    date: "2026-11-07",
+    title: "--max-budget-usdがprintモード専用で、見積もりにもとづく上限であることを書いた",
+    description:
+      "上限は請求額ではなく見積もりで判定され、支出が上限を超えることもある。余裕を持たせて設定するよう、トークン最適化のページに書いた。",
+    category: "fix",
+    link: "/claude-code/claude-core/token-optimization",
+  },
+  {
+    id: "2026-11-07-claude-code-permission-default",
+    date: "2026-11-07",
+    title: "auto modeが全プランで既定の開始モードになった件を、パーミッションのページに反映した",
+    description:
+      "v2.1.283以降、対話型のターミナルとVS Codeはプランに関係なくauto modeで始まる。claude -pとAgent SDKはv2.1.302以降Manual（default）で始まる。",
+    category: "fix",
+    link: "/claude-code/claude-core/permission-modes",
+  },
+  {
+    id: "2026-11-07-gemini-cli-free-tier",
+    date: "2026-11-07",
+    title: "Gemini CLIの無料枠の説明を直した",
+    description:
+      "個人の無料利用が2026-06-18にAntigravity CLIへ移ったので、Gemini CLIを組織のCode Assistライセンス向けとして書き直した。ツール比較のページも同じ内容にした。",
+    category: "fix",
+    link: "/claude-code/ai-coding-agents/gemini-cli",
+  },
+  {
+    id: "2026-11-07-cursor-inline-edit",
+    date: "2026-11-07",
+    title: "CursorのCmd+Kの説明を直した",
+    description:
+      "インライン編集の廃止に合わせて、選択範囲をAgentへ送る操作として書き直した。",
+    category: "fix",
+    link: "/git/ai-agent/cursor-cline",
+  },
+  {
+    id: "2026-11-07-jev-docs-recheck",
+    date: "2026-11-07",
+    title: "Jev講座の応答例と公式ドキュメントの引用を更新した",
+    description:
+      "ChoiceとScoreの応答例の数値、エラーのステータス一覧、Jev 1.14の単価と上限を公式の現在の記述に合わせた。公式から消えた言語ごとの精度の引用は外した。",
+    category: "fix",
+    link: "/ai-ml/jev/jev-primitives",
+  },
+  {
+    id: "2026-11-07-actions-runner-pricing",
+    date: "2026-11-07",
+    title: "GitHub Actionsの課金の説明を分単価に直した",
+    description:
+      "ランナーの表を消費倍率から1分あたりの単価に改め、無料枠が分数でなく金額で示される現在の説明に合わせた。",
+    category: "fix",
+    link: "/git/github-actions/reference",
+  },
+  {
+    id: "2026-11-07-copilot-cloud-environment",
+    date: "2026-11-07",
+    title: "Copilotのクラウド実行環境の説明を直した",
+    description:
+      "実行環境をGitHub Actionsに限定していた記述を、cloud sandboxなどから選べる現在の説明に改めた。",
+    category: "fix",
+    link: "/claude-code/ai-coding-agents/github-copilot",
+  },
+  {
+    id: "2026-11-07-vercel-domain-a-record",
+    date: "2026-11-07",
+    title: "Vercelのドメイン設定のAレコードの説明を直した",
+    description:
+      "Aレコードの値はプロジェクトごとに違うので、Settings > Domainsに出る値を使う手順にした。",
+    category: "fix",
+    link: "/react/deploy/vercel",
+  },
+  {
+    id: "2026-11-07-edge-runtime-migration",
+    date: "2026-11-07",
+    title: "エッジ関数のページにNode.jsへの移行の注記を加えた",
+    description:
+      "Next.js 16.3以降のruntime指定の扱いと、Vercelが推奨する移行先を本文に足した。",
+    category: "fix",
+    link: "/infra/edge/edge-functions",
+  },
+  {
+    id: "2026-11-07-merge-rulesets-menu",
+    date: "2026-11-07",
+    title: "ルールセットのメニュー名を直した",
+    description:
+      "GitHubの設定画面の項目名をSettings → Rulesetsに揃えた。",
+    category: "fix",
+    link: "/git/flow-automation/merge-governance",
+  },
+  {
+    id: "2026-11-07-idempotency-draft-status",
+    date: "2026-11-07",
+    title: "Idempotency-Keyドラフトの状態を直した",
+    description:
+      "期限切れと書いていたIETFドラフトが更新されてActiveに戻っていたので、参考リンクの説明を改めた。",
+    category: "fix",
+    link: "/api/rest-design/idempotency",
+  },
+  {
+    id: "2026-11-07-claude-code-agents-md",
+    date: "2026-11-07",
+    title: "Claude CodeがAGENTS.mdを直接読むようになった件を、マルチAI構成のページに反映した",
+    description:
+      "v2.1.277からClaude CodeはAGENTS.mdを直接読む。ただしCLAUDE.mdがあるときは読まないので、両方を置く構成では今もCLAUDE.mdからのimportが要る。「AGENTS.mdは読まない」と書いていた4ページを、この条件つきの書き方に直した。",
+    category: "fix",
+    link: "/claude-code/multi-ai/agent-docs",
+  },
+  {
+    id: "2026-11-07-claude-code-docs-sync",
+    date: "2026-11-07",
+    title: "Claude Codeの既定モデル・effort・/rewindなどの記述を公式ドキュメントの現状に合わせた",
+    description:
+      "既定モデルがOpus 5.5になった件、Opus 5.5などのeffortの既定がmediumになった件、/rewindがBashでの変更も条件つきで戻すようになった件、--max-budget-usdがprintモード専用の見積もりである件などを反映した。",
+    category: "fix",
+    link: "/claude-code/claude-intro/slash-commands",
+  },
+  {
+    id: "2026-11-07-mui-intro-v9",
+    date: "2026-11-07",
+    title: "MUI入門をv9に照合した",
+    description:
+      "MUI入門の本文をMUI v9基準に更新した。v8が無いこと、プレビューはv5.18で動かしていること、参考リンクのMaterial Design 2への訂正を載せている。",
+    category: "update",
+    link: "/react/mui/intro",
+  },
+  {
+    id: "2026-11-07-mui-components-v9",
+    date: "2026-11-07",
+    title: "MUIコンポーネント活用をv9に照合した",
+    description:
+      "MUIコンポーネント活用のコード例をv9で削除されたSystem propsからsxへ移した。Gridのsize記法、directionの変更、ListItemIconの最小幅の差を併記している。",
+    category: "update",
+    link: "/react/mui/components",
+  },
+  {
+    id: "2026-11-07-mui-customization-v9",
+    date: "2026-11-07",
+    title: "MUIカスタマイズをv9に照合した",
+    description:
+      "MUIカスタマイズのテーマ例で、v9で削除されたcontainedPrimaryをrootのvariantsへ移した。Switchの名前はFormControlLabelのラベルで付けるようにした。",
+    category: "update",
+    link: "/react/mui/customization",
+  },
+  {
+    id: "2026-11-07-tailwind-mui-v9",
+    date: "2026-11-07",
+    title: "Next.js × Tailwind / MUIをv9に照合した",
+    description:
+      "Next.js × Tailwind / MUIのMUIのコード例をv9の記法に更新した。Tailwind CSS v4との併用はCSSレイヤーを使う公式の手順に、'use client'の説明はパッケージの実体に合わせて訂正した。",
+    category: "update",
+    link: "/react/nextjs-css/tailwind-mui",
+  },
+  {
     id: "2026-11-07-nextjs-16-features",
     date: "2026-11-07",
     title: "「Next.js 15 / 16の新機能」にNext.js 16の節を足した",

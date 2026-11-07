@@ -1,6 +1,9 @@
+// implementation-mirror: api/lib/jevTriage.ts
 import { Inbox, Server, SlidersHorizontal } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import JevLiveTriage from "@/components/JevLiveTriage";
+import type { JevTriageRecord } from "@/components/JevTriageOutcome";
 import SliderChallenge from "@/components/SliderChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
@@ -16,7 +19,18 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - choice + noulを1リクエストで使う基本形
  * - 選択肢に「どれでもない」を入れる前後を実測で比べる
  * - 応答例の値は2026-09-20にjev-1.13.0を実際に呼んで得たもの
+ * - 実行ボタンは/api/jevを呼ぶ。質問の定義と規則はapi/lib/jevTriage.tsが持つ
  */
+
+/** 実行できないときに見せる記録。「3. 実行して確認する」の応答と同じ値 */
+const RECORDED_RESPONSE: JevTriageRecord = {
+  input: "今月の請求が2回引き落とされています。至急確認して返金してください。",
+  department: "billing",
+  confidence: 1,
+  urgent: 0.79,
+  model: "jev-1.13.0",
+  measuredOn: "2026-09-20",
+};
 
 /** 緊急度のnoul（2026-09-20、jev-1.13.0で実測）。しきい値ラボが使う */
 const URGENCY_MEASURED = [
@@ -288,9 +302,21 @@ export async function POST(request: Request) {
               同じ入力を4回送ると、選ばれたラベルは4回とも同じで、確率は0.66〜0.74、confidenceは0.48〜0.61の範囲で動きました（公式Quick
               startの英語の例、2026-09-20、jev-1.13.0）。上の応答と手元の値が少し違っても、誤りではありません。値がしきい値の近くにあると判定が入れ替わり得るので、次の節で中間の帯を人の確認に回します。
             </InfoBox>
+
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-4">
+              このページから実際に呼ぶ
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              自分のプロジェクトを作る前に、ここから同じ判定を試せます。ボタンを押すと、このサイトのサーバーが上の質問の定義でJevを呼びます。送れるのは文章だけで、質問はサーバー側で固定しています。振り分けはlib/triage.tsのdecideと同じ規則です。応答時間はサーバーがJevの応答を待った時間です。
+            </p>
+            <JevLiveTriage
+              record={RECORDED_RESPONSE}
+              recordHref="#recorded-measurements"
+              recordLinkLabel="「4. しきい値を自分のデータで決める」"
+            />
           </section>
 
-          <section>
+          <section id="recorded-measurements" className="scroll-mt-20">
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <SlidersHorizontal className="text-primary" size={28} />
               4. しきい値を自分のデータで決める
@@ -357,9 +383,7 @@ export async function POST(request: Request) {
               急ぎの3件と急がない7件の間は大きく開いていて、その間に1件だけ入りました。「解約したのに請求が来た」は、急ぎとも急がないとも読めます。lib/triage.tsが0.3〜0.7を人の確認に回しているのは、この帯に入る入力があるためです。帯の幅は、自分の問い合わせを数十件送って、間に入る件数を見てから決めます。
             </p>
             <InfoBox type="info" title="日本語で使う前に確かめること">
-              公式のModelsページは「English is the primary training language and
-              where accuracy is currently
-              best」とし、日本語を含む言語は自分のデータで確かめてから使うよう求めています。今回の12件では日本語と英語で担当チームの判定は一致しましたが、選択肢の説明を「billing:
+              公式のModelsページに言語ごとの精度の記述はありません。Model changelogはJev 1.14の変更に多言語対応の改善を挙げていますが、日本語の精度は示していません。今回の12件では日本語と英語で担当チームの判定は一致しましたが、選択肢の説明を「billing:
               支払いの問題」のように短くした別の測定では、同じ内容でも英語ではbilling、日本語ではtechnicalになった例がありました。選択肢の説明を具体的に書き、自分のデータで両方の言語の結果を比べてください。
             </InfoBox>
           </section>
@@ -570,7 +594,7 @@ function App() {
                 {
                   title: "TypeSafe AI Docs — Models",
                   url: "https://docs.typesafe.ai/models",
-                  description: "対応言語についての記述と、1リクエストの上限。",
+                  description: "モデルの一覧と、1リクエストの上限。",
                 },
               ]}
             />

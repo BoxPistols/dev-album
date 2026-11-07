@@ -417,9 +417,8 @@ function App() {
             <p className="text-muted-foreground mb-4 leading-relaxed">
               TypeSafe AIのFAQは、Jevを分類・振り分け・採点・評価のような
               「common-sense
-              judgments」向けとし、複雑な数学やチェスのような計画など長い推論が要る仕事は大規模な推論モデルのほうが向く場合があるとしています。Jev
-              1.13のjaggedness
-              のページは、次の仕事をコード側に置くよう勧めています（2026-09-20時点）。
+              judgments」向けとし、複雑な数学やチェスのような計画など長い推論が要る仕事は大規模な推論モデルのほうが向く場合があるとしています。Model jaggedness
+              のページは、次の仕事をコード側に置くよう勧めています（2026-11-07時点）。
             </p>
             <div className="space-y-3">
               {[
@@ -457,17 +456,8 @@ function App() {
               日本語で使うとき
             </h3>
             <p className="text-muted-foreground mb-3 leading-relaxed">
-              公式ドキュメントのModelsのページは、言語について次のように書いています。
+              公式のModelsページに言語ごとの精度の記述はありません（2026-11-07時点）。Model changelogはJev 1.14の変更に多言語対応の改善を挙げていますが、日本語の精度は示していません。
             </p>
-            <blockquote className="border-l-4 border-primary/40 pl-4 text-sm text-muted-foreground mb-4 leading-relaxed">
-              English is the primary training language and where accuracy is
-              currently best. Other languages, including CJK scripts, are
-              handled but not equally well; test on your own content before
-              relying on Jev for a non-English workload
-              <span className="block mt-1 text-xs">
-                — TypeSafe AI Docs「Models」Language support（2026-09-20時点）
-              </span>
-            </blockquote>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               日本語のstate
               で使うときは、「しきい値を実データで決める」の手順をそのまま当てます。自分の日本語データに正解ラベルを付けてJev
@@ -574,7 +564,7 @@ function App() {
               links={[
                 {
                   title: "TypeSafe AI Docs",
-                  url: "https://docs.typesafe.ai/",
+                  url: "https://docs.typesafe.ai/introduction",
                   description: "公式ドキュメント。ガイドと事例。",
                 },
                 {
@@ -584,8 +574,8 @@ function App() {
                     "confidenceの定義、3つの帯、行動ごとにしきい値を変える考え方。",
                 },
                 {
-                  title: "TypeSafe AI Docs — Jev 1.13 jaggedness",
-                  url: "https://docs.typesafe.ai/model-jaggedness/jev-1.13",
+                  title: "TypeSafe AI Docs — Model jaggedness",
+                  url: "https://docs.typesafe.ai/model-jaggedness",
                   description:
                     "数え上げ、日付の比較、数値表現など、コード側に置くよう勧めている仕事の一覧。",
                 },

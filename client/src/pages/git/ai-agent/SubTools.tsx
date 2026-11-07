@@ -48,11 +48,12 @@ export default function SubTools() {
           <div className="bg-card border border-border rounded-lg p-8 mb-6 space-y-4">
             <p className="text-lg text-muted-foreground leading-relaxed">
               Google が提供するターミナルベースの AI ツールです。
-              Claude Code と同じ感覚で使えて、<strong className="text-foreground">1日1,000リクエストまで無料</strong>という太っ腹な無料枠が魅力です。
+              Claude Codeと同じ感覚で使えて、<strong className="text-foreground">組織のGemini Code Assistライセンス</strong>で動かします。
             </p>
-            <InfoBox type="success" title="無料枠が大きい">
-              Google アカウントがあれば追加登録不要。毎日1,000リクエストまで無料なので、
-              Claude Code のクレジットが尽きた時の切り替え先として最適です。
+            <InfoBox type="info" title="個人で使うならAntigravity CLIへ">
+              個人の無料利用とGoogle AI Pro / Ultraは、2026-06-18にGemini CLIからAntigravity CLIへ移りました。
+              勤務先などでCode Assistのライセンスがある場合は、次の手順でGemini CLIを導入できます。
+              個人の予備環境が欲しい場合はこのページのAntigravityの節へ進みます。
             </InfoBox>
           </div>
 
@@ -299,7 +300,7 @@ gemini`}
             <div className="space-y-3">
               {[
                 { tool: 'Claude Code', reason: 'メインとして使う。無料枠はなく、Pro 等の契約か Console でのクレジット購入が必要' },
-                { tool: 'Gemini CLI', reason: '無料枠が大きい（1日1,000回）。Claude の代替として最適' },
+                { tool: 'Gemini CLI', reason: '組織のCode Assistライセンスがある場合の選択肢。個人の無料利用はAntigravity CLIへ移った' },
                 { tool: 'Cursor', reason: 'エディタ内で AI を使いたい時。月50回のプレミアムリクエスト' },
                 { tool: 'Cline + Gemini API', reason: 'VS Code 内で Gemini の無料枠を活用できる' },
                 { tool: 'Warp', reason: 'ターミナル自体のAI補助。AI 利用にはクレジット購入か BYOK が必要' },
@@ -318,7 +319,7 @@ gemini`}
             </div>
 
             <InfoBox type="success" title="無料枠と課金の切り分け">
-              Gemini CLI / Antigravity / Cursor の Hobby プランのように無料枠を持つツールだけで回すなら
+              Antigravity / CursorのHobbyプランのように無料枠を持つツールだけで回すなら
               <strong>月0円</strong>で運用できます。Claude Code を使う場合は Pro などの契約か、
               Console でのクレジット購入（事前購入したクレジットを従量で消費）が別途必要です。
               Warp の AI 機能もクレジット購入か BYOK が前提になります。

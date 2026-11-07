@@ -213,7 +213,7 @@ export default function Intro() {
               title="無料枠は「仕様の値」、実測は使い方で変わる"
             >
               パブリックリポジトリでの GitHub ホストランナーは基本的に無料です。
-              プライベートリポジトリには毎月の無料実行時間（分）が用意されていますが、
+              プライベートリポジトリには毎月の無料枠（included compute usage）が金額で用意されていますが、
               これは<strong>仕様上の上限値</strong>で、実測の消費は使うランナーで変わります。
               現行のドキュメントは OS 別の倍率ではなく
               <strong>ランナーごとの分単価（USD）</strong>
@@ -282,7 +282,7 @@ export default function Intro() {
                 {
                   title: "About billing for GitHub Actions",
                   url: "https://docs.github.com/billing/concepts/product-billing/github-actions",
-                  description: "無料枠の分数と課金の考え方の公式リファレンス",
+                  description: "無料枠と課金の考え方の公式リファレンス",
                 },
                 {
                   title: "Actions runner pricing",
