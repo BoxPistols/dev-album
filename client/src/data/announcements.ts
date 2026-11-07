@@ -65,6 +65,42 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/claude-code/claude-intro/slash-commands",
   },
   {
+    id: "2026-11-07-mui-intro-v9",
+    date: "2026-11-07",
+    title: "MUI入門をv9に照合した",
+    description:
+      "MUI入門の本文をMUI v9基準に更新した。v8が無いこと、プレビューはv5.18で動かしていること、参考リンクのMaterial Design 2への訂正を載せている。",
+    category: "update",
+    link: "/react/mui/intro",
+  },
+  {
+    id: "2026-11-07-mui-components-v9",
+    date: "2026-11-07",
+    title: "MUIコンポーネント活用をv9に照合した",
+    description:
+      "MUIコンポーネント活用のコード例をv9で削除されたSystem propsからsxへ移した。Gridのsize記法、directionの変更、ListItemIconの最小幅の差を併記している。",
+    category: "update",
+    link: "/react/mui/components",
+  },
+  {
+    id: "2026-11-07-mui-customization-v9",
+    date: "2026-11-07",
+    title: "MUIカスタマイズをv9に照合した",
+    description:
+      "MUIカスタマイズのテーマ例で、v9で削除されたcontainedPrimaryをrootのvariantsへ移した。Switchの名前はFormControlLabelのラベルで付けるようにした。",
+    category: "update",
+    link: "/react/mui/customization",
+  },
+  {
+    id: "2026-11-07-tailwind-mui-v9",
+    date: "2026-11-07",
+    title: "Next.js × Tailwind / MUIをv9に照合した",
+    description:
+      "Next.js × Tailwind / MUIのMUIのコード例をv9の記法に更新した。Tailwind CSS v4との併用はCSSレイヤーを使う公式の手順に、'use client'の説明はパッケージの実体に合わせて訂正した。",
+    category: "update",
+    link: "/react/nextjs-css/tailwind-mui",
+  },
+  {
     id: "2026-11-07-nextjs-16-features",
     date: "2026-11-07",
     title: "「Next.js 15 / 16の新機能」にNext.js 16の節を足した",
