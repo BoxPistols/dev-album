@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-jev-live-triage",
+    date: "2026-11-07",
+    title: "問い合わせの選別のページから、Jevを実際に呼べるようにした",
+    description:
+      "入力した文章を送ると、担当チーム、confidence、緊急度、応答時間、入力トークン数を表示する。実行はAIチャットと共通の利用枠を使い、文章は外部のAPI（TypeSafe）へ送られる。実行できない環境では理由を示し、実測の記録を札を分けて見せる。",
+    category: "feature",
+    link: "/ai-ml/jev/jev-triage-app",
+  },
+  {
     id: "2026-11-07-claude-code-default-model",
     date: "2026-11-07",
     title: "Claude Codeの既定モデルがOpus 5.5になった件と、effortの既定がモデルで分かれる件を反映した",
