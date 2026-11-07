@@ -411,7 +411,7 @@ paths:
               type="info"
               title="第 3 層は CLAUDE.md / AGENTS.md のどちらの仕様にも含まれない"
             >
-              Claude Codeが自動で読むのはCLAUDE.mdと、CLAUDE.mdが無いときのAGENTS.mdで、
+              Claude Codeが自動で読むのはCLAUDE.mdと、AGENTS.md（既定の設定ではCLAUDE.mdが無いときだけ）で、
               agents.mdはリポジトリのルートにAGENTS.mdを置く形式を定めている。
               3つ目のファイルはそのどちらにも登場しない。
               読ませたいなら CLAUDE.md / AGENTS.md から明示的に参照する。
