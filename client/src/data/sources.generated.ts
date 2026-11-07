@@ -201,7 +201,8 @@ export const GENERATED_SOURCES: Source[] = [
     usedByFiles: [
       "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
     ],
-  },  {
+  },
+  {
     id: "code-claude-com-docs-en-hooks",
     title: "code.claude.com/docs/en/hooks",
     url: "https://code.claude.com/docs/en/hooks",
