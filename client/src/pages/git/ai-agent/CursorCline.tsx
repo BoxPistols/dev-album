@@ -228,7 +228,7 @@ export default function CursorCline() {
             <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 font-medium ml-1">
               platform.claude.com/settings/keys
             </a>
-            {' '}で取得します。Claude Code は Pro / Max / Team / Enterprise / Console のいずれのアカウントでも使えますが、Pro / Max のサブスクリプションには API キーが付きません。Cursor や Cline から呼び出すには、Console（Developer Platform）側で API キーと従量課金を用意します。
+            {' '}で取得します。Claude CodeはPro / Max / Ultra / Team / Enterprise / Consoleのいずれのアカウントでも使えますが、Pro / MaxのサブスクリプションにはAPIキーが付きません。CursorやClineから呼び出すには、Console（Developer Platform）側でAPIキーと従量課金を用意します。
             Gemini の API キーを使えば、無料枠でも利用可能です。
           </InfoBox>
         </div>

@@ -116,9 +116,9 @@ export default function PermissionModes() {
               </table>
             </div>
             <InfoBox type="info" title="既定の開始モード">
-              Pro / Max / Team プランでは{" "}
+              Claude Code v2.1.283以降は、プランやプロバイダに関係なく、対話型のターミナルとVS Codeで{" "}
               <strong>auto モードが組み込みの開始モード</strong>
-              です。組織の管理設定や <code>permissions.defaultMode</code>{" "}
+              です（それより前の版ではPro / Max / Ultra / Teamプランだけ）。組織の管理設定や <code>permissions.defaultMode</code>{" "}
               で変更できます。auto を user settings で既定にする場合は{" "}
               <code>~/.claude/settings.json</code> に書きます（プロジェクトの{" "}
               <code>.claude/settings.json</code> からは auto は効きません）。
@@ -206,8 +206,8 @@ $ claude --permission-mode acceptEdits
             </div>
             <InfoBox type="warning" title="利用条件がある">
               auto
-              モードにはプラン・組織設定・モデル・プロバイダの条件があります（Anthropic
-              API では Opus 4.6 以降 / Sonnet 4.6 以降 / Fable 5）。「auto mode
+              モードには組織設定・モデル・プロバイダの条件があります（プランは全プランが対象。モデルは2026年11月時点で、Anthropic
+              APIではOpus 4.6以降 / Sonnet 4.6以降 / Haiku 5.5 / Fable）。「auto mode
               unavailable」と表示される場合は条件が満たされていないことを意味し、一時的な障害ではありません。
             </InfoBox>
           </section>

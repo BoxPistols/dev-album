@@ -272,14 +272,18 @@ export default function AgentDocs() {
               最も近いものが優先される」としている。
             </p>
 
-            <InfoBox type="warning" title="Claude Code は AGENTS.md を読まない">
-              公式ドキュメントは
+            <InfoBox type="warning" title="既定ではCLAUDE.mdがあるとAGENTS.mdは読まれない">
+              Claude Codeはv2.1.277からAGENTS.mdを直接読む。ただし公式ドキュメントは
               <span className="font-semibold">
-                「Claude Code reads CLAUDE.md, not AGENTS.md.」
+                「By default, Claude reads <code>AGENTS.md</code> only when you have no <code>CLAUDE.md</code> in your working directory or above it.」
               </span>
-              と明記している。すでに AGENTS.md がある場合は、CLAUDE.md から
-              import して 同じ内容を両方のツールに読ませる。Claude Code
-              固有の指示は import の下に足す。
+              としている。CLAUDE.mdも置くなら、CLAUDE.mdからimportして
+              同じ内容を両方のツールに読ませる。Claude Code固有の指示はimportの下に足す。
+              importしていれば、AGENTS.mdが二重に読まれることはない。
+              <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすると、CLAUDE.mdがあっても両方を読む。
+              また、v2.1.277以降でも直接読めないセッションがある（AGENTS.mdを読む組み込みプラグインを無効にした場合、
+              v2.1.280以前のAmazon Bedrockやテレメトリ無効のセッションなど）。そうしたセッションにも届けたいなら、
+              CLAUDE.mdからの <code>@AGENTS.md</code> のimportを残しておく。
             </InfoBox>
 
             <CodeBlock
@@ -292,10 +296,11 @@ Use plan mode for changes under \`src/billing/\`.`}
             />
 
             <p className="text-foreground leading-relaxed">
-              Claude Code
-              固有の内容を足す必要がなければ、シンボリックリンクでもよい （
+              Claude Code固有の内容が無く、CLAUDE.mdも置かないなら、何もしなくても
+              Claude CodeはAGENTS.mdを直接読む。直接読めないセッション（v2.1.276以前など）にも
+              同じ内容を届けたいときは、importの代わりにシンボリックリンクでもよい（
               <code className="text-primary">ln -s AGENTS.md CLAUDE.md</code>
-              ）。 ただし Windows
+              ）。ただしWindows
               ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、
               公式は
               <code className="text-primary mx-1">@AGENTS.md</code>の import
@@ -327,7 +332,7 @@ Use plan mode for changes under \`src/billing/\`.`}
               </span>
               。 公式ドキュメントは「imports に分けるのは整理には役立つが、
               import
-              されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。
+              されたファイルはimport元のCLAUDE.mdと一緒に読み込まれるためコンテキストは減らない」と述べている。
               実際にコンテキストを減らすのは、次の
               <code className="text-primary mx-1">paths:</code>
               を持つルールのほうである。
@@ -406,9 +411,9 @@ paths:
               type="info"
               title="第 3 層は CLAUDE.md / AGENTS.md のどちらの仕様にも含まれない"
             >
-              Claude Code の公式ドキュメントは「Claude Code reads CLAUDE.md, not
-              AGENTS.md.」と述べ、agents.md はリポジトリのルートに AGENTS.md
-              を置く形式を定めている。 3 つ目のファイルはそのどちらにも登場しない。
+              Claude Codeが自動で読むのはCLAUDE.mdと、AGENTS.md（既定の設定ではCLAUDE.mdが無いときだけ）で、
+              agents.mdはリポジトリのルートにAGENTS.mdを置く形式を定めている。
+              3つ目のファイルはそのどちらにも登場しない。
               読ませたいなら CLAUDE.md / AGENTS.md から明示的に参照する。
               置くだけで読まれることを前提にしない。
             </InfoBox>

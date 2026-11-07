@@ -106,8 +106,8 @@ $ export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50`} language="bash" />
               {[
                 { level: 'low', desc: 'リネーム、typo修正など単純なタスク。高速・低コスト。', color: 'text-emerald-600' },
                 { level: 'medium', desc: 'コスト重視のコーディングタスク。バランス型。', color: 'text-blue-600' },
-                { level: 'high（既定）', desc: 'トークン消費と知能のバランス。大半のモデルの既定値。', color: 'text-purple-600' },
-                { level: 'xhigh', desc: 'より深い推論。Fable 5 / Opus 4.7 以降などで利用可能。', color: 'text-amber-600' },
+                { level: 'high', desc: 'トークン消費と知能のバランス。多くのモデルの既定値（Opus 5.5・Sonnet 5.5・Haiku 5.5はmediumが既定）。', color: 'text-purple-600' },
+                { level: 'xhigh', desc: 'より深い推論。Fable / Opus 4.7以降などで利用可能（Opus 4.6・Sonnet 4.6は非対応）。', color: 'text-amber-600' },
                 { level: 'max', desc: '最深推論（セッション限定）。過剰思考になりやすいため検証してから採用。', color: 'text-red-600' },
               ].map(item => (
                 <div key={item.level} className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -151,7 +151,7 @@ $ export CLAUDE_CODE_EFFORT_LEVEL=medium`} language="bash" />
               </div>
               <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h4 className="font-bold text-sm mb-2 text-[var(--claude-primary)]">5. 予算上限の設定</h4>
-                <p className="text-xs text-muted-foreground">非インタラクティブモードでは <code>--max-budget-usd</code> フラグでAPI呼び出しの上限金額を設定可能。</p>
+                <p className="text-xs text-muted-foreground">非インタラクティブモード（<code>-p</code>）では <code>--max-budget-usd</code> で、API呼び出しの見積もり額が上限に達したところで止められる。見積もりは請求額と一致しないことがあり、支出が上限を超えることもあるので余裕を持たせる。</p>
               </div>
             </div>
           </section>

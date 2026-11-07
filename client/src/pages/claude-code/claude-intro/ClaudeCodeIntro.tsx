@@ -158,7 +158,7 @@ $ npm install -g @anthropic-ai/claude-code`} language="bash" />
 
               <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
                 <h3 className="text-lg font-semibold mb-4 text-sm">2. 認証</h3>
-                <p className="text-xs text-muted-foreground mb-4">Claude サブスクリプション（Pro / Max / Team / Enterprise）または Anthropic Console アカウントで認証します。</p>
+                <p className="text-xs text-muted-foreground mb-4">Claudeサブスクリプション（Pro / Max / Ultra / Team / Enterprise）またはAnthropic Consoleアカウントで認証します。</p>
                 <CodeBlock code={`# ブラウザ経由でAnthropicアカウント認証
 $ claude auth login
 
