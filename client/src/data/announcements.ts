@@ -27,6 +27,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "onClickが参照するtoggleがコードのどこにも定義されておらず、空欄を埋めてもプレビューがReferenceErrorで止まっていた。開閉状態をuseStateで持ち、aria-expandedとhiddenが状態に追従する形に書き直した。ボタンを押すと実際に開閉し、属性の値が変わるのを確かめられる。",
     category: "fix",
     link: "/react/accessibility/semantic-aria",
+  },
+  {
     id: "2026-11-07-playwright-page-ci-claim",
     date: "2026-11-07",
     title: "Playwrightのページの「E2EはCIで走らない」という記述を現状に直した",
