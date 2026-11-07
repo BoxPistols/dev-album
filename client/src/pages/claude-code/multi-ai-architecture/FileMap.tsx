@@ -75,8 +75,8 @@ const FILES: {
   {
     file: "AGENTS.md",
     where: "リポジトリ直下",
-    reader: "他のコーディングエージェント（Claude Code は読まない）",
-    when: "CLAUDE.md から @import するか symlink したときだけ",
+    reader: "他のコーディングエージェントとClaude Code（v2.1.277以降）",
+    when: "Claude CodeはCLAUDE.mdが無いときだけ直接読む。CLAUDE.mdと併用するなら @importかsymlink",
     scope: "ツール非依存の共通規約",
     href: "/claude-code/multi-ai/agent-docs",
   },
@@ -250,7 +250,7 @@ export default function FileMap() {
                 type="warning"
                 title="@import で分けてもコンテキストは減らない"
               >
-                import されたファイルは起動時に展開されて載ります。分割は整理の
+                importされたファイルは、import元のCLAUDE.mdと一緒に載ります。分割は整理の
                 ための手段で、削減にはなりません。<strong>本当に減らしたい</strong>
                 なら、<code>paths</code> を付けた rules（一致するファイルを読んだ
                 ときだけ載る）か Skills（呼ばれたときだけ載る）へ移します。

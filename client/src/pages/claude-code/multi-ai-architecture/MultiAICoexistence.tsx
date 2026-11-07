@@ -127,7 +127,7 @@ export default function MultiAICoexistence() {
 
             <InfoBox type="warning" title="CLAUDE.mdがあるとClaude CodeはAGENTS.mdを読まない">
               Claude Codeはv2.1.277からAGENTS.mdを直接読みます。ただし公式ドキュメントは
-              <span className="font-semibold">「By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.」</span>
+              <span className="font-semibold">「By default, Claude reads <code>AGENTS.md</code> only when you have no <code>CLAUDE.md</code> in your working directory or above it.」</span>
               としています。CLAUDE.mdと併用するなら、CLAUDE.mdに <code>@AGENTS.md</code> と書いて
               import するか、<code>ln -s AGENTS.md CLAUDE.md</code> でシンボリックリンクを張ります
               （Windows はシンボリックリンクに管理者権限が要るため import が推奨）。

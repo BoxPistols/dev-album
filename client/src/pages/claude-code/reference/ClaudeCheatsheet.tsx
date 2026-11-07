@@ -209,7 +209,7 @@ export default function ClaudeCheatsheet() {
             <CheatTable
               headers={['モード', '動作']}
               rows={[
-                ['default（デフォルト）', '読み取りは自動許可、書き込み・実行は毎回確認'],
+                ['default（Manualモード）', '読み取りは自動許可、書き込み・実行は毎回確認。v2.1.283以降の既定の開始モードはauto'],
                 ['plan', '読み取り専用。コード変更の計画のみ作成し実行しない'],
                 ['acceptEdits', 'ファイル編集を自動許可、コマンド実行は毎回確認'],
                 ['dontAsk', '許可済みルール以外のツール呼び出しを自動拒否（CI・スクリプト向け）'],

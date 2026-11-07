@@ -143,7 +143,7 @@ export default function AIAgentOverview() {
               無料で使い始められるのは <strong className="text-foreground">Gemini CLI / Antigravity / Cursor（Hobby プラン）</strong>です。
               1つのツールの無料枠を使い切ったら別のツールに切り替える
               「<strong className="text-foreground">ローテーション戦略</strong>」で、無料の範囲を広く使えます。
-              一方 Claude Code は Pro / Max / Team / Enterprise のいずれかのプランか Console でのクレジット購入が前提、
+              一方Claude CodeはPro / Max / Ultra / Team / EnterpriseのいずれかのプランかConsoleでのクレジット購入が前提、
               Cline は自分の API キー（別途課金）が必要、Warp の Free プランには AI の利用枠が含まれません。
             </p>
 
@@ -160,7 +160,7 @@ export default function AIAgentOverview() {
                 </thead>
                 <tbody>
                   {[
-                    ['Claude Code', 'ターミナル', 'Pro / Max / Team / Enterprise または Console のクレジットが必要', 'Mac / Win / Linux'],
+                    ['Claude Code', 'ターミナル', 'Pro / Max / Ultra / Team / EnterpriseまたはConsoleのクレジットが必要', 'Mac / Win / Linux'],
                     ['Gemini CLI', 'ターミナル', '1日1,000リクエスト無料', 'Mac / Win / Linux'],
                     ['Cursor', 'エディタ', 'Hobby プランで制限付きのエージェントリクエスト', 'Mac / Win / Linux'],
                     ['Cline', 'VS Code 拡張', '拡張自体は無料。モデル利用は Cline アカウント（従量課金 / 定額）か自前の API キー、またはローカルモデルから選ぶ', 'Mac / Win / Linux'],
@@ -181,7 +181,7 @@ export default function AIAgentOverview() {
             <InfoBox type="success" title="組み合わせの例">
               <strong>無料で揃えるパターン:</strong> Gemini CLI（1日1,000リクエスト）+ Cursor の Hobby プラン + Antigravity の個人向け $0/month プランを組み合わせる。
               <br />
-              <strong>Claude Code を使うパターン:</strong> Pro / Max / Team / Enterprise のいずれかのプランに加入するか、Console でクレジットを購入してから使い始める。
+              <strong>Claude Codeを使うパターン:</strong> Pro / Max / Ultra / Team / Enterpriseのいずれかのプランに加入するか、Consoleでクレジットを購入してから使い始める。
             </InfoBox>
           </div>
         </section>

@@ -52,3 +52,17 @@
 
 - L5（レジストリに載っていない主張の洗い出し）は、対象5ディレクトリのうちモデル名・設定キー・AGENTS.mdまわりだけを見た。hookのイベント名と入出力、MCPのスコープ、スラッシュコマンドの一覧は今回見ていない
 - 上の未対応31件
+
+## 修正内容の独立レビュー
+
+手順どおり、修正の差分だけを対象にしたレビューを別のエージェントに任せた（レビュー担当は修正しない）。指摘は17件で、すべて公式の記述と突き合わせて確かめてから直した。
+
+- 差分が直し残した同じ主張: FileMapの一覧表のAGENTS.mdの行、TokenOptimizationの「high（既定）」、SlashCommandsのeffortの永続化と優先順位と設定例（最上位の`effortLevel`はOpus 5.5に効かない）、EffectiveWorkflowsの/rewindの制約、PermissionModes・SecurityPermissions・Cheatsheetの「Pro / Max / Teamではautoが既定」（v2.1.283以降は全プラン）、gitマニュアル3ページのプラン一覧（Ultra）
+- 自分で新しく書いた文の不正確さ: /rewindの括弧書きが「rmで消したものは戻らない」と読める、`--max-budget-usd`の「少し超える」の「少し」が原文に無い、サブエージェントのモデルの解決順で呼び出し時の`model`が抜けていた
+- 引用を差し替えたことで根拠を失った版番号: AgentOrchestrationの「v2.1.186以降」、ClaudeCodeSetupの「v2.1.198以降」を落とした
+- 表示: 引用をJSXの素のテキストに入れたためバッククォートが画面に出ていたのを`<code>`に変えた
+- レジストリ: 新しく書いた記述の根拠を引用として足し（auto modeの既定、effortの確定のしかた、優先順位、サブエージェントの解決順ほか）、fast-modeの登録位置とpluginsのtitleを揃えた
+
+直したあと、15出典の引用60件が原文と一致することを確かめた。
+
+レビューが「軽微」としたもののうち、SecurityPermissionsの優先順位の`desc`が画面に描画されていない件は、この修正の範囲外として残した。

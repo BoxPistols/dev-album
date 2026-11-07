@@ -330,10 +330,10 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   </table>
                 </div>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5 mb-3">
-                  <li><code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> はセッション越しに永続化、<code>max</code> はセッション限り。</li>
+                  <li><code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> は、スライダーや <code>/model</code> でEnterを押すか <code>/effort high</code> のように打つとモデルごとに保存され、次のセッションにも効く。<code>s</code> で確定するとそのセッションだけ。<code>max</code> はセッション限り。</li>
                   <li>未対応 level を指定すると、対応モデルでサポートされる最高 level に自動降格（例: Opus 4.6 で <code>xhigh</code> → <code>high</code>）。</li>
                   <li>1 ターンだけ深く考えさせたい場合は、<strong>level を上げず</strong>プロンプトに「ultrathink」を含める（API に送られる effort 値は変わらないまま、Claude Code がキーワードを認識して in-context の指示を追加する）。「think」「think hard」「think more」は通常のプロンプトテキストとして扱われ、キーワードとしては認識されない。</li>
-                  <li>優先順位: 環境変数 <code>CLAUDE_CODE_EFFORT_LEVEL</code> &gt; 設定値 &gt; モデル既定。skill / subagent frontmatter の <code>effort</code> はその skill / subagent 実行時のみ上書き。</li>
+                  <li>優先順位: 環境変数 <code>CLAUDE_CODE_EFFORT_LEVEL</code> &gt; セッション中の選択（<code>/effort</code> など）&gt; 起動時の <code>--effort</code> &gt; 設定値 &gt; モデル既定。skill / subagent frontmatterの <code>effort</code> はそのskill / subagent実行時のみ上書き。</li>
                 </ul>
                 <pre className="text-xs bg-slate-100 dark:bg-slate-950 rounded p-3 overflow-x-auto"><code>{`/effort              # スライダー UI
 /effort high         # 直接指定
@@ -342,8 +342,9 @@ claude --continue --fork-session  # 分岐`}</code></pre>
 # 起動時
 claude --effort xhigh
 
-# 永続設定（settings.json）
-{ "effortLevel": "high" }`}</code></pre>
+# 永続設定: /effort highのように打つと、モデルごとに
+# ~/.claude/settings.jsonのmodelSettingsへ保存される
+# （最上位の "effortLevel" は旧形式で、Opus 5.5には効かない）`}</code></pre>
               </div>
 
               {/* /rewind */}
@@ -395,7 +396,7 @@ claude --effort xhigh
                   コード復元の 2 つ（Restore code and conversation / Restore code）は、選択したチェックポイントに追跡済みのファイル変更がある場合のみ表示される。変更が記録されていない場合のメニューは Restore conversation と要約系、Never mind になる。
                 </p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5">
-                  <li><strong>制約</strong>: Claudeがファイル編集ツールで一度編集したファイルは、そのあとにbashコマンドが加えた変更も戻る。bashコマンドだけが変更したファイル（<code>rm</code> / <code>mv</code> / <code>cp</code> 等で作った・消したもの）は追跡されないので、gitで戻す。</li>
+                  <li><strong>制約</strong>: Claudeがファイル編集ツールで一度編集したファイルは、そのあとにbashコマンドが加えた変更も戻る。Claudeが一度も編集していないファイルをbashコマンドだけが変更した場合（<code>cp</code> で新しく作った、<code>rm</code> で消した等）は追跡されないので、gitで戻す。</li>
                   <li>外部からの変更（手動編集、別セッションの編集）は同じファイルに触れた場合を除き取り込まれない。</li>
                   <li>git の代替ではない。コミット・ブランチは別途 git で管理する。</li>
                 </ul>

@@ -196,7 +196,7 @@ $ git diff HEAD~3 | claude "この変更をレビューして"
                 },
                 {
                   cmd: 'チェックポイント',
-                  desc: 'Claude Code は自動的にチェックポイントを作成。/rewind（または入力が空の状態で Esc を 2 回）で rewind メニューを開き、Restore code / Restore code and conversation を選んで戻す。bash コマンドによるファイル変更とサブエージェントの編集はチェックポイントの対象外で、これらは git で戻す。',
+                  desc: 'Claude Codeは自動的にチェックポイントを作成。/rewind（または入力が空の状態でEscを2回）でrewindメニューを開き、Restore code / Restore code and conversationを選んで戻す。Claudeが一度も編集していないファイルへのbashコマンドの変更と、バックグラウンドで動くサブエージェントの編集（Claudeが編集済みのファイルを除く）は戻らないので、gitで戻す。',
                 },
                 {
                   cmd: 'セッション復帰',

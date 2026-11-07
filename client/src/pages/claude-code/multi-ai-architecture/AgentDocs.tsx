@@ -275,7 +275,7 @@ export default function AgentDocs() {
             <InfoBox type="warning" title="CLAUDE.mdがあるとAGENTS.mdは読まれない">
               Claude Codeはv2.1.277からAGENTS.mdを直接読む。ただし公式ドキュメントは
               <span className="font-semibold">
-                「By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.」
+                「By default, Claude reads <code>AGENTS.md</code> only when you have no <code>CLAUDE.md</code> in your working directory or above it.」
               </span>
               としている。CLAUDE.mdも置くなら、CLAUDE.mdからimportして
               同じ内容を両方のツールに読ませる。Claude Code固有の指示はimportの下に足す。
@@ -292,10 +292,11 @@ Use plan mode for changes under \`src/billing/\`.`}
             />
 
             <p className="text-foreground leading-relaxed">
-              Claude Code
-              固有の内容を足す必要がなければ、シンボリックリンクでもよい （
+              Claude Code固有の内容が無く、CLAUDE.mdも置かないなら、何もしなくても
+              Claude CodeはAGENTS.mdを直接読む。直接読めないセッション（v2.1.276以前など）にも
+              同じ内容を届けたいときは、importの代わりにシンボリックリンクでもよい（
               <code className="text-primary">ln -s AGENTS.md CLAUDE.md</code>
-              ）。 ただし Windows
+              ）。ただしWindows
               ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、
               公式は
               <code className="text-primary mx-1">@AGENTS.md</code>の import
@@ -327,7 +328,7 @@ Use plan mode for changes under \`src/billing/\`.`}
               </span>
               。 公式ドキュメントは「imports に分けるのは整理には役立つが、
               import
-              されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。
+              されたファイルはimport元のCLAUDE.mdと一緒に読み込まれるためコンテキストは減らない」と述べている。
               実際にコンテキストを減らすのは、次の
               <code className="text-primary mx-1">paths:</code>
               を持つルールのほうである。

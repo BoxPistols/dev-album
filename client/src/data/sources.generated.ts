@@ -7,22 +7,7 @@
 import type { Source } from "./sources";
 
 export const GENERATED_SOURCES: Source[] = [
-  {
-    id: "code-claude-com-docs-en-fast-mode",
-    title: "code.claude.com/docs/en/fast-mode",
-    url: "https://code.claude.com/docs/en/fast-mode",
-    kind: "official-docs",
-    verifiedAt: "2026-11-07",
-    quotes: [
-      "Fast mode is supported on Opus 5.5, Opus 5, and Opus 4.8. It is not available on Sonnet, Haiku, or other models.",
-      "Fast mode for Claude Opus 5.5 is available, and fast mode for Claude Opus 5 and Claude Opus 4.8 is in [research preview](#research-preview).",
-      "Fast mode for Opus 4.8 was deprecated on October 30, 2026, and will be removed on November 30, 2026.",
-      "Fast mode pricing per MTok input/output is \\$8/\\$40 on Opus 5.5 and \\$10/\\$50 on Opus 5 and Opus 4.8.",
-    ],
-    usedByFiles: [
-      "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
-    ],
-  },
+
   {
     id: "aws-amazon-com-blogs-devops-amazon-q-developer-end-of-support-announce",
     title: "aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/",
@@ -131,9 +116,11 @@ export const GENERATED_SOURCES: Source[] = [
       "Once Claude has edited a file with its file editing tools in your conversation, `/rewind` undoes changes that Bash commands make to that file afterward.",
       "A file that only Bash commands changed isn't tracked and stays as it is.",
       "by default about 30 days after the session last saved one",
+      "rewinding restores only the files Claude had already edited in your conversation",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
     ],
   },
   {
@@ -200,6 +187,21 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
+    id: "code-claude-com-docs-en-fast-mode",
+    title: "code.claude.com/docs/en/fast-mode",
+    url: "https://code.claude.com/docs/en/fast-mode",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "Fast mode is supported on Opus 5.5, Opus 5, and Opus 4.8. It is not available on Sonnet, Haiku, or other models.",
+      "Fast mode for Claude Opus 5.5 is available, and fast mode for Claude Opus 5 and Claude Opus 4.8 is in [research preview](#research-preview).",
+      "Fast mode for Opus 4.8 was deprecated on October 30, 2026, and will be removed on November 30, 2026.",
+      "Fast mode pricing per MTok input/output is \\$8/\\$40 on Opus 5.5 and \\$10/\\$50 on Opus 5 and Opus 4.8.",
+    ],
+    usedByFiles: [
+      "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
+    ],
+  },  {
     id: "code-claude-com-docs-en-hooks",
     title: "code.claude.com/docs/en/hooks",
     url: "https://code.claude.com/docs/en/hooks",
@@ -240,6 +242,7 @@ export const GENERATED_SOURCES: Source[] = [
       "* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens\n* **Configurable limit**: you can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable\n* **Default limit**: the default maximum is 25,000 tokens",
       "Local scope is the default. A local-scoped server loads only in the project where you added it and stays private to you. Claude Code stores it in ~/.claude.json under that project's path, so the same server won't appear in your other projects. Use local scope for personal development servers, experimental configurations, or servers with credentials you don't want in version control.",
       "a project-scoped server from `.mcp.json` that you haven't approved yet. Claude Code shows it in both `claude mcp list` and `claude mcp get <name>`. Run `claude` interactively to review and approve it.",
+      "Pending approval (run `claude` to approve)",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/mcp/MCPSetup.tsx",
@@ -263,6 +266,8 @@ export const GENERATED_SOURCES: Source[] = [
       "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
       "client/src/pages/claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
       "client/src/pages/claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/FileMap.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/AgentDocs.tsx",
     ],
   },
   {
@@ -293,10 +298,16 @@ export const GENERATED_SOURCES: Source[] = [
       "2. **At startup**: launch with claude --model <alias|name>",
       "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example `claude-opus-5-5`, or set the corresponding environment variable like `ANTHROPIC_DEFAULT_OPUS_MODEL`.",
       "the `fable` alias resolves to Fable 5.1",
+      "a top-level `effortLevel` in your user settings file doesn't count for Opus 5.5",
+      "`s` in the `/effort` slider or the `/model` picker: apply the level to this session only",
+      "2. A level you pick in the session, such as with `/effort`, the `/model` picker, or [`applyFlagSettings()`](https://code.claude.com/docs/en/agent-sdk/typescript#applyflagsettings)",
+      "3. Launching with `--effort`",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ExtendedThinking.tsx",
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
     ],
   },
   {
@@ -311,9 +322,13 @@ export const GENERATED_SOURCES: Source[] = [
       "press `Shift+Tab` to cycle permission modes. From `auto`, the first press switches to `default`, and the cycle then runs `default` → `acceptEdits` → `plan`. Optional modes slot in after `plan`.",
       "If you set `dontAsk` mode, Claude Code auto-denies every tool call that would otherwise prompt you",
       "Use this mode for CI pipelines or restricted environments where you pre-define what Claude may do; the session never waits for input.",
+      "With Claude Code v2.1.283 or later, auto mode is the built-in starting permission mode for interactive terminal and VS Code sessions. On earlier versions, it's the built-in starting permission mode only on Pro, Max, Ultra, and Team plans.",
+      "**Plan**: All plans.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-core/PermissionModes.tsx",
+      "client/src/pages/claude-code/claude-core/SecurityPermissions.tsx",
     ],
   },
   {
@@ -331,7 +346,7 @@ export const GENERATED_SOURCES: Source[] = [
   },
   {
     id: "code-claude-com-docs-en-plugins",
-    title: "code.claude.com/docs/en/plugins",
+    title: "code.claude.com/docs/en/plugins/components",
     url: "https://code.claude.com/docs/en/plugins/components",
     kind: "official-docs",
     verifiedAt: "2026-11-07",
@@ -373,10 +388,12 @@ export const GENERATED_SOURCES: Source[] = [
       "Claude Code requires a Pro, Max, Ultra, Team, Enterprise, or Console account. The free claude.ai plan does not include Claude Code access.",
       "You can also install Claude Code as a global npm package.",
       "On an older Node.js version, npm prints an `EBADENGINE` warning during install rather than failing; the install completes and `claude` still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
+      "The npm package requires [Node.js 22 or later](https://nodejs.org/en/download).",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
       "client/src/pages/claude-code/claude-intro/InstallSetup.tsx",
+      "client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx",
     ],
   },
   {
@@ -402,6 +419,7 @@ export const GENERATED_SOURCES: Source[] = [
     quotes: [
       "The subagent definition's `model` frontmatter, where `inherit` selects the main conversation's model",
       "The main conversation's model",
+      "1. The per-invocation `model` parameter",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/agent-extensions/Subagents.tsx",
