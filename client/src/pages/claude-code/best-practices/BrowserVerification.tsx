@@ -99,7 +99,7 @@ $ claude --chrome
                 <li>Claude in Chrome 拡張（バージョン 1.0.36 以上）</li>
                 <li>
                   <strong>
-                    Anthropic の直接プラン（Pro / Max / Team / Enterprise）
+                    Anthropicの直接プラン（Pro / Max / Ultra / Team / Enterprise）
                   </strong>
                   と <code>/login</code> でのサインイン
                 </li>
@@ -138,7 +138,7 @@ $ claude --chrome
             />
             <InfoBox type="warning" title="research preview の制約">
               computer use は <strong>macOS の research preview</strong> で、
-              <strong>Pro / Max プランが必要</strong>です（Team / Enterprise
+              <strong>Pro / Max / Ultraプランが必要</strong>です（Team / Enterprise
               では利用不可）。対話セッション専用で、<code>-p</code>{" "}
               の非対話モードでは使えません。同時に動かせるのは 1
               セッションのみで、Claude

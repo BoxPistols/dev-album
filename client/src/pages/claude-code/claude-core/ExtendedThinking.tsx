@@ -44,7 +44,7 @@ export default function ExtendedThinking() {
                   <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">高性能</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-2">
-                  高い推論能力。複雑なアーキテクチャ設計、大規模リファクタリング、難解なバグの調査に適する。Max プラン・API では既定モデル。
+                  高い推論能力。複雑なアーキテクチャ設計、大規模リファクタリング、難解なバグの調査に適する。Pro / Max / Ultra / Team / EnterpriseとAnthropic APIの既定モデル（Opus 5.5）。
                 </p>
                 <code className="text-xs text-muted-foreground font-mono">claude --model opus</code>
               </div>
@@ -55,7 +55,7 @@ export default function ExtendedThinking() {
                   <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">バランス型</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-2">
-                  速度とコストのバランスに優れる。日常的なコーディング、機能追加、テスト作成に最適。Pro プランでは既定モデル。
+                  速度とコストのバランスに優れる。日常的なコーディング、機能追加、テスト作成に最適。
                 </p>
                 <code className="text-xs text-muted-foreground font-mono">claude --model sonnet</code>
               </div>
@@ -77,7 +77,7 @@ export default function ExtendedThinking() {
 # モデル選択メニューを表示
 > /model`} language="bash" />
             <p className="text-xs text-muted-foreground mt-4">
-              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6 等）を指定します。最上位の Fable 5（<code>--model fable</code>）は長時間の自律タスク向けで、既定モデルではありません。
+              エイリアス（opus / sonnet / haiku / fable）は、その時点で推奨されるバージョンに解決されます。特定バージョンに固定したい場合は完全名（claude-sonnet-4-6等）を指定します。最上位のFable 5.1（<code>--model fable</code>）は長時間の自律タスク向けで、既定モデルではありません。
             </p>
           </section>
 
@@ -93,8 +93,8 @@ export default function ExtendedThinking() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {[
                 { level: 'low', desc: '最小限の推論。短く影響範囲が限定されたタスク向き。', color: 'emerald' },
-                { level: 'medium', desc: 'コスト重視の推論深度。知能を多少犠牲にできるタスク向き。', color: 'blue' },
-                { level: 'high', desc: '既定値。トークン消費と知能のバランス。大半のタスクに適する。', color: 'purple' },
+                { level: 'medium', desc: '範囲の明確な日常の実装向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5の既定値。既定がより高いモデルではトークンを抑える用途。', color: 'blue' },
+                { level: 'high', desc: '検証が重要な作業やエッジケースが多い作業向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Opus 4.7以外のモデルの既定値。', color: 'purple' },
               ].map(item => (
                 <div key={item.level} className={`p-4 rounded-xl border border-${item.color}-200 dark:border-${item.color}-900 bg-${item.color}-50 dark:bg-${item.color}-950/20`}>
                   <div className="flex items-center gap-2 mb-2">
@@ -125,7 +125,7 @@ $ claude`} language="bash" />
               拡張思考（Extended Thinking）
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              拡張思考が有効な場合、Claude は応答前に内部で「思考プロセス」を実行します。<code>Option+T</code>（macOS）/ <code>Alt+T</code> でセッション中に切替でき、思考の深さは主に Effort Level が制御します（現行モデルはタスクに応じて思考量を自動調整する adaptive reasoning に対応）。
+              拡張思考が有効な場合、Claudeは応答前に内部で「思考プロセス」を実行します。<code>Option+T</code>（macOS）/<code>Alt+T</code>でセッション中に切替できます（Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Fableは思考をオフにできず、切替の代わりにThinking can't be turned offと表示されます）。思考の深さは主にEffort Levelが制御します（現行モデルはタスクに応じて思考量を自動調整するadaptive reasoningに対応）。
             </p>
             <div className="p-5 bg-slate-900 rounded-xl border border-slate-700 mb-6">
               <p className="text-[12px] text-slate-500 mb-2 font-mono">拡張思考の動作イメージ</p>

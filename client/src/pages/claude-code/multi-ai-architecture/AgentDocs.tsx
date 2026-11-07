@@ -272,14 +272,16 @@ export default function AgentDocs() {
               最も近いものが優先される」としている。
             </p>
 
-            <InfoBox type="warning" title="Claude Code は AGENTS.md を読まない">
+            <InfoBox type="warning" title="CLAUDE.mdがあるとClaude CodeはAGENTS.mdを読まない">
               公式ドキュメントは
               <span className="font-semibold">
-                「Claude Code reads CLAUDE.md, not AGENTS.md.」
+                「By default, Claude reads AGENTS.md only when you have no
+                CLAUDE.md in your working directory or above it.」
               </span>
-              と明記している。すでに AGENTS.md がある場合は、CLAUDE.md から
-              import して 同じ内容を両方のツールに読ませる。Claude Code
-              固有の指示は import の下に足す。
+              としている（AGENTS.mdの直接読み込みはv2.1.277以降）。AGENTS.mdだけの
+              リポジトリならそのまま読まれる。CLAUDE.mdも置く場合は、CLAUDE.mdから
+              importして同じ内容を両方のツールに読ませ、Claude Code固有の指示は
+              importの下に足す。
             </InfoBox>
 
             <CodeBlock
@@ -326,8 +328,7 @@ Use plan mode for changes under \`src/billing/\`.`}
                 編集と所有の話であって、コンテキスト消費の話ではない
               </span>
               。 公式ドキュメントは「imports に分けるのは整理には役立つが、
-              import
-              されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。
+              importされたファイルはそれを読み込むCLAUDE.mdと一緒に読み込まれるためコンテキストは減らない」と述べている。
               実際にコンテキストを減らすのは、次の
               <code className="text-primary mx-1">paths:</code>
               を持つルールのほうである。
@@ -406,9 +407,9 @@ paths:
               type="info"
               title="第 3 層は CLAUDE.md / AGENTS.md のどちらの仕様にも含まれない"
             >
-              Claude Code の公式ドキュメントは「Claude Code reads CLAUDE.md, not
-              AGENTS.md.」と述べ、agents.md はリポジトリのルートに AGENTS.md
-              を置く形式を定めている。 3 つ目のファイルはそのどちらにも登場しない。
+              Claude Codeの公式ドキュメントが読み込みを定めているのはCLAUDE.mdと
+              AGENTS.mdで、agents.mdはリポジトリのルートにAGENTS.mdを置く形式を
+              定めている。3つ目のファイルはそのどちらにも登場しない。
               読ませたいなら CLAUDE.md / AGENTS.md から明示的に参照する。
               置くだけで読まれることを前提にしない。
             </InfoBox>
@@ -449,7 +450,7 @@ paths:
 
             <p className="text-foreground leading-relaxed">
               どのファイルが実際に読み込まれたかはセッション中に
-              <code className="text-primary mx-1">/context</code>の Memory files
+              <code className="text-primary mx-1">/context all</code>のMemory files
               で確認できる。分割の効果を測るなら、
               構成を議論する前にまずここを見る。
             </p>

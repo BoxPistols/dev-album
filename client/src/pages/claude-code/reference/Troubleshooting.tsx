@@ -149,7 +149,7 @@ claude mcp list`}
             initialCode={`# Claude Code トラブルシューティング\n\n# 1. 環境と設定の健全性を診断（セッション内）\n/___  # ← ここを埋める\n\n# 2. 会話を要約してコンテキストを開放（セッション内）\n/___  # ← ここを埋める\n\n# 3. 直前のセッションを継続して起動\nclaude ___  # ← ここを埋める\n\n# 4. MCP サーバの一覧と接続状態を確認\nclaude ___  # ← ここを埋める`}
             answer={`# Claude Code トラブルシューティング\n\n# 1. 環境と設定の健全性を診断（セッション内）\n/doctor\n\n# 2. 会話を要約してコンテキストを開放（セッション内）\n/compact\n\n# 3. 直前のセッションを継続して起動\nclaude --continue\n\n# 4. MCP サーバの一覧と接続状態を確認\nclaude mcp list`}
             hints={[
-              "環境診断は /doctor。f キーで Claude に修正させることもできます",
+              "環境診断は/doctor。結果を先に報告し、確認のうえでClaudeが修正します",
               "コンテキスト圧迫には /compact。フォーカス指示を添えると重要な文脈を保持できます",
               "--continue は直前のセッション、--resume は選択して再開です",
               "MCP の状態確認は claude mcp list です",

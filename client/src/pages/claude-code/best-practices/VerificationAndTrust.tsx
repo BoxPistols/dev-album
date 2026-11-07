@@ -95,15 +95,15 @@ export default function VerificationAndTrust() {
                 },
                 {
                   level: "2. /goal 条件",
-                  how: "チェックを /goal の条件に設定する。独立した評価器が毎ターン後に再チェックし、条件が満たされるまで Claude が作業を続ける。",
+                  how: "チェックを/goalの条件に設定する。別のモデルが毎ターン後に会話の内容を読んで判定し、条件が満たされるまでClaudeが作業を続ける。",
                 },
                 {
                   level: "3. Stop hook",
-                  how: "チェックをスクリプトとして Stop hook に置く決定的ゲート。パスするまでターン終了をブロックする（連続 8 回ブロックで Claude Code がフックを上書きして終了）。",
+                  how: "チェックをスクリプトとしてStop hookに置く決定的ゲート。パスするまでターン終了をブロックする（ツール呼び出しを挟まず8回続けてブロックすると、Claude Codeが次のブロックを上書きしてターンを終える。上限はCLAUDE_CODE_STOP_HOOK_BLOCK_CAPで上げられる）。",
                 },
                 {
                   level: "4. 第三者の目",
-                  how: "検証サブエージェントや、自分の発見を自分で反証する動的ワークフロー。作業したエージェントと採点するエージェントを分離する。",
+                  how: "検証サブエージェントや、独立したエージェントが互いの発見を敵対的にレビューする動的ワークフロー。作業したエージェントと採点するエージェントを分離する。",
                 },
               ].map((item) => (
                 <div
@@ -162,19 +162,17 @@ export default function VerificationAndTrust() {
               code={`# バグ検出なら同梱の /code-review（差分を新しいサブエージェントでレビュー）
 > /code-review
 
-# 計画との突き合わせは自分でプロンプトを書く
-> サブエージェントを使って、レートリミッターの差分を PLAN.md と
+# 仕様との突き合わせは自分でプロンプトを書く
+> サブエージェントを使って、レートリミッターの差分をSPEC.mdと
 > 突き合わせてレビューして。全要件が実装されているか、列挙した
-> エッジケースにテストがあるか、タスクの範囲外の変更が無いかを
-> 確認して。スタイルの好みではなくギャップだけを報告して。`}
+> エッジケースにテストがあるかを確認して。正しさに影響する
+> ギャップを報告し、スタイルは飛ばして。`}
               language="bash"
             />
             <InfoBox type="warning" title="レビュアーの指摘を全部追いかけない">
-              「ギャップを探せ」と言われたレビュアーは、健全な実装に対しても何かしら報告します。全指摘を追うと過剰設計（不要な抽象層・防御コード・起こり得ないケースのテスト）に向かいます。
-              <strong>
-                正しさと明記した要件に影響するギャップだけを報告させ
-              </strong>
-              、残りは任意として扱います。
+              問題を探せと言われたレビュアーは、必ず何かを見つけます。全指摘を直すと、不要な抽象層や起こり得ないケースのテストが増えます。
+              <strong>正しさに影響するギャップだけを報告させ</strong>
+              、スタイルは対象から外します。
             </InfoBox>
           </section>
 
@@ -197,8 +195,8 @@ export default function VerificationAndTrust() {
                   /rewind（Esc Esc）
                 </code>
                 <p className="text-xs text-muted-foreground mt-2">
-                  コード・会話を以前のポイントに復元。チェックポイントは Claude
-                  の編集前と各プロンプト時点で自動作成される。
+                  コード・会話を以前のプロンプトの時点に復元。チェックポイントはターンを開始するプロンプトごとに自動作成され、
+                  Claudeが編集するファイルは編集前にスナップショットされる。Escの二度押しは入力欄が空のときに使う。
                 </p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -234,7 +232,7 @@ export default function VerificationAndTrust() {
               {[
                 {
                   label:
-                    "Best practices — Give Claude a way to verify its work（公式）",
+                    "Best practices — Give Claude a check to run（公式）",
                   url: "https://code.claude.com/docs/en/best-practices",
                 },
                 {

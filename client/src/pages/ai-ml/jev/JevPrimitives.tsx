@@ -174,9 +174,9 @@ export default function JevPrimitives() {
                 code={`{
   "type": "choice",
   "choice": "frustrated",
-  "confidence": 0.88,
+  "confidence": 0.76,
   "probabilities": {
-    "angry": 0.08, "frustrated": 0.92, "calm": 0.0
+    "angry": 0.16, "frustrated": 0.84, "calm": 0.0
   }
 }`}
               />
@@ -216,8 +216,8 @@ export default function JevPrimitives() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold mt-0.5">-</span>
                   <span>
-                    公式ドキュメントのChoiceのページの応答例では、choiceがreturns、probabilitiesがreturns
-                    0.6 / billing 0.38 / shipping 0.02で、confidenceは0.39
+                    公式ドキュメントのChoiceのページの応答例（2026-11時点）では、choiceがreturns、probabilitiesがreturns
+                    0.61 / billing 0.35 / shipping 0.04で、confidenceは0.42
                     です。2番目の候補にも確率が残っているぶん、confidence
                     は最大の確率より低くなっています。confidence
                     を「最大の確率」と同一視しないでください。
@@ -270,14 +270,14 @@ export default function JevPrimitives() {
                 title="答え（answers.bug_severity）"
                 code={`{
   "type": "score",
-  "score": 1.3,
-  "confidence": 0.54,
+  "score": 1.43,
+  "confidence": 0.35,
   "legend": {
     "0": "Cosmetic; no impact to functionality",
     "1": "Broken or degraded feature, but workaround exists",
     "2": "Blocking issue; no workaround exists"
   },
-  "probabilities": { "0": 0.0, "1": 0.7, "2": 0.3 }
+  "probabilities": { "0": 0.0, "1": 0.57, "2": 0.43 }
 }`}
               />
             </div>
@@ -287,14 +287,14 @@ export default function JevPrimitives() {
             </p>
             <div className="rounded-xl border border-border bg-card p-6 mt-4">
               <h3 className="text-lg font-bold text-foreground mb-3">
-                scoreが1.3のような小数になる理由
+                scoreが1.43のような小数になる理由
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                 score
                 は「確率で重み付けした段階の平均（期待値）」です。スキーマは
                 「Expected score: the probability-weighted average of the rubric
                 levels. May fall between integer levels.」と説明しています。
-                上の例なら0×0.0 + 1×0.7 + 2×0.3 = 1.3です。
+                上の例なら0×0.0 + 1×0.57 + 2×0.43 = 1.43です。
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 公式ドキュメントのScoreのページは、小数のscore
@@ -424,14 +424,14 @@ console.log(answers.urgency.score);`}
               理解度チェック
             </h2>
             <Quiz
-              question="scoreの答えが1.3のとき、正しい解釈は？"
+              question="scoreの答えが1.43のとき、正しい解釈は？"
               options={[
-                { label: "段階1.3という新しい段階が作られた" },
+                { label: "段階1.43という新しい段階が作られた" },
                 {
-                  label: "段階ごとの確率で重み付けした期待値が1.3",
+                  label: "段階ごとの確率で重み付けした期待値が1.43",
                   correct: true,
                 },
-                { label: "確率1.3で段階1が選ばれた" },
+                { label: "確率1.43で段階1が選ばれた" },
                 { label: "エラー値" },
               ]}
               explanation="scoreは「probability-weighted average of the rubric levels」で、整数の段階の間に落ちることがあります。公式は、1つの結果が必要なときは最も近い段階へ丸める使い方を挙げ、違う分布から同じscoreが出ることがあるので、probabilitiesとconfidenceを併せて読むよう書いています。"

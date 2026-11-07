@@ -125,7 +125,7 @@ export default function SlashCommands() {
                   { cmd: '/memory', desc: 'CLAUDE.md memory ファイル編集、auto-memory の有効/無効、auto-memory エントリ閲覧。' },
                   { cmd: '/mcp', desc: 'MCP サーバー接続と OAuth 認証を管理。' },
                   { cmd: '/hooks', desc: 'ツールイベントに対する hook 設定を表示。' },
-                  { cmd: '/doctor', desc: 'インストール状態を診断、ステータスアイコンで結果表示。f キーで Claude に修正させる。' },
+                  { cmd: '/doctor', desc: 'インストール状態を診断し、結果を先に報告する。確認のうえでClaudeが修正する。' },
                   { cmd: '/debug [description]', desc: 'バンドル skill。セッションのデバッグログを取り込みトラブルシュート。Claude --debug を後付けで開始する用途。' },
                   { cmd: '/status', desc: 'バージョン / モデル / アカウント / 接続を Status タブに表示。応答中でも開ける。' },
                   { cmd: '/theme', desc: 'カラーテーマを変更。auto / light / dark / 色覚サポート / ANSI / カスタムテーマから選択。' },
@@ -289,7 +289,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   モデルの effort level（adaptive reasoning の強度）を切替。引数なしでスライダー、<code>auto</code> でモデル既定値にリセット。<strong>応答完了を待たず即時反映</strong>。<code>/model</code> 内でも左右キーで調整可能。
                 </p>
                 <p className="text-xs text-muted-foreground mb-3">
-                  対応モデル: Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6 など（effort に対応する全モデルで既定は <code>high</code>。<code>xhigh</code> が既定なのは Opus 4.7 のみ）
+                  対応モデル: Fable 5.1 / Fable 5 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7 / 4.6 / Sonnet 4.6など（既定は<code>high</code>。ただしOpus 5.5 / Sonnet 5.5 / Haiku 5.5は<code>medium</code>、Opus 4.7は<code>xhigh</code>）
                 </p>
                 <div className="overflow-x-auto mb-3">
                   <table className="w-full text-xs">
@@ -308,18 +308,18 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">medium</td>
-                        <td className="p-2">コスト重視で、知能を多少犠牲にできる場合</td>
+                        <td className="p-2">範囲の明確な日常の実装向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5の既定</td>
                         <td className="p-2">全対応</td>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">high</td>
-                        <td className="p-2">トークンと知能のバランス。知能要求あるタスクの最低ライン</td>
+                        <td className="p-2">検証が重要な作業やエッジケースが多い作業向き</td>
                         <td className="p-2">全対応</td>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">xhigh</td>
                         <td className="p-2">より深い推論を高トークン消費で。Opus 4.7 の既定</td>
-                        <td className="p-2">Fable 5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7（Opus 4.6・Sonnet 4.6 は非対応）</td>
+                        <td className="p-2">Fable 5.1 / Fable 5 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Opus 5 / Sonnet 5 / Opus 4.8 / 4.7（Opus 4.6・Sonnet 4.6は非対応）</td>
                       </tr>
                       <tr>
                         <td className="p-2 font-mono">max</td>
@@ -333,7 +333,7 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                   <li><code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> はセッション越しに永続化、<code>max</code> はセッション限り。</li>
                   <li>未対応 level を指定すると、対応モデルでサポートされる最高 level に自動降格（例: Opus 4.6 で <code>xhigh</code> → <code>high</code>）。</li>
                   <li>1 ターンだけ深く考えさせたい場合は、<strong>level を上げず</strong>プロンプトに「ultrathink」を含める（API に送られる effort 値は変わらないまま、Claude Code がキーワードを認識して in-context の指示を追加する）。「think」「think hard」「think more」は通常のプロンプトテキストとして扱われ、キーワードとしては認識されない。</li>
-                  <li>優先順位: 環境変数 <code>CLAUDE_CODE_EFFORT_LEVEL</code> &gt; 設定値 &gt; モデル既定。skill / subagent frontmatter の <code>effort</code> はその skill / subagent 実行時のみ上書き。</li>
+                  <li>優先順位: 環境変数<code>CLAUDE_CODE_EFFORT_LEVEL</code> &gt; セッション内の選択（<code>/effort</code>、<code>/model</code>ピッカー）&gt; <code>--effort</code> &gt; 設定値 &gt; モデル既定。skill / subagent frontmatterの<code>effort</code>はそのskill / subagent実行時のみ上書き。</li>
                 </ul>
                 <pre className="text-xs bg-slate-100 dark:bg-slate-950 rounded p-3 overflow-x-auto"><code>{`/effort              # スライダー UI
 /effort high         # 直接指定
@@ -395,7 +395,7 @@ claude --effort xhigh
                   コード復元の 2 つ（Restore code and conversation / Restore code）は、選択したチェックポイントに追跡済みのファイル変更がある場合のみ表示される。変更が記録されていない場合のメニューは Restore conversation と要約系、Never mind になる。
                 </p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc pl-5">
-                  <li><strong>制約</strong>: bash コマンド経由のファイル変更（<code>rm</code> / <code>mv</code> / <code>cp</code> 等）は追跡されない。Claude のファイル編集ツール経由の編集のみ。</li>
+                  <li><strong>制約</strong>: Bashコマンドだけが変更したファイルは追跡されず、そのまま残る（<code>rm</code> / <code>mv</code> / <code>cp</code>等）。Claudeがファイル編集ツールで一度編集したファイルは、その後のBashによる変更も<code>/rewind</code>で戻る。</li>
                   <li>外部からの変更（手動編集、別セッションの編集）は同じファイルに触れた場合を除き取り込まれない。</li>
                   <li>git の代替ではない。コミット・ブランチは別途 git で管理する。</li>
                 </ul>

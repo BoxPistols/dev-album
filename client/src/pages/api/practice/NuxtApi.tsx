@@ -538,13 +538,13 @@ await callApi<Memo>('/memos', { method: 'POST', body: { title, body } }) // 送�
               links={[
                 {
                   title: "Nuxt - Data Fetching",
-                  url: "https://nuxt.com/docs/getting-started/data-fetching",
+                  url: "https://nuxt.com/docs/4.x/getting-started/data-fetching",
                   description:
                     "useFetch / useAsyncData / $fetch の使い分けと SSR 重複排除の公式解説",
                 },
                 {
                   title: "Nuxt - server ディレクトリ",
-                  url: "https://nuxt.com/docs/guide/directory-structure/server",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/server",
                   description:
                     "server/api のファイル命名規則（.get / .post 等）とハンドラの書き方",
                 },

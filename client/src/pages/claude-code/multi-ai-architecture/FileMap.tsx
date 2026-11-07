@@ -52,7 +52,7 @@ const FILES: {
     file: ".claude/rules/*.md",
     where: "プロジェクトまたは ~/.claude/rules/",
     reader: "Claude Code",
-    when: "paths なし → 開始時 / paths あり → 一致するファイルを読んだとき",
+    when: "pathsなし → 開始時 / pathsあり → 一致するファイルをRead / Write / Editしたとき",
     scope: "トピック別・パス別",
     href: "/claude-code/claude-core/project-rules",
   },
@@ -75,8 +75,8 @@ const FILES: {
   {
     file: "AGENTS.md",
     where: "リポジトリ直下",
-    reader: "他のコーディングエージェント（Claude Code は読まない）",
-    when: "CLAUDE.md から @import するか symlink したときだけ",
+    reader: "他のコーディングエージェントと、CLAUDE.mdが無いときのClaude Code",
+    when: "CLAUDE.mdが無ければ開始時。あるなら@importかsymlinkしたときだけ",
     scope: "ツール非依存の共通規約",
     href: "/claude-code/multi-ai/agent-docs",
   },
@@ -214,7 +214,7 @@ export default function FileMap() {
             <p className="leading-relaxed mt-6 text-muted-foreground">
               作業ディレクトリより上の階層にある CLAUDE.md も、ルート側から順に
               すべて載ります。逆に<strong>下の階層にあるものは起動時には載らず</strong>、
-              Claude がそのディレクトリのファイルを読んだ時点で追加されます。
+              Claudeがそのディレクトリのファイルを読む・書く・編集する時点で追加されます。
             </p>
           </section>
 
@@ -225,11 +225,13 @@ export default function FileMap() {
               取り違えやすい 3 点
             </h2>
 
-            <InfoBox type="warning" title="AGENTS.md は Claude Code が読まない">
-              置いてあっても載りません。他のエージェントと同じ内容を共有したい
-              ときは、CLAUDE.md から <code>@AGENTS.md</code> で import するか、
-              symlink を張ります。実際に載ったかは <code>/context</code> の
-              Memory files で確かめられます。
+            <InfoBox type="warning" title="CLAUDE.mdがあるとAGENTS.mdは読まれない">
+              Claude Code（v2.1.277以降）がAGENTS.mdを読むのは、作業ディレクトリと
+              その上の階層にCLAUDE.mdもCLAUDE.local.mdも無いときです。どちらかが
+              あるとCLAUDE.mdだけが読まれます。他のエージェントと同じ内容を
+              共有したいときは、CLAUDE.mdから<code>@AGENTS.md</code>でimportするか、
+              symlinkを張ります。AGENTS.mdが読まれたかは<code>/memory</code>の
+              一覧で確かめられます。
             </InfoBox>
 
             <div className="mt-6">
@@ -249,10 +251,10 @@ export default function FileMap() {
                 type="warning"
                 title="@import で分けてもコンテキストは減らない"
               >
-                import されたファイルは起動時に展開されて載ります。分割は整理の
+                importされたファイルは、それを参照するCLAUDE.mdと一緒に展開されて載ります。分割は整理の
                 ための手段で、削減にはなりません。<strong>本当に減らしたい</strong>
-                なら、<code>paths</code> を付けた rules（一致するファイルを読んだ
-                ときだけ載る）か Skills（呼ばれたときだけ載る）へ移します。
+                なら、<code>paths</code>を付けたrules（一致するファイルを扱った
+                ときだけ載る）かSkills（呼ばれたときだけ載る）へ移します。
                 import は 4 ホップまでです。
               </InfoBox>
             </div>
@@ -293,7 +295,7 @@ export default function FileMap() {
                     ["手順が長い、たまにしか使わない", "Skills"],
                     ["必ず実行させたい・必ず止めたい", "Hooks / settings の permissions"],
                     ["自分だけの設定、共有したくない", "CLAUDE.local.md（gitignore）"],
-                    ["他のエージェントとも共有したい", "AGENTS.md を CLAUDE.md から @import"],
+                    ["他のエージェントとも共有したい", "AGENTS.mdに書き、CLAUDE.mdがあるならそこから@import"],
                     ["設計の背景や制約", "ARCHITECTURE.md（読ませたいときに指示する）"],
                   ].map(([what, where]) => (
                     <tr
@@ -327,8 +329,8 @@ export default function FileMap() {
             </p>
             <CodeBlock
               language="bash"
-              code={`# いま何が読まれているか（Memory files の一覧に出る）
-/context
+              code={`# いま何が読まれているか（Memory filesの一覧に出る）
+/context all
 
 # 指示ファイルを一覧して開く。存在しないものは選ぶと作られる
 /memory`}

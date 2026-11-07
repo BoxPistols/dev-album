@@ -91,7 +91,7 @@ export default function PermissionModes() {
                     ],
                     [
                       "dontAsk",
-                      "事前承認済みツールのみ",
+                      "作業ディレクトリ内の読み取りと事前承認済みツール（確認が要る呼び出しは拒否）",
                       "ロックダウンした CI・スクリプト",
                     ],
                     [
@@ -116,9 +116,11 @@ export default function PermissionModes() {
               </table>
             </div>
             <InfoBox type="info" title="既定の開始モード">
-              Pro / Max / Team プランでは{" "}
-              <strong>auto モードが組み込みの開始モード</strong>
-              です。組織の管理設定や <code>permissions.defaultMode</code>{" "}
+              Claude Code v2.1.283以降では、ターミナルとVS Codeの対話セッションで{" "}
+              <strong>autoモードが組み込みの開始モード</strong>
+              です（それより前のバージョンではPro / Max / Ultra / Teamプランのみ）。
+              <code>claude -p</code>とAgent SDKの実行はManual（default）で始まります。
+              組織の管理設定や <code>permissions.defaultMode</code>{" "}
               で変更できます。auto を user settings で既定にする場合は{" "}
               <code>~/.claude/settings.json</code> に書きます（プロジェクトの{" "}
               <code>.claude/settings.json</code> からは auto は効きません）。
@@ -166,10 +168,10 @@ $ claude --permission-mode acceptEdits
               コミット」のページで扱っています。
             </p>
             <InfoBox type="info" title="プランモード中のコマンド実行">
-              auto
-              モードが使える環境では、計画中のシェルコマンドは確認プロンプトの代わりに分類器（classifier）がレビューします（
-              <code>useAutoModeDuringPlan</code>{" "}
+              autoモードが使える環境では、計画中のシェルコマンド（クリティカルパスのrm / rmdirを除く）は確認プロンプトの代わりに分類器（classifier）がレビューします（
+              <code>useAutoModeDuringPlan</code>
               設定、既定で有効）。承認されたコマンドは実行され、拒否されたものはブロックされます。
+              bypass permissionsが使える対話ターミナルセッションでは、分類器も確認プロンプトも適用されません。
             </InfoBox>
           </section>
 
@@ -192,8 +194,8 @@ $ claude --permission-mode acceptEdits
                 <p className="text-xs text-muted-foreground">
                   settings.json の <code>ask</code> ルールに該当する操作は auto
                   モードでも確認を求めます。<code>rm -rf /</code> や{" "}
-                  <code>rm -rf ~</code>{" "}
-                  のようなクリティカルパスへの削除は分類器が個別にレビューします。
+                  <code>rm -rf ~</code>
+                  のようなクリティカルパスへの削除は、既定では分類器のレビュー対象外です。ターミナルでは時間制限付きで確認を求め、それ以外の環境では拒否します。
                 </p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -205,10 +207,11 @@ $ claude --permission-mode acceptEdits
               </div>
             </div>
             <InfoBox type="warning" title="利用条件がある">
-              auto
-              モードにはプラン・組織設定・モデル・プロバイダの条件があります（Anthropic
-              API では Opus 4.6 以降 / Sonnet 4.6 以降 / Fable 5）。「auto mode
-              unavailable」と表示される場合は条件が満たされていないことを意味し、一時的な障害ではありません。
+              autoモードには組織設定・モデル・プロバイダの条件があります（Anthropic
+              APIではOpus 4.6以降 / Sonnet 4.6以降 / Haiku 5.5 / Fableモデル）。「auto mode
+              unavailable」と表示されたら、まず利用条件と<code>disableAutoMode</code>の設定を確認します。
+              Anthropicがサーバー側で止めている場合やアカウントが拒否された場合もあり、
+              そのときはセッションが終わるまでオフのままなので、後で新しいセッションを始めます。
             </InfoBox>
           </section>
 

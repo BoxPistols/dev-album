@@ -376,23 +376,23 @@ export default function Reference() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
               <Cpu size={22} className="text-primary" aria-hidden="true" />
-              runs-on — ランナーラベルと課金倍率
+              runs-on — ランナーラベルと分単価
             </h2>
             <CheatTable
-              headers={["ラベル", "OS", "無料枠の消費倍率"]}
+              headers={["ラベル", "OS", "1分あたりの単価（2026-11-07時点）"]}
               rows={[
-                ["ubuntu-latest（24.04 相当）", "Linux", "1 倍"],
+                ["ubuntu-latest（24.04相当）", "Linux", "$0.006（2-core）"],
                 [
                   "ubuntu-22.04 / ubuntu-24.04 / ubuntu-26.04（public preview）",
                   "Linux（バージョン固定）",
-                  "1 倍",
+                  "$0.006（2-core）",
                 ],
-                ["windows-latest", "Windows", "2 倍"],
-                ["macos-latest", "macOS", "10 倍"],
+                ["windows-latest", "Windows", "$0.010（2-core）"],
+                ["macos-latest", "macOS", "$0.062"],
                 [
-                  "macos-14 など（Apple Silicon 指定）",
+                  "macos-15など（Apple Silicon指定）",
                   "macOS（バージョン固定）",
-                  "10 倍",
+                  "$0.062",
                 ],
                 [
                   "self-hosted",

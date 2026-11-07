@@ -425,7 +425,7 @@ export async function GET() {
                 },
                 {
                   title: "Nuxt - Server Directory",
-                  url: "https://nuxt.com/docs/guide/directory-structure/server",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/server",
                   description:
                     "server/api でサーバールートを定義する Nuxt 公式ガイド",
                 },

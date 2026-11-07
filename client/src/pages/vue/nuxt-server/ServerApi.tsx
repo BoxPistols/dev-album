@@ -474,13 +474,13 @@ async function createArticle(title: string) {
               links={[
                 {
                   title: "Nuxt 公式 - Server Directory",
-                  url: "https://nuxt.com/docs/guide/directory-structure/server",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/server",
                   description:
                     "server/api・server/routes・server/middleware の構成と書き方",
                 },
                 {
                   title: "Nuxt 公式 - useFetch",
-                  url: "https://nuxt.com/docs/api/composables/use-fetch",
+                  url: "https://nuxt.com/docs/4.x/api/composables/use-fetch",
                   description: "宣言的データ取得 composable のリファレンス",
                 },
                 {

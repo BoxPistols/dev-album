@@ -49,9 +49,9 @@
   "claim": "Redoc / 左にナビ、中央に解説、右にサンプルが並ぶ 3 カラム。 標準では実行機能を持たず、仕様をきれいに「読む」ことに特化。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/Redocly/redoc",
-  "quote": "By default Redoc offers a three-panel, responsive layout: The left panel contains a search bar and navigation menu. The central panel contains the documentation. The right panel contains request and response examples. […] Redoc is Redocly's community-edition product. Looking for something more? We also offer a hosted Redoc with additional features including: Try-it console",
+  "quote": "By default Redoc offers a three-panel, responsive layout: The left panel contains a search bar and navigation menu. The central panel contains the documentation. The right panel contains request and response examples. [...] Redoc is Redocly's community-edition product. Looking for something more? [...] Try-it panel (Replay)",
   "correction": "",
-  "evidence": "引用から私（エージェント）の注記『(略、同 README の別節)』を除き、README の 2 箇所（About Redoc 節 / Redoc vs hosted Redoc 節）を中略記号で繋いだ形に取り直した。3 カラムの内訳は前半が逐語で述べ、実行機能については Try-it console が hosted Redoc の additional features として列挙されており、コミュニティ版本体には含まれないことが読み取れる。"
+  "evidence": "引用から私（エージェント）の注記『(略、同 README の別節)』を除き、README の 2 箇所（About Redoc 節 / Redoc vs hosted Redoc 節）を中略記号で繋いだ形に取り直した。3 カラムの内訳は前半が逐語で述べ、実行機能については Try-it console が hosted Redoc の additional features として列挙されており、コミュニティ版本体には含まれないことが読み取れる。 2026-11-07再照合: 有料版の機能名がTry-it consoleからTry-it panel (Replay)に変わった。"
  },
  {
   "file": "api/practice/NuxtApi.tsx",
@@ -292,18 +292,18 @@
   "claim": "# 使い方: プロンプトに \"use context7\" を含めるだけ",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/upstash/context7",
-  "quote": "Create a Next.js middleware that checks for a valid JWT in cookies\nand redirects unauthenticated users to `/login`. use context7",
+  "quote": "Configure a Cloudflare Worker script to cache JSON API responses for five minutes. use context7",
   "correction": "",
-  "evidence": "`curl https://raw.githubusercontent.com/upstash/context7/master/README.md` を取得。「## ✅ With Context7」直下の例が示すとおり、プロンプト末尾に `use context7` を付ける使い方が公式の想定。バージョン指定の例（『How do I set up Next.js 14 middleware? use context7』）も同 README にある。補足として、現行 README は `npx ctx7 setup` によるセットアップ後、skill / rule を入れれば明示的に書かなくても発火する経路も案内している（『Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.』）。教材はセットアップ手順の直後に置いているため『含めるだけ』は成立する。"
+  "evidence": "`curl https://raw.githubusercontent.com/upstash/context7/master/README.md` を取得。「## ✅ With Context7」直下の例が示すとおり、プロンプト末尾に `use context7` を付ける使い方が公式の想定。バージョン指定の例（『How do I set up Next.js 14 middleware? use context7』）も同 README にある。補足として、現行 README は `npx ctx7 setup` によるセットアップ後、skill / rule を入れれば明示的に書かなくても発火する経路も案内している（『Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.』）。教材はセットアップ手順の直後に置いているため『含めるだけ』は成立する。 2026-11-07再照合: READMEの例がmiddlewareからproxyに変わったので、同じ使い方を示す別の例に替える。"
  },
  {
   "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "Language Server Protocol（LSP）を活用し、30+言語に対してシンボルレベルのコード理解を提供します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/oraios/serena",
-  "quote": "Serena provides a set of versatile code querying and editing functionalities based on symbolic understanding of the code. [...] Serena incorporates a powerful abstraction layer for the integration of language servers that implement the language server protocol (LSP). The underlying language servers are typically open-source projects or at least freely available for use. When using Serena's language server backend, we provide support for over 40 programming languages, including Ada / SPARK, AL, Angular, Ansible, Bash, BSL, C#, C/C++, Clojure, Crystal, CUE, Dart, Deno, Elixir, Elm, Erlang, Fortran, F#, GDScript, Gleam, GLSL, Go, Groovy, Haskell, Haxe, HLSL, HTML, Java, JavaScript, JSON, Julia, Kotlin, LaTeX, Lean 4, Lua, Luau, Markdown, MATLAB, mSL, Nextflow, Nix, OCaml, Pascal, Perl, PHP, PowerShell, Python, QML, R, Rego, Ruby, Rust, Scala, SCSS / Sass / CSS, Solidity, Svelte, Swift, SystemVerilog, Terraform, TOML, TypeScript, Vue, WGSL, Wolfram Language, YAML, and Zig.",
+  "quote": "Serena provides a set of versatile code querying and editing functionalities based on symbolic understanding of the code. [...] Serena incorporates a powerful abstraction layer for the integration of language servers that implement the language server protocol (LSP). [...] we provide support for over 40 programming languages",
   "correction": "",
-  "evidence": "公式 README が LSP ベースであることと対応言語数を明記している。現在の README は「over 40」で、教材の「30+ 言語」はこれを下回る控えめな表現なので誤りではない。 2026-08-23 に https://github.com/oraios/serena を取得し直し、Programming Language Support & Semantic Analysis Capabilities 節の symbolic understanding of the code と、Language Servers 節の LSP・対応言語数を確認して引用を取り直した。元の引用はシンボルレベルの理解に触れていなかった。"
+  "evidence": "公式 README が LSP ベースであることと対応言語数を明記している。現在の README は「over 40」で、教材の「30+ 言語」はこれを下回る控えめな表現なので誤りではない。 2026-08-23 に https://github.com/oraios/serena を取得し直し、Programming Language Support & Semantic Analysis Capabilities 節の symbolic understanding of the code と、Language Servers 節の LSP・対応言語数を確認して引用を取り直した。元の引用はシンボルレベルの理解に触れていなかった。 2026-11-07再照合: 言語の列挙が変わったので列挙部分を落とし、教材の30+はover 40の範囲に収まるので誤りではない。"
  },
  {
   "file": "claude-code/mcp/MCPPractical.tsx",
@@ -346,9 +346,9 @@
   "claim": "Gemini CLI / Google / CLI（OSS・Apache 2.0） / 大きな無料枠、Google 検索グラウンディング、1M トークンコンテキスト / 無料（1,000 req/日）〜 API 従量 / Code Assist 有料版",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-gemini/gemini-cli",
-  "quote": "Free tier: 60 requests/min and 1,000 requests/day with personal Google account. 🧠 Powerful Gemini 3 models: Access to improved reasoning and 1M token context window. 🔧 Built-in tools: Google Search grounding, file operations, shell commands, web fetching. 🔌 Extensible: MCP (Model Context Protocol) support for custom integrations. 💻 Terminal-first: Designed for developers who live in the command line. 🛡️ Open source: Apache 2.0 licensed. [...] Option 2: Gemini API Key ✨ Best for: Developers who need specific model control or paid tier access Benefits: Free tier: 1000 requests/day with Gemini 3 (mix of flash and pro) Model selection: Choose specific Gemini models Usage-based billing: Upgrade for higher limits when needed",
+  "quote": "No free tier or Google AI plans: Free individual access and Google AI Pro / Ultra (Google One) moved to Antigravity CLI on June 18, 2026 [...] Gemini CLI is fully open source (Apache 2.0)",
   "correction": "",
-  "evidence": "`curl https://raw.githubusercontent.com/google-gemini/gemini-cli/main/README.md` を取得し「Why Gemini CLI?」節から引用。各要素の裏取りも同 README 内で確認: Apache 2.0 は「Legal」節『- **License**: [Apache License 2.0](LICENSE)』、API 従量は「Gemini API key」節『- **Usage-based billing**: Upgrade for higher limits when needed』、Code Assist 有料版は認証節の見出し『#### If you are using a paid Code Assist License from your organization, remember to set the Google Cloud Project』。無料枠 1,000 req/日は OAuth 経路（60 req/min + 1,000 req/day）と API キー経路（『Free tier: 1000 requests/day with Gemini 3』）の両方に記載。 2026-08-23 に https://github.com/google-gemini/gemini-cli を取得し直し、Why Gemini CLI? の箇条書き（無料枠 1,000 requests/day・1M token context window・Google Search grounding・Apache 2.0）と Authentication Options の Option 2: Gemini API Key（paid tier access / Usage-based billing）を確認して引用を取り直した。元の引用は 4 箇所に散っていて、従量課金に触れていなかった。"
+  "evidence": "`curl https://raw.githubusercontent.com/google-gemini/gemini-cli/main/README.md` を取得し「Why Gemini CLI?」節から引用。各要素の裏取りも同 README 内で確認: Apache 2.0 は「Legal」節『- **License**: [Apache License 2.0](LICENSE)』、API 従量は「Gemini API key」節『- **Usage-based billing**: Upgrade for higher limits when needed』、Code Assist 有料版は認証節の見出し『#### If you are using a paid Code Assist License from your organization, remember to set the Google Cloud Project』。無料枠 1,000 req/日は OAuth 経路（60 req/min + 1,000 req/day）と API キー経路（『Free tier: 1000 requests/day with Gemini 3』）の両方に記載。 2026-08-23 に https://github.com/google-gemini/gemini-cli を取得し直し、Why Gemini CLI? の箇条書き（無料枠 1,000 requests/day・1M token context window・Google Search grounding・Apache 2.0）と Authentication Options の Option 2: Gemini API Key（paid tier access / Usage-based billing）を確認して引用を取り直した。元の引用は 4 箇所に散っていて、従量課金に触れていなかった。 2026-11-07再照合: READMEは個人の無料枠が2026-06-18にAntigravity CLIへ移ったと書き、Gemini CLIは組織のCode Assistライセンス向けになり、1M contextとGoogle Search groundingの記述も消えた。"
  },
  {
   "file": "claude-code/ai-coding-agents/GeminiCli.tsx",
@@ -616,9 +616,9 @@
   "claim": "リポジトリの Settings → Branches で main に 保護ルールを設定し、「ステータスチェックの成功を必須にする」を 有効にすると、CI が緑にならない限りマージできなくなります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule",
-  "quote": "In the \"Code and automation\" section of the sidebar, click [...] Branches. [...] Optionally, enable required status checks. For more information, see Status checks. Select Require status checks to pass before merging.",
+  "quote": "In the \"Code, planning, and automation\" section of the sidebar, click [...] Branches. [...] Optionally, enable required status checks. For more information, see Status checks. Select Require status checks to pass before merging.",
   "correction": "",
-  "evidence": "curl で https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule を取得（HTTP 200）。「Creating a branch protection rule」節に上記の手順が逐語で並んでおり、Settings → サイドバーの Branches → Require status checks to pass before merging という経路が現行 UI と一致する。教材の「ステータスチェックの成功を必須にする」は Require status checks to pass before merging の訳語であり、原文ラベルではない点だけ注意（訳語であることが分かる書き方が望ましい）。同ページには「For information about an alternative to branch protection rules, see About rulesets .」ともあり、Rulesets という代替が併存するが、Branch protection rule 自体は現行機能として残っている。"
+  "evidence": "curl で https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule を取得（HTTP 200）。「Creating a branch protection rule」節に上記の手順が逐語で並んでおり、Settings → サイドバーの Branches → Require status checks to pass before merging という経路が現行 UI と一致する。教材の「ステータスチェックの成功を必須にする」は Require status checks to pass before merging の訳語であり、原文ラベルではない点だけ注意（訳語であることが分かる書き方が望ましい）。同ページには「For information about an alternative to branch protection rules, see About rulesets .」ともあり、Rulesets という代替が併存するが、Branch protection rule 自体は現行機能として残っている。 2026-11-07再照合: サイドバーの節名がCode, planning, and automationに変わったが、Settings → Branchesの経路は同じ。"
  },
  {
   "file": "git/github-actions/CiPractice.tsx",
@@ -688,27 +688,27 @@
   "claim": "@v4 のようなタグは後から中身が差し替わる可能性が あります。供給元を信頼しきれない場合は、コミット SHA で 固定すると、指定した時点のコードに固定できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/actions/reference/security/secure-use",
-  "quote": "Pinning an action to a full-length commit SHA is currently the only way to use an action as an immutable release. Pinning to a particular SHA helps mitigate the risk of a bad actor adding a backdoor to the action's repository, as they would need to generate a SHA-1 collision for a valid Git object payload. […] Note that there is risk to this approach even if you trust the author, because a tag can be moved or deleted if a bad actor gains access to the repository storing the action.",
+  "quote": "Pin references to actions to a commit SHA in your workflow files. This helps mitigate the risk of a bad actor adding a backdoor to the action's repository, as they would need to generate a SHA-1 collision for a valid Git object payload. [...] Note that there is risk to this approach even if you trust the author, because a tag can be moved or deleted if a bad actor gains access to the repository storing the action.",
   "correction": "",
-  "evidence": "引用は https://docs.github.com/en/actions/reference/security/secure-use の 'Pin actions to a full-length commit SHA' 節と 'Pin actions to a tag only if you trust the creator' 節から。前者が『SHA 固定＝指定時点のコードに固定』、後者が『タグは後から動かされうる』に対応する。"
+  "evidence": "引用は https://docs.github.com/en/actions/reference/security/secure-use の 'Pin actions to a full-length commit SHA' 節と 'Pin actions to a tag only if you trust the creator' 節から。前者が『SHA 固定＝指定時点のコードに固定』、後者が『タグは後から動かされうる』に対応する。 2026-11-07再照合: 「唯一の方法」の文は消え、最良策はlockfileでSHA固定はそれを採用できないリポジトリ向けの手段という構成に変わったが、タグが動きうることとSHA固定の効果は同じ。"
  },
  {
   "file": "git/github-actions/Reference.tsx",
-  "claim": "macos-14 など（Apple Silicon 指定）",
+  "claim": "macos-15 など（Apple Silicon 指定）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/actions/runner-images/main/README.md",
-  "quote": "arm64 | macos-14 or macos-14-xlarge",
+  "quote": "arm64 | `macos-15`, or `macos-15-xlarge`",
   "correction": "",
-  "evidence": "curl https://raw.githubusercontent.com/github/docs/main/data/reusables/actions/supported-github-runners.md（GitHub-hosted runners reference に埋め込まれる表の実体）から macos-14 を含む行を逐語抽出。Processor 列が「3 (M1)」、Architecture 列が「arm64」で、macos-14 のイメージ README も macos-14-arm64-Readme.md を指す。レンダリング版 https://docs.github.com/en/actions/reference/runners/github-hosted-runners を curl し HTML の <tr> 単位で抽出しても同じ行が「macOS | 3 (M1) | 7 GB | 14 GB | arm64 | macos-latest, macos-14, macos-15, macos-26, xcode-27」となることを確認。Intel 側は別行で macos-15-intel / macos-26-intel のみが列挙され、macos-14 の Intel 版ラベルは表に存在しないため、macos-14 の指定は Apple Silicon (arm64) 固定と読める。 2026-08-23 に再照合。元は GitHub Docs のランナー表の HTML 行を 1 行に詰めた引用で、表の中身が macos-latest = macos-26 へ更新された時点で外れていた（pnpm check:verdicts でも不一致）。ラベルとアーキテクチャの対応が 1 行で読める actions/runner-images の README へ出典を移した。なお同 README では macOS 14 系イメージに deprecated の印が付いており（actions/runner-images#13518）、この例示は将来使えなくなる。"
+  "evidence": "curl https://raw.githubusercontent.com/github/docs/main/data/reusables/actions/supported-github-runners.md（GitHub-hosted runners reference に埋め込まれる表の実体）から macos-14 を含む行を逐語抽出。Processor 列が「3 (M1)」、Architecture 列が「arm64」で、macos-14 のイメージ README も macos-14-arm64-Readme.md を指す。レンダリング版 https://docs.github.com/en/actions/reference/runners/github-hosted-runners を curl し HTML の <tr> 単位で抽出しても同じ行が「macOS | 3 (M1) | 7 GB | 14 GB | arm64 | macos-latest, macos-14, macos-15, macos-26, xcode-27」となることを確認。Intel 側は別行で macos-15-intel / macos-26-intel のみが列挙され、macos-14 の Intel 版ラベルは表に存在しないため、macos-14 の指定は Apple Silicon (arm64) 固定と読める。 2026-08-23 に再照合。元は GitHub Docs のランナー表の HTML 行を 1 行に詰めた引用で、表の中身が macos-latest = macos-26 へ更新された時点で外れていた（pnpm check:verdicts でも不一致）。ラベルとアーキテクチャの対応が 1 行で読める actions/runner-images の README へ出典を移した。なお同 README では macOS 14 系イメージに deprecated の印が付いており（actions/runner-images#13518）、この例示は将来使えなくなる。 2026-11-07再照合: READMEの表からmacOS 14 Arm64の行が消え、macos-14はx64の非推奨ラベルになったので、教材の例をmacos-15へ移した。"
  },
  {
   "file": "git/github-actions/Reference.tsx",
   "claim": "課金対象外（インフラ費用は別途）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
-  "quote": "GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners.",
+  "quote": "The following usage remains free independently and does not reduce the included compute usage: [...] Self-hosted runners.",
   "correction": "",
-  "evidence": "レンダリング版 https://docs.github.com/en/billing/concepts/product-billing/github-actions を curl して「How use of GitHub Actions is measured」冒頭から逐語抽出（raw: content/billing/concepts/product-billing/github-actions.md L24）。括弧書き「インフラ費用は別途」の裏取りは https://docs.github.com/en/actions/concepts/runners/self-hosted-runners の「Are free to use with GitHub Actions, but you are responsible for the cost of maintaining your runner machines.」（raw: content/actions/concepts/runners/self-hosted-runners.md L27）。両ページとも HTTP 200。"
+  "evidence": "レンダリング版 https://docs.github.com/en/billing/concepts/product-billing/github-actions を curl して「How use of GitHub Actions is measured」冒頭から逐語抽出（raw: content/billing/concepts/product-billing/github-actions.md L24）。括弧書き「インフラ費用は別途」の裏取りは https://docs.github.com/en/actions/concepts/runners/self-hosted-runners の「Are free to use with GitHub Actions, but you are responsible for the cost of maintaining your runner machines.」（raw: content/actions/concepts/runners/self-hosted-runners.md L27）。両ページとも HTTP 200。 2026-11-07再照合: セルフホストランナーが無料という内容は同じで、ページの構成が変わった。"
  },
  {
   "file": "git/github-actions/Reference.tsx",
@@ -787,9 +787,9 @@
   "claim": "GitHub の Issue やコメントでは、画像をドラッグ＆ドロップするだけで自動的に Markdown の画像記法に変換してくれます。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files",
-  "quote": "To attach a file to an issue or pull request conversation, drag and drop it into the comment box.",
+  "quote": "To attach a file in your browser, drag and drop it into the comment box. [...] When you attach a file, it is uploaded immediately to GitHub and the text field is updated to show the anonymized URL for the file.",
   "correction": "",
-  "evidence": "候補ソース（Attaching files）を https://raw.githubusercontent.com/github/docs/main/content/get-started/writing-on-github/working-with-advanced-formatting/attaching-files.md で全文取得し、docs.github.com 側も curl で HTTP 200 を確認。ドラッグ＆ドロップで添付できること、および『When you attach a file, it is uploaded immediately to GitHub and the text field is updated to show the anonymized URL for the file.』までは明記されているが、挿入されるテキストが Markdown の画像記法（![alt](url)）であるとは書かれていない。Basic writing and formatting syntax の Uploading assets 節（https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax、HTTP 200）も『You can upload assets like images by dragging and dropping, selecting from a file browser, or pasting.』までで、記法への変換には触れていない。github/docs 内を code search（\"drag and drop\" images）しても該当記述なし。実際の Web UI は画像なら ![...](...) を挿入するが、それを裏付ける一次情報が見つからないため確定させない。"
+  "evidence": "候補ソース（Attaching files）を https://raw.githubusercontent.com/github/docs/main/content/get-started/writing-on-github/working-with-advanced-formatting/attaching-files.md で全文取得し、docs.github.com 側も curl で HTTP 200 を確認。ドラッグ＆ドロップで添付できること、および『When you attach a file, it is uploaded immediately to GitHub and the text field is updated to show the anonymized URL for the file.』までは明記されているが、挿入されるテキストが Markdown の画像記法（![alt](url)）であるとは書かれていない。Basic writing and formatting syntax の Uploading assets 節（https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax、HTTP 200）も『You can upload assets like images by dragging and dropping, selecting from a file browser, or pasting.』までで、記法への変換には触れていない。github/docs 内を code search（\"drag and drop\" images）しても該当記述なし。実際の Web UI は画像なら ![...](...) を挿入するが、それを裏付ける一次情報が見つからないため確定させない。 2026-11-07再照合: ドラッグ＆ドロップの手順は同じで、本文欄の更新までは書かれているが、Markdownの画像記法になるとは明記されていない。"
  },
  {
   "file": "git/react/Modify.tsx",
@@ -877,8 +877,8 @@
   "claim": "main のマージ条件は、リポジトリの Settings → Rules （Rulesets） または Branches（ブランチ保護） で設定します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository",
-  "quote": "In the left sidebar, under \"Code and automation,\" click Rules, then click Rulesets.",
-  "evidence": "手順ページが参照している reusable を raw で取得して逐語確認した（いずれも HTTP 200）。Rulesets 側: https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/repo-rulesets-settings.md が上記 quote。ブランチ保護側: https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/repository-branches.md に「1. In the \"Code and automation\" section of the sidebar, click **Branches**.」。両者の前段はいずれも https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/sidebar-settings.md の「Under your repository name, click **Settings**.」で、Settings → Rules（Rulesets）/ Settings → Branches という記述と一致する。",
+  "quote": "In the left sidebar, under \"Code, planning, and automation\", click Rulesets, then click Rulesets.",
+  "evidence": "手順ページが参照している reusable を raw で取得して逐語確認した（いずれも HTTP 200）。Rulesets 側: https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/repo-rulesets-settings.md が上記 quote。ブランチ保護側: https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/repository-branches.md に「1. In the \"Code and automation\" section of the sidebar, click **Branches**.」。両者の前段はいずれも https://raw.githubusercontent.com/github/docs/main/data/reusables/repositories/sidebar-settings.md の「Under your repository name, click **Settings**.」で、Settings → Rules（Rulesets）/ Settings → Branches という記述と一致する。 2026-11-07再照合: サイドバーの項目がRulesからRulesetsに変わった。",
   "correction": ""
  },
  {
@@ -1021,9 +1021,9 @@
   "claim": "認証済みの学生・教員・人気 OSS のメンテナーは無料でアクセスできる制度がある。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.github.com/en/copilot/get-started/plans",
-  "quote": "Available to verified students. Get access to Copilot's features for free. [...] Verified teachers, and maintainers of popular open source projects may be eligible for free access to Copilot Pro.",
+  "quote": "Available to verified students. Get access to Copilot's features for free. [...] Verified teachers and maintainers of popular open source projects may be eligible for free access to Copilot Pro.",
   "correction": "",
-  "evidence": "https://docs.github.com/en/copilot/get-started/plans を curl + HTML タグ除去で取得し、レンダリング後の本文から上記 2 段落を逐語で抽出（変数展開済み）。裏付けとして https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-teachers-and-os-maintainers.md も取得し、\"There are two ways to qualify for free access to Copilot Pro: As a verified teacher on GitHub Education. / As a maintainer of a popular open-source repository.\" と、\"GitHub reevaluates your eligibility every month.\" を確認。学生は Copilot Pro ではなく専用の Copilot Student プラン（無料）である点も一致する。 2026-08-23 に再照合。元の引用はプラン紹介文の書き換えで原文から外れていた。学生・教員・人気 OSS メンテナーの 3 者すべてが無料になる箇所を、プラン一覧と注記の 2 箇所から取り直した。"
+  "evidence": "https://docs.github.com/en/copilot/get-started/plans を curl + HTML タグ除去で取得し、レンダリング後の本文から上記 2 段落を逐語で抽出（変数展開済み）。裏付けとして https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-teachers-and-os-maintainers.md も取得し、\"There are two ways to qualify for free access to Copilot Pro: As a verified teacher on GitHub Education. / As a maintainer of a popular open-source repository.\" と、\"GitHub reevaluates your eligibility every month.\" を確認。学生は Copilot Pro ではなく専用の Copilot Student プラン（無料）である点も一致する。 2026-08-23 に再照合。元の引用はプラン紹介文の書き換えで原文から外れていた。学生・教員・人気 OSS メンテナーの 3 者すべてが無料になる箇所を、プラン一覧と注記の 2 箇所から取り直した。 2026-11-07再照合: 教員とメンテナーの文の読点が消えただけで、内容は同じ。"
  },
  {
   "file": "claude-code/cicd-headless/GitHubActions.tsx",
@@ -1570,9 +1570,9 @@
   "claim": "React 19 では、<form> の action 属性に関数を直接渡せます。これにより onSubmit + e.preventDefault() のパターンが不要になります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://react.dev/reference/react-dom/components/form",
-  "quote": "Unlike `onSubmit`, an `action` runs in a [Transition](/reference/react/useTransition) and calling `e.preventDefault()` isn't needed.",
+  "quote": "You don't need value/onChange pairs, an onSubmit handler, or e.preventDefault().",
   "correction": "",
-  "evidence": "https://raw.githubusercontent.com/reactjs/react.dev/main/src/content/reference/react-dom/components/form.md の 91 行目が上記引用。関数を渡せる点は同ファイル 41 行目 'a URL or function. ... When a function is passed to `action` the function will handle the form submission in a Transition' と、react-19.md 193 行目 'We've added support for passing functions as the `action` and `formAction` props of `<form>`, `<input>`, and `<button>` elements to automatically submit forms with Actions:' で確認。CHANGELOG 19.0.0 の React DOM Client にも '`<form> action` prop: Form Actions allow you to manage forms automatically and integrate with `useFormStatus`.' とある。なお form.md 85 行目には onSubmit も引き続き有効（'Reading form data with `onSubmit` works in every version of React'）と書かれているので、「不要になる」は action を使う場合の話であって onSubmit が廃止された訳ではない。"
+  "evidence": "https://raw.githubusercontent.com/reactjs/react.dev/main/src/content/reference/react-dom/components/form.md の 91 行目が上記引用。関数を渡せる点は同ファイル 41 行目 'a URL or function. ... When a function is passed to `action` the function will handle the form submission in a Transition' と、react-19.md 193 行目 'We've added support for passing functions as the `action` and `formAction` props of `<form>`, `<input>`, and `<button>` elements to automatically submit forms with Actions:' で確認。CHANGELOG 19.0.0 の React DOM Client にも '`<form> action` prop: Form Actions allow you to manage forms automatically and integrate with `useFormStatus`.' とある。なお form.md 85 行目には onSubmit も引き続き有効（'Reading form data with `onSubmit` works in every version of React'）と書かれているので、「不要になる」は action を使う場合の話であって onSubmit が廃止された訳ではない。 2026-11-07再照合: form.mdが書き直され、actionの節に同じ内容が移った。"
  },
  {
   "file": "react/react19/React19Hooks.tsx",
@@ -1696,9 +1696,9 @@
   "claim": "実際のプロダクション開発では、TanStack Query（旧 React Query）や SWR の利用が推奨されています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://react.dev/reference/react/useEffect",
-  "quote": "Otherwise, consider using or building a client-side cache. Popular open source solutions include TanStack Query, useSWR, and React Router 6.4+.",
+  "quote": "Otherwise, consider using or building a client-side cache. Popular open source solutions include TanStack Query, useSWR, and React Router.",
   "correction": "",
-  "evidence": "candidateSource の https://react.dev/learn/you-might-not-need-an-effect を curl で取得してテキスト化したが、TanStack / SWR / React Query いずれの語も含まれていなかった（0 件）。実際の記述は https://react.dev/reference/react/useEffect の「Fetching data with Effects」節にあり、「data fetching is not trivial to do well, so we recommend the following approaches:」の直後に 2 つの箇条書きがあり、1 つ目は「If you use a framework, use its built-in data fetching mechanism.」、2 つ目が上記引用。TanStack Query と useSWR は「Popular open source solutions」として名指しされている。旧称については npm view react-query version が 3.39.3、npm view @tanstack/react-query version が 5.101.4 で description が両者同一（'Hooks for managing, caching and syncing asynchronous and remote data in React'）であり同系譜と確認できる。ただし出典を引くなら you-might-not-need-an-effect ではなく useEffect リファレンスを指すべきで、「フレームワーク組込みの仕組みが第一推奨」という前段も落ちている点は補足したほうがよい。"
+  "evidence": "candidateSource の https://react.dev/learn/you-might-not-need-an-effect を curl で取得してテキスト化したが、TanStack / SWR / React Query いずれの語も含まれていなかった（0 件）。実際の記述は https://react.dev/reference/react/useEffect の「Fetching data with Effects」節にあり、「data fetching is not trivial to do well, so we recommend the following approaches:」の直後に 2 つの箇条書きがあり、1 つ目は「If you use a framework, use its built-in data fetching mechanism.」、2 つ目が上記引用。TanStack Query と useSWR は「Popular open source solutions」として名指しされている。旧称については npm view react-query version が 3.39.3、npm view @tanstack/react-query version が 5.101.4 で description が両者同一（'Hooks for managing, caching and syncing asynchronous and remote data in React'）であり同系譜と確認できる。ただし出典を引くなら you-might-not-need-an-effect ではなく useEffect リファレンスを指すべきで、「フレームワーク組込みの仕組みが第一推奨」という前段も落ちている点は補足したほうがよい。 2026-11-07再照合: React Routerの版の指定（6.4+）が原文から消えた。"
  },
  {
   "file": "react/hooks-deep/MemoCallback.tsx",
@@ -1867,9 +1867,9 @@
   "claim": "RFC 9457「Problem Details for HTTP APIs」は、HTTP API のエラーを表現する共通の JSON 形式を定義しています。これは以前の RFC 7807 を置き換えた最新版です。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9457",
-  "quote": "This document defines a \"problem detail\" to carry machine -readable details of errors in HTTP response content to avoid the need to define new error response formats for HTTP APIs. […] This document obsoletes RFC 7807.",
+  "quote": "This document defines a \"problem detail\" to carry machine- readable details of errors in HTTP response content to avoid the need to define new error response formats for HTTP APIs. [...] This document obsoletes RFC 7807.",
   "correction": "",
-  "evidence": "引用を、sourceUrl が指す HTML 版（https://www.rfc-editor.org/rfc/rfc9457）の描画どおり（Abstract 内で machine-readable が行分割され 'machine -readable' となる形）に取り直し、段落の切れ目を中略記号で示した。ヘッダーに Obsoletes: 7807 / Proposed Standard / July 2023、タイトルに Problem Details for HTTP APIs がある。https://www.rfc-editor.org/info/rfc9457 に 'Obsoleted By' の項が無いため『最新版』も成立する。なお 9457 は JSON（application/problem+json）に加えて XML 形式（application/problem+xml）も定義している。"
+  "evidence": "引用を、sourceUrl が指す HTML 版（https://www.rfc-editor.org/rfc/rfc9457）の描画どおり（Abstract 内で machine-readable が行分割され 'machine -readable' となる形）に取り直し、段落の切れ目を中略記号で示した。ヘッダーに Obsoletes: 7807 / Proposed Standard / July 2023、タイトルに Problem Details for HTTP APIs がある。https://www.rfc-editor.org/info/rfc9457 に 'Obsoleted By' の項が無いため『最新版』も成立する。なお 9457 は JSON（application/problem+json）に加えて XML 形式（application/problem+xml）も定義している。 2026-11-07再照合: 本文の変更は無く、ハイフン後の空白の位置だけを現行の取得結果に合わせた。"
  },
  {
   "file": "api/rest-design/ErrorHandling.tsx",
@@ -2378,11 +2378,11 @@
  {
   "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
   "claim": "公式ドキュメントが推奨する4フェーズのワークフローです。各フェーズで明確な目的を持つことで、的確な成果物を得られます。",
-  "verdict": "CONFIRMED",
+  "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "The recommended workflow has four phases:",
+  "quote": "",
   "correction": "",
-  "evidence": "curl -sL https://code.claude.com/docs/en/best-practices.md L64 に上記逐語。直前の見出しは L56「## Explore first, then plan, then code」。続く <Steps> の各 <Step title> は Explore / Plan / Implement / Commit の 4 つで、ページ側の「Explore → Plan → Implement → Commit」と完全に一致（sed で Step title 行を抽出して確認）。「公式ドキュメントが推奨する4フェーズ」という出典主張は成立する。後半「各フェーズで明確な目的を持つことで、的確な成果物を得られます」は評価的な表現で出典と逐語対応はしないが、同節の「Separate research and planning from implementation to avoid solving the wrong problem.」と趣旨は一致。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/best-practices.md L64 に上記逐語。直前の見出しは L56「## Explore first, then plan, then code」。続く <Steps> の各 <Step title> は Explore / Plan / Implement / Commit の 4 つで、ページ側の「Explore → Plan → Implement → Commit」と完全に一致（sed で Step title 行を抽出して確認）。「公式ドキュメントが推奨する4フェーズ」という出典主張は成立する。後半「各フェーズで明確な目的を持つことで、的確な成果物を得られます」は評価的な表現で出典と逐語対応はしないが、同節の「Separate research and planning from implementation to avoid solving the wrong problem.」と趣旨は一致。 2026-11-07再照合: llms.txtの全228ページを全文検索したが、4フェーズのワークフローを推奨する記述は無く、best-practicesからこの節は削除されている。"
  },
  {
   "file": "claude-code/best-practices/EffectiveWorkflows.tsx",
@@ -2398,9 +2398,9 @@
   "claim": "# Model: Claude Opus 4.7 等の LLM 本体",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
-  "quote": "| Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 | `low`, `medium`, `high`, `xhigh`, `max` |",
+  "quote": "| Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 | `low`, `medium`, `high`, `xhigh`, `max` |",
   "correction": "",
-  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md L460（effort レベル対応表）に上記逐語行があり、Claude Opus 4.7 は現行ドキュメントに実在する Claude モデル名。同 L465「The default effort is `high` on every model that supports effort, except Opus 4.7, which defaults to `xhigh`.」、L53「Before v2.1.207, `opus` resolved to Opus 4.7 on Claude Platform on AWS」でも実在を確認。ただし記述は「等の」という例示であり最新版の宣言ではない点に注意: 同 L46 の表では Anthropic API での `opus` エイリアスは Opus 5 に解決する（| Anthropic API | Opus 5 | Sonnet 5 |）ため、最新ラインアップの代表例としては古い。モデル名自体は誤りではないので CONFIRMED とした。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md L460（effort レベル対応表）に上記逐語行があり、Claude Opus 4.7 は現行ドキュメントに実在する Claude モデル名。同 L465「The default effort is `high` on every model that supports effort, except Opus 4.7, which defaults to `xhigh`.」、L53「Before v2.1.207, `opus` resolved to Opus 4.7 on Claude Platform on AWS」でも実在を確認。ただし記述は「等の」という例示であり最新版の宣言ではない点に注意: 同 L46 の表では Anthropic API での `opus` エイリアスは Opus 5 に解決する（| Anthropic API | Opus 5 | Sonnet 5 |）ため、最新ラインアップの代表例としては古い。モデル名自体は誤りではないので CONFIRMED とした。 2026-11-07再照合: 表の行に5.5世代が加わり、Opus 4.7は引き続き現行の対応モデルに載っている。"
  },
  {
   "file": "claude-code/best-practices/TestingDebugging.tsx",
@@ -2425,9 +2425,9 @@
   "claim": "# .claude/agents/security-reviewer.md\n\n---\ntools:\n  - Read\n  - Glob\n  - Grep\nmodel: sonnet\n---",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
-  "quote": "The following fields can be used in the YAML frontmatter. Only `name` and `description` are required.",
+  "quote": "Only `name` and `description` are required.",
   "correction": "必須フィールド `name` と `description` が欠けており、この frontmatter ではサブエージェントとして正しく登録されない。公式の記法は 1 行のカンマ区切りで、たとえば以下のとおり:\n---\nname: security-reviewer\ndescription: Reviews code for security vulnerabilities\ntools: Read, Grep, Glob\nmodel: sonnet\n---\n`model: sonnet` は有効な値。`tools` を YAML のブロックリスト（- Read 形式）で書く記法はドキュメントに記載がなく、公式例はすべて `tools: Read, Glob, Grep` のインライン形式。",
-  "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md L281 に上記逐語（frontmatter フィールド表の直前）。表の該当行は L285「| `name` | Yes | Unique identifier using lowercase letters and hyphens.…」、L287「| `tools` | No | …」、L289「| `model` | No | [Model](#choose-a-model) to use: `sonnet`, `opus`, `haiku`, `fable`, a full model ID (for example, `claude-opus-5`), or `inherit`. Defaults to `inherit` |」。公式サンプルは L247-252「---\\nname: code-reviewer\\ndescription: Reviews code for quality and best practices\\ntools: Read, Glob, Grep\\nmodel: sonnet\\n---」、L358-362「---\\nname: safe-researcher\\ndescription: Research agent with restricted capabilities\\ntools: Read, Grep, Glob, Bash\\n---」。ファイル内で「comma-separated」「YAML list」といった記法の言及を grep したが 0 件で、ブロックリスト形式の可否はドキュメント上明示されていない（判定の根拠は name/description 欠落）。なお同ページの CodingChallenge の initialCode / answer（TestingDebugging.tsx L320-321）も同じ frontmatter を採用しているため併せて要修正。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/sub-agents.md L281 に上記逐語（frontmatter フィールド表の直前）。表の該当行は L285「| `name` | Yes | Unique identifier using lowercase letters and hyphens.…」、L287「| `tools` | No | …」、L289「| `model` | No | [Model](#choose-a-model) to use: `sonnet`, `opus`, `haiku`, `fable`, a full model ID (for example, `claude-opus-5`), or `inherit`. Defaults to `inherit` |」。公式サンプルは L247-252「---\\nname: code-reviewer\\ndescription: Reviews code for quality and best practices\\ntools: Read, Glob, Grep\\nmodel: sonnet\\n---」、L358-362「---\\nname: safe-researcher\\ndescription: Research agent with restricted capabilities\\ntools: Read, Grep, Glob, Bash\\n---」。ファイル内で「comma-separated」「YAML list」といった記法の言及を grep したが 0 件で、ブロックリスト形式の可否はドキュメント上明示されていない（判定の根拠は name/description 欠落）。なお同ページの CodingChallenge の initialCode / answer（TestingDebugging.tsx L320-321）も同じ frontmatter を採用しているため併せて要修正。 2026-11-07再照合: 導入文が変わったが必須項目の記述は残り反証は有効で、教材はすでに修正済み。なおtoolsのYAMLリスト形式は現行では許容されるので、当時の訂正のうちリスト形式を不可とした部分は今は当てはまらない。"
  },
  {
   "file": "claude-code/cicd-headless/GitHubActions.tsx",
@@ -2452,27 +2452,27 @@
   "claim": "パイプモードでは会話履歴が保持されません。毎回新しいセッションとして実行されます。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/headless",
-  "quote": "Use `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation. `--continue` skips [background sessions](/docs/en/sessions#resume-a-session). This example runs a review, then sends follow-up prompts:",
+  "quote": "Use `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation.",
   "correction": "`-p`（パイプモード）でも会話履歴は保存されており、継続できる。既定ではフラグを付けない各実行が新しいセッションになるだけで、`claude -p \"...\" --continue` で直近の会話を継続でき、`session_id=$(claude -p \"Start a review\" --output-format json | jq -r '.session_id')` で ID を取り `claude -p \"...\" --resume \"$session_id\"` で特定セッションを継続できる。CLI reference にも `claude -c -p \"query\"`（Continue via SDK）が独立した項目として載っている。したがって「継続的な対話が必要な場合は REPL モードを使用」という誘導も不正確。",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。 2026-08-23 再照合: 同じ「Continue conversations」節に「`--continue` skips background sessions」の一文が加わっていたので引用を取り直した。-p でも --continue / --resume で会話を継続できるという判定の根拠は変わらない。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/headless を取得し「Continue conversations」節を確認。加えて https://code.claude.com/docs/en/cli-reference の表に `claude -c -p \"query\"` = 「Continue via SDK」、`--resume, -r` = 「Resume a specific session by ID or name」が存在することを確認。教材側の該当箇所（client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx:71, InfoBox「パイプモードの特性」）を grep で読み、留保なしの断定であることも確認した。 2026-08-23 再照合: 同じ「Continue conversations」節に「`--continue` skips background sessions」の一文が加わっていたので引用を取り直した。-p でも --continue / --resume で会話を継続できるという判定の根拠は変わらない。 2026-11-07再照合: 続く文のバックグラウンドセッションの説明が変わったが、-pの会話を継続できるという反証は有効で、教材はすでに修正済み。"
  },
  {
   "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code 公式が最初に強調するのは 「コンテキストウィンドウは最重要のリソース」という事実。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Most best practices are based on one constraint: Claude's context window fills up fast, and performance degrades as it fills.  [...]  This matters since LLM performance degrades as context fills. When the context window is getting full, Claude may start \"forgetting\" earlier instructions or making more mistakes. The context window is the most important resource to manage.",
+  "quote": "The context window is your main constraint, manage it aggressively [...] Most current models have a 1M-token window and compaction happens on its own, so running out is rare. `/clear` between tasks is still worth doing, because a focused context gets you better answers and costs less.",
   "correction": "",
-  "evidence": "curl -sL で https://code.claude.com/docs/en/best-practices.md を取得し grep。「The context window is the most important resource to manage.」が逐語で存在する。位置も本文冒頭の導入直後（最初の水平線の直後、個別の best practice 見出しより前）にあり、教材の「最初に強調する」という記述と整合する。教材本文の続き「埋まるほどモデルの性能が下がる」も原文の「performance degrades as it fills」「LLM performance degrades as context fills」に対応。"
+  "evidence": "curl -sL で https://code.claude.com/docs/en/best-practices.md を取得し grep。「The context window is the most important resource to manage.」が逐語で存在する。位置も本文冒頭の導入直後（最初の水平線の直後、個別の best practice 見出しより前）にあり、教材の「最初に強調する」という記述と整合する。教材本文の続き「埋まるほどモデルの性能が下がる」も原文の「performance degrades as it fills」「LLM performance degrades as context fills」に対応。 2026-11-07再照合: 現行のbest-practicesは「コンテキストウィンドウが主な制約」という助言を「What you can stop doing」の表に移し、もう不要な助言として扱っている。"
  },
  {
   "file": "claude-code/claude-core/ContextEngineering.tsx",
   "claim": "Claude Code は prompt cache を自動的に利用する。毎回同じ prefix（CLAUDE.md、@import 群、Skills）を 読み込むセッションでは、キャッシュ読み取りは通常の入力トークンより 大幅に安価になり、レイテンシも下がる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/prompt-caching",
-  "quote": "Claude Code manages prompt caching automatically.  [...]  Prompt caching makes Claude Code faster and more cost-efficient.  [...]  | `cache_read_input_tokens`     | Tokens served from cache on this turn, billed at roughly 10% of the standard input rate |",
+  "quote": "Claude Code manages prompt caching automatically. [...] Prompt caching makes Claude Code faster and more cost-efficient. [...] Tokens served from cache on this turn, billed at the model's cached token rate, below the standard input rate",
   "correction": "",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/prompt-caching を取得。「Claude Code handles prompt caching for you, unless you disable it」「Prompt caching makes Claude Code faster and more cost-efficient」および Check cache performance 節の表から、自動利用・約10%の単価・高速化が逐語で確認できた。補足（教材の括弧書きへの留保）: 同ページの層の表では安定プレフィックスは「System prompt」と「Project context（CLAUDE.md, auto memory, unscoped rules）」で、Skills はプレフィックスに入らない。「Skills and commands inject their instructions as user messages at the point of invocation」とあり、Skill 呼び出しはキャッシュを壊さず末尾に追記される。主張の核（自動キャッシュ・大幅に安価・低レイテンシ）は正しいが、括弧内の「Skills」は prefix の構成要素としては不正確。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/prompt-caching を取得。「Claude Code handles prompt caching for you, unless you disable it」「Prompt caching makes Claude Code faster and more cost-efficient」および Check cache performance 節の表から、自動利用・約10%の単価・高速化が逐語で確認できた。補足（教材の括弧書きへの留保）: 同ページの層の表では安定プレフィックスは「System prompt」と「Project context（CLAUDE.md, auto memory, unscoped rules）」で、Skills はプレフィックスに入らない。「Skills and commands inject their instructions as user messages at the point of invocation」とあり、Skill 呼び出しはキャッシュを壊さず末尾に追記される。主張の核（自動キャッシュ・大幅に安価・低レイテンシ）は正しいが、括弧内の「Skills」は prefix の構成要素としては不正確。 2026-11-07再照合: cache_read_input_tokensの説明から「roughly 10%」が消え、料金ページ参照に変わった。自動利用と割安さは成り立つ（料金ページで0.1倍以下）が、prefixの構成とCLAUDE.md編集の記述は現行と違う。"
  },
  {
   "file": "claude-code/claude-core/ContextEngineering.tsx",
@@ -2497,18 +2497,18 @@
   "claim": "high / 既定値。トークン消費と知能のバランス。大半のタスクに適する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
-  "quote": "The default effort is `high` on every model that supports effort, except Opus 4.7, which defaults to `xhigh`.  [...]  Each level trades token spend against capability. The default suits most coding tasks; adjust when you want a different balance.  [...]  | `high`      | Balances token usage and intelligence. The default on every model except Opus 4.7                                                               |",
+  "quote": "The model's default effort: `high` on every model that supports effort, except that Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium` and Opus 4.7 defaults to `xhigh`. [...] | `high` | Work where verification matters or edge cases are likely, such as fixing a bug in an existing codebase. The default on every model except Opus 5.5, Sonnet 5.5, Haiku 5.5, and Opus 4.7 |",
   "correction": "",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Adjust effort level」「Choose an effort level」節を確認。`high` = 「Balances token usage and intelligence」＝「トークン消費と知能のバランス」、「The default suits most coding tasks」＝「大半のタスクに適する」に一致。API 側 https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost の表も「| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks. |」で既定を裏付ける。批判点への回答: 入力の why にある「Fable 5・Opus 4.7 以降は xhigh が既定」は公式と食い違う。xhigh 既定は Opus 4.7 のみで、Fable 5 / Opus 4.8 / Opus 5 / Sonnet 5 はいずれも既定 high（ただし Fable 5・Opus 4.8・Opus 4.7 は初回起動時にモデル既定を保持する hold がある）。本 claim 側（high が既定）が正しく、SlashCommands.tsx 側の記述を要修正。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Adjust effort level」「Choose an effort level」節を確認。`high` = 「Balances token usage and intelligence」＝「トークン消費と知能のバランス」、「The default suits most coding tasks」＝「大半のタスクに適する」に一致。API 側 https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost の表も「| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks. |」で既定を裏付ける。批判点への回答: 入力の why にある「Fable 5・Opus 4.7 以降は xhigh が既定」は公式と食い違う。xhigh 既定は Opus 4.7 のみで、Fable 5 / Opus 4.8 / Opus 5 / Sonnet 5 はいずれも既定 high（ただし Fable 5・Opus 4.8・Opus 4.7 は初回起動時にモデル既定を保持する hold がある）。本 claim 側（high が既定）が正しく、SlashCommands.tsx 側の記述を要修正。 2026-11-07再照合: highが既定なのはOpus 5.5 / Sonnet 5.5 / Haiku 5.5 / Opus 4.7以外のモデルに限られ、既定モデルのOpus 5.5はmediumになった。highの説明も「バランス」から検証重視の作業向けに変わった。"
  },
  {
   "file": "claude-code/claude-core/ExtendedThinking.tsx",
   "claim": "Option+T（macOS）/ Alt+T でセッション中に切替でき、思考の深さは主に Effort Level が制御します（現行モデルはタスクに応じて思考量を自動調整する adaptive reasoning に対応）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
-  "quote": "| Toggle for the current session | Press `Option+T` on macOS or `Alt+T` on Windows and Linux |  [...]  Extended thinking is the reasoning Claude emits before responding. On models that support [adaptive reasoning](#adjust-effort-level), the effort level is the primary control for how much thinking happens; the settings below turn thinking on or off and control how it displays.  [...]  Adaptive reasoning makes thinking optional on each step, so Claude can respond faster to routine prompts and reserve deeper thinking for steps that benefit from it.  [...]  Fable 5, Sonnet 5, and Opus 4.7 and later always use adaptive reasoning.",
+  "quote": "Effort levels control adaptive reasoning, which lets the model decide whether and how much to think on each step based on task complexity. [...] | Toggle for the current session | Press `Option+T` on macOS or `Alt+T` on Windows and Linux |",
   "correction": "",
-  "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Extended thinking」節と「Adaptive reasoning and fixed thinking budgets」節を確認。キーバインド（Option+T / Alt+T）、Effort Level が思考量の主制御であること、現行モデルが adaptive reasoning であることの 3 点がいずれも逐語で存在。「[Effort levels] control adaptive reasoning, which lets the model decide whether and how much to think on each step based on task complexity」も「タスクに応じて思考量を自動調整」に対応する。補足（教材本文には無い留保）: 「Thinking cannot be turned off on Fable 5. The session toggle, `alwaysThinkingEnabled`, and `MAX_THINKING_TOKENS=0` have no effect there.」とあり、Fable 5 では Option+T の切替が効かない。"
+  "evidence": "WebFetch で https://code.claude.com/docs/en/model-config を取得し「Extended thinking」節と「Adaptive reasoning and fixed thinking budgets」節を確認。キーバインド（Option+T / Alt+T）、Effort Level が思考量の主制御であること、現行モデルが adaptive reasoning であることの 3 点がいずれも逐語で存在。「[Effort levels] control adaptive reasoning, which lets the model decide whether and how much to think on each step based on task complexity」も「タスクに応じて思考量を自動調整」に対応する。補足（教材本文には無い留保）: 「Thinking cannot be turned off on Fable 5. The session toggle, `alwaysThinkingEnabled`, and `MAX_THINKING_TOKENS=0` have no effect there.」とあり、Fable 5 では Option+T の切替が効かない。 2026-11-07再照合: キー操作とeffortが思考量を決める点は同じだが、Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Fableでは思考をオフにできなくなり、既定モデルでは切替が効かない。"
  },
  {
   "file": "claude-code/claude-core/ExtendedThinking.tsx",
@@ -2524,9 +2524,9 @@
   "claim": "xhigh より深い推論。Fable 5 / Opus 4.7 以降などで利用可能。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config",
-  "quote": "The available effort levels depend on the model. Models not listed here do not support effort: [...] | Fable 5 | `low`, `medium`, `high`, `xhigh`, `max` | [...] | Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 | `low`, `medium`, `high`, `xhigh`, `max` |",
+  "quote": "| Fable 5.1 and Fable 5 | `low`, `medium`, `high`, `xhigh`, `max` |\n| Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 | `low`, `medium`, `high`, `xhigh`, `max` |",
   "correction": "",
-  "evidence": "公式ドキュメントの effort レベル表で、max を持つのは Fable 5 と Opus 5 / Sonnet 5 / Opus 4.8 / Opus 4.7。Opus 4.6 と Sonnet 4.6 は low / medium / high / max（xhigh なし）。フラグメント付き URL では Markdown 原文を取得できないため sourceUrl をページ本体に差し替えた。"
+  "evidence": "公式ドキュメントの effort レベル表で、max を持つのは Fable 5 と Opus 5 / Sonnet 5 / Opus 4.8 / Opus 4.7。Opus 4.6 と Sonnet 4.6 は low / medium / high / max（xhigh なし）。フラグメント付き URL では Markdown 原文を取得できないため sourceUrl をページ本体に差し替えた。 2026-11-07再照合: Fable 5.1と5.5世代が表に加わったが、xhighがFable 5やOpus 4.7以降で使える点は同じ。"
  },
  {
   "file": "claude-code/claude-intro/ClaudeCodeIntro.tsx",
@@ -2542,9 +2542,9 @@
   "claim": "優先順位: 環境変数 CLAUDE_CODE_EFFORT_LEVEL > 設定値 > モデル既定。skill / subagent frontmatter の effort はその skill / subagent 実行時のみ上書き。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/model-config#set-the-effort-level",
-  "quote": "The environment variable takes precedence over all other methods, then your configured level, then the model default. Frontmatter effort applies when that skill or subagent is active, overriding the session level but not the environment variable.",
+  "quote": "Claude Code resolves the session's effort level in this order, taking the first that applies: The CLAUDE_CODE_EFFORT_LEVEL environment variable A level you pick in the session, such as with /effort, the /model picker, or applyFlagSettings() Launching with --effort Your settings: the level you saved for the model or an effortLevel key [...] While either one applies, the skill or subagent runs at its level, whatever level you launch with, save, or pick. If CLAUDE_CODE_EFFORT_LEVEL is set, that level applies instead.",
   "correction": "",
-  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md の \"Set the effort level\" 節（行 508-517）。優先順位の一文が主張とそのまま一致する（env var > configured level > model default）。frontmatter の扱いも \"applies when that skill or subagent is active\" で「その skill / subagent 実行時のみ上書き」に一致。環境変数名 `CLAUDE_CODE_EFFORT_LEVEL` も同節に実在。補足として、frontmatter は環境変数には勝たない旨が明記されている点も教材の記述と矛盾しない。 2026-08-23 再照合: Settings の箇条書きが「`max` isn't accepted here, and `ultracode` has its own `ultracode` key」に書き換わっていた。主張は優先順位そのものなので、箇条書きではなく優先順位を明示している一文へ引用を取り直した。判定は変わらない。"
+  "evidence": "curl -sL https://code.claude.com/docs/en/model-config.md の \"Set the effort level\" 節（行 508-517）。優先順位の一文が主張とそのまま一致する（env var > configured level > model default）。frontmatter の扱いも \"applies when that skill or subagent is active\" で「その skill / subagent 実行時のみ上書き」に一致。環境変数名 `CLAUDE_CODE_EFFORT_LEVEL` も同節に実在。補足として、frontmatter は環境変数には勝たない旨が明記されている点も教材の記述と矛盾しない。 2026-08-23 再照合: Settings の箇条書きが「`max` isn't accepted here, and `ultracode` has its own `ultracode` key」に書き換わっていた。主張は優先順位そのものなので、箇条書きではなく優先順位を明示している一文へ引用を取り直した。判定は変わらない。 2026-11-07再照合: 1文の要約が5段階の解決順に置き換わり、環境変数と設定の間にセッション内の選択と--effortが入った。"
  },
  {
   "file": "claude-code/claude-intro/SlashCommands.tsx",
@@ -2595,10 +2595,10 @@
   "file": "threejs/basics/scene.tsx",
   "claim": "Three.js で 3D を表示するには、必ず 3 つの要素 が必要です。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://threejs.org/manual/en/creating-a-scene.html",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/r185/manual/en/creating-a-scene.html",
   "quote": "To actually be able to display anything with three.js, we need three things: scene, camera and renderer, so that we can render the scene with camera.",
   "correction": "",
-  "evidence": "candidateSource の旧 URL (https://threejs.org/docs/#manual/en/introduction/Creating-a-scene) は現在 docs から manual へ移設済み。実体は https://threejs.org/manual/en/creating-a-scene.html (curl 200) で取得し、\"Creating the scene\" 節の冒頭に上記の文を確認した。ページ本文の直後のコード例も new THREE.Scene() / new THREE.PerspectiveCamera(...) / new THREE.WebGLRenderer() の 3 つを立てている。なお WebGLRenderer の API ドキュメント (https://threejs.org/docs/pages/WebGLRenderer.html) は .render( scene : Object3D, camera : Camera ) を \"Renders the given scene (or other type of 3D object) using the given camera.\" と説明しており、厳密には Scene クラスのインスタンスでなく任意の Object3D も渡せる。ただし公式マニュアル自身が「3 つ必要」と同じ断定をしているため主張は一次情報と一致すると判定した。"
+  "evidence": "candidateSource の旧 URL (https://threejs.org/docs/#manual/en/introduction/Creating-a-scene) は現在 docs から manual へ移設済み。実体は https://threejs.org/manual/en/creating-a-scene.html (curl 200) で取得し、\"Creating the scene\" 節の冒頭に上記の文を確認した。ページ本文の直後のコード例も new THREE.Scene() / new THREE.PerspectiveCamera(...) / new THREE.WebGLRenderer() の 3 つを立てている。なお WebGLRenderer の API ドキュメント (https://threejs.org/docs/pages/WebGLRenderer.html) は .render( scene : Object3D, camera : Camera ) を \"Renders the given scene (or other type of 3D object) using the given camera.\" と説明しており、厳密には Scene クラスのインスタンスでなく任意の Object3D も渡せる。ただし公式マニュアル自身が「3 つ必要」と同じ断定をしているため主張は一次情報と一致すると判定した。 2026-11-07再照合: threejs.org/manualが404になったので、r185のソースへ版固定で移した。"
  },
  {
   "file": "threejs/basics/camera.tsx",
@@ -2667,10 +2667,10 @@
   "file": "threejs/basics/material.tsx",
   "claim": "一方、MeshStandardMaterial と MeshPhongMaterial はライトがないと真っ黒になります。",
   "verdict": "REFUTED",
-  "sourceUrl": "https://threejs.org/manual/en/materials.html",
-  "quote": "Note that setting the emissive property to a color on either a MeshLambertMaterial or a MeshPhongMaterial and setting the color to black (and shininess to 0 for phong) ends up looking just like the MeshBasicMaterial.",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/r185/manual/en/materials.html",
+  "quote": "Note that setting the [...] property to a color on either a [...] to black (and [...] to 0 for phong) ends up looking just like the",
   "correction": "既定値のままなら真っ黒になるが、無条件ではない。MeshStandardMaterial / MeshPhongMaterial は emissive（既定 (0,0,0)）に色を設定すればライトが 1 つも無くてもその色で描画される。公式ドキュメントは emissive を \"Emissive (light) color of the material, essentially a solid color unaffected by other lighting.\" と定義しており、ライティングの影響を受けない成分であることを明記している（envMap を設定した場合も同様に光源なしで色が出る）。教材は「emissive も envMap も設定していない既定の状態では真っ黒になる」と条件を明示するのが正確。",
-  "evidence": "公式マニュアルの Materials ページ (https://threejs.org/manual/en/materials.html, curl 200) に上記引用があり、Phong に emissive を与えると MeshBasicMaterial と同じ見た目になる＝ライトの有無に依存しない発色が起きることが一次情報で明示されている。加えて MeshStandardMaterial / MeshPhongMaterial 双方の API ドキュメント (https://threejs.org/docs/pages/MeshStandardMaterial.html, https://threejs.org/docs/pages/MeshPhongMaterial.html, いずれも curl 200) の .emissive 項が \"Emissive (light) color of the material, essentially a solid color unaffected by other lighting.\" / \"Default is (0,0,0).\" と記載。既定が (0,0,0) なので既定条件下では教材の記述どおり黒くなるが、「ライトがないと真っ黒になります」という無条件の断定は一次情報と食い違う。なお同 InfoBox 前半の MeshBasicMaterial に関する記述は https://threejs.org/docs/pages/MeshBasicMaterial.html の \"This material is not affected by lights.\" と一致しており問題ない。"
+  "evidence": "公式マニュアルの Materials ページ (https://threejs.org/manual/en/materials.html, curl 200) に上記引用があり、Phong に emissive を与えると MeshBasicMaterial と同じ見た目になる＝ライトの有無に依存しない発色が起きることが一次情報で明示されている。加えて MeshStandardMaterial / MeshPhongMaterial 双方の API ドキュメント (https://threejs.org/docs/pages/MeshStandardMaterial.html, https://threejs.org/docs/pages/MeshPhongMaterial.html, いずれも curl 200) の .emissive 項が \"Emissive (light) color of the material, essentially a solid color unaffected by other lighting.\" / \"Default is (0,0,0).\" と記載。既定が (0,0,0) なので既定条件下では教材の記述どおり黒くなるが、「ライトがないと真っ黒になります」という無条件の断定は一次情報と食い違う。なお同 InfoBox 前半の MeshBasicMaterial に関する記述は https://threejs.org/docs/pages/MeshBasicMaterial.html の \"This material is not affected by lights.\" と一致しており問題ない。 2026-11-07再照合: threejs.org/manualが404になったので、r185のソースへ版固定で移した。"
  },
  {
   "file": "threejs/basics/light.tsx",
@@ -2685,10 +2685,10 @@
   "file": "threejs/basics/light.tsx",
   "claim": "Three.js で影を表示するには、3 つの設定が必要です。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://threejs.org/manual/en/shadows.html",
-  "quote": "The first thing we need to do is turn on shadows in the renderer.\n\nconst renderer = new THREE.WebGLRenderer({antialias: true, canvas});\n+renderer.shadowMap.enabled = true;\n\nThen we also need to tell the light to cast a shadow\n\nconst light = new THREE.DirectionalLight(color, intensity);\n+light.castShadow = true;\n\nWe also need to go to each mesh in the scene and decide if it should\nboth cast shadows and/or receive shadows.",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/r185/manual/en/shadows.html",
+  "quote": "The first thing we need to do is turn on shadows in the renderer. [...] Then we also need to tell the light to cast a shadow [...] We also need to go to each mesh in the scene and decide if it should both cast shadows and/or receive shadows.",
   "correction": "",
-  "evidence": "curl -sL https://threejs.org/manual/en/shadows.html (HTTP 200) の本文を抽出。公式マニュアルが挙げる手順は教材の 3 項目と 1 対 1 で一致する（renderer.shadowMap.enabled → light.castShadow → mesh の castShadow / receiveShadow）。各プロパティも API ドキュメントで裏取り済み: https://threejs.org/docs/pages/WebGLRenderer.html.md の `.enabled` = \"If set to `true`, use shadow maps in the scene.\"、https://threejs.org/docs/pages/Object3D.html.md の `.castShadow` = \"When set to `true`, the 3D object gets rendered into shadow maps.\" / `.receiveShadow` = \"When set to `true`, the 3D object is affected by shadows in the scene.\"（いずれも既定 false）。なお同マニュアルは \"there are 3 lights which can cast shadows. The DirectionalLight , the PointLight , and the SpotLight .\" とも述べており、AmbientLight は影を落とせない（https://threejs.org/docs/pages/AmbientLight.html.md: \"It cannot be used to cast shadows as it does not have a direction.\"）。教材の 2 番目「light.castShadow = true」がこの 3 種に限られる点は本文に明示されていないが、3 つの設定という主張自体は一次情報と一致する。"
+  "evidence": "curl -sL https://threejs.org/manual/en/shadows.html (HTTP 200) の本文を抽出。公式マニュアルが挙げる手順は教材の 3 項目と 1 対 1 で一致する（renderer.shadowMap.enabled → light.castShadow → mesh の castShadow / receiveShadow）。各プロパティも API ドキュメントで裏取り済み: https://threejs.org/docs/pages/WebGLRenderer.html.md の `.enabled` = \"If set to `true`, use shadow maps in the scene.\"、https://threejs.org/docs/pages/Object3D.html.md の `.castShadow` = \"When set to `true`, the 3D object gets rendered into shadow maps.\" / `.receiveShadow` = \"When set to `true`, the 3D object is affected by shadows in the scene.\"（いずれも既定 false）。なお同マニュアルは \"there are 3 lights which can cast shadows. The DirectionalLight , the PointLight , and the SpotLight .\" とも述べており、AmbientLight は影を落とせない（https://threejs.org/docs/pages/AmbientLight.html.md: \"It cannot be used to cast shadows as it does not have a direction.\"）。教材の 2 番目「light.castShadow = true」がこの 3 種に限られる点は本文に明示されていないが、3 つの設定という主張自体は一次情報と一致する。 2026-11-07再照合: threejs.org/manualが404になったので、r185のソースへ版固定で移した。"
  },
  {
   "file": "threejs/basics/animation.tsx",
@@ -2703,10 +2703,10 @@
   "file": "threejs/applied/textures.tsx",
   "claim": "U は横方向（0〜1）、V は縦方向（0〜1）の座標です。 (0,0) が左下、(1,1) が右上になります。 BoxGeometry などの基本形状には UV 座標が自動で設定されています。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://threejs.org/manual/en/textures.html",
-  "quote": "Rotating the texture can be set by setting the rotation property in radians\nas well as the center property for choosing the center of rotation.\nIt defaults to 0,0 which rotates from the bottom left corner.",
+  "sourceUrl": "https://raw.githubusercontent.com/mrdoob/three.js/r185/manual/en/textures.html",
+  "quote": "property in radians as well as the [...] property for choosing the center of rotation. It defaults to 0,0 which rotates from the bottom left corner.",
   "correction": "",
-  "evidence": "原点位置: curl -sL https://threejs.org/manual/en/textures.html（HTTP 200）の「Repeating, offseting, rotating, wrapping a texture」節。テクスチャ変換の中心 center の既定値 0,0 が \"the bottom left corner\" と明記されており、Three.js の UV (0,0) がテクスチャの左下であることが確定する（引用箇所の code タグは除去、文言は原文のまま）。U/V の向き: 同ページに \"there are 2 properties, wrapS for horizontal wrapping and wrapT for vertical wrapping.\"、および https://threejs.org/docs/pages/Texture.html.md の `.wrapS` = \"This defines how the texture is wrapped horizontally and corresponds to _U_ in UV mapping.\"（U = 横）。BoxGeometry の UV 自動生成: https://raw.githubusercontent.com/mrdoob/three.js/dev/src/geometries/BoxGeometry.js に `this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );` があり、buildPlane 内で `uvs.push( ix / gridX ); uvs.push( 1 - ( iy / gridY ) );` と生成している（v が上方向に増える＝左下原点とも整合）。なお UV 値そのものは 0〜1 の外にも出せる（それが RepeatWrapping の用途）ため「0〜1」は標準的な範囲を指す表現として読む必要がある。"
+  "evidence": "原点位置: curl -sL https://threejs.org/manual/en/textures.html（HTTP 200）の「Repeating, offseting, rotating, wrapping a texture」節。テクスチャ変換の中心 center の既定値 0,0 が \"the bottom left corner\" と明記されており、Three.js の UV (0,0) がテクスチャの左下であることが確定する（引用箇所の code タグは除去、文言は原文のまま）。U/V の向き: 同ページに \"there are 2 properties, wrapS for horizontal wrapping and wrapT for vertical wrapping.\"、および https://threejs.org/docs/pages/Texture.html.md の `.wrapS` = \"This defines how the texture is wrapped horizontally and corresponds to _U_ in UV mapping.\"（U = 横）。BoxGeometry の UV 自動生成: https://raw.githubusercontent.com/mrdoob/three.js/dev/src/geometries/BoxGeometry.js に `this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );` があり、buildPlane 内で `uvs.push( ix / gridX ); uvs.push( 1 - ( iy / gridY ) );` と生成している（v が上方向に増える＝左下原点とも整合）。なお UV 値そのものは 0〜1 の外にも出せる（それが RepeatWrapping の用途）ため「0〜1」は標準的な範囲を指す表現として読む必要がある。 2026-11-07再照合: threejs.org/manualが404になったので、r185のソースへ版固定で移した。"
  },
  {
   "file": "threejs/applied/textures.tsx",
@@ -2848,9 +2848,9 @@
   "claim": "@nuxt/image・@nuxtjs/i18n など設定 1 行で機能を追加",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://image.nuxt.com/get-started/installation",
-  "quote": "To get started, add @nuxt/image to your project: [...] npx nuxt module add image [...] Then, add it to the `modules` in your `nuxt.config`:",
+  "quote": "To get started, add @nuxt/image to your project: [...] npx nuxt add image",
   "correction": "",
-  "evidence": "パッケージ名のスコープを npm で実測: `npm view @nuxt/image version` → 2.1.0、`npm view @nuxtjs/i18n version` → 10.6.0。取り違えやすい `@nuxt/i18n` と `@nuxtjs/image` はいずれも 404（存在しない）ため、教材の表記が正しい。設定行は nuxt/image 公式 docs（gh api repos/nuxt/image/contents/docs/content/1.get-started/1.installation.md）の上記スニペットと、@nuxtjs/i18n 公式 docs（gh api repos/nuxt-modules/i18n/contents/docs/content/docs/01.getting-started/01.index.md）の '2. Add `@nuxtjs/i18n` to your `nuxt.config` modules:' + `modules: ['@nuxtjs/i18n']` で確認。いずれも modules 配列への 1 行追加。ただし両ドキュメントとも設定の前に依存パッケージのインストール（npx nuxt module add / npm i）が必要と明記されている点は補足。"
+  "evidence": "パッケージ名のスコープを npm で実測: `npm view @nuxt/image version` → 2.1.0、`npm view @nuxtjs/i18n version` → 10.6.0。取り違えやすい `@nuxt/i18n` と `@nuxtjs/image` はいずれも 404（存在しない）ため、教材の表記が正しい。設定行は nuxt/image 公式 docs（gh api repos/nuxt/image/contents/docs/content/1.get-started/1.installation.md）の上記スニペットと、@nuxtjs/i18n 公式 docs（gh api repos/nuxt-modules/i18n/contents/docs/content/docs/01.getting-started/01.index.md）の '2. Add `@nuxtjs/i18n` to your `nuxt.config` modules:' + `modules: ['@nuxtjs/i18n']` で確認。いずれも modules 配列への 1 行追加。ただし両ドキュメントとも設定の前に依存パッケージのインストール（npx nuxt module add / npm i）が必要と明記されている点は補足。 2026-11-07再照合: 導入コマンドがnpx nuxt add imageに変わった。教材本文にコマンドは書いていない。"
  },
  {
   "file": "vue/nuxt-basics/RoutingLayouts.tsx",
@@ -2938,9 +2938,9 @@
   "claim": "'/api/**': { cache: { maxAge: 60 } },",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://v2.nitro.build/guide/cache",
-  "quote": "Caching route rules This feature enables you to add caching routes based on a glob pattern directly in the main configuration file. This is especially useful to have a global cache strategy for a part of your application. Cache all the blog routes for 1 hour with stale-while-revalidate behavior: nitro.config.ts nuxt.config.ts export default defineNitroConfig ({ routeRules: { \"/blog/**\" : { cache: { maxAge: 60 * 60 } }, }, }); export default defineNuxtConfig ({ routeRules: { \"/blog/**\" : { cache: { maxAge: 60 * 60 } }, }, });",
+  "quote": "This feature enables you to add caching routes based on a glob pattern directly in the main configuration file. [...] Cache all the blog routes for 1 hour with `stale-while-revalidate` behavior: [...] \"/blog/**\": { cache: { maxAge: 60 * 60 } },",
   "correction": "",
-  "evidence": "https://v2.nitro.build/guide/cache を curl で取得し、HTML からタグを除去したテキストで「Caching route rules」節を確認。nuxt.config.ts タブに `defineNuxtConfig({ routeRules: { \"/blog/**\": { cache: { maxAge: 60 * 60 } } } })` がそのまま載っており、キー名 `cache` と `maxAge` の形が実在する。Nuxt 側 docs/3.guide/1.concepts/1.rendering.md の Route Rules 一覧（244-253 行）には redirect / ssr / cors / headers / swr / isr / prerender / noScripts / appMiddleware しか列挙されていないが、同ファイル 217 行に \"Nuxt server will automatically register corresponding middleware and wrap routes with cache handlers using [Nitro caching layer](https://nitro.build/guide/cache).\" とあり、cache は Nitro 側 routeRules として有効。"
+  "evidence": "https://v2.nitro.build/guide/cache を curl で取得し、HTML からタグを除去したテキストで「Caching route rules」節を確認。nuxt.config.ts タブに `defineNuxtConfig({ routeRules: { \"/blog/**\": { cache: { maxAge: 60 * 60 } } } })` がそのまま載っており、キー名 `cache` と `maxAge` の形が実在する。Nuxt 側 docs/3.guide/1.concepts/1.rendering.md の Route Rules 一覧（244-253 行）には redirect / ssr / cors / headers / swr / isr / prerender / noScripts / appMiddleware しか列挙されていないが、同ファイル 217 行に \"Nuxt server will automatically register corresponding middleware and wrap routes with cache handlers using [Nitro caching layer](https://nitro.build/guide/cache).\" とあり、cache は Nitro 側 routeRules として有効。 2026-11-07再照合: 本文の変更は無く、取得形式の違いで崩れた長い逐語を短い断片に分けた。"
  },
  {
   "file": "vue/nuxt-server/RenderingModes.tsx",
@@ -3064,9 +3064,9 @@
   "claim": "Let's Encrypt を使用しており、追加費用は一切かかりません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://vercel.com/docs/domains/working-with-ssl",
-  "quote": "While it is possible to create and upload your own custom certificate, Vercel will automatically try to generate a certificate for every domain once it is added to a project, regardless of if it was registered through Vercel or not. [...] Vercel uses LetsEncrypt for certificates.",
+  "quote": "Vercel will automatically try to generate a certificate for every domain once it is added to a project, regardless of if it was registered through Vercel or not. [...] Vercel uses Let's Encrypt for certificates.",
   "correction": "",
-  "evidence": "https://vercel.com/docs/domains/working-with-ssl（last_updated: 2026-06-08）を WebFetch で取得し、CA が Let's Encrypt である記述を逐語確認。自動発行は同ページの「Vercel will automatically try to generate a certificate for every domain once it is added to a project, regardless of if it was registered through Vercel or not.」と https://vercel.com/docs/domains/custom-SSL-certificate.md の「By default, Vercel provides all domains with custom SSL certificates.」で裏取り。費用面は https://vercel.com/docs/cdn-security/encryption の「Vercel automatically generates SSL certificates for these unique URLs at no cost.」が該当するが、この at no cost の文言はデプロイ固有 URL（*.vercel.app）にスコープされている。カスタムドメイン側について「無料」と明言した文はドキュメント上に見当たらないものの、https://vercel.com/docs/limits.md と https://vercel.com/docs/plans/hobby.md の課金項目一覧を全件確認して SSL 証明書の課金行が存在しないことも確認した（Enterprise が任意でアップロードする custom SSL のみ別扱い）。 2026-08-23 に https://vercel.com/docs/domains/working-with-ssl を取得し直した。元の引用には Markdown のリンク記法（[HTTP-01 challenge method](https://letsencrypt.org/...)）が混ざっていたので、装飾の無い逐語 2 文に取り直し、プロジェクトへ追加した全ドメインに対して証明書が自動生成される旨を足した。費用については 'free' / 'cost' / 'charge' / 'price' / 'included' / 'plan' を全文 grep して 0 件で、追加費用が一切かからないと述べた文はこのページに無い。"
+  "evidence": "https://vercel.com/docs/domains/working-with-ssl（last_updated: 2026-06-08）を WebFetch で取得し、CA が Let's Encrypt である記述を逐語確認。自動発行は同ページの「Vercel will automatically try to generate a certificate for every domain once it is added to a project, regardless of if it was registered through Vercel or not.」と https://vercel.com/docs/domains/custom-SSL-certificate.md の「By default, Vercel provides all domains with custom SSL certificates.」で裏取り。費用面は https://vercel.com/docs/cdn-security/encryption の「Vercel automatically generates SSL certificates for these unique URLs at no cost.」が該当するが、この at no cost の文言はデプロイ固有 URL（*.vercel.app）にスコープされている。カスタムドメイン側について「無料」と明言した文はドキュメント上に見当たらないものの、https://vercel.com/docs/limits.md と https://vercel.com/docs/plans/hobby.md の課金項目一覧を全件確認して SSL 証明書の課金行が存在しないことも確認した（Enterprise が任意でアップロードする custom SSL のみ別扱い）。 2026-08-23 に https://vercel.com/docs/domains/working-with-ssl を取得し直した。元の引用には Markdown のリンク記法（[HTTP-01 challenge method](https://letsencrypt.org/...)）が混ざっていたので、装飾の無い逐語 2 文に取り直し、プロジェクトへ追加した全ドメインに対して証明書が自動生成される旨を足した。費用については 'free' / 'cost' / 'charge' / 'price' / 'included' / 'plan' を全文 grep して 0 件で、追加費用が一切かからないと述べた文はこのページに無い。 2026-11-07再照合: LetsEncryptの表記がLet's Encryptに直り、自動発行とLet's Encryptの利用は確認できるが、このページに費用の記述は無い。"
  },
  {
   "file": "threejs/practical/portfolio-scene.tsx",
@@ -3100,18 +3100,18 @@
   "claim": "export const config = { runtime: \"edge\" };",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://vercel.com/docs/functions/runtimes/edge",
-  "quote": "To convert your Vercel Function to use the Edge runtime, add the following code to your function:\n\n```ts {3-5} filename=\"api/runtime-example.ts\" framework=other\nimport type { VercelRequest, VercelResponse } from '@vercel/node';\n\nexport const config = {\n  runtime: 'edge', // this is a pre-requisite\n};",
+  "quote": "To convert your Vercel Function to use the Edge runtime, add the following code to your function: [...] export const config = {\n  runtime: 'edge', // this is a pre-requisite",
   "correction": "",
-  "evidence": "https://vercel.com/docs/functions/runtimes/edge.md を curl で取得（HTTP 200、last_updated: 2026-08-03）し、冒頭の変換手順に同一の記法があることを確認。教材側のコード例（client/src/pages/infra/edge/EdgeFunctions.tsx L171）も handler を default export する Vercel Function 形式なので、公式の用例と同型で問題ない。ただし同ページ先頭に注記として逐語で「Starting in Next.js 16.3, setting `runtime = 'edge'` is no longer supported. Routes and pages run on Node.js.」および「We recommend migrating from edge to Node.js for improved performance and reliability.」がある。教材の別段落（同ファイル L215-217）にある「ルートやページ自体も runtime: \"edge\" を指定すればエッジで動かせます」という Next.js 文脈の記述は、Next.js 16.3 以降には当てはまらないため注記の追加を検討したほうがよい。"
+  "evidence": "https://vercel.com/docs/functions/runtimes/edge.md を curl で取得（HTTP 200、last_updated: 2026-08-03）し、冒頭の変換手順に同一の記法があることを確認。教材側のコード例（client/src/pages/infra/edge/EdgeFunctions.tsx L171）も handler を default export する Vercel Function 形式なので、公式の用例と同型で問題ない。ただし同ページ先頭に注記として逐語で「Starting in Next.js 16.3, setting `runtime = 'edge'` is no longer supported. Routes and pages run on Node.js.」および「We recommend migrating from edge to Node.js for improved performance and reliability.」がある。教材の別段落（同ファイル L215-217）にある「ルートやページ自体も runtime: \"edge\" を指定すればエッジで動かせます」という Next.js 文脈の記述は、Next.js 16.3 以降には当てはまらないため注記の追加を検討したほうがよい。 2026-11-07再照合: 指定方法は同じだが例からimport行が消え、ページ冒頭にNode.jsへの移行推奨とNext.js 16.3以降の非対応が加わった。"
  },
  {
   "file": "infra/foundations/ComputeModels.tsx",
   "claim": "数十秒〜数分の上限",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://vercel.com/docs/functions/limitations",
-  "quote": "Maximum duration | Hobby: 300s default and maximum. Pro and Enterprise: 300s default, 800s maximum, and 1800s extended maximum .",
+  "quote": "If a Vercel Function doesn't complete within the duration, a 504 error code (`FUNCTION_INVOCATION_TIMEOUT`) is returned.",
   "correction": "",
-  "evidence": "該当箇所は client/src/pages/infra/foundations/ComputeModels.tsx L172 の比較表「実行時間」行のサーバレス列で、プラットフォームを特定しない一般化。一次情報の実数は次のとおり。Vercel: https://vercel.com/docs/functions/limitations.md（HTTP 200）の Max duration 表で Hobby 300s (5 minutes) が default かつ maximum、Pro / Enterprise は default 300s・maximum 800s・extended maximum 1800s (30 minutes, beta)。AWS Lambda: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html に逐語で「Function timeout | 900 seconds (15 minutes)」および「Code can run for up to 15 minutes in a single invocation」。したがって下限側（数十秒〜数分）は Vercel Hobby の 5 分等と整合するが、上限側は 15 分（Lambda）〜30 分（Vercel Pro 拡張）に達しており「数分」では覆えない。ただし「数分」の幅が曖昧で、対象プラットフォームも特定されていないため、出典の数値と厳密に突き合わせて真偽を確定できないと判断した。"
+  "evidence": "該当箇所は client/src/pages/infra/foundations/ComputeModels.tsx L172 の比較表「実行時間」行のサーバレス列で、プラットフォームを特定しない一般化。一次情報の実数は次のとおり。Vercel: https://vercel.com/docs/functions/limitations.md（HTTP 200）の Max duration 表で Hobby 300s (5 minutes) が default かつ maximum、Pro / Enterprise は default 300s・maximum 800s・extended maximum 1800s (30 minutes, beta)。AWS Lambda: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html に逐語で「Function timeout | 900 seconds (15 minutes)」および「Code can run for up to 15 minutes in a single invocation」。したがって下限側（数十秒〜数分）は Vercel Hobby の 5 分等と整合するが、上限側は 15 分（Lambda）〜30 分（Vercel Pro 拡張）に達しており「数分」では覆えない。ただし「数分」の幅が曖昧で、対象プラットフォームも特定されていないため、出典の数値と厳密に突き合わせて真偽を確定できないと判断した。 2026-11-07再照合: 上限の秒数は改定で動くので上限の存在を述べる文に替え、現行の上限は最大1800sのBetaまであり、「数十秒〜数分」の語は教材本文から消えている。"
  },
  {
   "file": "infra/hosting/Vercel.tsx",
@@ -3172,9 +3172,9 @@
   "claim": "push のたびに 自動で ビルド・デプロイされ、Pull Request ごとにプレビュー URL も発行されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://vercel.com/docs/git",
-  "quote": "Vercel allows for automatic deployments on every branch push and merges onto the production branch of your GitHub, GitLab, and Bitbucket projects. [...] Preview deployments for every push. [...] After you create a pull request (PR) to that branch, Vercel creates a unique deployment you can use to preview any changes.",
+  "quote": "Vercel allows for automatic deployments on every branch push and merges onto the production branch [...] Preview deployments for every push. [...] After you create a pull request (PR) to that branch, Vercel creates a unique deployment you can use to preview any changes.",
   "correction": "",
-  "evidence": "WebFetch で https://vercel.com/docs/git（last_updated 2026-07-24）を取得し冒頭の記述と PR 時の挙動を確認。candidateSource の https://vercel.com/docs/deployments/preview-deployments は curl で 200 を返すが https://vercel.com/docs/deployments/environments へ解決され、その \"Preview Environment (Pre-production)\" 節に push / PR での自動プレビュー作成と自動生成 URL の記述があることを確認した。なお同ページは「新規プロジェクトの初回デプロイは常に production になり、preview のルールはその後に適用される」と注記しており、また fork からの PR はチームメンバーによる承認が要る（/docs/git の \"Deploying forks of public Git repositories\"）ため、例外が皆無というわけではない。プラン依存の記述は見当たらない。"
+  "evidence": "WebFetch で https://vercel.com/docs/git（last_updated 2026-07-24）を取得し冒頭の記述と PR 時の挙動を確認。candidateSource の https://vercel.com/docs/deployments/preview-deployments は curl で 200 を返すが https://vercel.com/docs/deployments/environments へ解決され、その \"Preview Environment (Pre-production)\" 節に push / PR での自動プレビュー作成と自動生成 URL の記述があることを確認した。なお同ページは「新規プロジェクトの初回デプロイは常に production になり、preview のルールはその後に適用される」と注記しており、また fork からの PR はチームメンバーによる承認が要る（/docs/git の \"Deploying forks of public Git repositories\"）ため、例外が皆無というわけではない。プラン依存の記述は見当たらない。 2026-11-07再照合: 対応サービスの列挙にOriginとAzure DevOps Pipelinesが増えたので、列挙の手前までを引く。"
  },
  {
   "file": "devflow/agile/Scrum.tsx",
@@ -3415,18 +3415,18 @@
   "claim": "Chromatic\n                の管理画面 > Manage > Configure\n                からトークンを取得できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://www.chromatic.com/docs/github-actions",
-  "quote": "To securely provide the projectToken to Chromatic, you must configure a GitHub repository secret. First, find your project on Chromatic.com and go to **Manage** and then **Configure**. Copy the project token.",
+  "quote": "To securely provide the projectToken to Chromatic, you must configure a GitHub repository secret. First, find your project on Chromatic.com, then go to Manage, then Configure. Copy the project token.",
   "correction": "",
-  "evidence": "https://chromatic.com/docs/llms/github-actions.txt の「Project token secret」節を取得して引用（レンダリング先 https://www.chromatic.com/docs/github-actions は curl で HTTP 200）。同ページの Forked repositories 節にも「You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.」があり、Manage > Configure という導線が 2 箇所で一致する。CLI ドキュメント (https://chromatic.com/docs/llms/cli.txt) も「You can access your project token from the Chromatic website during onboarding or from your project's Manage page.」と述べており矛盾しない。"
+  "evidence": "https://chromatic.com/docs/llms/github-actions.txt の「Project token secret」節を取得して引用（レンダリング先 https://www.chromatic.com/docs/github-actions は curl で HTTP 200）。同ページの Forked repositories 節にも「You can reset the project token on the Manage > Configure screen at any time if you think it may have been compromised.」があり、Manage > Configure という導線が 2 箇所で一致する。CLI ドキュメント (https://chromatic.com/docs/llms/cli.txt) も「You can access your project token from the Chromatic website during onboarding or from your project's Manage page.」と述べており矛盾しない。 2026-11-07再照合: 文の接続が少し変わっただけで、Manage > Configureの経路は同じ。"
  },
  {
   "file": "react/cdd-flow/DesignQA.tsx",
   "claim": "オプションを付けると、 差分がある場合でも CI\n              が失敗扱いにならず、レビューを待つ状態になります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://www.chromatic.com/docs/configure",
-  "quote": "If all snapshots render, but there are visual changes, exit with code 0 rather than the usual exit code 1. Only for given branch, if specified.",
+  "quote": "If all tests render successfully but visual changes are found, exit with code 0 rather than the usual exit code 1. Only for given branch, if specified.",
   "correction": "",
-  "evidence": "教材の該当箇所は直前のコード例で `chromatic --exit-zero-on-changes` を示しており、このフラグの挙動についての主張。Configuration reference (https://www.chromatic.com/docs/configure、curl で HTTP 200) の HTML を取得しタグ除去して exitZeroOnChanges の項を確認した。Flag: --exit-zero-on-changes / Type: glob | boolean / Default: true in the GitHub Action, otherwise false、説明が上記引用（引用は <code> タグを剥がした可視テキストそのまま）。「レビューを待つ状態になる」も一次情報と整合: https://chromatic.com/docs/llms/github-actions.txt に「By default, Chromatic exits with code `0` if changes are detected. We expect users to review these changes and decide whether to accept or reject them.」とある。また同 reference の非互換オプション表に「`autoAcceptChanges` automatically accepts all detected changes, while `exitZeroOnChanges` exits with a zero status code without accepting changes.」とあり、「承認はせずレビュー待ちのまま CI は通る」という記述と一致する。"
+  "evidence": "教材の該当箇所は直前のコード例で `chromatic --exit-zero-on-changes` を示しており、このフラグの挙動についての主張。Configuration reference (https://www.chromatic.com/docs/configure、curl で HTTP 200) の HTML を取得しタグ除去して exitZeroOnChanges の項を確認した。Flag: --exit-zero-on-changes / Type: glob | boolean / Default: true in the GitHub Action, otherwise false、説明が上記引用（引用は <code> タグを剥がした可視テキストそのまま）。「レビューを待つ状態になる」も一次情報と整合: https://chromatic.com/docs/llms/github-actions.txt に「By default, Chromatic exits with code `0` if changes are detected. We expect users to review these changes and decide whether to accept or reject them.」とある。また同 reference の非互換オプション表に「`autoAcceptChanges` automatically accepts all detected changes, while `exitZeroOnChanges` exits with a zero status code without accepting changes.」とあり、「承認はせずレビュー待ちのまま CI は通る」という記述と一致する。 2026-11-07再照合: 文面が変わり、GitHub Actionでは既定でtrueと明記されたが、教材のCLIの説明は成り立つ。"
  },
  {
   "file": "react/cdd-flow/DesignQA.tsx",
@@ -3532,9 +3532,9 @@
   "claim": "Grid アイテムの min-width のデフォルト値は auto です。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://drafts.csswg.org/css-sizing-3/#min-size-properties",
-  "quote": "The min-width and min-height properties specify the minimum width (or “min width”) and minimum height (or “min height”) of the box, respectively. Note: The initial value of auto is new; in [CSS2] the initial value was zero.",
+  "quote": "are sizing properties that specify the minimum width (“min width”) and minimum height (“min height”) [...] Note: The initial value of auto is new; in [CSS2] the initial value was zero.",
   "correction": "",
-  "evidence": "curl で https://drafts.csswg.org/css-sizing-3/ を取得し §3.1.2 の propdef（Name: min-width, min-height / Initial: auto / Applies to: all elements that accept width or height）と上記注記を確認。grid item 固有の意味は https://drafts.csswg.org/css-grid-2/#min-size-auto §6.6 が定め、「To provide a more reasonable default minimum size for grid items, the used value of its automatic minimum size in a given axis is the content-based minimum size if all of the following are true: its computed overflow is not a scrollable overflow value / it spans at least one track in that axis whose min track sizing function is auto / if it spans more than one track in that axis, none of those tracks are flexible」と規定。初期値が auto である点は仕様どおり。"
+  "evidence": "curl で https://drafts.csswg.org/css-sizing-3/ を取得し §3.1.2 の propdef（Name: min-width, min-height / Initial: auto / Applies to: all elements that accept width or height）と上記注記を確認。grid item 固有の意味は https://drafts.csswg.org/css-grid-2/#min-size-auto §6.6 が定め、「To provide a more reasonable default minimum size for grid items, the used value of its automatic minimum size in a given axis is the content-based minimum size if all of the following are true: its computed overflow is not a scrollable overflow value / it spans at least one track in that axis whose min track sizing function is auto / if it spans more than one track in that axis, none of those tracks are flexible」と規定。初期値が auto である点は仕様どおり。 2026-11-07再照合: 定義文がlogical propertiesを含む形に書き直され、初期値autoは同じ。"
  },
  {
   "file": "react/css-layout/CssGrid.tsx",
@@ -3649,9 +3649,9 @@
   "claim": "npm install -g @anthropic-ai/claude-code",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/setup",
-  "quote": "You can also install Claude Code as a global npm package. As of v2.1.198, the npm package requires Node.js 22 or later. […] npm install -g @anthropic-ai/claude-code",
+  "quote": "You can also install Claude Code as a global npm package. The npm package requires Node.js 22 or later. [...] npm install -g @anthropic-ai/claude-code",
   "correction": "",
-  "evidence": "引用からコードフェンスの言語ラベル行を外し、地の文とコマンド 1 行に取り直した（https://code.claude.com/docs/en/setup の 'Install with npm' 節）。`npm view @anthropic-ai/claude-code version` → 2.1.233。同ページでは Native Install（curl -fsSL https://claude.ai/install.sh | bash）が Recommended とされ、npm は 'also' の位置づけである点は付記に値する。"
+  "evidence": "引用からコードフェンスの言語ラベル行を外し、地の文とコマンド 1 行に取り直した（https://code.claude.com/docs/en/setup の 'Install with npm' 節）。`npm view @anthropic-ai/claude-code version` → 2.1.233。同ページでは Native Install（curl -fsSL https://claude.ai/install.sh | bash）が Recommended とされ、npm は 'also' の位置づけである点は付記に値する。 2026-11-07再照合: コマンドは同じだが「As of v2.1.198」が本文から消え、changelogにも該当の記載がないため版条件の裏づけがなくなった。"
  },
  {
   "file": "git/ai-agent/SubTools.tsx",
@@ -3712,9 +3712,9 @@
   "claim": "なお第 3 層の名前は公式に決まったものではなく、ここでは DESIGN.md が Google Labs の公開したデザイントークン記述フォーマットの名前として実在するため、衝突を避けて ARCHITECTURE.md としています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://github.com/google-labs-code/design.md/blob/main/README.md",
-  "quote": "A format specification for describing a visual identity to coding agents. DESIGN.md gives agents a persistent, structured understanding of a design system. [...] A DESIGN.md file combines machine-readable design tokens (YAML front matter) with human-readable design rationale (markdown prose).",
+  "quote": "A format specification for describing a visual identity to coding agents. DESIGN.md gives agents a persistent, structured understanding of a design system. [...] A DESIGN.md file combines machine-readable design tokens (YAML front matter or interleaved YAML code blocks) with human-readable design rationale (markdown prose).",
   "correction": "",
-  "evidence": "curl https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md で、DESIGN.md がフォーマット名として実在し、その中核がデザイントークン（YAML front matter の colors / typography / rounded / spacing）であることを確認。README には「Design Token Interoperability」節もあり「DESIGN.md tokens are inspired by the [W3C Design Token Format](https://www.designtokens.org/)」および DTCG / Tailwind への export が記載されているため、「デザイントークン記述フォーマット」という要約は妥当。公開主体が Google Labs である点は同バッチの DesignMd.tsx の検証と同根拠（org 名 Google Labs Code、npm @google スコープ、Google OSS VRP への言及）。付記として README の Status 節は「The DESIGN.md format is at version `alpha`. The spec, token schema, and CLI are under active development.」とあり、alpha 段階である点は教材側で触れていない（実在性の判定には影響しない）。 2026-08-23 に https://github.com/google-labs-code/design.md/blob/main/README.md を取得し直し、全文で Google / Labs を検索した。既存の引用は現在も逐語で在り check.mjs を通る。README で Google が出るのは npm パッケージ名 @google/design.md と、This project is not eligible for the Google Open Source Software Vulnerability Rewards Program. の 2 種類だけで、Google Labs が公開したと述べた文は無い。"
+  "evidence": "curl https://raw.githubusercontent.com/google-labs-code/design.md/main/README.md で、DESIGN.md がフォーマット名として実在し、その中核がデザイントークン（YAML front matter の colors / typography / rounded / spacing）であることを確認。README には「Design Token Interoperability」節もあり「DESIGN.md tokens are inspired by the [W3C Design Token Format](https://www.designtokens.org/)」および DTCG / Tailwind への export が記載されているため、「デザイントークン記述フォーマット」という要約は妥当。公開主体が Google Labs である点は同バッチの DesignMd.tsx の検証と同根拠（org 名 Google Labs Code、npm @google スコープ、Google OSS VRP への言及）。付記として README の Status 節は「The DESIGN.md format is at version `alpha`. The spec, token schema, and CLI are under active development.」とあり、alpha 段階である点は教材側で触れていない（実在性の判定には影響しない）。 2026-08-23 に https://github.com/google-labs-code/design.md/blob/main/README.md を取得し直し、全文で Google / Labs を検索した。既存の引用は現在も逐語で在り check.mjs を通る。README で Google が出るのは npm パッケージ名 @google/design.md と、This project is not eligible for the Google Open Source Software Vulnerability Rewards Program. の 2 種類だけで、Google Labs が公開したと述べた文は無い。 2026-11-07再照合: トークンの書き方にinterleaved YAML code blocksが増えただけで、主張に影響しない。"
  },
  {
   "file": "claude-code/ide-agent-teams/AgentOrchestration.tsx",
@@ -3730,9 +3730,9 @@
   "claim": "プロジェクトルートの CLAUDE.md に記述した指示は全チームメイトが共有する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/agent-teams",
-  "quote": "Each teammate has its own context window. When spawned, a teammate loads the same project context as a regular session: CLAUDE.md, MCP servers, and skills. It also receives the spawn prompt from the lead. The lead's conversation history does not carry over.",
+  "quote": "Each teammate has its own context window. When spawned, a teammate loads the same project context as a regular session: CLAUDE.md, MCP servers, and skills. [...] A teammate also receives the spawn prompt from the lead. The lead's conversation history does not carry over.",
   "correction": "",
-  "evidence": "https://code.claude.com/docs/en/agent-teams.md を curl 取得（200）。「Context and communication」節（286 行目）に上記の逐語文。加えて「Give teammates enough context」節（338 行目）に \"Teammates load project context automatically, including CLAUDE.md, MCP servers, and skills, but they don't inherit the lead's conversation history.\" があり、CLAUDE.md が全チームメイトに読み込まれる点は二箇所で明示されている。なお共有されるのは CLAUDE.md 等のプロジェクトコンテキストであってリードの会話履歴ではない、という限定も同文に含まれる。"
+  "evidence": "https://code.claude.com/docs/en/agent-teams.md を curl 取得（200）。「Context and communication」節（286 行目）に上記の逐語文。加えて「Give teammates enough context」節（338 行目）に \"Teammates load project context automatically, including CLAUDE.md, MCP servers, and skills, but they don't inherit the lead's conversation history.\" があり、CLAUDE.md が全チームメイトに読み込まれる点は二箇所で明示されている。なお共有されるのは CLAUDE.md 等のプロジェクトコンテキストであってリードの会話履歴ではない、という限定も同文に含まれる。 2026-11-07再照合: --setting-sourcesの説明が途中に入り段落が分かれたが、CLAUDE.mdを全チームメイトが読む点は同じ。"
  },
  {
   "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
@@ -3757,9 +3757,9 @@
   "claim": "iTerm2 / Terminal.app / VS Code ターミナルそれぞれに\n# 対応した設定が自動で適用される",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/terminal-config",
-  "quote": "| Ghostty, Kitty, iTerm2, WezTerm, Warp, Apple Terminal, Windows Terminal | Works without setup                         |\n| VS Code, Cursor, Devin Desktop, Alacritty, Zed                          | Run `/terminal-setup` once                  |\n| gnome-terminal, JetBrains IDEs such as PyCharm and Android Studio       | Not available; use Ctrl+J or `\\` then Enter |",
+  "quote": "| Ghostty, Kitty, iTerm2, WezTerm, Warp, Apple Terminal, Windows Terminal | Works without setup |\n| Other terminals that support the kitty keyboard protocol, such as foot and Alacritty 0.16 or later | Works without setup. Requires Claude Code v2.1.269 or later |\n| VS Code, Cursor, Devin Desktop, Alacritty before 0.16, Zed | Run `/terminal-setup` once |\n| gnome-terminal, JetBrains IDEs such as PyCharm and Android Studio | Not available; use Ctrl+J or `\\` then Enter |",
   "correction": "この記述は直前の「Shift+Enter で改行入力を有効化」というコメントと同じコードブロック内にあるが、Shift+Enter は iTerm2 と Apple Terminal (Terminal.app) では設定なしで既に動作する。`/terminal-setup` が Shift+Enter のキーバインドを書き込むのは VS Code / Cursor / Devin Desktop / Alacritty / Zed。iTerm2 で `/terminal-setup` が行うのはクリップボードアクセス許可（Settings → General → Selection）、Apple Terminal で行うのは Option as Meta の有効化とベルの無効化で、いずれも Shift+Enter の設定ではない。また対応ターミナルの列挙としても不足で、gnome-terminal と JetBrains IDE のターミナルでは Shift+Enter 自体が利用できず Ctrl+J か `\\` + Enter を使う。",
-  "evidence": "https://code.claude.com/docs/en/terminal-config.md を curl 取得（200）。24〜30 行目の表で対応状況を確認。32 行目に \"For VS Code, Cursor, Devin Desktop, Alacritty, and Zed, `/terminal-setup` writes Shift+Enter and other keybindings into the terminal's configuration file.\"、iTerm2 タブに \"Running `/terminal-setup` in iTerm2 enables \\\"Applications in terminal may access clipboard\\\" under Settings → General → Selection so the `/copy` command can write to your system clipboard.\"、Apple Terminal タブに \"That prompt runs `/terminal-setup` for you, which enables Option as Meta and turns off the audible bell in your Apple Terminal profile.\" と、ターミナルごとに適用内容が異なることが明記されている。"
+  "evidence": "https://code.claude.com/docs/en/terminal-config.md を curl 取得（200）。24〜30 行目の表で対応状況を確認。32 行目に \"For VS Code, Cursor, Devin Desktop, Alacritty, and Zed, `/terminal-setup` writes Shift+Enter and other keybindings into the terminal's configuration file.\"、iTerm2 タブに \"Running `/terminal-setup` in iTerm2 enables \\\"Applications in terminal may access clipboard\\\" under Settings → General → Selection so the `/copy` command can write to your system clipboard.\"、Apple Terminal タブに \"That prompt runs `/terminal-setup` for you, which enables Option as Meta and turns off the audible bell in your Apple Terminal profile.\" と、ターミナルごとに適用内容が異なることが明記されている。 2026-11-07再照合: 表にkittyキーボードプロトコル対応端末の行が増えAlacrittyが0.16で分かれたが反証は有効で、教材の誤りは修正済み。ただし修正後の文のAlacrittyの扱いが古い。"
  },
  {
   "file": "claude-code/ide-agent-teams/IdeIntegration.tsx",
@@ -3774,10 +3774,10 @@
   "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインが提供するカスタムコマンド。/plugin-name:command の形式で呼び出し、定型処理を実行",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/plugins",
-  "quote": "**Why namespacing?** Plugin skills are always namespaced (like `/my-first-plugin:hello`) to prevent conflicts when multiple plugins have skills with the same name.",
+  "sourceUrl": "https://code.claude.com/docs/en/plugins/create",
+  "quote": "**How they're named**: plugin skills and agents get the plugin name as a prefix, such as `/my-plugin:hello`, so two plugins can each provide a `hello` skill without colliding.",
   "correction": "",
-  "evidence": "https://code.claude.com/docs/en/plugins.md を curl 取得（200）。冒頭の比較表に \"| **Plugins** (self-contained directories with skills, agents, hooks, or a `.claude-plugin/plugin.json` manifest) | `/plugin-name:hello` | ...\" があり、呼び出し名が `/plugin-name:xxx` 形式であることを確認。さらに \"Plugin skills are namespaced as `/plugin-name:skill-name`\"、\"Try your skills with `/plugin-name:skill-name`\" と複数箇所で同じ記法。https://code.claude.com/docs/en/plugins-reference.md（200）でも配置先が `skills/` または `commands/`（\"Skills as flat Markdown files. Use `skills/` for new plugins\"）と説明されており、`commands/` 由来のものも同じ名前空間で呼ばれる。ただし現行ドキュメントは呼称を「skill」に統一しているため、教材の「カスタムコマンド」という語は用語としては旧称寄り（記法自体は正しい）。"
+  "evidence": "https://code.claude.com/docs/en/plugins.md を curl 取得（200）。冒頭の比較表に \"| **Plugins** (self-contained directories with skills, agents, hooks, or a `.claude-plugin/plugin.json` manifest) | `/plugin-name:hello` | ...\" があり、呼び出し名が `/plugin-name:xxx` 形式であることを確認。さらに \"Plugin skills are namespaced as `/plugin-name:skill-name`\"、\"Try your skills with `/plugin-name:skill-name`\" と複数箇所で同じ記法。https://code.claude.com/docs/en/plugins-reference.md（200）でも配置先が `skills/` または `commands/`（\"Skills as flat Markdown files. Use `skills/` for new plugins\"）と説明されており、`commands/` 由来のものも同じ名前空間で呼ばれる。ただし現行ドキュメントは呼称を「skill」に統一しているため、教材の「カスタムコマンド」という語は用語としては旧称寄り（記法自体は正しい）。 2026-11-07再照合: pluginsページの改稿で名前空間の説明がplugins/createへ移ったが内容は同じ。"
  },
  {
   "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
@@ -3792,10 +3792,10 @@
   "file": "claude-code/ide-agent-teams/PluginsEcosystem.tsx",
   "claim": "プラグインはグローバルにインストールされ、すべてのプロジェクトで利用可能。特定のプロジェクトでのみ使用したい場合は、CLAUDE.md でプラグインの Skills を参照する運用が推奨される。",
   "verdict": "REFUTED",
-  "sourceUrl": "https://code.claude.com/docs/en/plugins-reference.md",
-  "quote": "When you install a plugin, you choose a **scope** that determines where the plugin is available and who else can use it: [...] Personal plugins available across all projects (default) [...] Team plugins shared via version control",
+  "sourceUrl": "https://code.claude.com/docs/en/plugins",
+  "quote": "When you install a plugin, you pick a scope, and the scope decides who the plugin is enabled for:\n\n* **User scope**: enabled for you in every project on this computer\n* **Project scope**: enabled for everyone who works in this repository, through the committed `.claude/settings.json`. Each collaborator still installs it on their own machine\n* **Local scope**: enabled for you in this repository only",
   "correction": "プラグインのインストールスコープは user / project / local / managed の 4 種類。全プロジェクトで使えるのは既定の user スコープだけで、特定プロジェクトに限定したい場合は `claude plugin install <plugin>@<marketplace> --scope project`（`.claude/settings.json` に書かれ、リポジトリの共同作業者と共有）または `--scope local`（`.claude/settings.local.json`、自分だけ）を使う。「CLAUDE.md でプラグインの Skills を参照する運用が推奨される」という記述は公式ドキュメントに存在せず、推奨されているのはスコープ指定でのインストール。",
-  "evidence": "https://code.claude.com/docs/en/plugins-reference（curl 200、.md も 200）の「Plugin installation scopes」節に上記の表。同ページの CLI リファレンスに \"| `-s, --scope <scope>` | Installation scope: `user`, `project`, or `local` | `user` |\" および実例 \"# Install to project scope (shared with team)\\nclaude plugin install formatter@my-marketplace --scope project\"、\"# Install to local scope (not shared with team)\\nclaude plugin install formatter@my-marketplace --scope local\" がある。さらに \"Scope determines which settings file the installed plugin is added to. For example, `--scope project` writes to `enabledPlugins` in .claude/settings.json\"。CLAUDE.md を使ってプラグインのスコープを絞る運用の記述は plugins / plugins-reference / discover-plugins のいずれにも見当たらなかった。なお当該 claim の文面は現在の PluginsEcosystem.tsx には残っておらず、95 行目・138〜139 行目でスコープ（managed / user / project / local）に基づく正しい説明に置き換わっている。 （2026-08-23 再照合）HTML 版には Markdown の強調や表がそのまま現れないため、同じ内容を返す .md 版へ出典を移した。 （2026-08-23 再照合）元の引用は Markdown の表を桁揃えの空白ごと貼っていたため、列幅が変わった時点で外れていた。表の枠ではなくセルの文言だけを逐語で引くように取り直した。plugin には user / project / local / managed のスコープがあり、project スコープはバージョン管理で共有できるので、グローバル固定でも CLAUDE.md での回避が要るわけでもない。判定 REFUTED は変わらない。"
+  "evidence": "https://code.claude.com/docs/en/plugins-reference（curl 200、.md も 200）の「Plugin installation scopes」節に上記の表。同ページの CLI リファレンスに \"| `-s, --scope <scope>` | Installation scope: `user`, `project`, or `local` | `user` |\" および実例 \"# Install to project scope (shared with team)\\nclaude plugin install formatter@my-marketplace --scope project\"、\"# Install to local scope (not shared with team)\\nclaude plugin install formatter@my-marketplace --scope local\" がある。さらに \"Scope determines which settings file the installed plugin is added to. For example, `--scope project` writes to `enabledPlugins` in .claude/settings.json\"。CLAUDE.md を使ってプラグインのスコープを絞る運用の記述は plugins / plugins-reference / discover-plugins のいずれにも見当たらなかった。なお当該 claim の文面は現在の PluginsEcosystem.tsx には残っておらず、95 行目・138〜139 行目でスコープ（managed / user / project / local）に基づく正しい説明に置き換わっている。 （2026-08-23 再照合）HTML 版には Markdown の強調や表がそのまま現れないため、同じ内容を返す .md 版へ出典を移した。 （2026-08-23 再照合）元の引用は Markdown の表を桁揃えの空白ごと貼っていたため、列幅が変わった時点で外れていた。表の枠ではなくセルの文言だけを逐語で引くように取り直した。plugin には user / project / local / managed のスコープがあり、project スコープはバージョン管理で共有できるので、グローバル固定でも CLAUDE.md での回避が要るわけでもない。判定 REFUTED は変わらない。 2026-11-07再照合: スコープの説明はplugins-referenceからpluginsへ移ったが反証は有効で、教材はすでにスコープ前提の記述へ修正済み。"
  },
  {
   "file": "react/nextjs-css/TailwindMui.tsx",
@@ -3874,27 +3874,27 @@
   "claim": "対話を終了するには /exit と入力するか、 Ctrl + C を押します。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/interactive-mode",
-  "quote": "| `Ctrl+C` | Interrupt, or clear input | Interrupts a running operation. If nothing is running, the first press clears the prompt input and a second press exits Claude Code |",
+  "quote": "| `Ctrl+C` | Interrupt, or clear input | Interrupts a running operation. If nothing is running, the first press clears the prompt input and a second press exits Claude Code.",
   "correction": "/exit で終了できる点は正しい（公式の commands リファレンスに `/exit` = \"Exit the CLI.\" とある）。ただし Ctrl+C は「押すと終了する」キーではない。実行中の処理があればそれを中断し、何も実行していないときは 1 回目で入力欄がクリアされ、2 回目を押して初めて終了する。1 キーで終了に向かうのは Ctrl+D（\"The first press shows a confirmation hint and a second press within 800ms exits\"）。教材では「/exit と入力するか、Ctrl+C を 2 回押す」と書くのが正確。",
-  "evidence": "https://code.claude.com/docs/en/interactive-mode.md を curl で取得（HTTP 200, 57360 bytes）し、General controls テーブルの Ctrl+C 行を確認。同ページに Ctrl+D 行（\"Exit Claude Code session\" / \"The first press shows a confirmation hint and a second press within 800ms exits\"）もある。/exit 側は https://code.claude.com/docs/en/commands を WebFetch して `| /exit | Exit the CLI. ... Alias: /quit |` を確認（URL 到達確認 curl 200）。対象箇所は client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx:352-353。"
+  "evidence": "https://code.claude.com/docs/en/interactive-mode.md を curl で取得（HTTP 200, 57360 bytes）し、General controls テーブルの Ctrl+C 行を確認。同ページに Ctrl+D 行（\"Exit Claude Code session\" / \"The first press shows a confirmation hint and a second press within 800ms exits\"）もある。/exit 側は https://code.claude.com/docs/en/commands を WebFetch して `| /exit | Exit the CLI. ... Alias: /quit |` を確認（URL 到達確認 curl 200）。対象箇所は client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx:352-353。 2026-11-07再照合: 行末に下書き復元の案内が足されただけで反証は有効で、教材はすでに2回押す記述へ修正済み。"
  },
  {
   "file": "git/ai-agent/ClaudeCodeBasics.tsx",
   "claim": "Claude Code は起動時のフォルダ以下のファイルを読み取れます。 Git リポジトリのルート（.git フォルダがある場所）で起動するのがベストです。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/security",
-  "quote": "**Working directory boundary**: In Manual mode, Claude Code can only write to the folder where it was started and its subfolders, and can't modify files in parent directories without explicit permission. In Manual mode, Claude Code also asks you before reading paths outside this boundary with the Read, Grep, and Glob tools. In auto mode it reads them without asking.",
+  "quote": "In Manual mode, Claude Code asks you before its file tools read or write outside the folder where it was started and its subfolders.",
   "correction": "",
-  "evidence": "https://code.claude.com/docs/en/security.md を curl 取得（HTTP 200, 11794 bytes）。公式が定義しているのは「書き込みは起動フォルダ以下に限られる」境界で、読み取りは境界の外でも承認プロンプト経由で可能とある。したがって前半「起動時のフォルダ以下のファイルを読み取れます」は誤りではないものの、公式の粒度（write の境界 / read は承認付きで外も可）とは一致せず逐語の裏付けが取れない。後半「Git リポジトリのルートで起動するのがベスト」に相当する記述は一次情報に見当たらない。https://code.claude.com/docs/en/quickstart.md（curl 200）は `cd /path/to/your/project` と書くのみでリポジトリルート推奨とは述べていない。周辺事実として https://code.claude.com/docs/en/permissions.md に「.claude/settings.local.json loads from the git repository root instead, even when you start Claude Code in a subdirectory」「Hooks and other .claude/settings.json keys load from the current working directory's .claude/ folder with no parent-directory fallback」とあり、ルート起動が有利になる根拠にはなるが、公式が「ベスト」と推奨している箇所ではないため断定を避ける。 2026-08-23 再照合: 同じ「Working directory boundary」の項がモード別の記述に変わり、書き込み境界も読み取りの承認もいずれも Manual mode の話として書かれるようになった（auto mode は境界外を確認なしで読む）。公式の粒度と教材の断定が一致しないという判定は変わらないので UNDETERMINED のまま、引用だけ現行の文面に取り直した。"
+  "evidence": "https://code.claude.com/docs/en/security.md を curl 取得（HTTP 200, 11794 bytes）。公式が定義しているのは「書き込みは起動フォルダ以下に限られる」境界で、読み取りは境界の外でも承認プロンプト経由で可能とある。したがって前半「起動時のフォルダ以下のファイルを読み取れます」は誤りではないものの、公式の粒度（write の境界 / read は承認付きで外も可）とは一致せず逐語の裏付けが取れない。後半「Git リポジトリのルートで起動するのがベスト」に相当する記述は一次情報に見当たらない。https://code.claude.com/docs/en/quickstart.md（curl 200）は `cd /path/to/your/project` と書くのみでリポジトリルート推奨とは述べていない。周辺事実として https://code.claude.com/docs/en/permissions.md に「.claude/settings.local.json loads from the git repository root instead, even when you start Claude Code in a subdirectory」「Hooks and other .claude/settings.json keys load from the current working directory's .claude/ folder with no parent-directory fallback」とあり、ルート起動が有利になる根拠にはなるが、公式が「ベスト」と推奨している箇所ではないため断定を避ける。 2026-08-23 再照合: 同じ「Working directory boundary」の項がモード別の記述に変わり、書き込み境界も読み取りの承認もいずれも Manual mode の話として書かれるようになった（auto mode は境界外を確認なしで読む）。公式の粒度と教材の断定が一致しないという判定は変わらないので UNDETERMINED のまま、引用だけ現行の文面に取り直した。 2026-11-07再照合: 起動フォルダ以下という境界は現行も裏づけられるが、Gitルートでの起動が最善という記述は現行に無く、この主張文は教材ページにも残っていないため本文の修正は不要。"
  },
  {
   "file": "git/ai-agent/ClaudeCodeBasics.tsx",
   "claim": "Claude Code は git status、git log などのコマンドを自動的に実行して、 結果をわかりやすく説明してくれます。コマンドを覚える必要はありません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permissions",
-  "quote": "Claude Code recognizes a built-in set of Bash commands as read-only and runs them without a permission prompt in every mode. These include `ls`, `cat`, `echo`, `pwd`, `head`, `tail`, `grep`, `find`, `wc`, `which`, `diff`, `stat`, `du`, `cd`, and read-only forms of `git`.",
+  "quote": "Claude Code recognizes a built-in set of Bash commands as read-only and runs them without a permission prompt in every mode [...] The set includes ls, cat, echo, pwd, head, tail, grep, find, wc, which, diff, stat, du, cd, and read-only forms of git.",
   "correction": "",
-  "evidence": "https://code.claude.com/docs/en/permissions.md を curl 取得（HTTP 200, 65917 bytes）し「Read-only commands」節を確認。読み取り専用の git 形式（git status / git log が該当）は全モードで許可プロンプトなしに実行される。裏取りとして https://code.claude.com/docs/en/security.md（curl 200）にも「A built-in set of read-only commands such as `ls`, `cat`, and `git status` runs without a prompt.」とあり git status が名指しされている。なお後半の「結果をわかりやすく説明してくれます」「コマンドを覚える必要はありません」は評価的表現で真偽確定の対象外とし、判定は前半の挙動（許可を求めずに自動実行するか）に対して行った。少数の例外（Manual モードでクォートなし glob を伴う git、別ディレクトリへの cd との複合コマンド等）は同ページに列挙されている。"
+  "evidence": "https://code.claude.com/docs/en/permissions.md を curl 取得（HTTP 200, 65917 bytes）し「Read-only commands」節を確認。読み取り専用の git 形式（git status / git log が該当）は全モードで許可プロンプトなしに実行される。裏取りとして https://code.claude.com/docs/en/security.md（curl 200）にも「A built-in set of read-only commands such as `ls`, `cat`, and `git status` runs without a prompt.」とあり git status が名指しされている。なお後半の「結果をわかりやすく説明してくれます」「コマンドを覚える必要はありません」は評価的表現で真偽確定の対象外とし、判定は前半の挙動（許可を求めずに自動実行するか）に対して行った。少数の例外（Manual モードでクォートなし glob を伴う git、別ディレクトリへの cd との複合コマンド等）は同ページに列挙されている。 2026-11-07再照合: 作業ディレクトリ外の読み取りをblockReadsOutsideWorkingDirectoriesで制限する例外が加わったが、git statusなどが自動で走るという主張は成り立つ。"
  },
  {
   "file": "git/ai-agent/ClaudeCodeBasics.tsx",
@@ -3919,18 +3919,18 @@
   "claim": "キーボードで Cmd + L を押すと、右側にAIチャットパネルが開きます。 ここに日本語で質問を入力するだけです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://cursor.com/docs/reference/keyboard-shortcuts.md",
-  "quote": "| Cmd L           | Toggle Sidepanel (unless bound to mode) |",
+  "quote": "| Cmd L or Cmd K  | Toggle Sidepanel (unless bound to mode) |",
   "correction": "",
-  "evidence": "https://cursor.com/docs/reference/keyboard-shortcuts.md を curl 取得（HTTP 200, 4699 bytes）し General テーブルの Cmd L 行を確認。教材は OSToggle で Windows に Ctrl + L を出すが、これも https://cursor.com/help/ai-features/inline-edit.md（curl 200）の「select code and press Cmd + L on Mac (Ctrl + L on Windows/Linux). This opens Agent with your selected code as context.」で裏付けられる。サイドパネルがチャット/Agent の場所であることは https://cursor.com/docs/agent/overview.md（curl 200）の「Access in sidepane with Cmd+I.」で確認。公式に記載がなく断定できない付随的な点が 3 つあるので教材側の取扱い注意として記す: (a)パネルが「右側」に出るという位置は公式ドキュメントに記述がなく、VS Code 同様にユーザーが移動できる。(b)公式が Agent パネルを開く手順として案内する既定キーは Cmd + I / Ctrl + I で、Cmd L 行には \"(unless bound to mode)\" の但し書きが付く。(c)コード選択中の Cmd L は Code Selection & Context 表では \"Add selection to new chat\" としても定義されている。 （2026-08-23 再照合）HTML 版には Markdown の表行がそのまま現れないため、同じ内容を返す .md 版へ出典を移した。"
+  "evidence": "https://cursor.com/docs/reference/keyboard-shortcuts.md を curl 取得（HTTP 200, 4699 bytes）し General テーブルの Cmd L 行を確認。教材は OSToggle で Windows に Ctrl + L を出すが、これも https://cursor.com/help/ai-features/inline-edit.md（curl 200）の「select code and press Cmd + L on Mac (Ctrl + L on Windows/Linux). This opens Agent with your selected code as context.」で裏付けられる。サイドパネルがチャット/Agent の場所であることは https://cursor.com/docs/agent/overview.md（curl 200）の「Access in sidepane with Cmd+I.」で確認。公式に記載がなく断定できない付随的な点が 3 つあるので教材側の取扱い注意として記す: (a)パネルが「右側」に出るという位置は公式ドキュメントに記述がなく、VS Code 同様にユーザーが移動できる。(b)公式が Agent パネルを開く手順として案内する既定キーは Cmd + I / Ctrl + I で、Cmd L 行には \"(unless bound to mode)\" の但し書きが付く。(c)コード選択中の Cmd L は Code Selection & Context 表では \"Add selection to new chat\" としても定義されている。 （2026-08-23 再照合）HTML 版には Markdown の表行がそのまま現れないため、同じ内容を返す .md 版へ出典を移した。 2026-11-07再照合: Cmd KもCmd Lと同じ操作に割り当てられたが、Cmd Lの説明は成り立つ。"
  },
  {
   "file": "git/ai-agent/CursorCline.tsx",
   "claim": "コード上で Cmd + K を押すと、その場所に AI への指示を入力できます。 例:「この関数にコメントを追加して」",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://cursor.com/help/ai-features/inline-edit",
-  "quote": "Inline edit lets you make quick, targeted code changes without opening the chat panel. Select code, describe what you want, and Cursor applies the edit in place.\n\n## How do I use inline edit?\n\n1. Select the code you want to change\n2. Press Cmd + K on Mac or Ctrl + K on Windows/Linux\n3. Type your instructions. For example: \"Convert this to an async function.\"",
+  "sourceUrl": "https://cursor.com/help/ai-features/agent",
+  "quote": "Agent opens with those lines referenced in the input, ready for your instructions. [...] used to open inline edit, which has been replaced by this workflow.",
   "correction": "",
-  "evidence": "https://cursor.com/help/ai-features/inline-edit.md を curl 取得（HTTP 200, 1217 bytes。ページ本体 https://cursor.com/help/ai-features/inline-edit も 200）。Mac の Cmd + K / Windows・Linux の Ctrl + K でインライン編集が開き、その場に指示を入力して適用される流れが手順として明記されている。キーバインド表 https://cursor.com/docs/reference/keyboard-shortcuts.md の Inline Edit セクションにも「| Cmd K | Open |」があり一致する。教材の例示「この関数にコメントを追加して」は公式の例（\"Convert this to an async function.\"）と同種の自然言語指示で性質が違わない。"
+  "evidence": "https://cursor.com/help/ai-features/inline-edit.md を curl 取得（HTTP 200, 1217 bytes。ページ本体 https://cursor.com/help/ai-features/inline-edit も 200）。Mac の Cmd + K / Windows・Linux の Ctrl + K でインライン編集が開き、その場に指示を入力して適用される流れが手順として明記されている。キーバインド表 https://cursor.com/docs/reference/keyboard-shortcuts.md の Inline Edit セクションにも「| Cmd K | Open |」があり一致する。教材の例示「この関数にコメントを追加して」は公式の例（\"Convert this to an async function.\"）と同種の自然言語指示で性質が違わない。 2026-11-07再照合: inline editのページはAgent modeへ統合され、Cmd Kのインライン編集は廃止されて、選択範囲を参照してAgentを開く操作に置き換わった。"
  },
  {
   "file": "git/ai-agent/CursorCline.tsx",
@@ -3946,9 +3946,9 @@
   "claim": "Figma で対象フレームを右クリックし「Copy link to selection」で URL を取得できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server",
-  "quote": "Right-click a frame or layer in Figma and select Copy link to selection.",
+  "quote": "right-click the frame or layer you want design context for and select Copy link to selection.",
   "correction": "",
-  "evidence": "curl -sL -A 'Mozilla/5.0 ... Chrome/120.0' で https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server を取得（HTTP 200）し、本文の「Example: Get design context」節に該当記述を確認。同じメニュー名は https://help.figma.com/hc/en-us/articles/35281350665623-Figma-MCP-collection-How-to-set-up-the-Figma-remote-MCP-server でも「Right click on a layer. Choose copy link to selection . You can also copy the URL to that layer from your browser's address bar. This will include the node ID for the object in your file.」として現行表記で存在する。右クリックで出す手順・メニュー名とも一致。なお help.figma.com は既定 UA だと接続がタイムアウトするためブラウザ UA を明示して取得した。"
+  "evidence": "curl -sL -A 'Mozilla/5.0 ... Chrome/120.0' で https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server を取得（HTTP 200）し、本文の「Example: Get design context」節に該当記述を確認。同じメニュー名は https://help.figma.com/hc/en-us/articles/35281350665623-Figma-MCP-collection-How-to-set-up-the-Figma-remote-MCP-server でも「Right click on a layer. Choose copy link to selection . You can also copy the URL to that layer from your browser's address bar. This will include the node ID for the object in your file.」として現行表記で存在する。右クリックで出す手順・メニュー名とも一致。なお help.figma.com は既定 UA だと接続がタイムアウトするためブラウザ UA を明示して取得した。 2026-11-07再照合: 文面が変わったが、Copy link to selectionの操作は同じ。"
  },
  {
   "file": "react/design-tokens/TokensPractice.tsx",
@@ -3991,9 +3991,9 @@
   "claim": "Claude Code から Figma のデザインデータを直接読み取り、コンポーネントコードを生成する。Dev Mode の情報を AI が解釈してコードに変換する。",
   "verdict": "UNDETERMINED",
   "sourceUrl": "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server",
-  "quote": "You must use a code editor or application that supports MCP servers (i.e. VS Code, Cursor, Windsurf, Claude Code, Codex). […] Generate code from selected frames Select a Figma frame and turn it into code. […] Extract design context Pull in variables, components, and layout data directly into your IDE.",
+  "quote": "It gives AI agents the design context they need to generate code from your Figma files [...] Select a Figma frame and turn it into code. [...] Pull variables, components, and layout data into your IDE.",
   "correction": "",
-  "evidence": "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server を curl（HTTP 200）で取得。前半（Claude Code から Figma のデザインデータを読み取ってコードを生成する）は上記の逐語記述で裏付けられる。しかし後半「Dev Mode の情報を AI が解釈してコードに変換する」を支える記述は同記事に無い: 本文中の Dev Mode は左ナビゲーションのリンク語としてしか出現せず（grep で本文ヒット 0）、機能説明は一貫して「Get design context and code from your Figma designs, FigJam, and Make files」という MCP サーバー自身の枠で書かれている。加えて提供条件も一致しない — MCP は「The remote server is available on all seats and plans.」に対し、Dev Mode は「Available on all paid plans / Requires a Full or a Dev seat」（https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode）。よって Dev Mode 経由という機構の断定は一次情報で確認できず、明確な否定文も無いため UNDETERMINED とした。教材側は後半の文を削るか「MCP サーバーが返す design context を AI が解釈してコードに変換する」に置き換えるのが安全。"
+  "evidence": "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server を curl（HTTP 200）で取得。前半（Claude Code から Figma のデザインデータを読み取ってコードを生成する）は上記の逐語記述で裏付けられる。しかし後半「Dev Mode の情報を AI が解釈してコードに変換する」を支える記述は同記事に無い: 本文中の Dev Mode は左ナビゲーションのリンク語としてしか出現せず（grep で本文ヒット 0）、機能説明は一貫して「Get design context and code from your Figma designs, FigJam, and Make files」という MCP サーバー自身の枠で書かれている。加えて提供条件も一致しない — MCP は「The remote server is available on all seats and plans.」に対し、Dev Mode は「Available on all paid plans / Requires a Full or a Dev seat」（https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode）。よって Dev Mode 経由という機構の断定は一次情報で確認できず、明確な否定文も無いため UNDETERMINED とした。教材側は後半の文を削るか「MCP サーバーが返す design context を AI が解釈してコードに変換する」に置き換えるのが安全。 2026-11-07再照合: 対応クライアントの文は消えて対応表と一覧へ移り、Claude Codeは今も載っていて、教材本文はdesign contextの説明に更新済み。"
  },
  {
   "file": "ux-design/for-designers/DesignTokensForDesigners.tsx",
@@ -4108,9 +4108,9 @@
   "claim": "ただし Windows ではシンボリックリンクの作成に管理者権限か開発者モードが要るため、公式は @AGENTS.md の import を使うよう案内している。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
-  "quote": "On Windows, creating a symlink requires Administrator privileges or Developer Mode, so use the `@AGENTS.md` import instead.",
+  "quote": "Windows: if you or anyone who clones the repository works on Windows, use the @AGENTS.md import instead. Creating a symlink there needs Administrator privileges or Developer Mode",
   "correction": "",
-  "evidence": "curl -sL 'https://docs.claude.com/en/docs/claude-code/memory.md' で公式ドキュメントの Markdown 原本を取得（200, 35973 bytes）。「AGENTS.md」セクション内、`ln -s AGENTS.md CLAUDE.md` を示した直後の行に上記文が存在する。HTML 版 https://docs.claude.com/en/docs/claude-code/memory も 200 で到達確認済み。管理者権限（Administrator privileges）/ 開発者モード（Developer Mode）の二択、および代替として @AGENTS.md import を案内する点まで一致。"
+  "evidence": "curl -sL 'https://docs.claude.com/en/docs/claude-code/memory.md' で公式ドキュメントの Markdown 原本を取得（200, 35973 bytes）。「AGENTS.md」セクション内、`ln -s AGENTS.md CLAUDE.md` を示した直後の行に上記文が存在する。HTML 版 https://docs.claude.com/en/docs/claude-code/memory も 200 で到達確認済み。管理者権限（Administrator privileges）/ 開発者モード（Developer Mode）の二択、および代替として @AGENTS.md import を案内する点まで一致。 2026-11-07再照合: 文の順序が変わり、core.symlinksが無効だとsymlinkが1行のテキストになるという理由が足されたが、案内は同じ。"
  },
  {
   "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
@@ -4126,18 +4126,18 @@
   "claim": "公式ドキュメントは「imports に分けるのは整理には役立つが、import されたファイルは起動時に読み込まれるためコンテキストは減らない」と述べている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
-  "quote": "Splitting into [`@path` imports](#import-additional-files) helps organization but doesn't reduce context, since imported files load at launch.",
+  "quote": "Splitting into @path imports helps organization but doesn't reduce context, since imported files load with the CLAUDE.md importing them.",
   "correction": "",
-  "evidence": "memory.md 内に同趣旨の記述が 2 箇所ある。上記引用（トラブルシュート節）に加え、Size の項に「You can also split content into [imports](#import-additional-files) for organization, though imported files still load and enter the context window at launch.」がある。教材の日本語文は原文の逐語引用ではなく訳（鉤括弧で括られている）だが、内容は原文と一致する。原文引用を併記するのが望ましい。"
+  "evidence": "memory.md 内に同趣旨の記述が 2 箇所ある。上記引用（トラブルシュート節）に加え、Size の項に「You can also split content into [imports](#import-additional-files) for organization, though imported files still load and enter the context window at launch.」がある。教材の日本語文は原文の逐語引用ではなく訳（鉤括弧で括られている）だが、内容は原文と一致する。原文引用を併記するのが望ましい。 2026-11-07再照合: コンテキストが減らない点は同じだが、理由が「起動時に読み込まれる」から「importするCLAUDE.mdと一緒に読み込まれる」に変わった。"
  },
  {
   "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
   "claim": "どのファイルが実際に読み込まれたかはセッション中に /context の Memory files で確認できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/memory",
-  "quote": "To confirm the file loaded, run `/context` in a session and check the list under **Memory files**.",
+  "quote": "To confirm the file loaded, run /context all in a session and check the list under Memory files. In fullscreen mode, /context alone collapses that list.",
   "correction": "",
-  "evidence": "memory.md 内に同じ案内が複数回出る。上記のほか「Run `/context` and check the list under **Memory files** to verify your CLAUDE.md and CLAUDE.local.md files loaded. If a file is missing there, Claude can't see it.」、および /memory の説明末尾に「To check which files actually loaded into the current session, run `/context`.」。表示項目名が Memory files であることと、「実際に読み込まれたファイル」を確認する用途である点の両方が公式原文で確定する。"
+  "evidence": "memory.md 内に同じ案内が複数回出る。上記のほか「Run `/context` and check the list under **Memory files** to verify your CLAUDE.md and CLAUDE.local.md files loaded. If a file is missing there, Claude can't see it.」、および /memory の説明末尾に「To check which files actually loaded into the current session, run `/context`.」。表示項目名が Memory files であることと、「実際に読み込まれたファイル」を確認する用途である点の両方が公式原文で確定する。 2026-11-07再照合: 確認コマンドが/context allに変わり、フルスクリーンモードでは/contextだけだと一覧が畳まれる。"
  },
  {
   "file": "claude-code/multi-ai-architecture/AgentDocs.tsx",
@@ -4450,9 +4450,9 @@
   "claim": "curl -X POST \\\n  \"https://api.cloudflare.com/client/v4/zones/<ZONE_ID>/purge_cache\" \\\n  -H \"Authorization: Bearer <API_TOKEN>\" \\\n  -H \"Content-Type: application/json\" \\\n  --data '{\"files\":[\"https://example.com/style.css\"]}'",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://developers.cloudflare.com/api/resources/cache/methods/purge/",
-  "quote": "POST /zones/{zone_id}/purge_cache [...] Granularly removes one or more files from Cloudflare's cache by specifying URLs. All tiers can purge by URL.",
+  "quote": "POST /zones/{zone_id}/purge_cache [...] files: specific URLs.",
   "correction": "",
-  "evidence": "curl -sL https://developers.cloudflare.com/api/resources/cache/methods/purge/index.md（HTTP 200）で API 仕様の原文を取得。メソッド（post）、パス（/zones/{zone_id}/purge_cache）、ボディ形式（`CachePurgeSingleFile object { files }` / `files: optional array of string`）が教材の例と一致。同ページの curl サンプルも `curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache -H 'Content-Type: application/json' -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" -d '{...}'` でヘッダ 2 種も一致（教材は -X POST を明示、公式サンプルは -d による暗黙 POST という差のみ）。"
+  "evidence": "curl -sL https://developers.cloudflare.com/api/resources/cache/methods/purge/index.md（HTTP 200）で API 仕様の原文を取得。メソッド（post）、パス（/zones/{zone_id}/purge_cache）、ボディ形式（`CachePurgeSingleFile object { files }` / `files: optional array of string`）が教材の例と一致。同ページの curl サンプルも `curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache -H 'Content-Type: application/json' -H \"Authorization: Bearer $CLOUDFLARE_API_TOKEN\" -d '{...}'` でヘッダ 2 種も一致（教材は -X POST を明示、公式サンプルは -d による暗黙 POST という差のみ）。 2026-11-07再照合: APIリファレンスが書き直され、URL指定はfilesフィールドの説明になった。"
  },
  {
   "file": "infra/edge/Cloudflare.tsx",
@@ -4495,9 +4495,9 @@
   "claim": "npx wrangler kv namespace create MY_KV",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://developers.cloudflare.com/workers/wrangler/commands/kv/",
-  "quote": "Create a new namespace [...] npx wrangler kv namespace create [NAMESPACE]",
+  "quote": "Create a new namespace [...] wrangler kv namespace create <NAMESPACE>",
   "correction": "",
-  "evidence": "curl -sL 'https://developers.cloudflare.com/workers/wrangler/commands/kv/index.md' の 31-39 行目に、スペース区切りの `npx wrangler kv namespace create [NAMESPACE]` が現行の usage として記載されている。`MY_KV` は required 引数 `[NAMESPACE]`（'The name of the new namespace'）を埋めたもので、教材の表記と一致する。コロン区切りの旧表記についても同ページ 29 行目に Caution として『Since version 3.60.0, Wrangler supports the `kv ...` syntax. If you are using versions below 3.60.0, the command follows the `kv:...` syntax.』とあり、現行 Wrangler ではスペース区切りが正であることが裏付けられる。HTML 版（同 URL、200）でも同一の文言を確認した。"
+  "evidence": "curl -sL 'https://developers.cloudflare.com/workers/wrangler/commands/kv/index.md' の 31-39 行目に、スペース区切りの `npx wrangler kv namespace create [NAMESPACE]` が現行の usage として記載されている。`MY_KV` は required 引数 `[NAMESPACE]`（'The name of the new namespace'）を埋めたもので、教材の表記と一致する。コロン区切りの旧表記についても同ページ 29 行目に Caution として『Since version 3.60.0, Wrangler supports the `kv ...` syntax. If you are using versions below 3.60.0, the command follows the `kv:...` syntax.』とあり、現行 Wrangler ではスペース区切りが正であることが裏付けられる。HTML 版（同 URL、200）でも同一の文言を確認した。 2026-11-07再照合: 引数の書き方が[NAMESPACE]から<NAMESPACE>に変わっただけ。"
  },
  {
   "file": "infra/hosting/CloudflarePages.tsx",
@@ -4800,10 +4800,10 @@
   "file": "api/basics/Http.tsx",
   "claim": "ブラウザは http://localhost を「安全なコンテキスト」として扱います。 そのため、ローカル開発では HTTPS を立てなくても多くの機能が動きます。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts",
-  "quote": "Locally-delivered resources such as those with http://127.0.0.1 , http://localhost , and http://*.localhost URLs (for example, http://dev.whatever.localhost/ ) are not delivered using HTTPS, but they can be considered to have been delivered securely because they are on the same device as the browser. They are therefore potentially trustworthy. This is convenient for developers testing applications locally.",
+  "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts",
+  "quote": "Top-level documents provide a secure context when their URL is a potentially trustworthy URL. [...] A host value of localhost or localhost.",
   "correction": "",
-  "evidence": "MDN Web Docs「Secure contexts」を curl で取得し、HTML タグを除去した本文を正規表現 'potentially trustworthy' で検索して該当段落を逐語取得した (https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)。同ページには 'Note: Firefox 84 and later support http://localhost and http://*.localhost URLs as trustworthy origins' との但し書きもあり、Firefox 83 以前は例外である点だけ主張と差がある。"
+  "evidence": "MDN Web Docs「Secure contexts」を curl で取得し、HTML タグを除去した本文を正規表現 'potentially trustworthy' で検索して該当段落を逐語取得した (https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)。同ページには 'Note: Firefox 84 and later support http://localhost and http://*.localhost URLs as trustworthy origins' との但し書きもあり、Firefox 83 以前は例外である点だけ主張と差がある。 2026-11-07再照合: ページがWeb/Security/Defenses配下へ移って書き直されたが、localhostが安全なコンテキストになる点は同じ。"
  },
  {
   "file": "api/basics/Http.tsx",
@@ -4989,10 +4989,10 @@
   "file": "claude-code/mcp/MCPPractical.tsx",
   "claim": "インストール時にlocal/project/userスコープを選択可能",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://docs.claude.com/en/docs/claude-code/discover-plugins.md",
-  "quote": "* **User scope**: install for yourself across all projects",
+  "sourceUrl": "https://code.claude.com/docs/en/plugins",
+  "quote": "* **User scope**: enabled for you in every project on this computer\n* **Project scope**: enabled for everyone who works in this repository, through the committed `.claude/settings.json`. Each collaborator still installs it on their own machine\n* **Local scope**: enabled for you in this repository only",
   "correction": "",
-  "evidence": "公式 discover-plugins ドキュメントの `/plugin` インストール手順に「Choose an installation scope:」があり、User / Project / Local の 3 スコープが列挙されている。教材の local/project/user と一致する。"
+  "evidence": "公式 discover-plugins ドキュメントの `/plugin` インストール手順に「Choose an installation scope:」があり、User / Project / Local の 3 スコープが列挙されている。教材の local/project/user と一致する。 2026-11-07再照合: discover-pluginsはplugins/installへ統合され、3スコープの一覧はpluginsページにまとまっている。"
  },
  {
   "file": "claude-code/reference/ClaudeCheatsheet.tsx",
@@ -5008,9 +5008,9 @@
   "claim": "/doctor / 環境と設定の健全性を診断（f キーで Claude に修正させる）",
   "verdict": "REFUTED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
-  "quote": "Before v2.1.205, `/doctor` opened a read-only diagnostics screen and pressing `f` sent the report to Claude",
+  "quote": "Run a setup checkup that diagnoses installation, settings, extension, and `CLAUDE.md` problems and proposes fixes that Claude applies after you confirm.",
   "correction": "「f キーで Claude に修正させる」を削除する。現行の `/doctor` は bundled skill で、診断結果を先に報告し変更前に確認を求める（Reports findings first and asks for confirmation before changing anything）。f キーは v2.1.205 より前の読み取り専用診断画面の操作。",
-  "evidence": "公式 commands リファレンスの `/doctor` 行に、f キーが v2.1.205 より前の挙動であると明記されている。実機の Claude Code は 2.1.233（`claude --version`）で、その版より新しい。"
+  "evidence": "公式 commands リファレンスの `/doctor` 行に、f キーが v2.1.205 より前の挙動であると明記されている。実機の Claude Code は 2.1.233（`claude --version`）で、その版より新しい。 2026-11-07再照合: v2.1.205より前のfキーの注記は消え、commandsページにfキーの記述はない。チートシートは修正済みだがトラブルシューティングのヒントに同じ記述が残っている。"
  },
  {
   "file": "claude-code/reference/ClaudeCheatsheet.tsx",
@@ -5026,9 +5026,9 @@
   "claim": "/skills / skill 一覧（t キーでトークン数ソート）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
-  "quote": "Press `t` to sort by token count.",
+  "quote": "Press `t` to sort by token count",
   "correction": "",
-  "evidence": "公式 commands リファレンスの `/skills` 行に「List available skills. Type to filter the list by name.」に続けて t キーの記述がある。"
+  "evidence": "公式 commands リファレンスの `/skills` 行に「List available skills. Type to filter the list by name.」に続けて t キーの記述がある。 2026-11-07再照合: 文が続きのキー説明とつながり句点の位置が変わっただけで、tキーのソートは同じ。"
  },
  {
   "file": "claude-code/reference/ClaudeCheatsheet.tsx",
@@ -5062,9 +5062,9 @@
   "claim": "まず /doctor で環境と設定の健全性を診断してください。インストールや設定の問題を検出し、そのまま修正まで任せることもできます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/claude-code/commands.md",
-  "quote": "Run a setup checkup that diagnoses issues and can fix them.",
+  "quote": "Run a setup checkup that diagnoses installation, settings, extension, and `CLAUDE.md` problems and proposes fixes that Claude applies after you confirm.",
   "correction": "",
-  "evidence": "公式 commands リファレンスの `/doctor` 行。インストールの健全性・PATH・設定ファイルの解析可否などを診断し、修正まで行えることが明記されている（変更前に確認を求める）。"
+  "evidence": "公式 commands リファレンスの `/doctor` 行。インストールの健全性・PATH・設定ファイルの解析可否などを診断し、修正まで行えることが明記されている（変更前に確認を求める）。 2026-11-07再照合: 診断範囲が具体的になり、修正は確認のあとでClaudeが適用すると明記されたが、教材の説明と矛盾しない。"
  },
  {
   "file": "claude-code/ai-coding-agents/AmazonQDeveloper.tsx",
@@ -5125,9 +5125,9 @@
   "claim": "イベントに応じて関数を実行する。サーバーの存在を意識せず、実行時間ぶんだけ課金される。",
   "verdict": "REFUTED",
   "sourceUrl": "https://aws.amazon.com/lambda/pricing/",
-  "quote": "Lambda Functions are priced per request and execution duration",
+  "quote": "Lambda Event Functions are priced per request and execution duration.",
   "correction": "「実行時間ぶんだけ課金される」を「リクエスト数と実行時間（GB 秒）で課金される」に直す。公式は請求軸を request と duration の 2 つとしており、実行時間だけではない。",
-  "evidence": "AWS Lambda 料金ページを curl で取得。冒頭に引用文があり、続けて「Lambda Functions are priced based on the number of requests served and the duration your code runs, measured in GB-seconds.」と明記されている。教材の「実行時間ぶんだけ」はリクエスト課金を落としている。"
+  "evidence": "AWS Lambda 料金ページを curl で取得。冒頭に引用文があり、続けて「Lambda Functions are priced based on the number of requests served and the duration your code runs, measured in GB-seconds.」と明記されている。教材の「実行時間ぶんだけ」はリクエスト課金を落としている。 2026-11-07再照合: 名称がLambda Event Functionsに変わったが、実行時間だけの課金という旧記述の反証には今もなり、教材はリクエスト数と実行時間の記述に修正済み。"
  },
  {
   "file": "infra/aws/Overview.tsx",
@@ -5395,9 +5395,9 @@
   "claim": "IETF Draft - The Idempotency-Key HTTP Header Field — Idempotency-Key ヘッダーの標準化を進める IETF ドラフト。挙動の正式な整理",
   "verdict": "REFUTED",
   "sourceUrl": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
-  "quote": "Expired Internet-Draft",
+  "quote": "Intended status: Standards Track",
   "correction": "『標準化を進める IETF ドラフト』という現在形をやめ、期限切れである旨を書く。例:「IETF Draft（draft-ietf-httpapi-idempotency-key-header、2026-04-18 に期限切れ・アーカイブ済み）— 挙動の整理として参照価値はあるが、標準化は現在進行していない」。",
-  "evidence": "datatracker のドキュメントページを取得。Type は『Expired Internet-Draft (httpapi WG) Expired & archived』、IESG state も『Expired』、Intended RFC status は (None)、Last updated 2026-04-18（Latest revision 2025-10-15）。RFC 化もしておらず、現在進行形で標準化が進んでいるという記述は成り立たない。"
+  "evidence": "datatracker のドキュメントページを取得。Type は『Expired Internet-Draft (httpapi WG) Expired & archived』、IESG state も『Expired』、Intended RFC status は (None)、Last updated 2026-04-18（Latest revision 2025-10-15）。RFC 化もしておらず、現在進行形で標準化が進んでいるという記述は成り立たない。 2026-11-07再照合: 引用「Expired Internet-Draft」は反証にならなくなり、現行はActive Internet-Draftの-08（2026-10-22更新、2027-04-25まで有効）なので、標準化を進めるドラフトという元の主張は成り立ち、逆に教材の現在の記述が古い。"
  },
  {
   "file": "infra/bff/Auth.tsx",
@@ -5539,9 +5539,9 @@
   "claim": "<head> 内のインラインスクリプトは CSS の解析前に同期的に実行されるため、FOUC を完全に防止できる。",
   "verdict": "REFUTED",
   "sourceUrl": "https://html.spec.whatwg.org/multipage/parsing.html",
-  "quote": "If the parser's Document has a style sheet that is blocking scripts or the script 's ready to be parser-executed is false: spin the event loop until the parser's Document has no style sheet that is blocking scripts and the script 's ready to be parser-executed becomes true.",
+  "quote": "If parser 's Document has a style sheet that is blocking scripts or the script 's ready to be parser-executed is false, then spin the event loop until either parser 's aborted is true, or both parser 's Document has no style sheet that is blocking scripts and the script 's ready to be parser-executed is true.",
   "correction": "「<head> 内のインラインスクリプトは CSS の解析前に同期的に実行される」という無条件の断定は成り立たない。仕様上はパーサをブロックして本文描画より前に走るが、そのスクリプトより前に script-blocking なスタイルシート（<link rel=stylesheet> 等）があると、読み込み完了まで実行が待たされる。「スタイルシートの <link> より前に置いた場合に限り、CSS の読み込みを待たずに実行される」と条件を明示する。",
-  "evidence": "HTML Standard の parsing.html『pending parsing-blocking script』処理を取得。パーサはスクリプト実行前に『If the parser's Document has a style sheet that is blocking scripts ... spin the event loop until ...』と待機する。semantics.html には『A Document document has a style sheet that is blocking scripts if ... document's script-blocking style sheet set is not empty』の定義があり、先行する stylesheet がある場合はインラインスクリプトも待たされる。 2026-08-23 に https://html.spec.whatwg.org/multipage/parsing.html を取得し直し、pending parsing-blocking script の処理ステップを文単位で確認した。元の引用『spin the event loop until the parser's Document has no style sheet that is blocking scripts』は条件節（If the parser's Document has a style sheet that is blocking scripts …）を落として述部の途中から始まっており、何が起きたときの待機なのかが引用の中で閉じていなかった。新しい引用は条件から待機の終了条件まで 1 文で閉じる。これにより、script-blocking なスタイルシートが先にあるとインラインスクリプトの実行はその読み込み完了まで待たされる、つまり『CSS の解析前に同期的に実行される』という無条件の断定が出典と矛盾することが引用だけで読み取れる。なお引用中の『the script 's』は出典側の <code> 境界に由来する空白で、照合に使う正規化を通した原文どおりの表記。"
+  "evidence": "HTML Standard の parsing.html『pending parsing-blocking script』処理を取得。パーサはスクリプト実行前に『If the parser's Document has a style sheet that is blocking scripts ... spin the event loop until ...』と待機する。semantics.html には『A Document document has a style sheet that is blocking scripts if ... document's script-blocking style sheet set is not empty』の定義があり、先行する stylesheet がある場合はインラインスクリプトも待たされる。 2026-08-23 に https://html.spec.whatwg.org/multipage/parsing.html を取得し直し、pending parsing-blocking script の処理ステップを文単位で確認した。元の引用『spin the event loop until the parser's Document has no style sheet that is blocking scripts』は条件節（If the parser's Document has a style sheet that is blocking scripts …）を落として述部の途中から始まっており、何が起きたときの待機なのかが引用の中で閉じていなかった。新しい引用は条件から待機の終了条件まで 1 文で閉じる。これにより、script-blocking なスタイルシートが先にあるとインラインスクリプトの実行はその読み込み完了まで待たされる、つまり『CSS の解析前に同期的に実行される』という無条件の断定が出典と矛盾することが引用だけで読み取れる。なお引用中の『the script 's』は出典側の <code> 境界に由来する空白で、照合に使う正規化を通した原文どおりの表記。 2026-11-07再照合: 仕様の手順にparserのabortedの条件が加わった。スタイルシートを待つ点は同じ。"
  },
  {
   "file": "react/web-quality/WebEthics.tsx",
@@ -5944,9 +5944,9 @@
   "claim": "非冪等な POST を安全に再送したい場合は、クライアントが一意なキーを Idempotency-Key ヘッダーで送り、サーバが「このキーは処理済み」と覚えておくことで、2 回目以降を「最初の結果の再生」として扱う設計が使われます（決済 API などで一般的）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.stripe.com/api/idempotent_requests",
-  "quote": "Stripe’s idempotency works by saving the resulting status code and body of the first request made for any given idempotency key, regardless of whether it succeeds or fails.",
+  "quote": "For API v1, Stripe saves the status code and body of the first request made with a given idempotency key after endpoint execution begins. Retries with the same key return the saved response, including `500` errors.",
   "correction": "",
-  "evidence": "Stripe API リファレンスの Idempotent requests を取得。curl 例が -H \"Idempotency-Key: KG5LxwFBepaKHyUD\" でヘッダー名が一致し、初回結果を保存して再送時に同じ結果を返すという教材の説明とも一致する。"
+  "evidence": "Stripe API リファレンスの Idempotent requests を取得。curl 例が -H \"Idempotency-Key: KG5LxwFBepaKHyUD\" でヘッダー名が一致し、初回結果を保存して再送時に同じ結果を返すという教材の説明とも一致する。 2026-11-07再照合: API v1とv2の説明に分かれたが、最初の結果を保存して返す設計はv1の記述として残っている。"
  },
  {
   "file": "api/rest-design/Idempotency.tsx",
@@ -6483,19 +6483,19 @@
   "file": "infra/database/Orm.tsx",
   "claim": "クライアント生成が必要",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client.mdx",
+  "sourceUrl": "https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/v7/prisma-client/setup-and-configuration/generating-prisma-client.mdx",
   "quote": "prisma generate creates Prisma Client from the models and generator configuration in your schema.prisma file. [...] Run the following command whenever you add models, change fields, or update generator settings: npx prisma generate",
   "correction": "",
-  "evidence": "Prisma 公式ドキュメントリポジトリ prisma/docs のソース mdx を取得。スキーマ変更後に prisma generate による Prisma Client の生成・更新が必要であることを確認した。比較表の「クライアント生成が必要」と一致する。 2026-08-23 に https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client.mdx を取得し直し、Generate the client 節に「モデル追加・フィールド変更・generator 設定更新のたびに実行する」という指示文があることを確認して追加した。元の引用は生成の説明だけで、実行が必要になる条件を含んでいなかった。"
+  "evidence": "Prisma 公式ドキュメントリポジトリ prisma/docs のソース mdx を取得。スキーマ変更後に prisma generate による Prisma Client の生成・更新が必要であることを確認した。比較表の「クライアント生成が必要」と一致する。 2026-08-23 に https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client.mdx を取得し直し、Generate the client 節に「モデル追加・フィールド変更・generator 設定更新のたびに実行する」という指示文があることを確認して追加した。元の引用は生成の説明だけで、実行が必要になる条件を含んでいなかった。 2026-11-07再照合: Prisma Docsの構成変更で元のパスが404になったので、v7のパスへ移した。"
  },
  {
   "file": "infra/database/ServerlessDb.tsx",
   "claim": "DATABASE_URL=\"postgres://user:pass@db.pooler.example.com:6543/app?pgbouncer=true\"",
   "verdict": "REFUTED",
-  "sourceUrl": "https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/prisma-client/setup-and-configuration/databases-connections/pgbouncer.mdx",
+  "sourceUrl": "https://raw.githubusercontent.com/prisma/docs/main/apps/docs/content/docs/orm/v7/prisma-client/setup-and-configuration/databases-connections/pgbouncer.mdx",
   "quote": "To use Prisma Client with PgBouncer, add the `?pgbouncer=true` flag to the PostgreSQL connection URL:",
   "correction": "pgbouncer=true は Postgres や PgBouncer の汎用接続文字列パラメータではなく Prisma Client が解釈するフラグ。汎用のサーバーレス接続文字列の例としてではなく「Prisma を使う場合」と前提を明示する。加えて Prisma は PgBouncer 1.21.0 以降では付けないよう案内しているので、その条件も添える。",
-  "evidence": "prisma/docs のソース mdx を取得。見出しが Add `pgbouncer=true` for PgBouncer versions below `1.21.0`、本文に We recommend not setting `pgbouncer=true` ... if you're using PgBouncer `1.21.0` or later. とあり、Prisma ORM 側のモード切替フラグとして説明されている。教材は Prisma に触れずに汎用の DATABASE_URL 例として提示している。"
+  "evidence": "prisma/docs のソース mdx を取得。見出しが Add `pgbouncer=true` for PgBouncer versions below `1.21.0`、本文に We recommend not setting `pgbouncer=true` ... if you're using PgBouncer `1.21.0` or later. とあり、Prisma ORM 側のモード切替フラグとして説明されている。教材は Prisma に触れずに汎用の DATABASE_URL 例として提示している。 2026-11-07再照合: Prisma Docsの構成変更で元のパスが404になったので、v7のパスへ移した。"
  },
  {
   "file": "vue/Home.tsx",
@@ -6556,9 +6556,9 @@
   "claim": "1 トークンは概ね英語 4 文字、日本語 0.5〜1 文字に相当します。入力トークンと出力トークンそれぞれに料金が発生し、一般に出力トークンの方が高価です。",
   "verdict": "REFUTED",
   "sourceUrl": "https://platform.claude.com/docs/en/about-claude/glossary.md",
-  "quote": "For Claude, a token approximately represents 3.5 English characters",
+  "quote": "For Claude, the number of characters a token represents depends on the model and the language. Claude 4.7 and later models and Claude Mythos Preview use a newer tokenizer that produces approximately 30 percent more tokens for the same text than earlier models, on which a token represents approximately 3.5 English characters.",
   "correction": "「英語 4 文字」を「英語 3.5 文字程度」に直すか、Claude 以外も含む一般論として書くなら提供元ごとに違う旨を添える。「日本語 0.5〜1 文字」は裏づけとなる一次情報を確認できなかったので、根拠を示せないなら落とす。入力/出力それぞれに課金され出力が高価という後半はそのままでよい。",
-  "evidence": "Anthropic 公式 glossary の Tokens 節が「a token approximately represents 3.5 English characters, though the exact number can vary depending on the language used」としており、教材の 4 文字と食い違う。同ページと同じ節に該当ページの表（Haiku/Sonnet/Opus）があるため、対象は Claude 系モデル。出力が高価な点は公式 pricing の表で全モデル 出力 = 入力の 5 倍と確認できた。"
+  "evidence": "Anthropic 公式 glossary の Tokens 節が「a token approximately represents 3.5 English characters, though the exact number can vary depending on the language used」としており、教材の 4 文字と食い違う。同ページと同じ節に該当ページの表（Haiku/Sonnet/Opus）があるため、対象は Claude 系モデル。出力が高価な点は公式 pricing の表で全モデル 出力 = 入力の 5 倍と確認できた。 2026-11-07再照合: 英語4文字への反証は有効だが、3.5文字はClaude 4.7より前のモデルの値に限定された。教材の修正後の文は限定なしの3.5文字のままで、現行とずれている。"
  },
  {
   "file": "ai-ml/lmops/LmopsWorkflow.tsx",
@@ -6753,10 +6753,10 @@
   "file": "api/practice/ReactApi.tsx",
   "claim": "useQuery に「このデータの一意なキー（ queryKey ）」と「取得関数（ queryFn ）」を 渡すだけで、 data / isPending / isError を宣言的に受け取れます。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://tanstack.com/query/latest/docs/framework/react/reference/useQuery",
-  "quote": "queryKey: unknown[] Required The query key to use for this query.",
+  "sourceUrl": "https://tanstack.com/query/latest/docs/framework/react/reference/functions/useQuery",
+  "quote": "The query key to use for this query.",
   "correction": "",
-  "evidence": "TanStack Query v5 の useQuery リファレンスを取得。queryKey / queryFn がともに Required、返り値に data・isPending・isError が含まれる（isPending は『A derived boolean from the status variable above, provided for convenience.』）。v5 の名称として正しい。"
+  "evidence": "TanStack Query v5 の useQuery リファレンスを取得。queryKey / queryFn がともに Required、返り値に data・isPending・isError が含まれる（isPending は『A derived boolean from the status variable above, provided for convenience.』）。v5 の名称として正しい。 2026-11-07再照合: リファレンスがfunctions/useQueryへ移り、型コメントから生成された表の形になった。"
  },
  {
   "file": "api/practice/VueApi.tsx",
@@ -7168,9 +7168,9 @@
   "claim": "対応する挙動は配信先（Nitro プリセット）に依存し、ISR は Vercel などの対応プラットフォームで有効になります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://nuxt.com/docs/4.x/guide/concepts/rendering",
-  "quote": "isr: number | boolean - The behavior is the same as swr except that we are able to add the response to the CDN cache on platforms that support this (currently Netlify or Vercel). [...] Whenever possible, route rules will be automatically applied to the deployment platform's native rules for optimal performances (Netlify and Vercel are currently supported).",
+  "quote": "The behavior is the same as `swr` except that we are able to add the response to the CDN cache on platforms that support this (currently Netlify or Vercel). [...] Whenever possible, route rules will be automatically applied to the deployment platform's native rules for optimal performances (Netlify and Vercel are currently supported).",
   "correction": "",
-  "evidence": "Nuxt 公式の Rendering Modes を取得。isr ルートルールの説明に上記があり、ISR の有効性が配信プラットフォーム依存であることと Vercel が対応先であることを確認。同ページには『Whenever possible, route rules will be automatically applied to the deployment platform's native rules for optimal performances (Netlify and Vercel are currently supported).』もある。Nitro 側（nitro.build/deploy）にも vercel / netlify のゼロコンフィグ検出とプリセットの記述がある。 2026-08-23 に https://nuxt.com/docs/4.x/guide/concepts/rendering を取得し直し、Route Rules 節の isr の説明文と、その後段の「配信先のネイティブ機能へ自動的に割り当てられる」文を見つけて 2 箇所で取り直した（check.mjs で OK）。元の引用は「we are able to add the response to the CDN cache on platforms that support this…」と文の途中から始まり、何の設定の話か引用の中で閉じていなかった。挙動が配信先に依存する点は deployment platform の文で裏づくが、Nitro プリセットという語そのものは別箇所（node-server preset / NITRO_PRESET）にしか無く、この 1 本には含めていない。"
+  "evidence": "Nuxt 公式の Rendering Modes を取得。isr ルートルールの説明に上記があり、ISR の有効性が配信プラットフォーム依存であることと Vercel が対応先であることを確認。同ページには『Whenever possible, route rules will be automatically applied to the deployment platform's native rules for optimal performances (Netlify and Vercel are currently supported).』もある。Nitro 側（nitro.build/deploy）にも vercel / netlify のゼロコンフィグ検出とプリセットの記述がある。 2026-08-23 に https://nuxt.com/docs/4.x/guide/concepts/rendering を取得し直し、Route Rules 節の isr の説明文と、その後段の「配信先のネイティブ機能へ自動的に割り当てられる」文を見つけて 2 箇所で取り直した（check.mjs で OK）。元の引用は「we are able to add the response to the CDN cache on platforms that support this…」と文の途中から始まり、何の設定の話か引用の中で閉じていなかった。挙動が配信先に依存する点は deployment platform の文で裏づくが、Nitro プリセットという語そのものは別箇所（node-server preset / NITRO_PRESET）にしか無く、この 1 本には含めていない。 2026-11-07再照合: 本文の変更は無く、見出しの型注記が原文に混ざるので説明文だけを引く。"
  },
  {
   "file": "vue/nuxt-server/Deploy.tsx",
@@ -7555,9 +7555,9 @@
   "claim": "Schemathesis は OpenAPI を読み込み、定義からテストケースを生成して実際の API を叩き、 返ってきたレスポンスがスキーマに一致するかを検証します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://schemathesis.readthedocs.io/en/stable/",
-  "quote": "Schemathesis automatically generates property-based tests from your OpenAPI or GraphQL schema",
+  "quote": "Schemathesis automatically generates property-based tests from OpenAPI and GraphQL schemas or gRPC service descriptors",
   "correction": "",
-  "evidence": "Schemathesis 公式ドキュメントのトップを取得。引用に続けて「and exercises the edge cases that break your API」とあり、スキーマからテストを生成して実 API を叩く動作原理が確認できる。レスポンスのスキーマ適合検証は同ドキュメントの「Adding Schema Conformance Validation to Existing Tests」ガイドが扱う。"
+  "evidence": "Schemathesis 公式ドキュメントのトップを取得。引用に続けて「and exercises the edge cases that break your API」とあり、スキーマからテストを生成して実 API を叩く動作原理が確認できる。レスポンスのスキーマ適合検証は同ドキュメントの「Adding Schema Conformance Validation to Existing Tests」ガイドが扱う。 2026-11-07再照合: 対象にgRPCが加わった。OpenAPIから生成する点は同じ。"
  },
  {
   "file": "api/quality/DebuggingTools.tsx",
@@ -7600,9 +7600,9 @@
   "claim": "API のテストができます。Postman のような機能を VSCode 内で使えます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://www.thunderclient.com/",
-  "quote": "The lightweight REST API client for your IDE",
+  "quote": "Fast, lightweight API testing for VS Code and JetBrains.",
   "correction": "",
-  "evidence": "Thunder Client 公式サイトを取得。引用に続けて「no context switching, local storage, and git sync」とあり、VS Code / JetBrains 向けの REST API クライアントとして「Test APIs faster without leaving your editor」と説明されている。教材の「VSCode 内で API のテストができる」は一致する（無料か・アカウント要否は本主張の範囲外）。"
+  "evidence": "Thunder Client 公式サイトを取得。引用に続けて「no context switching, local storage, and git sync」とあり、VS Code / JetBrains 向けの REST API クライアントとして「Test APIs faster without leaving your editor」と説明されている。教材の「VSCode 内で API のテストができる」は一致する（無料か・アカウント要否は本主張の範囲外）。 2026-11-07再照合: トップのキャッチコピーが変わったが、VS Code内でAPIをテストできる点は同じ。"
  },
  {
   "file": "git/ai-agent/Overview.tsx",
@@ -7618,9 +7618,9 @@
   "claim": "Claude Code 導入時に作った Anthropic アカウントの API キーをそのまま使えます。 console.anthropic.com/settings/keys で取得できます。",
   "verdict": "REFUTED",
   "sourceUrl": "https://code.claude.com/docs/en/setup",
-  "quote": "Claude Code requires a Pro, Max, Team, Enterprise, or Console account. The free Claude.ai plan does not include Claude Code access.",
+  "quote": "Claude Code requires a Pro, Max, Ultra, Team, Enterprise, or Console account. The free claude.ai plan does not include Claude Code access.",
   "correction": "(1) URL を https://platform.claude.com/settings/keys に差し替える（console.anthropic.com/settings/keys は HTTP 301 で platform.claude.com へ転送される）。(2)「Claude Code 導入時に作った Anthropic アカウントの API キーをそのまま使えます」は不正確。Claude Code は Pro / Max / Team / Enterprise / Console のいずれでも使えるが、サブスクリプション（Pro/Max）のアカウントには API キーが付かないため、Cursor / Cline で使うには Console（Developer Platform）側で API キーと従量課金の用意が要る、と書き分ける。",
-  "evidence": "curl -sI で https://console.anthropic.com/settings/keys を叩くと HTTP/2 301、location: https://platform.claude.com/settings/keys。Claude Code の公式 setup ページ（docs.claude.com/en/docs/claude-code/setup は code.claude.com/docs/en/setup へ 301）に上記の認証要件が記載されており、Claude Code を使っているアカウント＝API キーを持つ Console アカウントとは限らない。"
+  "evidence": "curl -sI で https://console.anthropic.com/settings/keys を叩くと HTTP/2 301、location: https://platform.claude.com/settings/keys。Claude Code の公式 setup ページ（docs.claude.com/en/docs/claude-code/setup は code.claude.com/docs/en/setup へ 301）に上記の認証要件が記載されており、Claude Code を使っているアカウント＝API キーを持つ Console アカウントとは限らない。 2026-11-07再照合: 対応アカウントにUltraが加わったが反証は有効で、教材はすでに修正済み。ただし修正後の列挙にUltraがない。"
  },
  {
   "file": "git/environment/Prerequisites.tsx",
@@ -7635,10 +7635,10 @@
   "file": "api/rest-design/ErrorHandling.tsx",
   "claim": "既定の { \"detail\": ... } ではなく RFC 9457 に寄せるには、例外ハンドラでレスポンスの media_type を application/problem+json にし、type / title / status / detail / instance を返します。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://www.starlette.io/responses/",
+  "sourceUrl": "https://starlette.dev/responses/",
   "quote": "Signature: Response(content, status_code=200, headers=None, media_type=None)",
   "correction": "",
-  "evidence": "Starlette 公式 Responses を取得（『It will also include a Content-Type header, based on the media_type and appending a charset for text types, unless a charset has already been specified in the media_type.』）。さらに実装 starlette/responses.py を取得して JSONResponse.__init__ が media_type: str | None = None を受け取り super().__init__ に渡していることを確認したため、JSONResponse(media_type='application/problem+json') は Content-Type に反映される。"
+  "evidence": "Starlette 公式 Responses を取得（『It will also include a Content-Type header, based on the media_type and appending a charset for text types, unless a charset has already been specified in the media_type.』）。さらに実装 starlette/responses.py を取得して JSONResponse.__init__ が media_type: str | None = None を受け取り super().__init__ に渡していることを確認したため、JSONResponse(media_type='application/problem+json') は Content-Type に反映される。 2026-11-07再照合: ドメインがstarlette.devへ移った。"
  },
  {
   "file": "api/rest-design/Pagination.tsx",
@@ -7699,9 +7699,9 @@
   "claim": "# インストール\npnpm add -D msw msw-storybook-addon\n\n# Service Worker ファイルを生成\nnpx msw init public/ --save",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://mswjs.io/docs/cli/init",
-  "quote": "Copy the worker script into the given directory. [...] --save Save the given PUBLIC_DIR in package.json for future automatic updates of the worker script.",
+  "quote": "Copy the worker script into the given directory. [...] Save the given PUBLIC_DIR in package.json for future automatic updates of the worker script.",
   "correction": "",
-  "evidence": "MSW 公式 CLI の init ページ（MSW 2.0 ドキュメント）を取得。引数 PUBLIC_DIR は『A relative path to the public directory of your application.』、フラグ --save は『Save the given PUBLIC_DIR in package.json for future automatic updates of the worker script.』で例も npx msw init ./public --save。教材の npx msw init public/ --save は現行仕様どおり。 2026-08-23 に https://mswjs.io/docs/cli/init を取得し直し、init の説明文（worker script を指定ディレクトリへコピーする）と Flags 節の --save の説明文が原文にあることを check.mjs で確認して取り直した。元の引用は Usage のコード行 1 本（npx msw init <PUBLIC_DIR> [options]）だけで、コマンドが何をするのかも --save が何を保存するのかも引用の中で閉じていなかった。msw-storybook-addon を含むインストール行は本ページに一切登場しない（ページ全文に msw-storybook-addon の語なし）ので、その断定はこの出典では裏づかないまま残る。"
+  "evidence": "MSW 公式 CLI の init ページ（MSW 2.0 ドキュメント）を取得。引数 PUBLIC_DIR は『A relative path to the public directory of your application.』、フラグ --save は『Save the given PUBLIC_DIR in package.json for future automatic updates of the worker script.』で例も npx msw init ./public --save。教材の npx msw init public/ --save は現行仕様どおり。 2026-08-23 に https://mswjs.io/docs/cli/init を取得し直し、init の説明文（worker script を指定ディレクトリへコピーする）と Flags 節の --save の説明文が原文にあることを check.mjs で確認して取り直した。元の引用は Usage のコード行 1 本（npx msw init <PUBLIC_DIR> [options]）だけで、コマンドが何をするのかも --save が何を保存するのかも引用の中で閉じていなかった。msw-storybook-addon を含むインストール行は本ページに一切登場しない（ページ全文に msw-storybook-addon の語なし）ので、その断定はこの出典では裏づかないまま残る。 2026-11-07再照合: 本文の変更は無く、見出し直後のゼロ幅文字で切れないよう--saveの語を断片から外した。"
  },
  {
   "file": "react/ui-patterns/DialogPatterns.tsx",
@@ -7815,10 +7815,10 @@
   "file": "react/web-quality/WebEthics.tsx",
   "claim": "Tim Berners-Lee（Web の発明者）は「Web は人類全体のためのもの」と繰り返し述べています。",
   "verdict": "REFUTED",
-  "sourceUrl": "https://webfoundation.org/about/vision/history-of-the-web/",
+  "sourceUrl": "https://web.archive.org/web/20240101000000/https://webfoundation.org/about/vision/history-of-the-web/",
   "quote": "This is for everyone #london2012 #oneweb #openingceremony",
   "correction": "「Web は人類全体のためのもの」は本人の発言の逐語ではなく要約。鉤括弧に入れて引用の形にしない。原典を示すなら 2012 年ロンドン五輪開会式でのツイート This is for Everyone を出典付きで併記し、日本語は訳であると明記する。",
-  "evidence": "World Wide Web Foundation の Web の歴史ページを取得。記録として残っている本人の言葉は 2012 年のツイート This is for Everyone であり、教材が鉤括弧に入れている日本語表現に対応する逐語の一次資料は確認できなかった。"
+  "evidence": "World Wide Web Foundation の Web の歴史ページを取得。記録として残っている本人の言葉は 2012 年のツイート This is for Everyone であり、教材が鉤括弧に入れている日本語表現に対応する逐語の一次資料は確認できなかった。 2026-11-07再照合: webfoundation.orgはCIとローカルのどちらからも接続できないので、Internet Archiveの版を指す。"
  },
  {
   "file": "infra/observability/Monitoring.tsx",

@@ -404,13 +404,13 @@ const greeting = $hello('Nuxt')  // → "Hello, Nuxt!"
               links={[
                 {
                   title: "Nuxt 公式 - Route Middleware",
-                  url: "https://nuxt.com/docs/guide/directory-structure/middleware",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/app/middleware",
                   description:
                     "defineNuxtRouteMiddleware / .global / definePageMeta の公式解説",
                 },
                 {
                   title: "Nuxt 公式 - Plugins",
-                  url: "https://nuxt.com/docs/guide/directory-structure/plugins",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/app/plugins",
                   description:
                     "defineNuxtPlugin / provide / .client / .server サフィックスの解説",
                 },

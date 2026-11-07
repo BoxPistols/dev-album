@@ -258,9 +258,7 @@ urgent: noul("Does this need attention today?")`}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
               1リクエストの大きさには上限があります。公式ドキュメントのModels
-              のページは、Jev 1.13のContext lengthを「64k tokens per request;
-              32k tokens for `state` plus the longest
-              question」としています（2026-09-20時点）。64kはstate
+              のページは、Jev 1.14とJev 1.13のContext lengthを「64k per-request / 32k per-question」としています（2026-11-07時点）。64kはstate
               と全質問の合計、32kはstateと最も長い質問1つの合計に掛かります。
             </p>
             <p className="text-muted-foreground mt-4 leading-relaxed">
@@ -529,8 +527,8 @@ const tags = Object.entries(answers)
                   description: "1リクエストのトークン上限（Context length）の表。",
                 },
                 {
-                  title: "TypeSafe AI Docs — Jev 1.13 jaggedness",
-                  url: "https://docs.typesafe.ai/model-jaggedness/jev-1.13",
+                  title: "TypeSafe AI Docs — Model jaggedness",
+                  url: "https://docs.typesafe.ai/model-jaggedness",
                   description:
                     "判断に関係しない内容でstateが大きくなると精度が下がるという記述。",
                 },

@@ -31,21 +31,20 @@ export default function ContextEngineering() {
           {/* ── 基本原則 ── */}
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              基本原則: コンテキストは有限
+              基本原則: コンテキストは絞るほど効く
             </h2>
 
             <p className="text-foreground mb-6 leading-relaxed">
-              Claude Code 公式が最初に強調するのは
-              「コンテキストウィンドウは最重要のリソース」という事実。
-              会話・読み込んだファイル・コマンド出力のすべてが入り、
-              埋まるほどモデルの性能が下がる。
+              現行の公式ベストプラクティスは、コンテキストを積極的に管理するという助言を
+              過去のものと位置づけている。多くの現行モデルは1Mトークンのウィンドウを持ち、
+              コンパクションも自動で走るため、使い切ることはまれ。それでもタスクの切り替えで
+              /clearする価値は残る。焦点を絞ったコンテキストは回答の質を上げ、コストも下げるため。
             </p>
 
             <p className="text-foreground mb-6 leading-relaxed">
               コンテキストエンジニアリングは「何を入れるか」と同じくらい
-              「何を入れないか」を考える設計作業。 Skills や Subagents
-              は「必要な時だけロード」「別 context で実行」
-              という形で、この問題に答えている。
+              「何を入れないか」を考える設計作業。Skillsは必要な時だけ本文を読み込み、
+              Subagentsは長い出力を会話の外に置く。ただしSubagentsは別途トークンを使う。
             </p>
 
             <InfoBox type="info" title="判断基準">
@@ -268,7 +267,7 @@ Plan Mode に入って:
 
             <p className="text-foreground mb-6 leading-relaxed">
               Claude Code は prompt cache を自動的に利用する。
-              毎回同じ prefix（CLAUDE.md、@import 群、Skills）を
+              毎回同じprefix（システムプロンプト、@importを含むCLAUDE.md、auto memory、パス指定のないルール）を
               読み込むセッションでは、キャッシュ読み取りは通常の入力トークンより
               大幅に安価になり、レイテンシも下がる。
             </p>
@@ -280,10 +279,9 @@ Plan Mode に入って:
             </p>
 
             <InfoBox type="info" title="効果が出る条件">
-              CLAUDE.md や Skills
-              が安定していて、毎回同じプレフィックスで読み込まれる場合に効く。
-              逆に CLAUDE.md を会話中に書き換えると毎回キャッシュミスになる。
-              「書く時は計画的に、いじり倒さない」運用が前提。
+              CLAUDE.mdが安定していて、毎回同じプレフィックスで読み込まれる場合に効く。
+              プロジェクトルートとユーザーレベルのCLAUDE.mdはセッション開始時に読まれるので、
+              会話中に編集してもキャッシュは無効にならない。その編集は/clear、/compact、再起動のあとに反映される。
             </InfoBox>
           </section>
 

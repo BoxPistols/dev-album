@@ -360,7 +360,7 @@ function App() {
                 },
                 {
                   title: "TypeSafe AI Docs — Intent routing",
-                  url: "https://docs.typesafe.ai/patterns/intent-routing",
+                  url: "https://docs.typesafe.ai/patterns/probability-routing",
                   description: "受け取った要求を、決まった処理・専用のモデル・人に振り分ける型。",
                 },
                 {

@@ -185,7 +185,7 @@ export default async function handler(req: Request): Promise<Response> {
               Web 標準に寄せておくと、Vercel・Cloudflare・Deno
               など複数のエッジ環境で
               同じコードが動きやすくなります。「ブラウザで使える API
-              を選ぶ」が指針です。
+              を選ぶ」が指針です。なお、Vercelは現在edgeランタイムからNode.jsランタイムへの移行を推奨しています。
             </p>
           </section>
 
@@ -217,7 +217,7 @@ export default async function handler(req: Request): Promise<Response> {
               に走り、 リダイレクト・リライト・ヘッダ付与などを行えます。
               ルートやページ自体も <code>runtime: "edge"</code>{" "}
               を指定すればエッジで動かせますが、 その場合は前述の制約（Node API
-              不可）を受けます。
+              不可）を受けます。Next.js 16.3以降は<code>runtime: "edge"</code>に対応せず、Node.jsランタイムで動きます。
             </p>
 
             <CodeBlock

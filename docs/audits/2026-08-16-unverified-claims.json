@@ -641,7 +641,7 @@
  },
  {
   "file": "git/github-actions/Reference.tsx",
-  "claim": "macos-14 など（Apple Silicon 指定）",
+  "claim": "macos-15 など（Apple Silicon 指定）",
   "category": "external-service-detail",
   "risk": "medium",
   "why": "ランナーラベルとアーキテクチャの対応は公式のランナー一覧で確定する。",

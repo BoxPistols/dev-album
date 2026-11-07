@@ -172,8 +172,8 @@ pnpm lint     # リンター
 {
   "chat.useAgentsMdFile": true
 }
-// Claude Code は AGENTS.md を自動では読まない。
-// CLAUDE.md に @AGENTS.md と書いて import する`} />
+// Claude CodeはCLAUDE.mdが無いときだけAGENTS.mdを読む。
+// CLAUDE.mdと併用するなら@AGENTS.mdと書いてimportする`} />
                 <CodeBlock language="markdown" code={`<!-- CLAUDE.md -->
 @AGENTS.md
 

@@ -168,7 +168,7 @@ export default function JevAccount() {
                   {
                     step: "2",
                     label: "コンソール（console.typesafe.ai）にログインする",
-                    desc: "公式のQuick startは、Playground（https://console.typesafe.ai/playground）にログインして質問を試す手順から始めている。コードを書く前に、ここで質問の形を試せる",
+                    desc: "公式のQuick startは、SDK・API・エージェントスキル・Playgroundの4通りを挙げている。Playground（https://console.typesafe.ai/playground）ならコードを書かずに質問の形を試せる",
                   },
                   {
                     step: "3",
@@ -183,7 +183,7 @@ export default function JevAccount() {
                   {
                     step: "5",
                     label: "公式ドキュメントのModelsページで単価を確認する",
-                    desc: "Modelsページ（https://docs.typesafe.ai/models）は「Charged per input token. Output tokens are free.」としている。2026-09-20時点の単価は、Jev 1.13が入力100万トークンあたり$0.042。単価は改定されるので、使う前に同じページで確かめる",
+                    desc: "Modelsページ（https://docs.typesafe.ai/models）は「You pay per input token. Output tokens are free.」としている。2026-11-07時点の単価は、Jev 1.14とJev 1.13が入力100万トークンあたり$0.042。単価は改定されるので、使う前に同じページで確かめる",
                   },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -250,7 +250,7 @@ curl -sS https://api.typesafe.ai/v1/models \\
               </div>
             </div>
             <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
-              公式のAPIリファレンスのエラー表にあるステータスは401（キーが無いか無効）、422（リクエスト本文の検証エラー）、429（レート制限）、529（一時的な過負荷）です。
+              公式のRequest rules and errorsにあるステータスは400（リクエスト規則違反、または上限超過のmax_tokens_exceeded）、401（キーが無いか無効）、413（本文が32MiB超）、415（非対応の圧縮）、422（リクエスト本文の検証エラー）、429（レート制限）、529（一時的な過負荷）です。
               403はこの表にありませんが、2026-09-20にキーを付けずに上のcurl
               を実行したところ、403と「Must supply an API key! Check your
               request and try again.」が返りました。422と429
@@ -494,9 +494,9 @@ const result = await client.systemOne({
                   description: "単価と課金の対象、エイリアス、モデル一覧のAPI。",
                 },
                 {
-                  title: "TypeSafe AI Docs — API reference",
-                  url: "https://docs.typesafe.ai/api",
-                  description: "エラーのステータス一覧（401 / 422 / 429 / 529）。",
+                  title: "TypeSafe AI Docs — Request rules and errors",
+                  url: "https://docs.typesafe.ai/api/errors",
+                  description: "エラーのステータス一覧（400 / 401 / 413 / 415 / 422 / 429 / 529）。",
                 },
                 {
                   title:

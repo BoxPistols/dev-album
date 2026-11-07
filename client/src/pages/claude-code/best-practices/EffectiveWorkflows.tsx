@@ -78,7 +78,7 @@ export default function EffectiveWorkflows() {
               Explore → Plan → Implement → Commit
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              公式ドキュメントが推奨する4フェーズのワークフローです。各フェーズで明確な目的を持つことで、的確な成果物を得られます。
+              調査・計画・実装・記録を分ける4フェーズのワークフローです。各フェーズで明確な目的を持つことで、的確な成果物を得られます。
             </p>
             <div className="space-y-4">
               <div className="p-5 rounded-r-xl border-l-4 border-blue-500 bg-slate-50 dark:bg-slate-900/50">
@@ -119,7 +119,7 @@ $ claude
 # Phase 2: Plan（Shift+Tab で Plan Mode に切替）
 > OAuth対応を追加したい。実装計画を作って。
 
-# Phase 3: Implement（Shift+Tab で通常モードに戻す）
+# Phase 3: Implement（計画を承認するとプランモードを抜ける）
 > 上の計画に沿って実装して。テストも書いて。
 
 # Phase 4: Commit

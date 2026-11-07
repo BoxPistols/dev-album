@@ -86,7 +86,7 @@ export default function ProjectRules() {
                     ],
                     [
                       ".claude/rules/*.md（paths あり）",
-                      "マッチするファイルを Claude が読んだとき",
+                      "マッチするファイルをClaudeがRead / Write / Editしたとき",
                       "特定ディレクトリ・拡張子にだけ効く規約",
                     ],
                     [
@@ -111,10 +111,10 @@ export default function ProjectRules() {
               </table>
             </div>
             <InfoBox type="info" title="CLAUDE.md が長くなってきたら分割の合図">
-              公式は CLAUDE.md を 200
-              行以下に収めることを目安とし、それに近づいたら rules
-              への分割を勧めています。長いファイルもすべて読み込まれますが、重要な指示がノイズに埋もれて
-              <strong>遵守率が下がる</strong>ためです。常時必要でない指示は
+              公式はCLAUDE.mdを200行未満に収めることを目安とし、コードベースの一部にだけ関わる指示は
+              paths付きのrulesへ移すよう勧めています。起動時に読むCLAUDE.mdは4 MiBまで全文が載りますが、
+              長いほどコンテキストを消費して<strong>遵守率が下がる</strong>ためです
+              （4 MiBを超えると読み込まれません）。常時必要でない指示は
               rules（paths 付き）か Skills に移します。
             </InfoBox>
           </section>
@@ -154,8 +154,8 @@ export default function ProjectRules() {
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">
               frontmatter に <code>paths</code> を書くと、
-              <strong>マッチするファイルを Claude が読んだときだけ</strong>
-              そのルールが載ります。毎ツール呼び出しではなく、ファイルを読んだタイミングで発火します。
+              <strong>マッチするファイルをClaudeが扱ったときだけ</strong>
+              そのルールが載ります。Read / Write / Editツールのほか、catやheadのように読み取りに数えられるBashコマンドが契機です。
             </p>
             <CodeBlock
               code={`---
@@ -186,10 +186,11 @@ paths:
                   {[
                     ["**/*.ts", "任意のディレクトリの TypeScript ファイル"],
                     ["src/**/*", "src/ 配下のすべてのファイル"],
-                    ["*.md", "プロジェクトルートの Markdown"],
+                    ["*.md", "ベースディレクトリ以下のどこにある.mdにもマッチ"],
+                    ["/*.md", "ベースディレクトリ直下の.mdのみ（サブフォルダは含まない）"],
                     [
                       "src/components/*.tsx",
-                      "特定ディレクトリの React コンポーネント",
+                      "src/components/直下の.tsxのみ（サブフォルダは含まない）",
                     ],
                     [
                       "src/**/*.{ts,tsx}",
@@ -240,6 +241,10 @@ $ ln -s ~/shared-claude-rules .claude/rules/shared
 $ ln -s ~/company-standards/security.md .claude/rules/security.md`}
               language="bash"
             />
+            <p className="leading-relaxed mt-4 text-muted-foreground">
+              作業ディレクトリの外を指すリンクは外部importと同じ扱いです。プロジェクトごとに1回の承認ダイアログで許可するまで読み込まれず、
+              許可後も<code>paths</code>のないルールだけが読み込まれます。承認なしで使うなら<code>~/.claude/rules/</code>に置きます。
+            </p>
             <div className="mt-6 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
               <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
                 <UserCog className="w-5 h-5 text-[var(--claude-primary)]" />
@@ -249,7 +254,7 @@ $ ln -s ~/company-standards/security.md .claude/rules/security.md`}
                 <code>~/.claude/rules/</code> に置いたルールは
                 <strong>マシン上の全プロジェクト</strong>
                 に効きます。プロジェクト固有でない個人の好みはこちらに置きます。ユーザーレベルのルールはプロジェクトのルールより
-                <strong>先に</strong>読み込まれ、プロジェクト側が優先されます。
+                <strong>先に</strong>読み込まれますが、どちらかが上書きするわけではありません。矛盾するとClaudeはどちらにも従う可能性があるので、両者を揃えておきます。
               </p>
               <CodeBlock
                 code={`~/.claude/rules/

@@ -24,7 +24,7 @@ export default function ClaudeCodeSetup() {
           </h1>
           <p className="text-lg text-muted-foreground">
             AIエージェント「Claude Code」をインストールして、ターミナルからAIと対話できる環境を作ります。
-            利用には Pro / Max / Team / Enterprise / Console のいずれかのアカウントが必要です。
+            利用にはPro / Max / Ultra / Team / Enterprise / Consoleのいずれかのアカウントが必要です。
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function ClaudeCodeSetup() {
               <div className="bg-primary/5 rounded-lg p-4">
                 <CreditCard className="w-8 h-8 text-primary mb-2" />
                 <h4 className="font-semibold text-foreground mb-1">対象プラン</h4>
-                <p className="text-sm text-muted-foreground">Pro / Max / Team / Enterprise / Console のいずれかのアカウントで利用できる</p>
+                <p className="text-sm text-muted-foreground">Pro / Max / Ultra / Team / Enterprise / Consoleのいずれかのアカウントで利用できる</p>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function ClaudeCodeSetup() {
           </div>
 
           <InfoBox type="info" title="プランと支払いについて">
-            Claude Code の利用には Pro / Max / Team / Enterprise / Console のいずれかのアカウントが必要です
+            Claude Codeの利用にはPro / Max / Ultra / Team / Enterprise / Consoleのいずれかのアカウントが必要です
             （無料の Claude.ai プランには Claude Code のアクセスが含まれません）。
             Console（Claude API）で使う場合は前払いの usage credits 制で、API を呼ぶ前にクレジットを購入します。
             新規登録時には少額のクレジットが付与されます。残高が尽きると API も Workbench も呼び出せなくなるため、
@@ -148,7 +148,7 @@ export default function ClaudeCodeSetup() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             公式の System requirements（OS / Hardware / Network / Shell / Location）に Node.js の項目はありません。
             npm 版も、インストール時にネイティブバイナリを取得して実行時はそれを使う作りです。
-            Node.js が要るのは npm 経由でインストールする場合だけで、その要件は v2.1.198 以降 Node.js 22 以上です。
+            Node.jsが要るのはnpm経由でインストールする場合だけで、その要件はNode.js 22以上です。
             このマニュアルの「環境準備」で既にインストール済みの方はそのままでOKです。
           </p>
 

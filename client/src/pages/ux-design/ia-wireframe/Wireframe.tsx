@@ -489,7 +489,7 @@ export default function Wireframe() {
                 },
                 {
                   title: "Mobile First Design - Luke Wroblewski",
-                  url: "https://www.lukew.com/ff/entry.asp?933",
+                  url: "https://www.lukew.com/ff/933/mobile-first",
                   description:
                     "モバイルファーストの提唱者による原点記事",
                 },

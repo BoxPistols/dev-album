@@ -116,7 +116,7 @@ export default function MergeGovernance() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               main のマージ条件は、リポジトリの{" "}
-              <strong>Settings → Rules （Rulesets）</strong> または{" "}
+              <strong>Settings → Rulesets</strong> または{" "}
               <strong>Branches（ブランチ保護）</strong>{" "}
               で設定します。代表的なルールと、それぞれが防ぐものを並べます。
             </p>

@@ -82,9 +82,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/agent-teams",
     url: "https://code.claude.com/docs/en/agent-teams",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "As of v2.1.186, set \"iterm2\" to use iTerm2 native split panes explicitly. This mode requires the it2 CLI and shows an error with the install command if it2 is missing.",
+      "Set `\"iterm2\"` to use iTerm2 native split panes explicitly. This mode requires the `it2` CLI and shows an error with the install command if `it2` is missing.",
       "Teammates work independently, each in its own context window, and communicate directly with each other.",
     ],
     usedByFiles: [
@@ -96,9 +96,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/authentication",
     url: "https://code.claude.com/docs/en/authentication",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "On first launch, Claude Code opens a browser window for you to log in. If you've set the ANTHROPIC_API_KEY environment variable, Claude Code skips the login prompt and asks you to approve the key instead.",
+      "Claude Code opens a browser window for you to log in on first launch, except in cases such as these, where it can skip the login prompt:\n\n* **API key**: you've set the `ANTHROPIC_API_KEY` environment variable and you approve the key when Claude Code asks whether to use it",
     ],
     usedByFiles: [
       "client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx",
@@ -109,10 +109,10 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/checkpointing",
     url: "https://code.claude.com/docs/en/checkpointing",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "These file modifications cannot be undone through rewind. Only direct file edits made through Claude's file editing tools are tracked.",
-      "change the period with cleanupPeriodDays",
+      "Once Claude has edited a file with its file editing tools in your conversation, `/rewind` undoes changes that Bash commands make to that file afterward. A file that only Bash commands changed isn't tracked and stays as it is.",
+      "Claude Code deletes a session's file snapshots in the retention sweep, by default about 30 days after the session last saved one. Rewinding to a checkpoint whose snapshots are gone can fail with `No files were restored`. To keep snapshots longer, set `cleanupPeriodDays`.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
@@ -136,9 +136,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/cli-reference",
     url: "https://code.claude.com/docs/en/cli-reference",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "| --max-budget-usd | Maximum dollar amount to spend on API calls",
+      "| `--max-budget-usd` | Stop the run once estimated spend on API calls reaches this amount (print mode only).",
       "| claude auth login | Sign in to your Anthropic",
     ],
     usedByFiles: [
@@ -152,13 +152,13 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/commands",
     url: "https://code.claude.com/docs/en/commands",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。末尾が「Doesn't appear in the command menu」から
       // 「Hidden from the command menu」へ書き換わっていた（挙動の説明は同じ）
       "Write a JavaScript heap snapshot and a memory breakdown to `~/Desktop`, or your home directory on Linux without a Desktop folder, for diagnosing high memory usage. Attach only the `-diagnostics.json` file when reporting a memory issue; the `.heapsnapshot` contains your full conversation and credentials, so don't share it. [Hidden from the command menu](#how-the-command-menu-matches-what-you-type); type it in full.",
       "/clear [name] | Start a new conversation with empty context. Pass a name to label the previous conversation in the /resume picker. To free up context while continuing the same conversation, use /compact instead. Resume the previous conversation with /resume, or, in the same Claude Code process, restore it from the rewind menu's previous-session entry. Aliases: /reset, /new",
-      "/init | Initialize project with a CLAUDE.md guide. Set CLAUDE_CODE_NEW_INIT=1 for an interactive flow that also walks through skills, hooks, and personal memory files. If /init finds configuration from a coding agent that /import supports, it offers to carry it over with /import",
+      "| `/init` | Initialize project with a `CLAUDE.md` guide. Set `CLAUDE_CODE_NEW_INIT=1` for an interactive flow that also walks through skills, hooks, and personal memory files. If `/init` finds OpenAI Codex or Google Gemini CLI configuration, it offers to carry it over with `/import` |",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
@@ -214,13 +214,13 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/mcp",
     url: "https://code.claude.com/docs/en/mcp",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。本文は変わっていないが、箇条書きを 1 行に潰した引用は
       // 行頭記号の正規化が効かず照合できない。原文の改行のまま持つ
       "* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens\n* **Configurable limit**: you can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable\n* **Default limit**: the default maximum is 25,000 tokens",
       "Local scope is the default. A local-scoped server loads only in the project where you added it and stays private to you. Claude Code stores it in ~/.claude.json under that project's path, so the same server won't appear in your other projects. Use local scope for personal development servers, experimental configurations, or servers with credentials you don't want in version control.",
-      "Project-scoped servers from.mcp.json that are awaiting your approval appear in claude mcp list and claude mcp get <name> as ⏸ Pending approval (run claude to approve). Run claude interactively to review and approve them.",
+      "⏸ Pending approval (run `claude` to approve): a project-scoped server from `.mcp.json` that you haven't approved yet. Claude Code shows it in both `claude mcp list` and `claude mcp get <name>`. Run `claude` interactively to review and approve it.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/mcp/MCPSetup.tsx",
@@ -231,13 +231,13 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/memory",
     url: "https://code.claude.com/docs/en/memory",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       "Both relative and absolute paths are allowed. Relative paths resolve relative to the file containing the import, not the working directory. Imported files can recursively import other files, with a maximum depth of four hops.",
       // 2026-08-23 再照合。「walking up the directory tree」の一文は
       // 「How CLAUDE.md files load」節の下記の書き方に差し替わっていた（読み込み順の説明は同じ）
       "Claude Code loads `CLAUDE.md` and `CLAUDE.local.md` from your current working directory and every directory above it. Run Claude Code in `foo/bar/` and it loads instructions from `foo/bar/CLAUDE.md`, `foo/CLAUDE.md`, and any `CLAUDE.local.md` files alongside them.",
-      "Claude Code reads CLAUDE.md, not AGENTS.md. If your repository already uses AGENTS.md for other coding agents, create a CLAUDE.md that imports it so both tools read the same instructions without duplicating them.",
+      "When Claude isn't reading your AGENTS.md directly, you can still keep it as the one file every tool shares by putting an @AGENTS.md import in a CLAUDE.md next to it.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
@@ -265,12 +265,12 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/model-config",
     url: "https://code.claude.com/docs/en/model-config",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。既定モデルの対応表は原文のまま。改行を戻して照合できる形にした
-      "* **Max, Team Premium, Enterprise pay-as-you-go, and Anthropic API**: defaults to Opus 5\n* **Claude Platform on AWS, Amazon Bedrock, and Google Cloud's Agent Platform**: defaults to Opus 5\n* **Pro, Team Standard, and Enterprise subscription seats**: defaults to Sonnet 5\n* **Microsoft Foundry**: defaults to Sonnet 4.5",
+      "* **Pro, Max, Ultra, Team, Enterprise, and Anthropic API**: defaults to Opus 5.5\n* **Claude Platform on AWS, Amazon Bedrock, and Google Cloud's Agent Platform**: defaults to Opus 5.5\n* **Microsoft Foundry**: defaults to Sonnet 4.5",
       "2. **At startup**: launch with claude --model <alias|name>",
-      "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example claude-opus-5, or set the corresponding environment variable like ANTHROPIC_DEFAULT_OPUS_MODEL.",
+      "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example `claude-opus-5-5`, or set the corresponding environment variable like `ANTHROPIC_DEFAULT_OPUS_MODEL`.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ExtendedThinking.tsx",
@@ -282,12 +282,12 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/permission-modes",
     url: "https://code.claude.com/docs/en/permission-modes",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。「cycle modes」が「cycle permission modes」になり、
       // 循環の記述に「→ back to default」が加わっていた
-      "**During a session**: press Shift+Tab to cycle permission modes. From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan → back to default.",
-      "If you set dontAsk mode, Claude Code auto-denies every tool call that would otherwise prompt you. Claude runs only actions matching your permissions.allow rules, read-only Bash commands, and calls approved by a PreToolUse hook. Use this mode for CI pipelines or restricted environments where you pre-define exactly what Claude may do; the session never waits for input.",
+      "From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan. Optional modes slot in after plan.",
+      "dontAsk | File reads inside your working directories and pre-approved tools; anything that would prompt is denied, though a mod you installed can still approve some of those calls | Locked-down CI and scripts",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
@@ -309,11 +309,11 @@ export const GENERATED_SOURCES: Source[] = [
   {
     id: "code-claude-com-docs-en-plugins",
     title: "code.claude.com/docs/en/plugins",
-    url: "https://code.claude.com/docs/en/plugins",
+    url: "https://code.claude.com/docs/en/plugins/components",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "Skills live in the skills/ directory. Each skill is a folder containing a SKILL.md file. The folder name becomes the skill name, prefixed with the plugin's namespace (hello/ in a plugin named my-first-plugin creates /my-first-plugin:hello).",
+      "**Command name**: `/<plugin>:<directory>`, so `skills/review/SKILL.md` in `my-plugin` is `/my-plugin:review`.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/ide-agent-teams/PluginsEcosystem.tsx",
@@ -324,14 +324,14 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/settings",
     url: "https://code.claude.com/docs/en/settings",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。優先順位の節が書き直され、各段の呼び名が
       // Managed settings / Command line arguments / Project local settings /
       // Shared project settings / User settings になった（順位そのものは同じ 5 段）
       "When the same key appears in more than one place, Claude Code uses the value from the highest level that sets it. The stack below shows the levels, highest on top; a key at a higher level overrides the same key anywhere below it.",
-      "1. **Managed settings**: settings your organization deploys, by a `managed-settings.json` file, an MDM policy, or [server-managed settings](/docs/en/server-managed-settings) from the claude.ai console. Nothing you set overrides them",
-      "2. **Command line arguments**: flags you pass when you start `claude` from a terminal, for one session",
+      "1. **Managed settings**: settings your organization deploys, by a `managed-settings.json` file, an MDM policy, or server-managed settings from the claude.ai console. Nothing in your own settings files or `--settings` overrides a managed key",
+      "2. **Command line**: JSON you pass with `--settings <file-or-json>` when you start `claude`, for that session only",
       "3. **Project local settings** (`.claude/settings.local.json`): your personal settings for this project.\n4. **Shared project settings** (`.claude/settings.json`): settings your team checks into source control.\n5. **User settings** (`~/.claude/settings.json`): your personal settings for every project.",
     ],
     usedByFiles: [
@@ -343,12 +343,12 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/setup",
     url: "https://code.claude.com/docs/en/setup",
     kind: "official-docs",
-    verifiedAt: "2026-08-23",
+    verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。動作要件は原文のまま。入れ子の箇条書きを改行のまま持つ
       "* **Operating system**:\n  * macOS 13.0+\n  * Windows 10 1809+ or Windows Server 2019+\n  * Ubuntu 20.04+\n  * Debian 10+\n  * Alpine Linux 3.19+\n* **Hardware**: 4 GB+ RAM, x64 or ARM64 processor",
-      "Claude Code requires a Pro, Max, Team, Enterprise, or Console account. The free Claude.ai plan does not include Claude Code access.",
-      "You can also install Claude Code as a global npm package. As of v2.1.198, the npm package requires Node.js 22 or later. On an older Node.js version, npm prints an EBADENGINE warning during install rather than failing; the install completes and claude still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
+      "Claude Code requires a Pro, Max, Ultra, Team, Enterprise, or Console account. The free claude.ai plan does not include Claude Code access.",
+      "You can also install Claude Code as a global npm package. The npm package requires Node.js 22 or later. On an older Node.js version, npm prints an `EBADENGINE` warning during install rather than failing; the install completes and `claude` still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
@@ -374,9 +374,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/sub-agents",
     url: "https://code.claude.com/docs/en/sub-agents",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "| model | No | Model to use: sonnet, opus, haiku, fable, a full model ID (for example, claude-opus-5), or inherit. Defaults to inherit",
+      "| `model` | No | Model to use: `sonnet`, `opus`, `haiku`, `fable`, a full model ID such as `claude-opus-5-5`, or `inherit`. When you omit it, Claude Code picks the model in the subagent model order",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/agent-extensions/Subagents.tsx",
@@ -440,9 +440,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "developers.figma.com/docs/figma-mcp-server/code-to-canvas/",
     url: "https://developers.figma.com/docs/figma-mcp-server/code-to-canvas/",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "Using the remote Figma MCP server, you can convert live UI from your browser into editable Figma frames. Capture a single screen or an entire flow in one session.",
+      "With the Figma MCP server, you can capture live UI from your browser and turn it into editable Figma design layers. Capture a single screen or an entire flow in one session.",
     ],
     usedByFiles: [
       "client/src/pages/react/cdd-flow/DesignCodeSync.tsx",
@@ -641,9 +641,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "docs.github.com/en/billing/concepts/product-billing/github-actions",
     url: "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "GitHub Actions usage is **free** for **self-hosted runners** and for **public repositories** that use standard GitHub-hosted runners.",
+      "The following usage remains free independently and does not reduce the included compute usage: Standard GitHub-hosted runners in public repositories. See Choosing the runner for a job. Self-hosted runners.",
     ],
     usedByFiles: [
       "client/src/pages/git/github-actions/Intro.tsx",
@@ -691,11 +691,11 @@ export const GENERATED_SOURCES: Source[] = [
   {
     id: "docs-github-com-en-copilot-concepts-agents-cloud-agent-about-cloud-age",
     title: "docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
-    url: "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
+    url: "https://docs.github.com/en/copilot/concepts/copilot-surfaces/copilot-on-github",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "While working on a coding task, Copilot cloud agent has access to its own ephemeral development environment, powered by GitHub Actions, where it can explore your code, make changes, execute automated tests and linters and more.",
+      "An environment is the place where the agent executes its work, such as a cloud sandbox, a GitHub Actions runner, or a remote custom environment.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
@@ -1532,9 +1532,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "raw.githubusercontent.com/nitrojs/nitro/main/docs/2.deploy/0.index.md",
     url: "https://raw.githubusercontent.com/nitrojs/nitro/main/docs/2.deploy/0.index.md",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "When deploying to production using CI/CD, Nitro tries to automatically detect the provider environment and set the right one without any additional configuration required. Currently, the providers below can be auto-detected with zero config.",
+      "When deploying to production using CI/CD, Nitro tries to detect the provider environment and set the right preset automatically, with no configuration required. The following providers can be auto-detected with zero config:",
     ],
     usedByFiles: [
       "client/src/pages/vue/nuxt-server/Deploy.tsx",
@@ -1915,9 +1915,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "vercel.com/kb/guide/a-record-and-caa-with-vercel",
     url: "https://vercel.com/kb/guide/a-record-and-caa-with-vercel",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "Always use the value shown in your project's domain card. For most projects that value is 76.76.21.21, a general-purpose anycast address. Newer projects draw a value from a pool of anycast IPs matched to the plan and project, so your card may show a different address such as 216.198.79.1. The card is the source of truth, so use whatever it displays.",
+      "Use the `A` record value shown in your project's **Settings** > **Domains**. Vercel assigns anycast IP addresses per project, so the value can differ between projects.",
     ],
     usedByFiles: [
       "client/src/pages/react/deploy/Vercel.tsx",
