@@ -20,6 +20,42 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-nextjs-16-features",
+    date: "2026-11-07",
+    title: "「Next.js 15 / 16の新機能」にNext.js 16の節を足した",
+    description:
+      "ページ名を改め、Turbopackの既定化、middlewareからproxyへの改称、cacheComponents、React Compiler、Node.jsの要件を追加した。「Turbopackの本番ビルドは将来」としていた記述も、16の挙動に合わせて直した。",
+    category: "update",
+    link: "/react/nextjs-advanced/next15-features",
+  },
+  {
+    id: "2026-11-07-nextjs-project-setup-measured",
+    date: "2026-11-07",
+    title: "Next.jsプロジェクト作成の出力を実測に差し替えた",
+    description:
+      "create-next-app 16.4.5を実際に流した出力へ差し替え、質問の一覧も現行のものに直した。新規アプリでCache Componentsが既定で有効になる点と、このマニュアルで無効にして進める理由を追記した。",
+    category: "update",
+    link: "/react/nextjs-basics/project-setup",
+  },
+  {
+    id: "2026-11-07-nextjs-ppr-16",
+    date: "2026-11-07",
+    title: "PPRのページをNext.js 16の挙動に合わせた",
+    description:
+      "incrementalモードで段階導入できるとしていた記述を、16での削除に合わせて直した。cacheComponentsの設定例とrevalidateTagの例も更新した。",
+    category: "fix",
+    link: "/react/nextjs-advanced/next15-ppr",
+  },
+  {
+    id: "2026-11-07-nextjs-history",
+    date: "2026-11-07",
+    title: "Next.jsの歴史にNext.js 16と16.4を追加した",
+    description:
+      "「Next.jsとは」の年表をNext.js 15で終わらせず、16と16.4の行を足した。",
+    category: "update",
+    link: "/react/nextjs-basics/what-is-nextjs",
+  },
+  {
     id: "2026-11-07-remove-cmux-section",
     date: "2026-11-07",
     title: "Claude Codeマニュアルからcmuxの章を外した",

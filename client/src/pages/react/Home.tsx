@@ -101,9 +101,9 @@ const curriculumPart2 = [
   },
   {
     icon: <Zap size={20} />,
-    title: 'Next.js 15 新機能',
+    title: 'Next.js 15 / 16新機能',
     steps: 'STEP 48-49',
-    description: 'Turbopack、PPR、非同期API',
+    description: 'Turbopack、proxy、Cache Components、PPR、非同期API',
     color: 'bg-primary',
   },
   {
@@ -182,7 +182,7 @@ const techTopics = [
   { name: 'Tailwind CSS', color: 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800' },
   { name: 'shadcn/ui', color: 'bg-slate-100 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700' },
   { name: 'MUI', color: 'bg-primary/10 text-primary border-primary/20' },
-  { name: 'Next.js 15', color: 'bg-primary/10 text-primary border-primary/20' },
+  { name: 'Next.js 16', color: 'bg-primary/10 text-primary border-primary/20' },
   { name: 'Storybook', color: 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800' },
   { name: 'Vite', color: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' },
 ];
