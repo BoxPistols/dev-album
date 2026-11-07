@@ -57,10 +57,11 @@ export default function ManualSwitcher({ activeManualId, onNavigate }: ManualSwi
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-controls="manual-switcher-list"
-        aria-label={`マニュアルを切り替え（現在: ${current.shortTitle}）`}
         className="w-full flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-sidebar-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <ManualGlyph manual={current} />
+        {/* aria-labelで上書きせず内容から名前を作る。表示中の文字列が必ず名前に入る（WCAG 2.5.3） */}
+        <span className="sr-only">マニュアルを切り替え 現在: </span>
         <span className="flex-1 min-w-0 text-left text-sm font-medium text-foreground truncate">
           {current.shortTitle}
         </span>
