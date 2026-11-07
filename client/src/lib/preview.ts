@@ -20,13 +20,20 @@ const EMOTION_REACT_UMD_URL = '/vendor/emotion-react-11.14.0.umd.min.js';
 const EMOTION_STYLED_UMD_URL = '/vendor/emotion-styled-11.14.1.umd.min.js';
 const EMOTION_CSS_UMD_URL = '/vendor/emotion-css-11.13.5.umd.min.js';
 
-// プレビュー iframe の Content-Security-Policy。
-// script/style は自己ホスト(/vendor='self')とトランスパイル済みインラインを許可。
-// connect-src 'none' で fetch/XHR/WebSocket を封じ、万一のコードでも外部送信を不可能にする
-// （srcDoc は allow-same-origin で親オリジンを継承するため、この多層防御を併用する）。
+// 教材のデータ取得デモ（useEffect・カスタムHooks・API連携）が使う公開モックAPI。
+// 固定データを返すだけで、POSTも保存はされない。ただしURLやbodyに載せた値はこの第三者に届く。
+// img-srcのhttps:も同じ経路なので、CSPはプレビューからの外部送信を完全には止めていない。
+export const PREVIEW_MOCK_API_ORIGIN = 'https://jsonplaceholder.typicode.com';
+
+// プレビューiframeのContent-Security-Policy。
+// script/styleは自己ホスト(/vendor='self')とトランスパイル済みインラインを許可。
+// connect-srcは上のモックAPIだけに絞り、それ以外のfetch/XHR/WebSocketを封じる
+// （srcDocはallow-same-originで親オリジンを継承するため、同一オリジンの/api/も含めて遮断する）。
+// 以前は'none'だったが、それだと教材のデータ取得デモが必ず失敗し、学習者は
+// 「読み込み中...」かエラー表示しか見られなかった。
 // allow-same-originを外すとlocalStorageがSecurityErrorになり、useLocalStorage等の教材デモが
 // 永続化できなくなる。そのためsandboxでの隔離は諦め、外部送信の遮断をCSPに任せている。
-const PREVIEW_CSP = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https:; connect-src 'none'; base-uri 'none'";
+const PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src data: https:; connect-src ${PREVIEW_MOCK_API_ORIGIN}; base-uri 'none'`;
 
 /**
  * コード中の import 文からプレビューに必要な外部ライブラリを検出する。
