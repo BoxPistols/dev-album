@@ -27,6 +27,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "入口ページの見出しが「全77ステップ」のままで、サイドバーや進捗の82と食い違っていた。手書きの数をやめ、ナビゲーションの定義から数えて表示するようにした（UXデザインの入口も同じ形にした）。",
     category: "fix",
     link: "/react",
+  },
+  {
     id: "2026-11-07-playwright-page-ci-claim",
     date: "2026-11-07",
     title: "Playwrightのページの「E2EはCIで走らない」という記述を現状に直した",
