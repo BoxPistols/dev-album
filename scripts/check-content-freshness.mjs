@@ -69,8 +69,14 @@ function extractMajor(v) {
 /** ディレクトリ配下の.tsxからpatternの数字を集め、最大のメジャーを返す */
 function pagesMajor(dir, pattern) {
   const abs = resolve(root, dir);
-  const majors = readdirSync(abs)
-    .filter((f) => f.endsWith(".tsx"))
+  let files;
+  try {
+    files = readdirSync(abs).filter((f) => f.endsWith(".tsx"));
+  } catch {
+    // ディレクトリが無ければ抽出失敗として扱い、スクリプト全体は止めない
+    return undefined;
+  }
+  const majors = files
     .flatMap((f) =>
       [...readFileSync(resolve(abs, f), "utf-8").matchAll(pattern)].map((m) =>
         Number(m[1]),
