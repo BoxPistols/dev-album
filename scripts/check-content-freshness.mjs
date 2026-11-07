@@ -6,7 +6,7 @@
  * メジャーバージョンの乖離を警告する。ネットワークを使うため CI 必須にはせず、
  * `pnpm freshness` で定期的に手動実行する想定。
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -16,15 +16,11 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CLAIMS = [
   {
     pkg: "@mui/material",
-    label: "MUI（ページタイトル表記）",
-    // ページタイトル「MUI 7 入門」の表記メジャー
-    claimed: extractMajor(
-      readFileSync(
-        resolve(root, "client/src/lib/navigation.ts"),
-        "utf-8",
-      ).match(/title:\s*'MUI (\d+) 入門'/)?.[1],
-    ),
-    note: "タイトル表記のメジャー。乖離したら教材内容の v 差分確認が必要",
+    label: "MUI（教材本文の表記）",
+    // 以前はページタイトル「MUI 7 入門」から拾っていたが、タイトルは「MUI 入門」に
+    // 変わり抽出に失敗していた。本文に書かれた「MUI v7」の最大メジャーを拾う
+    claimed: pagesMajor("client/src/pages/react/mui", /MUI v(\d+)/g),
+    note: "本文表記のメジャー。乖離したら教材内容の v 差分確認が必要",
   },
   {
     pkg: "@mui/material",
@@ -68,6 +64,19 @@ const CLAIMS = [
 
 function extractMajor(v) {
   return v ? Number(v) : undefined;
+}
+
+/** ディレクトリ配下の .tsx から pattern の数字を集め、最大のメジャーを返す */
+function pagesMajor(dir, pattern) {
+  const abs = resolve(root, dir);
+  const majors = readdirSync(abs)
+    .filter((f) => f.endsWith(".tsx"))
+    .flatMap((f) =>
+      [...readFileSync(resolve(abs, f), "utf-8").matchAll(pattern)].map((m) =>
+        Number(m[1]),
+      ),
+    );
+  return majors.length ? Math.max(...majors) : undefined;
 }
 
 function vendorMajor(pattern) {
