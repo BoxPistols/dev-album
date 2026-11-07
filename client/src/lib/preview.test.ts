@@ -6,6 +6,7 @@ import {
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
   detectPreviewLibs,
+  PREVIEW_MOCK_API_ORIGIN,
 } from "./preview";
 import {
   resolvePreviewType,
@@ -210,10 +211,14 @@ function App() {
     expect(html).not.toContain("import {");
   });
 
-  it("CSP meta を含み、connect-src 'none' で外部送信を封じる", () => {
+  it("CSP metaを含み、connect-srcを教材のモックAPIだけに絞って外部送信を封じる", () => {
     const html = buildPreviewHtml("function App() { return null; }", "", false);
     expect(html).toContain('http-equiv="Content-Security-Policy"');
-    expect(html).toContain("connect-src 'none'");
+    const csp = html.match(/content="([^"]*connect-src[^"]*)"/)?.[1] ?? "";
+    const connect = csp.match(/connect-src ([^;]+);/)?.[1].trim();
+    expect(connect).toBe(PREVIEW_MOCK_API_ORIGIN);
+    // 'self'（同一オリジンの /api/）や 'none' が混じっていない
+    expect(connect).not.toContain("'self'");
     // 自己ホスト script と Google Fonts(MUI Roboto) は許可されている
     expect(html).toContain("script-src 'self' 'unsafe-inline'");
     expect(html).toContain("https://fonts.googleapis.com");
