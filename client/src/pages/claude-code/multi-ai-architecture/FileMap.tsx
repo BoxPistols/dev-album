@@ -76,7 +76,7 @@ const FILES: {
     file: "AGENTS.md",
     where: "リポジトリ直下",
     reader: "他のコーディングエージェントとClaude Code（v2.1.277以降）",
-    when: "Claude CodeはCLAUDE.mdが無いときだけ直接読む。CLAUDE.mdと併用するなら @importかsymlink",
+    when: "Claude Codeは既定ではCLAUDE.mdが無いときだけ直接読む（設定で両方読める）。CLAUDE.mdと併用するなら @importかsymlink",
     scope: "ツール非依存の共通規約",
     href: "/claude-code/multi-ai/agent-docs",
   },

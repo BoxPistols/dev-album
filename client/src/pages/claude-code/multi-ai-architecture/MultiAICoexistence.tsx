@@ -402,7 +402,7 @@ description: code-review の指摘を Cursor で差分適用するときに使�
             answer={`# マルチ AI ツール共存の設定\n\n# 1. ディレクトリ構成を作成:\nmkdir -p .claude/commands\nmkdir -p .cursor/rules\nmkdir -p .github\nmkdir -p .claude/rules\n\n# 2. AGENTS.md を作成（全ツール共通）:\ncat > AGENTS.md << 'EOF'\n# プロジェクトルール\n## コーディング規約\n- TypeScript strict モード\n- any 型の使用禁止\n- 関数コンポーネント + hooks\nEOF\n\n# 3. CLAUDE.md を作成（Claude Code 固有）:\ncat > CLAUDE.md << 'EOF'\n@AGENTS.md\n\n## Claude Code 固有\n- Subagents で並列調査\n- 編集前に必ず Read で確認\nEOF\n\n# 4. マルチ AI チームの起動（ターミナルタブを分けて並行運用）:\n# タブ 1: claude   （設計・実装）\n# タブ 2: gemini   （並行調査）`}
             hints={[
               'AGENTS.md は対応を表明した各ツールが読むツール横断のファイルです',
-              'Claude CodeはCLAUDE.mdがあるとAGENTS.mdを読まないので、CLAUDE.mdから @AGENTS.mdでimportします',
+              'Claude Codeは既定の設定ではCLAUDE.mdがあるとAGENTS.mdを読まないので、CLAUDE.mdから @AGENTS.mdでimportします',
             ]}
             keywords={['AGENTS.md', 'CLAUDE.md']}
           />
