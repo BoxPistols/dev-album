@@ -75,8 +75,8 @@ const FILES: {
   {
     file: "AGENTS.md",
     where: "リポジトリ直下",
-    reader: "他のコーディングエージェントと、CLAUDE.mdが無いときのClaude Code",
-    when: "CLAUDE.mdが無ければ開始時。あるなら@importかsymlinkしたときだけ",
+    reader: "他のコーディングエージェントとClaude Code（v2.1.277以降）",
+    when: "Claude Codeは既定ではCLAUDE.mdが無いときだけ直接読む（設定で両方読める）。CLAUDE.mdと併用するなら @importかsymlink",
     scope: "ツール非依存の共通規約",
     href: "/claude-code/multi-ai/agent-docs",
   },
@@ -225,13 +225,13 @@ export default function FileMap() {
               取り違えやすい 3 点
             </h2>
 
-            <InfoBox type="warning" title="CLAUDE.mdがあるとAGENTS.mdは読まれない">
-              Claude Code（v2.1.277以降）がAGENTS.mdを読むのは、作業ディレクトリと
-              その上の階層にCLAUDE.mdもCLAUDE.local.mdも無いときです。どちらかが
-              あるとCLAUDE.mdだけが読まれます。他のエージェントと同じ内容を
-              共有したいときは、CLAUDE.mdから<code>@AGENTS.md</code>でimportするか、
-              symlinkを張ります。AGENTS.mdが読まれたかは<code>/memory</code>の
-              一覧で確かめられます。
+            <InfoBox type="warning" title="既定ではCLAUDE.mdがあるとAGENTS.mdは読まれない">
+              Claude Codeはv2.1.277からAGENTS.mdを直接読みますが、既定の設定では、それは作業ディレクトリかその上に
+              CLAUDE.md（<code>.claude/CLAUDE.md</code>・<code>CLAUDE.local.md</code> を含む。ユーザーの <code>~/.claude/CLAUDE.md</code> は数えない）が無いときだけです。
+              <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすると、両方を読みます。
+              CLAUDE.mdも置くなら、CLAUDE.mdから <code>@AGENTS.md</code> でimportするか、
+              symlink を張ります。実際に載ったかは <code>/context</code> の
+              Memory files で確かめられます。
             </InfoBox>
 
             <div className="mt-6">
@@ -251,7 +251,7 @@ export default function FileMap() {
                 type="warning"
                 title="@import で分けてもコンテキストは減らない"
               >
-                importされたファイルは、それを参照するCLAUDE.mdと一緒に展開されて載ります。分割は整理の
+                importされたファイルは、import元のCLAUDE.mdと一緒に載ります。分割は整理の
                 ための手段で、削減にはなりません。<strong>本当に減らしたい</strong>
                 なら、<code>paths</code>を付けたrules（一致するファイルを扱った
                 ときだけ載る）かSkills（呼ばれたときだけ載る）へ移します。
@@ -295,7 +295,7 @@ export default function FileMap() {
                     ["手順が長い、たまにしか使わない", "Skills"],
                     ["必ず実行させたい・必ず止めたい", "Hooks / settings の permissions"],
                     ["自分だけの設定、共有したくない", "CLAUDE.local.md（gitignore）"],
-                    ["他のエージェントとも共有したい", "AGENTS.mdに書き、CLAUDE.mdがあるならそこから@import"],
+                    ["他のエージェントとも共有したい", "AGENTS.md（CLAUDE.mdも置くならCLAUDE.mdから @import）"],
                     ["設計の背景や制約", "ARCHITECTURE.md（読ませたいときに指示する）"],
                   ].map(([what, where]) => (
                     <tr

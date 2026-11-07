@@ -84,7 +84,7 @@ export const GENERATED_SOURCES: Source[] = [
     kind: "official-docs",
     verifiedAt: "2026-11-07",
     quotes: [
-      "Set `\"iterm2\"` to use iTerm2 native split panes explicitly. This mode requires the `it2` CLI and shows an error with the install command if `it2` is missing.",
+      "to use iTerm2 native split panes explicitly. This mode requires the [`it2` CLI](https://github.com/mkusaka/it2) and shows an error with the install command if `it2` is missing.",
       "Teammates work independently, each in its own context window, and communicate directly with each other.",
     ],
     usedByFiles: [
@@ -98,7 +98,8 @@ export const GENERATED_SOURCES: Source[] = [
     kind: "official-docs",
     verifiedAt: "2026-11-07",
     quotes: [
-      "Claude Code opens a browser window for you to log in on first launch, except in cases such as these, where it can skip the login prompt:\n\n* **API key**: you've set the `ANTHROPIC_API_KEY` environment variable and you approve the key when Claude Code asks whether to use it",
+      "Claude Code opens a browser window for you to log in on first launch, except in cases such as these, where it can skip the login prompt:",
+      "you've set the `ANTHROPIC_API_KEY` environment variable and you approve the key when Claude Code asks whether to use it",
     ],
     usedByFiles: [
       "client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx",
@@ -111,11 +112,15 @@ export const GENERATED_SOURCES: Source[] = [
     kind: "official-docs",
     verifiedAt: "2026-11-07",
     quotes: [
-      "Once Claude has edited a file with its file editing tools in your conversation, `/rewind` undoes changes that Bash commands make to that file afterward. A file that only Bash commands changed isn't tracked and stays as it is.",
-      "Claude Code deletes a session's file snapshots in the retention sweep, by default about 30 days after the session last saved one. Rewinding to a checkpoint whose snapshots are gone can fail with `No files were restored`. To keep snapshots longer, set `cleanupPeriodDays`.",
+      "Once Claude has edited a file with its file editing tools in your conversation, `/rewind` undoes changes that Bash commands make to that file afterward.",
+      "A file that only Bash commands changed isn't tracked and stays as it is.",
+      "by default about 30 days after the session last saved one",
+      "rewinding restores only the files Claude had already edited in your conversation",
+      "**Foreground forked skill**: a [skill with `context: fork`](https://code.claude.com/docs/en/skills#run-skills-in-a-subagent) that runs in the foreground edits your working tree during your own turn, so rewinding restores its edits as usual.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
     ],
   },
   {
@@ -138,7 +143,8 @@ export const GENERATED_SOURCES: Source[] = [
     kind: "official-docs",
     verifiedAt: "2026-11-07",
     quotes: [
-      "| `--max-budget-usd` | Stop the run once estimated spend on API calls reaches this amount (print mode only).",
+      "Stop the run once estimated spend on API calls reaches this amount (print mode only).",
+      "Spend can pass the cap",
       "| claude auth login | Sign in to your Anthropic",
     ],
     usedByFiles: [
@@ -158,7 +164,7 @@ export const GENERATED_SOURCES: Source[] = [
       // 「Hidden from the command menu」へ書き換わっていた（挙動の説明は同じ）
       "Write a JavaScript heap snapshot and a memory breakdown to `~/Desktop`, or your home directory on Linux without a Desktop folder, for diagnosing high memory usage. Attach only the `-diagnostics.json` file when reporting a memory issue; the `.heapsnapshot` contains your full conversation and credentials, so don't share it. [Hidden from the command menu](#how-the-command-menu-matches-what-you-type); type it in full.",
       "/clear [name] | Start a new conversation with empty context. Pass a name to label the previous conversation in the /resume picker. To free up context while continuing the same conversation, use /compact instead. Resume the previous conversation with /resume, or, in the same Claude Code process, restore it from the rewind menu's previous-session entry. Aliases: /reset, /new",
-      "| `/init` | Initialize project with a `CLAUDE.md` guide. Set `CLAUDE_CODE_NEW_INIT=1` for an interactive flow that also walks through skills, hooks, and personal memory files. If `/init` finds OpenAI Codex or Google Gemini CLI configuration, it offers to carry it over with `/import` |",
+      "Initialize project with a `CLAUDE.md` guide. Set `CLAUDE_CODE_NEW_INIT=1` for an interactive flow that also walks through skills, hooks, and personal memory files.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
@@ -178,6 +184,22 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+    ],
+  },
+  {
+    id: "code-claude-com-docs-en-fast-mode",
+    title: "code.claude.com/docs/en/fast-mode",
+    url: "https://code.claude.com/docs/en/fast-mode",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "Fast mode is supported on Opus 5.5, Opus 5, and Opus 4.8. It is not available on Sonnet, Haiku, or other models.",
+      "Fast mode for Claude Opus 5.5 is available, and fast mode for Claude Opus 5 and Claude Opus 4.8 is in [research preview](#research-preview).",
+      "Fast mode for Opus 4.8 was deprecated on October 30, 2026, and will be removed on November 30, 2026.",
+      "Fast mode pricing per MTok input/output is \\$8/\\$40 on Opus 5.5 and \\$10/\\$50 on Opus 5 and Opus 4.8.",
+    ],
+    usedByFiles: [
+      "client/src/pages/claude-code/best-practices/EffectiveWorkflows.tsx",
     ],
   },
   {
@@ -220,7 +242,8 @@ export const GENERATED_SOURCES: Source[] = [
       // 行頭記号の正規化が効かず照合できない。原文の改行のまま持つ
       "* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens\n* **Configurable limit**: you can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable\n* **Default limit**: the default maximum is 25,000 tokens",
       "Local scope is the default. A local-scoped server loads only in the project where you added it and stays private to you. Claude Code stores it in ~/.claude.json under that project's path, so the same server won't appear in your other projects. Use local scope for personal development servers, experimental configurations, or servers with credentials you don't want in version control.",
-      "⏸ Pending approval (run `claude` to approve): a project-scoped server from `.mcp.json` that you haven't approved yet. Claude Code shows it in both `claude mcp list` and `claude mcp get <name>`. Run `claude` interactively to review and approve it.",
+      "a project-scoped server from `.mcp.json` that you haven't approved yet. Claude Code shows it in both `claude mcp list` and `claude mcp get <name>`. Run `claude` interactively to review and approve it.",
+      "Pending approval (run `claude` to approve)",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/mcp/MCPSetup.tsx",
@@ -237,12 +260,20 @@ export const GENERATED_SOURCES: Source[] = [
       // 2026-08-23 再照合。「walking up the directory tree」の一文は
       // 「How CLAUDE.md files load」節の下記の書き方に差し替わっていた（読み込み順の説明は同じ）
       "Claude Code loads `CLAUDE.md` and `CLAUDE.local.md` from your current working directory and every directory above it. Run Claude Code in `foo/bar/` and it loads instructions from `foo/bar/CLAUDE.md`, `foo/CLAUDE.md`, and any `CLAUDE.local.md` files alongside them.",
-      "When Claude isn't reading your AGENTS.md directly, you can still keep it as the one file every tool shares by putting an @AGENTS.md import in a CLAUDE.md next to it.",
+      "By default, Claude reads `AGENTS.md` only when you have no `CLAUDE.md` in your working directory or above it.",
+      "Reading `AGENTS.md` directly requires Claude Code v2.1.277 or later.",
+      "**Don't count, and keep loading alongside `AGENTS.md`**: your `~/.claude/CLAUDE.md`, your organization's managed `CLAUDE.md`, and `.claude/rules/` files",
+      "You used `/plugin` to disable the built-in plugin that reads `AGENTS.md`",
+      "Before v2.1.281, some sessions, such as those on Amazon Bedrock or with telemetry disabled, read `CLAUDE.md` files only.",
+      "If you don't need Claude-specific content, a symlink also works:",
+      "If you find one, Claude reads it instead of `AGENTS.md` unless you set **Project instructions** to `claude-md-and-agents-md`.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
       "client/src/pages/claude-code/multi-ai-architecture/MultiAICoexistence.tsx",
       "client/src/pages/claude-code/multi-ai-architecture/SingleSourceOfTruth.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/FileMap.tsx",
+      "client/src/pages/claude-code/multi-ai-architecture/AgentDocs.tsx",
     ],
   },
   {
@@ -268,13 +299,22 @@ export const GENERATED_SOURCES: Source[] = [
     verifiedAt: "2026-11-07",
     quotes: [
       // 2026-08-23 再照合。既定モデルの対応表は原文のまま。改行を戻して照合できる形にした
-      "* **Pro, Max, Ultra, Team, Enterprise, and Anthropic API**: defaults to Opus 5.5\n* **Claude Platform on AWS, Amazon Bedrock, and Google Cloud's Agent Platform**: defaults to Opus 5.5\n* **Microsoft Foundry**: defaults to Sonnet 4.5",
+      "* **Pro, Max, Ultra, Team, Enterprise, and Anthropic API**: defaults to Opus 5.5",
+      "except that Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium` and Opus 4.7 defaults to `xhigh`",
       "2. **At startup**: launch with claude --model <alias|name>",
       "Aliases point to the recommended version for your provider and update over time. To pin to a specific version, use the full model name, for example `claude-opus-5-5`, or set the corresponding environment variable like `ANTHROPIC_DEFAULT_OPUS_MODEL`.",
+      "the `fable` alias resolves to Fable 5.1",
+      "a top-level `effortLevel` in your user settings file doesn't count for Opus 5.5",
+      "`s` in the `/effort` slider or the `/model` picker: apply the level to this session only",
+      "2. A level you pick in the session, such as with `/effort`, the `/model` picker, or [`applyFlagSettings()`](https://code.claude.com/docs/en/agent-sdk/typescript#applyflagsettings)",
+      "3. Launching with `--effort`",
+      "except in [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) sessions, where `fable` and `best` resolve to Fable 5.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ExtendedThinking.tsx",
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-intro/SlashCommands.tsx",
+      "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
     ],
   },
   {
@@ -286,11 +326,17 @@ export const GENERATED_SOURCES: Source[] = [
     quotes: [
       // 2026-08-23 再照合。「cycle modes」が「cycle permission modes」になり、
       // 循環の記述に「→ back to default」が加わっていた
-      "From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan. Optional modes slot in after plan.",
-      "dontAsk | File reads inside your working directories and pre-approved tools; anything that would prompt is denied, though a mod you installed can still approve some of those calls | Locked-down CI and scripts",
+      "press `Shift+Tab` to cycle permission modes. From `auto`, the first press switches to `default`, and the cycle then runs `default` → `acceptEdits` → `plan`. Optional modes slot in after `plan`.",
+      "If you set `dontAsk` mode, Claude Code auto-denies every tool call that would otherwise prompt you",
+      "Use this mode for CI pipelines or restricted environments where you pre-define what Claude may do; the session never waits for input.",
+      "With Claude Code v2.1.283 or later, auto mode is the built-in starting permission mode for interactive terminal and VS Code sessions. On earlier versions, it's the built-in starting permission mode only on Pro, Max, Ultra, and Team plans.",
+      "**Plan**: All plans.",
+      "In Claude Code v2.1.302 or later, `claude -p` and [Agent SDK](https://code.claude.com/docs/en/agent-sdk/permissions.md#permission-modes) runs with [no permission mode set](#which-mode-a-session-starts-in) start in Manual mode.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/reference/ClaudeCheatsheet.tsx",
+      "client/src/pages/claude-code/claude-core/PermissionModes.tsx",
+      "client/src/pages/claude-code/claude-core/SecurityPermissions.tsx",
     ],
   },
   {
@@ -308,7 +354,7 @@ export const GENERATED_SOURCES: Source[] = [
   },
   {
     id: "code-claude-com-docs-en-plugins",
-    title: "code.claude.com/docs/en/plugins",
+    title: "code.claude.com/docs/en/plugins/components",
     url: "https://code.claude.com/docs/en/plugins/components",
     kind: "official-docs",
     verifiedAt: "2026-11-07",
@@ -330,7 +376,7 @@ export const GENERATED_SOURCES: Source[] = [
       // Managed settings / Command line arguments / Project local settings /
       // Shared project settings / User settings になった（順位そのものは同じ 5 段）
       "When the same key appears in more than one place, Claude Code uses the value from the highest level that sets it. The stack below shows the levels, highest on top; a key at a higher level overrides the same key anywhere below it.",
-      "1. **Managed settings**: settings your organization deploys, by a `managed-settings.json` file, an MDM policy, or server-managed settings from the claude.ai console. Nothing in your own settings files or `--settings` overrides a managed key",
+      "Nothing in your own settings files or `--settings` overrides a managed key",
       "2. **Command line**: JSON you pass with `--settings <file-or-json>` when you start `claude`, for that session only",
       "3. **Project local settings** (`.claude/settings.local.json`): your personal settings for this project.\n4. **Shared project settings** (`.claude/settings.json`): settings your team checks into source control.\n5. **User settings** (`~/.claude/settings.json`): your personal settings for every project.",
     ],
@@ -348,11 +394,14 @@ export const GENERATED_SOURCES: Source[] = [
       // 2026-08-23 再照合。動作要件は原文のまま。入れ子の箇条書きを改行のまま持つ
       "* **Operating system**:\n  * macOS 13.0+\n  * Windows 10 1809+ or Windows Server 2019+\n  * Ubuntu 20.04+\n  * Debian 10+\n  * Alpine Linux 3.19+\n* **Hardware**: 4 GB+ RAM, x64 or ARM64 processor",
       "Claude Code requires a Pro, Max, Ultra, Team, Enterprise, or Console account. The free claude.ai plan does not include Claude Code access.",
-      "You can also install Claude Code as a global npm package. The npm package requires Node.js 22 or later. On an older Node.js version, npm prints an `EBADENGINE` warning during install rather than failing; the install completes and `claude` still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
+      "You can also install Claude Code as a global npm package.",
+      "On an older Node.js version, npm prints an `EBADENGINE` warning during install rather than failing; the install completes and `claude` still runs, since the package downloads a native binary that doesn't use your Node.js at runtime.",
+      "The npm package requires [Node.js 22 or later](https://nodejs.org/en/download).",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-intro/ClaudeCodeIntro.tsx",
       "client/src/pages/claude-code/claude-intro/InstallSetup.tsx",
+      "client/src/pages/git/ai-agent/ClaudeCodeSetup.tsx",
     ],
   },
   {
@@ -376,7 +425,9 @@ export const GENERATED_SOURCES: Source[] = [
     kind: "official-docs",
     verifiedAt: "2026-11-07",
     quotes: [
-      "| `model` | No | Model to use: `sonnet`, `opus`, `haiku`, `fable`, a full model ID such as `claude-opus-5-5`, or `inherit`. When you omit it, Claude Code picks the model in the subagent model order",
+      "The subagent definition's `model` frontmatter, where `inherit` selects the main conversation's model",
+      "The main conversation's model",
+      "1. The per-invocation `model` parameter",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/agent-extensions/Subagents.tsx",
@@ -889,6 +940,19 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/git/flow-automation/AutoTestRefactor.tsx",
+    ],
+  },
+  {
+    id: "github-com-anthropics-claude-code-changelog-2-1-186",
+    title: "anthropics/claude-code CHANGELOG（2.1.186）",
+    url: "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "Added `teammateMode: \"iterm2\"` setting with a warning when auto mode cannot find the `it2` CLI",
+    ],
+    usedByFiles: [
+      "client/src/pages/claude-code/ide-agent-teams/AgentOrchestration.tsx",
     ],
   },
   {

@@ -148,7 +148,7 @@ export default function ClaudeCodeSetup() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             公式の System requirements（OS / Hardware / Network / Shell / Location）に Node.js の項目はありません。
             npm 版も、インストール時にネイティブバイナリを取得して実行時はそれを使う作りです。
-            Node.jsが要るのはnpm経由でインストールする場合だけで、その要件はNode.js 22以上です。
+            Node.jsが要るのはnpm経由でインストールする場合だけで、その要件はNode.js 22以上です（古い版では警告が出るもののインストールは完了します）。
             このマニュアルの「環境準備」で既にインストール済みの方はそのままでOKです。
           </p>
 

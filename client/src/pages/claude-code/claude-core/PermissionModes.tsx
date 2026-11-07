@@ -116,11 +116,9 @@ export default function PermissionModes() {
               </table>
             </div>
             <InfoBox type="info" title="既定の開始モード">
-              Claude Code v2.1.283以降では、ターミナルとVS Codeの対話セッションで{" "}
-              <strong>autoモードが組み込みの開始モード</strong>
-              です（それより前のバージョンではPro / Max / Ultra / Teamプランのみ）。
-              <code>claude -p</code>とAgent SDKの実行はManual（default）で始まります。
-              組織の管理設定や <code>permissions.defaultMode</code>{" "}
+              Claude Code v2.1.283以降は、プランやプロバイダに関係なく、対話型のターミナルとVS Codeで{" "}
+              <strong>auto モードが組み込みの開始モード</strong>
+              です（それより前の版ではPro / Max / Ultra / Teamプランだけ）。<code>claude -p</code>とAgent SDKの実行はManual（default）で始まります。組織の管理設定や <code>permissions.defaultMode</code>{" "}
               で変更できます。auto を user settings で既定にする場合は{" "}
               <code>~/.claude/settings.json</code> に書きます（プロジェクトの{" "}
               <code>.claude/settings.json</code> からは auto は効きません）。
@@ -207,11 +205,10 @@ $ claude --permission-mode acceptEdits
               </div>
             </div>
             <InfoBox type="warning" title="利用条件がある">
-              autoモードには組織設定・モデル・プロバイダの条件があります（Anthropic
-              APIではOpus 4.6以降 / Sonnet 4.6以降 / Haiku 5.5 / Fableモデル）。「auto mode
-              unavailable」と表示されたら、まず利用条件と<code>disableAutoMode</code>の設定を確認します。
-              Anthropicがサーバー側で止めている場合やアカウントが拒否された場合もあり、
-              そのときはセッションが終わるまでオフのままなので、後で新しいセッションを始めます。
+              auto
+              モードには組織設定・モデル・プロバイダの条件があります（プランは全プランが対象。モデルは2026年11月時点で、Anthropic
+              APIではOpus 4.6以降 / Sonnet 4.6以降 / Haiku 5.5 / Fable）。「auto mode
+              unavailable」と表示される場合は条件が満たされていないことを意味し、一時的な障害ではありません。
             </InfoBox>
           </section>
 

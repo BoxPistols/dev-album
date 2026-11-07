@@ -34,7 +34,7 @@ export default function InstallSetup() {
               インストール
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              ネイティブインストーラ（推奨・自動更新あり）または npm で導入できます。npm の場合は Node.js 22 以上が推奨です（インストールされる実体はネイティブバイナリ）。
+              ネイティブインストーラ（推奨・自動更新あり）またはnpmで導入できます。npmの場合はNode.js 22以上が要件です（古い版では警告が出るもののインストールは完了し、実体のネイティブバイナリはNode.jsを使わずに動きます）。
             </p>
             <CodeBlock code={`# ネイティブインストール（推奨: macOS / Linux / WSL）
 $ curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash
