@@ -81,7 +81,7 @@ WebContainerで動くものに限る。第0段階の調査で次がわかって�
 | API | Hono（Node.js） | 同じHonoをCloud Run / Vercel Functionsに配備 |
 | DB | PGlite（WASM版のPostgres）+ Drizzle | Supabase / NeonのPostgres |
 | 認証 | 課題用の簡易セッション。RLSは`set_config('app.user_id', …)`と`current_setting`で組む | Supabase Auth（`auth.uid()`に置き換えるだけで同じポリシーが効く） |
-| 非同期 | `FOR UPDATE SKIP LOCKED`のジョブテーブルを自分で書く。pg-bossがPGliteで動くなら差し替え | pg-boss + ワーカー |
+| 非同期 | `FOR UPDATE SKIP LOCKED`のジョブテーブルを自分で書く（第0段階で、pg-bossもPGliteで動くことを確かめた。教材では先に手書きで仕組みを見せ、pg-bossへの差し替えはjobsセクションで扱う） | pg-boss + ワーカー |
 | テスト | Vitest | Vitest + Playwright（GitHub Actions） |
 
 RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外しても動くことと、`auth.uid()`の中身が同じ仕組みであることを先に見せられるため。
@@ -100,8 +100,27 @@ RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外�
 - 正常系: Dev Albumの`fullstack`の各ページから「ラボで開く」を押すと、その課題のstarterが入った状態でラボが開く。提出すると機械判定とAIレビューが出る
 - 異常系: ラボが開けない（ブラウザ非対応・ライセンス・障害） → 教材ページの読み物と模範解答のリポジトリで進められる
 
+## 第0段階の結果（2026-11-08）
+
+Node.js 22で確かめたものと、WebContainerの中で確かめたものを分けて書く。
+
+| 項目 | 結果 | 確かめた環境 |
+|---|---|---|
+| Vite + Hono + PGlite + Drizzle + Vitest | 動く。Viteの開発サーバーの`/api`をHonoに渡し（`@hono/node-server`の`getRequestListener`）、1つのサーバーでフロントとAPIを動かせる。スキーマは`drizzle-kit/api`の`pushSchema`でPGliteにそのまま作れる | Node.js 22。WebContainerの中は下の注記 |
+| PGliteのRLS（`set_config` / `current_setting`） | 効く。`set role`で権限の無いロールに切り替えると、他人の行が見えず、他人の`user_id`での`insert`は`new row violates row-level security policy`で止まる。`set_config(..., true)`でトランザクションの中だけに限ることもできる | Node.js 22（PGlite 0.5.15） |
+| `FOR UPDATE SKIP LOCKED` | 動く | Node.js 22（PGlite 0.5.15） |
+| pg-boss | 動く（pg-boss 12.38.1）。ただしPGliteを`db`オプションに渡す薄いアダプタが要り、複数の文をまとめて送るクエリでは各文の結果を配列で返す必要がある（返さないと`a custom db must return the rows of every statement`）。`supervise`と`schedule`は切る | Node.js 22 |
+| COOP / COEPの下でのMonaco・xterm.js | 動く。MonacoはCDNから読むと`require-corp`で止まるので、`monaco-editor`を同梱してワーカーをViteで組み込む | ラボのビルドをPlaywrightのChromiumで開いた |
+| Jevで観点ごとの判定 | 返せる。ルーブリックの3段階（met / partial / not_met）をそのまま`choice`の選択肢にすると、観点ごとに確信度付きで返る。確信度0.8未満は「判定を保留」にし、自由文の助言と根拠の行はLLMに書かせる | Jevの`/v1/systemone` |
+
+途中でわかったこと。
+
+- TypeScriptの`latest`は7系（Goで書き直したネイティブ版）になっており、WebContainerでは動かない。課題のstarterは6系（6.0.3）に固定する。typescript-eslintも`<6.1.0`を要求する
+- 課題のテストは受講者にも見えるが、提出時は課題の正本で上書きしてから走らせる。受講者がテストを書き換えても判定は変わらない
+- WebContainerの中での通し（インストール → 開発サーバー → 提出 → 機械判定）は、ラボのE2E（`e2e/lab-flow.spec.ts`）で確かめる
+
 ## 段階
-0. 調査（実装の前に1週間以内）: 次を小さなプロトタイプで確かめ、結果をこの仕様に書き戻す
+0. 調査（実装の前に1週間以内）: 次を小さなプロトタイプで確かめ、結果をこの仕様に書き戻す（結果は上の「第0段階の結果」）
    - Vite + Hono + PGlite + Drizzle + VitestがWebContainerで動くか
    - PGliteでRLS（`set_config` / `current_setting`）が効くか
    - pg-bossがPGliteで動くか（動かなければジョブテーブルを手で書く案で確定）
@@ -112,7 +131,7 @@ RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外�
 3. 教材と接続: Dev Albumの`fullstack`の第1段階（fullstack-course.mdの処理フロー2）と同時に出す
 
 ## 完了条件（検証可能な形で）
-- [ ] 第0段階の5項目の結果がこの仕様に書き戻されている
+- [x] 第0段階の5項目の結果がこの仕様に書き戻されている
 - [ ] Chrome / Edgeで、課題を開く → 編集 → 提出 → 機械判定とAIレビューが出るまでがE2Eテストで通る
 - [ ] 非対応ブラウザで開くと案内が出る（E2E）
 - [ ] AIの応答がスキーマに合わないとき、受講者にエラーではなく「レビューを取得できなかった。機械判定の結果は有効」と出る（単体テスト）
@@ -124,7 +143,9 @@ RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外�
 2. エディタはWebContainer方式にする（2026-11-07決定）。GitHub Codespacesは受講者ごとにGitHubアカウントと利用枠が要るため採らない
 3. 合否は機械判定（テスト・型・lint）だけで決め、AIは設計・読みやすさ・説明への助言を返す（2026-11-07、推奨案）
 4. ラボの中のスタックはVite + React + Hono + PGliteにする（2026-11-07、推奨案で確定。実装前なら変更できる）。Next.js 15.5以降がWebContainerで動かないため。Next.jsの載せ替えはshipセクションで手順として教える。ラボだけNext.js 15.4に固定する案は、古い版を教えることになるので採らない
-5. ラボのリポジトリ名は`dev-album-lab`にする（2026-11-07、推奨案で確定。実装前なら変更できる）。URLは公開時に決める
+5. ラボのリポジトリ名は`dev-album-lab`にする（2026-11-07、推奨案で確定）。URLは公開時に決める
+6. 観点ごとの判定（met / partial / not_met）はJevに出させ、確信度0.8未満は保留にする。Jevが使えないときはLLMの判定を使う。助言・根拠の行・質問はLLMが書く（2026-11-08、第0段階の結果から）
+7. 「違うと思う」の記録は、受講者の端末（IndexedDB）とサーバー（Upstash Redisのリスト。直近5,000件）の両方に残す。サーバー側には課題・観点・理由・指摘の本文だけを置き、利用者を識別する情報は付けない（2026-11-08）
 
 ## 公開前に解決が要る点（未決）
 1. WebContainer APIのライセンス。Dev Albumを無料の学習サイトとして公開し続けるなら、商用ライセンスが要るかをStackBlitzに問い合わせる。回答が出るまでラボを公開しない。要る場合の代替は、StackBlitz本体の埋め込み（`@stackblitz/sdk`）で、エディタはStackBlitzの画面になる
