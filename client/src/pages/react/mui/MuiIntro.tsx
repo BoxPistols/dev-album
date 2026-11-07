@@ -29,12 +29,28 @@ export default function MuiIntro() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <InfoBox type="info" title="本文はMUI v9、プレビューはMUI v5で動かしている">
+            <p>
+              本文はMUI v9を基準にしています（2026年11月時点のnpm latestは9.5.0）。
+              Material UIの版番号はv7の次がv9で、v8はありません。
+            </p>
+            <p className="mt-2">
+              ページ内のプレビューはMUI v5.18で動かしています。このサイトのプレビューはUMDビルドで動いており、MUIのUMDビルドの配布はv5までのためです。
+              コード例はv5とv9で書き方が同じものを選んでいます。書き方が分かれるGridはプレビューがv5の記法で、v9の書き方を次のステップに併記します。
+            </p>
+            <p className="mt-2">
+              v7のコードをv9へ上げるときは、公式の移行ガイド（Upgrade to v9）とcodemodを使います。v6以前のコードは、先にUpgrade to v6とUpgrade to v7の手順を通します。
+              削除された主なものは、Stack・Typography・BoxなどのSystem props（<code>sx</code>へ移す）と、<code>inputProps</code>のような個別のprops（<code>slotProps</code>へ移す）です。
+              Typographyの<code>color="text.secondary"</code>はv9では色が付かないので、<code>{"sx={{ color: 'text.secondary' }}"}</code>と書きます。
+            </p>
+          </InfoBox>
+
           {/* セクション1: MUI とは */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">MUI とは</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               MUI（旧称 Material-UI）は、Google の Material Design ガイドラインに基づいた React コンポーネントライブラリです。
-              2014 年から開発が続けられており、npm で週 400 万回以上ダウンロードされています。
+              GitHubのリポジトリは2014年に作られました。<code>@mui/material</code>のnpmダウンロード数は2026年10月の1か月で約4,300万回でした。
             </p>
 
             <CodeBlock
@@ -188,13 +204,13 @@ function App() {
   return (
     <Stack spacing={2}>
       {/* バリアント */}
-      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
         <Button variant="contained">塗りつぶし</Button>
         <Button variant="outlined">アウトライン</Button>
         <Button variant="text">テキスト</Button>
       </Stack>
       {/* カラー */}
-      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
         <Button variant="contained" color="primary">プライマリ</Button>
         <Button variant="contained" color="secondary">セカンダリ</Button>
         <Button variant="contained" color="success">成功</Button>
@@ -203,7 +219,7 @@ function App() {
         <Button variant="contained" color="info">情報</Button>
       </Stack>
       {/* サイズ */}
-      <Stack direction="row" spacing={1} alignItems="center">
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
         <Button variant="contained" size="small">小</Button>
         <Button variant="contained" size="medium">中</Button>
         <Button variant="contained" size="large">大</Button>
@@ -220,9 +236,9 @@ function App() {
 
             <InfoBox type="info" title="ライブプレビューの実行環境">
               <p>
-                このページのプレビューは CDN 配信（UMD ビルド）の MUI をブラウザ内で直接実行しています。
-                ボタンをクリックすると、MUI 本来のリップルエフェクトも確認できます。
-                手元のプロジェクトでは npm でインストールしたバージョンを使ってください。
+                このページのプレビューは、このサイトに置いたMUI v5.18のUMDビルドをブラウザ内で直接実行しています。
+                ボタンをクリックすると、MUI本来のリップルエフェクトも確認できます。
+                手元のプロジェクトではnpmでインストールしたバージョンを使ってください。
               </p>
             </InfoBox>
           </section>
@@ -259,7 +275,7 @@ function App() {
 
       {/* カラー指定 */}
       <Typography color="primary" sx={{ mt: 1 }}>プライマリカラー</Typography>
-      <Typography color="text.secondary">セカンダリテキスト</Typography>
+      <Typography sx={{ color: 'text.secondary' }}>セカンダリテキスト</Typography>
       <Typography color="error">エラーカラー</Typography>
     </Stack>
   );
@@ -515,17 +531,17 @@ function App() {
         </Avatar>
 
         {/* タイトル */}
-        <Typography variant="h4" component="h1" fontWeight={800} gutterBottom>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 800 }}>
           React アプリへようこそ
         </Typography>
 
         {/* 説明文 */}
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3.5, lineHeight: 1.8 }}>
+        <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3.5, lineHeight: 1.8 }}>
           MUI を使って美しく機能的な UI を構築しましょう。Material Design のガイドラインに沿った、一貫性のあるデザインを簡単に実現できます。
         </Typography>
 
         {/* ボタン */}
-        <Stack direction="row" spacing={1.5} justifyContent="center" flexWrap="wrap" useFlexGap>
+        <Stack direction="row" spacing={1.5} useFlexGap sx={{ justifyContent: 'center', flexWrap: 'wrap' }}>
           <Button variant="contained" size="large">はじめる</Button>
           <Button variant="outlined" size="large">ドキュメントを読む</Button>
         </Stack>
@@ -556,9 +572,19 @@ function App() {
                   description: 'Material UI のセットアップと基本概念',
                 },
                 {
-                  title: 'Material Design',
-                  url: 'https://m3.material.io/',
-                  description: 'Google の Material Design 3 ガイドライン',
+                  title: 'Upgrade to v9',
+                  url: 'https://mui.com/material-ui/migration/upgrade-to-v9/',
+                  description: 'v7からv9への移行ガイド（破壊的変更とcodemodの一覧）',
+                },
+                {
+                  title: 'Material UI Versions',
+                  url: 'https://mui.com/material-ui/getting-started/versions/',
+                  description: '公開中の版とリリース時期の一覧',
+                },
+                {
+                  title: 'Material Design 2',
+                  url: 'https://m2.material.io/',
+                  description: 'Material UIが実装しているMaterial Design 2のガイドライン',
                 },
               ]}
             />

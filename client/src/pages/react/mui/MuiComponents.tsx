@@ -27,6 +27,14 @@ export default function MuiComponents() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <InfoBox type="info" title="本文はMUI v9、プレビューはMUI v5で動かしている">
+            <p>
+              本文はMUI v9を基準にしています。プレビューはMUI v5.18で動かしているため、コード例はv5とv9で書き方が同じものを選んでいます。
+              例外はGridで、プレビューのコードはv5の記法です。v9の書き方はGridの節に併記しています。
+              既定のスタイルはv5とv9で異なるものがあり、プレビューの見た目がv9と一致しない場合があります。
+            </p>
+          </InfoBox>
+
           {/* セクション1: レイアウト */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">レイアウト：Grid, Stack, Container</h2>
@@ -46,7 +54,7 @@ function App() {
   const cell = { p: 2, borderRadius: 1 };
   return (
     <Grid container spacing={2}>
-      {/* 12 カラム制。item の xs で常に幅を分割する */}
+      {/* 12カラム制。v5の記法（v9では<Grid size={8}>のように書く） */}
       {/* 8 : 4 の 2 カラム */}
       <Grid item xs={8}>
         <Box sx={{ ...cell, bgcolor: 'primary.main', color: 'primary.contrastText' }}>メインコンテンツ（8 カラム）</Box>
@@ -66,13 +74,16 @@ function App() {
 }`}
             />
 
-            <InfoBox type="info" title="レスポンシブと MUI v7 の記法">
+            <InfoBox type="info" title="レスポンシブとMUI v9の記法">
               <p>
                 幅はブレークポイントごとに変えられます。たとえば{' '}
                 <code>{'<Grid item xs={12} md={8}>'}</code> は「モバイルでは全幅、md（900px）以上で 8 カラム」。
                 プレビュー右上の目のアイコンで表示幅を広げると切り替わりが見えます。
-                なお MUI v7 では <code>item</code> を書かず{' '}
-                <code>{'<Grid size={{ xs: 12, md: 8 }}>'}</code> と書きます（結果は同じ。プレビューは UMD 配布のある v5 記法）。
+                v7以降は<code>item</code>を書かず、<code>{'<Grid size={{ xs: 12, md: 8 }}>'}</code>と書きます（プレビューはv5の記法）。
+                v7までは<code>GridLegacy</code>として旧来の記法を残せましたが、v9で<code>GridLegacy</code>は削除されました。
+              </p>
+              <p className="mt-2">
+                v9の<code>Grid</code>は<code>direction="column"</code>と<code>direction="column-reverse"</code>を受け付けません。縦に積むときは次の<code>Stack</code>を使います。
               </p>
             </InfoBox>
 
@@ -109,7 +120,7 @@ function App() {
       </Stack>
 
       {/* 両端揃え（見出しとアクションを左右に配置） */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h6">タイトル</Typography>
         <Button>アクション</Button>
       </Stack>
@@ -451,6 +462,13 @@ function App() {
 }`}
             />
 
+            <InfoBox type="info" title="ListItemIconの既定の最小幅">
+              <p>
+                <code>ListItemIcon</code>の既定の最小幅はv9で<code>36px</code>です（以前は<code>56px</code>）。
+                プレビューはv5で動いているので、アイコンと文字の間隔はv9より広く見えます。
+              </p>
+            </InfoBox>
+
             <div className="mt-4" />
 
             <CodePreview
@@ -580,7 +598,7 @@ function App() {
       </Box>
       <CardContent>
         <Typography variant="h6" gutterBottom>React 入門ガイド</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           React の基礎から実践までを解説する初心者向けのガイドです。
         </Typography>
       </CardContent>
@@ -619,10 +637,10 @@ function StatCard({ title, value, icon, color }) {
   return (
     <Card>
       <CardContent>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
-            <Typography variant="body2" color="text.secondary">{title}</Typography>
-            <Typography variant="h5" fontWeight="bold" sx={{ mt: 0.5 }}>{value}</Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>{title}</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 0.5 }}>{value}</Typography>
           </Box>
           <Box sx={{ p: 1, borderRadius: 2, bgcolor: color, fontSize: 22, lineHeight: 1 }}>
             {icon}
@@ -673,7 +691,7 @@ function App() {
         </Box>
       </Drawer>
 
-      {/* 統計カードのグリッド（v5 記法: container + item + xs/sm/md） */}
+      {/* 統計カードのグリッド（v5の記法。v9では<Grid size={{ xs: 12, sm: 6, md: 3 }}>） */}
       <Container maxWidth="lg" sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {stats.map((stat) => (
@@ -706,6 +724,11 @@ function App() {
                   title: 'MUI コンポーネント一覧',
                   url: 'https://mui.com/material-ui/all-components/',
                   description: '全コンポーネントの一覧と API リファレンス',
+                },
+                {
+                  title: 'Upgrade to v9',
+                  url: 'https://mui.com/material-ui/migration/upgrade-to-v9/',
+                  description: 'GridLegacyの削除、Gridのdirection、System propsの削除など',
                 },
               ]}
             />

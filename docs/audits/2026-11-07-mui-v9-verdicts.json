@@ -1,0 +1,218 @@
+[
+  {
+    "file": "issue#162",
+    "claim": "v9.0.0が2026-04に出ており、現在の安定版として案内されている（v7は2025-03）",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://api.github.com/repos/mui/material-ui/releases/tags/v9.0.0",
+    "quote": "\"published_at\": \"2026-04-08T12:05:36Z\"",
+    "correction": "",
+    "evidence": "GitHub Releaseの公開日は2026-04-08、npm registryのtimeは9.0.0が2026-04-07、7.0.0が2025-03-26。https://mui.com/versions/はhttps://mui.com/material-ui/getting-started/versions/へ301で転送され、描画後のページでv9に✓が付き、Release scheduleにv9.0.0がApril 2026、v7.0.0がMarch 2025と載っていることをWebFetchで確認した。2026-11-07時点のnpm latestは9.5.0で、nextは10.0.0-alpha.0。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "MUI v8 / v9の移行ガイドと照合する。v8の変更（React対応範囲、パッケージ構成、Pigment CSSの位置づけ）を確認する",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/pages/blog/introducing-mui-v9.md",
+    "quote": "Material UI moves from v7 straight to v9 (there is no Material UI v8, like there is no v2)",
+    "correction": "Material UIにv8は無い。移行ガイドはupgrade-to-v9（v7からv9）が正で、upgrade-to-v8は存在しない。教材にはv8が無いことを書いた。React対応範囲・パッケージ構成・Pigment CSSはv7とv9の比較として別項目で判定した。",
+    "evidence": "npm registryの@mui/materialに8.xの版は0件（5.x / 6.x / 7.x / 9.x / 10.0.0-alpha.0のみ）。v8.0.0のgitタグは404。リポジトリのdocs/data/material/migration/にupgrade-to-v8ディレクトリは無く、mui.com/material-ui/migration/upgrade-to-v8/も404で、upgrade-to-v9の冒頭は「upgrade from Material UI v7 to v9」。一方、公式の版一覧（docs/versions.json）にはv8の行があり、noReleaseNotes: trueでv8.mui.comを指す。Release scheduleにv8は載っていない。v8.mui.comは200を返すが、何のために置かれている文書かは公式の記載を確認できていない。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "Gridのdirectionからcolumn / column-reverseが消えた",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "The `Grid` component no longer accepts `direction=\"column\"` or `direction=\"column-reverse\"`.",
+    "correction": "",
+    "evidence": "v9.0.0-beta.1のリリースノートにも「Remove 'column' and 'column-reverse' options from direction prop」がある。MuiComponents.tsxのGrid節に、縦に積むときはStackを使うと追記した。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "*Outline系レガシーアイコンが削除された",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "23 legacy icon exports that ended with `Outline` (without the \"d\") have been removed.",
+    "correction": "",
+    "evidence": "対象は「d」の付かない23個で、InfoOutlineRoundedのようなテーマ別バリアントは残る。教材のコード例はTrendingUp / People / ShoppingCartのみで、@mui/icons-material 9.5.0の型検査を通るので本文は変えていない。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "ListItemIconの最小幅がtheme.spacing由来になった",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "The `ListItemIcon` default min-width has changed to `36px` (previously `56px`) to be consistent with the menu item, and now uses `theme.spacing` instead of a hardcoded number.",
+    "correction": "",
+    "evidence": "9.5.0のListItemIcon.jsはminWidth: theme.spacing(4.5)。Drawerのプレビューはv5の56pxで描画されるので、MuiComponents.tsxに差を注記した。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "Reactの対応範囲はv7からv9で変わっていない（Issueではv8の確認項目だった）",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://registry.npmjs.org/@mui/material/9.5.0",
+    "quote": "\"react\":\"^17.0.0 || ^18.0.0 || ^19.0.0\"",
+    "correction": "",
+    "evidence": "peerDependenciesのreactは7.3.11、9.0.0、9.5.0で同じ。v7からv9で対応範囲は変わっていない。教材はReactの対応範囲を書いていないので本文は変えていない。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "MuiIntro.tsxのインストール手順はv9でも同じ（Issueではv8の確認項目だった）",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/getting-started/installation/installation.md",
+    "quote": "npm install @mui/material @emotion/react @emotion/styled",
+    "correction": "",
+    "evidence": "v9のインストール手順はMuiIntro.tsxのコマンドと同じ。upgrade-to-v9は@mui/icons-material、@mui/system、@mui/material-nextjsなどを9.0.0へ揃えるよう案内している。MuiIntro.tsxのパッケージ一覧に変更は不要だった。"
+  },
+  {
+    "file": "issue#162",
+    "claim": "Pigment CSSはアルファのまま保留で、教材に書く必要が無い（Issueではv8の確認項目だった）",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/pages/blog/2026-and-beyond.md",
+    "quote": "Pigment CSS remains in alpha phase and is currently on hold.",
+    "correction": "",
+    "evidence": "mui/pigment-cssのリポジトリ説明も「Alpha phase, currently, on hold」。@mui/material-pigment-cssは9.5.0のpeerDependenciesでoptional。対象4ページにPigment CSSの記述は無いので本文は変えていない。"
+  },
+  {
+    "file": "react/mui/MuiComponents.tsx",
+    "claim": "なお MUI v7 では item を書かず <Grid size={{ xs: 12, md: 8 }}> と書きます",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "The `xs`, `sm`, `md`, `lg`, `xl` props are replaced by the `size` prop.",
+    "correction": "",
+    "evidence": "記法自体はv9でも正しい。「v7以降」に改め、GridLegacyがv9で削除されたことを足した。プレビューのitem記法はv5.18が前提で、v9の型検査では失敗するので、コード内のコメントと冒頭の注記で例外として明示した。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx ほか",
+    "claim": "Stack / Typography / Boxに直接書いたalignItems、justifyContent、flexWrap、fontWeight、display、mb",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "The deprecated system props have been removed from the following components:",
+    "correction": "4ページのコード例をsxへ移した。sxはv5のプレビューでも同じ結果になることを実描画で確認した。",
+    "evidence": "Issueに書かれていなかった変更。@mui/material 9.5.0の型検査で該当行がTS2769になることを確認した。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx ほか",
+    "claim": "Typographyのcolor=\"text.secondary\"で補助テキストの色を指定する",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/components/cards/BasicCard.tsx",
+    "quote": "<Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>",
+    "correction": "4ページ17箇所をsx={{ color: 'text.secondary' }}へ移した。v5.18のプレビューでも同じ色になる。",
+    "evidence": "修正後の独立レビューが検出し、renderToStringで再確認した。9.5.0ではcolor=\"text.secondary\"は色のルールを出さず、エラーも警告も出ない。color=\"primary\"とcolor=\"error\"は色が出る。型はstringを許すのでtscでは検出できない。9.5.0のTypography.jsにextendSxPropは無い。移行ガイドのSystem propsの節にcolorの明示は無い。"
+  },
+  {
+    "file": "react/mui/MuiCustomization.tsx",
+    "claim": "MuiButtonのstyleOverridesでcontainedPrimaryを指定する",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `root` override instead:",
+    "correction": "3箇所をroot.variantsへ移した。v5.18のプレビューでhover時のboxShadowがcontainedのボタンにだけ適用されることをchromiumの計算値で確認した。",
+    "evidence": "Issueに書かれていなかった変更。9.5.0の型検査でTS2353。outlinedキーは残るのでそのままにした。"
+  },
+  {
+    "file": "react/mui/MuiCustomization.tsx",
+    "claim": "SwitchのアクセシブルネームをinputPropsで付ける",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    "quote": "`inputProps` — use `slotProps.input` instead",
+    "correction": "v9のslotProps.inputに置き換えるとv5のプレビューで名前が付かない可能性があるので、両方の版で同じ書き方になるFormControlLabelのラベルに変えた。",
+    "evidence": "v5.18のプレビューでgetByRole('checkbox', { name: 'ダークモード' })が1件取得でき、クリックでpalette.modeがdarkへ切り替わることを確認した。v5.18のSwitchがslotProps.inputを受けるかは確かめていない。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "このページのプレビューは CDN 配信（UMD ビルド）の MUI をブラウザ内で直接実行しています",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/BoxPistols/dev-album/6d89dec/client/src/lib/preview.ts",
+    "quote": "const MUI_UMD_URL = '/vendor/mui-material-5.18.0.umd.min.js';",
+    "correction": "このサイトに置いたMUI v5.18のUMDビルドを実行している、に訂正した。",
+    "evidence": "プレビューは同一オリジンの/vendor/から読む。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "npm で週 400 万回以上ダウンロードされています",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://api.npmjs.org/downloads/point/2026-10-01:2026-10-31/@mui/material",
+    "quote": "\"downloads\":43207517",
+    "correction": "",
+    "evidence": "下限としては成り立つが基準日が無かったので、2026年10月の1か月で約4,300万回に改めた。ダウンロード数は利用者数ではない代理指標。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "2014 年から開発が続けられており",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://api.github.com/repos/mui/material-ui",
+    "quote": "\"created_at\": \"2014-08-18T19:11:54Z\"",
+    "correction": "",
+    "evidence": "リポジトリの作成日。開発開始日そのものは確認していないので、本文は「GitHubのリポジトリは2014年に作られました」に改めた。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "参考リンク: Google の Material Design 3 ガイドライン",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/getting-started/overview/overview.md",
+    "quote": "Material UI supports Material Design 2.",
+    "correction": "参考リンクをm2.material.ioのMaterial Design 2へ変えた。",
+    "evidence": "Material UIが実装しているのはMaterial Design 2で、m3.material.ioのガイドラインを案内すると実装と合わない。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "h1 / h2 のデフォルトサイズ（96px / 60px）",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/packages/mui-material/src/styles/createTypography.js",
+    "quote": "h1: buildVariant(fontWeightLight, 96, 1.167, -1.5),",
+    "correction": "",
+    "evidence": "9.5.0でも同じ値。buttonもcaseAllCapsのままで、MuiCustomization.tsxの大文字変換の説明も変更不要だった。"
+  },
+  {
+    "file": "react/mui/MuiIntro.tsx",
+    "claim": "Math.max(theme.breakpoints.values.xs, 444) としているため、xs のときだけ 444px が使われます",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/packages/mui-system/src/Container/createContainer.tsx",
+    "quote": "maxWidth: Math.max(theme.breakpoints.values.xs, 444),",
+    "correction": "",
+    "evidence": "既定のブレークポイント値（0 / 600 / 900 / 1200 / 1536）も9.5.0のcreateBreakpointsで同じことを確認した。"
+  },
+  {
+    "file": "react/nextjs-css/TailwindMui.tsx",
+    "claim": "important: true の設定や CSS の優先順位を理解しておきましょう",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/integrations/tailwindcss/tailwindcss-v4.md",
+    "quote": "Set up the layer order so that `mui` comes before the `utilities` layer, allowing Tailwind CSS classes to override Material UI styles.",
+    "correction": "公式の手順（enableCssLayerと@layerの順序）に書き換えた。",
+    "evidence": "このページのTailwindの説明はv4で、importantを設定するtailwind.configを使っていない。公式のTailwind CSS v4統合手順にimportant: trueは出てこない。"
+  },
+  {
+    "file": "react/nextjs-css/TailwindMui.tsx",
+    "claim": "MUI コンポーネントを使うファイルには 'use client' を付けるか、Server Component から Client Component として import してください",
+    "verdict": "REFUTED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/packages/mui-material/src/Button/Button.js",
+    "quote": "'use client';",
+    "correction": "パッケージ側に'use client'が入っていること、関数を渡す箇所やhooksを使う箇所は自分のファイルに'use client'を付けて分けることに書き換えた。",
+    "evidence": "@mui/material 9.5.0のButton / Typography / Box / Grid / Stack / Cardの.jsは先頭に'use client'があるので、Server Componentからimportしても動く。関数を渡す場合については、Next.jsのFunctions cannot be passed directly to Client Componentsのエラーを公式のNext.js統合ガイドが扱っている。DashboardContentの例には、'use client'が要る理由としてonClickを持たせた。"
+  },
+  {
+    "file": "react/nextjs-css/TailwindMui.tsx",
+    "claim": "@mui/material-nextjs/v15-appRouter",
+    "verdict": "CONFIRMED",
+    "sourceUrl": "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/integrations/nextjs/nextjs.md",
+    "quote": "or `v1X-appRouter` if you are using Next.js v1X",
+    "correction": "",
+    "evidence": "@mui/material-nextjs 9.5.0にはv13 / v14 / v15 / v16のappRouterがある。公式の例はv15のままなので例は変えず、版に合わせて選ぶとコメントを足した。インストールコマンドの@emotion/cacheも公式と一致する。"
+  },
+  {
+    "file": "react/mui/ 全体",
+    "claim": "v5とv9の既定スタイルの差の全容",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "",
+    "quote": "",
+    "correction": "",
+    "evidence": "v9の移行ガイドはv7からの差分で、v5からの見た目の差を一覧にした公式資料は確認できなかった。v9を実描画した比較もしていない。そのためページには「一致しない場合がある」とだけ書き、具体的な差は出典のあるListItemIconの最小幅に絞った。"
+  },
+  {
+    "file": "react/nextjs-css/TailwindMui.tsx",
+    "claim": "Tailwind CSS vs MUI の向き不向き（バンドルサイズ、パフォーマンス等）",
+    "verdict": "UNDETERMINED",
+    "sourceUrl": "",
+    "quote": "",
+    "correction": "",
+    "evidence": "版の差ではなく比較の評価で、今回の照合範囲の外。一次情報に当たっていないので判定しない。v9のブログにあるsxの性能改善や約3%のバンドルサイズ削減は教材の主張を支える数値ではなく、本文にも足していない。"
+  }
+]
