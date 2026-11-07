@@ -1,6 +1,9 @@
+// implementation-mirror: api/lib/jevTriage.ts
 import { Inbox, Server, SlidersHorizontal } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 import CodingChallenge from "@/components/CodingChallenge";
+import JevLiveTriage from "@/components/JevLiveTriage";
+import type { JevTriageRecord } from "@/components/JevTriageOutcome";
 import SliderChallenge from "@/components/SliderChallenge";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
@@ -16,7 +19,18 @@ import ReferenceLinks from "@/components/ReferenceLinks";
  * - choice + noulを1リクエストで使う基本形
  * - 選択肢に「どれでもない」を入れる前後を実測で比べる
  * - 応答例の値は2026-09-20にjev-1.13.0を実際に呼んで得たもの
+ * - 実行ボタンは/api/jevを呼ぶ。質問の定義と規則はapi/lib/jevTriage.tsが持つ
  */
+
+/** 実行できないときに見せる記録。「3. 実行して確認する」の応答と同じ値 */
+const RECORDED_RESPONSE: JevTriageRecord = {
+  input: "今月の請求が2回引き落とされています。至急確認して返金してください。",
+  department: "billing",
+  confidence: 1,
+  urgent: 0.79,
+  model: "jev-1.13.0",
+  measuredOn: "2026-09-20",
+};
 
 /** 緊急度のnoul（2026-09-20、jev-1.13.0で実測）。しきい値ラボが使う */
 const URGENCY_MEASURED = [
@@ -288,9 +302,21 @@ export async function POST(request: Request) {
               同じ入力を4回送ると、選ばれたラベルは4回とも同じで、確率は0.66〜0.74、confidenceは0.48〜0.61の範囲で動きました（公式Quick
               startの英語の例、2026-09-20、jev-1.13.0）。上の応答と手元の値が少し違っても、誤りではありません。値がしきい値の近くにあると判定が入れ替わり得るので、次の節で中間の帯を人の確認に回します。
             </InfoBox>
+
+            <h3 className="text-xl font-bold text-foreground mt-8 mb-4">
+              このページから実際に呼ぶ
+            </h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              自分のプロジェクトを作る前に、ここから同じ判定を試せます。ボタンを押すと、このサイトのサーバーが上の質問の定義でJevを呼びます。送れるのは文章だけで、質問はサーバー側で固定しています。振り分けはlib/triage.tsのdecideと同じ規則です。応答時間はサーバーがJevの応答を待った時間です。
+            </p>
+            <JevLiveTriage
+              record={RECORDED_RESPONSE}
+              recordHref="#recorded-measurements"
+              recordLinkLabel="「4. しきい値を自分のデータで決める」"
+            />
           </section>
 
-          <section>
+          <section id="recorded-measurements" className="scroll-mt-20">
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <SlidersHorizontal className="text-primary" size={28} />
               4. しきい値を自分のデータで決める

@@ -147,6 +147,18 @@ export default function PolicyChatQuota() {
           </p>
         </section>
 
+        <section className="mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <Activity size={18} className="text-primary" />
+            <h2 className="text-xl font-semibold text-foreground">
+              Jevの実行との共用
+            </h2>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Jevセクションの実行ボタンは、AIチャットの匿名の枠を共用します。1回の実行で枠を1回使い、全体枠にも同じように数えます。入力が不正なときと、サーバーにAPIキーが無いときは枠を使いません。Jevの実行にBYOKはありません。入力した文章は判定のために外部のAPI（TypeSafe）へ送られます。
+          </p>
+        </section>
+
         <section>
           <div className="flex items-center gap-2 mb-3">
             <Activity size={18} className="text-primary" />
