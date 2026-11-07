@@ -11,7 +11,7 @@ Issue #121（定期検査の失敗）を受けて、`pnpm check:sources`、`chec
 | 分類 | 件数 | 扱い |
 |---|---|---|
 | 一次情報側の変更 | 195 | 引用を差し替え、必要な本文を修正した |
-| cmuxとNext.js、MUIの出典 | 8 | 引用も本文も変えていない。下の表に残した |
+| cmuxとNext.js、MUIの出典 | 8 | 別のPRの本文修正を待って解消した。下の表に書いた |
 
 途中で増えた9件は次のとおり。下の一覧には含まない。
 
@@ -27,18 +27,20 @@ Issue #121（定期検査の失敗）を受けて、`pnpm check:sources`、`chec
 | check:verdicts:reaudit | `react/state-events/Events.tsx` | form.mdの文が分かれた |
 | check:verdicts:reaudit | `learning/sources/OfficialCatchup.tsx` | VerifiedBoxのprop名がmainで変わった |
 
-### 残った失敗
+### cmux、Next.js、MUIの8件
 
-作業中に#174（cmuxの教材の削除）と#175（Next.js 16）がmainへ入った。cmuxの出典`github-com-manaflow-ai-cmux`はそれで消えたが、次の7件は残っている。この作業ではcmux、Next.js、MUIの出典を変えない取り決めなので、触っていない。
+作業中に#174（cmuxの教材の削除）、#175（Next.js 16）、#176（MUI v9）がmainへ入った。出典`github-com-manaflow-ai-cmux`は#174で消え、残る7件を次のように解消した。
 
-| 検査 | 対象 | 出典 | 状況 |
+| 検査 | 対象 | 出典 | 解消の仕方 |
 |---|---|---|---|
-| check:sources、check:quotes | `nextjs-org-docs-app-api-reference-functions-cachelife` | nextjs.org cacheLife | #163は閉じたが引用が古いまま。`fix:quotes`は引用を消すだけなので使っていない |
-| check:verdicts | `react/nextjs-practice/Optimization.tsx`（2件） | nextjs.org image、route-segment-config | 同上 |
-| check:verdicts | `react/nextjs-server/Rsc.tsx` | nextjs.org server-and-client-components | 同上 |
-| check:verdicts | `claude-code/cmux/CmuxBrowserAPI.tsx` | manaflow-ai/cmuxのcommands.md | 教材は#174で消えたが判定が残っている |
-| check:verdicts | `claude-code/cmux/CmuxSetup.tsx` | code.claude.com/docs/en/hooks | 同上 |
-| check:verdicts:low | `react/Home.tsx` | registry.npmjs.org/@mui/material | #162で扱う |
+| check:sources、check:quotes | `nextjs-org-docs-app-api-reference-functions-cachelife` | nextjs.org cacheLife | コード例の前置きが`title`に変わったので、コード本体を引用した |
+| check:verdicts | `react/nextjs-practice/Optimization.tsx`（imageSizes） | nextjs.org image | 本文は#175で既定値どおりに直っていたので、引用を合わせて判定をCONFIRMEDにした |
+| check:verdicts | `react/nextjs-practice/Optimization.tsx`（runtime） | route-segment-config | 箇条書きの記号の変更。本文の例は#175で消えている。判定はREFUTEDのまま |
+| check:verdicts | `react/nextjs-server/Rsc.tsx` | server-and-client-components | 原文の表記が`navigator.geolocation`に変わった |
+| check:verdicts | `claude-code/cmux/CmuxBrowserAPI.tsx`、`CmuxSetup.tsx`（2件） | manaflow-ai/cmux、code.claude.com | 監査記録は履歴なので書き換えず、`scripts/verify-verdicts.mjs`が「ページ削除済み」として件数を出して照合から外す |
+| check:verdicts:low | `react/Home.tsx` | registry.npmjs.org/@mui/material | 本文は版数を書かない「MUI」に直っていた。latestが9.5.0へ進んだので、9系であることまでを引用した |
+
+`check:verdicts`のページ削除済みは10件で、すべてcmuxの教材の判定。
 
 ## 到達不能の扱い
 
@@ -85,6 +87,8 @@ PDFは`check:verdicts`の6 URLと`check:verdicts:low`の2 URLが、この環境�
 | Claude Codeの運用 | 24 | 10 | 11 | 1 | 2 |
 | Claude Codeのその他 | 56 | 34 | 13 | 9 | 0 |
 | Claude Code以外 | 67 | 50 | 13 | 3 | 1 |
+
+#180と重なったClaude Codeのページは#180の内容を優先した。下の一覧の本文修正のうち、そのページの分は#180の文面になっている。
 
 ## 差し替えた引用の一覧
 

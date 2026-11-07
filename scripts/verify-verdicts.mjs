@@ -91,8 +91,8 @@ export function decideOutcome({ mismatched, problems, unreachable, attempted }) 
  *
  * 監査記録は履歴なので、教材を消しても判定は書き換えない。ただし消えたページの
  * 主張は誰も読まないので、その引用が原文から外れても直す先が無い。
- * 赤のまま残すと本当の変化が埋もれるので、件数だけ出して照合から外す。
- * file を持たない判定はページに紐づかないので照合を続ける。
+ * 失敗のまま残すと本当の変化が埋もれるので、件数だけ出して照合から外す。
+ * fileを持たない判定はページに紐づかないので照合を続ける。
  */
 export const PAGES_ROOT = "client/src/pages";
 

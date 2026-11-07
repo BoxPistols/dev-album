@@ -230,7 +230,7 @@ export default function FileMap() {
               CLAUDE.md（<code>.claude/CLAUDE.md</code>・<code>CLAUDE.local.md</code> を含む。ユーザーの <code>~/.claude/CLAUDE.md</code> は数えない）が無いときだけです。
               <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすると、両方を読みます。
               CLAUDE.mdも置くなら、CLAUDE.mdから <code>@AGENTS.md</code> でimportするか、
-              symlink を張ります。実際に載ったかは <code>/context</code> の
+              symlinkを張ります。実際に載ったかは <code>/context all</code> の
               Memory files で確かめられます。
             </InfoBox>
 
