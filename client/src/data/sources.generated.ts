@@ -7,7 +7,6 @@
 import type { Source } from "./sources";
 
 export const GENERATED_SOURCES: Source[] = [
-
   {
     id: "aws-amazon-com-blogs-devops-amazon-q-developer-end-of-support-announce",
     title: "aws.amazon.com/blogs/devops/amazon-q-developer-end-of-support-announcement/",
