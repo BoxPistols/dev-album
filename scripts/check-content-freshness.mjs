@@ -17,10 +17,10 @@ const CLAIMS = [
   {
     pkg: "@mui/material",
     label: "MUI（教材本文の表記）",
-    // 以前はページタイトル「MUI 7 入門」から拾っていたが、タイトルは「MUI 入門」に
+    // 以前はページタイトル「MUI 7入門」から拾っていたが、タイトルは「MUI入門」に
     // 変わり抽出に失敗していた。本文に書かれた「MUI v7」の最大メジャーを拾う
     claimed: pagesMajor("client/src/pages/react/mui", /MUI v(\d+)/g),
-    note: "本文表記のメジャー。乖離したら教材内容の v 差分確認が必要",
+    note: "本文表記のメジャー。乖離したら教材内容のv差分確認が必要",
   },
   {
     pkg: "@mui/material",
@@ -66,7 +66,7 @@ function extractMajor(v) {
   return v ? Number(v) : undefined;
 }
 
-/** ディレクトリ配下の .tsx から pattern の数字を集め、最大のメジャーを返す */
+/** ディレクトリ配下の.tsxからpatternの数字を集め、最大のメジャーを返す */
 function pagesMajor(dir, pattern) {
   const abs = resolve(root, dir);
   const majors = readdirSync(abs)
