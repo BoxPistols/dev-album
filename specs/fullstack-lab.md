@@ -47,7 +47,7 @@ exercises/fullstack/<step-id>/
 1. 受講者が「提出」を押す
 2. 機械判定: WebContainerの中で`tsc --noEmit`・`eslint`・`vitest run --reporter=json`を走らせ、結果をJSONで集める
 3. AIレビュー: 課題文・`rubric.json`・受講者のコード（starterからの差分）・機械判定の結果・説明課題の文章をサーバー側のAPIに送る
-4. サーバーはAIに、決めたJSONスキーマで返させる。Zodで検証し、形が合わない応答は捨てて1回だけ再試行する
+4. サーバーはAIに、決めたJSONスキーマで返させる。Zodで検証し（`advice`は`z.array(z.string()).max(3)`、`questions`も同じく上限を付ける）、形が合わない応答は捨てて1回だけ再試行する
 
 ```ts
 type Review = {

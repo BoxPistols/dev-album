@@ -38,7 +38,7 @@
 
 スタックは1本に固定する。「どれでもよい」と書くと手順が書けなくなる。代替は各セクション末尾の置き換え表で「何が変わるか」だけ示す。
 
-この表は本番の構成。演習はブラウザの中のラボ（[fullstack-lab.md](./fullstack-lab.md)）で行い、ラボの中ではNext.js 16が動かないため、Vite + Hono + PGliteで同じ設計を組む（ラボの仕様の「判断を仰ぎたい点」1）。本番の構成への載せ替えはfullstack-shipで扱う。
+この表は本番の構成。演習はブラウザの中のラボ（[fullstack-lab.md](./fullstack-lab.md)）で行い、ラボの中ではNext.js 15.5以降がWebContainerで動かないため、Vite + Hono + PGliteで同じ設計を組む（ラボの仕様の「判断を仰ぎたい点」1）。本番の構成への載せ替えはfullstack-shipで扱う。
 
 ### セクションとページ（stepは1から連番）
 
