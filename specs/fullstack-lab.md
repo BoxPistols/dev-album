@@ -51,7 +51,15 @@ exercises/fullstack/<step-id>/
 
 ```ts
 type Review = {
-  rubric: { id: string; level: "met" | "partial" | "not_met"; evidence: { file: string; line: number }[]; comment: string }[];
+  rubric: {
+    id: string;
+    level: "met" | "partial" | "not_met";
+    // levelを誰が出したか。heldはJevの確信度が0.8未満で判定を保留したもの（levelはLLMの判定を参考として残す）
+    levelSource: "jev" | "llm" | "held";
+    confidence: number | null;   // Jevの確信度。LLMの判定ならnull
+    evidence: { file: string; line: number }[];
+    comment: string;
+  }[];
   advice: string[];          // 次に直すとよい点（多くても3つ）
   nextHint: string | null;   // 答えそのものではなく、次の一歩
   questions: string[];       // 理解を確かめる質問（説明課題）
@@ -93,7 +101,7 @@ RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外�
 - AIが間違える → 合否は機械判定だけで決める。AIの指摘は「参考」と明記し、「違うと思う」で反論できる
 - 受講者のコードにAIへの指示が書かれている（プロンプトインジェクション） → 受講者のコードはデータとして区切って渡す。合否はAIが決めないので、影響は助言の質に留まる
 - AIの費用 → 1回のレビューで送る量をサーバー側で制限する（差分だけ、ファイル数と文字数の上限）。匿名は1日の回数に上限、BYOKなら上限なし
-- 受講者のコードと進捗 → IndexedDBにだけ保存し、サーバーには提出時のレビュー用データ以外を送らない。送ったデータを保存しないことをプライバシーページに書く
+- 受講者のコードと進捗 → IndexedDBにだけ保存する。サーバーに送るのは、提出時のレビュー用データと、受講者が押した「納得した / 違うと思う」の記録だけにする。レビュー用データは保存しない。「違うと思う」の記録は、課題・観点・理由・指摘の本文だけを、ルーブリックとプロンプトの見直しのために直近5,000件まで保存する（決定事項7）。どちらもプライバシーページに書く
 - WebContainer APIのライセンス → 公式は「営利目的の商用環境での本番利用」にライセンスが要るとし、プロトタイプやPoCには不要としている。公開前に、無料の学習サイトとして使う場合の扱いをStackBlitzに確認する（下の「公開前に解決が要る点」1）
 
 ## 出力
