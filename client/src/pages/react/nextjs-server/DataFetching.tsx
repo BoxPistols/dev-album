@@ -113,7 +113,7 @@ const res3 = await fetch('https://api.example.com/posts', {
 const res4 = await fetch('https://api.example.com/products', {
   next: { tags: ['products'] }, // 'products' タグを付ける
 });
-// → revalidateTag('products') でキャッシュを無効化できる`}
+// → revalidateTag('products', 'max') でキャッシュを無効化できる`}
               language="tsx"
               title="キャッシュオプション"
             />
@@ -209,7 +209,7 @@ export async function updateProduct(id: string) {
   await db.product.update({ where: { id }, data: { /* ... */ } });
 
   // 'products' タグが付いたすべての fetch キャッシュを無効化
-  revalidateTag('products');
+  revalidateTag('products', 'max');
 }`}
               language="tsx"
               title="オンデマンド再検証"

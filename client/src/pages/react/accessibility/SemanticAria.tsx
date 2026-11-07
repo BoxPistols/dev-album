@@ -1259,39 +1259,57 @@ function StatusBadge({ status }: { status: 'active' | 'inactive' | 'pending' }) 
           <section>
             <CodingChallenge
               title="アクセシブルなアコーディオンボタンを実装"
-              description={'ボタンの ___ を埋めてください。ARIA 属性で開閉状態と制御対象のパネルを伝えます。閉じている状態です。'}
+              description={'ボタンの ___ を埋めてください。ARIA属性で開閉状態と制御対象のパネルを伝えます。開閉状態はstateで持ち、属性の値もstateに合わせて切り替えます。'}
               preview={true}
               initialCode={`function App() {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen((prev) => !prev);
+
   return (
     <div>
       <h3>
         <button
-          ___="false"
+          id="faq-button-1"
+          ___={open}
           ___="faq-panel-1"
           onClick={toggle}
         >
           よくある質問
         </button>
       </h3>
-      <div id="faq-panel-1" role="region" hidden>
+      <div
+        id="faq-panel-1"
+        role="region"
+        aria-labelledby="faq-button-1"
+        hidden={!open}
+      >
         <p>回答の内容がここに表示されます...</p>
       </div>
     </div>
   );
 }`}
               answer={`function App() {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen((prev) => !prev);
+
   return (
     <div>
       <h3>
         <button
-          aria-expanded="false"
+          id="faq-button-1"
+          aria-expanded={open}
           aria-controls="faq-panel-1"
           onClick={toggle}
         >
           よくある質問
         </button>
       </h3>
-      <div id="faq-panel-1" role="region" aria-labelledby="faq-button-1" hidden>
+      <div
+        id="faq-panel-1"
+        role="region"
+        aria-labelledby="faq-button-1"
+        hidden={!open}
+      >
         <p>回答の内容がここに表示されます...</p>
       </div>
     </div>

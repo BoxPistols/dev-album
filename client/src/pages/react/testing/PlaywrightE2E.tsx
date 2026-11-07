@@ -1,3 +1,4 @@
+// implementation-mirror: .github/workflows/ci.yml
 import CodeBlock from "@/components/CodeBlock";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
@@ -108,22 +109,35 @@ export default function PlaywrightE2E() {
               language="ts"
               title="playwright.config.ts（このサイトの実設定）"
               code={`import { defineConfig } from "@playwright/test";
+import { parsePort } from "./client/src/lib/port";
+
+// 待ち受けるポートを固定する（未指定だとdevサーバーが乱数ポートで起動してしまう）
+const PORT = String(parsePort(process.env.PORT) ?? 3400);
 
 export default defineConfig({
   testDir: "./e2e",
   timeout: 30_000,
-  retries: 0,
+  // CIだけ再試行する。毎回落ちる実バグと、再試行で通る一過性の揺れを切り分けるため
+  retries: process.env.CI ? 2 : 0,
+  // CIでは失敗をPR上に注釈し、HTMLレポートを成果物として残す
+  reporter: process.env.CI
+    ? [["github"], ["html", { open: "never" }]]
+    : [["list"]],
   use: {
     // テスト内の page.goto("/") はこの baseURL を基準に解決される
-    baseURL: \`http://localhost:\${process.env.PORT || 3000}\`,
+    baseURL: \`http://localhost:\${PORT}\`,
     // 失敗したテストだけスクリーンショットを残す（デバッグ用）
     screenshot: "only-on-failure",
+    // 再試行時だけトレースを取り、失敗の原因を後から追えるようにする
+    trace: process.env.CI ? "on-first-retry" : "off",
   },
   webServer: {
     // テスト開始前に dev サーバーを自動で立ち上げる
-    command: "npm run dev",
-    port: Number(process.env.PORT) || 3000,
-    reuseExistingServer: true,
+    command: "pnpm dev",
+    env: { PORT },
+    port: Number(PORT),
+    // CIは毎回クリーンに起動し、ローカルは起動中のサーバーを使い回す
+    reuseExistingServer: !process.env.CI,
   },
   projects: [
     // このサイトは chromium のみで実行する
@@ -286,18 +300,37 @@ test("critical / serious な a11y 違反がない", async ({ page }) => {
 });`}
             />
             <InfoBox
-              type="warning"
-              title="このサイトの E2E は CI の自動ゲートではない"
+              type="info"
+              title="このサイトではE2EもPRごとにCIで走る"
             >
-              重要な事実として、このサイトの E2E テストは実装されていますが、CI
-              では自動実行されていません。
+              このサイトの{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 .github/workflows/ci.yml
+              </code>{" "}
+              は2つのジョブで構成されている。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                verify
               </code>
-              が回すのは「型チェック → 単体テスト（vitest） → ビルド」の 3
-              つだけで、Playwright は含まれていません。 E2E
-              はローカルまたは手動で実行する位置づけです。「テストが存在する」ことと「そのテストが自動ゲートとして毎回走る」
-              ことは別だという典型例なので、区別して押さえておきましょう。
+              （型チェック → 単体テスト → ビルド）と
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                e2e
+              </code>
+              （Playwrightの全スペック。axeによるa11y検査を3テーマぶん含む）で、両方が緑になってからマージする運用にしている。この運用を守っているのは規約で、GitHubのブランチ保護で必須チェックに指定しているわけではない。
+              E2Eは単体テストより遅く揺れやすいので、CIでは再試行を2回まで許し、失敗時だけレポートを成果物として残している（
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                playwright.config.ts
+              </code>
+              の
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                retries
+              </code>
+              と{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                reporter
+              </code>
+              ）。
+              「テストが存在する」ことと「そのテストが自動ゲートとして毎回走る」ことは別なので、自分のプロジェクトでも
+              workflowのジョブを見て、どこまでがゲートかを確かめる習慣をつけよう。
             </InfoBox>
           </section>
 

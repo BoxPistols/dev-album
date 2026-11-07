@@ -1,5 +1,5 @@
 import {
-  Chrome,
+  Globe,
   MonitorSmartphone,
   ListOrdered,
   ShieldAlert,
@@ -35,7 +35,7 @@ export default function BrowserVerification() {
           </p>
           <VerifiedBox
             verifiedAt="2026-08-22"
-            cmuxVersion="Claude Code 2.1.239"
+            verifiedVersion="Claude Code 2.1.239"
             platform="macOS (Apple Silicon)"
             officialDocs="https://code.claude.com/docs/en/chrome"
             officialDocsLabel="公式: Use Claude Code with Chrome"
@@ -70,7 +70,7 @@ export default function BrowserVerification() {
           {/* Claude in Chrome */}
           <section>
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
-              <Chrome className="text-[var(--claude-primary)]" />
+              <Globe className="text-[var(--claude-primary)]" />
               Claude in Chrome（Web アプリ向け）
             </h2>
             <p className="leading-relaxed mb-4 text-muted-foreground">

@@ -68,7 +68,7 @@ pnpm dev
 | マニュアル | 内容 |
 |-----------|------|
 | Git / GitHub 入門 | 基本操作、ブランチ、PR、AI エージェント連携 |
-| React / TypeScript / Next.js 入門 | React 19、Next.js 15、CSS、Storybook、a11y、アーキテクチャ |
+| React / TypeScript / Next.js入門 | React 19、Next.js 16、CSS、Storybook、a11y、アーキテクチャ |
 | Claude Code & 開発環境 | CLI、MCP、AI コーディングエージェント、Hooks、CI/CD |
 | Three.js / React Three Fiber 入門 | シーン構築、R3F、飛行シミュレーション |
 | AI / Python / 機械学習 | Python・機械学習・LLM・LMOps の基礎 |
@@ -155,7 +155,6 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 | `/project:deploy-check` | デプロイ前最終チェック |
 | `/project:audit-previews` | 全プレビュー検証 |
 | `/project:fact-check` | Claude Code 教材を公式ドキュメントと照合 |
-| `/project:fact-check-cmux` | cmux 教材を公式 README + 実機出力と照合 |
 
 ### Hooks
 

@@ -132,7 +132,7 @@ export default function HarnessEngineering() {
                 </h3>
                 <p className="text-muted-foreground">
                   生成物を機械的に確認する。tests、型チェック、linter、
-                  hooks、UI のスクリーンショット比較、cmux ブラウザ操作。
+                  hooks、UIのスクリーンショット比較、ブラウザ操作。
                   「動いて見える」と「実際に動く」のギャップを埋める層。
                 </p>
               </div>

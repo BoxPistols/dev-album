@@ -258,7 +258,7 @@ gh pr create --title "feat: 認証機能"`} />
               <div className="p-4 md:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h3 className="text-base md:text-lg font-bold mb-4">パターン C: マルチターミナルでの AI 協調</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  複数のターミナルタブ（または cmux のワークスペース）で複数の AI ツールを同時に起動し、それぞれに異なる役割を割り当てる高度な構成。
+                  複数のターミナルタブで複数のAIツールを同時に起動し、それぞれに異なる役割を割り当てる高度な構成。
                 </p>
                 <CodeBlock language="bash" code={`# タブ 1: Claude Code — 設計・実装
 cd ~/project && claude
@@ -269,10 +269,7 @@ cd ~/project && gemini
 > このライブラリの最新の破壊的変更を調べて
 
 # タブ 3: Claude Code — レビュー専任
-cd ~/project && claude "/code-review"
-
-# cmux を使う場合は 1 ワークスペース = 1 エージェントで割り当て、
-# 通知リングで入力待ちのエージェントを見分ける`} />
+cd ~/project && claude "/code-review"`} />
               </div>
             </div>
           </section>
@@ -369,7 +366,7 @@ description: code-review の指摘を Cursor で差分適用するときに使�
                   phase: 'Phase 4: チーム展開',
                   items: [
                     'チームメンバーのツール選択の自由を確保',
-                    'マルチターミナル（タブ / cmux）による協調ワークフロー',
+                    'マルチターミナルによる協調ワークフロー',
                     'スキルの改善サイクルを確立（rules-to-skills）',
                   ],
                 },

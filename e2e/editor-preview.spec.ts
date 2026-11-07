@@ -218,7 +218,7 @@ test.describe('プレビューエラー検出', () => {
 // 旧 URL の互換
 //
 // マニュアル ID を claude-mux から claude-code に変えた。mux は tmux 由来の名残で、
-// tmux の章を外した時点で意味を失っていた（同じマニュアルで扱う cmux とも無関係）。
+// tmuxの章を外した時点で意味を失っていた。
 // 公開済みの URL なので転送は恒久的に残す。消えたら外部リンクが全部死ぬ。
 // ============================================================
 
@@ -227,7 +227,13 @@ test.describe('旧 URL からの転送', () => {
     ['/claude-mux', '/claude-code'],
     ['/claude-mux/claude-core/project-rules', '/claude-code/claude-core/project-rules'],
     ['/claude-mux/multi-ai/file-map', '/claude-code/multi-ai/file-map'],
-    ['/claude-mux/cmux/cmux-intro', '/claude-code/cmux/cmux-intro'],
+    // cmuxの章は外した。内容が最も近いページへ転送する
+    ['/claude-mux/cmux/cmux-intro', '/claude-code/multi-ai/multi-ai-coexistence'],
+    ['/claude-code/cmux/cmux-intro', '/claude-code/multi-ai/multi-ai-coexistence'],
+    ['/claude-code/cmux/cmux-setup', '/claude-code/multi-ai/multi-ai-coexistence'],
+    ['/claude-code/cmux/agent-teams', '/claude-code/ide-agent-teams/agent-orchestration'],
+    ['/claude-code/cmux/browser-api', '/claude-code/best-practices/browser-verification'],
+    ['/claude-code/cmux/worktrees', '/claude-code/ide-agent-teams/agent-orchestration'],
     // 削除済みの tmux 系は入口へ戻す（同名ページが claude-code 側に無いため）
     ['/claude-mux/tmux-intro/panes', '/claude-code'],
     ['/claude-mux/reference/session-management', '/claude-code'],

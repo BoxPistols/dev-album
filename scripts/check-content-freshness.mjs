@@ -23,6 +23,23 @@ const CLAIMS = [
     note: "本文表記のメジャー。乖離したら教材内容のv差分確認が必要",
   },
   {
+    pkg: "next",
+    label: "Next.js（ProjectSetupの実測出力）",
+    // 本文の「Next.js 15」「Next.js 17」は版の説明にも出るので、最大値を取ると
+    // 将来の版に引きずられる。create-next-appの出力の行だけを拾う
+    claimed: pagesMajor(
+      "client/src/pages/react/nextjs-basics",
+      /▲ Next\.js (\d+)\./g,
+    ),
+    note: "create-next-appを流し直して出力を差し替え、Next15Featuresの版ごとの節に差分を足す",
+  },
+  {
+    pkg: "next",
+    label: "Next.js（Landingの表記）",
+    claimed: pagesMajor("client/src/pages", /Next\.js (\d+) App Router/g),
+    note: "マニュアル紹介の表記を現行の版へ更新する",
+  },
+  {
     pkg: "@mui/material",
     label: "MUI（プレビュー同梱 UMD）",
     claimed: vendorMajor(/mui-material-(\d+)\./),

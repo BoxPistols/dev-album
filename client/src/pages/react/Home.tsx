@@ -1,5 +1,6 @@
 import { BookOpen, Code2, Layers, Palette, Rocket, Server, Layout, Sparkles, Zap, ArrowRight, Keyboard, Search, Settings, Eye, Copy, Maximize2, RotateCcw, GripVertical, CheckCircle2, Lightbulb, Shield } from 'lucide-react';
 import { Link } from 'wouter';
+import { getManualPages } from '@/lib/navigation';
 import PageNavigation from '@/components/PageNavigation';
 import { modKey } from '@/lib/keyLabels';
 
@@ -100,9 +101,9 @@ const curriculumPart2 = [
   },
   {
     icon: <Zap size={20} />,
-    title: 'Next.js 15 新機能',
+    title: 'Next.js 15 / 16新機能',
     steps: 'STEP 48-49',
-    description: 'Turbopack、PPR、非同期API',
+    description: 'Turbopack、proxy、Cache Components、PPR、非同期API',
     color: 'bg-primary',
   },
   {
@@ -181,7 +182,7 @@ const techTopics = [
   { name: 'Tailwind CSS', color: 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800' },
   { name: 'shadcn/ui', color: 'bg-slate-100 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700' },
   { name: 'MUI', color: 'bg-primary/10 text-primary border-primary/20' },
-  { name: 'Next.js 15', color: 'bg-primary/10 text-primary border-primary/20' },
+  { name: 'Next.js 16', color: 'bg-primary/10 text-primary border-primary/20' },
   { name: 'Storybook', color: 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-800' },
   { name: 'Vite', color: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800' },
 ];
@@ -218,7 +219,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-20 md:py-28 relative z-10">
           <div className="mb-6 flex items-center gap-3 flex-wrap">
             <span className="text-xs font-semibold text-white/90 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-              全77ステップ
+              全{getManualPages('react').length}ステップ
             </span>
             <span className="text-xs font-semibold text-cyan-200/90 bg-cyan-400/10 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-300/10">
               React + Next.js + Storybook

@@ -597,6 +597,8 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   // ppr / useCache / dynamicIO を統合した単一フラグ。experimental の下ではない
   cacheComponents: true,
+  // 16.3以降。公式はcacheComponentsと一緒に明示するよう案内している
+  partialPrefetching: true,
 };
 
 export default nextConfig;
@@ -703,7 +705,7 @@ import { revalidateTag } from 'next/cache';
 
 export async function addProduct(formData: FormData) {
   await db.product.create({ ... });
-  revalidateTag('product-list'); // キャッシュを無効化
+  revalidateTag('product-list', 'max'); // 16で第2引数が必須
 }`}
               language="tsx"
               title="'use cache' によるキャッシュ制御"
@@ -860,6 +862,8 @@ const nextConfig: NextConfig = {
 
   // ppr / useCache / dynamicIO を統合した単一フラグ。experimental の下ではない
   cacheComponents: true,
+  // 16.3以降。公式はcacheComponentsと一緒に明示するよう案内している
+  partialPrefetching: true,
 };
 
 export default nextConfig;
@@ -876,8 +880,7 @@ export default nextConfig;
                 有効にしても既存の <code className="text-sm bg-muted px-1.5 py-0.5 rounded">useMemo</code> や
                 <code className="text-sm bg-muted px-1.5 py-0.5 rounded">useCallback</code> はそのまま動作します。
                 コンパイラは手動のメモ化と共存するため、徐々にコードを簡素化していけます。
-                PPR についても <code className="text-sm bg-muted px-1.5 py-0.5 rounded">incremental</code> モードで
-                ページ単位の導入が可能です。
+                Next.js 15の<code className="text-sm bg-muted px-1.5 py-0.5 rounded">incremental</code>モードと<code className="text-sm bg-muted px-1.5 py-0.5 rounded">experimental_ppr</code>は16で削除されたので、16では<code className="text-sm bg-muted px-1.5 py-0.5 rounded">cacheComponents</code>で有効にします。
               </p>
             </InfoBox>
           </section>
@@ -973,7 +976,7 @@ export default nextConfig;
               items={[
                 {
                   question: 'PPR を使うと既存の SSG や ISR のページはどうなりますか？',
-                  answer: 'PPR は既存のレンダリング方式と共存できます。ppr: "incremental" を設定すると、experimental_ppr = true を指定したページだけが PPR 対象になります。SSG や ISR を使っている既存ページは影響を受けません。段階的に PPR に移行していくことが可能です。',
+                  answer: 'Next.js 15のcanaryでは、ppr: "incremental"を設定するとexperimental_ppr = trueを指定したページだけがPPR対象になり、既存ページと共存させて段階的に移行できました。Next.js 16ではこのフラグとセグメント設定は削除され、PPRはcacheComponentsで有効にします。移行の手順は公式のMigrating to Cache Componentsを確認してください。',
                 },
                 {
                   question: 'PPR はどのホスティングサービスでも使えますか？',

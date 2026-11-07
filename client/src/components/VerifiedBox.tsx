@@ -6,8 +6,8 @@ interface VerifiedBoxProps {
   // 一次情報（公式リポジトリ等）と逐語照合し直した日付（YYYY-MM-DD、任意）。
   // 実機を動かした日とは別物なので、混ぜずに並べて出す
   sourcesCheckedAt?: string;
-  // 検証時の cmux バージョン（例: "0.63.x"）
-  cmuxVersion: string;
+  // 検証した対象とバージョン（例: "Claude Code 2.1.239"）
+  verifiedVersion: string;
   // 検証環境（例: "macOS 15.4 (Apple Silicon)"）
   platform: string;
   // 公式ドキュメントへのリンク（任意）
@@ -19,7 +19,7 @@ interface VerifiedBoxProps {
 export default function VerifiedBox({
   verifiedAt,
   sourcesCheckedAt,
-  cmuxVersion,
+  verifiedVersion,
   platform,
   officialDocs,
   officialDocsLabel = "公式ドキュメント",
@@ -32,7 +32,7 @@ export default function VerifiedBox({
           実機検証済み
         </div>
         <div className="text-muted-foreground">
-          <span className="text-foreground">{cmuxVersion}</span>
+          <span className="text-foreground">{verifiedVersion}</span>
           <span className="mx-2 text-border">/</span>
           <span>{platform}</span>
           <span className="mx-2 text-border">/</span>
