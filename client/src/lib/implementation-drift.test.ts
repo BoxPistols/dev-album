@@ -8,6 +8,12 @@ import {
   SUBAGENTS,
   VERIFY_STEPS,
 } from "../data/site-making";
+import {
+  CONFIDENCE_THRESHOLD,
+  TRIAGE_QUESTIONS,
+  URGENT_HIGH,
+  URGENT_LOW,
+} from "../../../api/lib/jevTriage";
 
 /**
  * 教材がこのリポジトリ自身の実装を写している箇所と、実装の現在値を突き合わせる。
@@ -33,6 +39,7 @@ const REGISTRY = {
   secretsPermissions: "pages/git/github-actions/SecretsPermissions.tsx",
   playwrightE2E: "pages/react/testing/PlaywrightE2E.tsx",
   siteMaking: "data/site-making.ts",
+  jevTriageApp: "pages/ai-ml/jev/JevTriageApp.tsx",
 } as const;
 
 function read(relFromRoot: string): string {
@@ -352,6 +359,27 @@ describe("実装と表示のズレ検出: トップページの「このサイ�
         expect(scripts, `pnpm ${m[1]}`).toHaveProperty([m[1]]);
       }
     }
+  });
+});
+
+describe("実装と教材のズレ検出: Jevの質問と振り分けの規則", () => {
+  const src = readSrc(REGISTRY.jevTriageApp);
+
+  it("サーバーの質問の定義が、ページのコード例と同じ文面である", () => {
+    const { department, is_urgent } = TRIAGE_QUESTIONS;
+    for (const text of [
+      department.instructions,
+      ...Object.values(department.criteria),
+      is_urgent.instructions,
+    ]) {
+      expect(src).toContain(text);
+    }
+  });
+
+  it("サーバーのしきい値が、ページのlib/triage.tsと同じ値である", () => {
+    expect(src).toContain(`CONFIDENCE_THRESHOLD = ${CONFIDENCE_THRESHOLD}`);
+    expect(src).toContain(`URGENT_LOW = ${URGENT_LOW}`);
+    expect(src).toContain(`URGENT_HIGH = ${URGENT_HIGH}`);
   });
 });
 

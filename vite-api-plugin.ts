@@ -8,6 +8,17 @@ import {
   maxTokensFor,
   reasoningEffortFor,
 } from "./api/lib/chatModels.js";
+import {
+  jevFailure,
+  readJevMessage,
+  validateJevRequest,
+} from "./api/lib/jevRequest.js";
+import { triageMessage } from "./api/lib/jevTriage.js";
+
+function sendJson(res: ServerResponse, status: number, body: unknown) {
+  res.writeHead(status, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(body));
+}
 
 function parseBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
@@ -141,6 +152,37 @@ export function apiDevPlugin(): Plugin {
               res.write(`data: ${JSON.stringify({ error: message })}\n\n`);
               res.end();
             }
+          }
+        },
+      );
+
+      // 本番 (api/jev.ts) と検証・判定の本体を共有する。devには /api/chat と同じく利用枠が無い
+      server.middlewares.use(
+        "/api/jev",
+        async (req: IncomingMessage, res: ServerResponse) => {
+          if (req.method !== "POST") {
+            sendJson(res, 405, { error: "Method not allowed" });
+            return;
+          }
+
+          const body = await parseBody(req).catch(() => null);
+          const message = readJevMessage(body);
+          const problem = validateJevRequest(message);
+          if (problem) {
+            sendJson(res, 400, { error: "invalid_request", message: problem });
+            return;
+          }
+
+          const apiKey = env.TYPESAFE_API_KEY?.trim();
+          if (!apiKey) {
+            sendJson(res, 503, jevFailure("not_configured"));
+            return;
+          }
+
+          try {
+            sendJson(res, 200, await triageMessage(apiKey, message as string));
+          } catch {
+            sendJson(res, 503, jevFailure("judgement_failed"));
           }
         },
       );
