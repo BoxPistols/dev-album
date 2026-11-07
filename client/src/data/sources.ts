@@ -53,6 +53,11 @@ import { resolvePagePathFromFile } from "../lib/source-paths";
 import { GENERATED_SOURCES } from "./sources.generated";
 
 /** 手で書いた出典。ページの出典欄に出す */
+const MUI_INTRO = "/react/mui/intro";
+const MUI_COMPONENTS = "/react/mui/components";
+const MUI_CUSTOMIZATION = "/react/mui/customization";
+const TAILWIND_MUI = "/react/nextjs-css/tailwind-mui";
+
 export const CURATED_SOURCES: Source[] = [
   {
     id: "github-slack-use-in-slack",
@@ -652,6 +657,183 @@ export const CURATED_SOURCES: Source[] = [
       "create-next-app 16.4.5の既定で作り、ページに`export const revalidate = 3600`、`export const dynamic = 'force-static'`、Suspenseの外の`await fetch`をそれぞれ書いて`npx next build`を実行する。--no-cache-componentsで作った設定で同じページをビルドする",
     note: "有効時はどれも終了コード1。revalidateとdynamicは「Route segment config ... is not compatible with `nextConfig.cacheComponents`」で止まり、fetchはプリレンダーのエラーで止まった。無効時はrevalidateとfetchを書いたページのビルドが終了コード0で通った",
     usedBy: ["/react/nextjs-basics/project-setup", "/react/nextjs-advanced/next15-features"],
+  },
+  {
+    id: "mui-upgrade-to-v9",
+    title: "Upgrade to v9 — Material UI",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "This guide explains how to upgrade from Material UI v7 to v9.",
+      "The `xs`, `sm`, `md`, `lg`, `xl` props are replaced by the `size` prop.",
+      "The `Grid` component no longer accepts `direction=\"column\"` or `direction=\"column-reverse\"`.",
+      "The `ListItemIcon` default min-width has changed to `36px` (previously `56px`)",
+      "23 legacy icon exports that ended with `Outline` (without the \"d\") have been removed.",
+      "The deprecated system props have been removed from the following components:",
+      "`inputProps` — use `slotProps.input` instead",
+      "If you were using these deprecated class names as `styleOverrides` keys in your theme, use the `variants` array in the `root` override instead:",
+    ],
+    usedBy: [MUI_INTRO, MUI_COMPONENTS, MUI_CUSTOMIZATION, TAILWIND_MUI],
+  },
+  {
+    id: "mui-release-v9-0-0",
+    title: "Material UI v9.0.0のリリースノート",
+    url: "https://github.com/mui/material-ui/releases/tag/v9.0.0",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: ["This major release focuses on accessibility improvements, sx prop performance, and cleanup of deprecated APIs."],
+    usedByFiles: ["docs/audits/2026-11-07-mui-v9-verdicts.json"],
+  },
+  {
+    id: "mui-release-v9-0-0-beta-1",
+    title: "Material UI v9.0.0-beta.1のリリースノート",
+    url: "https://github.com/mui/material-ui/releases/tag/v9.0.0-beta.1",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "Remove 'column' and 'column-reverse' options from `direction` prop",
+      "Use theme spacing instead of hardcoded minWidth",
+    ],
+    usedBy: [MUI_COMPONENTS],
+  },
+  {
+    id: "mui-blog-introducing-mui-v9",
+    title: "Introducing MUI v9 — MUI Blog",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/pages/blog/introducing-mui-v9.md",
+    kind: "official-post",
+    verifiedAt: "2026-11-07",
+    quotes: ["Material UI moves from v7 straight to v9 (there is no Material UI v8, like there is no v2)"],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-blog-2026-and-beyond",
+    title: "MUI Update: What we've been working on (and why) — MUI Blog",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/pages/blog/2026-and-beyond.md",
+    kind: "official-post",
+    verifiedAt: "2026-11-07",
+    quotes: ["Pigment CSS remains in alpha phase and is currently on hold."],
+    // 本文にPigment CSSの記述は無い。Issue #162の確認項目として監査で使った
+    usedByFiles: ["docs/audits/2026-11-07-mui-v9-verdicts.json"],
+  },
+  {
+    id: "mui-versions",
+    title: "Material UI Versions",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/getting-started/versions/versions.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: ["The most recent stable version (✓) is recommended for use in production."],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-overview-material-design-2",
+    title: "Material UI Overview",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/getting-started/overview/overview.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: ["Material UI supports Material Design 2."],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-upgrade-to-v6-umd",
+    title: "Upgrade to v6 — Material UI",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v6/upgrade-to-v6.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: ["To align with React 19's removal of UMD builds, Material UI has also removed its UMD bundle."],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-integration-nextjs",
+    title: "Next.js integration — Material UI",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/integrations/nextjs/nextjs.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "or `v1X-appRouter` if you are using Next.js v1X",
+      "Create a theme file with the `'use client'` directive:",
+    ],
+    usedBy: [TAILWIND_MUI],
+  },
+  {
+    id: "mui-integration-tailwindcss-v4",
+    title: "Tailwind CSS v4 integration — Material UI",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/integrations/tailwindcss/tailwindcss-v4.md",
+    kind: "official-docs",
+    verifiedAt: "2026-11-07",
+    quotes: [
+      "allowing Tailwind CSS classes to override Material UI styles.",
+      "@layer theme, base, mui, components, utilities;",
+    ],
+    usedBy: [TAILWIND_MUI],
+  },
+  {
+    id: "npm-mui-material-9-5-0",
+    title: "@mui/material 9.5.0（npm registry）",
+    url: "https://registry.npmjs.org/@mui/material/9.5.0",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: ["\"_id\":\"@mui/material@9.5.0\""],
+    note: "引用が示すのは9.5.0の存在まで。latestであることは2026-11-07にnpm view @mui/material dist-tagsで確認した",
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "npm-downloads-mui-material-2026-10",
+    title: "@mui/materialのダウンロード数（2026年10月、npm）",
+    url: "https://api.npmjs.org/downloads/point/2026-10-01:2026-10-31/@mui/material",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: ["\"downloads\":43207517"],
+    note: "npmのダウンロード数はCIやミラーの取得も含む代理指標で、利用者数ではない",
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-github-repository",
+    title: "mui/material-ui（GitHub API）",
+    url: "https://api.github.com/repos/mui/material-ui",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: ["\"created_at\": \"2014-08-18T19:11:54Z\""],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-v9-demo-typography-color",
+    title: "Material UI v9のCardのデモ（BasicCard.tsx）",
+    url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/components/cards/BasicCard.tsx",
+    kind: "official-repo",
+    verifiedAt: "2026-11-07",
+    quotes: ["<Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>"],
+    usedBy: [MUI_INTRO],
+  },
+  {
+    id: "mui-v9-typography-color-render",
+    title: "@mui/material 9.5.0のTypographyがcolorの値ごとに出すCSS",
+    kind: "measured",
+    verifiedAt: "2026-11-07",
+    reproduce:
+      "@mui/material@9.5.0のTypographyをEmotionのキャッシュ付きでrenderToStringし、color=\"text.secondary\"とsx={{ color: 'text.secondary' }}で挿入されるCSSを比べる",
+    note: "color=\"text.secondary\"は色のルールを出さず、color=\"textSecondary\"とsxはrgba(0, 0, 0, 0.6)を出す。型はstringを許すのでtscでは検出できない",
+    usedBy: [MUI_INTRO, MUI_COMPONENTS, MUI_CUSTOMIZATION, TAILWIND_MUI],
+  },
+  {
+    id: "mui-v9-typecheck-of-examples",
+    title: "教材のコード例を@mui/material 9.5.0の型定義で検査した結果",
+    kind: "measured",
+    verifiedAt: "2026-11-07",
+    reproduce:
+      "@mui/material@9.5.0、@mui/material-nextjs@9.5.0、@mui/icons-material@9.5.0、react@19.1.0、typescript@5.8.3を入れた空のプロジェクトに、4ページのcode={...}のうちMUIを使うものを.tsxとして書き出す。useStateなど例が省略しているimportを補い、単独では構文にならないMuiIntroの最初の断片を除いて、strict: falseでtsc --noEmitを回す",
+    note: "修正前は40件のエラー。修正後に残る10件は、v5の記法のまま残したプレビューのGrid 4件、教材の外のファイルをimportする例5件、useState('light')の型推論1件。型を通っても効かない指定は検出できない（Typographyのcolorは別の実測で確認した）。パッケージ側の'use client'は、同じプロジェクトに入れた@mui/material/Button/Button.jsの先頭2行で確認した",
+    usedBy: [MUI_INTRO, MUI_COMPONENTS, MUI_CUSTOMIZATION, TAILWIND_MUI],
+  },
+  {
+    id: "mui-v5-preview-render",
+    title: "MUIページのプレビューをv5.18のUMDで実描画した結果",
+    kind: "measured",
+    verifiedAt: "2026-11-07",
+    reproduce:
+      "devサーバを起動し、Playwrightのchromiumで/react/mui/intro、/react/mui/components、/react/mui/customizationを開いて全iframeのconsoleエラーと描画を確認する",
+    note: "/vendor/mui-material-5.18.0.umd.min.jsを読むプレビュー24件が描画され、consoleエラーは0件。containedのhoverのboxShadowとSwitchの名前も確認した。UMDはversionを公開しないので、版はファイル名で判断している",
+    usedBy: [MUI_INTRO, MUI_COMPONENTS, MUI_CUSTOMIZATION],
   },
 ];
 
