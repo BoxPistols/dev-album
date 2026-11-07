@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-preview-blank-notice",
+    date: "2026-11-07",
+    title: "空欄を埋める前のプレビューに、赤いエラーではなく「埋めると動く」案内を出すようにした",
+    description:
+      "穴埋めのチャレンジで、空欄（___）が残ったまま実行して落ちると、学習者が何も書いていない段階で「TypeError: skills.___ is not a function」のような赤いエラーが出ていた。空欄が残っているあいだは「空欄を埋めるとプレビューが動きます」を先に出し、元のメッセージは補足として小さく添える。空欄が無いときのエラー表示は変えていない。",
+    category: "fix",
+    link: "/react/react-basics/components",
+  },
+  {
     id: "2026-11-07-semantic-aria-accordion-challenge",
     date: "2026-11-07",
     title: "セマンティックHTMLとARIAのアコーディオン課題が、正解を入れても動かなかったのを直した",

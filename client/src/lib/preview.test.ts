@@ -510,6 +510,20 @@ describe("チャレンジの空欄", () => {
     expect(html).toContain("const [value, ___] = useState(0)");
   });
 
+  it("空欄が残っているときの実行時エラーは、埋めると動く案内に差し替える", () => {
+    // 空欄が残っている: 案内文を出す
+    const html = buildPreviewHtml(withBlank, "", false);
+    expect(html).toContain("var __hasBlanks=true;");
+    expect(html).toContain("空欄（___）を埋めるとプレビューが動きます");
+    // 空欄が無い: 従来どおりエラーをそのまま出す
+    const filled = buildPreviewHtml(
+      "function App() { return <p>ok</p>; }",
+      "",
+      false,
+    );
+    expect(filled).toContain("var __hasBlanks=false;");
+  });
+
   it("JSXのタグ名が空欄なら、描画できるタグに差し替える", () => {
     // 空文字のままだとcreateElement('')で落ちる。文字列の中の___は巻き込まない
     const code = `function App() {
