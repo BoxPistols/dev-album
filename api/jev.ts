@@ -24,7 +24,7 @@ const TIER: Tier = "anonymous";
 /** 課金は質問の定義も含む入力全体に掛かるので、質問の分も見積もりに入れる */
 const QUESTIONS_TEXT = JSON.stringify(TRIAGE_QUESTIONS);
 
-/** 200 / 429 / 503 すべてに付与する共通ヘッダ。api/chat.tsと同じ形 */
+/** 200、429、503のすべてに付与する共通ヘッダ。api/chat.tsと同じ形 */
 function setCommonHeaders(
   res: VercelResponse,
   remaining: number | null,
@@ -90,7 +90,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     globalKill = result.globalKill;
     allowed = result.allowed;
   } else {
-    // Redis 未設定: カウンタなしで運用、残量は tier cap をそのまま表示 (情報提供のみ)
+    // Redis未設定: カウンタなしで運用する。上限のヘッダは情報提供のみ
     limit = Number.isFinite(TIER_CAPS[TIER]) ? TIER_CAPS[TIER] : null;
   }
 

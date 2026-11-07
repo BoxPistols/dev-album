@@ -156,7 +156,7 @@ export function apiDevPlugin(): Plugin {
         },
       );
 
-      // 本番 (api/jev.ts) と検証・判定の本体を共有する。devには /api/chat と同じく利用枠が無い
+      // 本番（api/jev.ts）と検証・判定の本体を共有する。devには/api/chatと同じく利用枠が無い
       server.middlewares.use(
         "/api/jev",
         async (req: IncomingMessage, res: ServerResponse) => {
