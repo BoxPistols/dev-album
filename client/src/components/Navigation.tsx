@@ -6,6 +6,7 @@ import {
   getPageByPath, getSectionPages, getManualPages, getManualSections, getManualIdFromPath,
 } from '@/lib/navigation';
 import { searchIndex } from '@/lib/searchIndex';
+import { searchPages } from '@/lib/searchPages';
 import { TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { useIsTruncated } from '@/hooks/useIsTruncated';
@@ -156,16 +157,10 @@ export default function Navigation() {
     return () => document.removeEventListener('focus-search', handleFocusSearch);
   }, []);
 
-  const searchResults = searchQuery.trim()
-    ? pages.flatMap((p) => {
-        const q = searchQuery.toLowerCase();
-        const titleMatch = p.title.toLowerCase().includes(q);
-        const keywords = searchIndex[p.path] ?? [];
-        const matchedKeywords = keywords.filter((kw) => kw.toLowerCase().includes(q));
-        if (!titleMatch && matchedKeywords.length === 0) return [];
-        return [{ ...p, matchedKeywords }];
-      })
-    : [];
+  // 語ごとのAND検索（searchPages）。入力全体の部分一致だと2語目や末尾の空白で0件になる
+  const searchResults = searchPages(pages, searchIndex, searchQuery).map(
+    ({ page, matchedKeywords }) => ({ ...page, matchedKeywords }),
+  );
 
   const hasSearch = searchQuery.trim().length > 0;
 
