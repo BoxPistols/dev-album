@@ -20,6 +20,60 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-08-lmops-retired-model-id",
+    date: "2026-11-08",
+    title: "LMOpsのコード例のモデルIDを、引退済みのものから現行のものに替えた",
+    description:
+      "LMOpsワークフローのコード例が使っていたclaude-sonnet-4-20250514は2026年6月15日に引退し、そのままでは呼び出しが失敗する。公式の移行先のclaude-sonnet-5-5にした。",
+    category: "fix",
+    link: "/ai-ml/lmops/lmops-workflow",
+  },
+  {
+    id: "2026-11-08-llm-basics-current-models",
+    date: "2026-11-08",
+    title: "LLMの仕組みのページのモデルとコンテキスト長を現行の世代に合わせた",
+    description:
+      "コード例のモデルをclaude-sonnet-5-5にし、コンテキストウィンドウの説明をいまのClaude（Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5はいずれも1M）に合わせた。比較表のGPTは版を付けない表記にした。",
+    category: "update",
+    link: "/ai-ml/lmops/llm-basics",
+  },
+  {
+    id: "2026-11-08-python-setup-supported-versions",
+    date: "2026-11-08",
+    title: "Python環境構築の推奨版を、サポートが続いている版に替えた",
+    description:
+      "Python 3.10は2026年10月にサポートが終わった。インストール例をpyenv latestで3.14系の最新を入れる形にし、推奨を「バグ修正が続いている版」とした。",
+    category: "fix",
+    link: "/ai-ml/python-ml/python-setup",
+  },
+  {
+    id: "2026-11-08-node-eol-examples",
+    date: "2026-11-08",
+    title: "コード例のNode.jsを、サポートが終わった20から24にした",
+    description:
+      "Node.js 20は2026年4月30日にサポートが終わった。コンテナのDockerfile、GitHub Actionsのマトリクス、Claude CodeのDocker実行の例を、サポート中のLTSにした。",
+    category: "fix",
+    link: "/infra/devops/containers",
+  },
+  {
+    id: "2026-11-08-hooks-exit2-model-switch",
+    date: "2026-11-08",
+    title: "Hooksの「exit 2で止められるイベント」にPreModelSwitchとWorktreeRemoveを足した",
+    description:
+      "Hooksガイドの一覧を公式リファレンスの現在の表に合わせた。あわせて、起動時のSessionStartとSetupではmcp_toolのHookが飛ばされることを書いた。",
+    category: "update",
+    link: "/claude-code/hooks-advanced/hooks-guide",
+  },
+  {
+    id: "2026-11-08-mcp-project-approval-trust",
+    date: "2026-11-08",
+    title: "MCPの一括承認の設定が効く条件を書いた",
+    description:
+      "MCPのセットアップのページで、enableAllProjectMcpServersをリポジトリの設定にコミットしても、ワークスペースを信頼するまでは無視されることを補った。",
+    category: "update",
+    link: "/claude-code/mcp/mcp-setup",
+  },
+  {
     id: "2026-11-07-jev-live-triage",
     date: "2026-11-07",
     title: "問い合わせの選別のページから、Jevを実際に呼べるようにした",

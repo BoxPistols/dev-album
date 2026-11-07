@@ -154,7 +154,7 @@ export default function LlmBasics() {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  コンテキストウィンドウの大きさはモデルごとに異なります。Claude Opus 5 や Claude Sonnet 5 は 1M トークンに対応し（ベータヘッダーなしで 1M が既定値）、Claude Sonnet 4.5 や Claude Haiku 4.5 は 200K トークンです。世代で変わる値なので、使うモデルのドキュメントで確認してください。
+                  コンテキストウィンドウの大きさはモデルごとに異なります。いまのClaude（Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5）はいずれも1Mトークンです。古い世代には200Kのモデルもあり、世代で変わる値なので、使うモデルのドキュメントで確認してください。
                 </p>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function LlmBasics() {
                     <td className="py-3 px-4 text-muted-foreground">コード生成、長文分析、対話</td>
                   </tr>
                   <tr className="bg-card">
-                    <td className="py-3 px-4 font-medium text-foreground">GPT-4o</td>
+                    <td className="py-3 px-4 font-medium text-foreground">GPT</td>
                     <td className="py-3 px-4 text-muted-foreground">OpenAI</td>
                     <td className="py-3 px-4 text-muted-foreground">マルチモーダル対応、広範な知識ベース、高速な推論</td>
                     <td className="py-3 px-4 text-muted-foreground">汎用タスク、画像理解、音声</td>
@@ -243,7 +243,7 @@ export default function LlmBasics() {
 client = anthropic.Anthropic()
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "Pythonの特徴を3つ教えて"}
@@ -266,7 +266,7 @@ print(message.content[0].text)`}
             </p>
             <CodeBlock
               code={`message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     system="あなたはシニアのWeb開発エンジニアです。初心者にも分かりやすく、具体的なコード例を交えて回答してください。",
     messages=[

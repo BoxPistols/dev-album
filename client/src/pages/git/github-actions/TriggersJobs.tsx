@@ -191,7 +191,7 @@ export default function TriggersJobs() {
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [22, 24, 26]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -217,7 +217,7 @@ export default function TriggersJobs() {
                       matrix.node-version
                     </p>
                     <p className="font-mono text-sm text-primary mt-1">
-                      [18, 20, 22]
+                      [22, 24, 26]
                     </p>
                   </div>
 
@@ -228,7 +228,7 @@ export default function TriggersJobs() {
 
                   {/* 展開後 */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
-                    {["18", "20", "22"].map((v) => (
+                    {["22", "24", "26"].map((v) => (
                       <div
                         key={v}
                         className="rounded-lg border border-border bg-card p-3 text-center"
@@ -299,7 +299,7 @@ export default function TriggersJobs() {
               手を動かす — マトリクスと依存を組む
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              test を Node 20 と 22 のマトリクスで走らせ、build は test の
+              testをNode 22と24のマトリクスで走らせ、buildはtestの
               完了を待つように <code>___</code> を埋めてください。
             </p>
 
@@ -313,7 +313,7 @@ export default function TriggersJobs() {
     runs-on: ubuntu-latest
     strategy:
       ___:
-        node-version: [20, 22]
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -331,7 +331,7 @@ export default function TriggersJobs() {
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20, 22]
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
