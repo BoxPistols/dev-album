@@ -18,7 +18,7 @@ async function startServer() {
 
   app.use(express.static(staticPath));
 
-  // Express 5 の path-to-regexp は "*" 単独を受け付けない（起動時に PathError で落ちる）。
+  // Express 5のpath-to-regexpは"*"単独を受け付けない（起動時にPathErrorで落ちる）。
   // 全パスに一致させるには名前付きのワイルドカードを使う。
   app.get("/{*splat}", (_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
