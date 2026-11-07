@@ -124,7 +124,7 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
 
   const needsThree = /\bTHREE\b/.test(cleanedCode);
   // チャレンジの空欄が残っているか（残っていれば、実行時エラーを案内文に差し替える）
-  const hasBlanks = /\b___\b/.test(cleanedCode);
+  const hasBlanks = /\b___\b/.test(jsxCode);
 
   return `<!DOCTYPE html>
 <html${needsTailwind && isDark ? ' class="dark"' : ''}><head><meta charset="utf-8">
