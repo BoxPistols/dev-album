@@ -27,6 +27,13 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "穴埋めのチャレンジで、空欄（___）が残ったまま実行して落ちると、学習者が何も書いていない段階で「TypeError: skills.___ is not a function」のような赤いエラーが出ていた。空欄が残っているあいだは「空欄を埋めるとプレビューが動きます」を先に出し、元のメッセージは補足として小さく添える。空欄が無いときのエラー表示は変えていない。",
     category: "fix",
     link: "/react/react-basics/components",
+    id: "2026-11-07-semantic-aria-accordion-challenge",
+    date: "2026-11-07",
+    title: "セマンティックHTMLとARIAのアコーディオン課題が、正解を入れても動かなかったのを直した",
+    description:
+      "onClickが参照するtoggleがコードのどこにも定義されておらず、空欄を埋めてもプレビューがReferenceErrorで止まっていた。開閉状態をuseStateで持ち、aria-expandedとhiddenが状態に追従する形に書き直した。ボタンを押すと実際に開閉し、属性の値が変わるのを確かめられる。",
+    category: "fix",
+    link: "/react/accessibility/semantic-aria",
   },
   {
     id: "2026-11-07-playwright-page-ci-claim",
