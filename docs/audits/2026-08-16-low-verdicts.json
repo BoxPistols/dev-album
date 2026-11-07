@@ -301,9 +301,9 @@
     "claim": "shadcn/ui、MUI 7 などのコンポーネントライブラリ",
     "verdict": "REFUTED",
     "sourceUrl": "https://registry.npmjs.org/@mui/material",
-    "quote": "\"latest-v7\":\"7.3.11\",\"latest\":\"9.3.1\"",
+    "quote": "\"latest-v7\":\"7.3.11\" [...] \"latest\":\"9.",
     "correction": "「MUI 7」の版数表記を現行に合わせる。npm の @mui/material は latest が 9.x（v7 は latest-v7 タグ）。教材本文が v7 前提の記述なら内容ごと更新し、版数に依存しない説明にするなら単に「MUI」と書く。",
-    "evidence": "npm レジストリの @mui/material メタデータを取得し、dist-tags の latest が 9.3.1、v7 系は latest-v7 として保守されている状態を確認した。"
+    "evidence": "npm レジストリの @mui/material メタデータを取得し、dist-tags の latest が 9.3.1、v7 系は latest-v7 として保守されている状態を確認した。 2026-11-07再照合: latestが9.5.0へ進み、版番号まで含む引用はリリースのたびに外れるので、9系であることまでを引用した。本文は版数を書かない「MUI」に直っている。"
   },
   {
     "file": "infra/observability/Monitoring.tsx",
