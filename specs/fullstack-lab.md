@@ -73,7 +73,7 @@ WebContainerで動くものに限る。第0段階の調査で次がわかって�
 - Next.jsは15.4より新しい版がWebContainerで動かない。15.5以降が`AsyncLocalStorage`に依存し、WebContainerが未実装のため。16の`next dev --webpack`も実行時エラーになる報告がある（stackblitz/starters#122）
 - TurbopackはネイティブバイナリでWebContainerでは使えない。WASM版は`next dev`に必要なAPIが欠けている
 
-そこでラボの中は次の構成にする（推奨案。下の「判断を仰ぎたい点」1）。
+そこでラボの中は次の構成にする（決定事項を参照）。
 
 | 層 | ラボの中 | 本番（shipセクション） |
 |---|---|---|
@@ -123,11 +123,11 @@ RLSを`auth.uid()`ではなく`current_setting`で組むのは、Supabaseを外�
 1. 演習はDev Albumとは別のアプリ（ラボ）で行う（2026-11-07決定）
 2. エディタはWebContainer方式にする（2026-11-07決定）。GitHub Codespacesは受講者ごとにGitHubアカウントと利用枠が要るため採らない
 3. 合否は機械判定（テスト・型・lint）だけで決め、AIは設計・読みやすさ・説明への助言を返す（2026-11-07、推奨案）
+4. ラボの中のスタックはVite + React + Hono + PGliteにする（2026-11-07、推奨案で確定。実装前なら変更できる）。Next.js 16がWebContainerで動かないため。Next.jsの載せ替えはshipセクションで手順として教える。ラボだけNext.js 15.4に固定する案は、古い版を教えることになるので採らない
+5. ラボのリポジトリ名は`dev-album-lab`にする（2026-11-07、推奨案で確定。実装前なら変更できる）。URLは公開時に決める
 
-## 判断を仰ぎたい点（未決）
-1. ラボの中のスタックを「Vite + React + Hono + PGlite」にするか。Next.js 16がWebContainerで動かないため。代わりに、Next.jsの載せ替えはshipセクションで手順として教える。もう1つの案は、ラボだけNext.js 15.4に固定すること（古い版を教えることになるので推さない）
-2. WebContainer APIのライセンス。Dev Albumを無料の学習サイトとして公開し続けるなら、商用ライセンスが要るかをStackBlitzに問い合わせる。要る場合の代替は、StackBlitz本体の埋め込み（`@stackblitz/sdk`）で、エディタはStackBlitzの画面になる
-3. ラボのリポジトリ名とURL（`dev-album-lab`を仮の名前とする）
+## 公開前に解決が要る点（未決）
+1. WebContainer APIのライセンス。Dev Albumを無料の学習サイトとして公開し続けるなら、商用ライセンスが要るかをStackBlitzに問い合わせる。回答が出るまでラボを公開しない。要る場合の代替は、StackBlitz本体の埋め込み（`@stackblitz/sdk`）で、エディタはStackBlitzの画面になる
 
 ## 参考
 - WebContainerのライセンス: https://webcontainers.io/enterprise
