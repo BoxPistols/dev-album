@@ -153,7 +153,7 @@ export default function SecurityPermissions() {
             <p className="leading-relaxed mb-4 text-sm text-muted-foreground">
               複数箇所の設定が存在する場合、以下の優先順位で適用されます（上が最優先）。
             </p>
-            <div className="space-y-2">
+            <ol className="space-y-2">
               {[
                 { priority: '1', name: 'マネージドポリシー', path: 'managed-settings.json', desc: '組織管理者が配置。最優先。' },
                 { priority: '2', name: 'コマンドライン', path: '--settings <ファイルまたはJSON>', desc: 'そのセッションだけ有効。プロジェクトとユーザーの設定ファイルより優先。' },
@@ -161,15 +161,16 @@ export default function SecurityPermissions() {
                 { priority: '4', name: 'プロジェクト共有', path: '.claude/settings.json', desc: 'チーム共有の設定。Git管理対象。' },
                 { priority: '5', name: 'ユーザー設定', path: '~/.claude/settings.json', desc: '全プロジェクト共通の個人設定。' },
               ].map(item => (
-                <div key={item.priority} className="flex items-center gap-4 p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                <li key={item.priority} className="flex items-start gap-4 p-3 rounded-lg border border-border bg-muted">
                   <span className="text-sm font-bold text-[var(--claude-primary)] w-6 text-center">{item.priority}</span>
                   <div className="flex-1">
                     <span className="font-bold text-sm">{item.name}</span>
                     <code className="text-xs text-muted-foreground ml-2">{item.path}</code>
+                    <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </section>
         </div>
 
