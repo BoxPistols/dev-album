@@ -37,7 +37,7 @@ const LOCAL_STORAGE = [
   {
     key: "chat-history / chat-settings / chat-panel-size",
     detail:
-      "AI チャットの会話履歴と表示設定。履歴の保存先はブラウザだけだが、送信した内容は回答を作るためにサーバーを経由する",
+      "AI チャットの会話履歴と表示設定。履歴の保存先はブラウザだけだが、送信した内容は回答を作るためにサーバーを経由する。chat-settingsには、自分で入力したAPIキーも平文で保存される。同じブラウザのプロファイルを使う人や拡張機能から読める。消すにはチャット設定のキー欄を空にするか、ブラウザのサイトデータを削除する",
   },
   {
     key: "theme / theme-mode / font-size / layout-mode",
