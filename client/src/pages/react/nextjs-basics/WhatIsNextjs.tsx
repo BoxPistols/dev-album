@@ -363,6 +363,10 @@ export default function LikeButton() {
                 <div className="w-20 flex-shrink-0 text-sm font-mono text-primary font-bold">2024</div>
                 <div className="text-sm text-foreground/80">Next.js 15。Turbopack の安定化、Server Actions の強化</div>
               </div>
+              <div className="flex gap-4 items-start">
+                <div className="w-20 flex-shrink-0 text-sm font-mono text-primary font-bold">2025</div>
+                <div className="text-sm text-foreground/80">Next.js 16。Turbopackが既定のバンドラーに、middleware.tsがproxy.tsに、Cache Componentsの導入</div>
+              </div>
             </div>
 
             <InfoBox type="warning" title="Pages Router と App Router">

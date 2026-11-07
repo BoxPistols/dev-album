@@ -101,7 +101,7 @@ const curriculumPart2 = [
   },
   {
     icon: <Zap size={20} />,
-    title: 'Next.js 15 新機能',
+    title: 'Next.js 15 / 16新機能',
     steps: 'STEP 48-49',
     description: 'Turbopack、PPR、非同期API',
     color: 'bg-primary',

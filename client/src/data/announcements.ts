@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-07-nextjs-16-alignment",
+    date: "2026-11-07",
+    title: "Next.jsのページで15と16の記述が食い違っていたのを揃えた",
+    description:
+      "「Next.js 15の新機能」は「Turbopackの本番ビルドは将来対応」のままで、プロジェクト作成のページ（16の挙動）と矛盾していた。ページを「Next.js 15 / 16の新機能」に広げて16で変わった点の表を足し、プロジェクト作成のページはcreate-next-app 16.4.5を実際に流した生成物と起動時の出力に差し替えた。生成直後のnext.config.tsにcacheComponents: trueが入っていることも載せている。",
+    category: "update",
+    link: "/react/nextjs-advanced/next15-features",
+  },
+  {
     id: "2026-11-07-remove-cmux-section",
     date: "2026-11-07",
     title: "Claude Codeマニュアルからcmuxの章を外した",

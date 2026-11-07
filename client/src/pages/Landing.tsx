@@ -51,7 +51,7 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "コンポーネントの基本から CSS・Next.js・デプロイまで一通り体験できる",
     topics: [
       "React 19 + TypeScript",
-      "Next.js 15 App Router",
+      "Next.js App Router",
       "Tailwind / MUI / Storybook",
       "デザインシステム構築",
     ],

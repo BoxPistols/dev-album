@@ -6,6 +6,7 @@ import Quiz from '@/components/Quiz';
 import ReferenceLinks from '@/components/ReferenceLinks';
 import Faq from '@/components/Faq';
 import PageSources from '@/components/PageSources';
+import { Link } from 'wouter';
 
 export default function Next15Features() {
   return (
@@ -14,14 +15,15 @@ export default function Next15Features() {
         <div className="mb-4">
           <span className="step-badge">STEP 48</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Next.js 15 の新機能</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Next.js 15 / 16の新機能</h1>
         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
           Next.js 15 では、Turbopack の安定化、非同期リクエスト API、キャッシングのデフォルト変更など、
           開発者体験とパフォーマンスの両面で大きなアップデートが行われました。
           実務で押さえておくべき主要な変更点を一つずつ確認していきましょう。
+          続くNext.js 16（2025年10月）で変わった点は、ページ後半の「Next.js 16で変わったこと」にまとめています。
         </p>
 
-        <WhyNowBox tags={['Next.js 15', 'Turbopack', 'async API', 'after()', 'next/form', 'next.config.ts']}>
+        <WhyNowBox tags={['Next.js 15', 'Next.js 16', 'Turbopack', 'async API', 'after()', 'next/form', 'next.config.ts']}>
           <p>
             Next.js 15 は App Router の成熟に伴い、開発体験の改善と API の一貫性向上に焦点を当てたリリースです。
             特にキャッシングのデフォルト変更は、これまでの Next.js 開発者が感じていた「予想外のキャッシュ」問題を解消します。
@@ -88,7 +90,8 @@ export default function Next15Features() {
             </div>
 
             <CodeBlock
-              code={`# Turbopack で開発サーバーを起動
+              code={`# Next.js 15: Turbopackで開発サーバーを起動
+# （16では既定なのでフラグは不要。webpackに戻すときは --webpack）
 next dev --turbopack
 
 # package.json に設定しておくのが便利
@@ -103,11 +106,13 @@ next dev --turbopack
               title="Turbopack の有効化"
             />
 
-            <InfoBox type="info" title="本番ビルドは引き続き webpack">
+            <InfoBox type="info" title="本番ビルドは16でTurbopackに">
               <p>
-                Next.js 15 時点で Turbopack が安定版となったのは開発サーバー（<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next dev</code>）のみです。
-                本番ビルド（<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build</code>）では引き続き webpack が使われます。
-                Turbopack による本番ビルドのサポートは将来のリリースで予定されています。
+                Next.js 15でTurbopackが安定版になったのは開発サーバー（<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next dev</code>）だけで、
+                本番ビルド（<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build</code>）はwebpackのままでした。
+                Next.js 16でTurbopackは開発と本番ビルドの両方で安定版になり、すべてのアプリの既定のバンドラーになりました。
+                webpackを使い続けるときは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next dev --webpack</code> /
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build --webpack</code> を付けます。
               </p>
             </InfoBox>
           </section>
@@ -729,7 +734,7 @@ export default nextConfig;`}
                 <tbody className="text-foreground/80">
                   <tr className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium">Turbopack</td>
-                    <td className="py-3 px-4">開発サーバーで安定版に</td>
+                    <td className="py-3 px-4">開発サーバーで安定版に（16で本番ビルドも既定に）</td>
                     <td className="py-3 px-4 text-green-600 dark:text-green-400">性能向上</td>
                   </tr>
                   <tr className="border-b border-border/50">
@@ -765,6 +770,63 @@ export default nextConfig;`}
                 </tbody>
               </table>
             </div>
+          </section>
+
+          {/* Next.js 16で変わったこと */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Next.js 16で変わったこと</h2>
+            <p className="text-foreground/80 mb-4 leading-relaxed">
+              Next.js 16は2025年10月21日にリリースされました。このページで扱った15の内容のうち、16で扱いが変わったものを並べます。
+              16で増えた機能（Cache Components、React Compilerのstable化、新しいキャッシュAPI）は
+              <Link href="/react/nextjs-advanced/next15-ppr" className="text-primary underline underline-offset-2">次のページ</Link>で扱います。
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-4 text-foreground font-semibold">項目</th>
+                    <th className="text-left py-3 px-4 text-foreground font-semibold">Next.js 15</th>
+                    <th className="text-left py-3 px-4 text-foreground font-semibold">Next.js 16</th>
+                  </tr>
+                </thead>
+                <tbody className="text-foreground/80">
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">Turbopack</td>
+                    <td className="py-3 px-4">開発サーバーだけ安定版。<code className="text-xs bg-muted px-1 py-0.5 rounded">--turbopack</code> で有効にする</td>
+                    <td className="py-3 px-4">開発と本番ビルドの既定。webpackは <code className="text-xs bg-muted px-1 py-0.5 rounded">--webpack</code> で選ぶ</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">非同期リクエストAPI</td>
+                    <td className="py-3 px-4">同期アクセスも警告付きで一時的に動く</td>
+                    <td className="py-3 px-4">同期アクセスは削除。<code className="text-xs bg-muted px-1 py-0.5 rounded">await</code> が必須</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">ミドルウェア</td>
+                    <td className="py-3 px-4"><code className="text-xs bg-muted px-1 py-0.5 rounded">middleware.ts</code></td>
+                    <td className="py-3 px-4">
+                      <code className="text-xs bg-muted px-1 py-0.5 rounded">proxy.ts</code> に改称（Node.jsランタイム）。<code className="text-xs bg-muted px-1 py-0.5 rounded">middleware.ts</code> は非推奨。
+                      移行手順は<Link href="/react/nextjs-practice/middleware" className="text-primary underline underline-offset-2">ミドルウェアと認証</Link>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="py-3 px-4 font-medium">Node.jsの最低版</td>
+                    <td className="py-3 px-4">18.18.0</td>
+                    <td className="py-3 px-4">20.9.0（Node.js 18は対象外）</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 font-medium"><code className="text-xs bg-muted px-1 py-0.5 rounded">next lint</code></td>
+                    <td className="py-3 px-4">使える</td>
+                    <td className="py-3 px-4">削除。ESLintかBiomeを直接使い、<code className="text-xs bg-muted px-1 py-0.5 rounded">next build</code> もlintを走らせない</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <InfoBox type="info" title="アップグレードはcodemodから">
+              <p>
+                15から16へは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">npx @next/codemod@canary upgrade latest</code> で依存の更新とcodemodの適用をまとめて進められます。
+                codemodで移しきれない箇所は公式のアップグレードガイド（version-16）で確認します。
+              </p>
+            </InfoBox>
           </section>
 
           {/* Quiz 1 */}
@@ -810,6 +872,16 @@ export default nextConfig;`}
                   description: 'Next.js 14 からのアップグレード手順と破壊的変更の一覧',
                 },
                 {
+                  title: 'Next.js 16リリースブログ',
+                  url: 'https://nextjs.org/blog/next-16',
+                  description: 'Turbopackの既定化、proxy.tsへの改称、版の要件と削除された機能の一覧',
+                },
+                {
+                  title: 'Next.js 16アップグレードガイド',
+                  url: 'https://nextjs.org/docs/app/guides/upgrading/version-16',
+                  description: 'Next.js 15からのアップグレード手順と破壊的変更の一覧',
+                },
+                {
                   title: 'after - Next.js Docs',
                   url: 'https://nextjs.org/docs/app/api-reference/functions/after',
                   description: 'after() API の詳細なリファレンス',
@@ -833,7 +905,7 @@ export default nextConfig;`}
                 },
                 {
                   question: 'Turbopack は webpack のプラグインと互換性がありますか？',
-                  answer: 'いいえ、Turbopack は webpack とは異なるアーキテクチャのため、webpack プラグインとの直接的な互換性はありません。ただし、CSS Modules・PostCSS・静的アセットのインポートといった主要機能は設定なしで動作します。一方で App Router の root layout 自動生成や、CSS Modules の一部レガシー機能（単独の :local / :global、@value ルールなど）、sassOptions.functions、Yarn PnP は未対応と公式に明記されています。カスタム webpack 設定に依存している場合は、開発時に Turbopack を使わず webpack を使い続けることもできます（next dev で --turbopack フラグを省略するだけ）。',
+                  answer: 'いいえ、Turbopackはwebpackとは異なるアーキテクチャのため、webpackプラグインとの直接的な互換性はありません。ただし、CSS Modules・PostCSS・静的アセットのインポートといった主要機能は設定なしで動作します。一方でApp Routerのroot layout自動生成や、CSS Modulesの一部レガシー機能（単独の :local / :global、@valueルールなど）、sassOptions.functions、Yarn PnPは未対応と公式に明記されています。カスタムwebpack設定に依存している場合はwebpackを使い続けられます。15ではnext devから --turbopackを外すだけで、Turbopackが既定になった16ではnext dev --webpack / next build --webpackを付けます。',
                 },
                 {
                   question: 'after() API はセルフホスティングでも使えますか？',

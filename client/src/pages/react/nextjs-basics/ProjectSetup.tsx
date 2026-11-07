@@ -3,6 +3,7 @@ import InfoBox from '@/components/InfoBox';
 import WhyNowBox from '@/components/WhyNowBox';
 import PageNavigation from '@/components/PageNavigation';
 import ReferenceLinks from '@/components/ReferenceLinks';
+import VerifiedBox from '@/components/VerifiedBox';
 
 export default function ProjectSetup() {
   return (
@@ -16,6 +17,15 @@ export default function ProjectSetup() {
           create-next-app を使って Next.js プロジェクトを作成し、ディレクトリ構造や開発サーバーの起動方法を学びます。
           Vite での経験を活かしながら、Next.js 特有の構成を理解しましょう。
         </p>
+
+        {/* 生成物と起動時の出力は、下の版でcreate-next-appを実際に流した結果から写している */}
+        <VerifiedBox
+          verifiedAt="2026-11-07"
+          verifiedVersion="create-next-app 16.4.5 / Next.js 16.4.5"
+          platform="Linux / Node.js 22.23.4"
+          officialDocs="https://nextjs.org/docs/app/api-reference/cli/create-next-app"
+          officialDocsLabel="create-next-appの公式リファレンス"
+        />
 
         <WhyNowBox tags={['create-next-app', 'App Router', 'TypeScript', 'プロジェクト構造']}>
           <p>
@@ -83,8 +93,14 @@ npx create-next-app@latest my-next-app --webpack     # webpack を使う`}
 │       ├── globals.css         # グローバルCSS（Tailwind のインポート含む）
 │       └── favicon.ico         # ファビコン
 ├── public/                     # 静的ファイル置き場（画像、フォントなど）
+│   ├── file.svg
+│   ├── globe.svg
 │   ├── next.svg
-│   └── vercel.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── AGENTS.md                   # AIコーディングエージェント向けの注意書き（next devが書き足す）
+├── README.md
+├── next-env.d.ts               # Next.jsの型定義の読み込み（自動生成。編集しない）
 ├── next.config.ts              # Next.js の設定ファイル
 ├── tsconfig.json               # TypeScript の設定
 ├── eslint.config.mjs           # ESLint の設定
@@ -196,8 +212,41 @@ export default function Home() {
 
             <h3 className="text-lg font-bold text-foreground mb-3 mt-8">next.config.ts - 設定ファイル</h3>
 
+            <p className="text-foreground/80 mb-4 leading-relaxed">
+              create-next-appが生成した直後の <code className="text-sm bg-muted px-1.5 py-0.5 rounded">next.config.ts</code> は次のとおりです（16.4.5で生成）。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">cacheComponents: true</code> が最初から入っているので、
+              キャッシュは <code className="text-sm bg-muted px-1.5 py-0.5 rounded">"use cache"</code> で明示した部分だけに掛かります（Partial Pre-renderingのページで扱います）。
+            </p>
+
             <CodeBlock
-              code={`// next.config.ts
+              code={`// next.config.ts（create-next-app 16.4.5が生成したもの）
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  cacheComponents: true,
+  partialPrefetching: true,
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
+};
+
+export default nextConfig;`}
+              language="typescript"
+              title="生成直後のnext.config.ts"
+            />
+
+            <p className="text-foreground/80 mt-4 mb-4 leading-relaxed">
+              ここに画像の外部ドメインやリダイレクトを書き足していきます。
+            </p>
+
+            <CodeBlock
+              code={`// next.config.ts（生成された設定に書き足す例。既存の項目は省略）
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -225,7 +274,7 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;`}
               language="typescript"
-              title="Next.js 設定ファイル"
+              title="設定を書き足す例"
             />
           </section>
 
@@ -240,13 +289,15 @@ cd my-next-app
 # 開発サーバーを起動
 npm run dev
 
-# 出力:
-#  ▲ Next.js 15.x.x (Turbopack)
-#  - Local:    http://localhost:3000
-#  - Network:  http://192.168.x.x:3000
+# 出力（16.4.5で実行。時間とIPアドレスは環境で変わる）:
+# ▲ Next.js 16.4.5 (Turbopack)
+# - Local:         http://localhost:3000
+# - Network:       http://192.168.x.x:3000
+# ✓ Ready in 334ms
+# ✓ Running next.config.ts took 46ms
 #
-#  ✓ Starting...
-#  ✓ Ready in xxxms`}
+# - Cache Components enabled
+# - Partial Prefetching enabled`}
               language="bash"
               title="開発サーバーの起動"
             />

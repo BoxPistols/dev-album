@@ -23,6 +23,12 @@ const CLAIMS = [
     note: "本文表記のメジャー。乖離したら教材内容のv差分確認が必要",
   },
   {
+    pkg: "next",
+    label: "Next.js（教材本文の表記）",
+    claimed: pagesMajor("client/src/pages/react/nextjs-advanced", /Next\.js (\d+)/g),
+    note: "本文表記のメジャー。乖離したらnextjs-advancedに新しい版の節を足す",
+  },
+  {
     pkg: "@mui/material",
     label: "MUI（プレビュー同梱 UMD）",
     claimed: vendorMajor(/mui-material-(\d+)\./),
