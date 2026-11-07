@@ -140,7 +140,7 @@ export default function AIAgentOverview() {
           </h2>
           <div className="bg-card border border-border rounded-lg p-8 space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              無料で使い始められるのは <strong className="text-foreground">Gemini CLI / Antigravity / Cursor（Hobby プラン）</strong>です。
+              無料で使い始められるのは <strong className="text-foreground">Antigravity / Cursor（Hobbyプラン）</strong>です。
               1つのツールの無料枠を使い切ったら別のツールに切り替える
               「<strong className="text-foreground">ローテーション戦略</strong>」で、無料の範囲を広く使えます。
               一方Claude CodeはPro / Max / Ultra / Team / EnterpriseのいずれかのプランかConsoleでのクレジット購入が前提、
@@ -161,7 +161,7 @@ export default function AIAgentOverview() {
                 <tbody>
                   {[
                     ['Claude Code', 'ターミナル', 'Pro / Max / Ultra / Team / EnterpriseまたはConsoleのクレジットが必要', 'Mac / Win / Linux'],
-                    ['Gemini CLI', 'ターミナル', '1日1,000リクエスト無料', 'Mac / Win / Linux'],
+                    ['Gemini CLI', 'ターミナル', '組織のCode Assistライセンス向け', 'Mac / Win / Linux'],
                     ['Cursor', 'エディタ', 'Hobby プランで制限付きのエージェントリクエスト', 'Mac / Win / Linux'],
                     ['Cline', 'VS Code 拡張', '拡張自体は無料。モデル利用は Cline アカウント（従量課金 / 定額）か自前の API キー、またはローカルモデルから選ぶ', 'Mac / Win / Linux'],
                     ['Warp', 'ターミナル', 'Free プランに AI 利用枠なし（有料プラン / クレジット購入 / BYOK）', 'Mac / Win / Linux'],
@@ -179,7 +179,7 @@ export default function AIAgentOverview() {
             </div>
 
             <InfoBox type="success" title="組み合わせの例">
-              <strong>無料で揃えるパターン:</strong> Gemini CLI（1日1,000リクエスト）+ Cursor の Hobby プラン + Antigravity の個人向け $0/month プランを組み合わせる。
+              <strong>無料で揃えるパターン:</strong> CursorのHobbyプラン + Antigravityの個人向け$0/monthプランを組み合わせる。
               <br />
               <strong>Claude Codeを使うパターン:</strong> Pro / Max / Ultra / Team / Enterpriseのいずれかのプランに加入するか、Consoleでクレジットを購入してから使い始める。
             </InfoBox>
@@ -221,7 +221,7 @@ export default function AIAgentOverview() {
                 {
                   step: 'STEP 4',
                   title: '予備ツールを揃える（Gemini CLI / Warp / Antigravity）',
-                  desc: 'メインツールを使い切ったときの予備。Gemini CLI と Antigravity は無料枠から始められる。',
+                  desc: 'メインツールを使い切ったときの予備。Antigravityは無料枠から始められ、Gemini CLIは組織のCode Assistライセンスで使う。',
                   link: '/ai-agent/sub-tools',
                 },
               ].map((item, index) => (

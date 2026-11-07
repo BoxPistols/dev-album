@@ -491,9 +491,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "developers.figma.com/docs/figma-mcp-server/code-to-canvas/",
     url: "https://developers.figma.com/docs/figma-mcp-server/code-to-canvas/",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "Using the remote Figma MCP server, you can convert live UI from your browser into editable Figma frames. Capture a single screen or an entire flow in one session.",
+      "With the Figma MCP server, you can capture live UI from your browser and turn it into editable Figma design layers. Capture a single screen or an entire flow in one session.",
     ],
     usedByFiles: [
       "client/src/pages/react/cdd-flow/DesignCodeSync.tsx",
@@ -692,9 +692,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "docs.github.com/en/billing/concepts/product-billing/github-actions",
     url: "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "GitHub Actions usage is **free** for **self-hosted runners** and for **public repositories** that use standard GitHub-hosted runners.",
+      "The following usage remains free independently and does not reduce the included compute usage: Standard GitHub-hosted runners in public repositories. See Choosing the runner for a job. Self-hosted runners.",
     ],
     usedByFiles: [
       "client/src/pages/git/github-actions/Intro.tsx",
@@ -742,11 +742,11 @@ export const GENERATED_SOURCES: Source[] = [
   {
     id: "docs-github-com-en-copilot-concepts-agents-cloud-agent-about-cloud-age",
     title: "docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
-    url: "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
+    url: "https://docs.github.com/en/copilot/concepts/copilot-surfaces/copilot-on-github",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "While working on a coding task, Copilot cloud agent has access to its own ephemeral development environment, powered by GitHub Actions, where it can explore your code, make changes, execute automated tests and linters and more.",
+      "An environment is the place where the agent executes its work, such as a cloud sandbox, a GitHub Actions runner, or a remote custom environment.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/ai-coding-agents/GithubCopilot.tsx",
@@ -1262,9 +1262,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "nextjs.org/docs/app/api-reference/functions/cacheLife",
     url: "https://nextjs.org/docs/app/api-reference/functions/cacheLife",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "tsx filename=\"app/blog/page.tsx\" highlight={1,5} 'use cache' import { cacheLife } from 'next/cache'",
+      "'use cache' import { cacheLife } from 'next/cache' export default async function BlogPage() { cacheLife('days')",
     ],
     usedByFiles: [
       "client/src/pages/react/nextjs-advanced/Next15Ppr.tsx",
@@ -1596,9 +1596,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "raw.githubusercontent.com/nitrojs/nitro/main/docs/2.deploy/0.index.md",
     url: "https://raw.githubusercontent.com/nitrojs/nitro/main/docs/2.deploy/0.index.md",
     kind: "official-repo",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "When deploying to production using CI/CD, Nitro tries to automatically detect the provider environment and set the right one without any additional configuration required. Currently, the providers below can be auto-detected with zero config.",
+      "When deploying to production using CI/CD, Nitro tries to detect the provider environment and set the right preset automatically, with no configuration required. The following providers can be auto-detected with zero config:",
     ],
     usedByFiles: [
       "client/src/pages/vue/nuxt-server/Deploy.tsx",
@@ -1979,9 +1979,9 @@ export const GENERATED_SOURCES: Source[] = [
     title: "vercel.com/kb/guide/a-record-and-caa-with-vercel",
     url: "https://vercel.com/kb/guide/a-record-and-caa-with-vercel",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-07",
     quotes: [
-      "Always use the value shown in your project's domain card. For most projects that value is 76.76.21.21, a general-purpose anycast address. Newer projects draw a value from a pool of anycast IPs matched to the plan and project, so your card may show a different address such as 216.198.79.1. The card is the source of truth, so use whatever it displays.",
+      "Use the `A` record value shown in your project's **Settings** > **Domains**. Vercel assigns anycast IP addresses per project, so the value can differ between projects.",
     ],
     usedByFiles: [
       "client/src/pages/react/deploy/Vercel.tsx",

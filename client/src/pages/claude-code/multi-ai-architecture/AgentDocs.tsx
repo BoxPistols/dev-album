@@ -454,7 +454,7 @@ paths:
 
             <p className="text-foreground leading-relaxed">
               どのファイルが実際に読み込まれたかはセッション中に
-              <code className="text-primary mx-1">/context</code>の Memory files
+              <code className="text-primary mx-1">/context all</code>のMemory files
               で確認できる。分割の効果を測るなら、
               構成を議論する前にまずここを見る。
             </p>

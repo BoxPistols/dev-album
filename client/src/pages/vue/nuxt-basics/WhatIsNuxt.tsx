@@ -348,12 +348,12 @@ const doubled = computed(() => count.value * 2)
               links={[
                 {
                   title: "Nuxt 公式 - Introduction",
-                  url: "https://nuxt.com/docs/getting-started/introduction",
+                  url: "https://nuxt.com/docs/4.x/getting-started/introduction",
                   description: "Nuxt の概要と提供する機能の公式解説",
                 },
                 {
                   title: "Nuxt 公式 - Installation",
-                  url: "https://nuxt.com/docs/getting-started/installation",
+                  url: "https://nuxt.com/docs/4.x/getting-started/installation",
                   description: "プロジェクト作成手順の公式ガイド",
                 },
                 {
@@ -364,7 +364,7 @@ const doubled = computed(() => count.value * 2)
                 },
                 {
                   title: "Nuxt 公式 - Upgrade Guide（Nuxt 4）",
-                  url: "https://nuxt.com/docs/getting-started/upgrade",
+                  url: "https://nuxt.com/docs/4.x/getting-started/upgrade",
                   description:
                     "srcDir の app/ 化や compatibilityVersion の変更点",
                 },

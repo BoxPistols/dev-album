@@ -591,7 +591,7 @@ export default defineEventHandler(async (event) => {
                 },
                 {
                   title: "Nuxt - server ディレクトリ（Nitro）",
-                  url: "https://nuxt.com/docs/guide/directory-structure/server",
+                  url: "https://nuxt.com/docs/4.x/directory-structure/server",
                   description:
                     "server/api を BFF として使う方法。$fetch / defineEventHandler の解説",
                 },

@@ -125,7 +125,7 @@ export default function SlashCommands() {
                   { cmd: '/memory', desc: 'CLAUDE.md memory ファイル編集、auto-memory の有効/無効、auto-memory エントリ閲覧。' },
                   { cmd: '/mcp', desc: 'MCP サーバー接続と OAuth 認証を管理。' },
                   { cmd: '/hooks', desc: 'ツールイベントに対する hook 設定を表示。' },
-                  { cmd: '/doctor', desc: 'インストール状態を診断、ステータスアイコンで結果表示。f キーで Claude に修正させる。' },
+                  { cmd: '/doctor', desc: 'インストール状態を診断し、結果を先に報告する。確認のうえでClaudeが修正する。' },
                   { cmd: '/debug [description]', desc: 'バンドル skill。セッションのデバッグログを取り込みトラブルシュート。Claude --debug を後付けで開始する用途。' },
                   { cmd: '/status', desc: 'バージョン / モデル / アカウント / 接続を Status タブに表示。応答中でも開ける。' },
                   { cmd: '/theme', desc: 'カラーテーマを変更。auto / light / dark / 色覚サポート / ANSI / カスタムテーマから選択。' },
@@ -308,12 +308,12 @@ claude --continue --fork-session  # 分岐`}</code></pre>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">medium</td>
-                        <td className="p-2">コスト重視で、知能を多少犠牲にできる場合</td>
+                        <td className="p-2">範囲の明確な日常の実装向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5の既定</td>
                         <td className="p-2">全対応</td>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">
                         <td className="p-2 font-mono">high</td>
-                        <td className="p-2">トークンと知能のバランス。知能要求あるタスクの最低ライン</td>
+                        <td className="p-2">検証が重要な作業やエッジケースが多い作業向き</td>
                         <td className="p-2">全対応</td>
                       </tr>
                       <tr className="border-b border-slate-100 dark:border-slate-900">

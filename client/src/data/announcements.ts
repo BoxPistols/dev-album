@@ -56,6 +56,87 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/claude-code/claude-core/permission-modes",
   },
   {
+    id: "2026-11-07-gemini-cli-free-tier",
+    date: "2026-11-07",
+    title: "Gemini CLIの無料枠の説明を直した",
+    description:
+      "個人の無料利用が2026-06-18にAntigravity CLIへ移ったので、Gemini CLIを組織のCode Assistライセンス向けとして書き直した。ツール比較のページも同じ内容にした。",
+    category: "fix",
+    link: "/claude-code/ai-coding-agents/gemini-cli",
+  },
+  {
+    id: "2026-11-07-cursor-inline-edit",
+    date: "2026-11-07",
+    title: "CursorのCmd+Kの説明を直した",
+    description:
+      "インライン編集の廃止に合わせて、選択範囲をAgentへ送る操作として書き直した。",
+    category: "fix",
+    link: "/git/ai-agent/cursor-cline",
+  },
+  {
+    id: "2026-11-07-jev-docs-recheck",
+    date: "2026-11-07",
+    title: "Jev講座の応答例と公式ドキュメントの引用を更新した",
+    description:
+      "ChoiceとScoreの応答例の数値、エラーのステータス一覧、Jev 1.14の単価と上限を公式の現在の記述に合わせた。公式から消えた言語ごとの精度の引用は外した。",
+    category: "fix",
+    link: "/ai-ml/jev/jev-primitives",
+  },
+  {
+    id: "2026-11-07-actions-runner-pricing",
+    date: "2026-11-07",
+    title: "GitHub Actionsの課金の説明を分単価に直した",
+    description:
+      "ランナーの表を消費倍率から1分あたりの単価に改め、無料枠が分数でなく金額で示される現在の説明に合わせた。",
+    category: "fix",
+    link: "/git/github-actions/reference",
+  },
+  {
+    id: "2026-11-07-copilot-cloud-environment",
+    date: "2026-11-07",
+    title: "Copilotのクラウド実行環境の説明を直した",
+    description:
+      "実行環境をGitHub Actionsに限定していた記述を、cloud sandboxなどから選べる現在の説明に改めた。",
+    category: "fix",
+    link: "/claude-code/ai-coding-agents/github-copilot",
+  },
+  {
+    id: "2026-11-07-vercel-domain-a-record",
+    date: "2026-11-07",
+    title: "Vercelのドメイン設定のAレコードの説明を直した",
+    description:
+      "Aレコードの値はプロジェクトごとに違うので、Settings > Domainsに出る値を使う手順にした。",
+    category: "fix",
+    link: "/react/deploy/vercel",
+  },
+  {
+    id: "2026-11-07-edge-runtime-migration",
+    date: "2026-11-07",
+    title: "エッジ関数のページにNode.jsへの移行の注記を加えた",
+    description:
+      "Next.js 16.3以降のruntime指定の扱いと、Vercelが推奨する移行先を本文に足した。",
+    category: "fix",
+    link: "/infra/edge/edge-functions",
+  },
+  {
+    id: "2026-11-07-merge-rulesets-menu",
+    date: "2026-11-07",
+    title: "ルールセットのメニュー名を直した",
+    description:
+      "GitHubの設定画面の項目名をSettings → Rulesetsに揃えた。",
+    category: "fix",
+    link: "/git/flow-automation/merge-governance",
+  },
+  {
+    id: "2026-11-07-idempotency-draft-status",
+    date: "2026-11-07",
+    title: "Idempotency-Keyドラフトの状態を直した",
+    description:
+      "期限切れと書いていたIETFドラフトが更新されてActiveに戻っていたので、参考リンクの説明を改めた。",
+    category: "fix",
+    link: "/api/rest-design/idempotency",
+  },
+  {
     id: "2026-11-07-claude-code-agents-md",
     date: "2026-11-07",
     title: "Claude CodeがAGENTS.mdを直接読むようになった件を、マルチAI構成のページに反映した",

@@ -301,9 +301,9 @@
     "claim": "shadcn/ui、MUI 7 などのコンポーネントライブラリ",
     "verdict": "REFUTED",
     "sourceUrl": "https://registry.npmjs.org/@mui/material",
-    "quote": "\"latest-v7\":\"7.3.11\",\"latest\":\"9.3.1\"",
+    "quote": "\"latest-v7\":\"7.3.11\" [...] \"latest\":\"9.",
     "correction": "「MUI 7」の版数表記を現行に合わせる。npm の @mui/material は latest が 9.x（v7 は latest-v7 タグ）。教材本文が v7 前提の記述なら内容ごと更新し、版数に依存しない説明にするなら単に「MUI」と書く。",
-    "evidence": "npm レジストリの @mui/material メタデータを取得し、dist-tags の latest が 9.3.1、v7 系は latest-v7 として保守されている状態を確認した。"
+    "evidence": "npm レジストリの @mui/material メタデータを取得し、dist-tags の latest が 9.3.1、v7 系は latest-v7 として保守されている状態を確認した。 2026-11-07再照合: latestが9.5.0へ進み、版番号まで含む引用はリリースのたびに外れるので、9系であることまでを引用した。本文は版数を書かない「MUI」に直っている。"
   },
   {
     "file": "infra/observability/Monitoring.tsx",
@@ -679,9 +679,9 @@
     "claim": "Tailwind ベースで Nuxt と相性が良い。ユーティリティの上に整った部品が乗る構成。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://ui.nuxt.com/",
-    "quote": "A comprehensive Vue UI component library (Nuxt optional) with 125+ accessible, Tailwind CSS components for building modern web applications.",
+    "quote": "Accessible, typed components built on Reka UI and Tailwind CSS.",
     "correction": "",
-    "evidence": "Nuxt UI 公式サイトのトップを取得し、Tailwind CSS ベースのコンポーネント群であること・Nuxt と素の Vue の双方で使えることを確認した。"
+    "evidence": "Nuxt UI 公式サイトのトップを取得し、Tailwind CSS ベースのコンポーネント群であること・Nuxt と素の Vue の双方で使えることを確認した。 2026-11-07再照合: トップのコピーが変わり、Tailwind CSSベースという点は今も書かれている。"
   },
   {
     "file": "devflow/agile/WhatIsAgile.tsx",
@@ -859,9 +859,9 @@
     "claim": "オープンソースの LLM オブザーバビリティ。トレース、評価、コスト追跡を一元管理。セルフホスト可能。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://raw.githubusercontent.com/langfuse/langfuse/main/README.md",
-    "quote": "Langfuse is an open source LLM engineering platform. It helps teams collaboratively develop, monitor, evaluate, and debug AI applications. Langfuse can be self-hosted in minutes and is battle-tested. [...] LLM Application Observability: Instrument your app and start ingesting traces to Langfuse, thereby tracking LLM calls and other relevant logic in your app such as retrieval, embedding, or agent actions.",
+    "quote": "Langfuse is an **open source AI engineering platform** for **agent evals and observability**. [...] track usage and costs, **trace and evaluate** agents [...] **Self-hosting Langfuse?**",
     "correction": "",
-    "evidence": "公式リポジトリの README.md を raw で取得し、オープンソースであること・セルフホスト可能であること・監視と評価を含むことを確認。README のバッジは MIT License を示す。コスト追跡は README に記載がないため公式ドキュメント https://langfuse.com/docs/observability/features/token-and-cost-tracking を別途取得し「Langfuse tracks the usage and costs of your LLM generations and provides breakdowns by usage types.」を確認した。 2026-08-23 に https://raw.githubusercontent.com/langfuse/langfuse/main/README.md を取得し直し、Core Features の冒頭に traces の取り込みを述べる 1 文があることを確認して、冒頭 3 文（OSS / 評価 / セルフホスト）と 2 断片で繋いだ。元の引用はトレースに触れていなかった。同じ取得で cost を grep したが README 全体で 0 件だった。"
+    "evidence": "公式リポジトリの README.md を raw で取得し、オープンソースであること・セルフホスト可能であること・監視と評価を含むことを確認。README のバッジは MIT License を示す。コスト追跡は README に記載がないため公式ドキュメント https://langfuse.com/docs/observability/features/token-and-cost-tracking を別途取得し「Langfuse tracks the usage and costs of your LLM generations and provides breakdowns by usage types.」を確認した。 2026-08-23 に https://raw.githubusercontent.com/langfuse/langfuse/main/README.md を取得し直し、Core Features の冒頭に traces の取り込みを述べる 1 文があることを確認して、冒頭 3 文（OSS / 評価 / セルフホスト）と 2 断片で繋いだ。元の引用はトレースに触れていなかった。同じ取得で cost を grep したが README 全体で 0 件だった。 2026-11-07再照合: READMEの説明がLLM engineeringからAI engineeringへ変わった。オープンソース、評価、コスト追跡、セルフホストは同じ。"
   },
   {
     "file": "ai-ml/python-ml/PythonSetup.tsx",
@@ -922,9 +922,9 @@
     "claim": "1974-1980 第一次 AI の冬 初期の楽観的な予測が現実に追いつかなかった / 1987-1993 第二次 AI の冬 エキスパートシステムの限界が明らかになった",
     "verdict": "UNDETERMINED",
     "sourceUrl": "https://en.wikipedia.org/wiki/AI_winter",
-    "quote": "There were two major \"winters\" approximately 1974-1980 and 1987-2000,",
+    "quote": "There were two major \"winters\", which lasted approximately from 1974–1980 and 1987–2000,",
     "correction": "",
-    "evidence": "AI の冬の年代区分を定める一次文書は存在せず、最も広く参照される英語版 Wikipedia を取得したところ「1974-1980 and 1987-2000」と記載されていた。第一次（1974-1980）は教材と一致するが、第二次は 1987-2000 と幅が広く、教材の 1987-1993 と食い違う。1987-1993 も文献では一般的な区切りであり、どちらが正しいと一次情報で確定できないため UNDETERMINED とした。教材側で出典を明示するのが望ましい。"
+    "evidence": "AI の冬の年代区分を定める一次文書は存在せず、最も広く参照される英語版 Wikipedia を取得したところ「1974-1980 and 1987-2000」と記載されていた。第一次（1974-1980）は教材と一致するが、第二次は 1987-2000 と幅が広く、教材の 1987-1993 と食い違う。1987-1993 も文献では一般的な区切りであり、どちらが正しいと一次情報で確定できないため UNDETERMINED とした。教材側で出典を明示するのが望ましい。 2026-11-07再照合: 文面が少し変わっただけで期間は同じで、教材は「1987年頃〜」と終期の揺れの注記に修正済み。"
   },
   {
     "file": "ux-design/ui-design/VisualDesign.tsx",
@@ -1030,9 +1030,9 @@
     "claim": "英国 Design Council が提唱したフレームワーク。「正しい問題を見つける」前半と「正しい解決策を作る」後半の 2 つのダイヤモンドで構成される。",
     "verdict": "CONFIRMED",
     "sourceUrl": "https://www.designcouncil.org.uk/our-resources/the-double-diamond/",
-    "quote": "The Double Diamond by the Design Council is licensed under a CC BY 4.0 license. [...] The first diamond helps people understand, rather than simply assume, what the problem is. It involves speaking to and spending time with people who are affected by the issues. Define The insight gathered from the discovery phase can help you to define the challenge in a different way. Develop The second diamond encourages people to give different answers to the clearly defined problem, seeking inspiration from elsewhere and co-designing with a range of different people.",
+    "quote": "The Double Diamond by the Design Council is licensed under a CC BY 4.0 license. [...] The first diamond helps people understand, rather than simply assume, what the problem is. [...] The second diamond encourages people to give different answers to the clearly defined problem",
     "correction": "",
-    "evidence": "英国 Design Council の The Double Diamond ページを取得し、前半のダイヤモンドが問題の理解、後半が解決策の探索であることを確認した。 2026-08-23 に https://www.designcouncil.org.uk/our-resources/the-double-diamond/ を取得し直し、Double Diamond を Design Council に帰属させる文を探して CC BY 表記の 1 文を足した。2 つのダイヤモンドは Discover から Develop まで連続した範囲で取り直した。元の引用は役割 2 文だけで、Design Council が出所である点を含んでいなかった。"
+    "evidence": "英国 Design Council の The Double Diamond ページを取得し、前半のダイヤモンドが問題の理解、後半が解決策の探索であることを確認した。 2026-08-23 に https://www.designcouncil.org.uk/our-resources/the-double-diamond/ を取得し直し、Double Diamond を Design Council に帰属させる文を探して CC BY 表記の 1 文を足した。2 つのダイヤモンドは Discover から Develop まで連続した範囲で取り直した。元の引用は役割 2 文だけで、Design Council が出所である点を含んでいなかった。 2026-11-07再照合: 見出しの大文字表記で長い逐語が切れたので断片に分け、内容の変更は無い。"
   },
   {
     "file": "ux-design/ux-foundations/DesignProcess.tsx",

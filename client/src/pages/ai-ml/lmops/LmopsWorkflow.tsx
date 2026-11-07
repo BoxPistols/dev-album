@@ -350,7 +350,7 @@ print(response.content)`}
               <h3 className="text-xl font-bold text-foreground mb-4">トークンとコスト</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 1 トークンが何文字に相当するかは提供元とトークナイザによって異なります。
-                Anthropic は Claude について「1 トークンはおよそ英語 3.5 文字」と説明しています。
+                Anthropicの用語集では、Claudeの1トークンが表す文字数はモデルと言語で変わるとされています。4.7より前のモデルではおよそ英語3.5文字で、4.7以降の新しいトークナイザーは同じ文章で約30%多いトークンを生成します。
                 入力トークンと出力トークンそれぞれに料金が発生し、一般に出力トークンの方が高価です。
               </p>
               <div className="rounded-lg border border-border bg-muted p-5">

@@ -52,7 +52,7 @@ const FILES: {
     file: ".claude/rules/*.md",
     where: "プロジェクトまたは ~/.claude/rules/",
     reader: "Claude Code",
-    when: "paths なし → 開始時 / paths あり → 一致するファイルを読んだとき",
+    when: "pathsなし → 開始時 / pathsあり → 一致するファイルをRead / Write / Editしたとき",
     scope: "トピック別・パス別",
     href: "/claude-code/claude-core/project-rules",
   },
@@ -214,7 +214,7 @@ export default function FileMap() {
             <p className="leading-relaxed mt-6 text-muted-foreground">
               作業ディレクトリより上の階層にある CLAUDE.md も、ルート側から順に
               すべて載ります。逆に<strong>下の階層にあるものは起動時には載らず</strong>、
-              Claude がそのディレクトリのファイルを読んだ時点で追加されます。
+              Claudeがそのディレクトリのファイルを読む・書く・編集する時点で追加されます。
             </p>
           </section>
 
@@ -230,7 +230,7 @@ export default function FileMap() {
               CLAUDE.md（<code>.claude/CLAUDE.md</code>・<code>CLAUDE.local.md</code> を含む。ユーザーの <code>~/.claude/CLAUDE.md</code> は数えない）が無いときだけです。
               <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすると、両方を読みます。
               CLAUDE.mdも置くなら、CLAUDE.mdから <code>@AGENTS.md</code> でimportするか、
-              symlink を張ります。実際に載ったかは <code>/context</code> の
+              symlinkを張ります。実際に載ったかは <code>/context all</code> の
               Memory files で確かめられます。
             </InfoBox>
 
@@ -253,8 +253,8 @@ export default function FileMap() {
               >
                 importされたファイルは、import元のCLAUDE.mdと一緒に載ります。分割は整理の
                 ための手段で、削減にはなりません。<strong>本当に減らしたい</strong>
-                なら、<code>paths</code> を付けた rules（一致するファイルを読んだ
-                ときだけ載る）か Skills（呼ばれたときだけ載る）へ移します。
+                なら、<code>paths</code>を付けたrules（一致するファイルを扱った
+                ときだけ載る）かSkills（呼ばれたときだけ載る）へ移します。
                 import は 4 ホップまでです。
               </InfoBox>
             </div>
@@ -329,8 +329,8 @@ export default function FileMap() {
             </p>
             <CodeBlock
               language="bash"
-              code={`# いま何が読まれているか（Memory files の一覧に出る）
-/context
+              code={`# いま何が読まれているか（Memory filesの一覧に出る）
+/context all
 
 # 指示ファイルを一覧して開く。存在しないものは選ぶと作られる
 /memory`}

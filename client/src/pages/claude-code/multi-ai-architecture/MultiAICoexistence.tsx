@@ -266,7 +266,7 @@ gh pr create --title "feat: 認証機能"`} />
 cd ~/project && claude
 > 認証機能を設計して実装して
 
-# タブ 2: Gemini CLI — 並行調査（無料枠を活用）
+# タブ2: Gemini CLI — 並行調査
 cd ~/project && gemini
 > このライブラリの最新の破壊的変更を調べて
 

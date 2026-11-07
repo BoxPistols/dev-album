@@ -112,13 +112,13 @@ export default function CursorCline() {
             </div>
 
             <div className="bg-muted border border-border rounded-lg p-4">
-              <p className="text-foreground font-medium mb-2">方法2: インラインで指示する</p>
+              <p className="text-foreground font-medium mb-2">方法2: 選択範囲をAgentに送る</p>
               <p className="text-muted-foreground text-sm">
-                コード上で{' '}
+                コードを選択して{' '}
                 <code className="bg-muted px-1.5 py-0.5 rounded">
                   {selectedOS === 'mac' ? 'Cmd + K' : 'Ctrl + K'}
                 </code>
-                {' '}を押すと、その場所に AI への指示を入力できます。
+                {' '}を押すと、その行を参照した状態でAgentが開き、指示を入力できます。
                 例:「この関数にコメントを追加して」
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function CursorCline() {
             <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 font-medium ml-1">
               platform.claude.com/settings/keys
             </a>
-            {' '}で取得します。Claude CodeはPro / Max / Ultra / Team / Enterprise / Consoleのいずれのアカウントでも使えますが、Pro / MaxのサブスクリプションにはAPIキーが付きません。CursorやClineから呼び出すには、Console（Developer Platform）側でAPIキーと従量課金を用意します。
+            {' '}で取得します。Claude CodeはPro / Max / Ultra / Team / Enterprise / Consoleのいずれのアカウントでも使えますが、Pro / Max / UltraのサブスクリプションにはAPIキーが付きません。CursorやClineから呼び出すには、Console（Developer Platform）側でAPIキーと従量課金を用意します。
             Gemini の API キーを使えば、無料枠でも利用可能です。
           </InfoBox>
         </div>
@@ -286,7 +286,7 @@ index.html の内容を確認して`}
                   {[
                     ['導入の手軽さ', 'エディタごとインストール', 'VS Code に拡張追加するだけ'],
                     ['無料枠', 'Hobby プラン（Agent リクエストは制限あり）', '拡張は無料（API キーが必要）'],
-                    ['操作感', 'チャット + インライン編集', 'チャット中心'],
+                    ['操作感', 'チャット + Agent', 'チャット中心'],
                     ['おすすめの人', '新しくエディタを入れてOKな人', '既に VS Code を使っている人'],
                   ].map(([item, cursor, cline], index) => (
                     <tr key={index} className={index % 2 === 0 ? 'bg-card' : 'bg-muted/50'}>
@@ -309,12 +309,12 @@ index.html の内容を確認して`}
           <CodingChallenge
             title="Cursor のショートカットキーを確認しよう"
             description="Cursor で AI を活用するためのショートカットキー操作を書いてください（Mac の場合）。"
-            initialCode={`# Cursor で AI を使うショートカット（Mac の場合）\n\n# 1. AI チャットパネルを開くキー\n# Cmd + ___  # ← ここを埋める\n\n# 2. インラインで AI に指示するキー\n# Cmd + ___  # ← ここを埋める\n\n# 3. 拡張機能パネルを開くキー\n# Cmd + Shift + X`}
-            answer={`# Cursor で AI を使うショートカット（Mac の場合）\n\n# 1. AI チャットパネルを開くキー\n# Cmd + L\n\n# 2. インラインで AI に指示するキー\n# Cmd + K\n\n# 3. 拡張機能パネルを開くキー\n# Cmd + Shift + X`}
+            initialCode={`# Cursor で AI を使うショートカット（Mac の場合）\n\n# 1. AI チャットパネルを開くキー\n# Cmd + ___  # ← ここを埋める\n\n# 2. 選択範囲をAgentに送るキー\n# Cmd + ___  # ← ここを埋める\n\n# 3. 拡張機能パネルを開くキー\n# Cmd + Shift + X`}
+            answer={`# Cursor で AI を使うショートカット（Mac の場合）\n\n# 1. AI チャットパネルを開くキー\n# Cmd + L\n\n# 2. 選択範囲をAgentに送るキー\n# Cmd + K\n\n# 3. 拡張機能パネルを開くキー\n# Cmd + Shift + X`}
             keywords={['L', 'K']}
             hints={[
               'チャットパネルは Cmd + L で開きます',
-              'インライン指示は Cmd + K で入力できます',
+              '選択範囲はCmd + KでAgentに送れます',
               '拡張機能パネルは Cmd + Shift + X で開きます',
             ]}
             preview

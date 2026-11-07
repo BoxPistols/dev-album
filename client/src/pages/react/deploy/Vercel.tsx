@@ -339,7 +339,8 @@ git push origin feature/new-header
 #    www.example.com → d1d4fc829fe7bc7c.vercel-dns-017.com（例）
 #
 #    方法 B: A レコード（apex ドメインの場合）
-#    example.com → 76.76.21.21
+#    Settings > Domainsに出るAレコードの値をそのまま設定する（プロジェクトごとに違う）
+#    example.com → 76.76.21.21（例）
 #
 #    方法 C: Vercel でドメインを購入（DNS 設定不要）
 
@@ -356,7 +357,7 @@ git push origin feature/new-header
             <InfoBox type="success" title="HTTPS は自動">
               <p>
                 Vercel はカスタムドメインに対して SSL/TLS 証明書を自動的に発行し、更新も自動で行います。
-                Let's Encrypt を使用しており、追加費用は一切かかりません。
+                証明書の発行にはLet's Encryptを使います。
                 すべてのサイトが最初から HTTPS で配信されます。
               </p>
             </InfoBox>

@@ -582,7 +582,7 @@ onMounted(() => {
                 },
                 {
                   title: "Nuxt 公式ドキュメント",
-                  url: "https://nuxt.com/docs/getting-started/introduction",
+                  url: "https://nuxt.com/docs/4.x/getting-started/introduction",
                   description:
                     "srcDir=app/・useFetch・server/api など Nuxt 4 の公式ガイド",
                 },

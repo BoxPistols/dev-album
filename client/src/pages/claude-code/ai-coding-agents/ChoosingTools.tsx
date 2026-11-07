@@ -10,7 +10,7 @@ import SectionBadge from "@/components/SectionBadge";
 const useCases = [
   {
     title: "まず無料で試したい",
-    body: "Gemini CLI（個人 Google アカウントで 1,000 リクエスト/日）か GitHub Copilot Free（補完 2,000 回/月・チャット 50 回/月）が入口になる。ターミナルエージェントの働き方を体験するなら Gemini CLI、IDE 補完を体験するなら Copilot Free が近道。",
+    body: "Antigravity CLI（個人の無料利用はGemini CLIからここへ移った）かGitHub Copilot Free（補完2,000回/月・チャット50回/月）が入口になる。ターミナルエージェントの働き方を体験するならAntigravity CLI、IDE補完を体験するならCopilot Freeが近道。",
   },
   {
     title: "既に ChatGPT / Claude を契約している",
@@ -127,11 +127,10 @@ export default function ChoosingTools() {
                       CLI（OSS・Apache 2.0）
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      大きな無料枠、Google 検索グラウンディング、1M
-                      トークンコンテキスト
+                      Gemini Code Assistライセンスの組織向け
                     </td>
                     <td className="p-3 text-muted-foreground">
-                      無料（1,000 req/日）〜 API 従量 / Code Assist 有料版
+                      Code Assist Standard / Enterprise
                     </td>
                     <td className="p-3 text-muted-foreground">
                       Google Cloud / Vertex AI
@@ -301,13 +300,13 @@ export default function ChoosingTools() {
               links={[
                 {
                   title: "Claude Code 公式ドキュメント",
-                  url: "https://code.claude.com/docs",
+                  url: "https://code.claude.com/docs/en/overview",
                   description: "Claude Code の機能・料金体系の一次情報",
                 },
                 {
                   title: "google-gemini/gemini-cli (GitHub)",
                   url: "https://github.com/google-gemini/gemini-cli",
-                  description: "Gemini CLI の README と無料枠の説明",
+                  description: "Gemini CLIのREADMEと対象ライセンスの説明",
                 },
                 {
                   title: "OpenAI Codex 公式ドキュメント",

@@ -12,7 +12,8 @@
 //
 // ネットワークに出るため vitest には入れない。
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 import {
   closeBrowser,
@@ -85,6 +86,21 @@ export function decideOutcome({ mismatched, problems, unreachable, attempted }) 
   };
 }
 
+/**
+ * 判定の対象ページが今も在るか。
+ *
+ * 監査記録は履歴なので、教材を消しても判定は書き換えない。ただし消えたページの
+ * 主張は誰も読まないので、その引用が原文から外れても直す先が無い。
+ * 失敗のまま残すと本当の変化が埋もれるので、件数だけ出して照合から外す。
+ * fileを持たない判定はページに紐づかないので照合を続ける。
+ */
+export const PAGES_ROOT = "client/src/pages";
+
+export function pageRemoved(file, exists = existsSync) {
+  if (!file?.trim()) return false;
+  return !exists(join(PAGES_ROOT, file));
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const path = args.find((a) => !a.startsWith("--"));
@@ -110,7 +126,12 @@ async function main() {
   const byUrl = new Map();
   let localCount = 0;
   let noQuote = 0;
+  const removed = new Map();
   for (const v of verdicts) {
+    if (pageRemoved(v.file)) {
+      removed.set(v.file, (removed.get(v.file) ?? 0) + 1);
+      continue;
+    }
     if (!v.quote?.trim()) {
       noQuote++;
       continue;
@@ -126,6 +147,15 @@ async function main() {
   }
 
   const targetQuotes = [...byUrl.values()].reduce((n, a) => n + a.length, 0);
+  const removedCount = [...removed.values()].reduce((n, c) => n + c, 0);
+  if (removedCount) {
+    console.log(`ページ削除済み ${removedCount} 件は照合しない（${removed.size} ファイル）`);
+    for (const [file, count] of removed) console.log(`  - ${file}: ${count} 件`);
+  }
+  if (targetQuotes === 0 && removedCount) {
+    console.log("照合対象が残っていない。すべて削除済みのページの判定だった");
+    return;
+  }
   if (targetQuotes === 0) {
     throw new Error(
       "照合対象の引用が 0 件だった。判定の書式が変わった可能性がある（0 件成功は事故として扱う）",
@@ -221,6 +251,7 @@ async function main() {
   console.log(
     `\n照合 ${checked} 件 / 一致 ${matched} 件 / 不一致 ${mismatched.length} 件` +
       ` / 取得失敗 ${fetchFailed.length} URL / 未照合 ${notExtracted.length} URL` +
+      ` / ページ削除済み ${removedCount} 件` +
       (browserUsed ? ` / 実ブラウザ経由 ${browserUsed} URL` : ""),
   );
   if (notExtracted.length) {

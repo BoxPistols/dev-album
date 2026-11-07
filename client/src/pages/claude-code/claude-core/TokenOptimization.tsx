@@ -105,7 +105,7 @@ $ export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50`} language="bash" />
             <div className="space-y-3">
               {[
                 { level: 'low', desc: 'リネーム、typo修正など単純なタスク。高速・低コスト。', color: 'text-emerald-600' },
-                { level: 'medium', desc: 'コスト重視のコーディングタスク。バランス型。', color: 'text-blue-600' },
+                { level: 'medium', desc: '範囲の明確な日常の実装向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5の既定値。', color: 'text-blue-600' },
                 { level: 'high', desc: 'トークン消費と知能のバランス。多くのモデルの既定値（Opus 5.5・Sonnet 5.5・Haiku 5.5はmediumが既定）。', color: 'text-purple-600' },
                 { level: 'xhigh', desc: 'より深い推論。Fable / Opus 4.7以降などで利用可能（Opus 4.6・Sonnet 4.6は非対応）。', color: 'text-amber-600' },
                 { level: 'max', desc: '最深推論（セッション限定）。過剰思考になりやすいため検証してから採用。', color: 'text-red-600' },

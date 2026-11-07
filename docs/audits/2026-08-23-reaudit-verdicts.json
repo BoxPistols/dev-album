@@ -328,9 +328,9 @@
   "claim": "Claude Code のように動きの速い対象を扱うページには、いつ・どの版で確認したかを本文の先頭に置いています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://raw.githubusercontent.com/BoxPistols/dev-album/main/client/src/pages/claude-code/claude-core/ProjectRules.tsx",
-  "quote": "<VerifiedBox verifiedAt=\"2026-08-22\" cmuxVersion=\"Claude Code 2.1.239\" platform=\"macOS (Apple Silicon)\"",
+  "quote": "<VerifiedBox verifiedAt=\"2026-08-22\" [...] platform=\"macOS (Apple Silicon)\"",
   "correction": "",
-  "evidence": "このサイト自身についての主張なので、公開リポジトリ main のソースで照合した。claude-code 配下のページは h1 とサブタイトルの直後に VerifiedBox を置き、確認日と対象バージョンを表示している。同様の記述は claude-code 配下の複数ページにある。"
+  "evidence": "このサイト自身についての主張なので、公開リポジトリ main のソースで照合した。claude-code 配下のページは h1 とサブタイトルの直後に VerifiedBox を置き、確認日と対象バージョンを表示している。同様の記述は claude-code 配下の複数ページにある。 2026-11-07再照合: VerifiedBoxのprop名がcmuxVersionからverifiedVersionへ変わったので、変わらない部分を引用した。"
  },
  {
   "file": "learning/sources/OfficialCatchup.tsx",
@@ -373,9 +373,9 @@
   "claim": "site:code.claude.com hooks",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/hooks",
-  "quote": "Hooks are user-defined shell commands, HTTP endpoints, or LLM prompts that execute automatically at specific points in Claude Code's lifecycle.",
+  "quote": "Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or subagents that execute automatically at specific points in Claude Code's lifecycle.",
   "correction": "",
-  "evidence": "例に使われているドメインが実在し、Claude Code の公式ドキュメントを配信していること、hooks のページがあることを確認した。"
+  "evidence": "例に使われているドメインが実在し、Claude Code の公式ドキュメントを配信していること、hooks のページがあることを確認した。 2026-11-07再照合: フックの種類にMCPツール呼び出しとサブエージェントが加わった。教材は検索語の例なので影響しない。"
  },
  {
   "file": "learning/sources/SearchTechnique.tsx",
@@ -436,9 +436,9 @@
   "claim": "返ってきた URL は開いて確かめます。URL の形をしていても実在しないことがあります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations",
-  "quote": "Even the most advanced language models, like Claude, can sometimes generate text that is factually incorrect or inconsistent with the given context.",
+  "quote": "Even the most advanced language models, such as Claude, can sometimes generate text that is factually incorrect or inconsistent with the given context.",
   "correction": "",
-  "evidence": "Anthropic 自身のドキュメント（Reduce hallucinations）を取得。事実と異なる出力が起こりうることを提供元が明記している。URL に限定した記述ではないため、対象を URL に絞った裏づけは別に取れていない。この URL は platform.claude.com/docs/... へ転送される。"
+  "evidence": "Anthropic 自身のドキュメント（Reduce hallucinations）を取得。事実と異なる出力が起こりうることを提供元が明記している。URL に限定した記述ではないため、対象を URL に絞った裏づけは別に取れていない。この URL は platform.claude.com/docs/... へ転送される。 2026-11-07再照合: 「like Claude」が「such as Claude」に変わっただけ。"
  },
  {
   "file": "learning/with-ai/WhereAiFails.tsx",
@@ -454,9 +454,9 @@
   "claim": "困るのはもっともらしい形をした誤りのほうです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations",
-  "quote": "Even the most advanced language models, like Claude, can sometimes generate text that is factually incorrect or inconsistent with the given context.",
+  "quote": "Even the most advanced language models, such as Claude, can sometimes generate text that is factually incorrect or inconsistent with the given context.",
   "correction": "",
-  "evidence": "Anthropic のドキュメントで、最新のモデルでも事実と異なる出力が生じうることを確認した。「文体も構成も正しい回答と変わらない」という見た目についての部分は、この出典では裏づけられていない。"
+  "evidence": "Anthropic のドキュメントで、最新のモデルでも事実と異なる出力が生じうることを確認した。「文体も構成も正しい回答と変わらない」という見た目についての部分は、この出典では裏づけられていない。 2026-11-07再照合: 「like Claude」が「such as Claude」に変わっただけ。"
  },
  {
   "file": "learning/with-ai/WhereAiFails.tsx",
@@ -561,37 +561,37 @@
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "公式ドキュメントはこれを避けるために、プランモードで調査・計画を先に行い、承認してから実装に移る 4 フェーズのワークフローを推奨しています。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Use plan mode to separate exploration from execution. The recommended workflow has four phases:",
+  "sourceUrl": "https://code.claude.com/docs/en/costs",
+  "quote": "Use plan mode for complex tasks: Press Shift+Tab to cycle to plan mode before implementation. Claude explores the codebase and proposes an approach for your approval, preventing expensive re-work when the initial direction is wrong.",
   "correction": "",
-  "evidence": "best-practices.md を取得。「Explore first, then plan, then code」の節に 4 フェーズ（Explore / Plan / Implement / Commit）が Steps として並んでいることを確認した。"
+  "evidence": "best-practices.md を取得。「Explore first, then plan, then code」の節に 4 フェーズ（Explore / Plan / Implement / Commit）が Steps として並んでいることを確認した。 2026-11-07再照合: プランモードで先に調査し承認してから実装する助言はcostsに残るが、4フェーズのワークフローという推奨は全ページから消えた。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "1. 探索（関連コードを読み理解する）/ 2. 計画（実装計画を作り承認を得る）/ 3. コード（計画に沿って実装・検証）/ 4. コミット（コミットと PR 作成）",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Switch out of plan mode by approving the plan or pressing Shift+Tab, then let Claude code, verifying against its plan. […] Ask Claude to commit with a descriptive message and create a PR.",
+  "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
+  "quote": "Claude reads files, runs shell commands to explore, and writes a plan, but does not edit your source. [...] Approving a plan exits plan mode and switches the session to the permission mode each approve option describes, so Claude starts editing.",
   "correction": "",
-  "evidence": "best-practices.md の 4 ステップ（Explore / Plan / Implement / Commit）と各ステップの説明を照合。第 4 ステップがコミットと PR 作成であることを確認した。"
+  "evidence": "best-practices.md の 4 ステップ（Explore / Plan / Implement / Commit）と各ステップの説明を照合。第 4 ステップがコミットと PR 作成であることを確認した。 2026-11-07再照合: 探索から実装までの流れはpermission-modesが裏づけ、コミットとPRはcommon-workflowsに別途あるが、4段に分けた公式の手順としての記述は無い。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "まずプランモードに入ります。Shift+Tab をステータスバーに ⏸ plan mode on と表示されるまで押すか、起動時にフラグで指定します。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Enter plan mode by pressing Shift+Tab until the status bar shows ⏸ plan mode on, or start the session with claude --permission-mode plan.",
+  "sourceUrl": "https://code.claude.com/docs/en/common-workflows",
+  "quote": "claude --permission-mode plan [...] You can also press `Shift+Tab` mid-session until the status bar shows `⏸ plan mode on`.",
   "correction": "",
-  "evidence": "best-practices.md の Explore ステップの本文と一致。ステータスバー表記も同じ。"
+  "evidence": "best-practices.md の Explore ステップの本文と一致。ステータスバー表記も同じ。 2026-11-07再照合: プランモードへの入り方はcommon-workflowsの「Plan before editing」へ移り、内容は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "プランモード中の Claude はファイルを読んで調査しますが、ソースコードの編集は計画を承認するまでブロックされます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "Claude reads files, runs shell commands to explore, and writes a plan, but does not edit your source. Except in sessions with bypass permissions available, edits stay blocked until you approve the plan.",
+  "quote": "Claude reads files, runs shell commands to explore, and writes a plan, but does not edit your source. Except in interactive terminal sessions with bypass permissions available, edits stay blocked until you approve the plan.",
   "correction": "",
-  "evidence": "permission-modes.md の plan モード節。bypass permissions が使えるセッションだけが例外である旨も原文にあるが、本文の一般則としての記述は一致する。"
+  "evidence": "permission-modes.md の plan モード節。bypass permissions が使えるセッションだけが例外である旨も原文にあるが、本文の一般則としての記述は一致する。 2026-11-07再照合: 例外の対象が「対話ターミナルセッション」に絞られただけで主張は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
@@ -606,19 +606,19 @@
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "「サブエージェントを使って認証システムのトークンリフレッシュを調査して」のように頼むと、ファイル読み込みはサブエージェント側のコンテキストで行われ、要約だけが返ってきます。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Subagents run in separate context windows and report back summaries",
+  "sourceUrl": "https://code.claude.com/docs/en/common-workflows",
+  "quote": "use a subagent to investigate how our auth system handles token refresh [...] The subagent reads files in its own context window and reports a summary.",
   "correction": "",
-  "evidence": "best-practices.md の「Use subagents for investigation」節。直後の例文も「Use subagents to investigate how our authentication system handles token refresh」で、ページの例と同じ題材。"
+  "evidence": "best-practices.md の「Use subagents for investigation」節。直後の例文も「Use subagents to investigate how our authentication system handles token refresh」で、ページの例と同じ題材。 2026-11-07再照合: common-workflowsの「Delegate research to subagents」へ移り、教材の例と同じ指示文が載っている。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "Yes, and use auto mode: 承認して auto モードで実装開始（auto モードが使えない環境では「Yes, auto-accept edits」表示）／ Yes, manually approve edits: 承認して、編集は 1 件ずつ自分で確認しながら進める ／ No, keep planning: プランモードに留まり、計画の修正点を伝える",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "Yes, and use auto mode: approve and start in auto mode. When auto mode is unavailable, this option reads Yes, auto-accept edits.",
+  "quote": "Yes, and use auto mode: approve and start in auto mode. If auto mode isn't available to your session, for example because your organization turned it off, this option reads Yes, auto-accept edits.",
   "correction": "",
-  "evidence": "permission-modes.md の「Review and approve a plan」節。3 択（Yes, and use auto mode / Yes, manually approve edits / No, keep planning）と、auto が使えないときの表示差し替えを確認した。"
+  "evidence": "permission-modes.md の「Review and approve a plan」節。3 択（Yes, and use auto mode / Yes, manually approve edits / No, keep planning）と、auto が使えないときの表示差し替えを確認した。 2026-11-07再照合: 文が言い換えられただけで選択肢の内容は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
@@ -643,45 +643,45 @@
   "claim": "チェックが無いと Claude は「見た目上できた」ところで止まります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Claude stops when the work looks done. Without a check it can run, \"looks done\" is the only signal available, and you become the verification loop: every mistake waits for you to notice it.",
+  "quote": "Claude stops when the work looks done. If it has nothing to run that tells it whether the work actually *is* done, \"looks done\" is all it has to go on.",
   "correction": "",
-  "evidence": "best-practices.md の「Give Claude a way to verify its work」節と一致。"
+  "evidence": "best-practices.md の「Give Claude a way to verify its work」節と一致。 2026-11-07再照合: 同じ節が言い換えられたが、チェックが無いと見た目で止まるという内容は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "変更内容を踏まえたコミットメッセージの作成、コミット、PR の作成（gh CLI 経由）まで一続きで実行されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "If you use GitHub, install the gh CLI. Claude knows how to use it for creating issues, opening pull requests, and reading comments.",
+  "quote": "With `gh` installed and signed in, for example, Claude will open pull requests and read review comments without any explanation from you.",
   "correction": "",
-  "evidence": "best-practices.md の「Use CLI tools」節。なお同節には gh が無い場合は GitHub API を直接使う旨もあり、gh CLI は唯一の経路ではない点は原文に留保がある。"
+  "evidence": "best-practices.md の「Use CLI tools」節。なお同節には gh が無い場合は GitHub API を直接使う旨もあり、gh CLI は唯一の経路ではない点は原文に留保がある。 2026-11-07再照合: ghの説明は「Connect the tools Claude needs」へ移り、PRを開けるという内容は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "/diff   # 未コミット差分とターン毎の差分をインタラクティブ表示",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/commands",
-  "quote": "Open an interactive diff viewer showing uncommitted changes and per-turn diffs.",
+  "sourceUrl": "https://code.claude.com/docs/en/interactive-mode",
+  "quote": "You see the edits Claude has made so far alongside anything else you haven't committed. [...] The panel and the dialog also offer a view of each turn's edits once Claude has edited files.",
   "correction": "",
-  "evidence": "commands.md のコマンド表の /diff 行と一致。"
+  "evidence": "commands.md のコマンド表の /diff 行と一致。 2026-11-07再照合: commandsの説明が短くなり詳細はinteractive-modeへ移ったが、未コミットの変更とターンごとの差分を見られる点は同じ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "typo 修正・ログ 1 行の追加・変数のリネームなど、スコープが明確で修正が小さいタスク。差分を一文で説明できるなら計画は不要。",
-  "verdict": "CONFIRMED",
+  "verdict": "UNDETERMINED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "For tasks where the scope is clear and the fix is small (like fixing a typo, adding a log line, or renaming a variable) ask Claude to do it directly. […] If you could describe the diff in one sentence, skip the plan.",
+  "quote": "",
   "correction": "",
-  "evidence": "best-practices.md の Callout と一致。例示（typo / ログ 1 行 / 変数リネーム）も同じ。"
+  "evidence": "best-practices.md の Callout と一致。例示（typo / ログ 1 行 / 変数リネーム）も同じ。 2026-11-07再照合: llms.txtの全228ページを全文検索したが、計画を省く基準（typo修正などの例、差分を一文で説明できるか）の記述は無い。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
   "claim": "アプローチに確信が持てない、変更が複数ファイルにまたがる、触るコードに馴染みがない、のいずれかに当てはまるタスク。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Planning is most useful when you're uncertain about the approach, when the change modifies multiple files, or when you're unfamiliar with the code being modified.",
+  "sourceUrl": "https://code.claude.com/docs/en/desktop",
+  "quote": "Claude reads files and runs commands to explore, then proposes a plan without editing your source code. Good for complex tasks where you want to review the approach first.",
   "correction": "",
-  "evidence": "best-practices.md の同 Callout と一致。3 条件の内容と順序も同じ。"
+  "evidence": "best-practices.md の同 Callout と一致。3 条件の内容と順序も同じ。 2026-11-07再照合: 3条件の文は消え、現行で残るのは複雑なタスクでアプローチを先に確認するという説明で、複数ファイルはcommunications-kitの勧めに見えるのみ。"
  },
  {
   "file": "claude-code/claude-core/ExplorePlanCodeCommit.tsx",
@@ -760,9 +760,9 @@
   "claim": "dontAsk / 事前承認済みツールのみ / ロックダウンした CI・スクリプト",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "dontAsk | Only pre-approved tools | Locked-down CI and scripts",
+  "quote": "dontAsk | File reads inside your working directories and pre-approved tools; anything that would prompt is denied, though a mod you installed can still approve some of those calls | Locked-down CI and scripts",
   "correction": "",
-  "evidence": "permission-modes.md の同表の dontAsk 行と一致。"
+  "evidence": "permission-modes.md の同表の dontAsk 行と一致。 2026-11-07再照合: 表の内容がOnly pre-approved toolsから、作業ディレクトリ内の読み取りと事前承認済みツールに広がり、modの例外も加わった。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
@@ -778,36 +778,36 @@
   "claim": "Pro / Max / Team プランでは auto モードが組み込みの開始モードです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "On Pro, Max, and Team plans, the built-in starting permission mode is auto mode.",
+  "quote": "With Claude Code v2.1.283 or later, auto mode is the built-in starting permission mode for interactive terminal and VS Code sessions. On earlier versions, it's the built-in starting permission mode only on Pro, Max, Ultra, and Team plans.",
   "correction": "",
-  "evidence": "permission-modes.md の冒頭と一致。"
+  "evidence": "permission-modes.md の冒頭と一致。 2026-11-07再照合: v2.1.283以降はプランやプロバイダを問わず対話セッションの開始モードがautoになり、プラン限定は旧バージョンの話に変わった。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
   "claim": "auto を user settings で既定にする場合は ~/.claude/settings.json に書きます（プロジェクトの .claude/settings.json からは auto は効きません）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "In Claude Code v2.1.142 and later, auto doesn't take effect from those files. Move it to ~/.claude/settings.json.",
+  "quote": "the setting is likely in .claude/settings.json or .claude/settings.local.json. auto doesn't take effect from those files. Move it to ~/.claude/settings.json.",
   "correction": "",
-  "evidence": "permission-modes.md のトラブルシュート節。「those files」は直前の .claude/settings.json と .claude/settings.local.json を指す。"
+  "evidence": "permission-modes.md のトラブルシュート節。「those files」は直前の .claude/settings.json と .claude/settings.local.json を指す。 2026-11-07再照合: バージョンの記述が外れただけで、プロジェクト設定のautoが効かない点は同じ。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
   "claim": "Shift+Tab でモードを循環: default → acceptEdits → plan →（使える環境では）bypassPermissions → auto。auto からは 1 回押すと default に戻る。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan → back to default. […] Enabled optional modes slot in after plan, with bypassPermissions first and auto last.",
+  "quote": "From auto, the first press switches to default, and the cycle then runs default → acceptEdits → plan. [...] Enabled optional modes slot in after plan, with bypassPermissions first and auto last.",
   "correction": "",
-  "evidence": "permission-modes.md の CLI タブ。任意モードが plan の後ろに入り、bypassPermissions が先・auto が後という順序も一致する。"
+  "evidence": "permission-modes.md の CLI タブ。任意モードが plan の後ろに入り、bypassPermissions が先・auto が後という順序も一致する。 2026-11-07再照合: 前半の文末が言い換えられただけで循環順は同じ。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
   "claim": "auto モードが使える環境では、計画中のシェルコマンドは確認プロンプトの代わりに分類器（classifier）がレビューします（useAutoModeDuringPlan 設定、既定で有効）。承認されたコマンドは実行され、拒否されたものはブロックされます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "When auto mode is available and the useAutoModeDuringPlan setting is on, which it is by default, the classifier reviews shell commands during planning instead of prompting you. Approved commands run, and rejected ones are blocked.",
+  "quote": "Auto mode available and the useAutoModeDuringPlan setting on, which it is by default: the classifier reviews shell commands other than critical-path removals instead of prompting you. Approved commands run, and rejected ones are blocked.",
   "correction": "",
-  "evidence": "permission-modes.md の plan モード節と一致。設定名と既定値も同じ。"
+  "evidence": "permission-modes.md の plan モード節と一致。設定名と既定値も同じ。 2026-11-07再照合: 分類器のレビュー対象からクリティカルパスの削除が除かれ、bypass permissionsが使える対話ターミナルセッションでは分類器も確認も適用されないと現行は明記している。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
@@ -832,9 +832,9 @@
   "claim": "rm -rf / や rm -rf ~ のようなクリティカルパスへの削除は分類器が個別にレビューします。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "The classifier also reviews and approves or blocks rm and rmdir removals targeting a critical path, such as rm -rf / and rm -rf ~, including when the removal sits inside command or process substitution.",
+  "quote": "By default, the classifier doesn't review recognized rm and rmdir critical-path removals, such as rm -rf / or rm -rf ~. [...] auto | Asks you to approve it in the terminal, with a time limit. Elsewhere, denies it",
   "correction": "",
-  "evidence": "permission-modes.md の auto モード節と一致。例示コマンドも同じ。"
+  "evidence": "permission-modes.md の auto モード節と一致。例示コマンドも同じ。 2026-11-07再照合: クリティカルパスの削除は既定で分類器のレビュー対象外になり、autoモードではターミナルなら時間制限付きの確認、それ以外では拒否に変わった。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
@@ -850,18 +850,18 @@
   "claim": "auto モードにはプラン・組織設定・モデル・プロバイダの条件があります（Anthropic API では Opus 4.6 以降 / Sonnet 4.6 以降 / Fable 5）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "Model: on the Anthropic API and Claude Platform on AWS, Claude Opus 4.6 or later, Sonnet 4.6 or later, or Fable 5.",
+  "quote": "Plan: All plans. [...] Model: on the Anthropic API and Claude Platform on AWS, Claude Opus 4.6 or later, Sonnet 4.6 or later, Haiku 5.5, or a Fable model.",
   "correction": "",
-  "evidence": "permission-modes.md の auto モード要件。要件は Plan / Organization / Model / Provider の 4 見出しで並んでおり、ページの列挙と対応する。Bedrock 等では Sonnet 5 / Opus 4.7 以降 / Fable 5 と別条件になる点も原文にある。"
+  "evidence": "permission-modes.md の auto モード要件。要件は Plan / Organization / Model / Provider の 4 見出しで並んでおり、ページの列挙と対応する。Bedrock 等では Sonnet 5 / Opus 4.7 以降 / Fable 5 と別条件になる点も原文にある。 2026-11-07再照合: 対象モデルにHaiku 5.5が加わってFable 5がFableモデル全般に広がり、プランの条件はAll plansになった。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
   "claim": "「auto mode unavailable」と表示される場合は条件が満たされていないことを意味し、一時的な障害ではありません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/permission-modes",
-  "quote": "If Claude Code reports auto mode as unavailable, one of these requirements is unmet; this is not a transient outage.",
+  "quote": "If Claude Code reports auto mode as unavailable, first check these requirements and whether any settings file sets disableAutoMode. Anthropic may also have turned auto mode off server-side, or the server may have rejected auto mode for your account. A session that received either answer keeps auto mode off until the session ends, so start a new session later.",
   "correction": "",
-  "evidence": "permission-modes.md の auto モード要件の直後と一致。"
+  "evidence": "permission-modes.md の auto モード要件の直後と一致。 2026-11-07再照合: 「一時的な障害ではない」という文は消え、サーバー側で止まっている場合もあるので後で新しいセッションを始めるという案内に変わった。"
  },
  {
   "file": "claude-code/claude-core/PermissionModes.tsx",
@@ -886,18 +886,18 @@
   "claim": "実践Claude Code: Permission modes（公式ラーニングパス）https://academy.claude.com/courses/claude-code-in-action/permission-modes",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://academy.claude.com/courses/claude-code-in-action/permission-modes",
-  "quote": "The six permission modes Here's the full set.",
+  "quote": "The six permission modes",
   "correction": "",
-  "evidence": "Claude Academy の Claude Code in Action コース第 4 レッスンが実在し、6 つのパーミッションモードを扱うことを確認した。ページ本文の「6 つのモード」という数え方もこの一次情報と一致する。"
+  "evidence": "Claude Academy の Claude Code in Action コース第 4 レッスンが実在し、6 つのパーミッションモードを扱うことを確認した。ページ本文の「6 つのモード」という数え方もこの一次情報と一致する。 2026-11-07再照合: レッスンは現存し、ページの実在を示す見出しとして使える。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
   "claim": "CLAUDE.md / セッション開始時に毎回 / 全作業に効く前提・コマンド・規約",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "CLAUDE.md files are loaded into the context window at the start of every session, consuming tokens alongside your conversation.",
+  "quote": "You write these files in plain text; Claude reads them at the start of every session.",
   "correction": "",
-  "evidence": "memory.md の「Write effective instructions」節と一致。"
+  "evidence": "memory.md の「Write effective instructions」節と一致。 2026-11-07再照合: consuming tokensの文は消えたが、毎セッション開始時に読むという主張は同じ。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -913,9 +913,9 @@
   "claim": ".claude/rules/*.md（paths あり） / マッチするファイルを Claude が読んだとき / 特定ディレクトリ・拡張子にだけ効く規約",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Path-scoped rules trigger when Claude reads files matching the pattern, not on every tool use.",
+  "quote": "A path-scoped rule loads when Claude uses the Read, Write, or Edit tool on a matching file. It also loads when Claude views a matching file with a Bash command that counts as a read, such as cat or head on a single file.",
   "correction": "",
-  "evidence": "memory.md の「Path-specific rules」節と一致。本文の「毎ツール呼び出しではなく」もこの一文が根拠。"
+  "evidence": "memory.md の「Path-specific rules」節と一致。本文の「毎ツール呼び出しではなく」もこの一文が根拠。 2026-11-07再照合: 読み込みの契機が読み取りだけでなくWrite / Editと読み取り扱いのBashコマンドに広がった。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -931,18 +931,18 @@
   "claim": "公式は CLAUDE.md を 200 行以下に収めることを目安とし、それに近づいたら rules への分割を勧めています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Size: target under 200 lines per CLAUDE.md file. Longer files consume more context and reduce adherence. If your instructions are growing large, use path-scoped rules so instructions load only when Claude works with matching files.",
+  "quote": "Size: target under 200 lines per CLAUDE.md file. Longer files consume more context and reduce adherence. Move instructions that matter for only part of the codebase into path-scoped rules, which load only when Claude works with matching files.",
   "correction": "",
-  "evidence": "memory.md の「Write effective instructions」節と一致。features-overview.md にも「Keep CLAUDE.md under 200 lines」がある。"
+  "evidence": "memory.md の「Write effective instructions」節と一致。features-overview.md にも「Keep CLAUDE.md under 200 lines」がある。 2026-11-07再照合: 200行の目安は同じだが、勧めている内容は「長くなったら分割」から「コードベースの一部にだけ関わる指示をpaths付きrulesへ移す」に変わった。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
   "claim": "長いファイルもすべて読み込まれますが、重要な指示がノイズに埋もれて遵守率が下がるためです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Claude Code loads a CLAUDE.md file of up to 4 MiB in full and skips a larger file. Shorter files produce better adherence.",
+  "quote": "Longer files consume more context and reduce adherence. [...] Claude gets the whole of each CLAUDE.md file that loads at launch, as long as the file is 4 MiB or smaller. Claude Code skips a file over 4 MiB and loads none of it.",
   "correction": "",
-  "evidence": "memory.md の auto memory 節。全文ロードは 4 MiB までという上限が原文にあるが、200 行前後という文脈での「長いファイルもすべて読み込まれる」は成り立つ。遵守率低下は「Longer files consume more context and reduce adherence.」が根拠。"
+  "evidence": "memory.md の auto memory 節。全文ロードは 4 MiB までという上限が原文にあるが、200 行前後という文脈での「長いファイルもすべて読み込まれる」は成り立つ。遵守率低下は「Longer files consume more context and reduce adherence.」が根拠。 2026-11-07再照合: 全文が読まれるのは起動時に読むCLAUDE.mdで4 MiB以下のときに限られ、超えると全く読まれず、オンデマンドのファイルはより小さい上限で先頭だけになる。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -967,9 +967,9 @@
   "claim": "**/*.ts は任意のディレクトリの TypeScript ファイル、src/**/* は src/ 配下のすべてのファイル、*.md はプロジェクトルートの Markdown、src/components/*.tsx は特定ディレクトリの React コンポーネントにマッチする",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "**/*.ts | All TypeScript files in any directory | | src/**/* | All files under src/ directory | | *.md | Markdown files in the project root | | src/components/*.tsx | React components in a specific directory",
+  "quote": "**/*.ts | .ts files anywhere under the base directory | | src/**/* | All files under the base directory's src/ | | *.md | .md files anywhere under the base directory | | /*.md | .md files directly in the base directory, not in subfolders | | src/components/*.tsx | .tsx files directly in the base directory's src/components/, not in subfolders",
   "correction": "",
-  "evidence": "memory.md の glob パターン表 4 行と 1 対 1 で一致。"
+  "evidence": "memory.md の glob パターン表 4 行と 1 対 1 で一致。 2026-11-07再照合: *.mdの意味がプロジェクトルート限定からベースディレクトリ以下の全域に変わり、直下だけを指す/*.mdが新設された。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -994,18 +994,18 @@
   "claim": ".claude/rules/ はシンボリックリンクに対応しています。共通ルールを 1 箇所で保守し、各プロジェクトからリンクできます（循環リンクは検出されて適切に処理されます）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "The .claude/rules/ directory supports symlinks, so you can maintain a shared set of rules and link them into multiple projects. Symlinks are resolved and loaded normally, and circular symlinks are detected and handled gracefully.",
+  "quote": "The .claude/rules/ directory supports symlinks, so you can maintain a shared set of rules and link them into multiple projects. Circular symlinks are detected and handled gracefully. [...] Claude Code treats a symlink whose target is outside your working directory like an external import. The linked rules don't load until you approve external imports for the project, and after that only the ones without a paths field load.",
   "correction": "",
-  "evidence": "memory.md の「Share rules across projects with symlinks」節と一致。ページの ln -s 例 2 本も原文の例と同じ。"
+  "evidence": "memory.md の「Share rules across projects with symlinks」節と一致。ページの ln -s 例 2 本も原文の例と同じ。 2026-11-07再照合: symlink対応と循環検出は同じだが、作業ディレクトリ外を指すリンクは承認するまで読み込まれず、承認後もpathsなしのルールだけが読まれるようになった。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
   "claim": "~/.claude/rules/ に置いたルールはマシン上の全プロジェクトに効きます。ユーザーレベルのルールはプロジェクトのルールより先に読み込まれ、プロジェクト側が優先されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Personal rules in ~/.claude/rules/ apply to every project on your machine. […] User-level rules are loaded before project rules, giving project rules higher priority.",
+  "quote": "Personal rules in ~/.claude/rules/ apply to every project on your machine. [...] Claude Code loads user-level rules before project rules, so a project rule appears later in Claude's context than a user rule. Neither set overrides the other: if a user rule and a project rule conflict, Claude may follow either one, so keep the two consistent.",
   "correction": "",
-  "evidence": "memory.md の「User-level rules」節。ページのファイル例（preferences.md / workflows.md）も原文と同じ。"
+  "evidence": "memory.md の「User-level rules」節。ページのファイル例（preferences.md / workflows.md）も原文と同じ。 2026-11-07再照合: 全プロジェクトに効くことと先に読み込まれることは同じだが、プロジェクト側が優先されるという記述はなくなり、どちらも上書きしないと明記された。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -1021,9 +1021,9 @@
   "claim": "Hooks はイベントで決定的に発火し、exit 2 で操作をブロックできる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/hooks",
-  "quote": "For most hook events, exit code 2 is the only exit code that blocks through the code alone. […] If your hook is meant to enforce a policy, use exit 2.",
+  "quote": "Exit with code 2 to block the action. [...] If your hook is meant to enforce a policy, use `exit 2`.",
   "correction": "",
-  "evidence": "hooks.md の Exit code 節。イベント別の表でも PreToolUse は exit 2 でツール呼び出しをブロックすると明記されている。"
+  "evidence": "hooks.md の Exit code 節。イベント別の表でも PreToolUse は exit 2 でツール呼び出しをブロックすると明記されている。 2026-11-07再照合: 「only exit code that blocks」の文が消え、exit 2の説明節の冒頭に同じ内容が書かれている。"
  },
  {
   "file": "claude-code/claude-core/ProjectRules.tsx",
@@ -1039,54 +1039,54 @@
   "claim": "How Claude remembers your project（公式・rules の正本）https://code.claude.com/docs/en/memory",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "How Claude remembers your project Give Claude persistent instructions with CLAUDE.md files, and let Claude accumulate learnings automatically with auto memory.",
+  "quote": "How Claude remembers your project Give Claude persistent instructions with CLAUDE.md or AGENTS.md files, and let Claude accumulate learnings automatically with auto memory.",
   "correction": "",
-  "evidence": "リンク先のページ題名と副題が一致し、rules の設定方法もこのページに置かれている（Scope rules to specific file types with .claude/rules/）。"
+  "evidence": "リンク先のページ題名と副題が一致し、rules の設定方法もこのページに置かれている（Scope rules to specific file types with .claude/rules/）。 2026-11-07再照合: ページの題名は同じで、説明文にAGENTS.mdが足された。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": "Personal は ~/.claude/skills/<name>/SKILL.md で自分の全プロジェクト、Project は .claude/skills/<name>/SKILL.md でそのプロジェクトのみ、Plugin は <plugin>/skills/<name>/SKILL.md でプラグインを有効にした場所、Enterprise は managed settings 配下で組織の全ユーザー",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "Enterprise | See managed settings | All users in your organization | | Personal | ~/.claude/skills/<skill-name>/SKILL.md | All your projects | | Project | .claude/skills/<skill-name>/SKILL.md | This project only | | Plugin | <plugin>/skills/<skill-name>/SKILL.md | Where plugin is enabled",
+  "quote": "| Enterprise | `.claude/skills/<skill-name>/SKILL.md` in the managed settings directory | All users on machines where your organization deploys it |\n| Personal | `~/.claude/skills/<skill-name>/SKILL.md` | All your projects on this machine, but not Cowork or cloud sessions |\n| Project | `.claude/skills/<skill-name>/SKILL.md` | Sessions in this repository, but not cloud threads in a project. Commit it so your team gets it too | [...] | Plugin | `<plugin>/skills/<skill-name>/SKILL.md` | Wherever the plugin is enabled, as `/plugin-name:skill-name` |",
   "correction": "",
-  "evidence": "skills.md の「Where skills live」表 4 行と一致。原文のプレースホルダは <skill-name>、ページは <name> と略している。"
+  "evidence": "skills.md の「Where skills live」表 4 行と一致。原文のプレースホルダは <skill-name>、ページは <name> と略している。 2026-11-07再照合: 表にNestedなどの行と細かな適用範囲が足されたが、4種類の場所と対象は教材と同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": "レベル間では enterprise > personal > project の順に勝ちます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "Across levels, enterprise overrides personal, and personal overrides project.",
+  "quote": "Enterprise over personal, and personal over project.",
   "correction": "",
-  "evidence": "skills.md の「Where skills live」節と一致。"
+  "evidence": "skills.md の「Where skills live」節と一致。 2026-11-07再照合: 同名解決の表に移って表現が短くなったが順序は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": "プラグインスキルは plugin-name:skill-name の名前空間を持つため衝突しません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "Plugin skills use a plugin-name:skill-name namespace, so they can't conflict with other levels.",
+  "quote": "| A plugin skill and a skill at any of the locations above | Both load, because plugin skills are namespaced as `/plugin-name:skill-name` |",
   "correction": "",
-  "evidence": "skills.md の同節と一致。"
+  "evidence": "skills.md の同節と一致。 2026-11-07再照合: 同名解決の表に移ったが内容は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": ".claude/commands/deploy.md と .claude/skills/deploy/SKILL.md が両方あるときはスキルが優先されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "if a skill and a command share the same name, the skill takes precedence. For example, with both .claude/commands/deploy.md and .claude/skills/deploy/SKILL.md, /deploy runs the skill.",
+  "quote": "A file at `.claude/commands/deploy.md` and a skill at `.claude/skills/deploy/SKILL.md` both create `/deploy` and work the same way. [...] | A skill and a file in `.claude/commands/` | The skill |",
   "correction": "",
-  "evidence": "skills.md の同節と一致。例示するファイル名も同じ。"
+  "evidence": "skills.md の同節と一致。例示するファイル名も同じ。 2026-11-07再照合: 同名時の優先が例文から同名解決の表へ移ったが、スキルが勝つ点は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": "モノレポでは作業ディレクトリ配下の入れ子の .claude/skills/ も apps/web:deploy のようなディレクトリ修飾名で読み込まれます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "The nested one appears under a directory-qualified name, apps/web:deploy.",
+  "quote": "Skills in a `.claude/skills/` directory below where you started don't load at startup. They load the first time Claude reads or edits a file in that subdirectory [...] `/apps/web:deploy` runs the nested skill on its own.",
   "correction": "",
-  "evidence": "skills.md の同節。直前に「Skills also load from nested .claude/skills/ directories below your working directory.」があり、モノレポの例として説明されている。"
+  "evidence": "skills.md の同節。直前に「Skills also load from nested .claude/skills/ directories below your working directory.」があり、モノレポの例として説明されている。 2026-11-07再照合: 入れ子のスキルは起動時ではなく該当ファイルを読むか編集した時点で読み込まれ、ディレクトリ修飾名が付くのは他のスキルと同名のときに限られる。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1102,9 +1102,9 @@
   "claim": "disable-model-invocation: true は Claude の自動呼び出しを止める。デプロイ手順のように人が明示的に起動すべきワークフローに付ける。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "disable-model-invocation: true: Only you can invoke the skill. Use this for workflows with side effects or that you want to control timing, like /commit, /deploy, or /send-slack-message.",
+  "quote": "**`disable-model-invocation: true`**: Claude can't invoke the skill on its own. Use this for workflows with side effects or that you want to control timing, like `/commit`, `/deploy`, or `/send-slack-message`.",
   "correction": "",
-  "evidence": "skills.md の同節と一致。用途例としてデプロイが挙がっている点も同じ。"
+  "evidence": "skills.md の同節と一致。用途例としてデプロイが挙がっている点も同じ。 2026-11-07再照合: 「Only you can invoke the skill」が「Claude can't invoke the skill on its own」に変わったが意味は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1138,9 +1138,9 @@
   "claim": "$ARGUMENTS[N] / $N は位置指定で個別の引数にアクセスする（$0 が最初の引数）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "To access individual arguments by position, use $ARGUMENTS[N] or the shorter $N: […] Running /migrate-component SearchBar React Vue replaces $ARGUMENTS[0] with SearchBar",
+  "quote": "| `$ARGUMENTS[N]` | Access a specific argument by 0-based index, such as `$ARGUMENTS[0]` for the first argument. |\n| `$N` | Shorthand for `$ARGUMENTS[N]`, such as `$0` for the first argument or `$1` for the second. |",
   "correction": "",
-  "evidence": "skills.md の同節。$ARGUMENTS[0] が最初の引数に対応することが例で示されている。"
+  "evidence": "skills.md の同節。$ARGUMENTS[0] が最初の引数に対応することが例で示されている。 2026-11-07再照合: 例の引数が変わったため変数表の行へ差し替えた。$0が最初の引数である点は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1156,18 +1156,18 @@
   "claim": "スキル本文に $ARGUMENTS が無い場合、Claude Code は入力を ARGUMENTS: <入力> として本文末尾に追記します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "If you invoke a skill with arguments but the skill doesn't include $ARGUMENTS, Claude Code appends ARGUMENTS: <your input> to the end of the skill content so Claude still sees what you typed.",
+  "quote": "If you invoke a skill with arguments but no placeholder in the skill's content receives one, Claude Code appends `ARGUMENTS: <your input>` to the end of the skill content so Claude still sees what you typed.",
   "correction": "",
-  "evidence": "skills.md の同節と一致。"
+  "evidence": "skills.md の同節と一致。 2026-11-07再照合: 追記の条件が「$ARGUMENTSがない」から「引数を受け取るプレースホルダーがない」に広がり、$1や名前付き引数も数えるようになった。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
   "claim": "/write-tests /fix-issue 123 のように 1 メッセージで複数スキルを重ねて起動できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "You can also stack several skills at the start of one message. Typing /write-tests /fix-issue 123 loads both skills and passes the trailing text 123 as $ARGUMENTS to each of them.",
+  "quote": "When you type at the Claude Code prompt in your terminal, you can stack several skills at the start of one message. Through the Agent SDK or `claude -p`, Claude Code loads only the first skill, with the rest of the line as its arguments. At the terminal prompt, typing `/write-tests /fix-issue 123` loads both skills and passes the trailing text `123` as `$ARGUMENTS` to each of them.",
   "correction": "",
-  "evidence": "skills.md の同節と一致。例のコマンド列も同じ。"
+  "evidence": "skills.md の同節と一致。例のコマンド列も同じ。 2026-11-07再照合: 重ねて起動できるのはターミナルのプロンプトに限られ、Agent SDKとclaude -pでは最初のスキルだけが読み込まれると明記された。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1192,9 +1192,9 @@
   "claim": "context: fork を付けると、スキルはフォークされたサブエージェントのコンテキストで実行されます。大量のファイルを読む調査系スキルでも、メインの会話コンテキストを消費しません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "Add context: fork to your frontmatter when you want a skill to run in isolation. The skill content becomes the prompt that drives the subagent. It won't have access to your conversation history.",
+  "quote": "Add `context: fork` to your frontmatter when you want a skill to run in isolation. Claude Code starts a new subagent of the type set in the `agent` field and gives it the skill content as its prompt. The subagent doesn't see your conversation history, so the skill's instructions have to stand on their own.",
   "correction": "",
-  "evidence": "skills.md の「Run skills in a subagent」節と一致。"
+  "evidence": "skills.md の「Run skills in a subagent」節と一致。 2026-11-07再照合: 説明の文が書き直されたが、サブエージェントで隔離実行する点は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1219,9 +1219,9 @@
   "claim": "model / effort はそのスキルの実行中だけの上書きです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "model | No | Model to use when this skill is active. The override applies for the rest of the current turn and is not saved to settings; the session model resumes on your next prompt.",
+  "quote": "| `model` | No | Model to use when this skill is active. The override applies for the rest of the current turn and isn't saved to settings. The session model resumes when you send your next prompt.",
   "correction": "",
-  "evidence": "skills.md の frontmatter 表。model は「現在のターンの残り」まで効き、次のプロンプトでセッションのモデルに戻る。effort も「Effort level when this skill is active.」で同じ扱い。"
+  "evidence": "skills.md の frontmatter 表。model は「現在のターンの残り」まで効き、次のプロンプトでセッションのモデルに戻る。effort も「Effort level when this skill is active.」で同じ扱い。 2026-11-07再照合: 語尾と文の区切りが変わっただけで、そのターン限りの上書きである点は同じ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1237,9 +1237,9 @@
   "claim": "スキルが発動しない: description に利用者が自然に言うキーワードを足す。「What skills are available?」で認識されているか確認。frontmatter の YAML が壊れていると本文だけ読み込まれ description が空になる（--debug でパースエラーを確認）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/skills",
-  "quote": "If the frontmatter YAML is malformed, Claude Code loads the skill body with empty metadata, so /skill-name still works but Claude has no description to match against. Run with --debug to see the parse error.",
+  "quote": "If the frontmatter YAML is malformed, Claude Code loads the skill body with empty metadata, so `/skill-name` still works but Claude can't match against your `description`. Run with `--debug` to see the parse error.",
   "correction": "",
-  "evidence": "skills.md の Troubleshooting「Skill not triggering」節。直前に「Check the description includes keywords users would naturally say」「Verify the skill appears in What skills are available?」がある。"
+  "evidence": "skills.md の Troubleshooting「Skill not triggering」節。直前に「Check the description includes keywords users would naturally say」「Verify the skill appears in What skills are available?」がある。 2026-11-07再照合: 「has no description to match against」が言い換えられただけ。"
  },
  {
   "file": "claude-code/agent-extensions/SkillsDeepDive.tsx",
@@ -1264,9 +1264,9 @@
   "claim": "CLAUDE.md / ./CLAUDE.md または ./.claude/CLAUDE.md / Claude Code / 毎セッションの開始時 / プロジェクト（チーム共有）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Project instructions | ./CLAUDE.md or ./.claude/CLAUDE.md | Team-shared instructions for the project",
+  "quote": "Project instructions | ./CLAUDE.md or ./.claude/CLAUDE.md. See AGENTS.md for when ./AGENTS.md loads instead of or alongside them | Team-shared instructions for the project",
   "correction": "",
-  "evidence": "memory.md の「Choose where to put CLAUDE.md files」表と一致。読み込み時期は「You write these files in plain text; Claude reads them at the start of every session.」が根拠。"
+  "evidence": "memory.md の「Choose where to put CLAUDE.md files」表と一致。読み込み時期は「You write these files in plain text; Claude reads them at the start of every session.」が根拠。 2026-11-07再照合: 場所の欄にAGENTS.mdへの案内が足されただけで、CLAUDE.mdの場所と用途は同じ。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
@@ -1291,9 +1291,9 @@
   "claim": ".claude/rules/*.md / paths なし → 開始時 / paths あり → 一致するファイルを読んだとき",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Rules without paths frontmatter are loaded at launch with the same priority as .claude/CLAUDE.md. […] Path-scoped rules trigger when Claude reads files matching the pattern, not on every tool use.",
+  "quote": "Rules without paths frontmatter are loaded at launch with the same priority as .claude/CLAUDE.md. [...] A path-scoped rule loads when Claude uses the Read, Write, or Edit tool on a matching file.",
   "correction": "",
-  "evidence": "memory.md の rules 節 2 箇所と一致。ユーザー側の ~/.claude/rules/ も同ページに記載がある。"
+  "evidence": "memory.md の rules 節 2 箇所と一致。ユーザー側の ~/.claude/rules/ も同ページに記載がある。 2026-11-07再照合: pathsなしは同じだが、pathsありの読み込み契機が読み取りだけでなくWrite / Editにも広がった。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
@@ -1308,19 +1308,19 @@
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
   "claim": ".claude/settings.json / 常時。指示ではなく設定として効く / 権限・フック・環境変数",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/claude-directory",
-  "quote": "Permissions control which commands and tools Claude can use; hooks run your scripts at specific points in a session. Unlike CLAUDE.md, which Claude reads as guidance, these are enforced whether Claude follows them or not.",
+  "sourceUrl": "https://code.claude.com/docs/en/memory",
+  "quote": "Settings rules are enforced by the client regardless of what Claude decides to do. CLAUDE.md instructions shape Claude's behavior but are not a hard enforcement layer.",
   "correction": "",
-  "evidence": "claude-directory.md の settings.json の説明と一致。環境変数については同ページの ~/.claude/settings.json 説明に「permissions, hooks, model, environment variables, and the rest」とある。"
+  "evidence": "claude-directory.md の settings.json の説明と一致。環境変数については同ページの ~/.claude/settings.json 説明に「permissions, hooks, model, environment variables, and the rest」とある。 2026-11-07再照合: claude-directoryの本文から該当の文が消え、指示と設定の違いはmemoryページの記述で裏づけられる。権限・フック・環境変数という中身はclaude-directoryのファイル表に残っている。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
   "claim": "AGENTS.md / 他のコーディングエージェント（Claude Code は読まない） / CLAUDE.md から @import するか symlink したときだけ",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Claude Code reads CLAUDE.md, not AGENTS.md. If your repository already uses AGENTS.md for other coding agents, create a CLAUDE.md that imports it so both tools read the same instructions without duplicating them.",
+  "quote": "Claude Code can read AGENTS.md as your project instructions, so a repository already set up for other coding agents works without adding a CLAUDE.md, an import, or a setting. [...] By default, Claude reads AGENTS.md only when you have no CLAUDE.md in your working directory or above it.",
   "correction": "",
-  "evidence": "memory.md の AGENTS.md 節と一致。symlink についても「A symlink also works if you don't need to add Claude-specific content: ln -s AGENTS.md CLAUDE.md」がある。"
+  "evidence": "memory.md の AGENTS.md 節と一致。symlink についても「A symlink also works if you don't need to add Claude-specific content: ln -s AGENTS.md CLAUDE.md」がある。 2026-11-07再照合: Claude CodeはCLAUDE.mdが無ければAGENTS.mdを直接読み、両方あるときの既定はCLAUDE.mdだけで、/configのProject instructionsで変更できる。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
@@ -1363,27 +1363,27 @@
   "claim": "作業ディレクトリより上の階層にある CLAUDE.md も、ルート側から順にすべて載ります。逆に下の階層にあるものは起動時には載らず、Claude がそのディレクトリのファイルを読んだ時点で追加されます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Across the directory tree, content is ordered from the filesystem root down to your working directory. […] Claude also discovers CLAUDE.md and CLAUDE.local.md files in subdirectories under your current working directory. Instead of loading them at launch, they are included when Claude reads files in those subdirectories.",
+  "quote": "Across the directory tree, content is ordered from the filesystem root down to your working directory. [...] Claude also discovers CLAUDE.md and CLAUDE.local.md files in subdirectories under your current working directory. Instead of loading them at launch, Claude Code loads each one once Claude reads, writes, or edits another file in that subdirectory.",
   "correction": "",
-  "evidence": "memory.md の「How CLAUDE.md files load」節と一致。"
+  "evidence": "memory.md の「How CLAUDE.md files load」節と一致。 2026-11-07再照合: 上の階層の順序は同じだが、下の階層の読み込み契機が読み取りだけでなく書き込みと編集にも広がった。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
   "claim": "AGENTS.md は置いてあっても載りません。実際に載ったかは /context の Memory files で確かめられます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "In your next session, run /context and confirm CLAUDE.md appears under Memory files.",
+  "quote": "By default, Claude reads AGENTS.md only when you have no CLAUDE.md in your working directory or above it. [...] To check whether Claude read your AGENTS.md, run /memory and look for its path in the list.",
   "correction": "",
-  "evidence": "memory.md の AGENTS.md 節。同ページ冒頭に「Claude Code reads CLAUDE.md, not AGENTS.md.」があり、確認手段としての /context も同節に書かれている。"
+  "evidence": "memory.md の AGENTS.md 節。同ページ冒頭に「Claude Code reads CLAUDE.md, not AGENTS.md.」があり、確認手段としての /context も同節に書かれている。 2026-11-07再照合: AGENTS.mdは条件次第で読まれるようになり、読まれたかは/memoryの一覧で確かめられ、CLAUDE.mdの確認は/context allに変わった。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
   "claim": "import されたファイルは起動時に展開されて載ります。分割は整理のための手段で、削減にはなりません。import は 4 ホップまでです。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Imported files are expanded and loaded into context at launch alongside the CLAUDE.md that references them. […] Imported files can recursively import other files, with a maximum depth of four hops.",
+  "quote": "Imported files are expanded and loaded into context alongside the CLAUDE.md that references them. [...] Imported files can recursively import other files, with a maximum depth of four hops.",
   "correction": "",
-  "evidence": "memory.md の「Import additional files」節と一致。「Splitting into @path imports helps organization but doesn't reduce context, since imported files load at launch.」も同ページにある。"
+  "evidence": "memory.md の「Import additional files」節と一致。「Splitting into @path imports helps organization but doesn't reduce context, since imported files load at launch.」も同ページにある。 2026-11-07再照合: 4ホップの上限は同じだが、「at launch」が消え、importはそれを参照するCLAUDE.mdと一緒に読み込まれるという記述に変わった。"
  },
  {
   "file": "claude-code/multi-ai-architecture/FileMap.tsx",
@@ -1417,126 +1417,126 @@
   "claim": "InstructionsLoaded hook で「いつ・なぜ読まれたか」を記録できます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/memory",
-  "quote": "Use the InstructionsLoaded hook to log exactly which instruction files are loaded, when they load, and why. This is useful for debugging path-specific rules or lazy-loaded files in subdirectories.",
+  "quote": "Use the InstructionsLoaded hook to log which CLAUDE.md and rules files are loaded, when they load, and why. This is useful for debugging path-specific rules or lazy-loaded files in subdirectories.",
   "correction": "",
-  "evidence": "memory.md の Troubleshoot 節の Tip と一致。用途（paths 付き rules やサブディレクトリの遅延ロードの追跡）も同じ。"
+  "evidence": "memory.md の Troubleshoot 節の Tip と一致。用途（paths 付き rules やサブディレクトリの遅延ロードの追跡）も同じ。 2026-11-07再照合: 対象の表現がCLAUDE.mdとrulesに具体化されただけで、用途は同じ。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "Claude は「できたように見えた」ところで止まります。実行できるチェックが無いと「見た目上できた」が唯一のシグナルになり、すべてのミスはあなたが気づくまで残ります。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Claude stops when the work looks done. Without a check it can run, \"looks done\" is the only signal available, and you become the verification loop: every mistake waits for you to notice it.",
+  "quote": "Claude stops when the work looks done. If it has nothing to run that tells it whether the work actually *is* done, \"looks done\" is all it has to go on. In practice that makes you the test suite, and every mistake sits there until you happen to notice it.",
   "correction": "",
-  "evidence": "best-practices.md の「Give Claude a way to verify its work」節と一致。"
+  "evidence": "best-practices.md の「Give Claude a way to verify its work」節と一致。 2026-11-07再照合: 言い換えられたが内容は同じで、節の見出しは「Give Claude a check to run」に変わった。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "チェックになるもの: テストスイート / ビルドの exit code / linter / 出力を fixture と diff するスクリプト / デザインと比較するブラウザスクリーンショット。会話の中で Claude が読めるシグナルを返すものなら何でもよい。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "The check is anything that returns a signal Claude can read in the conversation: a test suite, a build exit code, a linter, a script that diffs output against a fixture, or a browser screenshot compared against a design.",
+  "quote": "The check can be almost anything, as long as Claude can read the result: A test file A build's exit code A linter A script that diffs output against a fixture A browser screenshot next to the mockup",
   "correction": "",
-  "evidence": "best-practices.md の同節と一致。列挙の順序と内容も同じ。"
+  "evidence": "best-practices.md の同節と一致。列挙の順序と内容も同じ。 2026-11-07再照合: 文が箇条書きになり、test suiteがtest fileへ変わったが、列挙の内容は同じ。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "「ビルドが失敗している」→「ビルドがこのエラーで失敗する: [貼り付け]。修正してビルドが通ることを確認して。エラーを握り潰さず根本原因を直して」",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "the build fails with this error: [paste error]. fix it and verify the build succeeds. address the root cause, don't suppress the error",
+  "sourceUrl": "https://code.claude.com/docs/en/communications-kit",
+  "quote": "here's the stack trace, find the root cause, don't just paper over it",
   "correction": "",
-  "evidence": "best-practices.md の Strategy 表「Address root causes, not symptoms」の After 列と一致。Before 列は「the build is failing」。"
+  "evidence": "best-practices.md の Strategy 表「Address root causes, not symptoms」の After 列と一致。Before 列は「the build is failing」。 2026-11-07再照合: ビルドエラーの例文は全ページから消え、根本原因を直させる例文だけがcommunications-kitに残る。教材は公式の例と書いていないので本文の修正は不要。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "1. プロンプト内: 「実装したらテストを実行して、失敗があれば直して」と同じメッセージで頼む。今日から任意のタスクで使える。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "In one prompt: ask Claude to run the check and iterate in the same message, as in the table above. […] The prompt version works on any task today.",
+  "quote": "In the prompt: `run the auth tests after, and keep going until they pass`. Claude decides for itself when it's satisfied. This works for any task, today, with no setup.",
   "correction": "",
-  "evidence": "best-practices.md の「Once the check exists, decide how hard it gates the stop」の第 1 段と一致。"
+  "evidence": "best-practices.md の「Once the check exists, decide how hard it gates the stop」の第 1 段と一致。 2026-11-07再照合: 例文は変わったが、同じメッセージで頼めば任意のタスクで使えるという内容は同じ。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "2. /goal 条件: チェックを /goal の条件に設定する。独立した評価器が毎ターン後に再チェックし、条件が満たされるまで Claude が作業を続ける。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Across a session: set the check as a /goal condition. A separate evaluator re-checks it after every turn and Claude keeps working until the goal resolves.",
+  "quote": "As a goal: `/goal all tests in tests/auth pass and lint is clean` sets a condition that a separate model checks against the conversation after every turn, and Claude keeps going until it's met.",
   "correction": "",
-  "evidence": "best-practices.md の同節と一致。"
+  "evidence": "best-practices.md の同節と一致。 2026-11-07再照合: 別モデルが毎ターン後に判定する点は同じだが、判定の対象は会話の内容で、チェックを実行し直すわけではないと明記された。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "3. Stop hook: チェックをスクリプトとして Stop hook に置く決定的ゲート。パスするまでターン終了をブロックする（連続 8 回ブロックで Claude Code がフックを上書きして終了）。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "As a deterministic gate: a Stop hook runs your check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook and ends the turn after 8 consecutive blocks.",
+  "quote": "As a Stop hook: a `Stop` hook runs your script whenever Claude tries to end its turn, and sends Claude back to work if the script exits with code 2. [...] If the hook blocks eight stops in a row with no tool call between them, Claude Code overrides the next block and ends the turn.",
   "correction": "",
-  "evidence": "best-practices.md の同節と一致。8 回という回数も同じ。"
+  "evidence": "best-practices.md の同節と一致。8 回という回数も同じ。 2026-11-07再照合: 上限の8回は同じだが、ツール呼び出しで回数がリセットされる条件と、環境変数で上げられることが明記された。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "4. 第三者の目: 検証サブエージェントや、自分の発見を自分で反証する動的ワークフロー。作業したエージェントと採点するエージェントを分離する。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "By a second opinion: a verification subagent or a dynamic workflow that checks its own findings has a fresh model try to refute the result, so the agent doing the work isn't the one grading it.",
+  "quote": "By someone who didn't write the code: in the terminal, `/code-review` reviews the diff in a fresh subagent that never saw your conversation. It isn't swayed by the reasoning that produced the code.",
   "correction": "",
-  "evidence": "best-practices.md の同節と一致。"
+  "evidence": "best-practices.md の同節と一致。 2026-11-07再照合: 作業者と採点者を分ける内容は残るが、best-practicesから動的ワークフローの記述は消え、workflowsの説明は独立したエージェント同士のレビューになっている。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "完了報告は主張ではなく証拠で受け取ります: テストの出力、実行したコマンドとその戻り、結果のスクリーンショット。証拠のレビューは検証の再実行より速く、見ていなかったセッションにも効きます。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Have Claude show evidence rather than asserting success: the test output, the command it ran and what it returned, or a screenshot of the result. Reviewing evidence is faster than re-running the verification yourself, and it works for sessions you weren't watching.",
+  "quote": "Whichever option you use, ask Claude for *evidence*: the command it ran and its output, or the screenshot. \"All tests pass\" on its own tells you very little, and reading the output is faster than rerunning the check yourself. For a session you weren't watching, it's also the only evidence you have.",
   "correction": "",
-  "evidence": "best-practices.md の同節と一致。3 種類の証拠の列挙も同じ。"
+  "evidence": "best-practices.md の同節と一致。3 種類の証拠の列挙も同じ。 2026-11-07再照合: 言い換えられたが、証拠を求める理由も含めて内容は同じ。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "バグ検出なら同梱の /code-review（差分を新しいサブエージェントでレビュー）",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "For a correctness check, run the bundled /code-review skill, which reviews the current diff for bugs in a fresh subagent and returns findings to the session.",
+  "quote": "in the terminal, `/code-review` reviews the diff in a fresh subagent that never saw your conversation.",
   "correction": "",
-  "evidence": "best-practices.md の「Add an adversarial review step」節と一致。"
+  "evidence": "best-practices.md の「Add an adversarial review step」節と一致。 2026-11-07再照合: 文は変わったが、差分を新しいサブエージェントでレビューする内容は同じで、同梱スキルである点はcode-review-localに書かれている。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "サブエージェントを使って、レートリミッターの差分を PLAN.md と突き合わせてレビューして。全要件が実装されているか、列挙したエッジケースにテストがあるか、タスクの範囲外の変更が無いかを確認して。スタイルの好みではなくギャップだけを報告して。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Use a subagent to review the rate limiter diff against PLAN.md. Check that every requirement is implemented, the listed edge cases have tests, and nothing outside the task's scope changed. Report gaps, not style preferences.",
+  "quote": "use a subagent to review the rate limiter diff against SPEC.md, check every requirement is implemented and the listed edge cases have tests, report gaps that affect correctness and skip style",
   "correction": "",
-  "evidence": "best-practices.md の同節のプロンプト例と一致。ページの例文はこの原文の日本語訳。"
+  "evidence": "best-practices.md の同節のプロンプト例と一致。ページの例文はこの原文の日本語訳。 2026-11-07再照合: 例文の対象がPLAN.mdからSPEC.mdへ変わり、範囲外の変更の確認が消え、報告の範囲が正しさに影響するギャップへ絞られた。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "「ギャップを探せ」と言われたレビュアーは、健全な実装に対しても何かしら報告します。全指摘を追うと過剰設計（不要な抽象層・防御コード・起こり得ないケースのテスト）に向かいます。正しさと明記した要件に影響するギャップだけを報告させ、残りは任意として扱います。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "A reviewer prompted to find gaps will usually report some, even when the work is sound, because that is what it was asked to do. Chasing every finding leads to over-engineering: extra abstraction layers, defensive code, and tests for cases that can't happen. Tell the reviewer to flag only gaps that affect correctness or the stated requirements, and treat the rest as optional.",
+  "quote": "A reviewer that's asked to find problems will always find *something*. If you fix every finding, you end up with extra abstraction layers and tests for cases that can't happen.",
   "correction": "",
-  "evidence": "best-practices.md の Callout と一致。過剰設計の 3 例も同じ。"
+  "evidence": "best-practices.md の Callout と一致。過剰設計の 3 例も同じ。 2026-11-07再照合: 警告は短くなり、防御コードの例と、残りを任意として扱う指示が消えた。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "公式も「2 回直して直らなければ /clear して、学んだことを織り込んだ良い初期プロンプトを書き直す」ことを推奨しています。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Fix: After two failed corrections, /clear and write a better initial prompt incorporating what you learned.",
+  "quote": "after two failed corrections run `/clear` and write a better prompt instead of a third. [...] `/clear` plus one new prompt that folds in what you learned works better almost every time.",
   "correction": "",
-  "evidence": "best-practices.md の「Avoid common failure patterns」節と一致。「Course-correct early and often」節にも同趣旨の記述がある。"
+  "evidence": "best-practices.md の「Avoid common failure patterns」節と一致。「Course-correct early and often」節にも同趣旨の記述がある。 2026-11-07再照合: 「Steer the session」節へ移り、2回で/clearして書き直す内容は同じ。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
   "claim": "/rewind（Esc Esc）コード・会話を以前のポイントに復元。チェックポイントは Claude の編集前と各プロンプト時点で自動作成される。",
   "verdict": "CONFIRMED",
-  "sourceUrl": "https://code.claude.com/docs/en/best-practices",
-  "quote": "Every prompt you send creates a checkpoint. You can restore conversation, code, or both to any previous checkpoint. […] Claude automatically snapshots files before each change so a checkpoint can restore them. Double-tap Escape or run /rewind to open the rewind menu.",
+  "sourceUrl": "https://code.claude.com/docs/en/checkpointing",
+  "quote": "Every prompt you send that starts a turn creates a new checkpoint [...] Run `/rewind`, or press `Esc` twice when the prompt input is empty, to open the rewind menu.",
   "correction": "",
-  "evidence": "best-practices.md の「Rewind with checkpoints」節と一致。checkpointing.md 側にも「Every user prompt creates a new checkpoint」がある。"
+  "evidence": "best-practices.md の「Rewind with checkpoints」節と一致。checkpointing.md 側にも「Every user prompt creates a new checkpoint」がある。 2026-11-07再照合: チェックポイントの作成はターンを開始するプロンプトごとで、編集前に取るのはファイルのスナップショットとして書き分けられ、Esc二度押しは入力欄が空のときに限ると明記された。"
  },
  {
   "file": "claude-code/best-practices/VerificationAndTrust.tsx",
@@ -1552,9 +1552,9 @@
   "claim": "実践Claude Code: 検証（公式ラーニングパス）https://academy.claude.com/courses/claude-code-in-action/verification-skills",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://academy.claude.com/courses/claude-code-in-action/verification-skills",
-  "quote": "Lesson 3 of 9 · Claude Code in Action Verification skills",
+  "quote": "Lesson 3 of 9 · Claude Code in action Verification skills",
   "correction": "",
-  "evidence": "Claude Academy の Claude Code in Action コース第 3 レッスン「Verification skills」が実在することを確認した。"
+  "evidence": "Claude Academy の Claude Code in Action コース第 3 レッスン「Verification skills」が実在することを確認した。 2026-11-07再照合: コース名の表記が「Claude Code in Action」から小文字のinに変わっただけで、リンク先のレッスンは同じ。"
  },
  {
   "file": "claude-code/best-practices/BrowserVerification.tsx",
@@ -1597,18 +1597,18 @@
   "claim": "前提条件は Chrome / Edge などの Chromium 系ブラウザ、Claude in Chrome 拡張（バージョン 1.0.36 以上）、Anthropic の直接プラン（Pro / Max / Team / Enterprise）と /login でのサインイン。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/chrome",
-  "quote": "Claude in Chrome extension version 1.0.36 or higher, available in the Chrome Web Store Claude Code A direct Anthropic plan (Pro, Max, Team, or Enterprise) Chrome integration also requires signing in with /login.",
+  "quote": "Google Chrome, Microsoft Edge, or another Chromium-based browser such as Brave, Arc, Vivaldi, or Opera\n* Claude in Chrome extension version 1.0.36 or later, available in the Chrome Web Store\n* Claude Code\n* A direct Anthropic plan (Pro, Max, Ultra, Team, or Enterprise) [...] Chrome integration also requires signing in with `/login`.",
   "correction": "",
-  "evidence": "chrome.md の Prerequisites 節と一致。ブラウザ要件は「Google Chrome, Microsoft Edge, or another Chromium-based browser」。"
+  "evidence": "chrome.md の Prerequisites 節と一致。ブラウザ要件は「Google Chrome, Microsoft Edge, or another Chromium-based browser」。 2026-11-07再照合: 「or higher」が「or later」に変わり、対応プランにUltraが加わった。"
  },
  {
   "file": "claude-code/best-practices/BrowserVerification.tsx",
   "claim": "API キーや claude setup-token の長期トークンで認証したセッションでは、--chrome を渡しても連携は無効のままになります。Amazon Bedrock などのサードパーティプロバイダ経由でも利用できません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/chrome",
-  "quote": "If you authenticate with an API key or a long-lived token from claude setup-token, Claude Code keeps Chrome integration off, even when you pass --chrome, because the browser extension can't authenticate with those credentials.",
+  "quote": "If you authenticate with an API key or a long-lived token from `claude setup-token`, Claude Code keeps Chrome integration off, even when you pass `--chrome`. The browser extension can't authenticate with those credentials.",
   "correction": "",
-  "evidence": "chrome.md の Prerequisites 節と一致。サードパーティプロバイダについては「Chrome integration is not available through third-party providers like Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry.」がある。"
+  "evidence": "chrome.md の Prerequisites 節と一致。サードパーティプロバイダについては「Chrome integration is not available through third-party providers like Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry.」がある。 2026-11-07再照合: 1文が2文に分かれただけで内容は同じ。"
  },
  {
   "file": "claude-code/best-practices/BrowserVerification.tsx",
@@ -1633,9 +1633,9 @@
   "claim": "computer use は macOS の research preview で、Pro / Max プランが必要です（Team / Enterprise では利用不可）。対話セッション専用で、-p の非対話モードでは使えません。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/computer-use",
-  "quote": "Computer use is a research preview on macOS that requires a Pro or Max plan. It is not available on Team or Enterprise plans. It requires an interactive session, so it is not available in non-interactive mode with the -p flag.",
+  "quote": "Computer use is a research preview on macOS that requires a Pro, Max, or Ultra plan. It is not available on Team or Enterprise plans. It requires an interactive session, so it is not available in non-interactive mode with the `-p` flag.",
   "correction": "",
-  "evidence": "computer-use.md 冒頭の Note と一致。"
+  "evidence": "computer-use.md 冒頭の Note と一致。 2026-11-07再照合: 必要なプランにUltraが加わった。"
  },
  {
   "file": "claude-code/best-practices/BrowserVerification.tsx",
@@ -1759,9 +1759,9 @@
   "claim": "触れてよいファイルとネットワーク先を宣言し、境界を OS が強制する。macOS / Linux / WSL2 で動作する",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://code.claude.com/docs/en/sandboxing",
-  "quote": "Instead of approving each command, you define which files and network domains commands can touch, and the operating system enforces that boundary for every Bash command and its child processes. […] The sandbox is built into Claude Code and runs on macOS, Linux, and WSL2.",
+  "quote": "The Bash sandbox is a boundary that the operating system enforces around the shell commands Claude runs on your machine. You set which files and network domains those commands can reach [...] The sandbox runs on macOS, Linux, and WSL2.",
   "correction": "",
-  "evidence": "公式 sandboxing を取得して 2 箇所を確認した。導入段落と「Get started」節で離れているため中略記号でつないでいる。ネイティブ Windows は非対応で WSL2 の中で動かす、という但し書きも同ページにある。"
+  "evidence": "公式 sandboxing を取得して 2 箇所を確認した。導入段落と「Get started」節で離れているため中略記号でつないでいる。ネイティブ Windows は非対応で WSL2 の中で動かす、という但し書きも同ページにある。 2026-11-07再照合: 文が書き直されたが、OSが境界を強制することと対応OSは同じ。"
  },
  {
   "file": "claude-code/getting-started/WhyClaudeCode.tsx",
@@ -1903,9 +1903,9 @@
   "claim": "Git push からデプロイまでの体験を整えている。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://vercel.com/docs/git",
-  "quote": "Vercel allows for automatic deployments on every branch push and merges onto the production branch of your GitHub, GitLab, Bitbucket, and Azure DevOps Pipelines projects.",
+  "quote": "Vercel allows for automatic deployments on every branch push and merges onto the production branch",
   "correction": "",
-  "evidence": "L54 の providers[1].description の後半。Vercel の Git 連携ドキュメント（.md 版が返る）を取得し逐語照合（OK）。"
+  "evidence": "L54 の providers[1].description の後半。Vercel の Git 連携ドキュメント（.md 版が返る）を取得し逐語照合（OK）。 2026-11-07再照合: 対応サービスの列挙にOriginが増えたので、列挙の手前までを引く。"
  },
  {
   "file": "infra/foundations/Landscape.tsx",
@@ -2083,9 +2083,9 @@
   "claim": "メール・パスワード、ソーシャルログイン、マジックリンクなどを設定だけで導入できる。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://supabase.com/docs/guides/auth",
-  "quote": "Your users can use many popular Auth methods, including password, magic link, one-time password (OTP), social login, and single sign-on (SSO).",
+  "quote": "Your users can use many popular Auth methods, including password, magic link, one-time password (OTP), social sign-in, and single sign-on (SSO).",
   "correction": "",
-  "evidence": "L16 の baasFeatures[0].description。Supabase Auth ガイドを取得し逐語照合（OK）。同ページには Social Auth の対応プロバイダ一覧（Apple / GitHub / Google など）も載る。「設定だけで」は誇張で、実際にはダッシュボードでのプロバイダ設定に加えクライアント側の SDK 呼び出しが要る。列挙されている認証方式そのものは正確。"
+  "evidence": "L16 の baasFeatures[0].description。Supabase Auth ガイドを取得し逐語照合（OK）。同ページには Social Auth の対応プロバイダ一覧（Apple / GitHub / Google など）も載る。「設定だけで」は誇張で、実際にはダッシュボードでのプロバイダ設定に加えクライアント側の SDK 呼び出しが要る。列挙されている認証方式そのものは正確。 2026-11-07再照合: social loginの語がsocial sign-inに変わっただけ。"
  },
  {
   "file": "infra/baas/WhatIsBaas.tsx",
@@ -2713,9 +2713,9 @@
   "claim": "OpenAPI 仕様の公式リファレンス。契約の正本となるフォーマットの定義",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://spec.openapis.org/oas/latest.html",
-  "quote": "OpenAPI Specification v3.2.0",
+  "quote": "The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to HTTP APIs",
   "correction": "",
-  "evidence": "ReferenceLinks が指す https://spec.openapis.org/oas/latest.html を実際に取得した。2026-08-23 時点で OpenAPI Specification v3.2.0（2025-09-19 公開）が返り、公式リファレンスであることを確認した。この URL は版が上がると内容が変わる「動く出典」なので、判定の照合そのものは版を打った v3.1.1.html でも行った。教材のリンクとしては最新版へ誘導する意図と読めるため、URL の変更は不要と判断した。quote-probe で OK。"
+  "evidence": "ReferenceLinks が指す https://spec.openapis.org/oas/latest.html を実際に取得した。2026-08-23 時点で OpenAPI Specification v3.2.0（2025-09-19 公開）が返り、公式リファレンスであることを確認した。この URL は版が上がると内容が変わる「動く出典」なので、判定の照合そのものは版を打った v3.1.1.html でも行った。教材のリンクとしては最新版へ誘導する意図と読めるため、URL の変更は不要と判断した。quote-probe で OK。 2026-11-07再照合: 最新版がv3.2.1に上がったので、版番号を含まない定義の文に替える。"
  },
  {
   "file": "api/openapi/SchemaFirst.tsx",
@@ -3496,9 +3496,9 @@
   "claim": "フォームを送信すると、ブラウザはページを再読み込みしようとします。React アプリではこの動作を防いで、JavaScript で処理を行います。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://react.dev/reference/react-dom/components/form",
-  "quote": "Pass a function to the onSubmit event handler to run code when the form is submitted. By default, the browser sends the form data to the current URL and refreshes the page, so call e.preventDefault() to override that behavior.",
+  "quote": "Pass a function to the onSubmit event handler to run code when the form is submitted. By default, the browser sends the form data to the current URL and refreshes the page. Calling e.preventDefault() in the event handler overrides this behavior.",
   "correction": "",
-  "evidence": "react.dev の <form> リファレンス「Handle form submission with an event handler」節を取得して照合。既定でページが再読み込みされること、それを preventDefault で上書きすることが原文にある。"
+  "evidence": "react.dev の <form> リファレンス「Handle form submission with an event handler」節を取得して照合。既定でページが再読み込みされること、それを preventDefault で上書きすることが原文にある。 2026-11-07再照合: 原文の文が分かれた。既定で再読み込みされ、preventDefaultで上書きする内容は同じ。"
  },
  {
   "file": "react/state-events/Events.tsx",
@@ -3631,9 +3631,9 @@
   "claim": "e.dataTransfer.setData('text/plain', 'ドラッグ中');",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData",
-  "quote": "The DataTransfer.setData() method sets the drag operation's drag data to the specified data and type.",
+  "quote": "The setData() method of the DataTransfer interface sets the drag operation's drag data to the specified data and type.",
   "correction": "",
-  "evidence": "MDN DataTransfer.setData() の定義。第 1 引数が型（text/plain など）、第 2 引数がデータという教材の使い方と一致する。"
+  "evidence": "MDN DataTransfer.setData() の定義。第 1 引数が型（text/plain など）、第 2 引数がデータという教材の使い方と一致する。 2026-11-07再照合: MDNの書き出しの形が変わっただけで、内容は同じ。"
  },
  {
   "file": "react/state-events/Events.tsx",
@@ -3946,9 +3946,9 @@
   "claim": "複数の入力をまとめてフォームとして送信する方法です。<form> タグの onSubmit でまとめて処理します。",
   "verdict": "CONFIRMED",
   "sourceUrl": "https://react.dev/reference/react-dom/components/form",
-  "quote": "Pass a function to the onSubmit event handler to run code when the form is submitted.",
+  "quote": "Pass a function to the onSubmit event handler to run code when the form is submitted. By default, the browser sends the form data to the current URL and refreshes the page. Calling e.preventDefault() in the event handler overrides this behavior.",
   "correction": "",
-  "evidence": "react.dev の <form> リファレンス。onSubmit に関数を渡して送信時の処理を書くという教材の手順と一致する。"
+  "evidence": "react.dev の <form> リファレンス。onSubmit に関数を渡して送信時の処理を書くという教材の手順と一致する。 2026-11-07再照合: 原文の文が分かれた。既定で再読み込みされ、preventDefaultで上書きする内容は同じ。"
  },
  {
   "file": "react/state-events/Forms.tsx",

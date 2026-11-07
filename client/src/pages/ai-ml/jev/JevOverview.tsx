@@ -341,12 +341,8 @@ console.log(response.answers.category.choice);`}
                 FAQは続けて、確率とconfidenceを使って、自動で処理するか人の確認に回すかのしきい値を決めるよう案内しています。
               </InfoBox>
               <InfoBox type="info" title="日本語で使うときは自分のデータで確かめる">
-                この講座の例文とサンプルアプリの入力は日本語です。公式ドキュメントのModels
-                ページ（2026-09-20時点）は言語について「English is the primary training language
-                and where accuracy is currently best. Other languages, including
-                CJK scripts, are handled but not equally well; test on your own
-                content before relying on Jev for a non-English
-                workload」と書いています。
+                この講座の例文とサンプルアプリの入力は日本語です。公式のModelsページ（2026-11-07時点）に言語ごとの精度の記述はありません。
+                Model changelogはJev 1.14の変更に多言語対応の改善を挙げていますが、日本語の精度は示していません。
                 日本語の業務に組み込むときは、先に自分のデータで正解付きの小さな評価セットを作り、判定の一致率とconfidenceの分布を見てからしきい値を決めます。評価の手順はSTEP
                 23で扱います。
               </InfoBox>
@@ -507,7 +503,7 @@ console.log(response.answers.category.choice);`}
               links={[
                 {
                   title: "TypeSafe AI Docs",
-                  url: "https://docs.typesafe.ai/",
+                  url: "https://docs.typesafe.ai/introduction",
                   description:
                     "公式ドキュメント。概念（System One）と質問型（primitives）の解説。",
                 },

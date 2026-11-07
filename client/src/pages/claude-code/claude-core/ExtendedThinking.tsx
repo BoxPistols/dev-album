@@ -93,7 +93,7 @@ export default function ExtendedThinking() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {[
                 { level: 'low', desc: '最小限の推論。短く影響範囲が限定されたタスク向き。', color: 'emerald' },
-                { level: 'medium', desc: 'コスト重視の推論深度。知能を多少犠牲にできるタスク向き。', color: 'blue' },
+                { level: 'medium', desc: '範囲の明確な日常の実装向き。Opus 5.5 / Sonnet 5.5 / Haiku 5.5の既定値。既定がより高いモデルではトークンを抑える用途。', color: 'blue' },
                 { level: 'high', desc: '多くのモデルの既定値（Opus 5.5・Sonnet 5.5・Haiku 5.5はmediumが既定）。トークン消費と知能のバランス。', color: 'purple' },
               ].map(item => (
                 <div key={item.level} className={`p-4 rounded-xl border border-${item.color}-200 dark:border-${item.color}-900 bg-${item.color}-50 dark:bg-${item.color}-950/20`}>
@@ -125,7 +125,7 @@ $ claude`} language="bash" />
               拡張思考（Extended Thinking）
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              拡張思考が有効な場合、Claude は応答前に内部で「思考プロセス」を実行します。<code>Option+T</code>（macOS）/ <code>Alt+T</code> でセッション中に切替でき、思考の深さは主に Effort Level が制御します（現行モデルはタスクに応じて思考量を自動調整する adaptive reasoning に対応）。
+              拡張思考が有効な場合、Claudeは応答前に内部で「思考プロセス」を実行します。<code>Option+T</code>（macOS）/<code>Alt+T</code>でセッション中に切替できます（Opus 5.5 / Sonnet 5.5 / Haiku 5.5 / Fableは思考をオフにできず、切替の代わりにThinking can't be turned offと表示されます）。思考の深さは主にEffort Levelが制御します（現行モデルはタスクに応じて思考量を自動調整するadaptive reasoningに対応）。
             </p>
             <div className="p-5 bg-slate-900 rounded-xl border border-slate-700 mb-6">
               <p className="text-[12px] text-slate-500 mb-2 font-mono">拡張思考の動作イメージ</p>
