@@ -123,6 +123,8 @@ pre{white-space:pre-wrap;font-size:13px;line-height:1.5;}</style></head>
   }
 
   const needsThree = /\bTHREE\b/.test(cleanedCode);
+  // チャレンジの空欄が残っているか（残っていれば、実行時エラーを案内文に差し替える）
+  const hasBlanks = /\b___\b/.test(cleanedCode);
 
   return `<!DOCTYPE html>
 <html${needsTailwind && isDark ? ' class="dark"' : ''}><head><meta charset="utf-8">
@@ -174,12 +176,23 @@ ${cssCode}
 <script>
 // Reactの描画は非同期に進むので、そこで投げられた例外は下のcatchには入らない。
 // 拾わないと#rootが空のままになり、プレビューが無言で消える
+// 空欄（___）が残っているあいだのエラーは学習者の誤りではないので、赤いエラー文ではなく
+// 「埋めると動く」案内を先に出し、元のメッセージは補足として小さく添える
+var __hasBlanks=${hasBlanks ? 'true' : 'false'};
 function __showError(message){
   var root=document.getElementById('root');
   if(!root||root.childElementCount>0)return;
+  var text=String(message).replace(/^Uncaught /,'').replace(/</g,'&lt;');
+  if(__hasBlanks){
+    root.innerHTML=
+      '<div style="padding:16px;font-size:13px;line-height:1.6;color:var(--text);">'+
+      '<p style="margin:0 0 6px;"><strong>空欄（___）を埋めるとプレビューが動きます。</strong></p>'+
+      '<p style="margin:0;font-size:12px;color:var(--text-muted);font-family:monospace;">いまのエラー: '+text+'</p></div>';
+    return;
+  }
   root.innerHTML=
-    '<div style="color:#ef4444;padding:16px;font-size:13px;font-family:monospace;">'+
-    '<strong>Error:</strong> '+String(message).replace(/</g,'&lt;')+'</div>';
+    '<div style="color:var(--text-danger);padding:16px;font-size:13px;font-family:monospace;">'+
+    '<strong>Error:</strong> '+text+'</div>';
 }
 window.addEventListener('error',function(ev){__showError(ev.message);});
 window.addEventListener('unhandledrejection',function(ev){
