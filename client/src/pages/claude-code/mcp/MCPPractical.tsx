@@ -1,4 +1,4 @@
-import { Figma, Globe, Code, BookOpen, Bug, Database, Terminal, Paintbrush, Package, AtSign, Gauge } from 'lucide-react';
+import { PenTool, Globe, Code, BookOpen, Bug, Database, Terminal, Paintbrush, Package, AtSign, Gauge } from 'lucide-react';
 import CodeBlock from '@/components/CodeBlock';
 import InfoBox from '@/components/InfoBox';
 import PageNavigation from '@/components/PageNavigation';
@@ -37,7 +37,7 @@ export default function MCPPractical() {
             {/* Figma MCP */}
             <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm mb-6">
               <div className="flex items-center gap-3 mb-3">
-                <Figma className="w-6 h-6 text-[#F24E1E]" />
+                <PenTool className="w-6 h-6 text-[#F24E1E]" />
                 <h3 className="font-bold text-lg">Figma MCP</h3>
                 <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">公式</span>
                 <span className="text-[12px] font-medium px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">HTTP</span>

@@ -3,6 +3,7 @@ import InfoBox from '@/components/InfoBox';
 import WhyNowBox from '@/components/WhyNowBox';
 import PageNavigation from '@/components/PageNavigation';
 import ReferenceLinks from '@/components/ReferenceLinks';
+import PageSources from '@/components/PageSources';
 
 export default function ProjectSetup() {
   return (
@@ -38,19 +39,25 @@ export default function ProjectSetup() {
 npx create-next-app@latest my-next-app
 
 # 最初に既定を使うかどうかを聞かれる:
-# ✔ Would you like to use the recommended Next.js defaults? → No, customize settings
+# Would you like to use the recommended Next.js defaults? → No, customize settings
 
 # No, customize settings を選んだときだけ、個別の質問が続く:
-# ✔ Would you like to use TypeScript? → Yes
-# ✔ Would you like to use ESLint? → Yes
-# ✔ Would you like to use Tailwind CSS? → Yes
-# ✔ Would you like your code inside a \`src/\` directory? → Yes
-# ✔ Would you like to use App Router? (recommended) → Yes
-# ✔ Would you like to customize the import alias? → No（デフォルトの @ でOK）
+# Would you like to use TypeScript? → Yes
+# Which linter would you like to use? → ESLint
+# Would you like to use React Compiler? → No
+# Would you like to use Tailwind CSS? → Yes
+# Would you like your code inside a \`src/\` directory? → Yes
+# Would you like to use App Router? (recommended) → Yes
+# Would you like to use Cache Components? → No（理由は下の注記）
+# Would you like to customize the import alias (\`@/*\` by default)? → No
+# Would you like to include AGENTS.md to guide coding agents to write up-to-date Next.js code? → Yes
+# Would you like to help improve Next.js by letting agents prepare anonymized feedback for your review as you code? → No
 
-# バンドラーは対話では聞かれない。Turbopack が既定で、フラグで切り替える
-npx create-next-app@latest my-next-app --turbopack   # 既定と同じ（明示指定）
-npx create-next-app@latest my-next-app --webpack     # webpack を使う`}
+# 質問を飛ばして作る。前回の選択が保存されていなければ既定になる（src/は作られず、Cache Componentsは有効）
+npx create-next-app@latest my-next-app --yes
+
+# 既定のままCache Componentsだけ無効にする
+npx create-next-app@latest my-next-app --yes --no-cache-components`}
               language="bash"
               title="プロジェクト作成コマンド"
             />
@@ -61,7 +68,28 @@ npx create-next-app@latest my-next-app --webpack     # webpack を使う`}
                 <strong>Tailwind CSS</strong>: Next.js との相性が抜群。設定不要で使える。<br />
                 <strong>src/ ディレクトリ</strong>: プロジェクトのルートをきれいに保てる。<br />
                 <strong>App Router</strong>: 最新の推奨アーキテクチャ。<br />
-                <strong>Turbopack</strong>: 既定のバンドラー。対話では聞かれず、<code className="text-sm bg-muted px-1 py-0.5 rounded">--turbopack</code> / <code className="text-sm bg-muted px-1 py-0.5 rounded">--webpack</code> で切り替える。
+                <strong>Turbopack</strong>: 既定のバンドラー。対話では聞かれない。webpackへの切り替えは<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next dev --webpack</code>と<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build --webpack</code>で行う。
+              </p>
+            </InfoBox>
+
+            <InfoBox type="warning" title="Cache Componentsを無効にして作る理由">
+              <p>
+                公式はNext.js 16.4からCache Componentsをすべてのアプリに勧めていて、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">create-next-app</code>の既定も有効です。
+                このマニュアルのデータ取得とキャッシュの解説は、これまでのモデルで書いています。
+                有効なプロジェクトでは<code className="text-sm bg-muted px-1.5 py-0.5 rounded">export const revalidate</code>や<code className="text-sm bg-muted px-1.5 py-0.5 rounded">export const dynamic</code>がビルドエラーになり、
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">Suspense</code>の外でキャッシュしない<code className="text-sm bg-muted px-1.5 py-0.5 rounded">fetch</code>を呼ぶページもビルドが止まります（2026-11-07に16.4.5で実測）。
+                STEPを順に進めるときは無効で作り、Cache Componentsは「Next.js 15 / 16の新機能」とPPRのページで学ぶ流れを勧めます。
+              </p>
+            </InfoBox>
+
+            <InfoBox type="info" title="create-next-appの--webpackは生成物を変えなかった">
+              <p>
+                仕様では、公式のcreate-next-appリファレンスに<code className="text-sm bg-muted px-1.5 py-0.5 rounded">--turbopack</code>と<code className="text-sm bg-muted px-1.5 py-0.5 rounded">--webpack</code>が載っていて、生成する<code className="text-sm bg-muted px-1.5 py-0.5 rounded">package.json</code>に反映すると書かれています。
+                実測では、16.4.5の<code className="text-sm bg-muted px-1.5 py-0.5 rounded">--help</code>にどちらも無く、付けてもエラーにならず、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">package.json</code>と<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next.config.ts</code>は既定と同じでした。
+                理由は公式の説明が見当たらず、確認できていません。
+                また生成される<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next.config.ts</code>はTailwindを<code className="text-sm bg-muted px-1.5 py-0.5 rounded">@tailwindcss/turbopack</code>のローダーで処理します。
+                そのため<code className="text-sm bg-muted px-1.5 py-0.5 rounded">next build --webpack</code>はビルド自体は成功しますが、実測ではユーティリティクラスのCSSが生成されませんでした。
+                webpackへ切り替えるときはTailwindの設定も変える必要があります。
               </p>
             </InfoBox>
           </section>
@@ -86,8 +114,10 @@ npx create-next-app@latest my-next-app --webpack     # webpack を使う`}
 │   ├── next.svg
 │   └── vercel.svg
 ├── next.config.ts              # Next.js の設定ファイル
+├── next-env.d.ts               # Next.jsの型定義（自動生成）
 ├── tsconfig.json               # TypeScript の設定
 ├── eslint.config.mjs           # ESLint の設定
+├── AGENTS.md                   # コーディングエージェント向けの案内
 ├── package.json
 └── package-lock.json`}
               language="plaintext"
@@ -196,6 +226,37 @@ export default function Home() {
 
             <h3 className="text-lg font-bold text-foreground mb-3 mt-8">next.config.ts - 設定ファイル</h3>
 
+            <p className="text-foreground/80 mb-4 leading-relaxed">
+              作成直後のファイルは次の内容です（2026-11-07に<code className="text-sm bg-muted px-1.5 py-0.5 rounded">create-next-app</code> 16.4.5の既定で生成したものをそのまま写しています）。
+              Cache Componentsを無効にして作ると、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">cacheComponents</code>と<code className="text-sm bg-muted px-1.5 py-0.5 rounded">partialPrefetching</code>の2行が入りません。
+            </p>
+
+            <CodeBlock
+              code={`import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  cacheComponents: true,
+  partialPrefetching: true,
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
+};
+
+export default nextConfig;`}
+              language="typescript"
+              title="生成直後のnext.config.ts"
+            />
+
+            <p className="text-foreground/80 mt-4 mb-4 leading-relaxed">
+              よく使う設定を足すと次のようになります。
+            </p>
+
             <CodeBlock
               code={`// next.config.ts
 import type { NextConfig } from "next";
@@ -241,15 +302,52 @@ cd my-next-app
 npm run dev
 
 # 出力:
-#  ▲ Next.js 15.x.x (Turbopack)
-#  - Local:    http://localhost:3000
-#  - Network:  http://192.168.x.x:3000
-#
-#  ✓ Starting...
-#  ✓ Ready in xxxms`}
+# ▲ Next.js 16.4.5 (Turbopack)
+# - Local:         http://localhost:3000
+# - Network:       http://192.168.x.x:3000
+# ✓ Ready in 2.4s
+# ✓ Running next.config.ts took 211ms
+# - Cache Components enabled
+# - Partial Prefetching enabled`}
               language="bash"
               title="開発サーバーの起動"
             />
+
+            <CodeBlock
+              code={`npm run build
+
+# 出力:
+# ▲ Next.js 16.4.5 (Turbopack)
+# ✓ Running next.config.ts took 251ms
+# - Cache Components enabled
+# - Partial Prefetching enabled
+#
+#   Creating an optimized production build ...
+# ✓ Compiled successfully in 16.5s
+#   Running TypeScript ...
+#   Finished TypeScript in 6.9s ...
+#   Collecting page data using 5 workers ...
+# ✓ Generating static pages using 5 workers (4/4) in 2.9s
+#   Finalizing page optimization ...
+#
+# Route (app)
+# ┌ ○ /
+# └ ○ /_not-found
+#
+# ○  (Static)  prerendered as static content`}
+              language="bash"
+              title="本番ビルド"
+            />
+
+            <InfoBox type="info" title="出力の実測記録">
+              <p>
+                上の2つは、2026-11-07に<code className="text-sm bg-muted px-1.5 py-0.5 rounded">npx create-next-app@latest my-app --yes --use-npm --disable-git</code>で作ったプロジェクトの実際の出力です。
+                環境はNext.js 16.4.5、React 19.3.0、Node.js 26.13.0、macOSです。
+                Networkのアドレスは伏せ、npmが最初に出す行、リクエストのログ、ビルドの途中経過の行は省きました。
+                仕様で決まっているのは出力の形だけで、版番号・所要時間・ワーカー数は環境によって変わります。
+                Cache Componentsを無効にして作ると、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">Cache Components enabled</code>と<code className="text-sm bg-muted px-1.5 py-0.5 rounded">Partial Prefetching enabled</code>の行は出ません。
+              </p>
+            </InfoBox>
 
             <p className="text-foreground/80 mt-4 mb-4 leading-relaxed">
               ブラウザで <code className="text-sm bg-muted px-1.5 py-0.5 rounded">http://localhost:3000</code> を開くと、
@@ -420,6 +518,10 @@ export default function Home() {
                 },
               ]}
             />
+          </section>
+
+          <section className="mt-12">
+            <PageSources path="/react/nextjs-basics/project-setup" />
           </section>
 
         <PageNavigation />

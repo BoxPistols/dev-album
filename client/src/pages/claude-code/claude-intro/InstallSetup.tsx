@@ -34,7 +34,7 @@ export default function InstallSetup() {
               インストール
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              ネイティブインストーラ（推奨・自動更新あり）または npm で導入できます。npm の場合は Node.js 22 以上が推奨です（インストールされる実体はネイティブバイナリ）。
+              ネイティブインストーラ（推奨・自動更新あり）またはnpmで導入できます。npmの場合はNode.js 22以上が要件です（古い版では警告が出るもののインストールは完了し、実体のネイティブバイナリはNode.jsを使わずに動きます）。
             </p>
             <CodeBlock code={`# ネイティブインストール（推奨: macOS / Linux / WSL）
 $ curl -fsSL https://downloads.claude.ai/claude-code-releases/bootstrap.sh | bash
@@ -56,7 +56,7 @@ $ claude --version`} language="bash" />
               認証の設定
             </h2>
             <p className="leading-relaxed mb-6 text-muted-foreground">
-              初回起動時にブラウザが開き、Anthropic アカウントで認証します。Pro / Max / Team / Enterprise のいずれかの Claude サブスクリプション、または Console（API）アカウントが必要です（無料プランは対象外）。
+              初回起動時にブラウザが開き、Anthropicアカウントで認証します。Pro / Max / Ultra / Team / EnterpriseのいずれかのClaudeサブスクリプション、またはConsole（API）アカウントが必要です（無料プランは対象外）。
             </p>
             <CodeBlock code={`# 初回起動（ブラウザ認証が開始）
 $ claude
@@ -67,7 +67,7 @@ $ claude`} language="bash" />
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <h4 className="font-bold text-sm mb-2">Claude サブスクリプション（推奨）</h4>
-                <p className="text-xs text-muted-foreground">claude.ai の Pro / Max プラン。月額定額で利用可能。Team / Enterprise プランにも対応。</p>
+                <p className="text-xs text-muted-foreground">claude.aiのPro / Max / Ultraプラン。月額定額で利用可能。Team / Enterpriseプランにも対応。</p>
               </div>
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <h4 className="font-bold text-sm mb-2">API キー</h4>

@@ -363,7 +363,7 @@ export async function updateProduct(id: string, formData: FormData) {
   });
 
   // 'products' タグがついた fetch キャッシュを無効化
-  revalidateTag('products');
+  revalidateTag('products', 'max');
 }
 
 // パターン 3: レイアウト全体を再検証

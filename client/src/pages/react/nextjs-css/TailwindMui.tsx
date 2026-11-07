@@ -27,6 +27,13 @@ export default function TailwindMui() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <InfoBox type="info" title="MUIのコード例はMUI v9の記法">
+            <p>
+              このページのMUIのコード例はv9の記法で書いています。このページに実行プレビューはありません。
+              MUI入門・コンポーネント活用・カスタマイズの各ページのプレビューはMUI v5で動かしているので、Gridの書き方が異なります（このページは<code>{'<Grid size={{ xs: 12, md: 4 }}>'}</code>、プレビューは<code>{'<Grid item xs={12} md={4}>'}</code>）。
+            </p>
+          </InfoBox>
+
           {/* セクション 1: Tailwind CSS in Next.js */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">Tailwind CSS のセットアップ</h2>
@@ -252,6 +259,7 @@ npm install @mui/icons-material`}
 
             <CodeBlock
               code={`// app/layout.tsx - MUI の App Router 対応設定
+// Next.jsのメジャーに合わせてv15-appRouter / v16-appRouterのように選ぶ
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -341,10 +349,10 @@ export default theme;`}
 
             <InfoBox type="warning" title="MUI コンポーネントは Client Component">
               <p>
-                MUI のコンポーネントは内部で React の hooks やイベントハンドラを使用しているため、
-                Client Component でのみ使用できます。MUI コンポーネントを使うファイルには
-                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code> を付けるか、
-                Server Component から Client Component として import してください。
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">@mui/material</code>の<code className="text-sm bg-muted px-1.5 py-0.5 rounded">Button</code>や<code className="text-sm bg-muted px-1.5 py-0.5 rounded">Typography</code>は、パッケージのファイル先頭に<code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code>が入っています（9.5.0で確認）。
+                そのためServer Componentからimportすると、Client Componentとして描画されます。
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">onClick</code>のような関数を渡す箇所や、hooksを使う箇所は、自分のファイルに<code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code>を付けて分けます。
+                テーマのファイルにも公式の手順どおり<code className="text-sm bg-muted px-1.5 py-0.5 rounded">'use client'</code>を付けます。
               </p>
             </InfoBox>
           </section>
@@ -373,6 +381,7 @@ export default async function DashboardPage() {
 // ---
 
 // app/dashboard/DashboardContent.tsx - Client Component（MUI）
+// onClickに関数を渡すので'use client'が要る
 'use client';
 
 import {
@@ -395,21 +404,21 @@ type Stats = {
 export function DashboardContent({ stats }: { stats: Stats }) {
   return (
     <Box sx={{ maxWidth: 1200, mx: 'auto', p: 4 }}>
-      <Typography variant="h4" fontWeight="bold" mb={4}>
+      <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4 }}>
         ダッシュボード
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
-              <Box display="flex" alignItems="center" gap={1} mb={1}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                 <TrendingUp color="primary" />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   売上
                 </Typography>
               </Box>
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                 {stats.revenue.toLocaleString()}円
               </Typography>
               <Chip label="+12.5%" color="success" size="small" sx={{ mt: 1 }} />
@@ -417,32 +426,32 @@ export function DashboardContent({ stats }: { stats: Stats }) {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
-              <Box display="flex" alignItems="center" gap={1} mb={1}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                 <People color="secondary" />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   ユーザー数
                 </Typography>
               </Box>
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                 {stats.users.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
-              <Box display="flex" alignItems="center" gap={1} mb={1}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                 <ShoppingCart color="action" />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   注文数
                 </Typography>
               </Box>
-              <Typography variant="h5" fontWeight="bold">
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                 {stats.orders.toLocaleString()}
               </Typography>
             </CardContent>
@@ -450,7 +459,7 @@ export function DashboardContent({ stats }: { stats: Stats }) {
         </Grid>
       </Grid>
 
-      <Button variant="contained" sx={{ mt: 4 }}>
+      <Button variant="contained" sx={{ mt: 4 }} onClick={() => window.open('/reports')}>
         レポートを表示
       </Button>
     </Box>
@@ -524,9 +533,9 @@ export function DashboardContent({ stats }: { stats: Stats }) {
               <p>
                 Tailwind CSS と MUI は共存できます。MUI でコンポーネントの構造を作り、
                 Tailwind でレイアウトや微調整を行うハイブリッドアプローチも実践的です。
-                ただし、スタイルの競合に注意が必要です。
-                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">important: true</code> の設定や
-                CSS の優先順位を理解しておきましょう。
+                TailwindのクラスでMUIのスタイルを上書きするには、CSSのレイヤー順をそろえます。
+                公式の手順は、<code className="text-sm bg-muted px-1.5 py-0.5 rounded">{'<AppRouterCacheProvider options={{ enableCssLayer: true }}>'}</code>を指定し、
+                CSSの先頭に<code className="text-sm bg-muted px-1.5 py-0.5 rounded">@layer theme, base, mui, components, utilities;</code>を書く方法です。
               </p>
             </InfoBox>
           </section>
@@ -637,6 +646,16 @@ export default function PricingPage() {
                   title: 'Material UI - Next.js 統合',
                   url: 'https://mui.com/material-ui/integrations/nextjs/',
                   description: 'MUI を Next.js App Router で使う方法',
+                },
+                {
+                  title: 'Material UI - Tailwind CSS v4との統合',
+                  url: 'https://mui.com/material-ui/integrations/tailwindcss/tailwindcss-v4/',
+                  description: 'CSSレイヤーでTailwind CSS v4と併用する方法',
+                },
+                {
+                  title: 'Upgrade to v9',
+                  url: 'https://mui.com/material-ui/migration/upgrade-to-v9/',
+                  description: 'v7からv9への移行ガイド',
                 },
               ]}
             />
