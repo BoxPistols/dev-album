@@ -54,7 +54,7 @@ Issue #121（定期検査の失敗）を受けて、`pnpm check:sources`、`chec
 | www.khronos.org/gltf/ | 最後の実行で取得失敗（2件） | curlでは200を返す。一時的なものとして据え置いた |
 | web.archive.org（3件）、orval.dev、eur-lex.europa.eu（2件） | CIのみ429、403、202 | ローカルでは取得でき引用も一致する。CIのIPによる拒否と判断して据え置いた。取得失敗は5%以内なら赤にならない |
 
-再実行の結果、`check:links`は確認805、切れ0、要手動確認24、リダイレクト46。要手動確認（400、401、403、405、429）は、W3C、MCP、TypeSafeのコンソールなどのボット拒否と認証で、既存の扱いどおり赤にならない。
+再実行の結果、`check:links`は確認809、切れ0、要手動確認23、リダイレクト46。要手動確認（400、401、403、405、429）は、W3C、MCP、TypeSafeのコンソールなどのボット拒否と認証で、既存の扱いどおり赤にならない。
 
 PDFは`check:verdicts`の6 URLと`check:verdicts:low`の2 URLが、この環境に`pdftotext`が無いため未照合で、CIの結果に従う（Homebrewでの導入に失敗した）。
 
