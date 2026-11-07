@@ -8,6 +8,7 @@ import {
   maxTokensFor,
   reasoningEffortFor,
 } from "./api/lib/chatModels.js";
+import { validateChatRequest } from "./api/lib/chatRequest.js";
 import {
   jevFailure,
   readJevMessage,
@@ -61,13 +62,11 @@ export function apiDevPlugin(): Plugin {
             const provider = (data.provider as string) || "openai";
             const userApiKey = data.userApiKey as string | undefined;
 
-            if (
-              !messages ||
-              !Array.isArray(messages) ||
-              messages.length === 0
-            ) {
+            // 本番（api/chat.ts）と同じ検証を通す
+            const invalid = validateChatRequest(messages, data.systemPrompt);
+            if (invalid) {
               res.writeHead(400, { "Content-Type": "application/json" });
-              res.end(JSON.stringify({ error: "messages is required" }));
+              res.end(JSON.stringify({ error: invalid }));
               return;
             }
 

@@ -3,6 +3,10 @@ import { useState, useCallback, useRef } from "react";
 import { useLocation } from "wouter";
 import { getEnrichedPageContext } from "@/lib/chatContext";
 import { buildSystemPrompt } from "@/lib/chatPrompt";
+import {
+  MAX_CHAT_MESSAGE_CHARS,
+  trimChatHistory,
+} from "../../../api/lib/chatRequest";
 import { searchFaq, formatFaqResponse } from "@/lib/faqSearch";
 import { useChatHistory } from "./useChatHistory";
 import { useChatSettings } from "./useChatSettings";
@@ -61,6 +65,14 @@ export function useChatApi() {
 
       setError(null);
 
+      // 履歴に残すと次の送信も拒否されるので、上限を超える入力は送る前に止める
+      if (text.length > MAX_CHAT_MESSAGE_CHARS) {
+        setError(
+          `メッセージが長すぎます。${MAX_CHAT_MESSAGE_CHARS}文字以内にしてください。`,
+        );
+        return;
+      }
+
       const ctx = getEnrichedPageContext(location);
       // 履歴はページを跨いで残るので、どのページでの発言かを 1 件ごとに残す
       addMessage("user", text, { path: ctx.path, title: ctx.title });
@@ -72,12 +84,11 @@ export function useChatApi() {
         abortRef.current = controller;
 
         // 会話履歴を組み立て（直近10件まで）
-        const recentMessages = [
-          ...messages,
-          { role: "user" as const, content: text },
-        ]
-          .slice(-10)
-          .map((m) => ({ role: m.role, content: m.content }));
+        const recentMessages = trimChatHistory(
+          [...messages, { role: "user" as const, content: text }]
+            .slice(-10)
+            .map((m) => ({ role: m.role, content: m.content })),
+        );
 
         const { selectedModel, userApiKey } = chatSettings;
 
@@ -134,6 +145,17 @@ export function useChatApi() {
               "この質問にはお答えできません。サイドバーから関連ページをお探しください。",
             );
           }
+          setIsStreaming(false);
+          return;
+        }
+
+        // 入力が上限を超えた。理由はサーバが返す
+        if (response.status === 400) {
+          const data = await response.json().catch(() => null);
+          addMessage(
+            "assistant",
+            data?.error || "送信内容を受け付けられませんでした。",
+          );
           setIsStreaming(false);
           return;
         }

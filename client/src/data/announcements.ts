@@ -29,6 +29,15 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/ai-ml/jev/jev-triage-app",
   },
   {
+    id: "2026-11-07-react-home-step-count",
+    date: "2026-11-07",
+    title: "Reactマニュアルの入口の「全77ステップ」を実際の数に直した",
+    description:
+      "入口ページの見出しが「全77ステップ」のままで、サイドバーや進捗の82と食い違っていた。手書きの数をやめ、ナビゲーションの定義から数えて表示するようにした（UXデザインの入口も同じ形にした）。",
+    category: "fix",
+    link: "/react",
+  },
+  {
     id: "2026-11-07-preview-blank-notice",
     date: "2026-11-07",
     title: "空欄を埋める前のプレビューに、赤いエラーではなく「埋めると動く」案内を出すようにした",

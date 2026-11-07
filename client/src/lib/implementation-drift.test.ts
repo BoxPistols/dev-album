@@ -243,6 +243,20 @@ describe("実装と教材のズレ検出: 匿名の 1 日上限", () => {
   });
 });
 
+describe("実装と教材のズレ検出: チャットの入力上限", () => {
+  it("PolicyChatQuotaは上限の値を手書きせず、実装の定数から表示する", () => {
+    const src = readSrc(REGISTRY.policyChatQuota);
+    for (const name of [
+      "MAX_CHAT_MESSAGES",
+      "MAX_CHAT_MESSAGE_CHARS",
+      "MAX_CHAT_TOTAL_CHARS",
+      "MAX_CHAT_SYSTEM_PROMPT_CHARS",
+    ]) {
+      expect(src).toContain(`{${name}`);
+    }
+  });
+});
+
 describe("実装と教材のズレ検出: workflow の permissions", () => {
   const actual = collectWorkflowWrites();
 
