@@ -27,6 +27,8 @@ export const ANNOUNCEMENTS: Announcement[] = [
       "穴埋めのチャレンジで、空欄（___）が残ったまま実行して落ちると、学習者が何も書いていない段階で「TypeError: skills.___ is not a function」のような赤いエラーが出ていた。空欄が残っているあいだは「空欄を埋めるとプレビューが動きます」を先に出し、元のメッセージは補足として小さく添える。空欄が無いときのエラー表示は変えていない。",
     category: "fix",
     link: "/react/react-basics/components",
+  },
+  {
     id: "2026-11-07-playwright-page-ci-claim",
     date: "2026-11-07",
     title: "Playwrightのページの「E2EはCIで走らない」という記述を現状に直した",
