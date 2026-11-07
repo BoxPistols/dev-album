@@ -48,15 +48,16 @@ const AGENT_DOCS = "/claude-code/multi-ai/agent-docs";
 const DESIGN_MD = "/claude-code/multi-ai/design-md";
 const MULTI_AI = "/claude-code/multi-ai/multi-ai-coexistence";
 const SSOT = "/claude-code/multi-ai/single-source-of-truth";
-const MUI_INTRO = "/react/mui/intro";
-const MUI_COMPONENTS = "/react/mui/components";
-const MUI_CUSTOMIZATION = "/react/mui/customization";
-const TAILWIND_MUI = "/react/nextjs-css/tailwind-mui";
 
 import { resolvePagePathFromFile } from "../lib/source-paths";
 import { GENERATED_SOURCES } from "./sources.generated";
 
 /** 手で書いた出典。ページの出典欄に出す */
+const MUI_INTRO = "/react/mui/intro";
+const MUI_COMPONENTS = "/react/mui/components";
+const MUI_CUSTOMIZATION = "/react/mui/customization";
+const TAILWIND_MUI = "/react/nextjs-css/tailwind-mui";
+
 export const CURATED_SOURCES: Source[] = [
   {
     id: "github-slack-use-in-slack",
@@ -656,6 +657,8 @@ export const CURATED_SOURCES: Source[] = [
       "create-next-app 16.4.5の既定で作り、ページに`export const revalidate = 3600`、`export const dynamic = 'force-static'`、Suspenseの外の`await fetch`をそれぞれ書いて`npx next build`を実行する。--no-cache-componentsで作った設定で同じページをビルドする",
     note: "有効時はどれも終了コード1。revalidateとdynamicは「Route segment config ... is not compatible with `nextConfig.cacheComponents`」で止まり、fetchはプリレンダーのエラーで止まった。無効時はrevalidateとfetchを書いたページのビルドが終了コード0で通った",
     usedBy: ["/react/nextjs-basics/project-setup", "/react/nextjs-advanced/next15-features"],
+  },
+  {
     id: "mui-upgrade-to-v9",
     title: "Upgrade to v9 — Material UI",
     url: "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/data/material/migration/upgrade-to-v9/upgrade-to-v9.md",
