@@ -27,6 +27,13 @@ export default function MuiCustomization() {
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
+          <InfoBox type="info" title="本文はMUI v9、プレビューはMUI v5で動かしている">
+            <p>
+              本文はMUI v9を基準にしています。プレビューはMUI v5.18で動かしているため、テーマの書き方もv5とv9で同じになるものを選んでいます。
+              <code>MuiButton</code>の<code>containedPrimary</code>のようなvariantと色を組み合わせた<code>styleOverrides</code>のキーはv9で削除されたので、<code>root</code>の<code>variants</code>で書きます。
+            </p>
+          </InfoBox>
+
           {/* セクション1: createTheme の基本 */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">createTheme の基本</h2>
@@ -91,10 +98,10 @@ const theme = createTheme({
 // theme.palette から実際の値を取り出して表示するスウォッチ
 function Swatch({ color, label }) {
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Box sx={{ width: 28, height: 28, borderRadius: 1, bgcolor: color, border: '1px solid rgba(0,0,0,0.1)' }} />
       <Typography variant="caption">{label}</Typography>
-      <Typography variant="caption" color="text.secondary">{color}</Typography>
+      <Typography variant="caption" sx={{ color: 'text.secondary' }}>{color}</Typography>
     </Stack>
   );
 }
@@ -105,18 +112,18 @@ function App() {
       {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
             <Button variant="contained" color="primary">primary</Button>
             <Button variant="contained" color="secondary">secondary</Button>
             <Button variant="outlined" color="error">error</Button>
           </Stack>
-          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
             <Chip label="success" color="success" />
             <Chip label="warning" color="warning" />
             <Chip label="info" color="info" />
           </Stack>
           <Typography variant="subtitle2">theme.palette.primary の値</Typography>
-          <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+          <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
             <Swatch color={theme.palette.primary.light} label="light" />
             <Swatch color={theme.palette.primary.main} label="main" />
             <Swatch color={theme.palette.primary.dark} label="dark" />
@@ -136,7 +143,7 @@ function App() {
               previewHeight={300}
               code={`import { useState, useMemo } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box, Paper, Typography, Switch, Stack, Button } from '@mui/material';
+import { Box, Paper, Typography, Switch, FormControlLabel, Button } from '@mui/material';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -146,18 +153,20 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 3, borderRadius: 2 }}>
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-          <Typography variant="body2">light</Typography>
-          <Switch
-            checked={mode === 'dark'}
-            onChange={(e) => setMode(e.target.checked ? 'dark' : 'light')}
-            inputProps={{ 'aria-label': 'ダークモード切替' }}
-          />
-          <Typography variant="body2">dark</Typography>
-        </Stack>
+        {/* FormControlLabelのラベルがSwitchの名前になる（v9で削除されたinputPropsを使わない） */}
+        <FormControlLabel
+          sx={{ mb: 2 }}
+          label="ダークモード"
+          control={
+            <Switch
+              checked={mode === 'dark'}
+              onChange={(e) => setMode(e.target.checked ? 'dark' : 'light')}
+            />
+          }
+        />
         <Paper sx={{ p: 2 }}>
           <Typography variant="h6" gutterBottom>palette.mode: {mode}</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             mode を切り替えると、背景・文字・ボタンの色がテーマから自動で再計算されます。
           </Typography>
           <Button variant="contained" sx={{ mt: 2 }}>ボタンも自動対応</Button>
@@ -280,12 +289,12 @@ function App() {
           <Typography variant="body1">
             本文 body1。日本語は行間を広めに取ると読みやすくなります。lineHeight 1.8 を設定した状態です。
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             本文 body2。補助テキストや注釈に使います。lineHeight 1.7。
           </Typography>
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
             <Button variant="contained">Submit form</Button>
-            <Typography variant="caption" color="text.secondary">大文字変換なし</Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>大文字変換なし</Typography>
           </Stack>
         </Stack>
       </Box>
@@ -329,12 +338,17 @@ function App() {
           padding: '10px 24px',
           fontSize: '0.9375rem',
           fontWeight: 600,
-        },
-        // バリアントごとのカスタマイズ
-        containedPrimary: {
-          '&:hover': {
-            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
-          },
+          // variantと色の組み合わせごとのカスタマイズ
+          variants: [
+            {
+              props: { variant: 'contained', color: 'primary' },
+              style: {
+                '&:hover': {
+                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
+                },
+              },
+            },
+          ],
         },
         outlined: {
           borderWidth: 2,
@@ -400,8 +414,12 @@ const theme = createTheme({
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {
-        root: { borderRadius: 8, padding: '10px 24px', fontSize: '0.9375rem', fontWeight: 600, textTransform: 'none' },
-        containedPrimary: { '&:hover': { boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)' } },
+        root: {
+          borderRadius: 8, padding: '10px 24px', fontSize: '0.9375rem', fontWeight: 600, textTransform: 'none',
+          variants: [
+            { props: { variant: 'contained', color: 'primary' }, style: { '&:hover': { boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)' } } },
+          ],
+        },
         outlined: { borderWidth: 2, '&:hover': { borderWidth: 2 } },
       },
     },
@@ -423,7 +441,7 @@ function App() {
       {/* このテーマは light 固定なので、テーマ自身の背景色を塗って外側と切り離す */}
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
             <Button variant="contained">角丸 8px</Button>
             <Button variant="outlined">枠線 2px</Button>
           </Stack>
@@ -431,7 +449,7 @@ function App() {
           <Card>
             <CardContent>
               <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 700 }}>Card は角丸 12px</Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 MuiCard の styleOverrides で、全カードのボーダーとシャドウが統一されます。
               </Typography>
             </CardContent>
@@ -485,20 +503,20 @@ function App() {
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', p: 2, borderRadius: 2 }}>
         <Stack spacing={2}>
           <div>
-            <Typography variant="caption" color="text.secondary">1. styleOverrides（全ボタン共通）</Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>1. styleOverrides（全ボタン共通）</Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
               <Button variant="contained">角丸 8px</Button>
               <Button variant="outlined">統一スタイル</Button>
             </Stack>
           </div>
           <div>
-            <Typography variant="caption" color="text.secondary">2. sx prop（この 1 箇所だけ個別調整）</Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>2. sx prop（この1箇所だけ個別調整）</Typography>
             <div>
               <Button variant="contained" sx={{ mt: 1, mb: 1, px: 4 }}>送信</Button>
             </div>
           </div>
           <div>
-            <Typography variant="caption" color="text.secondary">3. styled()（再利用コンポーネント）</Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>3. styled()（再利用コンポーネント）</Typography>
             <div>
               <GradientButton sx={{ mt: 0.5 }}>グラデーションボタン</GradientButton>
             </div>
@@ -705,11 +723,16 @@ const theme = createTheme({
         root: {
           padding: '10px 24px',
           fontSize: '0.9375rem',
-        },
-        containedPrimary: {
-          '&:hover': {
-            boxShadow: '0 4px 14px rgba(99, 102, 241, 0.4)',
-          },
+          variants: [
+            {
+              props: { variant: 'contained', color: 'primary' },
+              style: {
+                '&:hover': {
+                  boxShadow: '0 4px 14px rgba(99, 102, 241, 0.4)',
+                },
+              },
+            },
+          ],
         },
       },
     },
@@ -795,10 +818,10 @@ function App() {
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>ブランドテーマの適用結果</Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
               パレット・タイポグラフィ・角丸・オーバーライドを 1 つのテーマに統合しています。
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mb: 2 }}>
+            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap', mb: 2 }}>
               <Chip label="primary" color="primary" />
               <Chip label="secondary" color="secondary" />
               <Chip label="outlined" variant="outlined" />
@@ -812,7 +835,7 @@ function App() {
         <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle>ブランドテーマのダイアログ</DialogTitle>
           <DialogContent>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Dialog にもテーマの角丸とタイポグラフィが反映されます。クリックで実際に開閉できます。
             </Typography>
           </DialogContent>
@@ -870,6 +893,11 @@ createRoot(document.getElementById('root')!).render(
                   title: 'sx プロパティ',
                   url: 'https://mui.com/system/getting-started/the-sx-prop/',
                   description: 'sx プロパティの使い方',
+                },
+                {
+                  title: 'Upgrade to v9',
+                  url: 'https://mui.com/material-ui/migration/upgrade-to-v9/',
+                  description: 'Button CSS classesとstyleOverridesのキーの移行手順',
                 },
               ]}
             />
