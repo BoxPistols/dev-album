@@ -24,7 +24,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-11-07",
     title: "Playwrightのページの「E2EはCIで走らない」という記述を現状に直した",
     description:
-      "ci.ymlにはverifyとe2eの2つのジョブがあり、Playwrightの全スペック（a11y検査3テーマを含む）もPRのゲートになっている。ページの記述が古いままだったので、現在のジョブ構成と再試行・レポートの扱いに書き換えた。以後はci.ymlのジョブ名と本文の記述を単体テストで突き合わせ、ずれたら落ちるようにした。",
+      "ci.ymlにはverifyとe2eの2つのジョブがあり、Playwrightの全スペック（a11y検査3テーマを含む）もPRごとに走っている。ページの記述が古いままだったので、現在のジョブ構成と再試行・レポートの扱いに書き換えた。以後はci.ymlのジョブ名と本文の記述を単体テストで突き合わせ、ずれたら落ちるようにした。",
     category: "fix",
     link: "/react/testing/playwright-e2e",
   },

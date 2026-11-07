@@ -109,9 +109,10 @@ export default function PlaywrightE2E() {
               language="ts"
               title="playwright.config.ts（このサイトの実設定）"
               code={`import { defineConfig } from "@playwright/test";
+import { parsePort } from "./client/src/lib/port";
 
-//待ち受けるポートを固定する（未指定だとdevサーバーが乱数ポートで起動してしまう）
-const PORT = process.env.PORT ?? "3400";
+// 待ち受けるポートを固定する（未指定だとdevサーバーが乱数ポートで起動してしまう）
+const PORT = String(parsePort(process.env.PORT) ?? 3400);
 
 export default defineConfig({
   testDir: "./e2e",
@@ -300,7 +301,7 @@ test("critical / serious な a11y 違反がない", async ({ page }) => {
             />
             <InfoBox
               type="info"
-              title="このサイトではE2EもCIのゲートになっている"
+              title="このサイトではE2EもPRごとにCIで走る"
             >
               このサイトの{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
@@ -314,7 +315,7 @@ test("critical / serious な a11y 違反がない", async ({ page }) => {
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 e2e
               </code>
-              （Playwrightの全スペック。axeによるa11y検査を3テーマぶん含む）で、両方が緑にならないとマージしない。
+              （Playwrightの全スペック。axeによるa11y検査を3テーマぶん含む）で、両方が緑になってからマージする運用にしている。この運用を守っているのは規約で、GitHubのブランチ保護で必須チェックに指定しているわけではない。
               E2Eは単体テストより遅く揺れやすいので、CIでは再試行を2回まで許し、失敗時だけレポートを成果物として残している（
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 playwright.config.ts
