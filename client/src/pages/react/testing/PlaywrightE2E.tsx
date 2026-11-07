@@ -1,3 +1,4 @@
+// implementation-mirror: .github/workflows/ci.yml
 import CodeBlock from "@/components/CodeBlock";
 import InfoBox from "@/components/InfoBox";
 import WhyNowBox from "@/components/WhyNowBox";
@@ -286,18 +287,37 @@ test("critical / serious な a11y 違反がない", async ({ page }) => {
 });`}
             />
             <InfoBox
-              type="warning"
-              title="このサイトの E2E は CI の自動ゲートではない"
+              type="info"
+              title="このサイトではE2EもCIのゲートになっている"
             >
-              重要な事実として、このサイトの E2E テストは実装されていますが、CI
-              では自動実行されていません。
+              このサイトの{" "}
               <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
                 .github/workflows/ci.yml
+              </code>{" "}
+              は2つのジョブで構成されている。
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                verify
               </code>
-              が回すのは「型チェック → 単体テスト（vitest） → ビルド」の 3
-              つだけで、Playwright は含まれていません。 E2E
-              はローカルまたは手動で実行する位置づけです。「テストが存在する」ことと「そのテストが自動ゲートとして毎回走る」
-              ことは別だという典型例なので、区別して押さえておきましょう。
+              （型チェック → 単体テスト → ビルド）と
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                e2e
+              </code>
+              （Playwrightの全スペック。axeによるa11y検査を3テーマぶん含む）で、両方が緑にならないとマージしない。
+              E2Eは単体テストより遅く揺れやすいので、CIでは再試行を2回まで許し、失敗時だけレポートを成果物として残している（
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                playwright.config.ts
+              </code>
+              の
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                retries
+              </code>
+              と{" "}
+              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">
+                reporter
+              </code>
+              ）。
+              「テストが存在する」ことと「そのテストが自動ゲートとして毎回走る」ことは別なので、自分のプロジェクトでも
+              workflowのジョブを見て、どこまでがゲートかを確かめる習慣をつけよう。
             </InfoBox>
           </section>
 
