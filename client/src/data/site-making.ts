@@ -45,7 +45,6 @@ export const SKILLS: readonly string[] = [
 /** .claude/commands/<name>.md */
 export const COMMANDS: readonly string[] = [
   "fact-check",
-  "fact-check-cmux",
   "audit-previews",
   "deploy-check",
 ];

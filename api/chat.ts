@@ -19,6 +19,7 @@ import {
   maxTokensFor,
   reasoningEffortFor,
 } from "./lib/chatModels.js";
+import { validateChatRequest } from "./lib/chatRequest.js";
 
 interface ChatRequestBody {
   messages: { role: "user" | "assistant"; content: string }[];
@@ -74,8 +75,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { messages, systemPrompt, model, provider, userApiKey } =
     req.body as ChatRequestBody;
 
-  if (!messages || !Array.isArray(messages) || messages.length === 0) {
-    return res.status(400).json({ error: "messages is required" });
+  // 枠を消費する前に大きさと形を検証する（1リクエストで匿名の枠を使い切らせないため）
+  const invalid = validateChatRequest(messages, systemPrompt);
+  if (invalid) {
+    return res.status(400).json({ error: invalid });
   }
 
   const resolvedProvider = provider || "openai";

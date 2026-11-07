@@ -31,6 +31,7 @@ const REGISTRY = {
   useChatApi: "hooks/useChatApi.ts",
   seo: "lib/seo.ts",
   secretsPermissions: "pages/git/github-actions/SecretsPermissions.tsx",
+  playwrightE2E: "pages/react/testing/PlaywrightE2E.tsx",
   siteMaking: "data/site-making.ts",
 } as const;
 
@@ -235,6 +236,20 @@ describe("実装と教材のズレ検出: 匿名の 1 日上限", () => {
   });
 });
 
+describe("実装と教材のズレ検出: チャットの入力上限", () => {
+  it("PolicyChatQuotaは上限の値を手書きせず、実装の定数から表示する", () => {
+    const src = readSrc(REGISTRY.policyChatQuota);
+    for (const name of [
+      "MAX_CHAT_MESSAGES",
+      "MAX_CHAT_MESSAGE_CHARS",
+      "MAX_CHAT_TOTAL_CHARS",
+      "MAX_CHAT_SYSTEM_PROMPT_CHARS",
+    ]) {
+      expect(src).toContain(`{${name}`);
+    }
+  });
+});
+
 describe("実装と教材のズレ検出: workflow の permissions", () => {
   const actual = collectWorkflowWrites();
 
@@ -258,6 +273,54 @@ describe("実装と教材のズレ検出: workflow の permissions", () => {
 
   it("SecretsPermissions が「CI は読み取り固定」と書く通り、ci.yml に write が無い", () => {
     expect(actual.has("ci")).toBe(false);
+  });
+});
+
+/** ci.ymlのトップレベル`jobs:`直下にあるジョブ名を順に返す */
+function parseCiJobNames(source: string): string[] {
+  const lines = source.split("\n");
+  const start = lines.findIndex((l) => /^jobs:\s*$/.test(l));
+  if (start < 0) throw new Error("ci.ymlにjobs: が無い");
+  const names: string[] = [];
+  for (const line of lines.slice(start + 1)) {
+    if (/^\S/.test(line)) break; // 次のトップレベルキー
+    const m = line.match(/^  ([\w-]+):\s*$/);
+    if (m) names.push(m[1]);
+  }
+  return names;
+}
+
+describe("実装と教材のズレ検出: ci.ymlのジョブ構成", () => {
+  const jobs = parseCiJobNames(read(`${WORKFLOWS_DIR}/ci.yml`));
+
+  it("ci.ymlのジョブを読めている", () => {
+    expect(jobs.length).toBeGreaterThan(0);
+  });
+
+  it("PlaywrightE2Eが「Nつのジョブ」と書く数と、ジョブ名の列挙がci.ymlと一致する", () => {
+    // prettierが<code>を複数行に折ることがあるので、空白を潰してから見る
+    const flat = readSrc(REGISTRY.playwrightE2E).replace(/\s+/g, "");
+    const count = flat.match(/は(\d+)つのジョブで構成されている/);
+    expect(
+      count,
+      "「はNつのジョブで構成されている」の文が見つからない",
+    ).not.toBeNull();
+    expect(Number(count![1])).toBe(jobs.length);
+    for (const name of jobs) {
+      expect(flat, `ジョブ ${name}に触れていない`).toMatch(
+        new RegExp(`<codeclassName="[^"]*">${name}</code>`),
+      );
+    }
+  });
+
+  it("E2EがCIで走っていないという記述が残っていない", () => {
+    const flat = readSrc(REGISTRY.playwrightE2E).replace(/\s+/g, "");
+    if (jobs.includes("e2e")) {
+      expect(flat).not.toMatch(
+        /E2Eテストは実装されていますが、CIでは自動実行されていません/,
+      );
+      expect(flat).not.toMatch(/Playwrightは含まれていません/);
+    }
   });
 });
 

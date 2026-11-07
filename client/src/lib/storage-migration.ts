@@ -7,12 +7,15 @@ import { getPageByPath } from './navigation';
  */
 
 export const STORAGE_MIGRATION_KEY = 'storage-migration-version';
-export const STORAGE_MIGRATION_VERSION = 6;
+export const STORAGE_MIGRATION_VERSION = 7;
 
 const PATH_ARRAY_KEYS = ['completed-pages', 'bookmarked-pages'] as const;
 const NOTE_PREFIX = 'page-note:';
 
-/** 旧パス → 新パスの置換規則。先頭一致で最初に当たったものを使う */
+/**
+ * 旧パス → 新パスの置換規則。先頭一致で上から順に適用する。
+ * /claude-mux/cmux/...は/claude-code/cmux/...を経て転送先へ着くので、順序に意味がある
+ */
 const PATH_RENAMES: ReadonlyArray<[from: string, to: string]> = [
   ['/claude-mux/', '/claude-code/'],
   ['/claude-mux', '/claude-code'],
@@ -21,15 +24,18 @@ const PATH_RENAMES: ReadonlyArray<[from: string, to: string]> = [
   ['/ai-ml/jev/jev-feedback-app', '/ai-ml/jev/jev-dashboard-app'],
   ['/ai-ml/jev/jev-clinic-app', '/ai-ml/jev/jev-design-search-app'],
   ['/ai-ml/jev/jev-leads-app', '/ai-ml/jev/jev-flight-app'],
+  // cmuxの章は外した。転送先はApp.tsxのRedirectと揃える
+  ['/claude-code/cmux/cmux-intro', '/claude-code/multi-ai/multi-ai-coexistence'],
+  ['/claude-code/cmux/cmux-setup', '/claude-code/multi-ai/multi-ai-coexistence'],
+  ['/claude-code/cmux/agent-teams', '/claude-code/ide-agent-teams/agent-orchestration'],
+  ['/claude-code/cmux/browser-api', '/claude-code/best-practices/browser-verification'],
+  ['/claude-code/cmux/worktrees', '/claude-code/ide-agent-teams/agent-orchestration'],
 ];
 
 export function migratePath(path: string): string | undefined {
   let next = path;
   for (const [from, to] of PATH_RENAMES) {
-    if (next.startsWith(from)) {
-      next = to + next.slice(from.length);
-      break;
-    }
+    if (next.startsWith(from)) next = to + next.slice(from.length);
   }
   return getPageByPath(next) ? next : undefined;
 }
@@ -83,8 +89,9 @@ export function migrateStorage(storage: Storage): MigrationResult {
     const migrated = migratePath(path);
     const value = storage.getItem(k) ?? '';
     if (migrated) {
-      // 既に新パス側にメモがあれば上書きせず残す
-      if (!storage.getItem(NOTE_PREFIX + migrated)) storage.setItem(NOTE_PREFIX + migrated, value);
+      // 複数の旧ページが同じ転送先へ集まることがある。手書きのメモは失わないよう後ろへ足す
+      const existing = storage.getItem(NOTE_PREFIX + migrated);
+      storage.setItem(NOTE_PREFIX + migrated, existing ? `${existing}\n\n${value}` : value);
       result.moved++;
     } else {
       result.dropped++;

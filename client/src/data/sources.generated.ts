@@ -944,20 +944,6 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
-    id: "github-com-manaflow-ai-cmux",
-    title: "github.com/manaflow-ai/cmux",
-    url: "https://github.com/manaflow-ai/cmux",
-    kind: "official-repo",
-    verifiedAt: "2026-08-16",
-    quotes: [
-      "Terminal keybindings are read from your Ghostty config file (~/.config/ghostty/config). cmux-specific shortcuts (workspaces, splits, browser, notifications) can be customized in Settings.",
-    ],
-    usedByFiles: [
-      "client/src/pages/claude-code/cmux/CmuxAgentTeams.tsx",
-      "client/src/pages/claude-code/cmux/CmuxSetup.tsx",
-    ],
-  },
-  {
     id: "github-com-mdn-browser-compat-data-blob-main-css-properties-gap-json",
     title: "github.com/mdn/browser-compat-data/blob/main/css/properties/gap.json",
     url: "https://github.com/mdn/browser-compat-data/blob/main/css/properties/gap.json",

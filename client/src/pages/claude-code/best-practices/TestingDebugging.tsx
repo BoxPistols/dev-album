@@ -94,7 +94,7 @@ export default function TestingDebugging() {
               </div>
             </div>
             <CodeBlock
-              code={`# ターミナルタブ（または cmux のペイン）を 2 つ開いて並行作業
+              code={`# ターミナルタブを2つ開いて並行作業
 
 # セッションA（Writer）: タブ 1
 $ claude
@@ -108,7 +108,7 @@ $ claude
               language="bash"
             />
             <InfoBox type="info" title="画面分割との相性">
-              ターミナルの分割表示や cmux のペイン分割を使えば、Writer と Reviewer を同じ画面で並行して管理できます。Writer が完了したら Reviewer 側に切り替えてレビューを依頼するフローが効率的です。
+              ターミナルの分割表示を使えば、WriterとReviewerを同じ画面で並行して管理できます。Writerが完了したらReviewer側に切り替えてレビューを依頼するフローが効率的です。
             </InfoBox>
           </section>
 

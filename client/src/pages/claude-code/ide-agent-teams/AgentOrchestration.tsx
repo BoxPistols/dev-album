@@ -94,23 +94,10 @@ claude --teammate-mode iterm2
 # tmux を使っている場合
 claude --teammate-mode tmux`} />
               </div>
-
-              <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h3 className="text-lg font-bold mb-3">cmux ネイティブ split（macOS）</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  macOS で cmux を使う場合、<code>cmux claude-teams</code> でチームメイトを cmux のネイティブ split として起動できる。内部では tmux shim（<code>~/.cmuxterm/claude-teams-bin/tmux</code>）を用意し、<code>TMUX</code> / <code>TMUX_PANE</code> を設定して Claude Code に「tmux の中にいる」と認識させ、Claude が発行する tmux コマンドを cmux の socket API 呼び出しへ翻訳している。実体としての tmux / iTerm2 のインストールは不要だが、tmux 互換レイヤーを経由する仕組みである点は押さえておく。teammate mode は auto に設定され、サイドバーのメタデータと通知で状態を可視化できる。
-                </p>
-                <CodeBlock language="bash" code={`# cmux ネイティブのチーム起動（teammate mode は auto に設定される）
-cmux claude-teams
-
-# サイドバーに親 + teammate が並び、各 split に独立した Claude Code が走る
-# tmux 本体は不要だが、tmux shim 経由で cmux の socket API に翻訳される
-# 詳細は「cmux と Agent Teams」ページを参照`} />
-              </div>
             </div>
 
             <InfoBox type="info" title="どちらを選ぶか">
-              2〜3 人なら in-process で十分。macOS ローカルで通知込みの可視化が欲しいなら cmux ネイティブ split が向く。iTerm2（または tmux）ユーザーは split panes モードも選べる。
+              2〜3人ならin-processで十分。各チームメイトの出力を同時に見たいなら、iTerm2（またはtmux）のsplit panesモードが向く。
             </InfoBox>
           </section>
 
@@ -365,7 +352,7 @@ git worktree remove ../project-dashboard`} />
                 { title: 'ファイル操作の分離を徹底する', desc: '各チームメイトが編集するファイルの範囲を明確に指示する。「Aは src/auth/ 配下、Bは src/dashboard/ 配下」のように。同一ファイルの同時編集は避ける。' },
                 { title: 'インターフェースを先に定義する', desc: '複数メイトが連携する場合、先にインターフェースや型定義を確定させる。これにより各メイトが独立して実装を進められる。' },
                 { title: '小さく始めて段階的に拡大する', desc: 'まず2人のチームメイトで試し、ワークフローが安定してから人数を増やす。管理コストはメイト数に対して線形以上に増加する。' },
-                { title: 'split panes モードで可視性を確保する', desc: '4人以上のチームメイトを使う場合は split panes モード（iTerm2 等）や cmux ネイティブ split を使って各メイトの出力を同時に監視する。' },
+                { title: 'split panesモードで可視性を確保する', desc: '4人以上のチームメイトを使う場合はsplit panesモード（iTerm2等）を使って各メイトの出力を同時に監視する。' },
                 { title: '定期的にチームリードの進捗確認を促す', desc: 'チームリードに「各メイトの進捗を確認して、問題があれば対処して」と明示的に指示すると、タスクが停滞しにくい。' },
               ].map(item => (
                 <div key={item.title} className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
