@@ -6,6 +6,7 @@ import {
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
   detectPreviewLibs,
+  PREVIEW_MOCK_API_ORIGIN,
 } from "./preview";
 import {
   resolvePreviewType,
@@ -210,10 +211,14 @@ function App() {
     expect(html).not.toContain("import {");
   });
 
-  it("CSP meta を含み、connect-src 'none' で外部送信を封じる", () => {
+  it("CSP metaを含み、connect-srcを教材のモックAPIだけに絞って外部送信を封じる", () => {
     const html = buildPreviewHtml("function App() { return null; }", "", false);
     expect(html).toContain('http-equiv="Content-Security-Policy"');
-    expect(html).toContain("connect-src 'none'");
+    const csp = html.match(/content="([^"]*connect-src[^"]*)"/)?.[1] ?? "";
+    const connect = csp.match(/connect-src ([^;]+);/)?.[1].trim();
+    expect(connect).toBe(PREVIEW_MOCK_API_ORIGIN);
+    // 'self'（同一オリジンの /api/）や 'none' が混じっていない
+    expect(connect).not.toContain("'self'");
     // 自己ホスト script と Google Fonts(MUI Roboto) は許可されている
     expect(html).toContain("script-src 'self' 'unsafe-inline'");
     expect(html).toContain("https://fonts.googleapis.com");
@@ -503,6 +508,20 @@ describe("チャレンジの空欄", () => {
     // JSXの属性名はトランスパイルでオブジェクトのキーになる
     expect(html).toContain('___: "email"');
     expect(html).toContain("const [value, ___] = useState(0)");
+  });
+
+  it("空欄が残っているときの実行時エラーは、埋めると動く案内に差し替える", () => {
+    // 空欄が残っている: 案内文を出す
+    const html = buildPreviewHtml(withBlank, "", false);
+    expect(html).toContain("var __hasBlanks=true;");
+    expect(html).toContain("空欄（___）を埋めるとプレビューが動きます");
+    // 空欄が無い: 従来どおりエラーをそのまま出す
+    const filled = buildPreviewHtml(
+      "function App() { return <p>ok</p>; }",
+      "",
+      false,
+    );
+    expect(filled).toContain("var __hasBlanks=false;");
   });
 
   it("JSXのタグ名が空欄なら、描画できるタグに差し替える", () => {

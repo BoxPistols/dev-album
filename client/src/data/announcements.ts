@@ -29,6 +29,42 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/claude-code/multi-ai/multi-ai-coexistence",
   },
   {
+    id: "2026-11-07-react-home-step-count",
+    date: "2026-11-07",
+    title: "Reactマニュアルの入口の「全77ステップ」を実際の数に直した",
+    description:
+      "入口ページの見出しが「全77ステップ」のままで、サイドバーや進捗の82と食い違っていた。手書きの数をやめ、ナビゲーションの定義から数えて表示するようにした（UXデザインの入口も同じ形にした）。",
+    category: "fix",
+    link: "/react",
+  },
+  {
+    id: "2026-11-07-preview-blank-notice",
+    date: "2026-11-07",
+    title: "空欄を埋める前のプレビューに、赤いエラーではなく「埋めると動く」案内を出すようにした",
+    description:
+      "穴埋めのチャレンジで、空欄（___）が残ったまま実行して落ちると、学習者が何も書いていない段階で「TypeError: skills.___ is not a function」のような赤いエラーが出ていた。空欄が残っているあいだは「空欄を埋めるとプレビューが動きます」を先に出し、元のメッセージは補足として小さく添える。空欄が無いときのエラー表示は変えていない。",
+    category: "fix",
+    link: "/react/react-basics/components",
+  },
+  {
+    id: "2026-11-07-semantic-aria-accordion-challenge",
+    date: "2026-11-07",
+    title: "セマンティックHTMLとARIAのアコーディオン課題が、正解を入れても動かなかったのを直した",
+    description:
+      "onClickが参照するtoggleがコードのどこにも定義されておらず、空欄を埋めてもプレビューがReferenceErrorで止まっていた。開閉状態をuseStateで持ち、aria-expandedとhiddenが状態に追従する形に書き直した。ボタンを押すと実際に開閉し、属性の値が変わるのを確かめられる。",
+    category: "fix",
+    link: "/react/accessibility/semantic-aria",
+  },
+  {
+    id: "2026-11-07-playwright-page-ci-claim",
+    date: "2026-11-07",
+    title: "Playwrightのページの「E2EはCIで走らない」という記述を現状に直した",
+    description:
+      "ci.ymlにはverifyとe2eの2つのジョブがあり、Playwrightの全スペック（a11y検査3テーマを含む）もPRごとに走っている。ページの記述が古いままだったので、現在のジョブ構成と再試行・レポートの扱いに書き換えた。以後はci.ymlのジョブ名と本文の記述を単体テストで突き合わせ、ずれたら落ちるようにした。",
+    category: "fix",
+    link: "/react/testing/playwright-e2e",
+  },
+  {
     id: "2026-10-12-go-manual",
     date: "2026-10-12",
     title: "Goマニュアルを追加した",
