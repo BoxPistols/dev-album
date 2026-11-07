@@ -125,7 +125,7 @@ export default function FileMap() {
           </p>
           <VerifiedBox
             verifiedAt="2026-08-23"
-            cmuxVersion="Claude Code 2.1.239"
+            verifiedVersion="Claude Code 2.1.239"
             platform="macOS (Apple Silicon)"
             officialDocs="https://code.claude.com/docs/en/memory"
             officialDocsLabel="公式: How Claude remembers your project"
