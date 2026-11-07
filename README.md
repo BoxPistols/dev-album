@@ -155,7 +155,6 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 | `/project:deploy-check` | デプロイ前最終チェック |
 | `/project:audit-previews` | 全プレビュー検証 |
 | `/project:fact-check` | Claude Code 教材を公式ドキュメントと照合 |
-| `/project:fact-check-cmux` | cmux 教材を公式 README + 実機出力と照合 |
 
 ### Hooks
 

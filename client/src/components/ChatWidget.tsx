@@ -396,8 +396,7 @@ export default function ChatWidget() {
                   </button>
                 </div>
                 <p className="text-[12px] text-muted-foreground mt-1">
-                  キーはブラウザにのみ保存されます。設定すると 1
-                  日の上限がなくなります
+                  キーはこのブラウザのlocalStorageに平文で保存されます。共有のPCでは使い終えたら欄を空にしてください。設定すると1日の上限がなくなります
                 </p>
               </div>
 

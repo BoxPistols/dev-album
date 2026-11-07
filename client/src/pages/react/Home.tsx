@@ -1,5 +1,6 @@
 import { BookOpen, Code2, Layers, Palette, Rocket, Server, Layout, Sparkles, Zap, ArrowRight, Keyboard, Search, Settings, Eye, Copy, Maximize2, RotateCcw, GripVertical, CheckCircle2, Lightbulb, Shield } from 'lucide-react';
 import { Link } from 'wouter';
+import { getManualPages } from '@/lib/navigation';
 import PageNavigation from '@/components/PageNavigation';
 import { modKey } from '@/lib/keyLabels';
 
@@ -218,7 +219,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-20 md:py-28 relative z-10">
           <div className="mb-6 flex items-center gap-3 flex-wrap">
             <span className="text-xs font-semibold text-white/90 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-              全77ステップ
+              全{getManualPages('react').length}ステップ
             </span>
             <span className="text-xs font-semibold text-cyan-200/90 bg-cyan-400/10 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-300/10">
               React + Next.js + Storybook

@@ -56,6 +56,33 @@ export const ANNOUNCEMENTS: Announcement[] = [
     link: "/react/nextjs-basics/what-is-nextjs",
   },
   {
+    id: "2026-11-07-remove-cmux-section",
+    date: "2026-11-07",
+    title: "Claude Codeマニュアルからcmuxの章を外した",
+    description:
+      "cmuxの5ページを外し、旧URLは内容が近いページへ転送する。完了・ブックマーク・メモは転送先のページへ自動で写すので消えるものはない。同じ転送先に集まる完了とブックマークは1件にまとまり、メモは既存のメモの後ろに続けて残す。転送先のページは未読でも完了として表示される。",
+    category: "update",
+    link: "/claude-code/multi-ai/multi-ai-coexistence",
+  },
+  {
+    id: "2026-11-07-react-home-step-count",
+    date: "2026-11-07",
+    title: "Reactマニュアルの入口の「全77ステップ」を実際の数に直した",
+    description:
+      "入口ページの見出しが「全77ステップ」のままで、サイドバーや進捗の82と食い違っていた。手書きの数をやめ、ナビゲーションの定義から数えて表示するようにした（UXデザインの入口も同じ形にした）。",
+    category: "fix",
+    link: "/react",
+  },
+  {
+    id: "2026-11-07-preview-blank-notice",
+    date: "2026-11-07",
+    title: "空欄を埋める前のプレビューに、赤いエラーではなく「埋めると動く」案内を出すようにした",
+    description:
+      "穴埋めのチャレンジで、空欄（___）が残ったまま実行して落ちると、学習者が何も書いていない段階で「TypeError: skills.___ is not a function」のような赤いエラーが出ていた。空欄が残っているあいだは「空欄を埋めるとプレビューが動きます」を先に出し、元のメッセージは補足として小さく添える。空欄が無いときのエラー表示は変えていない。",
+    category: "fix",
+    link: "/react/react-basics/components",
+  },
+  {
     id: "2026-11-07-semantic-aria-accordion-challenge",
     date: "2026-11-07",
     title: "セマンティックHTMLとARIAのアコーディオン課題が、正解を入れても動かなかったのを直した",

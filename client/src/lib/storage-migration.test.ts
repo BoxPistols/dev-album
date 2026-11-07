@@ -25,6 +25,30 @@ describe('storage-migration', () => {
     expect(r).toEqual({ moved: 3, dropped: 1 });
   });
 
+  it('外したcmuxのページは転送先へ写す', () => {
+    const coexistence = '/claude-code/multi-ai/multi-ai-coexistence';
+    const orchestration = '/claude-code/ide-agent-teams/agent-orchestration';
+    expect(migratePath('/claude-code/cmux/cmux-intro')).toBe(coexistence);
+    expect(migratePath('/claude-code/cmux/cmux-setup')).toBe(coexistence);
+    expect(migratePath('/claude-code/cmux/agent-teams')).toBe(orchestration);
+    expect(migratePath('/claude-code/cmux/worktrees')).toBe(orchestration);
+    expect(migratePath('/claude-code/cmux/browser-api')).toBe('/claude-code/best-practices/browser-verification');
+    // claude-mux時代の記録は2段階の改名を通る
+    expect(migratePath('/claude-mux/cmux/cmux-intro')).toBe(coexistence);
+  });
+
+  it('同じ転送先に集まる記録は1件にまとめ、メモは失わない', () => {
+    const target = '/claude-code/multi-ai/multi-ai-coexistence';
+    localStorage.setItem('completed-pages', JSON.stringify(['/claude-code/cmux/cmux-intro', '/claude-code/cmux/cmux-setup']));
+    localStorage.setItem('page-note:' + target, 'existing');
+    localStorage.setItem('page-note:/claude-code/cmux/cmux-intro', 'intro memo');
+    const r = migrateStorage(localStorage);
+    expect(JSON.parse(localStorage.getItem('completed-pages')!)).toEqual([target]);
+    expect(localStorage.getItem('page-note:' + target)).toBe('existing\n\nintro memo');
+    expect(localStorage.getItem('page-note:/claude-code/cmux/cmux-intro')).toBeNull();
+    expect(r).toEqual({ moved: 3, dropped: 0 });
+  });
+
   it('1 回走ったら 2 回目は何もしない', () => {
     localStorage.setItem('completed-pages', JSON.stringify([oldPath]));
     expect(runStorageMigration()).toEqual({ moved: 1, dropped: 0 });
