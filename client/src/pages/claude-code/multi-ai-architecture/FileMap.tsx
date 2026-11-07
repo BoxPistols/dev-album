@@ -225,7 +225,7 @@ export default function FileMap() {
               取り違えやすい 3 点
             </h2>
 
-            <InfoBox type="warning" title="CLAUDE.mdがあるとAGENTS.mdは読まれない">
+            <InfoBox type="warning" title="既定ではCLAUDE.mdがあるとAGENTS.mdは読まれない">
               Claude Codeはv2.1.277からAGENTS.mdを直接読みますが、既定の設定では、それは作業ディレクトリかその上に
               CLAUDE.md（<code>.claude/CLAUDE.md</code>・<code>CLAUDE.local.md</code> を含む。ユーザーの <code>~/.claude/CLAUDE.md</code> は数えない）が無いときだけです。
               <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすると、両方を読みます。

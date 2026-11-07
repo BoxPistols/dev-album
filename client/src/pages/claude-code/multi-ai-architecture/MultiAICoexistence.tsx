@@ -125,13 +125,14 @@ export default function MultiAICoexistence() {
               モノレポではパッケージごとに置け、ディレクトリツリー上で最も近いものが優先されます。
             </InfoBox>
 
-            <InfoBox type="warning" title="CLAUDE.mdがあるとClaude CodeはAGENTS.mdを読まない">
+            <InfoBox type="warning" title="既定ではCLAUDE.mdがあるとClaude CodeはAGENTS.mdを読まない">
               Claude Codeはv2.1.277からAGENTS.mdを直接読みます。ただし公式ドキュメントは
               <span className="font-semibold">「By default, Claude reads <code>AGENTS.md</code> only when you have no <code>CLAUDE.md</code> in your working directory or above it.」</span>
               としています。CLAUDE.mdと併用するなら、CLAUDE.mdに <code>@AGENTS.md</code> と書いて
               importします。Claude Code固有の指示が無くCLAUDE.mdをAGENTS.mdと同じ内容にしたいだけなら、
               <code>ln -s AGENTS.md CLAUDE.md</code> でシンボリックリンクにする方法もあります
               （Windows はシンボリックリンクに管理者権限が要るため import が推奨）。
+              <code>/config</code> のProject instructionsを <code>claude-md-and-agents-md</code> にすれば、両方をそのまま読ませることもできます。
               「置けばどのツールも読んでくれる」と考えると、CLAUDE.mdを足した時点で規約が効かなくなったことに気づけません。
             </InfoBox>
           </section>

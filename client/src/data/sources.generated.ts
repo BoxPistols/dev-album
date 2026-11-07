@@ -266,6 +266,7 @@ export const GENERATED_SOURCES: Source[] = [
       "You used `/plugin` to disable the built-in plugin that reads `AGENTS.md`",
       "Before v2.1.281, some sessions, such as those on Amazon Bedrock or with telemetry disabled, read `CLAUDE.md` files only.",
       "If you don't need Claude-specific content, a symlink also works:",
+      "If you find one, Claude reads it instead of `AGENTS.md` unless you set **Project instructions** to `claude-md-and-agents-md`.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/ContextManagement.tsx",
