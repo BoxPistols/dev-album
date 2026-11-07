@@ -62,7 +62,7 @@ export default function Welcome() {
             </h2>
 
             <p className="text-foreground mb-8 leading-relaxed">
-              前半で Claude Code の機能とハーネス設計（CLAUDE.md / Skills / Hooks / Subagents）を体系的に学び、中盤で主要な AI コーディングエージェントの比較と cmux による環境管理を習得し、最後にベストプラクティスと自動化へ進みます。
+              前半でClaude Codeの機能とハーネス設計（CLAUDE.md / Skills / Hooks / Subagents）を体系的に学び、中盤で主要なAIコーディングエージェントの比較と使い分けを習得し、最後にベストプラクティスと自動化へ進みます。
             </p>
 
             <div className="space-y-3">
