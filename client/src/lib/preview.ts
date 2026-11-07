@@ -21,7 +21,8 @@ const EMOTION_STYLED_UMD_URL = '/vendor/emotion-styled-11.14.1.umd.min.js';
 const EMOTION_CSS_UMD_URL = '/vendor/emotion-css-11.13.5.umd.min.js';
 
 // 教材のデータ取得デモ（useEffect・カスタムHooks・API連携）が使う公開モックAPI。
-// 読み取り専用の固定データしか返さず、書き込みは受け付けないので外部送信の経路にはならない。
+// 固定データを返すだけで、POSTも保存はされない。ただしURLやbodyに載せた値はこの第三者に届く。
+// img-srcのhttps:も同じ経路なので、CSPはプレビューからの外部送信を完全には止めていない。
 export const PREVIEW_MOCK_API_ORIGIN = 'https://jsonplaceholder.typicode.com';
 
 // プレビューiframeのContent-Security-Policy。
