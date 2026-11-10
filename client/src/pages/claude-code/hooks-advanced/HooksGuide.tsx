@@ -97,7 +97,7 @@ export default function HooksGuide() {
             </p>
             <div className="mb-6">
               <InfoBox type="warning" title="イベントごとに使えるタイプが違う">
-                <code>agent</code> タイプは experimental で、仕様が変わる可能性があります。また <code>SessionStart</code> と <code>Setup</code> がサポートするのは <code>command</code> と <code>mcp_tool</code> だけで、<code>http</code> / <code>prompt</code> / <code>agent</code> は使えません。すべてのイベントで全タイプが選べるわけではない点に注意してください。
+                <code>agent</code> タイプはexperimentalで、仕様が変わる可能性があります。また <code>SessionStart</code> と <code>Setup</code> がサポートするのは <code>command</code> と <code>mcp_tool</code> だけで、<code>http</code> / <code>prompt</code> / <code>agent</code> は使えません。さらに起動時はまだMCPサーバーに接続していないため、起動時の <code>SessionStart</code> と、すべての <code>Setup</code> では <code>mcp_tool</code> のHookが呼ばれずに飛ばされます。起動時に必要な処理は <code>command</code> で書きます。すべてのイベントで全タイプが選べるわけではない点に注意してください。
               </InfoBox>
             </div>
             <div className="grid grid-cols-1 gap-6">
@@ -283,7 +283,7 @@ exit 2`}
               language="bash"
             />
             <InfoBox type="warning" title="exit code の注意点">
-              exit code 2 でブロックできるイベントは PreToolUse だけではありません。公式リファレンスの &quot;Exit code 2 behavior per event&quot; で Can block? = Yes とされているのは <code>PreToolUse</code> / <code>UserPromptSubmit</code> / <code>UserPromptExpansion</code> / <code>Stop</code> / <code>SubagentStop</code> / <code>TeammateIdle</code> / <code>TaskCreated</code> / <code>TaskCompleted</code> / <code>ConfigChange</code> / <code>PostToolBatch</code> / <code>PreCompact</code> / <code>Elicitation</code> / <code>ElicitationResult</code> / <code>WorktreeCreate</code> です。PostToolUse はツールが既に実行済みのためブロックはできませんが、exit 2 で stderr を Claude に見せられるので、<code>PostToolUse</code> / <code>PostToolUseFailure</code> から警告を届けたいときはこちらを使います。
+              exit code 2でブロックできるイベントはPreToolUseだけではありません。公式リファレンスの &quot;Exit code 2 behavior per event&quot; でCan block? = Yesとされているのは <code>PreToolUse</code> / <code>UserPromptSubmit</code> / <code>UserPromptExpansion</code> / <code>Stop</code> / <code>SubagentStop</code> / <code>TeammateIdle</code> / <code>TaskCreated</code> / <code>TaskCompleted</code> / <code>ConfigChange</code> / <code>PostToolBatch</code> / <code>PreCompact</code> / <code>PreModelSwitch</code> / <code>Elicitation</code> / <code>ElicitationResult</code> / <code>WorktreeCreate</code> / <code>WorktreeRemove</code> です（<code>WorktreeCreate</code> と <code>WorktreeRemove</code> はexit 2に限らず、0以外の終了コードで失敗になります）。PostToolUseはツールが既に実行済みのためブロックはできませんが、exit 2でstderrをClaudeに見せられるので、<code>PostToolUse</code> / <code>PostToolUseFailure</code> から警告を届けたいときはこちらを使います。
             </InfoBox>
           </section>
 
