@@ -207,10 +207,14 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/hooks",
     url: "https://code.claude.com/docs/en/hooks",
     kind: "official-docs",
-    verifiedAt: "2026-08-16",
+    verifiedAt: "2026-11-08",
     quotes: [
       "* **Agent hooks** (type: \"agent\"): spawn a subagent that can use tools like Read, Grep, and Glob to verify conditions before returning a decision. Agent hooks are experimental and may change.",
       "Hook events receive these fields as JSON, in addition to event-specific fields documented in each hook event section. For command hooks, this JSON arrives via stdin.",
+      "| `PreModelSwitch` | Yes | Blocks the model switch and shows stderr to the user |",
+      "| `WorktreeCreate` | Yes | Any non-zero exit code causes worktree creation to fail |",
+      "`SessionStart` and `Setup` support `command` and `mcp_tool` hooks, and [MCP tool hook fields](#mcp-tool-hook-fields) describes when their `mcp_tool` hooks run. They don't support `http`, `prompt`, or `agent` hooks.",
+      "For anything the session needs at launch, use a `type: \"command\"` hook on `SessionStart` instead.",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/agent-extensions/CustomSkills.tsx",
@@ -236,7 +240,7 @@ export const GENERATED_SOURCES: Source[] = [
     title: "code.claude.com/docs/en/mcp",
     url: "https://code.claude.com/docs/en/mcp",
     kind: "official-docs",
-    verifiedAt: "2026-11-07",
+    verifiedAt: "2026-11-08",
     quotes: [
       // 2026-08-23 再照合。本文は変わっていないが、箇条書きを 1 行に潰した引用は
       // 行頭記号の正規化が効かず照合できない。原文の改行のまま持つ
@@ -244,6 +248,7 @@ export const GENERATED_SOURCES: Source[] = [
       "Local scope is the default. A local-scoped server loads only in the project where you added it and stays private to you. Claude Code stores it in ~/.claude.json under that project's path, so the same server won't appear in your other projects. Use local scope for personal development servers, experimental configurations, or servers with credentials you don't want in version control.",
       "a project-scoped server from `.mcp.json` that you haven't approved yet. Claude Code shows it in both `claude mcp list` and `claude mcp get <name>`. Run `claude` interactively to review and approve it.",
       "Pending approval (run `claude` to approve)",
+      "A cloned repository can't approve its own servers:",
     ],
     usedByFiles: [
       "client/src/pages/claude-code/mcp/MCPSetup.tsx",
@@ -510,6 +515,20 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/claude-code/mcp/MCPPractical.tsx",
+    ],
+  },
+  {
+    id: "devguide-python-org-versions",
+    title: "devguide.python.org/versions/",
+    url: "https://devguide.python.org/versions/",
+    kind: "official-docs",
+    verifiedAt: "2026-11-08",
+    quotes: [
+      "3.10 PEP 619 end-of-life 2021-10-04 2026-10-01",
+      "3.14 PEP 745 bugfix 2025-10-07 2030-10",
+    ],
+    usedByFiles: [
+      "client/src/pages/ai-ml/python-ml/PythonSetup.tsx",
     ],
   },
   {
@@ -1458,6 +1477,19 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
+    id: "platform-claude-com-docs-en-about-claude-model-deprecations",
+    title: "platform.claude.com/docs/en/about-claude/model-deprecations",
+    url: "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+    kind: "official-docs",
+    verifiedAt: "2026-11-08",
+    quotes: [
+      "| June 15, 2026   | `claude-sonnet-4-20250514` | `claude-sonnet-5-5`     |",
+    ],
+    usedByFiles: [
+      "client/src/pages/ai-ml/lmops/LmopsWorkflow.tsx",
+    ],
+  },
+  {
     id: "platform-claude-com-docs-en-build-with-claude-prompt-caching",
     title: "platform.claude.com/docs/en/build-with-claude/prompt-caching",
     url: "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
@@ -1468,6 +1500,21 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/claude-code/claude-core/TokenOptimization.tsx",
+    ],
+  },
+  {
+    id: "platform-claude-com-docs-en-models-overview",
+    title: "platform.claude.com/docs/en/models/overview",
+    url: "https://platform.claude.com/docs/en/models/overview",
+    kind: "official-docs",
+    verifiedAt: "2026-11-08",
+    quotes: [
+      "| Claude API ID | `claude-fable-5-1` | `claude-opus-5-5` | `claude-sonnet-5-5` | `claude-haiku-5-5` |",
+      "| [Context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) | 1M tokens | 1M tokens | 1M tokens | 1M tokens |",
+    ],
+    usedByFiles: [
+      "client/src/pages/ai-ml/lmops/LlmBasics.tsx",
+      "client/src/pages/ai-ml/lmops/LmopsWorkflow.tsx",
     ],
   },
   {
@@ -1605,6 +1652,22 @@ export const GENERATED_SOURCES: Source[] = [
     ],
   },
   {
+    id: "raw-githubusercontent-com-nodejs-release-main-schedule-json",
+    title: "Node.jsのリリーススケジュール（nodejs/Release）",
+    url: "https://raw.githubusercontent.com/nodejs/Release/main/schedule.json",
+    kind: "official-repo",
+    verifiedAt: "2026-11-08",
+    quotes: [
+      "\"end\": \"2026-04-30\",\n    \"codename\": \"Iron\"",
+      "\"end\": \"2028-04-30\",\n    \"codename\": \"Krypton\"",
+    ],
+    usedByFiles: [
+      "client/src/pages/claude-code/cicd-headless/HeadlessMode.tsx",
+      "client/src/pages/git/github-actions/TriggersJobs.tsx",
+      "client/src/pages/infra/devops/Containers.tsx",
+    ],
+  },
+  {
     id: "raw-githubusercontent-com-nuxt-nuxt-3-x-docs-1-getting-started-18-upgr",
     title: "raw.githubusercontent.com/nuxt/nuxt/3.x/docs/1.getting-started/18.upgrade.md",
     url: "https://raw.githubusercontent.com/nuxt/nuxt/3.x/docs/1.getting-started/18.upgrade.md",
@@ -1695,6 +1758,20 @@ export const GENERATED_SOURCES: Source[] = [
     ],
     usedByFiles: [
       "client/src/pages/vue/nuxt-server/ServerApi.tsx",
+    ],
+  },
+  {
+    id: "raw-githubusercontent-com-pyenv-pyenv-master-commands-md",
+    title: "pyenv COMMANDS.md",
+    url: "https://raw.githubusercontent.com/pyenv/pyenv/master/COMMANDS.md",
+    kind: "official-repo",
+    verifiedAt: "2026-11-08",
+    quotes: [
+      "Usage: pyenv latest [-k|--known] <prefix>",
+      "-k/--known      Select from all known versions instead of installed",
+    ],
+    usedByFiles: [
+      "client/src/pages/ai-ml/python-ml/PythonSetup.tsx",
     ],
   },
   {

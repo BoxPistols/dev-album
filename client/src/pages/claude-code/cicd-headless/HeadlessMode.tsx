@@ -179,7 +179,7 @@ claude -p "reports/ 内の全レポートを集約して要約して"`} />
                 <p className="text-sm text-muted-foreground mb-3">
                   Docker コンテナ内で Claude Code を実行することで、ホストシステムへの影響を完全に分離できます。
                 </p>
-                <CodeBlock language="dockerfile" code={`FROM node:20-slim
+                <CodeBlock language="dockerfile" code={`FROM node:24-slim
 
 # Claude Code をインストール
 RUN npm install -g @anthropic-ai/claude-code

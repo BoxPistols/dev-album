@@ -117,18 +117,17 @@ curl https://pyenv.run | bash`}
 
             <h3 className="text-xl font-bold text-foreground mt-8 mb-4">3. Python のインストールと設定</h3>
             <CodeBlock
-              code={`# インストール可能なバージョンを確認
-pyenv install --list | grep "3.11"
+              code={`# インストールできる3.14系の最新版を確認
+pyenv latest -k 3.14
 
-# Python 3.11 をインストール
-pyenv install 3.11.8
+# その版をインストール
+pyenv install $(pyenv latest -k 3.14)
 
-# グローバルのデフォルトバージョンを設定
-pyenv global 3.11.8
+# グローバルのデフォルトバージョンに設定
+pyenv global $(pyenv latest 3.14)
 
 # バージョンを確認
-python --version
-# Python 3.11.8`}
+python --version`}
               language="bash"
               title="Python のインストールとバージョン設定"
             />
@@ -335,8 +334,8 @@ plt.show()`}
           <section>
             <InfoBox type="warning" title="Python 2 と Python 3">
               <p>
-                Python 2 は 2020年1月にサポートが終了しています。
-                新規プロジェクトでは必ず Python 3.10 以上を使いましょう。
+                Python 2は2020年1月にサポートが終了しています。Python 3も版ごとにサポートの期限があり、3.10は2026年10月に終了しました。
+                新規プロジェクトでは、バグ修正が続いている版（2026年11月時点では3.14と3.15）を使い、期限は公式の一覧（devguide.python.org/versions）で確かめましょう。
                 古いチュートリアルやコードで <code className="bg-muted px-1 py-0.5 rounded text-xs">print "hello"</code>（括弧なし）
                 のような書き方を見かけたら、それは Python 2 の構文です。
                 Python 3 では <code className="bg-muted px-1 py-0.5 rounded text-xs">print("hello")</code> と書きます。

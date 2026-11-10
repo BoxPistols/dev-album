@@ -246,7 +246,7 @@ retriever = vectorstore.as_retriever(
 )
 
 # LLM の初期化
-llm = ChatAnthropic(model="claude-sonnet-4-20250514")
+llm = ChatAnthropic(model="claude-sonnet-5-5")
 
 # 質問に関連するドキュメントを検索
 query = "プロジェクトのデプロイ手順を教えて"
@@ -409,7 +409,7 @@ print(response.content)`}
 client = anthropic.Anthropic()
 
 message = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "Pythonの特徴を3つ教えて"}

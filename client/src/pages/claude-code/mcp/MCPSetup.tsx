@@ -137,7 +137,7 @@ $ claude mcp add -s user my-tool -- npx -y @mcp/my-tool`} language="bash" />
               <code>-s project</code> スコープで追加すると、プロジェクトルートに <code>.mcp.json</code> が生成されます。このファイルをGit管理することで、チームメンバー全員が同じMCPサーバ構成を使用できます。
             </p>
             <InfoBox type="info" title="初回承認">
-              プロジェクトスコープのMCPサーバは、各チームメンバーが初回使用時に承認する必要があります。未承認のサーバは <code>claude mcp list</code> に「Pending approval」と表示され、対話セッションを起動すると承認できます。settings.json の <code>enableAllProjectMcpServers</code> で一括承認も可能です。
+              プロジェクトスコープのMCPサーバは、各チームメンバーが初回使用時に承認する必要があります。未承認のサーバは <code>claude mcp list</code> に「Pending approval」と表示され、対話セッションを起動すると承認できます。settings.jsonの <code>enableAllProjectMcpServers</code> で一括承認も可能です。ただし、リポジトリにコミットされた <code>.claude/settings.json</code> のこの設定は、そのフォルダで <code>claude</code> を起動してワークスペースを信頼するまでは無視されます（クローンしただけのリポジトリが自分のサーバを承認できないようにするため）。
             </InfoBox>
           </section>
 

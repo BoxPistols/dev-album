@@ -73,3 +73,26 @@
 
 - 直した: SecurityPermissionsの「既定は人間の承認」（モードで決まり、対話型はautoで始まる）、AgentDocsで直接読めないセッションの条件、FileMapの条件が既定設定のものであることと`~/.claude/CLAUDE.md`を数えないこと、MultiAICoexistenceのsymlinkの案内、ExtendedThinkingのFableのgateway例外、EffectiveWorkflowsのサブエージェントの復元条件、SlashCommandsの`effortLevel`が効かない範囲、Cheatsheetにautoの行と`claude -p`の既定（v2.1.302以降はManual）、AgentOrchestrationの`iterm2`の版（CHANGELOGで2.1.186の追加を確認して戻した）、この記録の件数（Claude Codeは21件で、未対応は28件）
 - 直していない: CursorClineの「月次APIクレジット」の追記。出典のsupport.claude.comをこの環境から取得できず、裏を取れなかった。この差分が触った箇所でもない
+
+## 続き: L5の残り、AI/ML、インフラ（2026-11-08）
+
+### Claude Code（hooks・MCP・スラッシュコマンド）
+
+- hooks: 教材が名前を挙げているイベントは、すべて公式の一覧に実在した。「exit 2で止められるイベント」の一覧に`PreModelSwitch`と`WorktreeRemove`が加わっていたので足した。起動時の`SessionStart`とすべての`Setup`では`mcp_tool`のHookが飛ばされることを書いた
+- MCP: スコープ（local / project / user）と保存先（`~/.claude.json` / `.mcp.json`）、`claude mcp`のサブコマンドは公式と一致した。`enableAllProjectMcpServers`をリポジトリにコミットしても、ワークスペースを信頼するまでは無視されることを補った
+- スラッシュコマンド: 教材に出てくるコマンド名を公式の一覧（120件）と突き合わせた。一覧に無い4件（`/deploy`・`/write-tests`・`/name`・`/apps/web:deploy`）は、いずれもカスタムスキルの例で、組み込みのコマンドとしては書いていない
+
+### AI/ML
+
+- `LmopsWorkflow`のコード例の`claude-sonnet-4-20250514`は2026-06-15に引退していた（そのままでは呼び出しが失敗する）。公式の移行先`claude-sonnet-5-5`にした
+- `LlmBasics`のモデルを`claude-sonnet-5-5`にし、コンテキスト長の説明を現行の4モデル（すべて1M）に合わせた。比較表の「GPT-4o」は版を付けない「GPT」にした（ほかの行と表記をそろえる）
+- `PythonSetup`: Python 3.10は2026-10-01にサポートが終わっていた。インストール例を`pyenv latest -k 3.14`で最新を入れる形にし、推奨を「バグ修正が続いている版」にした
+
+### インフラほか（Node.jsのEOL）
+
+- Node.js 20は2026-04-30にサポートが終わっていた。`Containers`のDockerfile、`TriggersJobs`のマトリクス（18 / 20 / 22 → 22 / 24 / 26）、`HeadlessMode`のDocker実行例を直した（Claude Codeのnpm版はNode.js 22以上が要件なので、20のイメージでは警告が出る）
+
+### 直していないこと
+
+- GitHub Actionsの`actions/checkout@v4`・`actions/setup-node@v4`が14ファイルに残っている。`Cicd`と`SbFigma`は`@v7`。v4は今も動くので誤りではないが、版のそろえ方は判断が要るのでissueにした
+- `CursorCline`の「月次APIクレジット」（#182）は、出典のsupport.claude.comをこの環境から取得できず未確認のまま

@@ -225,7 +225,7 @@ export default function Containers() {
               language="dockerfile"
               title="Dockerfile — マルチステージビルド"
               code={`# build ステージ: 依存とソースから成果物を作る
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -252,7 +252,7 @@ CMD ["nginx", "-g", "daemon off;"]`}
               title="マルチステージ Dockerfile を完成させよう"
               description="build ステージで作った成果物を runtime ステージへコピーする部分を埋めてください。___ を正しい命令・参照に置き換えます。"
               initialCode={`# build ステージ: 成果物を作る
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -266,7 +266,7 @@ COPY ___ /app/dist /usr/share/nginx/html
 EXPOSE 80
 ___ ["nginx", "-g", "daemon off;"]`}
               answer={`# build ステージ: 成果物を作る
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
