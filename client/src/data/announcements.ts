@@ -20,6 +20,15 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-08-security-permissions-priority-desc",
+    date: "2026-11-08",
+    title: "設定ファイルの優先順位の説明が表示されていなかったのを直した",
+    description:
+      "セキュリティと権限設定のページで、優先順位の各段（マネージドポリシー、--settings、プロジェクト、ユーザー）に用意していた説明文が画面に出ていなかった。説明を表示し、順位の並びを番号付きのリストにした。",
+    category: "fix",
+    link: "/claude-code/claude-core/security-permissions",
+  },
+  {
     id: "2026-11-08-lmops-retired-model-id",
     date: "2026-11-08",
     title: "LMOpsのコード例のモデルIDを、引退済みのものから現行のものに替えた",
