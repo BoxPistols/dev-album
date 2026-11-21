@@ -4,15 +4,20 @@ on:
   push:
     branches: [main]
   pull_request:
+  # マージキューを有効にしたときに、キューの上で組み合わせた状態を検証する
+  merge_group:
 
 # CI は読み取りのみで完結するため、GITHUB_TOKEN を最小権限（読み取り）に固定する
 permissions:
   contents: read
 
-# 同じブランチで新しい push があれば、進行中の実行をキャンセルして無駄を減らす
+# PRでは新しいpushがあれば進行中の実行を取り消して無駄を減らす。
+# mainでは取り消さない。続けてマージすると途中のコミットが検証されずに残り、
+# 壊れたコミットがどれかを後から特定できなくなる（2026-11-13に3件続けてマージし、
+# 2件が取り消され、最後の1件だけが落ちた）
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   verify:

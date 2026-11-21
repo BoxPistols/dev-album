@@ -306,7 +306,8 @@ export default function SecretsPermissions() {
               （<code>issues: write</code> と <code>pull-requests: write</code>）
               と source-checks（<code>issues: write</code>）と link-maintenance
               （<code>contents: write</code> と <code>issues: write</code> と{" "}
-              <code>pull-requests: write</code>）
+              <code>pull-requests: write</code>）とci-failure-report
+              （<code>issues: write</code>）
               だけで、それぞれ必要な種類しか持ちません。labeler は PR
               にラベルを付けるので PR への書き込みだけ、stale は放置された
               Issue と PR の両方にラベルを付けてクローズするので両方への
@@ -315,6 +316,8 @@ export default function SecretsPermissions() {
               への書き込みだけです。link-maintenance
               は週次でリンクを点検し、リダイレクトを書き換えた結果を PR
               にするので、ブランチを push する権限と PR を作る権限が要ります。
+              ci-failure-reportはmainのCIが落ちたときにIssue
+              で知らせる役で、CI本体を読み取りのままにするために別のワークフローへ分けています。
               同じ「書き込み」でも、やることが増えれば要る種類が増える、が見て取れます。
               役割ごとに必要な分だけ渡す、を実演しています。
               この一覧は <code>implementation-drift.test.ts</code> が実際の
