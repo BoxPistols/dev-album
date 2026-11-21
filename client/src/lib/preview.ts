@@ -297,25 +297,26 @@ export function isP5Sketch(code: string): boolean {
 /** p5プレビューのiframeに付ける属性 */
 export interface P5IframeAttributes {
   sandbox: string;
-  /** Permissions Policy。カメラ・マイクを使うスケッチにだけ付ける */
-  allow: string | undefined;
-  loading: 'lazy';
+  /** Permissions Policy。カメラ・マイクを使わないスケッチでは明示的に禁止する */
+  allow: string;
 }
 
 /**
  * p5プレビューのiframe属性を、スケッチの内容から決める。
  *
  * - sandbox: JSX用の既定（allow-scripts allow-same-origin）に、PNG・GIF保存のためのallow-downloadsを足す
- * - allow: カメラ・マイクの委譲は、createCapture()かgetUserMedia()を使うスケッチにだけ付ける。
- *   使わないスケッチの枠にまで権限を渡さない（許可そのものはブラウザが利用者に確認する）
- * - loading: 1ページに複数のスケッチがあるので、画面に近づくまで読み込まない
+ * - allow: カメラ・マイクは、createCapture()かgetUserMedia()を使うスケッチにだけ許す。
+ *   allowを付けないだけでは、同一オリジンの枠は既定で許可されるので、使わない枠には'none'を明示する
+ *   （許可そのものはブラウザが利用者に確認する）
+ *
+ * 画面に近づくまで読み込まない処理は、srcdocのiframeにloading="lazy"が効かないので、
+ * 親側（P5Frame）で枠そのものを後からマウントして行う
  */
 export function p5IframeAttributes(code: string): P5IframeAttributes {
   const usesMedia = /\bcreateCapture\s*\(|\bgetUserMedia\s*\(/.test(code);
   return {
     sandbox: 'allow-scripts allow-same-origin allow-downloads',
-    allow: usesMedia ? 'camera; microphone' : undefined,
-    loading: 'lazy',
+    allow: usesMedia ? 'camera; microphone' : "camera 'none'; microphone 'none'",
   };
 }
 
@@ -344,7 +345,13 @@ export function buildP5PreviewHtml(code: string, isDark = true): string {
   const border = isDark ? '#45475a' : '#d4d4d8';
   const danger = isDark ? '#f38ba8' : '#b91c1c';
   const hasBlanks = /\b___\b/.test(code);
-  //インラインスクリプトに埋め込むので、HTMLパーサーがスクリプトの終わりと誤認する並びを崩す
+  // キー入力を使うスケッチだけ、矢印キーとスペースでページが動かないようにする。
+  // 使わないスケッチで止めると、キャンバスを押したあとページをキーで動かせなくなる
+  const usesKeys = /\b(keyPressed|keyReleased|keyTyped|keyIsDown|keyIsPressed|keyCode|key)\b/.test(code);
+  // 指でなぞる操作を使わないスケッチは、キャンバスの上をなぞってもページが動くようにする。
+  // p5はキャンバスにtouch-action: noneを付けるので、何もしないとスマホでページが動かなくなる
+  const usesDrag = /\b(mouseDragged|mouseIsPressed|touches|touchStarted|touchMoved|touchEnded|orbitControl)\b/.test(code);
+  // インラインスクリプトに埋め込むので、HTMLパーサーがスクリプトの終わりと誤認する並びを崩す
   const safeCode = code.replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
 
   return `<!DOCTYPE html>
@@ -366,15 +373,20 @@ export function buildP5PreviewHtml(code: string, isDark = true): string {
   #__bar button { font: inherit; color: ${fg}; background: transparent; border: 1px solid ${border}; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
   #__bar button:hover { background: ${border}; }
   #__bar button:focus-visible { outline: 2px solid ${fg}; outline-offset: 1px; }
+  #__bar button[hidden] { display: none; }
+  main:focus { outline: none; }${usesDrag ? '' : `
+  main canvas { touch-action: pan-x pan-y pinch-zoom !important; }`}
+  main:focus-visible { outline: 2px solid ${fg}; outline-offset: -2px; }
   #__error { display: none; flex-shrink: 0; margin: 0; padding: 8px 10px; max-height: 45%; overflow: auto; font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; color: ${danger}; background: ${barBg}; border-top: 1px solid ${border}; }
   #__error.hint { color: ${fg}; font-family: system-ui, sans-serif; }
 </style>
 </head>
 <body>
-<main></main>
+<main tabindex="0" aria-label="スケッチ。キーで操作するスケッチは、ここを選んでからキーを押す"></main>
 <pre id="__error" role="status"></pre>
 <div id="__bar">
-  <button type="button" id="__toggle" aria-pressed="false">一時停止</button>
+  <button type="button" id="__media" hidden>カメラ・マイクを止める</button>
+  <button type="button" id="__toggle">一時停止</button>
   <button type="button" id="__restart">最初から</button>
   <button type="button" id="__save">PNG保存</button>
 </div>
@@ -396,9 +408,6 @@ function __showError(message) {
   // draw()の中のエラーは毎フレーム起きるので、1回出したら止める
   try { if (typeof noLoop === 'function') noLoop(); } catch (e) {}
 }
-// p5.jsは読み込まれた時点で、エラー文の翻訳ファイルを相対パスとCDNから取りにいく。
-// どちらもこの枠のCSPが遮断するので、コンソールに違反の記録が残るだけになる。
-// 翻訳はFriendly Error System用で、この枠では使わないので、取りにいく前に断る
 // スケッチが作った音声の処理系（Web Audio）を覚えておく。一時停止と画面外で音も止めるため。
 // draw()を止めても音は鳴り続ける（WCAG 1.4.2: 3秒を超えて鳴る音は止められること）
 var __audioContexts = [];
@@ -412,6 +421,24 @@ var __audioContexts = [];
     }
   };
 });
+// スケッチが取得したカメラ・マイクの入力を覚えておく。操作バーから止められるようにするため。
+// 描画を止めても入力は止まらず、ブラウザのカメラ・マイクの表示も点いたままになる
+var __mediaStreams = [];
+var __onMediaChange = function () {};
+if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
+  var __getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+  navigator.mediaDevices.getUserMedia = function (constraints) {
+    return __getUserMedia(constraints).then(function (stream) {
+      __mediaStreams.push(stream);
+      stream.getTracks().forEach(function (track) { track.addEventListener('ended', function () { __onMediaChange(); }); });
+      __onMediaChange();
+      return stream;
+    });
+  };
+}
+// p5.jsは読み込まれた時点で、エラー文の翻訳ファイルを相対パスとCDNから取りにいく。
+// どちらもこの枠のCSPが遮断するので、コンソールに違反の記録が残るだけになる。
+// 翻訳はFriendly Error System用で、この枠では使わないので、取りにいく前に断る
 var __fetch = window.fetch;
 window.fetch = function (input) {
   var url = typeof input === 'string' ? input : (input && input.url) || '';
@@ -433,6 +460,9 @@ if (typeof p5 !== 'undefined') p5.disableFriendlyErrors = true;
 // 区別しないと、画面に戻ったときにloop()を呼んで、静止画のスケッチまで回し続けてしまう
 var __wantLoop = true;
 var __internalCall = false;
+// 枠（一時停止ボタンか画面外）が止めているあいだは、スケッチがloop()を呼んでも動かさない。
+// 動かすと、クリックでloop()するスケッチが、一時停止中でも動き出す
+var __framePaused = false;
 if (typeof p5 !== 'undefined') {
   var __noLoop = p5.prototype.noLoop;
   var __loop = p5.prototype.loop;
@@ -441,7 +471,10 @@ if (typeof p5 !== 'undefined') {
     return __noLoop.apply(this, arguments);
   };
   p5.prototype.loop = function () {
-    if (!__internalCall) __wantLoop = true;
+    if (!__internalCall) {
+      __wantLoop = true;
+      if (__framePaused) return;
+    }
     return __loop.apply(this, arguments);
   };
 }
@@ -459,18 +492,20 @@ ${safeCode}
   function applyAudio(stopped) {
     __audioContexts.forEach(function (ctx) {
       try {
+        if (ctx.state === 'closed') return;
         if (stopped && ctx.state === 'running') {
           ctx.__pausedByFrame = true;
-          ctx.suspend();
+          ctx.suspend().catch(function () {});
         } else if (!stopped && ctx.__pausedByFrame) {
           ctx.__pausedByFrame = false;
-          ctx.resume();
+          ctx.resume().catch(function () {});
         }
       } catch (e) {}
     });
   }
   function apply() {
-    applyAudio(userPaused || !visible);
+    __framePaused = userPaused || !visible;
+    applyAudio(__framePaused);
     if (__failed || typeof loop !== 'function') return;
     __internalCall = true;
     try {
@@ -482,21 +517,48 @@ ${safeCode}
   // マウスが枠の外へ出たら、スケッチにも外へ出たと伝える。p5は枠の外の動きを受け取らないので、
   // 何もしないとmouseXとmouseYが最後の位置に残り、「マウスが枠の中にあるあいだは追う、
   // 外なら自動で動く」スケッチが、出た位置で止まったままになる
-  document.documentElement.addEventListener('mouseleave', function () {
-    var away = { clientX: -9999, clientY: -9999, bubbles: true };
+  // 遠く離れた座標を渡すと、map(mouseX, ...)で刻みを決めるループが固まるので、出た位置のすぐ外にする
+  document.documentElement.addEventListener('mouseleave', function (ev) {
+    var x = ev.clientX, y = ev.clientY, w = window.innerWidth, h = window.innerHeight;
+    if (Math.min(x, w - x) < Math.min(y, h - y)) x = x < w / 2 ? -1 : w + 1;
+    else y = y < h / 2 ? -1 : h + 1;
+    var away = { clientX: x, clientY: y, bubbles: true };
     window.dispatchEvent(typeof PointerEvent === 'function' ? new PointerEvent('pointermove', away) : new MouseEvent('mousemove', away));
   });
   // 操作バーへの押下やキー入力を、スケッチに渡さない。渡すと、クリックで描き直すスケッチで
   // 「PNG保存」を押した瞬間に描き直しが始まり、空の絵が保存されていた
-  ['mousedown', 'mouseup', 'click', 'pointerdown', 'pointerup', 'touchstart', 'touchend', 'keydown', 'keyup'].forEach(function (type) {
+  ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(function (type) {
     document.getElementById('__bar').addEventListener(type, function (ev) { ev.stopPropagation(); });
+    document.getElementById('__error').addEventListener(type, function (ev) { ev.stopPropagation(); });
   });
-  toggle.addEventListener('click', function () {
-    userPaused = !userPaused;
+  // キーはボタンを押すEnterとスペースだけ止める。矢印キーや文字キーまで止めると、
+  // Tabで操作バーに来た人がゲームを操作できなくなる
+  ['keydown', 'keyup', 'keypress'].forEach(function (type) {
+    document.getElementById('__bar').addEventListener(type, function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') ev.stopPropagation();
+    });
+  });
+  // カメラ・マイクを使っているあいだだけ、止めるボタンを出す
+  var mediaButton = document.getElementById('__media');
+  __onMediaChange = function () {
+    var live = __mediaStreams.some(function (stream) {
+      return stream.getTracks().some(function (track) { return track.readyState === 'live'; });
+    });
+    mediaButton.hidden = !live;
+  };
+  mediaButton.addEventListener('click', function () {
+    __mediaStreams.forEach(function (stream) {
+      stream.getTracks().forEach(function (track) { track.stop(); });
+    });
+    __mediaStreams = [];
+    __onMediaChange();
+  });
+  function setPaused(paused) {
+    userPaused = paused;
     toggle.textContent = userPaused ? '再生' : '一時停止';
-    toggle.setAttribute('aria-pressed', String(userPaused));
     apply();
-  });
+  }
+  toggle.addEventListener('click', function () { setPaused(!userPaused); });
   document.getElementById('__restart').addEventListener('click', function () { location.reload(); });
   document.getElementById('__save').addEventListener('click', function () {
     var c = canvasEl();
@@ -507,13 +569,13 @@ ${safeCode}
     a.href = c.toDataURL('image/png');
     a.click();
   });
-  // 矢印キーとスペースは、スケッチの操作に使うあいだページを動かさない
-  window.addEventListener('keydown', function (ev) {
+  // 矢印キーとスペースは、キーで操作するスケッチのあいだだけページを動かさない
+  if (${usesKeys ? 'true' : 'false'}) window.addEventListener('keydown', function (ev) {
     var tag = ev.target && ev.target.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tag === 'BUTTON') return;
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].indexOf(ev.key) !== -1) ev.preventDefault();
   });
-  //キャンバスを枠に収める。p5がstyleに書いた大きさ（= createCanvasの指定）を基準に縮小だけする
+  // キャンバスを枠に収める。p5がstyleに書いた大きさ（= createCanvasの指定）を基準に縮小だけする
   var baseW = 0, baseH = 0, lastW = '', lastH = '';
   function fit() {
     var c = canvasEl();
@@ -523,7 +585,7 @@ ${safeCode}
     var others = 0;
     for (var i = 0; i < main.children.length; i++) {
       var child = main.children[i];
-      if (child !== c && child.offsetParent !== null && getComputedStyle(child).position !== 'absolute') others += child.offsetHeight + 6;
+      if (child !== c && !child.contains(c) && child.offsetParent !== null && getComputedStyle(child).position !== 'absolute') others += child.offsetHeight + 6;
     }
     var availW = main.clientWidth - 8;
     var availH = main.clientHeight - 8 - others;
@@ -546,7 +608,16 @@ ${safeCode}
   }).observe(document.body, { childList: true });
   setInterval(fit, 250);
   window.addEventListener('resize', fit);
-  window.addEventListener('load', function () { setTimeout(fit, 0); });
+  window.addEventListener('load', function () { setTimeout(fit, 0); apply(); });
+  // 最初の1フレームが描けたら、親ページに知らせる。親は、書き換えたスケッチが固まらずに動いたことを
+  // これで知る（固まる下書きを次に開いたとき自動で実行しないため）。
+  // 動きを減らす設定の人には、1フレーム描いたところで止めて「再生」で始めてもらう（WCAG 2.3.3）
+  var firstFrame = setInterval(function () {
+    if (typeof frameCount !== 'number' || frameCount < 1) return;
+    clearInterval(firstFrame);
+    try { parent.postMessage({ type: 'p5-preview-alive' }, '*'); } catch (e) {}
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+  }, 50);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       visible = entries[entries.length - 1].isIntersecting;

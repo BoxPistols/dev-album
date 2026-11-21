@@ -104,6 +104,12 @@ async function check(target, index) {
     await page.mouse.click(360, 240);
     for (const b of await page.locator('main button').all()) await b.click().catch(() => {});
     await page.keyboard.press('ArrowRight');
+    // マウスが枠の外へ出た状態も通す（mouseXを使う計算が、枠の外の値で固まらないか）
+    await page.evaluate(() => {
+      document.documentElement.dispatchEvent(
+        new MouseEvent('mouseleave', { clientX: window.innerWidth - 1, clientY: window.innerHeight / 2 }),
+      );
+    });
     await page.waitForTimeout(900);
     const state = await page.evaluate(() => ({
       error: document.getElementById('__error').style.display === 'block'

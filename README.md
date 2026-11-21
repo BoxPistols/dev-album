@@ -132,7 +132,7 @@ srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 - iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
 - `sandbox`に`allow-scripts`と`allow-same-origin`を併せて付けているため、プレビュー内のコードは親ページと同じオリジンで動き、sandboxによる隔離は効かない（Chromeもコンソールでそう警告する）。プレビューが実行するのは教材のコードと学習者が自分で書いたコードに限られる。
 - `allow-same-origin`を外さないのは`localStorage`を使う教材のため。外すとiframeが不透明オリジンになり、`localStorage`が`SecurityError`を投げる。例: `/react/hooks-deep/custom-hooks`のuseLocalStorageデモは、外すとリロード後に値が残らない（Chromiumで確認）。`/vendor/`のUMD読み込みは外しても動く。
-- p5.jsのスケッチ（`setup()`と`createCanvas()`を含むコード）は`buildP5PreviewHtml`が組み立てる。iframeは`allow-downloads`（PNG保存）と`allow="camera; microphone"`（カメラ・マイクを使う教材）を足し、CSPは`P5_PREVIEW_CSP`を使う。外部ホストへの`fetch`は遮断したまま、データURLと利用者が選んだファイル（`blob:`）だけを通す。動き続ける表示は一時停止でき、画面外では自動で止まる
+- p5.jsのスケッチ（`setup()`と`createCanvas()`を含むコード）は`buildP5PreviewHtml`が組み立てる。iframeは`allow-downloads`（PNG保存）を足し、カメラ・マイクは使うスケッチの枠にだけ許す。CSPは`P5_PREVIEW_CSP`を使い、枠の中からの外部ホストへの通信は遮断したまま、データURLと利用者が選んだファイル（`blob:`）だけを通す（親ページを経由した通信はJSXプレビューと同じく止められない）。枠は画面に近づいてからマウントする（`P5Frame`。srcdocのiframeには`loading="lazy"`が効かない）。動き続ける表示は一時停止でき、画面外では自動で止まる
 - p5.jsのスケッチは`pnpm check:p5`で実ブラウザに通す（`scripts/check-p5-sketches.mjs`）。教材ページから全スケッチを取り出して数フレーム回し、描画時のエラーを検出する
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）

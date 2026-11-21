@@ -16,6 +16,7 @@ import {
   extractPreviewTitles,
   extractSketches,
   listPageFiles,
+  unescapeTemplate,
   // @ts-expect-error - .mjsに型定義は無い
 } from "../../../scripts/lib/p5-sketches.mjs";
 
@@ -174,5 +175,29 @@ describe("JSXからpropsを取り出す部品", () => {
     expect(challenge.title).toBe("空欄の問題");
     expect(challenge.keywords).toEqual(["1"]);
     expect(challenge.hints).toEqual(["1を入れる"]);
+  });
+});
+
+describe("テンプレートリテラルの復元", () => {
+  // 実行時（JavaScriptが読むとき）と同じ文字列に戻す。違うと、正しいスケッチを構文エラーと判定する
+  const cooked = (raw: string) => unescapeTemplate(raw) as string;
+
+  it("\\nは改行に、\\\\nはバックスラッシュとnに戻す", () => {
+    expect(cooked("a\\nb")).toBe("a\nb");
+    expect(cooked("a\\\\nb")).toBe("a\\nb");
+  });
+
+  it("バッククォート・ドル記号・Unicodeのエスケープを戻す", () => {
+    expect(cooked("\\`x\\`")).toBe("`x`");
+    expect(cooked("\\${a}")).toBe("${a}");
+    expect(cooked("\\u0041\\u{1F600}\\x41")).toBe("A\u{1F600}A");
+  });
+
+  it("文の間に\\nを書いたスケッチを、構文として正しいと判定する", () => {
+    const [sketch] = extractSketches(
+      "const S = `function setup() { createCanvas(1, 1); }\\nfunction draw() {}`;",
+    ) as Sketch[];
+    expect(() => new vm.Script(sketch.code)).not.toThrow();
+    expect(sketch.code).toContain("}\nfunction draw");
   });
 });

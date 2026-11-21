@@ -21,9 +21,26 @@ export function listPageFiles(dir = P5_PAGES_DIR) {
   return out.sort();
 }
 
-/** TSXのテンプレートリテラルに書かれた文字列を、実行時の文字列に戻す */
-function unescapeTemplate(raw) {
-  return raw.replace(/\\`/g, '`').replace(/\\\$/g, '$').replace(/\\\\/g, '\\');
+/**
+ * TSXのテンプレートリテラルに書かれた文字列を、実行時の文字列に戻す（cooked値）。
+ * JavaScriptのエスケープの規則に合わせる。`\n`は改行、`\\n`はバックスラッシュとn。
+ * ソースを実行せずに戻すため、${...}の埋め込みは扱わない（教材のスケッチは使わない）
+ */
+export function unescapeTemplate(raw) {
+  const simple = { n: '\n', t: '\t', r: '\r', b: '\b', f: '\f', v: '\v', 0: '\0' };
+  return raw.replace(
+    /\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|\r\n|[\s\S])/g,
+    (_, esc) => {
+      if (esc.length > 1 && esc[0] === 'u') {
+        const hex = esc[1] === '{' ? esc.slice(2, -1) : esc.slice(1);
+        return String.fromCodePoint(parseInt(hex, 16));
+      }
+      if (esc.length > 1 && esc[0] === 'x') return String.fromCharCode(parseInt(esc.slice(1), 16));
+      // 行末のバックスラッシュは、改行ごと消える（行の継続）
+      if (esc === '\r\n' || esc === '\n' || esc === '\r' || esc === '\u2028' || esc === '\u2029') return '';
+      return Object.prototype.hasOwnProperty.call(simple, esc) ? simple[esc] : esc;
+    },
+  );
 }
 
 function lineOf(src, index) {

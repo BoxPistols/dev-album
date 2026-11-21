@@ -117,7 +117,12 @@ test("API / Vue・Nuxt マニュアルの全ページが例外なく描画され
   test.setTimeout(240_000);
 
   const pageErrors: string[] = [];
-  page.on("pageerror", (err) => pageErrors.push(err.message));
+  // チャレンジの空欄（___）が残ったスケッチは、埋める前は実行時エラーになるのが正常
+  // （プレビューは案内文を出す）。描画のタイミングで拾ったり拾わなかったりするので、明示的に除く
+  page.on("pageerror", (err) => {
+    if (/\b___\b/.test(err.message)) return;
+    pageErrors.push(err.message);
+  });
 
   for (const route of RENDER_ROUTES) {
     pageErrors.length = 0;

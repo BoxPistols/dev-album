@@ -149,3 +149,16 @@ describe("fuzzyCheck: 空欄が残っている", () => {
     expect(fuzzyCheck(pyAnswer, pyAnswer)).toBe(true);
   });
 });
+
+describe("fuzzyCheck: 空白の入れ方", () => {
+  const initialCode = "let a = ___;\nlet y = ___;";
+  const answer = "let a = G;\nlet y = v * dt;";
+
+  it("演算子の前後に空白が無くても、キーワードが合っていれば正解", () => {
+    expect(fuzzyCheck("let a=G;\nlet y=v*dt;", answer, ["a = G", "v * dt"], initialCode)).toBe(true);
+  });
+
+  it("空白を除いて比べても、違う式は不正解のまま", () => {
+    expect(fuzzyCheck("let a = v;\nlet y = G * dt;", answer, ["a = G", "v * dt"], initialCode)).toBe(false);
+  });
+});

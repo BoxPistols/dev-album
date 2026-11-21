@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { buildP5PreviewHtml, p5IframeAttributes } from "@/lib/preview";
+import P5Frame from "./P5Frame";
 import { useTheme, isDarkTheme } from "@/contexts/ThemeContext";
 
 interface SketchFrameProps {
@@ -15,27 +14,15 @@ interface SketchFrameProps {
  * コードを見せずに、p5.jsのスケッチだけを動かして見せる枠。
  * 編集させたい場合はCodePreviewを使う。
  */
-export default function SketchFrame({
-  code,
-  title,
-  height = 300,
-}: SketchFrameProps) {
+export default function SketchFrame({ code, title, height = 300 }: SketchFrameProps) {
   const { theme } = useTheme();
-  const isDark = isDarkTheme(theme);
-  const html = useMemo(() => buildP5PreviewHtml(code, isDark), [code, isDark]);
-  const frame = useMemo(() => p5IframeAttributes(code), [code]);
-
   return (
-    <div
+    <P5Frame
+      code={code}
+      isDark={isDarkTheme(theme)}
+      title={title}
       className="rounded-xl overflow-hidden border border-border bg-card"
       style={{ height }}
-    >
-      <iframe
-        srcDoc={html}
-        {...frame}
-        title={title}
-        className="w-full h-full border-0"
-      />
-    </div>
+    />
   );
 }

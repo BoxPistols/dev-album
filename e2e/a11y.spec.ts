@@ -86,7 +86,7 @@ for (const theme of THEMES) {
 
       const results = await new AxeBuilder({ page })
         // プレビュー iframe 内は教材コード（学習者の編集対象）なので対象外
-        .exclude('iframe[title="プレビュー"]')
+        .exclude('iframe[title^="プレビュー"]')
         .analyze();
 
       const blocking = results.violations.filter(

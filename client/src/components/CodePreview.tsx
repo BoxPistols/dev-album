@@ -1,17 +1,16 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
 import {
   buildThreePreviewHtml,
-  buildP5PreviewHtml,
   isP5Sketch,
-  p5IframeAttributes,
   useDebouncedPreview,
   type PreviewLib,
 } from '@/lib/preview';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useSketchDraft } from '@/hooks/useSketchDraft';
+import P5Frame from '@/features/p5/P5Frame';
 
 interface CodePreviewProps {
   code: string;
@@ -63,6 +62,9 @@ export default function CodePreview({
     setCode: setEditableCode,
     reset: handleReset,
     status: draftStatus,
+    restoreDraft,
+    markRunning,
+    markAlive,
   } = useSketchDraft({
     original: code,
     title,
@@ -82,8 +84,9 @@ export default function CodePreview({
   const prismLanguage = resolveLanguage(language);
   // 素のThree.jsはReactを経由しないので、JSX用の組み立てでは描画されない
   const isThree = /\bTHREE\b/.test(editableCode);
-  // p5.jsのスケッチは素のJavaScriptで書くので、languageがjsでもプレビューする
-  const isP5 = isP5Sketch(editableCode);
+  // p5.jsのスケッチは素のJavaScriptで書くので、languageがjsでもプレビューする。
+  // 元のコードで判定する。編集中に括弧を1つ消しただけで判定が外れ、結果欄ごと消えていた
+  const isP5 = isP5Sketch(code) || isP5Sketch(editableCode);
   const canPreview = language === 'tsx' || language === 'jsx' || isP5;
   // 狭い画面で横に並べるとキャンバスが極端に小さくなる。p5は結果を上、コードを下に積む
   const stackP5 = useMediaQuery(P5_STACK_QUERY) && isP5;
@@ -97,8 +100,7 @@ export default function CodePreview({
     isDarkTheme(theme),
     libs,
   );
-  // p5は入力のたびにiframeを作り直すと描画が始まらないので、打鍵が止まってから反映する。
-  // iframeの属性（カメラ・マイクの委譲）も、同じコードから決めてHTMLと揃える
+  // p5は入力のたびにiframeを作り直すと描画が始まらないので、打鍵が止まってから反映する
   const isDark = isDarkTheme(theme);
   const [p5Code, setP5Code] = useState(editableCode);
   useEffect(() => {
@@ -106,13 +108,13 @@ export default function CodePreview({
     const timer = setTimeout(() => setP5Code(editableCode), 400);
     return () => clearTimeout(timer);
   }, [editableCode, isP5]);
-  const p5Html = useMemo(
-    () => (isP5 ? buildP5PreviewHtml(p5Code, isDark) : ''),
-    [isP5, p5Code, isDark],
-  );
-  const p5Frame = useMemo(() => p5IframeAttributes(p5Code), [p5Code]);
+  // 書き換えたコードを動かす前に「実行中」の印を付ける。枠の中のスケッチは親ページと同じスレッドで
+  // 動くので、印はiframeが実行を始める前（DOMに入れた直後の同期処理）に付ける
+  useLayoutEffect(() => {
+    if (isP5) markRunning(p5Code);
+  }, [isP5, p5Code, markRunning]);
   const previewHtml = isP5
-    ? p5Html
+    ? ''
     : canPreview && isThree
       ? buildThreePreviewHtml(editableCode, isDark)
       : jsxPreviewHtml;
@@ -282,17 +284,24 @@ export default function CodePreview({
         // p5の枠は上端に留まるので、その下に残る余白をスケッチの地の色に合わせる
         style={{ height: previewPanelHeight, ...(isP5 ? { backgroundColor: isDark ? '#16161e' : '#ececf0' } : {}) }}
       >
-        {previewHtml && (
+        {isP5 ? (
+          // p5のスケッチはコードが長くなりやすい。結果の枠をコード欄と同じ高さまで伸ばすと
+          // キャンバスが画面の外に出るので、枠の高さを固定し、上端に留めてスクロールに追従させる。
+          // 背の低い画面でも操作バー（一時停止）が見えるよう、画面の高さも上限にする
+          <P5Frame
+            code={p5Code}
+            isDark={isDark}
+            title={`プレビュー: ${title ?? 'p5.jsのスケッチ'}`}
+            className="w-full sticky top-3"
+            style={{ height: `min(${p5FrameHeight}px, calc(100dvh - 96px))` }}
+            onAlive={markAlive}
+          />
+        ) : previewHtml && (
           <iframe
             srcDoc={previewHtml}
             sandbox="allow-scripts allow-same-origin"
-            // p5はPNG保存（ダウンロード）とカメラ・マイクを使う教材があるので、その分だけ広げる
-            {...(isP5 ? p5Frame : {})}
             title="プレビュー"
-            // p5のスケッチはコードが長くなりやすい。結果の枠をコード欄と同じ高さまで伸ばすと
-            // キャンバスが画面の外に出るので、枠の高さを固定し、上端に留めてスクロールに追従させる
-            className={isP5 ? 'w-full border-0 sticky top-3' : 'w-full h-full border-0'}
-            style={isP5 ? { height: p5FrameHeight } : undefined}
+            className="w-full h-full border-0"
           />
         )}
         {/* ドラッグ中は iframe がマウスイベントを奪うのを防止 */}
@@ -319,7 +328,17 @@ export default function CodePreview({
         <span role="status" className="text-[12px] text-[#f9e2af] ml-1">
           {draftStatus === 'saved' && '下書きを保存済み'}
           {draftStatus === 'unsaved' && '下書きを保存できません'}
+          {draftStatus === 'recovered' && '前回この下書きで止まったため、元のコードで開きました'}
         </span>
+        {draftStatus === 'recovered' && (
+          <button
+            type="button"
+            onClick={restoreDraft}
+            className="text-[12px] text-[#cdd6f4] underline underline-offset-2 ml-1 cursor-pointer"
+          >
+            下書きを開く
+          </button>
+        )}
       </div>
       <div className="flex items-center gap-0.5">
         {canPreview && !previewOnly && (

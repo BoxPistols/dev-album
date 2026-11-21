@@ -1,6 +1,11 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { act, renderHook } from "@testing-library/react";
-import { SKETCH_DRAFT_PREFIX, sketchDraftKey, useSketchDraft } from "./useSketchDraft";
+import {
+  SKETCH_DRAFT_PREFIX,
+  SKETCH_RUNNING_PREFIX,
+  sketchDraftKey,
+  useSketchDraft,
+} from "./useSketchDraft";
 
 const ORIGINAL = "function setup() { createCanvas(100, 100); }";
 const EDITED = "function setup() { createCanvas(200, 200); }";
@@ -108,5 +113,73 @@ describe("useSketchDraft", () => {
     act(() => result.current.setCode("a".repeat(100_001)));
     expect(result.current.status).toBe("unsaved");
     expect(draftKeys()).toEqual([]);
+  });
+});
+
+describe("useSketchDraft: 固まる下書きへの備え", () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+    window.history.replaceState(null, "", "/p5js/basics/first-sketch");
+  });
+  const key = () => sketchDraftKey("/p5js/basics/first-sketch", TITLE);
+  const running = () => SKETCH_RUNNING_PREFIX + key().slice(SKETCH_DRAFT_PREFIX.length);
+
+  it("書き換えたコードが最初の1フレームまで届かなかったら、次は元のコードで開き、下書きは残す", () => {
+    const first = renderHook(() =>
+      useSketchDraft({ original: ORIGINAL, title: TITLE, enabled: true }),
+    );
+    act(() => first.result.current.setCode(EDITED));
+    act(() => first.result.current.markRunning(EDITED));
+    // ここで固まった（markAliveが呼ばれないまま閉じた）
+    first.unmount();
+
+    const second = renderHook(() =>
+      useSketchDraft({ original: ORIGINAL, title: TITLE, enabled: true }),
+    );
+    expect(second.result.current.code).toBe(ORIGINAL);
+    expect(second.result.current.status).toBe("recovered");
+    expect(window.localStorage.getItem(key())).toBe(EDITED);
+
+    // 元のコードが動いても印は外さない（もう一度開いても、固まる下書きを自動では動かさない）
+    act(() => second.result.current.markRunning(ORIGINAL));
+    act(() => second.result.current.markAlive());
+    expect(window.localStorage.getItem(running())).toBe("1");
+
+    // 利用者が選べば下書きを開ける
+    act(() => second.result.current.restoreDraft());
+    expect(second.result.current.code).toBe(EDITED);
+    expect(second.result.current.status).toBe("saved");
+  });
+
+  it("書き換えたコードが動いたら印を外し、次も下書きで開く", () => {
+    const first = renderHook(() =>
+      useSketchDraft({ original: ORIGINAL, title: TITLE, enabled: true }),
+    );
+    act(() => first.result.current.setCode(EDITED));
+    act(() => first.result.current.markRunning(EDITED));
+    act(() => first.result.current.markAlive());
+    first.unmount();
+    expect(window.localStorage.getItem(running())).toBeNull();
+
+    const second = renderHook(() =>
+      useSketchDraft({ original: ORIGINAL, title: TITLE, enabled: true }),
+    );
+    expect(second.result.current.code).toBe(EDITED);
+  });
+
+  it("下書きを消せなかったときは、元に戻しても保存できていない扱いにする", () => {
+    const { result } = renderHook(() =>
+      useSketchDraft({ original: ORIGINAL, title: TITLE, enabled: true }),
+    );
+    act(() => result.current.setCode(EDITED));
+    const spy = vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
+      throw new Error("blocked");
+    });
+    try {
+      act(() => result.current.setCode(ORIGINAL));
+      expect(result.current.status).toBe("unsaved");
+    } finally {
+      spy.mockRestore();
+    }
   });
 });

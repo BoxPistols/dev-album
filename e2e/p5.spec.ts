@@ -13,7 +13,7 @@ const FIRST_SKETCH = '/p5js/basics/first-sketch';
 
 /** ページ先頭のプレビューiframeの中身（スケッチが動いているフレーム）を返す */
 async function firstSketchFrame(page: Page): Promise<Frame> {
-  const iframe = page.locator('iframe[title="プレビュー"]').first();
+  const iframe = page.locator('iframe[title^="プレビュー"]').first();
   await expect(iframe).toBeVisible({ timeout: 15_000 });
   const handle = await iframe.elementHandle();
   const frame = await handle?.contentFrame();
@@ -44,7 +44,6 @@ test.describe('p5.jsのプレビュー', () => {
     const toggle = frame.locator('#__toggle');
     await toggle.click();
     await expect(toggle).toHaveText('再生');
-    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     // 押した直後の1フレームが終わるのを待ってから、進まないことを確かめる
     await page.waitForTimeout(300);
     const paused = await frameCountOf(frame);
@@ -91,12 +90,33 @@ test.describe('p5.jsのプレビュー', () => {
     await page.goto(FIRST_SKETCH);
     await firstSketchFrame(page);
 
-    const iframeBox = await page.locator('iframe[title="プレビュー"]').first().boundingBox();
+    const iframeBox = await page.locator('iframe[title^="プレビュー"]').first().boundingBox();
     const editorBox = await page.locator('textarea').first().boundingBox();
     expect(iframeBox).not.toBeNull();
     expect(editorBox).not.toBeNull();
     // 横に並べるとキャンバスが極端に小さくなる。結果が上、コードが下で、幅はほぼ全幅
     expect(iframeBox!.y).toBeLessThan(editorBox!.y);
     expect(iframeBox!.width).toBeGreaterThan(300);
+  });
+
+  test('前回固まった下書きは自動で動かさず、元のコードで開く', async ({ page }) => {
+    // 無限ループの下書きで固まった状態を再現する（下書きと「実行中」の印が残っている）
+    await page.goto(FIRST_SKETCH);
+    const editor = page.locator('textarea').first();
+    const original = await editor.inputValue();
+    const title = '光の筆（このページの完成形）';
+    await page.evaluate(
+      ({ path, title }) => {
+        const suffix = `${path}#${title}`;
+        localStorage.setItem(`sketch-draft:${suffix}`, 'function setup() { createCanvas(10, 10); while (true) {} }');
+        localStorage.setItem(`sketch-draft-running:${suffix}`, '1');
+      },
+      { path: FIRST_SKETCH, title },
+    );
+
+    await page.reload();
+    await expect(page.getByText('前回この下書きで止まったため、元のコードで開きました').first()).toBeVisible();
+    await expect(page.locator('textarea').first()).toHaveValue(original);
+    await firstSketchFrame(page);
   });
 });

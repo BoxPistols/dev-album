@@ -810,11 +810,13 @@ describe("p5IframeAttributes", () => {
   it("PNG・GIFを保存できるよう、ダウンロードを許可する", () => {
     const attrs = p5IframeAttributes("function setup() { createCanvas(1, 1); }");
     expect(attrs.sandbox).toBe("allow-scripts allow-same-origin allow-downloads");
-    expect(attrs.loading).toBe("lazy");
   });
 
-  it("カメラ・マイクの委譲は、使うスケッチにだけ付ける", () => {
-    expect(p5IframeAttributes("function setup() { createCanvas(1, 1); }").allow).toBeUndefined();
+  it("カメラ・マイクは使うスケッチにだけ許し、使わない枠では明示的に禁止する", () => {
+    // allowを付けないだけでは、同一オリジンの枠は既定でカメラ・マイクを使える
+    expect(p5IframeAttributes("function setup() { createCanvas(1, 1); }").allow).toBe(
+      "camera 'none'; microphone 'none'",
+    );
     expect(
       p5IframeAttributes("function setup() { createCanvas(1, 1); createCapture(VIDEO); }").allow,
     ).toBe("camera; microphone");
@@ -827,11 +829,30 @@ describe("p5IframeAttributes", () => {
 describe("buildP5PreviewHtml: 操作バーと音", () => {
   const html = buildP5PreviewHtml("function setup() { createCanvas(1, 1); }");
 
-  it("操作バーへの押下とキー入力をスケッチに渡さない（PNG保存で描き直しが始まらない）", () => {
+  it("操作バーへの押下をスケッチに渡さない（PNG保存で描き直しが始まらない）", () => {
     expect(html).toContain("getElementById('__bar').addEventListener(type, function (ev) { ev.stopPropagation(); })");
-    for (const type of ["mousedown", "click", "pointerdown", "touchstart", "keydown"]) {
+    for (const type of ["mousedown", "click", "pointerdown", "touchstart"]) {
       expect(html).toContain(`'${type}'`);
     }
+  });
+
+  it("操作バーで止めるキーはボタンを押すEnterとスペースだけ（矢印キーや文字キーはスケッチへ通す）", () => {
+    expect(html).toContain("if (ev.key === 'Enter' || ev.key === ' ') ev.stopPropagation();");
+  });
+
+  it("キーボードだけで枠に入れる（Tabで最初に届くのはスケッチの領域）", () => {
+    expect(html).toMatch(/<main tabindex="0" aria-label="[^"]+"><\/main>/);
+  });
+
+  it("枠が止めているあいだは、スケッチのloop()で動き出さない", () => {
+    expect(html).toContain("if (__framePaused) return;");
+  });
+
+  it("カメラ・マイクの入力を、操作バーから止められる", () => {
+    // スケッチより先にgetUserMediaを差し替え、取得した入力を覚えておく
+    expect(html.indexOf("__mediaStreams.push(stream)")).toBeLessThan(html.indexOf("/vendor/p5-2.4.0.min.js"));
+    expect(html).toContain('id="__media" hidden');
+    expect(html).toContain("track.stop()");
   });
 
   it("一時停止と画面外で、スケッチが鳴らしている音も止める（WCAG 1.4.2）", () => {
@@ -846,6 +867,28 @@ describe("buildP5PreviewHtml: マウスが枠の外へ出たとき", () => {
   it("スケッチにも枠の外の座標を伝える（最後の位置に残らない）", () => {
     const html = buildP5PreviewHtml("function setup() { createCanvas(1, 1); }");
     expect(html).toContain("addEventListener('mouseleave'");
-    expect(html).toContain("clientX: -9999");
+    // 極端な値（-9999など）は、map(mouseX, ...)で刻みを決めるループを固まらせる。出た位置のすぐ外にする
+    expect(html).not.toContain("-9999");
+    expect(html).toContain("x = x < w / 2 ? -1 : w + 1");
+  });
+
+  it("キー入力を使わないスケッチでは、矢印キーとスペースでページを動かせる", () => {
+    expect(buildP5PreviewHtml("function setup() { createCanvas(1, 1); }")).toContain("if (false) window.addEventListener('keydown'");
+    expect(buildP5PreviewHtml("function setup() { createCanvas(1, 1); } function keyPressed() {}")).toContain(
+      "if (true) window.addEventListener('keydown'",
+    );
+  });
+
+  it("指でなぞる操作を使わないスケッチでは、キャンバスの上でもページをスクロールできる", () => {
+    expect(buildP5PreviewHtml("function setup() { createCanvas(1, 1); }")).toContain("touch-action: pan-x pan-y");
+    expect(
+      buildP5PreviewHtml("function setup() { createCanvas(1, 1); } function mouseDragged() {}"),
+    ).not.toContain("touch-action: pan-x pan-y");
+  });
+
+  it("最初の1フレームを描けたら親に知らせ、動きを減らす設定なら止めて始める", () => {
+    const html = buildP5PreviewHtml("function setup() { createCanvas(1, 1); }");
+    expect(html).toContain("parent.postMessage({ type: 'p5-preview-alive' }, '*')");
+    expect(html).toContain("prefers-reduced-motion: reduce");
   });
 });
