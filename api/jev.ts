@@ -6,7 +6,7 @@ import {
   getRedis,
   nextUtcMidnightEpoch,
   QUOTA_POLICY_URL,
-  sessionKey,
+  secondsUntilReset,
   TIER_CAPS,
   todayUtc,
   type Tier,
@@ -29,8 +29,10 @@ function setCommonHeaders(
   res: VercelResponse,
   remaining: number | null,
   limit: number | null,
+  quotaEnabled: boolean,
 ) {
   res.setHeader("X-Chat-Tier", TIER);
+  res.setHeader("X-Chat-Quota-Status", quotaEnabled ? "enabled" : "disabled");
   res.setHeader("X-Chat-Quota-Policy", QUOTA_POLICY_URL);
   res.setHeader("X-RateLimit-Reset", String(nextUtcMidnightEpoch()));
   if (limit !== null) res.setHeader("X-RateLimit-Limit", String(limit));
@@ -64,7 +66,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // 枠はAIチャットと共用なので、キーの無い環境で押しただけでチャットの回数を減らさない
   const apiKey = process.env.TYPESAFE_API_KEY?.trim();
   if (!apiKey) {
-    setCommonHeaders(res, null, null);
+    setCommonHeaders(res, null, null, getRedis() !== null);
     return res.status(503).json(jevFailure("not_configured"));
   }
 
@@ -81,7 +83,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const result = await consumeQuota(
       redis,
       TIER,
-      sessionKey(ip, ua),
+      ip,
+      ua,
       todayUtc(),
       estimateTokens(text + QUESTIONS_TEXT),
     );
@@ -94,7 +97,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     limit = Number.isFinite(TIER_CAPS[TIER]) ? TIER_CAPS[TIER] : null;
   }
 
-  setCommonHeaders(res, remaining, limit);
+  setCommonHeaders(res, remaining, limit, redis !== null);
 
   if (globalKill) {
     res.setHeader("X-Chat-Kill-Switch", "true");
@@ -102,6 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (!allowed) {
+    res.setHeader("Retry-After", String(secondsUntilReset()));
     return res
       .status(429)
       .json({ ...jevFailure("quota_exhausted"), tier: TIER });

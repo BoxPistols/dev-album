@@ -25,7 +25,8 @@ export default function ReferenceLinks({
       </div>
       <ul className="space-y-2">
         {links.map((link) => (
-          <li key={link.url}>
+          // 同じページの別の節を指すリンクはURLが重なるので、題名と組み合わせて一意にする
+          <li key={`${link.url}#${link.title}`}>
             <a
               href={link.url}
               target="_blank"

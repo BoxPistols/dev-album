@@ -25,6 +25,8 @@ export default defineConfig({
       manifest: {
         name: "Dev Album — Web 開発の実践リファレンス",
         short_name: "Dev Album",
+        // 未指定だとvite-plugin-pwaの既定の"en"になる。サイトは日本語
+        lang: "ja",
         description:
           "Git・React・Claude Code・Three.js から AI・ML、UX デザイン、API 設計、Vue / Nuxt、インフラ、開発フローまでを、Web 標準とアクセシビリティの観点を含めて解説する技術マニュアル。",
         // 既定テーマ（Light）の --primary。index.css を変えたらここも合わせる
