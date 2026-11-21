@@ -10,7 +10,7 @@ import { isP5Sketch } from '../../client/src/lib/preview.ts';
 
 export const P5_PAGES_DIR = path.resolve(import.meta.dirname, '../../client/src/pages/p5js');
 
-/** ディレクトリ以下の .tsx を名前順に返す */
+/** ディレクトリ以下の.tsxを名前順に返す */
 export function listPageFiles(dir = P5_PAGES_DIR) {
   const out = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -42,7 +42,7 @@ export function extractSketches(src) {
   return sketches;
 }
 
-/** title="..." と title={"..."} のどちらの書き方からも題名を取り出す */
+/** title="..."とtitle={"..."}のどちらの書き方からも題名を取り出す */
 function titleOf(jsx) {
   const m = jsx.match(/\btitle=(?:"([^"]+)"|\{"((?:[^"\\]|\\.)+)"\})/);
   return m ? (m[1] ?? m[2]) : '';
