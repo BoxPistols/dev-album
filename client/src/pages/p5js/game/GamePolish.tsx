@@ -845,7 +845,7 @@ export default function GamePolish() {
               （trueかfalse）を、3つの値を持つ変数に広げたものです。draw()はいまの状態に合った関数だけを呼び、入力はいまの状態に応じて次の状態を決めます。
             </p>
             <CodePreview
-              title="title → play → over を切り替える"
+              title="title → play → overを切り替える"
               language="js"
               code={STATE_SKETCH}
             />

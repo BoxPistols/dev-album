@@ -128,7 +128,7 @@ resolvePreviewType() で自動判定
 srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 ```
 
-- プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本と p5.js）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
+- プレビューが読むUMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotionの計9本とp5.js）は`client/public/vendor/`に**セルフホスト**する。CDNを単一障害点にせず、オフライン・社内網でも動かすため。
 - iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
 - `sandbox`に`allow-scripts`と`allow-same-origin`を併せて付けているため、プレビュー内のコードは親ページと同じオリジンで動き、sandboxによる隔離は効かない（Chromeもコンソールでそう警告する）。プレビューが実行するのは教材のコードと学習者が自分で書いたコードに限られる。
 - `allow-same-origin`を外さないのは`localStorage`を使う教材のため。外すとiframeが不透明オリジンになり、`localStorage`が`SecurityError`を投げる。例: `/react/hooks-deep/custom-hooks`のuseLocalStorageデモは、外すとリロード後に値が残らない（Chromiumで確認）。`/vendor/`のUMD読み込みは外しても動く。

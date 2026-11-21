@@ -93,7 +93,7 @@ export const P5JS_SOURCES: Source[] = [
       "Truchet tiles were first described in a 1704 memoir by Sébastien Truchet entitled \"Mémoire sur les combinaisons\", and were popularized in 1987 by Cyril Stanley Smith.",
       "The tiles originally studied by Truchet are split along the diagonal into two triangles of contrasting colors. The tiles have four possible orientations.",
     ],
-    note: "Browne (2008) Computers & Graphics と Smith (1987) を出典に挙げる項目。MathWorldの記述と年・人名が一致する",
+    note: "Browne (2008) Computers & GraphicsとSmith (1987)を出典に挙げる項目。MathWorldの記述と年・人名が一致する",
     usedBy: ["/p5js/basics/loops-patterns"],
   },
   {
@@ -610,7 +610,7 @@ export const P5JS_SOURCES: Source[] = [
     kind: "secondary",
     verifiedAt: "2026-11-21",
     quotes: [
-      "Although the drag coefficient decreases with increasing Re, the drag force increases.",
+      "that varies from high values for laminar flow to 0.47 for turbulent flow.",
     ],
     note: "Wikipediaの該当項目。記事内の出典つきの記述に限って使用（球の抗力係数0.47の出典）",
     usedBy: ["/p5js/lab/falling-bodies"],
@@ -752,7 +752,7 @@ export const P5JS_SOURCES: Source[] = [
     kind: "secondary",
     verifiedAt: "2026-11-21",
     quotes: [
-      "is called the \"damping ratio\".",
+      "where c is called the viscous damping coefficient.",
     ],
     note: "Wikipediaの該当項目。記事内の出典つきの記述に限って使用",
     usedBy: ["/p5js/lab/seismic"],
@@ -918,7 +918,7 @@ export const P5JS_SOURCES: Source[] = [
     kind: "secondary",
     verifiedAt: "2026-11-21",
     quotes: [
-      "Sabine's reverberation equation was developed in the late 1890s in an empirical fashion.",
+      "reverberation equation was developed in the late 1890s in an empirical fashion.",
     ],
     note: "Wikipediaの該当項目。記事内の出典つきの記述に限って使用",
     usedBy: ["/p5js/lab/acoustics"],
@@ -1021,7 +1021,7 @@ export const P5JS_SOURCES: Source[] = [
     kind: "secondary",
     verifiedAt: "2026-11-21",
     quotes: [
-      "When k is even (and non-zero), the rose is composed of 2k petals",
+      "In mathematics, a rose or rhodonea curve is a sinusoid specified by either the cosine or sine functions with no phase angle that is plotted in polar coordinates.",
     ],
     note: "Wikipediaの記事。MathWorldの記述と一致し、スケッチで描いて確認できる",
     usedBy: ["/p5js/math/trigonometry"],
