@@ -285,7 +285,7 @@ function draw() {
   fill(0, 0, 95);
   textSize(14);
   if (!analyser) {
-    text(message, gx + 10, 60);
+    text(message, gx + 10, 24);
     return;
   }
   osc.frequency.value = freq;
