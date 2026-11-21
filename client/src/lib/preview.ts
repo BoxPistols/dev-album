@@ -462,12 +462,13 @@ ${safeCode}
     if (c.style.width !== lastW) c.style.width = lastW;
     if (c.style.height !== lastH) c.style.height = lastH;
   }
+  // 通知が届く前にスケッチがparent()で別の要素へ入れた部品は動かさない（bodyに残っているものだけ移す）
   // createSlider()などの部品はbodyの末尾に足される。操作バーの下に隠れないよう、キャンバスと同じ枠へ移す
   new MutationObserver(function (records) {
     var main = document.querySelector('main');
     records.forEach(function (r) {
       r.addedNodes.forEach(function (n) {
-        if (n.nodeType === 1 && n.tagName !== 'SCRIPT' && n.tagName !== 'MAIN' && !n.id.startsWith('__') && n.style.position !== 'absolute') main.appendChild(n);
+        if (n.nodeType === 1 && n.parentNode === document.body && n.tagName !== 'SCRIPT' && n.tagName !== 'MAIN' && !n.id.startsWith('__') && n.style.position !== 'absolute') main.appendChild(n);
       });
     });
   }).observe(document.body, { childList: true });

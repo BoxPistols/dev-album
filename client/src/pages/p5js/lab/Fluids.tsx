@@ -663,11 +663,11 @@ export default function Fluids() {
               ナビエ–ストークス方程式の各項を読む
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              流体の速度uがどう変わるかは、ナビエ–ストークス方程式で表されます。縮まない流体について、Stamの論文は次の形で示しています。
+              流体の速度uがどう変わるかは、ナビエ–ストークス方程式で表されます。縮まない（非圧縮の）流体では次の形になります。
             </p>
             <div className="rounded-xl border border-border bg-card p-5 my-4 overflow-x-auto">
               <p className="font-mono text-foreground text-center whitespace-nowrap">
-                ∂u/∂t = −(u·∇)u + ν∇²u + f　　かつ　　∇·u = 0
+                ∂u/∂t = −(u·∇)u − (1/ρ)∇p + ν∇²u + f　　かつ　　∇·u = 0
               </p>
             </div>
             <div className="overflow-x-auto my-6">
@@ -710,6 +710,15 @@ export default function Fluids() {
                     </th>
                     <td className="p-3">外から加える力。噴き出し口やマウス</td>
                     <td className="p-3 font-mono">inject</td>
+                  </tr>
+                  <tr className="border-t border-border">
+                    <th scope="row" className={rowTh + " font-mono"}>
+                      −(1/ρ)∇p
+                    </th>
+                    <td className="p-3">
+                      圧力pの勾配。流体が集まりすぎた所から押し戻す働きをする
+                    </td>
+                    <td className="p-3 font-mono">project</td>
                   </tr>
                   <tr className="border-t border-border">
                     <th scope="row" className={rowTh + " font-mono"}>
@@ -869,7 +878,7 @@ export default function Fluids() {
               このシミュレーションの限界
             </h2>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed">
-              <li>2次元で、格子は72×48マスです。実務の解析は3次元で、桁違いに細かい格子を使います</li>
+              <li>2次元で、格子は72×48マスです。実務の解析は3次元で、マスの数もこれよりずっと多くなります</li>
               <li>
                 数値的な拡散で、細かい渦がすぐにならされます。乱流の細部は再現できません
               </li>

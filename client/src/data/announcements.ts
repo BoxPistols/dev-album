@@ -20,6 +20,267 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-21-p5js-manual",
+    date: "2026-11-21",
+    title: "p5.js / ジェネラティブアート入門のマニュアルを追加した",
+    description:
+      "ページの中で動くスケッチを編集しながら、図形と色からフラクタル・カメラと音・3D・ゲーム・物理シミュレーションまで進め、作品を公開するところまで扱う。スケッチは一時停止とPNG保存ができる。",
+    category: "feature",
+    link: "/p5js",
+  },
+  {
+    id: "2026-11-21-p5js-basics-first-sketch",
+    date: "2026-11-21",
+    title: "はじめてのスケッチのページを追加した",
+    description:
+      "setup()とdraw()の役割、左上が原点の座標、塗り直さずに軌跡を残す描き方を、マウスで描ける筆を作りながら確かめられる。",
+    category: "feature",
+    link: "/p5js/basics/first-sketch",
+  },
+  {
+    id: "2026-11-21-p5js-basics-shapes-color",
+    date: "2026-11-21",
+    title: "p5.js「図形と色」のページを追加した",
+    description:
+      "基本図形、HSBでの色指定、透明度、blendModeによる光とインクの重なりを、色相環の光のスケッチを書き換えながら確かめられる。",
+    category: "feature",
+    link: "/p5js/basics/shapes-color",
+  },
+  {
+    id: "2026-11-21-p5js-basics-motion-interaction",
+    date: "2026-11-21",
+    title: "p5.js「動きとインタラクション」のページを追加した",
+    description:
+      "変数と速度による動き、壁での跳ね返り、残像、マウスとキーボードへの反応を、跳ね回る光のスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/basics/motion-interaction",
+  },
+  {
+    id: "2026-11-21-p5js-basics-loops-patterns",
+    date: "2026-11-21",
+    title: "p5.js「繰り返しとパターン」のページを追加した",
+    description:
+      "for文と二重ループから、10 PRINTの迷路とTruchetタイルのポスターまでを作れる。クリックで模様を作り直してPNGで保存できる。",
+    category: "feature",
+    link: "/p5js/basics/loops-patterns",
+  },
+  {
+    id: "2026-11-21-p5js-basics-transform",
+    date: "2026-11-21",
+    title: "p5.js「座標変換」のページを追加した",
+    description:
+      "translate・rotate・scaleとpush・popを使い、マウスで描いた線が回転対称に複製される万華鏡と、入れ子の回転による曲線を作れる。",
+    category: "feature",
+    link: "/p5js/basics/transform",
+  },
+  {
+    id: "2026-11-21-p5js-math-functions-easing",
+    date: "2026-11-21",
+    title: "p5.js「関数とイージング」のページを追加した",
+    description:
+      "一次関数と二次関数のグラフ、放物線、map()・lerp()・constrain()、イージングの式を、放物線の噴水のスケッチを書き換えながら確かめられる。",
+    category: "feature",
+    link: "/p5js/math/functions-easing",
+  },
+  {
+    id: "2026-11-21-p5js-math-trigonometry",
+    date: "2026-11-21",
+    title: "p5.js「三角関数と波」のページを追加した",
+    description:
+      "単位円とsin・cosの関係、円運動、波の合成、バラ曲線、リサージュ図形、atan2()を、動く図と波の干渉模様で確かめられる。",
+    category: "feature",
+    link: "/p5js/math/trigonometry",
+  },
+  {
+    id: "2026-11-21-p5js-math-vectors-forces",
+    date: "2026-11-21",
+    title: "p5.js「ベクトルと力」のページを追加した",
+    description:
+      "p5.Vectorで位置・速度・加速度を持ち、重力・風・摩擦・引力を足し算で重ねる書き方を、引力源をめぐる粒子のスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/math/vectors-forces",
+  },
+  {
+    id: "2026-11-21-p5js-random-randomness",
+    date: "2026-11-21",
+    title: "p5.js「乱数と確率」のページを追加した",
+    description:
+      "random()の使い分け、randomSeed()による再現、一様分布と正規分布、確率と重みつきの選択を、seedで絵が変わる生成ポスターで確かめられる。",
+    category: "feature",
+    link: "/p5js/random/randomness",
+  },
+  {
+    id: "2026-11-21-p5js-random-noise",
+    date: "2026-11-21",
+    title: "p5.js「ノイズ」のページを追加した",
+    description:
+      "random()とnoise()の違い、縮尺、2次元と時間、noiseDetail()、フローフィールドを、流れに沿って線が積もる絵と山並みのスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/random/noise",
+  },
+  {
+    id: "2026-11-21-p5js-random-particles",
+    date: "2026-11-21",
+    title: "p5.js「パーティクルと群れ」のページを追加した",
+    description:
+      "classで粒子を定義し、寿命と削除、エミッタ、Boidsの3つの規則までを、マウスに集まって散る群れと花火のスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/random/particles",
+  },
+  {
+    id: "2026-11-21-p5js-media-image-pixels",
+    date: "2026-11-21",
+    title: "p5.js「画像とピクセル」のページを追加した",
+    description:
+      "画像から色を拾って点描・ハーフトーン・モザイク・ピクセルソートに描き直す方法を、手元の写真に差し替えながら試せる。2.x系でのloadImageの待ち方とpixelDensity(1)が要る理由も確認できる。",
+    category: "feature",
+    link: "/p5js/media/image-pixels",
+  },
+  {
+    id: "2026-11-21-p5js-media-typography",
+    date: "2026-11-21",
+    title: "p5.js「文字とタイポグラフィ」のページを追加した",
+    description:
+      "文字を1文字ずつ波打たせる・円周に沿わせる・画素として並べる方法と、打ち込んだ文字の形に粒が集まる作品の作り方が分かる。日本語の文字をそのまま打ち替えて試せる。",
+    category: "feature",
+    link: "/p5js/media/typography",
+  },
+  {
+    id: "2026-11-21-p5js-media-camera",
+    date: "2026-11-21",
+    title: "p5.js「カメラ」のページを追加した",
+    description:
+      "カメラの映像を点や文字に置き換え、動いた所から粒を出し、スリットスキャンで時間を1枚に並べる。カメラを許可しなくても、コードで描いた代わりの絵で全部の技法を試せる。",
+    category: "feature",
+    link: "/p5js/media/camera",
+  },
+  {
+    id: "2026-11-21-p5js-media-sound",
+    date: "2026-11-21",
+    title: "p5.js「音」のページを追加した",
+    description:
+      "Web Audio APIで音を出し、音階・鍵盤・シーケンサーを作り、波形とスペクトルを絵にする。マイクの音で脈打つビジュアライザまで、追加のライブラリなしで動かせる。",
+    category: "feature",
+    link: "/p5js/media/sound",
+  },
+  {
+    id: "2026-11-21-p5js-systems-fractals",
+    date: "2026-11-21",
+    title: "p5.js「フラクタル」のページを追加した",
+    description:
+      "再帰で描く木、コッホ雪片、シェルピンスキーのギャスケット、バーンズリーのシダ、マンデルブロ集合を、風に揺れながら育つ木のスケッチを書き換えながら作れる。",
+    category: "feature",
+    link: "/p5js/systems/fractals",
+  },
+  {
+    id: "2026-11-21-p5js-systems-lsystem-automata",
+    date: "2026-11-21",
+    title: "p5.js「L-systemとセルオートマトン」のページを追加した",
+    description:
+      "文字列の書き換え規則から育つ植物と、ルール30・90・110、マウスで種をまけるライフゲームを試せる。規則を1文字変えると別の絵になることを確かめられる。",
+    category: "feature",
+    link: "/p5js/systems/lsystem-automata",
+  },
+  {
+    id: "2026-11-21-p5js-systems-composition",
+    date: "2026-11-21",
+    title: "p5.js「美しく仕上げる」のページを追加した",
+    description:
+      "配色・余白・質感・密度・止めどころを、手を入れる前と後の絵を並べて見比べられる。円充填のポスターをseedごとに出し分けてシリーズにできる。",
+    category: "feature",
+    link: "/p5js/systems/composition",
+  },
+  {
+    id: "2026-11-21-p5js-three-d-webgl-basics",
+    date: "2026-11-21",
+    title: "p5.js「WEBGLの基礎」のページを追加した",
+    description:
+      "立体・ライト・マテリアル・カメラを扱い、波打つ立方体の群れをドラッグで回して確かめられる。",
+    category: "feature",
+    link: "/p5js/three-d/webgl-basics",
+  },
+  {
+    id: "2026-11-21-p5js-three-d-shaders",
+    date: "2026-11-21",
+    title: "p5.js「形を作る・シェーダー」のページを追加した",
+    description:
+      "頂点から作る流れるnoiseの地形と、p5.strandsによるシェーダー、GLSLで書く画面全体のフィルタを、2.4.0で動作を確かめたスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/three-d/shaders",
+  },
+  {
+    id: "2026-11-21-p5js-game-game-loop",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「ゲームの骨格」を追加した",
+    description:
+      "落ちてくる光を受けるゲームを、自分を動かす・物を出す・当たり判定・スコアと終了の4段階で組み立てる。deltaTimeで端末の速さに左右されない動きにする方法も分かる。",
+    category: "feature",
+    link: "/p5js/game/game-loop",
+  },
+  {
+    id: "2026-11-21-p5js-game-game-polish",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「手ざわりを仕上げる」を追加した",
+    description:
+      "画面遷移の状態機械、最高点の保存、揺れとパーティクル、発振器で作る効果音、一時停止を、遊べる完成版と部品ごとのスケッチで確かめられる。",
+    category: "feature",
+    link: "/p5js/game/game-polish",
+  },
+  {
+    id: "2026-11-21-p5js-lab-falling-bodies",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「落下と数値計算」のページを追加した",
+    description:
+      "オイラー法で落下を計算し、刻み幅による誤差、空気抵抗と終端速度、反発係数をスライダーで確かめられる。真空と空気を切り替える落下実験装置のスケッチつき。",
+    category: "feature",
+    link: "/p5js/lab/falling-bodies",
+  },
+  {
+    id: "2026-11-21-p5js-lab-fluids",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「流体」のページを追加した",
+    description:
+      "Jos Stamの格子法を拡散・移流・射影の3段階に分けて動かし、マウスでかき混ぜられる色つきの煙を作る。",
+    category: "feature",
+    link: "/p5js/lab/fluids",
+  },
+  {
+    id: "2026-11-21-p5js-lab-seismic",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「建物の揺れ」のページを追加した",
+    description:
+      "建物をばねとおもりで表し、固有周期・共振・免震と制振の違いを、地面の周期のスライダーで比べられる。",
+    category: "feature",
+    link: "/p5js/lab/seismic",
+  },
+  {
+    id: "2026-11-21-p5js-lab-acoustics",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「音響解析」のページを追加した",
+    description:
+      "正弦波の足し合わせ、FFTとスペクトログラム、定在波を順に動かし、砂が模様を作るクラドニ図形のシミュレーションまで進む。",
+    category: "feature",
+    link: "/p5js/lab/acoustics",
+  },
+  {
+    id: "2026-11-21-p5js-publish-export",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「書き出す」を追加した",
+    description:
+      "PNG・ループGIF・動画・SVGの保存と、印刷に必要なピクセル数の計算（A4・300dpiで2480×3508）を、キーを押すと実際に保存されるスケッチで試せる。",
+    category: "feature",
+    link: "/p5js/publish/export",
+  },
+  {
+    id: "2026-11-21-p5js-publish-share",
+    date: "2026-11-21",
+    title: "p5.jsマニュアルに「公開する」を追加した",
+    description:
+      "公開先の選び方、ライセンスとクレジットの書き方、describe()による説明文の付け方をまとめた。署名入りのポスターを書き換えて、そのまま自分の作品として出せる。",
+    category: "feature",
+    link: "/p5js/publish/share",
+  },
+  {
     id: "2026-11-08-lmops-retired-model-id",
     date: "2026-11-08",
     title: "LMOpsのコード例のモデルIDを、引退済みのものから現行のものに替えた",

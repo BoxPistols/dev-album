@@ -791,7 +791,7 @@ export default function Acoustics() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               弦の節は点ですが、板や膜のような面では節が線になります。Ernst
-              Chladniは、砂をまいた金属板のふちを弓でこすって共鳴させ、砂が節線に集まって模様になる方法を1787年の著書で発表しました。
+              Chladniは、砂をうすくまいた金属板を弓でこすって共鳴させ、砂が節線に集まって模様になる方法を1787年の著書で発表しました。
               この模様がクラドニ図形です。
             </p>
             <p className="text-muted-foreground mb-4 leading-relaxed">
