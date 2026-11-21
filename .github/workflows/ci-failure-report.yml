@@ -20,7 +20,9 @@ on:
     types: [completed]
     branches: [main]
 
+# permissionsを書くと、書いていない権限は「なし」になる。checkoutにcontents: readが要る
 permissions:
+  contents: read
   issues: write
 
 jobs:

@@ -151,3 +151,28 @@ describe("p5.jsマニュアルのチャレンジ", () => {
     }
   }
 });
+
+describe("JSXからpropsを取り出す部品", () => {
+  it("属性の文字列に「/>」があっても、要素の途中で切らない", () => {
+    const src = [
+      "<CodePreview",
+      "  code={`function App() { return <br />; }`}",
+      '  title="後ろにある題名"',
+      "/>",
+      "<CodingChallenge",
+      '  initialCode={`const a = "<img />";\nlet b = ___;`}',
+      '  answer={`const a = "<img />";\nlet b = 1;`}',
+      '  title="空欄の問題"',
+      '  keywords={["1"]}',
+      '  hints={["1を入れる"]}',
+      "/>",
+    ].join("\n");
+    expect((extractPreviewTitles(src) as PreviewTitle[]).map((p) => p.title)).toEqual([
+      "後ろにある題名",
+    ]);
+    const [challenge] = extractChallenges(src) as Challenge[];
+    expect(challenge.title).toBe("空欄の問題");
+    expect(challenge.keywords).toEqual(["1"]);
+    expect(challenge.hints).toEqual(["1を入れる"]);
+  });
+});

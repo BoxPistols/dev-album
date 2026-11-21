@@ -52,13 +52,35 @@ function stringItems(arrayBody) {
   return [...arrayBody.matchAll(/"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'/g)].map((m) => m[1] ?? m[2]);
 }
 
+/**
+ * JSX要素の開始位置から、その要素を閉じる「/>」の位置を返す。
+ * 属性の中の文字列（'...' "..." `...`）と波括弧の中は読み飛ばす。
+ * 単純にindexOf('/>')で探すと、コード例の文字列に含まれる「/>」で途中で切れる
+ */
+function findSelfClosingEnd(src, start) {
+  let depth = 0;
+  for (let i = start; i < src.length; i++) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === '`') {
+      for (i++; i < src.length && src[i] !== c; i++) {
+        if (src[i] === '\\') i++;
+      }
+      continue;
+    }
+    if (c === '{') depth++;
+    else if (c === '}') depth--;
+    else if (depth === 0 && c === '/' && src[i + 1] === '>') return i;
+  }
+  return -1;
+}
+
 /** <CodingChallenge ... /> のprops（題名・初期コード・答え・キーワード・ヒント）を取り出す */
 export function extractChallenges(src) {
   const challenges = [];
   const pattern = /<CodingChallenge\b/g;
   let m;
   while ((m = pattern.exec(src)) !== null) {
-    const end = src.indexOf('/>\n', m.index);
+    const end = findSelfClosingEnd(src, m.index);
     const body = src.slice(m.index, end === -1 ? undefined : end);
     challenges.push({
       line: lineOf(src, m.index),
@@ -78,7 +100,7 @@ export function extractPreviewTitles(src) {
   const pattern = /<CodePreview\b/g;
   let m;
   while ((m = pattern.exec(src)) !== null) {
-    const end = src.indexOf('/>', m.index);
+    const end = findSelfClosingEnd(src, m.index);
     const body = src.slice(m.index, end === -1 ? undefined : end);
     titles.push({ line: lineOf(src, m.index), title: titleOf(body) });
   }

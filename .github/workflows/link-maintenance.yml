@@ -120,7 +120,7 @@ jobs:
 
       # 書き換えが壊れた（再検査で切れが出た）ときは PR を出さず、人に知らせる
       - name: 書き換えが成立しなかったことを issue に伝える
-        if: always() && steps.after.outcome != 'skipped' && steps.after.outputs.status != 'ok'
+        if: always() && (steps.after.outcome == 'success' || steps.after.outcome == 'failure') && steps.after.outputs.status != 'ok'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
