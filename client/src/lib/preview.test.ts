@@ -855,6 +855,11 @@ describe("buildP5PreviewHtml: 操作バーと音", () => {
     expect(html).toContain("track.stop()");
   });
 
+  it("「止める」を押す前に始まった取得が後から届いても、その入力をすぐ止める", () => {
+    expect(html).toContain("if (generation !== __mediaGeneration) {");
+    expect(html).toContain("__mediaGeneration += 1;");
+  });
+
   it("一時停止と画面外で、スケッチが鳴らしている音も止める（WCAG 1.4.2）", () => {
     // スケッチより先にAudioContextを差し替え、作られた処理系を覚えておく
     expect(html.indexOf("__audioContexts.push(this)")).toBeLessThan(html.indexOf("/vendor/p5-2.4.0.min.js"));

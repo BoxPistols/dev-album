@@ -425,10 +425,18 @@ var __audioContexts = [];
 // 描画を止めても入力は止まらず、ブラウザのカメラ・マイクの表示も点いたままになる
 var __mediaStreams = [];
 var __onMediaChange = function () {};
+// 「止める」を押した回数。押す前に始まった取得が後から届いたら、その入力もすぐ止める
+// （許可の確認とcreateCapture()で2回取得するスケッチでは、2回目が押したあとに届くことがある）
+var __mediaGeneration = 0;
 if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
   var __getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
   navigator.mediaDevices.getUserMedia = function (constraints) {
+    var generation = __mediaGeneration;
     return __getUserMedia(constraints).then(function (stream) {
+      if (generation !== __mediaGeneration) {
+        stream.getTracks().forEach(function (track) { track.stop(); });
+        return stream;
+      }
       __mediaStreams.push(stream);
       stream.getTracks().forEach(function (track) { track.addEventListener('ended', function () { __onMediaChange(); }); });
       __onMediaChange();
@@ -547,6 +555,7 @@ ${safeCode}
     mediaButton.hidden = !live;
   };
   mediaButton.addEventListener('click', function () {
+    __mediaGeneration += 1;
     __mediaStreams.forEach(function (stream) {
       stream.getTracks().forEach(function (track) { track.stop(); });
     });
