@@ -15,8 +15,10 @@ permissions:
 # mainでは取り消さない。続けてマージすると途中のコミットが検証されずに残り、
 # 壊れたコミットがどれかを後から特定できなくなる（2026-11-13に3件続けてマージし、
 # 2件が取り消され、最後の1件だけが落ちた）
+# 取り消さない設定でも、待機中の実行は同じグループの新しい実行に置き換えられるので、
+# PR以外は実行ごとに別のグループにする
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -110,6 +112,11 @@ jobs:
       # playwright.config の webServer が dev サーバを自動起動して検査する
       - name: E2E 検査（a11y 3テーマ含む全スペック）
         run: pnpm test:e2e
+
+      # p5.jsマニュアルの全スケッチを実ブラウザで走らせ、描画時のエラーを検出する。
+      # 型検査・単体テスト・ビルドは「スケッチが文字列として正しい」ことまでしか見ない
+      - name: p5.jsのスケッチの実行検査
+        run: pnpm check:p5 --fake-media
 
       # 失敗時のみレポートを残す（CI 固有の失敗をローカルで追跡できるようにする）
       - name: Playwright レポートを保存
