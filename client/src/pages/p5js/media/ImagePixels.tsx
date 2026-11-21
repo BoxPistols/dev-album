@@ -1000,7 +1000,7 @@ function draw() {
   for (let y = 0; y < src.height; y++) {
     for (let x = 0; x < src.width; x++) {
       // (x, y) の画素が、配列の何番目から始まるか
-      let i = (y * src.width + x) ___;
+      let i = (y * src.width + x) * ___;
       fill(src.pixels[i], src.pixels[i + 1], src.pixels[i + 2]);
       // 少しずつ大きさの違う円で置き直す
       let d = 6 + 3 * sin(frameCount * 0.05 + x * 0.3 + y * 0.3);
@@ -1118,10 +1118,10 @@ function makePicture(w, h) {
   pg.endShape(CLOSE);
   return pg;
 }`}
-              keywords={["loadPixels", "* 4"]}
+              keywords={["loadPixels", "4"]}
               hints={[
                 "pixels配列を使う前に呼ぶ関数はloadPixelsです。src.loadPixels()と書きます",
-                "1画素は赤・緑・青・不透明度の4つの数でできているので、画素の番号に* 4を掛けます",
+                "1画素は赤・緑・青・不透明度の4つの数でできているので、画素の番号に4を掛けます",
               ]}
             />
           </section>

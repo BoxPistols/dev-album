@@ -144,7 +144,7 @@ function mousePressed() {
   gain = audio.createGain();
   // 最初は音量0にしておく
   gain.gain.value = 0;
-  // 発振器 → 音量 → スピーカー の順につなぐ
+  // 発振器 → 音量 → スピーカーの順につなぐ
   osc.connect(gain);
   gain.connect(audio.destination);
   osc.start();

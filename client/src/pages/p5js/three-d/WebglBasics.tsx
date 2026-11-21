@@ -233,7 +233,7 @@ function draw() {
 
   // カメラを原点のまわりで回す。camera(カメラの位置, 見る点, 上の向き)
   let t = frameCount * 0.006;
-  camera(cos(t) * 400, -170, sin(t) * 400, 0, 0, 0, 0, 1, 0);
+  camera(cos(t) * 470, -140, sin(t) * 470, 0, 0, 0, 0, 1, 0);
 
   ambientLight(0, 0, 50);
   directionalLight(0, 0, 100, 0.4, 1, -0.3);
@@ -270,14 +270,14 @@ function draw() {
   rotateY(0.6);
 
   let count = 22;
-  let gap = 15;
+  let gap = 13;
   for (let i = 0; i < count; i++) {
     for (let j = 0; j < count; j++) {
       // noise()に格子の位置と時間を渡す。隣どうしが近い高さになる
       let n = noise(i * 0.13, j * 0.13, frameCount * 0.008);
       // noise()の値は0.5の近くに集まるので、0.25〜0.75を0〜1に引き伸ばす
       let k = map(n, 0.25, 0.75, 0, 1, true);
-      let h = 8 + k * k * 150;
+      let h = 8 + k * k * 130;
       push();
       translate((i - count / 2) * gap, -h / 2, (j - count / 2) * gap);
       // 低い所は深い青、高い所は明るい緑に近づける
@@ -586,9 +586,9 @@ export default function WebglBasics() {
                   にする（望遠になり、平たく見える）
                 </li>
                 <li>
-                  <code className={code}>cos(t) * 400</code>と
-                  <code className={code}>sin(t) * 400</code>
-                  の400を60にする（カメラが格子の中に入る）
+                  <code className={code}>cos(t) * 470</code>と
+                  <code className={code}>sin(t) * 470</code>
+                  の470を60にする（カメラが格子の中に入る）
                 </li>
                 <li>
                   <code className={code}>sphere(...)</code>を
@@ -624,8 +624,8 @@ export default function WebglBasics() {
                   の0.13を0.4にする（起伏が細かく険しくなる）、0.04にする（なだらかになる）
                 </li>
                 <li>
-                  <code className={code}>k * k * 150</code>を
-                  <code className={code}>k * 150</code>
+                  <code className={code}>k * k * 130</code>を
+                  <code className={code}>k * 130</code>
                   にする（低い所と高い所の差が縮まる）
                 </li>
                 <li>

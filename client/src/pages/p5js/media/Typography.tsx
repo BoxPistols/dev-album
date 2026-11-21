@@ -699,7 +699,7 @@ function draw() {
                 },
                 {
                   title: "MDN: font-family",
-                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/font-family",
+                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-family",
                   description: "serif・sans-serif・monospaceなど、総称の書体名の説明（英語）",
                 },
               ]}

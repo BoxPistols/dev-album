@@ -713,12 +713,12 @@ function draw() {
               explanation="randomSeed()を同じ番号で呼ぶと、乱数の並びが最初に戻ります。毎フレーム同じ並びの数が出るので、同じ位置に同じ円が描かれます。"
             />
             <Quiz
-              question="「20%の確率で赤、それ以外は青」にするコードは？"
+              question="「20%の確率で赤、それ以外は青」にするとき、if文の条件として正しいものは？"
               options={[
-                { label: "if (random(20) < 1) 赤 else 青" },
-                { label: "if (random() < 0.2) 赤 else 青", correct: true },
-                { label: "if (random() > 0.2) 赤 else 青" },
-                { label: "if (randomSeed(0.2)) 赤 else 青" },
+                { label: "random(20) < 1のとき赤にする" },
+                { label: "random() < 0.2のとき赤にする", correct: true },
+                { label: "random() > 0.2のとき赤にする" },
+                { label: "randomSeed(0.2)を呼んでから赤にする" },
               ]}
               explanation="random()は0以上1未満の数を同じ出やすさで返します。0.2未満になるのは全体の20%なので、random() < 0.2が「20%の確率」になります。random(20) < 1は5%です。"
             />

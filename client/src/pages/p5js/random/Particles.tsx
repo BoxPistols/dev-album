@@ -664,7 +664,7 @@ export default function Particles() {
             <h2 className={h2}>やってみよう</h2>
             <CodingChallenge
               title="粒子の設計図を完成させる"
-              description="___ を埋めて、classから粒子を作り、動かして描けるようにしてください。作るときに1回だけ実行されるメソッドの名前と、インスタンスを作るキーワードを入れます。"
+              description="___ を埋めて、classから粒子を作り、動かして描けるようにしてください。作るときに1回だけ実行されるメソッドの名前と、newで作るclassの名前を入れます。"
               preview
               initialCode={`let dots = [];
 
@@ -690,7 +690,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 100);
   noStroke();
   for (let i = 0; i < 40; i++) {
-    dots.push(___ Dot());
+    dots.push(new ___());
   }
 }
 
@@ -738,10 +738,10 @@ function draw() {
     d.show();
   }
 }`}
-              keywords={["constructor", "new"]}
+              keywords={["constructor", "Dot"]}
               hints={[
                 "インスタンスを作るときに1回だけ実行されるメソッドの名前はconstructorです",
-                "設計図からインスタンスを作るときは、class名の前にnewを書きます",
+                "設計図からインスタンスを作るときは、newのあとに作りたいclassの名前Dotを書きます",
               ]}
             />
             <CodingChallenge
@@ -871,7 +871,7 @@ function draw() {
               <ul className="space-y-3 text-sm text-muted-foreground">
                 {[
                   "classは粒子の設計図。constructor()で初期値を決め、update()とshow()で動かして描く",
-                  "new クラス名()で作ったインスタンスを配列に入れ、for...ofでまとめて更新する",
+                  "newで作ったインスタンスを配列に入れ、for...ofでまとめて更新する",
                   "寿命が尽きた粒子は、後ろから走査してsplice()で取り除く",
                   "エミッタは粒子を生む仕組み。生まれた粒子には力を足して動きを作る",
                   "Boidsは分離・整列・結合の3つの規則を、近くの仲間だけを見て適用する",

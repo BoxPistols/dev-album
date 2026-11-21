@@ -29,6 +29,9 @@ interface CodePreviewProps {
    */
 }
 
+/** p5の結果枠の高さの上限（px）。これより長いコード欄の横では、枠がスクロールに追従する */
+const P5_STICKY_HEIGHT = 460;
+
 const languageMap: Record<string, Language> = {
   ts: 'typescript', tsx: 'tsx', js: 'javascript', jsx: 'jsx',
   html: 'markup', css: 'css', json: 'json', bash: 'bash',
@@ -247,7 +250,11 @@ export default function CodePreview({
         <Eye size={11} className="text-muted-foreground" />
         <span className="text-[12px] font-medium text-muted-foreground uppercase tracking-wider">Result</span>
       </div>
-      <div className="bg-white dark:bg-[#1e1e2e] relative" style={{ height: previewPanelHeight }}>
+      <div
+        className="bg-white dark:bg-[#1e1e2e] relative"
+        // p5の枠は上端に留まるので、その下に残る余白をスケッチの地の色に合わせる
+        style={{ height: previewPanelHeight, ...(isP5 ? { backgroundColor: isDark ? '#16161e' : '#ececf0' } : {}) }}
+      >
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}
@@ -256,7 +263,10 @@ export default function CodePreview({
             allow={isP5 ? P5_IFRAME_ALLOW : undefined}
             loading={isP5 ? 'lazy' : undefined}
             title="プレビュー"
-            className="w-full h-full border-0"
+            // p5のスケッチはコードが長くなりやすく、結果の枠もコード欄と同じ高さまで伸びる。
+            // キャンバスを枠の中央に置くと画面の外に出てしまうので、枠の上端に留めてスクロールに追従させる
+            className={isP5 ? 'w-full border-0 sticky top-3' : 'w-full h-full border-0'}
+            style={isP5 ? { height: Math.min(previewPanelHeight, P5_STICKY_HEIGHT) } : undefined}
           />
         )}
         {/* ドラッグ中は iframe がマウスイベントを奪うのを防止 */}
@@ -335,7 +345,7 @@ export default function CodePreview({
   return (
     <div
       ref={containerRef}
-      className="rounded-xl overflow-hidden border border-border my-6"
+      className={`rounded-xl border border-border my-6 ${isP5 ? 'overflow-clip' : 'overflow-hidden'}`}
     >
       {headerBar}
       <div className={`flex ${
