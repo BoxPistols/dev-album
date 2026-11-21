@@ -90,7 +90,7 @@
     "@vitest/browser-playwright": "^4.1.12",
     "autoprefixer": "^10.6.2",
     "esbuild": "^0.28.2",
-    "jsdom": "^28.1.0",
+    "jsdom": "^31.0.1",
     "playwright": "^1.65.0",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
