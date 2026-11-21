@@ -468,6 +468,38 @@
   --sidebar-ring: #8BE9FD;
 }
 
+/* p5.js: 公式サイトのマゼンタに近いフクシア系。ux-design（ピンク）・git（ローズ）と色相を分ける */
+[data-manual="p5js"] {
+  --primary: #A21CAF;
+  --primary-foreground: #F9FAFB;
+  --sidebar-primary: #A21CAF;
+  --sidebar-primary-foreground: #F9FAFB;
+  --accent: #A21CAF;
+  --accent-foreground: #F9FAFB;
+  --ring: #A21CAF;
+  --sidebar-ring: #A21CAF;
+}
+.dark[data-manual="p5js"] {
+  --primary: #E879F9;
+  --primary-foreground: #2A0A2E;
+  --sidebar-primary: #E879F9;
+  --sidebar-primary-foreground: #2A0A2E;
+  --accent: #E879F9;
+  --accent-foreground: #2A0A2E;
+  --ring: #E879F9;
+  --sidebar-ring: #E879F9;
+}
+.dark-soft[data-manual="p5js"] {
+  --primary: #F0ABFC;
+  --primary-foreground: #282A36;
+  --sidebar-primary: #F0ABFC;
+  --sidebar-primary-foreground: #282A36;
+  --accent: #F0ABFC;
+  --accent-foreground: #282A36;
+  --ring: #F0ABFC;
+  --sidebar-ring: #F0ABFC;
+}
+
 /* ── セクション別ブランドカラー ──
    マニュアルの中の一部だけが別の製品を扱う場合に、そのセクションでだけ primary を差し替える
    （<html data-section="..."> を useManualTheme フックが付ける）。data-manual より後に書き、

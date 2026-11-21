@@ -1,4 +1,4 @@
-export type ManualId = 'learning' | 'react' | 'git' | 'threejs' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'go' | 'infra' | 'devflow';
+export type ManualId = 'learning' | 'react' | 'git' | 'threejs' | 'p5js' | 'claude-code' | 'ai-ml' | 'ux-design' | 'api' | 'vue' | 'go' | 'infra' | 'devflow';
 
 export interface ManualInfo {
   id: ManualId;
@@ -68,6 +68,14 @@ export const manuals: ManualInfo[] = [
     description: '3Dグラフィックスとインタラクティブ開発',
     icon: '3',
     color: '#14B8A6',
+  },
+  {
+    id: 'p5js',
+    title: 'p5.js / ジェネラティブアート入門',
+    shortTitle: 'p5.js',
+    description: 'コードで絵を描き、動かし、作品として公開するまでを、動くスケッチで学ぶ',
+    icon: '*',
+    color: '#D946EF',
   },
   {
     id: 'ai-ml',
@@ -244,6 +252,18 @@ export const sections: SectionInfo[] = [
   { id: 'go-types', title: '型とインターフェース', manualId: 'go' },
   { id: 'go-concurrency', title: '並行処理', manualId: 'go' },
   { id: 'go-practice', title: '実践', manualId: 'go' },
+
+  // === p5.jsマニュアル ===
+  { id: 'p5-intro', title: 'はじめに', manualId: 'p5js' },
+  { id: 'p5-basics', title: '描いて動かす', manualId: 'p5js' },
+  { id: 'p5-math', title: '数学で描く', manualId: 'p5js' },
+  { id: 'p5-random', title: '偶然を設計する', manualId: 'p5js' },
+  { id: 'p5-media', title: 'メディアを素材にする', manualId: 'p5js' },
+  { id: 'p5-systems', title: '生成のアルゴリズム', manualId: 'p5js' },
+  { id: 'p5-3d', title: '3D表現', manualId: 'p5js' },
+  { id: 'p5-game', title: 'ゲームを作る', manualId: 'p5js' },
+  { id: 'p5-lab', title: '研究の現場を再現する', manualId: 'p5js' },
+  { id: 'p5-publish', title: '作品を世に出す', manualId: 'p5js' },
 
   // === バックエンド / インフラ / DevOps マニュアル ===
   { id: 'infra-intro', title: 'はじめに', manualId: 'infra' },
@@ -624,6 +644,39 @@ export const pages: PageInfo[] = [
   { step: 12, path: '/go/practice/modules-tooling', title: 'モジュールと標準ツール', sectionId: 'go-practice', manualId: 'go' },
   { step: 13, path: '/go/practice/testing', title: 'テスト', sectionId: 'go-practice', manualId: 'go' },
   { step: 14, path: '/go/practice/http-server', title: 'net/httpでJSON API', sectionId: 'go-practice', manualId: 'go' },
+
+  // ===========================
+  // p5.jsマニュアル
+  // ===========================
+  { step: 1, path: '/p5js', title: 'このマニュアルについて', sectionId: 'p5-intro', manualId: 'p5js' },
+  { step: 2, path: '/p5js/basics/first-sketch', title: 'はじめてのスケッチ', sectionId: 'p5-basics', manualId: 'p5js' },
+  { step: 3, path: '/p5js/basics/shapes-color', title: '図形と色', sectionId: 'p5-basics', manualId: 'p5js' },
+  { step: 4, path: '/p5js/basics/motion-interaction', title: '動きとインタラクション', sectionId: 'p5-basics', manualId: 'p5js' },
+  { step: 5, path: '/p5js/basics/loops-patterns', title: '繰り返しとパターン', sectionId: 'p5-basics', manualId: 'p5js' },
+  { step: 6, path: '/p5js/basics/transform', title: '座標変換', sectionId: 'p5-basics', manualId: 'p5js' },
+  { step: 7, path: '/p5js/math/functions-easing', title: '関数とイージング', sectionId: 'p5-math', manualId: 'p5js' },
+  { step: 8, path: '/p5js/math/trigonometry', title: '三角関数と波', sectionId: 'p5-math', manualId: 'p5js' },
+  { step: 9, path: '/p5js/math/vectors-forces', title: 'ベクトルと力', sectionId: 'p5-math', manualId: 'p5js' },
+  { step: 10, path: '/p5js/random/randomness', title: '乱数と確率', sectionId: 'p5-random', manualId: 'p5js' },
+  { step: 11, path: '/p5js/random/noise', title: 'ノイズ', sectionId: 'p5-random', manualId: 'p5js' },
+  { step: 12, path: '/p5js/random/particles', title: 'パーティクルと群れ', sectionId: 'p5-random', manualId: 'p5js' },
+  { step: 13, path: '/p5js/media/image-pixels', title: '画像とピクセル', sectionId: 'p5-media', manualId: 'p5js' },
+  { step: 14, path: '/p5js/media/typography', title: '文字とタイポグラフィ', sectionId: 'p5-media', manualId: 'p5js' },
+  { step: 15, path: '/p5js/media/camera', title: 'カメラ', sectionId: 'p5-media', manualId: 'p5js' },
+  { step: 16, path: '/p5js/media/sound', title: '音', sectionId: 'p5-media', manualId: 'p5js' },
+  { step: 17, path: '/p5js/systems/fractals', title: 'フラクタル', sectionId: 'p5-systems', manualId: 'p5js' },
+  { step: 18, path: '/p5js/systems/lsystem-automata', title: 'L-systemとセルオートマトン', sectionId: 'p5-systems', manualId: 'p5js' },
+  { step: 19, path: '/p5js/systems/composition', title: '美しく仕上げる', sectionId: 'p5-systems', manualId: 'p5js' },
+  { step: 20, path: '/p5js/three-d/webgl-basics', title: 'WEBGLの基礎', sectionId: 'p5-3d', manualId: 'p5js' },
+  { step: 21, path: '/p5js/three-d/shaders', title: '形を作る・シェーダー', sectionId: 'p5-3d', manualId: 'p5js' },
+  { step: 22, path: '/p5js/game/game-loop', title: 'ゲームの骨格', sectionId: 'p5-game', manualId: 'p5js' },
+  { step: 23, path: '/p5js/game/game-polish', title: '手ざわりを仕上げる', sectionId: 'p5-game', manualId: 'p5js' },
+  { step: 24, path: '/p5js/lab/falling-bodies', title: '落下と数値計算', sectionId: 'p5-lab', manualId: 'p5js' },
+  { step: 25, path: '/p5js/lab/fluids', title: '流体', sectionId: 'p5-lab', manualId: 'p5js' },
+  { step: 26, path: '/p5js/lab/seismic', title: '建物の揺れ', sectionId: 'p5-lab', manualId: 'p5js' },
+  { step: 27, path: '/p5js/lab/acoustics', title: '音響解析', sectionId: 'p5-lab', manualId: 'p5js' },
+  { step: 28, path: '/p5js/publish/export', title: '書き出す', sectionId: 'p5-publish', manualId: 'p5js' },
+  { step: 29, path: '/p5js/publish/share', title: '公開する', sectionId: 'p5-publish', manualId: 'p5js' },
 
   // ===========================
   // バックエンド / インフラ / DevOps マニュアル (27ページ)

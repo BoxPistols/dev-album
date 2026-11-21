@@ -7,8 +7,11 @@ import {
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
+  buildP5PreviewHtml,
+  isP5Sketch,
   type PreviewLib,
 } from '@/lib/preview';
+import P5Frame from '@/features/p5/P5Frame';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
 import { incrementChallengePassCount, checkAchievements } from '@/hooks/useAchievements';
 import { showAchievementToast } from './AchievementToast';
@@ -24,8 +27,8 @@ interface CodingChallengeProps {
   validator?: (input: string) => boolean;
   /** プレビューを表示するか */
   preview?: boolean;
-  /** プレビュー種別: threejs / markdown / terminal / config / jsx（デフォルト自動判定） */
-  previewType?: 'threejs' | 'markdown' | 'terminal' | 'config' | 'jsx';
+  /** プレビュー種別: threejs / p5 / markdown / terminal / config / jsx（デフォルト自動判定） */
+  previewType?: 'threejs' | 'p5' | 'markdown' | 'terminal' | 'config' | 'jsx';
   css?: string;
   /** プレビュー iframe に読み込む外部ライブラリ（MUI は import 文から自動検出される） */
   libs?: PreviewLib[];
@@ -42,6 +45,12 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[], in
 
   if (normalizedCode === normalizedAnswer) return true;
 
+  // 空欄（___）が残っていれば不正解。同じキーワードを入れる空欄が2か所あると、
+  // 1か所埋めただけでキーワードの判定を通ってしまう（p5.jsマニュアルの点検で見つかった）。
+  // 答えそのものに___を含む問題は無いが、念のため答えに無いときだけ当てる
+  const BLANK = /\b___\b/;
+  if (BLANK.test(code) && !BLANK.test(answer)) return false;
+
   if (keywords && keywords.length > 0) {
     // initialCode がある場合: ユーザーが変更した部分（差分）のみで判定
     // これにより、プリフィル済みコード内の keyword 誤マッチを防ぐ
@@ -57,10 +66,13 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[], in
       // 差分がない場合（何も変更していない）は不正解
       if (!changedParts || normalizedCode === normalizedInitial) return false;
       // keyword が差分部分に含まれているか確認（プリフィル部分は対象外）
-      return keywords.every((kw) => changedParts.includes(kw));
+      // 空白の入れ方で判定を変えない（`a=G`と`a = G`を同じに扱う）
+      const compactChanged = changedParts.replace(/\s+/g, '');
+      return keywords.every((kw) => compactChanged.includes(kw.replace(/\s+/g, '')));
     }
     // initialCode がない場合: 従来の全文チェック
-    return keywords.every((kw) => normalizedCode.includes(kw));
+    const compactCode = normalizedCode.replace(/\s+/g, '');
+    return keywords.every((kw) => compactCode.includes(kw.replace(/\s+/g, '')));
   }
 
   const importantPatterns = [
@@ -92,6 +104,7 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[], in
 export function resolvePreviewType(code: string, previewType?: string): string {
   if (previewType) return previewType;
   if (/\bTHREE\b/.test(code)) return 'threejs';
+  if (isP5Sketch(code)) return 'p5';
 
   const trimmed = code.trim();
   const trimmedLines = code.split('\n').filter(l => l.trim());
@@ -171,6 +184,8 @@ function buildPreviewForType(
   switch (type) {
     case 'threejs':
       return buildThreePreviewHtml(code, isDark);
+    case 'p5':
+      return buildP5PreviewHtml(code, isDark);
     case 'markdown':
       return buildMarkdownPreviewHtml(code, isDark);
     case 'terminal':
@@ -304,9 +319,12 @@ export default function CodingChallenge({
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [matchInfo, setMatchInfo] = useState<{ matched: number; total: number } | null>(null);
   const [previewHtml, setPreviewHtml] = useState('');
+  // p5は枠（P5Frame）が組み立てるので、打鍵が止まったあとのコードだけを持つ
+  const [p5Code, setP5Code] = useState(initialCode);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const resolvedType = resolvePreviewType(code, previewType);
+  // p5かどうかは元のコードで決める。編集中に括弧を1つ消しただけで判定が外れ、結果欄が別物になっていた
+  const resolvedType = resolvePreviewType(code, previewType ?? (isP5Sketch(initialCode) ? 'p5' : undefined));
   // 配列 identity での再ビルドを避けるため中身で比較する
   const libsKey = libs?.join(',') ?? '';
   const resolvedLibs = libsKey ? (libsKey.split(',') as PreviewLib[]) : undefined;
@@ -316,7 +334,8 @@ export default function CodingChallenge({
     if (!preview) return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
+      if (resolvedType === 'p5') setP5Code(code);
+      else setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
     }, 400);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -324,7 +343,7 @@ export default function CodingChallenge({
 
   // 初回プレビュー
   useEffect(() => {
-    if (preview) setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
+    if (preview && resolvedType !== 'p5') setPreviewHtml(buildPreviewForType(resolvedType, code, css, isDark, resolvedLibs));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -341,7 +360,8 @@ export default function CodingChallenge({
         const initialLines = initialCode.split('\n').map(l => l.trim());
         const userLines = code.split('\n').map(l => l.trim());
         const changedParts = userLines.filter(line => line && !initialLines.includes(line)).join(' ');
-        const matched = keywords.filter((kw) => changedParts.includes(kw)).length;
+        const compactChanged = changedParts.replace(/\s+/g, '');
+        const matched = keywords.filter((kw) => compactChanged.includes(kw.replace(/\s+/g, ''))).length;
         setMatchInfo({ matched, total: keywords.length });
       } else {
         setMatchInfo(null);
@@ -377,7 +397,11 @@ export default function CodingChallenge({
   };
 
   // Three.js プレビューは高さを大きめに
-  const previewMinHeight = resolvedType === 'threejs' ? 300 : 160;
+  const isP5 = resolvedType === 'p5';
+  const previewMinHeight = isP5 ? 380 : resolvedType === 'threejs' ? 300 : 160;
+  // p5の結果枠はエディタの高さに合わせず固定し、スクロールに追従させる。
+  // エディタに合わせると2000px近くまで伸び、キャンバスと操作バーが画面の外に出ていた
+  const p5FrameStyle = { height: 'min(440px, calc(100dvh - 96px))' };
 
   return (
     <div className="rounded-xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20 p-6 my-6">
@@ -406,6 +430,15 @@ export default function CodingChallenge({
               onChange={(v) => { setCode(v); setIsCorrect(null); setMatchInfo(null); }}
             />
           </div>
+          {isP5 ? (
+            <P5Frame
+              code={p5Code}
+              isDark={isDark}
+              title={`プレビュー: ${title}`}
+              className="rounded-lg overflow-hidden border border-border md:self-start md:sticky md:top-3"
+              style={p5FrameStyle}
+            />
+          ) : (
           <div className="relative rounded-lg overflow-hidden border border-border bg-white dark:bg-[#1e1e2e]" style={{ minHeight: previewMinHeight }}>
             <div className="absolute top-2 right-2 text-xs text-muted-foreground z-10 bg-background/80 px-2 py-0.5 rounded">
               プレビュー
@@ -420,6 +453,7 @@ export default function CodingChallenge({
               />
             )}
           </div>
+          )}
         </div>
       ) : (
         <div className="rounded-lg overflow-hidden border border-border bg-[#1e1e2e] mb-4">

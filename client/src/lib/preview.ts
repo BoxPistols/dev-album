@@ -11,6 +11,8 @@ export type PreviewLib = 'mui' | 'tailwind' | 'styled-components' | 'emotion';
 const REACT_UMD_URL = '/vendor/react-18.3.1.production.min.js';
 const REACT_DOM_UMD_URL = '/vendor/react-dom-18.3.1.production.min.js';
 const THREE_UMD_URL = '/vendor/three-0.160.1.min.js';
+// p5.jsは2.x系のIIFEビルド（グローバルにp5を置き、setup / drawを見つけて自動で起動する）
+const P5_URL = '/vendor/p5-2.4.0.min.js';
 const MUI_UMD_URL = '/vendor/mui-material-5.18.0.umd.min.js';
 const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
 // Tailwind v4 のブラウザ実行ビルド（クラスを実行時にコンパイルする公式デモ用ビルド）
@@ -278,6 +280,372 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
     document.getElementById('error').textContent = 'Three.js の読み込みに失敗しました';
   };
   document.head.appendChild(s);
+})();
+<\/script>
+</body>
+</html>`;
+}
+
+/**
+ * p5.jsのスケッチ（グローバルモード）かどうか。
+ * setup()とcreateCanvas()の両方があるコードだけを対象にする。
+ */
+export function isP5Sketch(code: string): boolean {
+  return /\bfunction\s+setup\s*\(/.test(code) && /\bcreateCanvas\s*\(/.test(code);
+}
+
+/** p5プレビューのiframeに付ける属性 */
+export interface P5IframeAttributes {
+  sandbox: string;
+  /** Permissions Policy。カメラ・マイクを使わないスケッチでは明示的に禁止する */
+  allow: string;
+}
+
+/**
+ * p5プレビューのiframe属性を、スケッチの内容から決める。
+ *
+ * - sandbox: JSX用の既定（allow-scripts allow-same-origin）に、PNG・GIF保存のためのallow-downloadsを足す
+ * - allow: カメラ・マイクは、createCapture()かgetUserMedia()を使うスケッチにだけ許す。
+ *   allowを付けないだけでは、同一オリジンの枠は既定で許可されるので、使わない枠には'none'を明示する
+ *   （許可そのものはブラウザが利用者に確認する）
+ *
+ * 画面に近づくまで読み込まない処理は、srcdocのiframeにloading="lazy"が効かないので、
+ * 親側（P5Frame）で枠そのものを後からマウントして行う
+ */
+export function p5IframeAttributes(code: string): P5IframeAttributes {
+  const usesMedia = /\bcreateCapture\s*\(|\bgetUserMedia\s*\(/.test(code);
+  return {
+    sandbox: 'allow-scripts allow-same-origin allow-downloads',
+    allow: usesMedia ? 'camera; microphone' : "camera 'none'; microphone 'none'",
+  };
+}
+
+// p5プレビュー専用のCSP。JSX用との差分:
+// - 'unsafe-eval': p5.strands（シェーダーをJavaScriptで書く機能）が関数を組み立て直すために使う。
+//   このiframeは学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
+// - connect-src data: blob:: loadImage()は内部でfetchを使う。データURLと、学習者が選んだ
+//   ファイル（blob:）だけを通し、外部ホストへの送信は引き続き遮断する
+// - img-src: データURLとblob:だけ。JSX用と違いhttps:を許さない。p5の教材は外部の画像を読まないので、
+//   画像の要求を使った外部への送信もここで止める
+// - media-src: カメラ映像（mediastream:）と録音・生成した音を <video> / <audio> で扱うため
+const P5_PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src data:; img-src data: blob:; media-src data: blob: mediastream:; connect-src data: blob:; base-uri 'none'`;
+
+/**
+ * p5.jsのスケッチをプレビュー用HTMLに変換する。
+ *
+ * -スケッチはグローバルモードのまま実行する（p5 Web Editorに貼っても同じに動く）
+ * -キャンバスは枠に収まるよう縮小表示する（拡大はしない）。マウス座標はp5が表示倍率を見て補正する
+ * -動き続ける表示には止める手段が要る（WCAG 2.2.2）。一時停止・最初から・PNG保存を下部に置く
+ * -画面外に出たら自動で止める。1ページに複数のスケッチを置いてもCPUを使い続けない
+ */
+export function buildP5PreviewHtml(code: string, isDark = true): string {
+  const bg = isDark ? '#16161e' : '#ececf0';
+  const fg = isDark ? '#cdd6f4' : '#3f3f46';
+  const barBg = isDark ? '#1e1e2e' : '#f4f4f5';
+  const border = isDark ? '#45475a' : '#d4d4d8';
+  const danger = isDark ? '#f38ba8' : '#b91c1c';
+  const hasBlanks = /\b___\b/.test(code);
+  // キー入力を使うスケッチだけ、矢印キーとスペースでページが動かないようにする。
+  // 使わないスケッチで止めると、キャンバスを押したあとページをキーで動かせなくなる
+  const usesKeys = /\b(keyPressed|keyReleased|keyTyped|keyIsDown|keyIsPressed|keyCode|key)\b/.test(code);
+  // 指でなぞる操作を使わないスケッチは、キャンバスの上をなぞってもページが動くようにする。
+  // p5はキャンバスにtouch-action: noneを付けるので、何もしないとスマホでページが動かなくなる
+  const usesDrag = /\b(mouseDragged|mouseIsPressed|touches|touchStarted|touchMoved|touchEnded|orbitControl)\b/.test(code);
+  // インラインスクリプトに埋め込むので、HTMLパーサーがスクリプトの終わりと誤認する並びを崩す
+  const safeCode = code.replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${P5_PREVIEW_CSP}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: ${bg}; color: ${fg}; font: 12px/1.4 system-ui, sans-serif; display: flex; flex-direction: column; }
+  main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 4px; }
+  canvas { display: block; flex-shrink: 0; }
+  main input, main button, main select { font: inherit; max-width: 100%; }
+  a { color: inherit; }
+  table { font: inherit; color: inherit; }
+  #__bar { flex-shrink: 0; display: flex; gap: 4px; justify-content: flex-end; padding: 3px 4px; background: ${barBg}; border-top: 1px solid ${border}; }
+  #__bar button { font: inherit; color: ${fg}; background: transparent; border: 1px solid ${border}; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
+  #__bar button:hover { background: ${border}; }
+  #__bar button:focus-visible { outline: 2px solid ${fg}; outline-offset: 1px; }
+  #__bar button[hidden] { display: none; }
+  main:focus { outline: none; }${usesDrag ? '' : `
+  main canvas { touch-action: pan-x pan-y pinch-zoom !important; }`}
+  main:focus-visible { outline: 2px solid ${fg}; outline-offset: -2px; }
+  #__error { display: none; flex-shrink: 0; margin: 0; padding: 8px 10px; max-height: 45%; overflow: auto; font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; color: ${danger}; background: ${barBg}; border-top: 1px solid ${border}; }
+  #__error.hint { color: ${fg}; font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main tabindex="0" aria-label="スケッチ。キーで操作するスケッチは、ここを選んでからキーを押す"></main>
+<pre id="__error" role="status"></pre>
+<div id="__bar">
+  <button type="button" id="__media" hidden>カメラ・マイクを止める</button>
+  <button type="button" id="__toggle">一時停止</button>
+  <button type="button" id="__restart">最初から</button>
+  <button type="button" id="__save">PNG保存</button>
+</div>
+<script>
+var __hasBlanks = ${hasBlanks ? 'true' : 'false'};
+var __failed = false;
+function __showError(message) {
+  if (__failed) return;
+  __failed = true;
+  var el = document.getElementById('__error');
+  var text = String(message).replace(/^Uncaught /, '');
+  if (__hasBlanks) {
+    el.className = 'hint';
+    el.textContent = '空欄（___）を埋めるとスケッチが動きます。\\nいまのエラー: ' + text;
+  } else {
+    el.textContent = 'Error: ' + text;
+  }
+  el.style.display = 'block';
+  // draw()の中のエラーは毎フレーム起きるので、1回出したら止める
+  try { if (typeof noLoop === 'function') noLoop(); } catch (e) {}
+}
+// スケッチが作った音声の処理系（Web Audio）を覚えておく。一時停止と画面外で音も止めるため。
+// draw()を止めても音は鳴り続ける（WCAG 1.4.2: 3秒を超えて鳴る音は止められること）
+var __audioContexts = [];
+['AudioContext', 'webkitAudioContext'].forEach(function (name) {
+  var Original = window[name];
+  if (typeof Original !== 'function') return;
+  window[name] = class extends Original {
+    constructor(options) {
+      super(options);
+      __audioContexts.push(this);
+    }
+  };
+});
+// スケッチが取得したカメラ・マイクの入力を覚えておく。操作バーから止められるようにするため。
+// 描画を止めても入力は止まらず、ブラウザのカメラ・マイクの表示も点いたままになる
+var __mediaStreams = [];
+var __onMediaChange = function () {};
+// 「止める」を押した回数。押す前に始まった取得が後から届いたら、その入力もすぐ止める
+// （許可の確認とcreateCapture()で2回取得するスケッチでは、2回目が押したあとに届くことがある）
+var __mediaGeneration = 0;
+// 許可を待っている取得の数。待っているあいだも止めるボタンを出し、許可のあとで点かないようにする
+var __mediaPending = 0;
+if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
+  var __getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+  navigator.mediaDevices.getUserMedia = function (constraints) {
+    var generation = __mediaGeneration;
+    __mediaPending += 1;
+    __onMediaChange();
+    var settle = function () {
+      __mediaPending -= 1;
+      __onMediaChange();
+    };
+    return __getUserMedia(constraints).then(function (stream) {
+      settle();
+      if (generation !== __mediaGeneration) {
+        stream.getTracks().forEach(function (track) { track.stop(); });
+        return stream;
+      }
+      __mediaStreams.push(stream);
+      stream.getTracks().forEach(function (track) { track.addEventListener('ended', function () { __onMediaChange(); }); });
+      __onMediaChange();
+      return stream;
+    }, function (error) {
+      settle();
+      throw error;
+    });
+  };
+}
+// p5.jsは読み込まれた時点で、エラー文の翻訳ファイルを相対パスとCDNから取りにいく。
+// どちらもこの枠のCSPが遮断するので、コンソールに違反の記録が残るだけになる。
+// 翻訳はFriendly Error System用で、この枠では使わないので、取りにいく前に断る
+var __fetch = window.fetch;
+window.fetch = function (input) {
+  var url = typeof input === 'string' ? input : (input && input.url) || '';
+  if ((url.indexOf('./') === 0 && url.slice(-5) === '.json' && url.indexOf('/', 2) === -1) || url.indexOf('/translations/') !== -1) {
+    return Promise.reject(new Error('translation skipped'));
+  }
+  return __fetch.apply(this, arguments);
+};
+window.addEventListener('error', function (ev) { __showError(ev.message); });
+window.addEventListener('unhandledrejection', function (ev) {
+  __showError(ev.reason && ev.reason.message ? ev.reason.message : ev.reason);
+});
+<\/script>
+<script src="${P5_URL}" onerror="__showError('p5.jsの読み込みに失敗しました。ページを再読み込みしてください。')"><\/script>
+<script>
+// Friendly Error Systemはコンソールに出すだけで、この枠では読めない。検査の負荷だけ残るので切る
+if (typeof p5 !== 'undefined') p5.disableFriendlyErrors = true;
+// スケッチ自身がnoLoop()で止めたのか、この枠が一時停止や画面外で止めたのかを区別する。
+// 区別しないと、画面に戻ったときにloop()を呼んで、静止画のスケッチまで回し続けてしまう
+var __wantLoop = true;
+var __internalCall = false;
+// 枠（一時停止ボタンか画面外）が止めているあいだは、スケッチがloop()を呼んでも動かさない。
+// 動かすと、クリックでloop()するスケッチが、一時停止中でも動き出す
+var __framePaused = false;
+if (typeof p5 !== 'undefined') {
+  var __noLoop = p5.prototype.noLoop;
+  var __loop = p5.prototype.loop;
+  p5.prototype.noLoop = function () {
+    if (!__internalCall) __wantLoop = false;
+    return __noLoop.apply(this, arguments);
+  };
+  p5.prototype.loop = function () {
+    if (!__internalCall) {
+      __wantLoop = true;
+      if (__framePaused) return;
+    }
+    return __loop.apply(this, arguments);
+  };
+}
+${BLANK_DECLARATION}
+<\/script>
+<script>
+${safeCode}
+<\/script>
+<script>
+(function () {
+  var userPaused = false;
+  var visible = true;
+  var toggle = document.getElementById('__toggle');
+  function canvasEl() { return document.querySelector('main canvas') || document.querySelector('canvas'); }
+  function applyAudio(stopped) {
+    __audioContexts.forEach(function (ctx) {
+      try {
+        if (ctx.state === 'closed') return;
+        if (stopped && ctx.state === 'running') {
+          ctx.__pausedByFrame = true;
+          ctx.suspend().catch(function () {});
+        } else if (!stopped && ctx.__pausedByFrame) {
+          ctx.__pausedByFrame = false;
+          ctx.resume().catch(function () {});
+        }
+      } catch (e) {}
+    });
+  }
+  function apply() {
+    __framePaused = userPaused || !visible;
+    applyAudio(__framePaused);
+    if (__failed || typeof loop !== 'function') return;
+    __internalCall = true;
+    try {
+      if (userPaused || !visible) noLoop();
+      else if (__wantLoop) loop();
+    } catch (e) {}
+    __internalCall = false;
+  }
+  // マウスが枠の外へ出たら、スケッチにも外へ出たと伝える。p5は枠の外の動きを受け取らないので、
+  // 何もしないとmouseXとmouseYが最後の位置に残り、「マウスが枠の中にあるあいだは追う、
+  // 外なら自動で動く」スケッチが、出た位置で止まったままになる
+  // 遠く離れた座標を渡すと、map(mouseX, ...)で刻みを決めるループが固まるので、出た位置のすぐ外にする
+  document.documentElement.addEventListener('mouseleave', function (ev) {
+    var x = ev.clientX, y = ev.clientY, w = window.innerWidth, h = window.innerHeight;
+    if (Math.min(x, w - x) < Math.min(y, h - y)) x = x < w / 2 ? -1 : w + 1;
+    else y = y < h / 2 ? -1 : h + 1;
+    var away = { clientX: x, clientY: y, bubbles: true };
+    window.dispatchEvent(typeof PointerEvent === 'function' ? new PointerEvent('pointermove', away) : new MouseEvent('mousemove', away));
+  });
+  // 操作バーへの押下やキー入力を、スケッチに渡さない。渡すと、クリックで描き直すスケッチで
+  // 「PNG保存」を押した瞬間に描き直しが始まり、空の絵が保存されていた
+  ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(function (type) {
+    document.getElementById('__bar').addEventListener(type, function (ev) { ev.stopPropagation(); });
+    document.getElementById('__error').addEventListener(type, function (ev) { ev.stopPropagation(); });
+  });
+  // キーはボタンを押すEnterとスペースだけ止める。矢印キーや文字キーまで止めると、
+  // Tabで操作バーに来た人がゲームを操作できなくなる
+  ['keydown', 'keyup', 'keypress'].forEach(function (type) {
+    document.getElementById('__bar').addEventListener(type, function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') ev.stopPropagation();
+    });
+  });
+  // カメラ・マイクを使っているあいだと、許可を待っているあいだだけ、止めるボタンを出す
+  var mediaButton = document.getElementById('__media');
+  __onMediaChange = function () {
+    var live = __mediaStreams.some(function (stream) {
+      return stream.getTracks().some(function (track) { return track.readyState === 'live'; });
+    });
+    mediaButton.hidden = !live && __mediaPending === 0;
+  };
+  __onMediaChange();
+  mediaButton.addEventListener('click', function () {
+    __mediaGeneration += 1;
+    __mediaStreams.forEach(function (stream) {
+      stream.getTracks().forEach(function (track) { track.stop(); });
+    });
+    __mediaStreams = [];
+    __onMediaChange();
+  });
+  function setPaused(paused) {
+    userPaused = paused;
+    toggle.textContent = userPaused ? '再生' : '一時停止';
+    apply();
+  }
+  toggle.addEventListener('click', function () { setPaused(!userPaused); });
+  document.getElementById('__restart').addEventListener('click', function () { location.reload(); });
+  document.getElementById('__save').addEventListener('click', function () {
+    var c = canvasEl();
+    if (!c) return;
+    if (typeof saveCanvas === 'function') { saveCanvas('sketch', 'png'); return; }
+    var a = document.createElement('a');
+    a.download = 'sketch.png';
+    a.href = c.toDataURL('image/png');
+    a.click();
+  });
+  // 矢印キーとスペースは、キーで操作するスケッチのあいだだけページを動かさない
+  if (${usesKeys ? 'true' : 'false'}) window.addEventListener('keydown', function (ev) {
+    var tag = ev.target && ev.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tag === 'BUTTON') return;
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].indexOf(ev.key) !== -1) ev.preventDefault();
+  });
+  // キャンバスを枠に収める。p5がstyleに書いた大きさ（= createCanvasの指定）を基準に縮小だけする
+  var baseW = 0, baseH = 0, lastW = '', lastH = '';
+  function fit() {
+    var c = canvasEl();
+    if (!c || typeof width === 'undefined' || !width) return;
+    var main = document.querySelector('main');
+    if (c.style.width !== lastW || c.style.height !== lastH) { baseW = width; baseH = height; }
+    var others = 0;
+    for (var i = 0; i < main.children.length; i++) {
+      var child = main.children[i];
+      if (child !== c && !child.contains(c) && child.offsetParent !== null && getComputedStyle(child).position !== 'absolute') others += child.offsetHeight + 6;
+    }
+    var availW = main.clientWidth - 8;
+    var availH = main.clientHeight - 8 - others;
+    var scale = Math.min(1, availW / baseW, availH / baseH);
+    if (!(scale > 0)) scale = 1;
+    lastW = Math.floor(baseW * scale) + 'px';
+    lastH = Math.floor(baseH * scale) + 'px';
+    if (c.style.width !== lastW) c.style.width = lastW;
+    if (c.style.height !== lastH) c.style.height = lastH;
+  }
+  // 通知が届く前にスケッチがparent()で別の要素へ入れた部品は動かさない（bodyに残っているものだけ移す）
+  // createSlider()などの部品はbodyの末尾に足される。操作バーの下に隠れないよう、キャンバスと同じ枠へ移す
+  new MutationObserver(function (records) {
+    var main = document.querySelector('main');
+    records.forEach(function (r) {
+      r.addedNodes.forEach(function (n) {
+        if (n.nodeType === 1 && n.parentNode === document.body && n.tagName !== 'SCRIPT' && n.tagName !== 'MAIN' && !n.id.startsWith('__') && n.style.position !== 'absolute') main.appendChild(n);
+      });
+    });
+  }).observe(document.body, { childList: true });
+  setInterval(fit, 250);
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', function () { setTimeout(fit, 0); apply(); });
+  // 最初の1フレームが描けたら、親ページに知らせる。親は、書き換えたスケッチが固まらずに動いたことを
+  // これで知る（固まる下書きを次に開いたとき自動で実行しないため）。
+  // 動きを減らす設定の人には、1フレーム描いたところで止めて「再生」で始めてもらう（WCAG 2.3.3）
+  var firstFrame = setInterval(function () {
+    if (typeof frameCount !== 'number' || frameCount < 1) return;
+    clearInterval(firstFrame);
+    try { parent.postMessage({ type: 'p5-preview-alive' }, '*'); } catch (e) {}
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+  }, 50);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[entries.length - 1].isIntersecting;
+      apply();
+    }).observe(document.documentElement);
+  }
 })();
 <\/script>
 </body>

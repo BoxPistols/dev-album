@@ -27,7 +27,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 ## 主要な制約
 
 - **アクセシビリティは必須要件**。WCAG AA（コントラスト 4.5:1）を満たす。色トークンは実測値で決める（手計算しない）。`text-black`/`text-white`/`bg-white` 直接使用は禁止（テーマ非対応になるため）。
-- プレビュー iframe は既定 `sandbox="allow-scripts allow-same-origin"`。`allow-same-origin` はセルフホストした `/vendor/` の UMD を同一オリジンとして解決するために要る。緩めた分は iframe 内の CSP（`default-src 'none'` / `script-src 'self' 'unsafe-inline'` / `connect-src 'none'`）で多層防御する。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために外せない。
+- プレビューiframeは既定`sandbox="allow-scripts allow-same-origin"`。`allow-same-origin`はセルフホストした`/vendor/`のUMDを同一オリジンとして解決するために要る。緩めた分はiframe内のCSP（`default-src 'none'` / `script-src 'self' 'unsafe-inline'` / `connect-src 'none'`）で多層防御する。`'unsafe-inline'`はトランスパイル済みの学習者コードをインラインで実行するために外せない。p5.jsのスケッチだけは`allow-downloads`を足し、カメラ・マイクは使うスケッチの枠にだけ`allow`で許す（使わない枠には`'none'`を明示する。付けないだけでは同一オリジンの枠は既定で許可される）。専用のCSP（`P5_PREVIEW_CSP`）で`'unsafe-eval'`（p5.strandsがシェーダーを組み立てるために使う）と`connect-src data: blob:`を許し、`img-src`は`data:`と`blob:`だけにする。ただしCSPが止めるのは枠の中からの直接の通信だけで、同一オリジンの親ページ（`parent.fetch`など）を経由した通信や`localStorage`への到達は止められない。JSXプレビューと同じく、プレビューが実行するのは教材のコードと学習者が自分で書いたコードに限られる、という前提に立つ。
 - 教材のトーンはフラットで実用的。エモーショナルなコピー・ネガティブ訴求・クリシェを禁止。
 
 ## 意思決定の記録
@@ -37,7 +37,7 @@ Claude Code 固有の指示は [CLAUDE.md](./CLAUDE.md)、機能仕様は [specs
 
 ### 採用: Sucrase によるブラウザ内トランスパイル + セルフホスト UMD でプレビュー描画
 - 理由: ビルドを挟まず「書いて即結果」を実現するのが教材の核。
-- 配信: プレビューが読む UMD は React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本を**すべて `client/public/vendor/` にセルフホスト**する（`client/src/lib/preview.ts`）。CDN を単一障害点にせず、オフライン・社内網でも動かすため。iframe の CSP は `script-src 'self' 'unsafe-inline'` のため、外部ホストのスクリプトは構造的に読み込めない（インライン許可は学習者コードの実行にのみ効く）。
+- 配信:プレビューが読むUMDはReact / ReactDOM / Three / MUI / Tailwind / styled-components / Emotionの計9本とp5.jsを**すべて`client/public/vendor/`にセルフホスト**する（`client/src/lib/preview.ts`）。CDNを単一障害点にせず、オフライン・社内網でも動かすため。iframeのCSPは`script-src 'self' 'unsafe-inline'`のため、外部ホストのスクリプトは構造的に読み込めない（インライン許可は学習者コードの実行にのみ効く）。
 - 制約: プレビューの React は **18.3.1**、Three.js は **0.160.1**、MUI は **v5.18** に固定する。React 19 / Three.js 0.161+ / MUI v6+ は UMD ビルドを配布しておらず、セルフホストする成果物が存在しないため。
 - 版ずれ検知: `pnpm freshness` で npm レジストリの最新版との乖離を検出する。
 

@@ -50,6 +50,9 @@ const PAGES = [
   // Goマニュアル。ブランド色・表・タブ字下げのコードブロック・チャレンジを含む
   { path: "/go", name: "Go Home" },
   { path: "/go/basics/setup", name: "Go（ブランド色・表・チャレンジ）" },
+  // p5.jsマニュアル。ブランド色と、スケッチのプレビュー枠（iframe）を含む
+  { path: "/p5js", name: "p5.js Home" },
+  { path: "/p5js/basics/first-sketch", name: "p5.js（ブランド色・スケッチのプレビュー）" },
 ] as const;
 
 // ThemeContext は html に付与するクラスでテーマを切り替える（dark / dark+dark-soft）
@@ -83,7 +86,7 @@ for (const theme of THEMES) {
 
       const results = await new AxeBuilder({ page })
         // プレビュー iframe 内は教材コード（学習者の編集対象）なので対象外
-        .exclude('iframe[title="プレビュー"]')
+        .exclude('iframe[title^="プレビュー"]')
         .analyze();
 
       const blocking = results.violations.filter(

@@ -31,7 +31,8 @@
     "fix:links": "node scripts/fix-redirected-links.mjs",
     "check:prerender": "node scripts/check-prerender.mjs",
     "check:freshness": "tsx scripts/check-source-freshness.mjs",
-    "check:prose": "node scripts/check-prose.mjs"
+    "check:prose": "node scripts/check-prose.mjs",
+    "check:p5": "tsx scripts/check-p5-sketches.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.3.1",

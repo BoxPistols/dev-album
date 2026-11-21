@@ -10,6 +10,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const config: StorybookConfig = {
   stories: ["../client/src/**/*.stories.@(ts|tsx)"],
   addons: ["@storybook/addon-a11y", "@storybook/addon-vitest"],
+  // プレビュー（CodePreviewなど）は/vendor/にセルフホストしたライブラリを読む。アプリと同じく配る
+  staticDirs: ["../client/public"],
   framework: {
     name: "@storybook/react-vite",
     options: {},
