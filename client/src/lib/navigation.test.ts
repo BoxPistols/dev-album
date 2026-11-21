@@ -26,6 +26,7 @@ describe("navigation データ整合性", () => {
       "react",
       "claude-code",
       "threejs",
+      "p5js",
       "ai-ml",
       "ux-design",
       "api",
@@ -37,7 +38,7 @@ describe("navigation データ整合性", () => {
   });
 
   it("総ページ数", () => {
-    expect(pages.length).toBe(372);
+    expect(pages.length).toBe(401);
   });
 
   it("マニュアル別ページ数", () => {
@@ -45,6 +46,7 @@ describe("navigation データ整合性", () => {
     expect(getManualPages("react").length).toBe(82);
     expect(getManualPages("git").length).toBe(43);
     expect(getManualPages("threejs").length).toBe(23);
+    expect(getManualPages("p5js").length).toBe(29);
     expect(getManualPages("claude-code").length).toBe(43);
     expect(getManualPages("ai-ml").length).toBe(24);
     expect(getManualPages("ux-design").length).toBe(15);
@@ -97,6 +99,7 @@ describe("navigation データ整合性", () => {
       "react",
       "git",
       "threejs",
+      "p5js",
       "claude-code",
       "ai-ml",
       "ux-design",

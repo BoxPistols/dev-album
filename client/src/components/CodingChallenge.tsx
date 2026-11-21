@@ -7,6 +7,10 @@ import {
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
+  buildP5PreviewHtml,
+  isP5Sketch,
+  P5_IFRAME_ALLOW,
+  P5_IFRAME_SANDBOX,
   type PreviewLib,
 } from '@/lib/preview';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
@@ -24,8 +28,8 @@ interface CodingChallengeProps {
   validator?: (input: string) => boolean;
   /** プレビューを表示するか */
   preview?: boolean;
-  /** プレビュー種別: threejs / markdown / terminal / config / jsx（デフォルト自動判定） */
-  previewType?: 'threejs' | 'markdown' | 'terminal' | 'config' | 'jsx';
+  /** プレビュー種別: threejs / p5 / markdown / terminal / config / jsx（デフォルト自動判定） */
+  previewType?: 'threejs' | 'p5' | 'markdown' | 'terminal' | 'config' | 'jsx';
   css?: string;
   /** プレビュー iframe に読み込む外部ライブラリ（MUI は import 文から自動検出される） */
   libs?: PreviewLib[];
@@ -92,6 +96,7 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[], in
 export function resolvePreviewType(code: string, previewType?: string): string {
   if (previewType) return previewType;
   if (/\bTHREE\b/.test(code)) return 'threejs';
+  if (isP5Sketch(code)) return 'p5';
 
   const trimmed = code.trim();
   const trimmedLines = code.split('\n').filter(l => l.trim());
@@ -171,6 +176,8 @@ function buildPreviewForType(
   switch (type) {
     case 'threejs':
       return buildThreePreviewHtml(code, isDark);
+    case 'p5':
+      return buildP5PreviewHtml(code, isDark);
     case 'markdown':
       return buildMarkdownPreviewHtml(code, isDark);
     case 'terminal':
@@ -377,7 +384,8 @@ export default function CodingChallenge({
   };
 
   // Three.js プレビューは高さを大きめに
-  const previewMinHeight = resolvedType === 'threejs' ? 300 : 160;
+  const isP5 = resolvedType === 'p5';
+  const previewMinHeight = isP5 ? 380 : resolvedType === 'threejs' ? 300 : 160;
 
   return (
     <div className="rounded-xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20 p-6 my-6">
@@ -415,7 +423,8 @@ export default function CodingChallenge({
                 srcDoc={previewHtml}
                 className="w-full h-full border-0"
                 style={{ minHeight: previewMinHeight }}
-                sandbox="allow-scripts allow-same-origin"
+                sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
+                allow={isP5 ? P5_IFRAME_ALLOW : undefined}
                 title="プレビュー"
               />
             )}

@@ -3,6 +3,10 @@ import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical 
 import { Highlight, themes, type Language } from 'prism-react-renderer';
 import {
   buildThreePreviewHtml,
+  buildP5PreviewHtml,
+  isP5Sketch,
+  P5_IFRAME_ALLOW,
+  P5_IFRAME_SANDBOX,
   useDebouncedPreview,
   type PreviewLib,
 } from '@/lib/preview';
@@ -63,20 +67,31 @@ export default function CodePreview({
   const prismLanguage = resolveLanguage(language);
   // 素のThree.jsはReactを経由しないので、JSX用の組み立てでは描画されない
   const isThree = /\bTHREE\b/.test(editableCode);
-  const canPreview = language === 'tsx' || language === 'jsx';
+  // p5.js のスケッチは素の JavaScript で書くので、language が js でもプレビューする
+  const isP5 = isP5Sketch(editableCode);
+  const canPreview = language === 'tsx' || language === 'jsx' || isP5;
   const isHorizontal = layout === 'horizontal';
 
   const jsxPreviewHtml = useDebouncedPreview(
     editableCode,
     css,
-    canPreview && !isThree,
+    canPreview && !isThree && !isP5,
     300,
     isDarkTheme(theme),
     libs,
   );
-  const previewHtml =
-    canPreview && isThree
-      ? buildThreePreviewHtml(editableCode, isDarkTheme(theme))
+  // p5 は入力のたびに iframe を作り直すと描画が始まらないので、打鍵が止まってから組み立てる
+  const isDark = isDarkTheme(theme);
+  const [p5Html, setP5Html] = useState(() => (isP5 ? buildP5PreviewHtml(code, isDark) : ''));
+  useEffect(() => {
+    if (!isP5) return;
+    const timer = setTimeout(() => setP5Html(buildP5PreviewHtml(editableCode, isDark)), 400);
+    return () => clearTimeout(timer);
+  }, [editableCode, isDark, isP5]);
+  const previewHtml = isP5
+    ? p5Html
+    : canPreview && isThree
+      ? buildThreePreviewHtml(editableCode, isDark)
       : jsxPreviewHtml;
 
   const handleReset = () => setEditableCode(code);
@@ -236,7 +251,10 @@ export default function CodePreview({
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}
-            sandbox="allow-scripts allow-same-origin"
+            // p5 は PNG 保存（ダウンロード）とカメラ・マイクを使う教材があるので、その分だけ広げる
+            sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
+            allow={isP5 ? P5_IFRAME_ALLOW : undefined}
+            loading={isP5 ? 'lazy' : undefined}
             title="プレビュー"
             className="w-full h-full border-0"
           />

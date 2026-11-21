@@ -46,6 +46,7 @@ const MANUALS = [
   "api",
   "vue",
   "go",
+  "p5js",
 ] as const;
 type Manual = (typeof MANUALS)[number];
 
@@ -553,7 +554,7 @@ describe("ManualGlyph のバッジ地色", () => {
       alphaMatch,
       "TINT_ALPHA を ManualGlyph.tsx から読めない",
     ).toBeTruthy();
-    expect(brandColors).toHaveLength(12);
+    expect(brandColors).toHaveLength(13);
   });
 
   it("頭文字（--foreground）がバッジ地色の上で AA 4.5:1 を満たす", () => {

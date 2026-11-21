@@ -11,6 +11,8 @@ export type PreviewLib = 'mui' | 'tailwind' | 'styled-components' | 'emotion';
 const REACT_UMD_URL = '/vendor/react-18.3.1.production.min.js';
 const REACT_DOM_UMD_URL = '/vendor/react-dom-18.3.1.production.min.js';
 const THREE_UMD_URL = '/vendor/three-0.160.1.min.js';
+// p5.js は 2.x 系の IIFE ビルド（グローバルに p5 を置き、setup / draw を見つけて自動で起動する）
+const P5_URL = '/vendor/p5-2.4.0.min.js';
 const MUI_UMD_URL = '/vendor/mui-material-5.18.0.umd.min.js';
 const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
 // Tailwind v4 のブラウザ実行ビルド（クラスを実行時にコンパイルする公式デモ用ビルド）
@@ -278,6 +280,183 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
     document.getElementById('error').textContent = 'Three.js の読み込みに失敗しました';
   };
   document.head.appendChild(s);
+})();
+<\/script>
+</body>
+</html>`;
+}
+
+/**
+ * p5.js のスケッチ（グローバルモード）かどうか。
+ * setup() と createCanvas() の両方があるコードだけを対象にする。
+ */
+export function isP5Sketch(code: string): boolean {
+  return /\bfunction\s+setup\s*\(/.test(code) && /\bcreateCanvas\s*\(/.test(code);
+}
+
+/** p5 プレビューの iframe 属性。PNG 保存のために allow-downloads を足す */
+export const P5_IFRAME_SANDBOX = 'allow-scripts allow-same-origin allow-downloads';
+/** カメラとマイクを使うスケッチ用。許可はブラウザが利用者に確認する */
+export const P5_IFRAME_ALLOW = 'camera; microphone';
+
+// p5 プレビュー専用の CSP。JSX 用との差分:
+// - 'unsafe-eval': p5.strands（シェーダーを JavaScript で書く機能）が関数を組み立て直すために使う。
+//   この iframe は学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
+// - connect-src data: blob:: loadImage() は内部で fetch を使う。データ URL と、学習者が選んだ
+//   ファイル（blob:）だけを通し、外部ホストへの送信は引き続き遮断する
+// - media-src: カメラ映像（mediastream:）と録音・生成した音を <video> / <audio> で扱うため
+const P5_PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src data:; img-src data: blob: https:; media-src data: blob: mediastream:; connect-src data: blob:; base-uri 'none'`;
+
+/**
+ * p5.js のスケッチをプレビュー用 HTML に変換する。
+ *
+ * - スケッチはグローバルモードのまま実行する（p5 Web Editor に貼っても同じに動く）
+ * - キャンバスは枠に収まるよう縮小表示する（拡大はしない）。マウス座標は p5 が表示倍率を見て補正する
+ * - 動き続ける表示には止める手段が要る（WCAG 2.2.2）。一時停止・最初から・PNG 保存を下部に置く
+ * - 画面外に出たら自動で止める。1 ページに複数のスケッチを置いても CPU を使い続けない
+ */
+export function buildP5PreviewHtml(code: string, isDark = true): string {
+  const bg = isDark ? '#16161e' : '#ececf0';
+  const fg = isDark ? '#cdd6f4' : '#3f3f46';
+  const barBg = isDark ? '#1e1e2e' : '#f4f4f5';
+  const border = isDark ? '#45475a' : '#d4d4d8';
+  const danger = isDark ? '#f38ba8' : '#b91c1c';
+  const hasBlanks = /\b___\b/.test(code);
+  // インラインスクリプトに埋め込むので、HTML パーサーがスクリプトの終わりと誤認する並びを崩す
+  const safeCode = code.replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="${P5_PREVIEW_CSP}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: ${bg}; color: ${fg}; font: 12px/1.4 system-ui, sans-serif; display: flex; flex-direction: column; }
+  main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 4px; }
+  canvas { display: block; flex-shrink: 0; }
+  main input, main button, main select { font: inherit; max-width: 100%; }
+  #__bar { flex-shrink: 0; display: flex; gap: 4px; justify-content: flex-end; padding: 3px 4px; background: ${barBg}; border-top: 1px solid ${border}; }
+  #__bar button { font: inherit; color: ${fg}; background: transparent; border: 1px solid ${border}; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
+  #__bar button:hover { background: ${border}; }
+  #__bar button:focus-visible { outline: 2px solid ${fg}; outline-offset: 1px; }
+  #__error { display: none; flex-shrink: 0; margin: 0; padding: 8px 10px; max-height: 45%; overflow: auto; font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; color: ${danger}; background: ${barBg}; border-top: 1px solid ${border}; }
+  #__error.hint { color: ${fg}; font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main></main>
+<pre id="__error" role="status"></pre>
+<div id="__bar">
+  <button type="button" id="__toggle" aria-pressed="false">一時停止</button>
+  <button type="button" id="__restart">最初から</button>
+  <button type="button" id="__save">PNG保存</button>
+</div>
+<script>
+var __hasBlanks = ${hasBlanks ? 'true' : 'false'};
+var __failed = false;
+function __showError(message) {
+  if (__failed) return;
+  __failed = true;
+  var el = document.getElementById('__error');
+  var text = String(message).replace(/^Uncaught /, '');
+  if (__hasBlanks) {
+    el.className = 'hint';
+    el.textContent = '空欄（___）を埋めるとスケッチが動きます。\\nいまのエラー: ' + text;
+  } else {
+    el.textContent = 'Error: ' + text;
+  }
+  el.style.display = 'block';
+  // draw() の中のエラーは毎フレーム起きるので、1 回出したら止める
+  try { if (typeof noLoop === 'function') noLoop(); } catch (e) {}
+}
+window.addEventListener('error', function (ev) { __showError(ev.message); });
+window.addEventListener('unhandledrejection', function (ev) {
+  __showError(ev.reason && ev.reason.message ? ev.reason.message : ev.reason);
+});
+<\/script>
+<script src="${P5_URL}" onerror="__showError('p5.js の読み込みに失敗しました。ページを再読み込みしてください。')"><\/script>
+<script>
+// Friendly Error System はコンソールに出すだけで、この枠では読めない。検査の負荷だけ残るので切る
+if (typeof p5 !== 'undefined') p5.disableFriendlyErrors = true;
+${BLANK_DECLARATION}
+<\/script>
+<script>
+${safeCode}
+<\/script>
+<script>
+(function () {
+  var userPaused = false;
+  var visible = true;
+  var toggle = document.getElementById('__toggle');
+  function canvasEl() { return document.querySelector('main canvas') || document.querySelector('canvas'); }
+  function apply() {
+    if (__failed || typeof loop !== 'function') return;
+    try { if (userPaused || !visible) noLoop(); else loop(); } catch (e) {}
+  }
+  toggle.addEventListener('click', function () {
+    userPaused = !userPaused;
+    toggle.textContent = userPaused ? '再生' : '一時停止';
+    toggle.setAttribute('aria-pressed', String(userPaused));
+    apply();
+  });
+  document.getElementById('__restart').addEventListener('click', function () { location.reload(); });
+  document.getElementById('__save').addEventListener('click', function () {
+    var c = canvasEl();
+    if (!c) return;
+    if (typeof saveCanvas === 'function') { saveCanvas('sketch', 'png'); return; }
+    var a = document.createElement('a');
+    a.download = 'sketch.png';
+    a.href = c.toDataURL('image/png');
+    a.click();
+  });
+  // 矢印キーとスペースは、スケッチの操作に使うあいだページを動かさない
+  window.addEventListener('keydown', function (ev) {
+    var tag = ev.target && ev.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tag === 'BUTTON') return;
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].indexOf(ev.key) !== -1) ev.preventDefault();
+  });
+  // キャンバスを枠に収める。p5 が style に書いた大きさ（= createCanvas の指定）を基準に縮小だけする
+  var baseW = 0, baseH = 0, lastW = '', lastH = '';
+  function fit() {
+    var c = canvasEl();
+    if (!c || typeof width === 'undefined' || !width) return;
+    var main = document.querySelector('main');
+    if (c.style.width !== lastW || c.style.height !== lastH) { baseW = width; baseH = height; }
+    var others = 0;
+    for (var i = 0; i < main.children.length; i++) {
+      var child = main.children[i];
+      if (child !== c && child.offsetParent !== null && getComputedStyle(child).position !== 'absolute') others += child.offsetHeight + 6;
+    }
+    var availW = main.clientWidth - 8;
+    var availH = main.clientHeight - 8 - others;
+    var scale = Math.min(1, availW / baseW, availH / baseH);
+    if (!(scale > 0)) scale = 1;
+    lastW = Math.floor(baseW * scale) + 'px';
+    lastH = Math.floor(baseH * scale) + 'px';
+    if (c.style.width !== lastW) c.style.width = lastW;
+    if (c.style.height !== lastH) c.style.height = lastH;
+  }
+  // createSlider() などの部品は body の末尾に足される。操作バーの下に隠れないよう、キャンバスと同じ枠へ移す
+  new MutationObserver(function (records) {
+    var main = document.querySelector('main');
+    records.forEach(function (r) {
+      r.addedNodes.forEach(function (n) {
+        if (n.nodeType === 1 && n.tagName !== 'SCRIPT' && n.tagName !== 'MAIN' && !n.id.startsWith('__') && n.style.position !== 'absolute') main.appendChild(n);
+      });
+    });
+  }).observe(document.body, { childList: true });
+  setInterval(fit, 250);
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', function () { setTimeout(fit, 0); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[entries.length - 1].isIntersecting;
+      apply();
+    }).observe(document.documentElement);
+  }
 })();
 <\/script>
 </body>
