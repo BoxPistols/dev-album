@@ -30,7 +30,7 @@ function draw() {
 
   // 地形を奥へ寝かせて、見下ろす角度にする
   rotateX(1.15);
-  translate(-cols * cell / 2, -rows * cell / 2 - 150, -120);
+  translate(-cols * cell / 2, -rows * cell / 2 - 35, -110);
 
   strokeWeight(1);
   for (let y = 0; y < rows - 1; y++) {

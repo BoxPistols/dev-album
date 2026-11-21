@@ -482,7 +482,7 @@ export default function Fractals() {
               、分かれ道から戻るには
               <code className={code}>push()</code>と
               <code className={code}>pop()</code>
-              を使います。下のスライダーで、枝の角度（左）と縮小率（右）を変えられます。
+              を使います。絵の下のスライダーで、枝の角度（上）と縮小率（下）を変えられます。
             </p>
             <CodePreview
               title="角度と縮小率を変えられる木"

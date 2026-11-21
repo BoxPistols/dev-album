@@ -338,6 +338,8 @@ export function buildP5PreviewHtml(code: string, isDark = true): string {
   main { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 4px; }
   canvas { display: block; flex-shrink: 0; }
   main input, main button, main select { font: inherit; max-width: 100%; }
+  a { color: inherit; }
+  table { font: inherit; color: inherit; }
   #__bar { flex-shrink: 0; display: flex; gap: 4px; justify-content: flex-end; padding: 3px 4px; background: ${barBg}; border-top: 1px solid ${border}; }
   #__bar button { font: inherit; color: ${fg}; background: transparent; border: 1px solid ${border}; border-radius: 4px; padding: 2px 8px; cursor: pointer; }
   #__bar button:hover { background: ${border}; }
