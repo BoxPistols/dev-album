@@ -823,3 +823,29 @@ describe("p5IframeAttributes", () => {
     ).toBe("camera; microphone");
   });
 });
+
+describe("buildP5PreviewHtml: 操作バーと音", () => {
+  const html = buildP5PreviewHtml("function setup() { createCanvas(1, 1); }");
+
+  it("操作バーへの押下とキー入力をスケッチに渡さない（PNG保存で描き直しが始まらない）", () => {
+    expect(html).toContain("getElementById('__bar').addEventListener(type, function (ev) { ev.stopPropagation(); })");
+    for (const type of ["mousedown", "click", "pointerdown", "touchstart", "keydown"]) {
+      expect(html).toContain(`'${type}'`);
+    }
+  });
+
+  it("一時停止と画面外で、スケッチが鳴らしている音も止める（WCAG 1.4.2）", () => {
+    // スケッチより先にAudioContextを差し替え、作られた処理系を覚えておく
+    expect(html.indexOf("__audioContexts.push(this)")).toBeLessThan(html.indexOf("/vendor/p5-2.4.0.min.js"));
+    expect(html).toContain("ctx.suspend()");
+    expect(html).toContain("ctx.resume()");
+  });
+});
+
+describe("buildP5PreviewHtml: マウスが枠の外へ出たとき", () => {
+  it("スケッチにも枠の外の座標を伝える（最後の位置に残らない）", () => {
+    const html = buildP5PreviewHtml("function setup() { createCanvas(1, 1); }");
+    expect(html).toContain("addEventListener('mouseleave'");
+    expect(html).toContain("clientX: -9999");
+  });
+});

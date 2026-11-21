@@ -45,6 +45,12 @@ export function fuzzyCheck(code: string, answer: string, keywords?: string[], in
 
   if (normalizedCode === normalizedAnswer) return true;
 
+  // 空欄（___）が残っていれば不正解。同じキーワードを入れる空欄が2か所あると、
+  // 1か所埋めただけでキーワードの判定を通ってしまう（p5.jsマニュアルの点検で見つかった）。
+  // 答えそのものに___を含む問題は無いが、念のため答えに無いときだけ当てる
+  const BLANK = /\b___\b/;
+  if (BLANK.test(code) && !BLANK.test(answer)) return false;
+
   if (keywords && keywords.length > 0) {
     // initialCode がある場合: ユーザーが変更した部分（差分）のみで判定
     // これにより、プリフィル済みコード内の keyword 誤マッチを防ぐ

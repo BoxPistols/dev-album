@@ -397,6 +397,19 @@ function __showError(message) {
 // p5.jsは読み込まれた時点で、エラー文の翻訳ファイルを相対パスとCDNから取りにいく。
 // どちらもこの枠のCSPが遮断するので、コンソールに違反の記録が残るだけになる。
 // 翻訳はFriendly Error System用で、この枠では使わないので、取りにいく前に断る
+// スケッチが作った音声の処理系（Web Audio）を覚えておく。一時停止と画面外で音も止めるため。
+// draw()を止めても音は鳴り続ける（WCAG 1.4.2: 3秒を超えて鳴る音は止められること）
+var __audioContexts = [];
+['AudioContext', 'webkitAudioContext'].forEach(function (name) {
+  var Original = window[name];
+  if (typeof Original !== 'function') return;
+  window[name] = class extends Original {
+    constructor(options) {
+      super(options);
+      __audioContexts.push(this);
+    }
+  };
+});
 var __fetch = window.fetch;
 window.fetch = function (input) {
   var url = typeof input === 'string' ? input : (input && input.url) || '';
@@ -441,7 +454,21 @@ ${safeCode}
   var visible = true;
   var toggle = document.getElementById('__toggle');
   function canvasEl() { return document.querySelector('main canvas') || document.querySelector('canvas'); }
+  function applyAudio(stopped) {
+    __audioContexts.forEach(function (ctx) {
+      try {
+        if (stopped && ctx.state === 'running') {
+          ctx.__pausedByFrame = true;
+          ctx.suspend();
+        } else if (!stopped && ctx.__pausedByFrame) {
+          ctx.__pausedByFrame = false;
+          ctx.resume();
+        }
+      } catch (e) {}
+    });
+  }
   function apply() {
+    applyAudio(userPaused || !visible);
     if (__failed || typeof loop !== 'function') return;
     __internalCall = true;
     try {
@@ -450,6 +477,18 @@ ${safeCode}
     } catch (e) {}
     __internalCall = false;
   }
+  // マウスが枠の外へ出たら、スケッチにも外へ出たと伝える。p5は枠の外の動きを受け取らないので、
+  // 何もしないとmouseXとmouseYが最後の位置に残り、「マウスが枠の中にあるあいだは追う、
+  // 外なら自動で動く」スケッチが、出た位置で止まったままになる
+  document.documentElement.addEventListener('mouseleave', function () {
+    var away = { clientX: -9999, clientY: -9999, bubbles: true };
+    window.dispatchEvent(typeof PointerEvent === 'function' ? new PointerEvent('pointermove', away) : new MouseEvent('mousemove', away));
+  });
+  // 操作バーへの押下やキー入力を、スケッチに渡さない。渡すと、クリックで描き直すスケッチで
+  // 「PNG保存」を押した瞬間に描き直しが始まり、空の絵が保存されていた
+  ['mousedown', 'mouseup', 'click', 'pointerdown', 'pointerup', 'touchstart', 'touchend', 'keydown', 'keyup'].forEach(function (type) {
+    document.getElementById('__bar').addEventListener(type, function (ev) { ev.stopPropagation(); });
+  });
   toggle.addEventListener('click', function () {
     userPaused = !userPaused;
     toggle.textContent = userPaused ? '再生' : '一時停止';

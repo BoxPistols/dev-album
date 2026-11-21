@@ -126,3 +126,26 @@ describe("fuzzyCheck: 行ベース部分一致", () => {
     expect(fuzzyCheck(code, answer)).toBe(false);
   });
 });
+
+// ============================================================
+// 空欄（___）が残っている
+// ============================================================
+describe("fuzzyCheck: 空欄が残っている", () => {
+  // 同じキーワードを入れる空欄が2か所ある問題（再帰の木で左右の枝を描く）
+  const initialCode = "if (len > 6) {\n  ___(len * 0.68);\n  ___(len * 0.68);\n}";
+  const answer = "if (len > 6) {\n  branch(len * 0.68);\n  branch(len * 0.68);\n}";
+
+  it("1か所だけ埋めても、残りが空欄なら不正解", () => {
+    const code = "if (len > 6) {\n  branch(len * 0.68);\n  ___(len * 0.68);\n}";
+    expect(fuzzyCheck(code, answer, ["branch"], initialCode)).toBe(false);
+  });
+
+  it("すべて埋めれば正解", () => {
+    expect(fuzzyCheck(answer, answer, ["branch"], initialCode)).toBe(true);
+  });
+
+  it("____（4本）や__init__は空欄として扱わない", () => {
+    const pyAnswer = "def __init__(self):\n  self.x = 1";
+    expect(fuzzyCheck(pyAnswer, pyAnswer)).toBe(true);
+  });
+});
