@@ -22,6 +22,7 @@ import { MODEL_OPTIONS } from "@/hooks/useChatSettings";
 import { getPageContext } from "@/lib/chatContext";
 import { buildChatFilename, buildChatMarkdown } from "@/lib/chatExport";
 import { useLocation } from "wouter";
+import { clientIdHeaders } from "@/lib/clientId";
 
 const IS_MAC =
   typeof navigator !== "undefined" && /Mac/.test(navigator.userAgent);
@@ -191,7 +192,7 @@ export default function ChatWidget() {
       const { selectedModel, userApiKey } = chatSettings;
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...clientIdHeaders() },
         body: JSON.stringify({
           messages: [{ role: "user", content: "ping" }],
           systemPrompt: "1文字だけ返してください。",

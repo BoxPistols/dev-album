@@ -60,7 +60,7 @@ export default function PolicyChatQuota() {
                     デプロイ時の設定値（下記の方法で確認）
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
-                    IP + ブラウザ
+                    IPアドレスごと（ブラウザごとの最低保証あり）
                   </td>
                 </tr>
                 <tr>
@@ -98,19 +98,32 @@ export default function PolicyChatQuota() {
             </h2>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            利用カウントは{" "}
+            匿名の上限はIPアドレスごとに数えます（
             <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
-              SHA-256(IP + UserAgent)
+              SHA-256(IP)
             </code>{" "}
-            の先頭 32 桁をセッション ID
-            として集計されます。区分 (匿名 / BYOK) はセッション ID
-            ではなくカウンタのキー側に含まれます。同じネットワーク・同じブラウザからの複数タブは同一セッション扱いです。
+            の先頭32桁）。ブラウザを変えても同じ回線からは同じ枠を使います。
+            IPv6は/64単位でまとめて数えます。
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+            社内や学校のように回線を共有していて、ほかの人がIPの枠を使い切っていても、ブラウザごとに一定の回数までは使えます。
+            ブラウザの区別には、ブラウザに保存したランダムなID（
+            <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
+              quota-client-id
+            </code>
+            ）とIPアドレスを組み合わせたハッシュを使います。この最低保証にも回線ごとの上限があり、
+            また全体の利用量が当日の上限に達した場合は、匿名での利用をいったん止めます。
           </p>
           <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-6">
             <li>
-              IP アドレスは保存せず、上記のセッション ID
-              だけを使います。カウンタは最終アクセスから 48
-              時間で自動失効します
+              IPアドレスは保存せず、上記のハッシュだけを使います。カウンタは最終アクセスから48時間で自動失効します
+            </li>
+            <li>
+              上限に達したときの応答（429）には、次に使えるまでの秒数を{" "}
+              <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
+                Retry-After
+              </code>{" "}
+              ヘッダで付けます
             </li>
             <li>個人を特定する情報 (氏名・メール等) は記録しません</li>
             <li>

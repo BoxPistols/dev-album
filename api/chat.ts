@@ -7,11 +7,12 @@ import {
   getRedis,
   nextUtcMidnightEpoch,
   QUOTA_POLICY_URL,
-  sessionKey,
+  secondsUntilReset,
   TIER_CAPS,
   todayUtc,
   type Tier,
 } from "./lib/quota.js";
+import { CLIENT_ID_HEADER, readClientId } from "./lib/clientId.js";
 import {
   DEFAULT_MODELS,
   GEMINI_BASE_URL,
@@ -55,8 +56,11 @@ function setCommonHeaders(
   tier: Tier,
   remaining: number | null,
   limit: number | null,
+  quotaEnabled: boolean,
 ) {
   res.setHeader("X-Chat-Tier", tier);
+  // 回数制限が実際に効いているか（Redisの接続情報があるか）を外から確かめられるようにする
+  res.setHeader("X-Chat-Quota-Status", quotaEnabled ? "enabled" : "disabled");
   res.setHeader("X-Chat-Quota-Policy", QUOTA_POLICY_URL);
   res.setHeader("X-RateLimit-Reset", String(nextUtcMidnightEpoch()));
   if (limit !== null && Number.isFinite(limit)) {
@@ -94,9 +98,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const redis = getRedis();
   const ip = extractClientIp(req.headers["x-forwarded-for"]);
   const ua = String(req.headers["user-agent"] ?? "unknown");
+  // 最低保証はブラウザのIDで数える。送られないときはUser-Agentで代える
+  const client = readClientId(req.headers[CLIENT_ID_HEADER]) ?? `ua:${ua}`;
 
   const tier: Tier = userApiKey ? "byok" : "anonymous";
-  const sid = sessionKey(ip, ua);
   const day = todayUtc();
   const estimatedInput = messages.reduce(
     (sum, m) => sum + estimateTokens(m.content),
@@ -107,20 +112,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let limit: number | null = null;
   let globalKill = false;
   let allowed = true;
+  let enforced = false;
 
   if (redis) {
-    const result = await consumeQuota(redis, tier, sid, day, estimatedInput);
+    const result = await consumeQuota(
+      redis,
+      tier,
+      ip,
+      client,
+      day,
+      estimatedInput,
+    );
     remaining = Number.isFinite(result.remaining) ? result.remaining : null;
     limit = Number.isFinite(result.limit) ? result.limit : null;
     globalKill = result.globalKill;
     allowed = result.allowed;
+    enforced = result.enforced;
   } else if (tier !== "byok") {
     // Redis 未設定: カウンタなしで運用、残量は tier cap をそのまま表示 (情報提供のみ)
     limit = Number.isFinite(TIER_CAPS[tier]) ? TIER_CAPS[tier] : null;
   }
 
   // ── ヘッダ設定 (エラー応答にも必須) ──
-  setCommonHeaders(res, tier, remaining, limit);
+  setCommonHeaders(res, tier, remaining, limit, enforced);
 
   // Global kill switch
   if (globalKill && tier !== "byok") {
@@ -133,6 +147,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Tier quota exhausted
   if (!allowed) {
+    res.setHeader("Retry-After", String(secondsUntilReset()));
     return res.status(429).json({
       error: "quota_exhausted",
       tier,

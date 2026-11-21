@@ -10,6 +10,7 @@ import {
 import { searchFaq, formatFaqResponse } from "@/lib/faqSearch";
 import { useChatHistory } from "./useChatHistory";
 import { useChatSettings } from "./useChatSettings";
+import { clientIdHeaders } from "@/lib/clientId";
 
 export type ChatMode = "ai" | "faq";
 
@@ -94,7 +95,7 @@ export function useChatApi() {
 
         const response = await fetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...clientIdHeaders() },
           body: JSON.stringify({
             messages: recentMessages,
             systemPrompt: buildSystemPrompt(ctx),

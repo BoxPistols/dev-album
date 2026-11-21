@@ -20,6 +20,24 @@ export interface Announcement {
 
 export const ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "2026-11-21-chat-quota-per-ip",
+    date: "2026-11-21",
+    title: "AIチャットとJevの利用枠を、IPアドレスごとに数えるようにした",
+    description:
+      "ブラウザを変えても枠が増えないように、匿名の上限をIPアドレスごとに数える。回線を共有していてほかの人が枠を使い切った場合も、ブラウザごとに一定の回数までは使える。利用ポリシーのページに数え方を追記した。",
+    category: "update",
+    link: "/policy/chat-quota",
+  },
+  {
+    id: "2026-11-21-tailwind-intro-reference-link",
+    date: "2026-11-21",
+    title: "Tailwind入門の参考リンクの重複を直した",
+    description:
+      "公式ドキュメントへのリンクが導入手順のページを指していたので、ユーティリティクラスの使い方を説明するページに直した。",
+    category: "fix",
+    link: "/react/tailwind/intro",
+  },
+  {
     id: "2026-11-21-security-permissions-priority-desc",
     date: "2026-11-21",
     title: "設定ファイルの優先順位の説明が表示されていなかったのを直した",
