@@ -848,7 +848,7 @@ export default function GameLoop() {
               <p>
                 「ひかりうけ」の岩は四角く描いていますが、判定は円で行っています。回転する四角を正確に判定するより計算が短く、角がかすっただけでは当たらないので、遊ぶ人にとっても納得しやすい結果になります。
                 <code className={code}>r: isRock ? 15 : 10</code>
-                の15を小さくすると、岩の判定だけが甘くなります。
+                の15は、岩の絵の大きさと判定の円の両方に使っています。
               </p>
             </InfoBox>
           </section>
@@ -896,7 +896,7 @@ export default function GameLoop() {
                 <li>
                   <code className={code}>score += 10</code>を
                   <code className={code}>score += round(10 * level)</code>
-                  にする（後半ほど点が高くなる。levelを使えるように、宣言をdraw()の外へ出す）
+                  にする（後半ほど点が高くなる）
                 </li>
               </ul>
             </InfoBox>

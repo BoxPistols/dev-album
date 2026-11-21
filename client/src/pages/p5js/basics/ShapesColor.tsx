@@ -605,7 +605,7 @@ export default function ShapesColor() {
                 colorMode() or on the passed options
                 object.」と書いています。HSBのときは色相の輪に沿って補間するので、
                 青と橙のあいだに紫や赤が現れます。RGBのときは赤・緑・青の強さをそれぞれ補間するので、この2色では
-                あいだはくすんだ灰色寄りになります。思った色と違うときは、colorMode()を確認してください。
+                あいだはくすんだ色になります。思った色と違うときは、colorMode()を確認してください。
               </p>
             </InfoBox>
             <InfoBox type="info" title="数字を変えてみる">
@@ -725,7 +725,7 @@ export default function ShapesColor() {
                 <li>
                   <code className={code}>cos(angle) * 70</code>と
                   <code className={code}>sin(angle) * 70</code>
-                  の70を130にする（3つの円が離れ、重なりが小さくなる）
+                  の70を100にする（3つの円が離れ、重なりが小さくなる）
                 </li>
                 <li>
                   <code className={code}>fill(i * 120, 100, 100)</code>

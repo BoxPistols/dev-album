@@ -97,6 +97,8 @@ function drawSignature() {
 }
 
 function mousePressed() {
+  // キャンバスの外（まわりのボタンなど）を押したときは、描き直さない
+  if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) return;
   seed += 1;
   newPoster();
 }
@@ -347,7 +349,7 @@ export default function Share() {
               公開先を選ぶ
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              このマニュアルのスケッチはグローバルモードで書いてあるので、どの公開先にもコードをそのまま貼れます。行き先によって、見せられるものと手間が変わります。
+              このマニュアルのスケッチはグローバルモード（setup()やdraw()をそのまま書く、p5.jsの標準の書き方）で書いてあるので、どの公開先にもコードをそのまま貼れます。行き先によって、見せられるものと手間が変わります。
             </p>
             <div className="overflow-x-auto my-6">
               <table className="w-full text-sm border border-border rounded-lg">

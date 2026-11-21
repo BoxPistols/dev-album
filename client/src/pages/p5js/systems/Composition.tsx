@@ -31,7 +31,8 @@ function setup() {
 }
 
 function restart() {
-  randomSeed(seed);
+  // 隣の番号と最初の乱数が似ないように、1000倍して渡す
+  randomSeed(seed * 1000);
   pal = random(palettes);
   circles = [];
   // 粒: 明るい点と暗い点を、別の画像に1回だけまいておく
@@ -223,7 +224,7 @@ function draw() {
     circle(20 + random(10, 250), 32 + random(10, 270), 30);
   }
 
-  // 右: 外側30pxを余白にして、三分割の交点に主役を置く
+  // 右: 外側に余白を残して、三分割の交点に主役を置く
   randomSeed(7);
   let mainX = 320 + 260 * 2 / 3;
   let mainY = 32 + 280 / 3;

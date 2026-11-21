@@ -445,7 +445,7 @@ export default function Export() {
                 </li>
                 <li>
                   <code className={code}>layer &lt; 6</code>
-                  の6を12にする（山が増える。seedが同じなら太陽の位置は変わらない）
+                  の6を3にする（山が減る。seedが同じなら太陽の位置は変わらない）
                 </li>
                 <li>
                   <code className={code}>saveCanvas(..., 'png')</code>の
@@ -578,7 +578,7 @@ export default function Export() {
                 <li>
                   <code className={code}>W_MM</code>と
                   <code className={code}>H_MM</code>
-                  を148と210にする（A5になる。縦横の比は同じなので表示はそのまま）
+                  を148と210にする（A5になる。縦横の比は同じなので表示はそのまま。表示とファイル名の「A4」は自分で書き換える）
                 </li>
                 <li>
                   <code className={code}>u * random(0.1, 0.45)</code>

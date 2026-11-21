@@ -663,7 +663,7 @@ export default function LsystemAutomata() {
             <div className="overflow-x-auto my-6">
               <table className="w-full text-sm border border-border rounded-lg">
                 <caption className="text-left text-muted-foreground mb-2">
-                  3マスの並びと次の値。下の行を左から読むと、規則番号の2進数になる
+                  3マスの並びと次の値。各列を上から下へ読むと、いちばん下の行の2進数（規則番号）になる
                 </caption>
                 <thead>
                   <tr className="bg-muted text-foreground">

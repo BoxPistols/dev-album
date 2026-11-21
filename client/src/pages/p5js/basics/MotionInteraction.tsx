@@ -60,12 +60,14 @@ function draw() {
 }
 
 function mousePressed() {
-  // クリックした位置から、光を四方へ飛ばす
-  for (let light of lights) {
-    light.x = mouseX;
-    light.y = mouseY;
-    light.vx = random(-4, 4);
-    light.vy = random(-4, 4);
+  // 枠の中をクリックしたら、その位置から光を四方へ飛ばす
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+    for (let light of lights) {
+      light.x = mouseX;
+      light.y = mouseY;
+      light.vx = random(-4, 4);
+      light.vy = random(-4, 4);
+    }
   }
 }`;
 
@@ -185,7 +187,7 @@ function draw() {
     circle(mouseX, mouseY, 16);
   }
 
-  // 操作がないあいだは、2秒ほどの間隔で波紋が出る
+  // クリックしなくても、2秒ほどの間隔で新しい波紋が出る
   if (frameCount % 120 === 0) {
     rippleX = random(100, 500);
     rippleY = random(60, 240);
@@ -399,9 +401,9 @@ export default function MotionInteraction() {
                   を7と5にする（速くなり、跳ね返る角度も変わる）
                 </li>
                 <li>
-                  <code className={code}>vy = -vy</code>を
-                  <code className={code}>vy = -vy * 0.9</code>
-                  にする（上下に跳ねるたびに縦の勢いが弱まる）
+                  <code className={code}>let vx = 3</code>を
+                  <code className={code}>let vx = -3</code>
+                  にする（速度の符号が逆になり、最初に左へ進む）
                 </li>
                 <li>
                   条件の<code className={code}>20</code>を4か所とも
@@ -419,7 +421,7 @@ export default function MotionInteraction() {
             <p className="text-muted-foreground mb-4 leading-relaxed">
               background()に不透明度を付けると、前のフレームを完全には消さず、薄く覆うだけになります。
               これを毎フレームくり返すと、古い絵ほど何度も覆われて暗くなり、動く図形が尾を引きます。
-              前のページの「塗り直す」と「塗り直さない」の中間です。
+              「はじめてのスケッチ」のページの「塗り直す」と「塗り直さない」の中間です。
             </p>
             <CodePreview title="尾を引く円" language="js" code={TRAIL_SKETCH} />
             <InfoBox type="info" title="数字を変えてみる">
@@ -753,8 +755,9 @@ function draw() {
                 にする。橙から黄の狭い範囲に絞った、火の粉のような配色になる
               </li>
               <li>
-                draw()の中で<code className={code}>light.vy += 0.1;</code>
-                を足す。下向きに引かれ、弾むボールのような動きになる
+                4か所の<code className={code}>random(-4, 4)</code>を
+                <code className={code}>random(-9, 9)</code>
+                にする。光が速く飛び交い、尾が長く伸びる
               </li>
               <li>
                 mousePressed()の中身を

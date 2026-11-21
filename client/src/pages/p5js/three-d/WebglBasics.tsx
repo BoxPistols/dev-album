@@ -141,7 +141,7 @@ function draw() {
 
   // 環境光: 全体を一様に照らす。影になる側の色を決める
   ambientLight(40, 40, 70);
-  // 平行光: 決まった向きから当たる光。ここでは右上の奥から
+  // 平行光: 決まった向きから当たる光。ここでは右上の手前から
   directionalLight(120, 150, 255, -0.6, 0.5, -0.5);
 
   // 点光源: ある1点から四方へ広がる光。マウスが枠の外なら自動で回る
@@ -305,7 +305,7 @@ const LIGHT_ROWS: [string, string][] = [
   ],
   [
     "pointLight(色, x, y, z)",
-    "点光源。x, y, zは光源の位置。電球のように、近い面ほど強く照らす",
+    "点光源。x, y, zは光源の位置。電球のように、その1点から四方へ光が広がる",
   ],
 ];
 
@@ -551,7 +551,7 @@ export default function WebglBasics() {
                 </li>
                 <li>
                   <code className={code}>ambientLight(70)</code>
-                  を0にする（emissiveMaterial()の球だけは明るさが変わらない）
+                  を0にする（ライトの影響を受けないnormalMaterial()とemissiveMaterial()の球は、明るさが変わらない）
                 </li>
               </ul>
             </InfoBox>

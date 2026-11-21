@@ -30,7 +30,7 @@ const RHO_AIR = 1.204;  // 20℃の空気の密度 (kg/m^3)
 const CD = 0.47;        // 球の抗力係数
 const SCALE = 17;       // 1mを17ピクセルで描く
 const DROP = 20;        // 落とす高さ (m)
-const TOP = 30;         // 筒の上端のy座標 (px)
+const TOP_Y = 30;       // 筒の上端のy座標 (px)。TOPはp5.jsの定数名なので使わない
 
 let balls = [];
 let inAir = true;
@@ -107,12 +107,12 @@ function drawChamber() {
   stroke(220, 20, 45);
   strokeWeight(1);
   fill(210, 40, inAir ? 16 : 6);
-  rect(50, TOP, 193, DROP * SCALE + 6, 4);
+  rect(50, TOP_Y, 193, DROP * SCALE + 6, 4);
   // 目盛り（5mごと）
   textSize(12);
   textAlign(RIGHT, CENTER);
   for (let m = 0; m <= DROP; m += 5) {
-    let y = TOP + m * SCALE;
+    let y = TOP_Y + m * SCALE;
     stroke(220, 20, 45);
     line(42, y, 50, y);
     noStroke();
@@ -121,7 +121,7 @@ function drawChamber() {
   }
   // 球と、速さに比例した尾
   for (let b of balls) {
-    let y = TOP + b.y * SCALE;
+    let y = TOP_Y + b.y * SCALE;
     stroke(b.hue, 60, 100, 45);
     strokeWeight(3);
     line(b.x, y, b.x, y - b.v * 1.6);
@@ -200,7 +200,7 @@ function drawGraph() {
 
 const EULER_SKETCH = `const G = 9.80665; // 標準重力加速度 (m/s^2)
 const SCALE = 16;  // 1mを16ピクセルで描く
-const TOP = 40;
+const TOP_Y = 40;  // ものさしの上端のy座標 (px)
 
 let y = 0;      // 落ちた距離 (m)
 let v = 0;      // 速さ (m/s)
@@ -219,9 +219,9 @@ function draw() {
   let dt = min(deltaTime / 1000, 0.05);
 
   if (y < 20) {
-    // オイラー法: 加速度で速度を、速度で位置を、少しだけ進める
-    v += G * dt;
+    // オイラー法: いまの速度で位置を、加速度で速度を、少しだけ進める
     y += v * dt;
+    v += G * dt;
     t += dt;
     if (marks.length < t / 0.2) marks.push(y);
   } else {
@@ -236,7 +236,7 @@ function draw() {
   textSize(13);
   textAlign(RIGHT, CENTER);
   for (let m = 0; m <= 20; m++) {
-    let py = TOP + m * SCALE;
+    let py = TOP_Y + m * SCALE;
     stroke(220, 20, m % 5 === 0 ? 60 : 30);
     line(m % 5 === 0 ? 70 : 78, py, 86, py);
     if (m % 5 === 0) {
@@ -249,10 +249,10 @@ function draw() {
   noStroke();
   for (let m of marks) {
     fill(45, 70, 100, 30);
-    circle(150, TOP + m * SCALE, 16);
+    circle(150, TOP_Y + m * SCALE, 16);
   }
   fill(45, 70, 100);
-  circle(150, TOP + min(y, 20) * SCALE, 16);
+  circle(150, TOP_Y + min(y, 20) * SCALE, 16);
 
   // 計器の表示
   fill(0, 0, 95);
@@ -709,9 +709,9 @@ export default function FallingBodies() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               落ちる物の加速度は重力加速度gです。短い時間dtのあいだは加速度も速度もほぼ変わらないとみなし、
-              <code className={code}>v += G * dt</code>と
-              <code className={code}>y += v * dt</code>
-              で速度と位置を少しだけ進めます。これを毎フレームくり返すのがオイラー法です。
+              <code className={code}>y += v * dt</code>と
+              <code className={code}>v += G * dt</code>
+              で位置と速度を少しだけ進めます。これを毎フレームくり返すのがオイラー法です。
               オイラー法はLeonhard
               Eulerが1768〜1770年の著書で示した方法で、常微分方程式を数値で解く最も基本的な手順です。
             </p>
@@ -770,6 +770,17 @@ export default function FallingBodies() {
                       scope="row"
                       className="text-left p-3 font-mono font-normal"
                     >
+                      y += v * dt
+                    </th>
+                    <td className="p-3">
+                      いまの速度で位置を進める（単位はm）
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border">
+                    <th
+                      scope="row"
+                      className="text-left p-3 font-mono font-normal"
+                    >
                       v += G * dt
                     </th>
                     <td className="p-3">加速度で速度を進める（単位はm/s）</td>
@@ -779,16 +790,7 @@ export default function FallingBodies() {
                       scope="row"
                       className="text-left p-3 font-mono font-normal"
                     >
-                      y += v * dt
-                    </th>
-                    <td className="p-3">速度で位置を進める（単位はm）</td>
-                  </tr>
-                  <tr className="border-t border-border">
-                    <th
-                      scope="row"
-                      className="text-left p-3 font-mono font-normal"
-                    >
-                      TOP + y * SCALE
+                      TOP_Y + y * SCALE
                     </th>
                     <td className="p-3">
                       メートルをピクセルに直す。描くときだけ使う
@@ -1006,8 +1008,8 @@ function draw() {
   background(16, 18, 30);
   let dt = min(deltaTime / 1000, 0.05);
   let a = ___;
-  v += a * dt;
   y += v * ___;
+  v += a * dt;
   if (y > 20) {
     y = 0;
     v = 0;
@@ -1029,8 +1031,8 @@ function draw() {
   background(16, 18, 30);
   let dt = min(deltaTime / 1000, 0.05);
   let a = G;
-  v += a * dt;
   y += v * dt;
+  v += a * dt;
   if (y > 20) {
     y = 0;
     v = 0;
@@ -1039,7 +1041,7 @@ function draw() {
   fill(255, 200, 80);
   circle(200, 20 + y * SCALE, 20);
 }`}
-              keywords={["G", "dt"]}
+              keywords={["a = G", "v * dt"]}
               hints={[
                 "落ちる物の加速度は重力加速度です。上で定義した定数Gを書きます",
                 "位置は「速度 × 経過時間」だけ進みます。経過時間が入った変数dtを書きます",
@@ -1121,7 +1123,7 @@ function draw() {
   textSize(14);
   text('速さ ' + nf(v, 1, 1) + ' m/s', 12, 24);
 }`}
-              keywords={["AREA", "MASS"]}
+              keywords={["CD * AREA", "drag / MASS"]}
               hints={[
                 "抗力の式（½ρv²CdA）の最後のAは、進む向きから見た面積です。定数AREAを書きます",
                 "力を加速度に直すには質量で割ります（a = F / m）。定数MASSを書きます",
@@ -1146,8 +1148,15 @@ function draw() {
                 の0.55を球ごとに変える。よく跳ねる球と跳ねない球が混ざる
               </li>
               <li>
+                球を増やす。<code className={code}>release()</code>の
                 <code className={code}>i &lt; 14</code>
-                を200にして球を小さく描く。空気中では、密度の順に並んだ球が曲線を描いて落ちる
+                を40にし、同じ関数の
+                <code className={code}>i / 13</code>を
+                <code className={code}>i / 39</code>に、
+                <code className={code}>i * 13</code>を
+                <code className={code}>i * 4.3</code>に、
+                <code className={code}>map(i, 0, 13, 185, 25)</code>
+                の13を39にする。空気中では、密度の順に並んだ球が曲線を描いて落ちる
               </li>
               <li>
                 球の位置を毎フレーム消さずに重ねる（

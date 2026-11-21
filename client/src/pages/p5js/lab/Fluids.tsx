@@ -769,7 +769,7 @@ export default function Fluids() {
                 <li>スライダーを右端にする（落ちた染料がすぐ全体に広がる）</li>
                 <li>
                   <code className={code}>k &lt; 10</code>
-                  を1にする（くり返しが足りず、広がり方が鈍くなる）
+                  を1にする（くり返しが足りないぶん、広がり方がわずかに鈍くなる。スライダーが右にあるほど差が出る）
                 </li>
                 <li>
                   <code className={code}>noSmooth()</code>
@@ -1011,7 +1011,7 @@ function draw() {
   img.updatePixels();
   image(img, 0, 0, width, height);
 }`}
-              keywords={["dt0 * u", "dt0 * v"]}
+              keywords={["i - dt0 * u", "j - dt0 * v"]}
               hints={[
                 "x方向は、x方向の速度のぶんだけ逆にたどります。1つ目の空欄には変数uを書きます",
                 "y方向は、y方向の速度のぶんだけ逆にたどります。2つ目の空欄には変数vを書きます",
@@ -1087,7 +1087,7 @@ function draw() {
     circle(q.x, q.y, 2);
   }
 }`}
-              keywords={["f.x", "f.y"]}
+              keywords={["q.x += f.x", "q.y += f.y"]}
               hints={[
                 "x座標は、流れの速度のx成分（f.x）に時間dtを掛けたぶんだけ進みます",
                 "y座標は、流れの速度のy成分（f.y）に時間dtを掛けたぶんだけ進みます",

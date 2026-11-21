@@ -324,6 +324,7 @@ const GH = 320;
 const MAX_HZ = 5000;
 
 let audio, analyser, bins, osc;
+let sweepButton;
 let column = 0;
 let message = '「スイープ音を出す」を押すと始まります（小さな音量）';
 
@@ -331,7 +332,8 @@ function setup() {
   createCanvas(600, 400);
   colorMode(HSB, 360, 100, 100, 100);
   background(225, 30, 9);
-  createButton('スイープ音を出す').mousePressed(startSweep);
+  sweepButton = createButton('スイープ音を出す');
+  sweepButton.mousePressed(toggleSweep);
   createButton('マイクも使う（任意）').mousePressed(startMic);
   // 周波数の目盛り
   textSize(12);
@@ -358,8 +360,15 @@ function ready() {
   return true;
 }
 
-function startSweep() {
-  if (!ready() || osc) return;
+function toggleSweep() {
+  if (!ready()) return;
+  if (osc) {
+    // 鳴っているときに押したら止める
+    osc.stop();
+    osc = null;
+    sweepButton.html('スイープ音を出す');
+    return;
+  }
   // 倍音を多く含むのこぎり波を、ゆっくり上下させる
   osc = audio.createOscillator();
   osc.type = 'sawtooth';
@@ -369,6 +378,7 @@ function startSweep() {
   osc.connect(volume);
   volume.connect(audio.destination);
   osc.start();
+  sweepButton.html('スイープ音を止める');
   message = '時間 →  縦: 周波数  色: 強さ';
 }
 
@@ -500,7 +510,7 @@ const NODAL_SKETCH = `const CELLS = 90; // 板を90×90のマスに分けて計�
 let nSlider, mSlider;
 let values = new Float32Array(CELLS * CELLS);
 let img;
-let key = '';
+let lastKey = ''; // 前に計算したn, m。keyはp5.jsの変数名なので使わない
 
 function setup() {
   createCanvas(600, 400);
@@ -520,8 +530,8 @@ function draw() {
   let m = mSlider.value();
 
   // n, mが変わったときだけ、各マスの値を計算し直す
-  if (key !== n + ',' + m) {
-    key = n + ',' + m;
+  if (lastKey !== n + ',' + m) {
+    lastKey = n + ',' + m;
     for (let j = 0; j < CELLS; j++) {
       for (let i = 0; i < CELLS; i++) {
         let x = (i + 0.5) / CELLS;
@@ -563,8 +573,8 @@ function draw() {
   fill(255);
   rect(410, 142, 14, 14);
   fill(200);
-  text('上へ動いている所', 432, 102);
-  text('下へ動いている所', 432, 128);
+  text('上がっている所', 432, 102);
+  text('下がっている所', 432, 128);
   text('節線（動かない所）', 432, 154);
 }`;
 
@@ -734,7 +744,7 @@ export default function Acoustics() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               スペクトルは一瞬の切り口です。これを時間の順に横へ並べ、強さを色にした図がスペクトログラムです。
-              「スイープ音を出す」を押すと、高さがゆっくり上下する音が鳴り、その軌跡が描かれていきます。
+              「スイープ音を出す」を押すと、高さがゆっくり上下する音が鳴り、その軌跡が描かれていきます。同じボタンをもう一度押すと音が止まります。
               マイクのボタンは任意で、押すとまわりの音や声も重ねて表示します。マイクの音はスピーカーには出しません。
             </p>
             <CodePreview

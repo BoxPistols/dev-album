@@ -1247,7 +1247,7 @@ function draw() {
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed">
               <li>
                 音階を付ける。
-                <code className={code}>440 * pow(1.06, combo)</code>
+                <code className={code}>pow(1.06, min(combo, 12))</code>
                 の1.06を1.122（全音ぶん）にすると、続けて受けたときの上がり方が変わる
               </li>
               <li>

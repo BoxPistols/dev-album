@@ -731,7 +731,7 @@ export default function Seismic() {
               code={MULTI_SKETCH}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              このモデルは揺れやすい周期を複数持ちます。この設定では約1.00秒と約0.34秒です。
+              このモデルは揺れやすい周期を複数持ちます。この設定では、長いほうから2つが約1.00秒と約0.34秒です。
               スライダーを1.00秒にすると、全部の階が同じ向きに揺れ、上の階ほど大きく揺れます。
               0.34秒にすると、上の階と下の階が逆向きに動くS字の揺れ方になります。揺れ方の形を振動モードと呼びます。
             </p>
@@ -758,8 +758,7 @@ export default function Seismic() {
               <Ext href="https://ja.wikipedia.org/wiki/%E9%95%B7%E5%91%A8%E6%9C%9F%E5%9C%B0%E9%9C%87%E5%8B%95">
                 Wikipedia「長周期地震動」
               </Ext>
-              は「高層建築では振動数が低く長周期となることが一般的である」とし、略算として鉄筋コンクリート造は0.02
-              ×高さ(m)、鉄骨造は0.03×高さ(m)という式を紹介しています。
+              は「高層建築では振動数が低く長周期となることが一般的である」とし、略算として鉄筋コンクリート造は0.02×高さ(m)、鉄骨造は0.03×高さ(m)という式を紹介しています。
               冒頭のスケッチは、1階ぶんを4mと仮定して鉄骨造の略算式で固有周期を決めました。
             </p>
             <p className="text-muted-foreground mb-4 leading-relaxed">
@@ -962,7 +961,7 @@ function draw() {
   textSize(14);
   text('固有周期 ' + nf(period, 1, 2) + ' s', 12, 24);
 }`}
-              keywords={["mass", "stiff"]}
+              keywords={["sqrt(mass", "stiff)"]}
               hints={[
                 "T = 2π√(m/k)のmは質量です。割り算の左側に定数massを書きます",
                 "T = 2π√(m/k)のkはかたさです。割り算の右側に定数stiffを書きます",

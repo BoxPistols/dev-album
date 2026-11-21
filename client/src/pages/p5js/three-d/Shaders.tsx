@@ -12,10 +12,12 @@ const h2 = "text-3xl font-bold text-foreground mb-6";
 const para = "text-muted-foreground mb-4 leading-relaxed";
 
 // このページの完成形。noiseの地形の上を飛び続ける。ドラッグで視点を変えられる
-const HERO_SKETCH = `let cols = 44;
-let rows = 32;
-let cell = 24;
+const HERO_SKETCH = `// 格子の数を増やすほど細かくなるが、線を引く処理が重くなる（線の数は格子の数に比例する）
+let cols = 34;
+let rows = 25;
+let cell = 31;
 let fly = 0;
+let heights = [];
 
 function setup() {
   createCanvas(600, 400, WEBGL);
@@ -32,6 +34,14 @@ function draw() {
   rotateX(1.15);
   translate(-cols * cell / 2, -rows * cell / 2 - 35, -110);
 
+  // 各頂点の高さは、帯を2本描くときに2回ずつ使う。先にまとめて1回だけ計算しておく
+  for (let y = 0; y < rows; y++) {
+    heights[y] = [];
+    for (let x = 0; x < cols; x++) {
+      heights[y][x] = elevation(x, y);
+    }
+  }
+
   strokeWeight(1);
   for (let y = 0; y < rows - 1; y++) {
     // 手前の行ほど明るい線にする
@@ -40,11 +50,11 @@ function draw() {
     beginShape(TRIANGLE_STRIP);
     for (let x = 0; x < cols; x++) {
       // この行の頂点と、1つ手前の行の頂点を交互に置く
-      let a = elevation(x, y);
+      let a = heights[y][x];
       // 頂点ごとにfill()を呼ぶと、頂点のあいだは色が混ざる
       fill(lerp(255, 325, a), 70, lerp(8, 55, a) * near);
       vertex(x * cell, y * cell, a * 130);
-      let b = elevation(x, y + 1);
+      let b = heights[y + 1][x];
       fill(lerp(255, 325, b), 70, lerp(8, 55, b) * near);
       vertex(x * cell, (y + 1) * cell, b * 130);
     }
@@ -828,7 +838,7 @@ function draw() {
               <li>
                 冒頭の地形で、stroke()を
                 <code className={code}>noStroke()</code>
-                にしてライトを足す。線の地形から、陰影のある面の地形になる
+                にする。線が消えて、高さごとの色で見せる面の地形になる（このスケッチは頂点に面の向きを指定していないので、ライトを足しても陰影は付かない）
               </li>
               <li>
                 elevation()の戻り値を2乗する。低い所が平らに広がり、山だけが立ち上がる。0.3より低い所を0.3にそろえると、水面のある風景になる

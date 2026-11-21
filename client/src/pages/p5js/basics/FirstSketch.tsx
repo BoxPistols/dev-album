@@ -211,7 +211,7 @@ export default function FirstSketch() {
               <ul className="list-disc pl-5 space-y-1">
                 <li>
                   <code className={code}>circle(200, 150, 120)</code>
-                  の120を300にする（円がキャンバスからはみ出す）
+                  の120を400にする（円がキャンバスからはみ出す）
                 </li>
                 <li>
                   <code className={code}>fill(255, 120, 180)</code>
