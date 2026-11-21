@@ -51,6 +51,7 @@ const SSOT = "/claude-code/multi-ai/single-source-of-truth";
 
 import { resolvePagePathFromFile } from "../lib/source-paths";
 import { GENERATED_SOURCES } from "./sources.generated";
+import { P5JS_SOURCES } from "./sources-p5js";
 
 /** 手で書いた出典。ページの出典欄に出す */
 const MUI_INTRO = "/react/mui/intro";
@@ -857,10 +858,16 @@ export const CURATED_SOURCES: Source[] = [
 ];
 
 /** 手書き + 監査から機械生成した分をあわせたもの。check:sources はこれを照合する */
-export const SOURCES: Source[] = [...CURATED_SOURCES, ...GENERATED_SOURCES];
+export const SOURCES: Source[] = [
+  ...CURATED_SOURCES,
+  ...P5JS_SOURCES,
+  ...GENERATED_SOURCES,
+];
 
 export function getSourcesForPage(path: string): Source[] {
-  return CURATED_SOURCES.filter((s) => s.usedBy?.includes(path));
+  return [...CURATED_SOURCES, ...P5JS_SOURCES].filter((s) =>
+    s.usedBy?.includes(path),
+  );
 }
 
 /**

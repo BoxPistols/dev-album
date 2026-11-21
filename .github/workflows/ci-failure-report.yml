@@ -1,0 +1,53 @@
+name: CI failure report
+
+# mainのCIが落ちたことを、issueで人に知らせる。
+#
+# なぜ要るか:
+#   ワークフローの赤は誰も見に行かない。2026-11-13に依存更新のPRを続けてマージして
+#   壊れたロックファイルがmainに入り、mainのCIとVercelの本番デプロイが1週間落ち続けたが、
+#   誰も気づかなかった。定期検査（source-checks / link-maintenance）と同じく、通知はissueで行う。
+#
+# なぜci.ymlに入れないか:
+#   ci.ymlは読み取り権限に固定している（教材の/git/github-actions/secrets-permissionsが実例として
+#   説明している）。issueを書く権限が要る処理は、CIの完了を受けて動くこのワークフローに分ける。
+#
+# workflow_runは既定ブランチ（main）にあるこのファイルで動く。PRのコードは取り込まないので、
+# PRから書き込み権限を使われることはない。mainへのpushで動いたCIだけを見る。
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+# permissionsを書くと、書いていない権限は「なし」になる。checkoutにcontents: readが要る
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      # 値は環境変数で渡し、式をrunへ直に埋め込まない
+      - name: issueに追記する
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_TITLE: '[main] CIが失敗'
+          ISSUE_LABEL: ci
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          bash .github/scripts/append-or-create-issue.sh "mainのCIが失敗しました。mainが壊れているあいだは、Vercelの本番デプロイも同じ原因で失敗している可能性があります。
+
+          - コミット: ${SHA}
+          - 実行ログ: ${RUN_URL}
+
+          直したら、このissueを閉じてください。次に落ちたときは新しいissueが作られます。"

@@ -6,7 +6,7 @@ import {
   pages,
   type ManualId,
 } from "@/lib/navigation";
-import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow, Gauge } from "lucide-react";
+import { ArrowRight, Compass, Code2, GitBranch, Box, Terminal, Brain, Palette, Network, Triangle, Sparkles, Wrench, Bug, Tag, Cloud, Workflow, Gauge, Brush } from "lucide-react";
 import CodePreview from "@/components/CodePreview";
 import CodingChallenge from "@/components/CodingChallenge";
 import AboutSiteMaking from "@/components/AboutSiteMaking";
@@ -26,6 +26,7 @@ const manualIcons: Record<ManualId, React.ReactNode> = {
   react: <Code2 size={20} />,
   git: <GitBranch size={20} />,
   threejs: <Box size={20} />,
+  p5js: <Brush size={20} />,
   "claude-code": <Terminal size={20} />,
   "ai-ml": <Brain size={20} />,
   "ux-design": <Palette size={20} />,
@@ -117,6 +118,15 @@ const manualDetails: Record<ManualId, { tagline: string; topics: string[] }> = {
       "Pinia / Vue Router",
       "Nuxt 4 / SSR・SSG・ISR",
       "server/api / デプロイ",
+    ],
+  },
+  p5js: {
+    tagline: "ページの中で動くスケッチを編集しながら、ジェネラティブアートの技法を身につけ、作品を公開するところまで進める",
+    topics: [
+      "図形・色・動き・繰り返し",
+      "三角関数 / 乱数 / ノイズ / フラクタル",
+      "画像・カメラ・音 / 3D / ゲーム",
+      "物理・流体のシミュレーション / 公開",
     ],
   },
   go: {

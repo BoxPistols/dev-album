@@ -81,6 +81,35 @@ const RENDER_ROUTES = [
   "/go/practice/modules-tooling",
   "/go/practice/testing",
   "/go/practice/http-server",
+  "/p5js",
+  "/p5js/basics/first-sketch",
+  "/p5js/basics/shapes-color",
+  "/p5js/basics/motion-interaction",
+  "/p5js/basics/loops-patterns",
+  "/p5js/basics/transform",
+  "/p5js/math/functions-easing",
+  "/p5js/math/trigonometry",
+  "/p5js/math/vectors-forces",
+  "/p5js/random/randomness",
+  "/p5js/random/noise",
+  "/p5js/random/particles",
+  "/p5js/media/image-pixels",
+  "/p5js/media/typography",
+  "/p5js/media/camera",
+  "/p5js/media/sound",
+  "/p5js/systems/fractals",
+  "/p5js/systems/lsystem-automata",
+  "/p5js/systems/composition",
+  "/p5js/three-d/webgl-basics",
+  "/p5js/three-d/shaders",
+  "/p5js/game/game-loop",
+  "/p5js/game/game-polish",
+  "/p5js/lab/falling-bodies",
+  "/p5js/lab/fluids",
+  "/p5js/lab/seismic",
+  "/p5js/lab/acoustics",
+  "/p5js/publish/export",
+  "/p5js/publish/share",
 ];
 
 test("API / Vue・Nuxt マニュアルの全ページが例外なく描画される", async ({ page }) => {
@@ -88,7 +117,12 @@ test("API / Vue・Nuxt マニュアルの全ページが例外なく描画され
   test.setTimeout(240_000);
 
   const pageErrors: string[] = [];
-  page.on("pageerror", (err) => pageErrors.push(err.message));
+  // チャレンジの空欄（___）が残ったスケッチは、埋める前は実行時エラーになるのが正常
+  // （プレビューは案内文を出す）。描画のタイミングで拾ったり拾わなかったりするので、明示的に除く
+  page.on("pageerror", (err) => {
+    if (/\b___\b/.test(err.message)) return;
+    pageErrors.push(err.message);
+  });
 
   for (const route of RENDER_ROUTES) {
     pageErrors.length = 0;

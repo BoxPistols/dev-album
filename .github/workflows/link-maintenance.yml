@@ -64,6 +64,7 @@ jobs:
           cache: pnpm
 
       - name: 依存をインストール
+        id: install
         run: pnpm install --frozen-lockfile
 
       - name: リンクを確認する
@@ -100,9 +101,30 @@ jobs:
           FIX_SUMMARY: ${{ steps.fix.outputs.summary }}
         run: bash .github/scripts/link-maintenance.sh pr
 
+      # 報告のステップにはalways()を付ける。付けないと、前のステップが落ちた時点で
+      # 報告ごと飛ばされる。2026-11-16はインストールで落ち、何も報告されなかった
+      - name: 点検が途中で止まったことをissueに伝える
+        # 測り直しの結果（status）が無いときは、どこで止まっても「測れなかった」として報告する
+        if: always() && steps.after.outputs.status == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          AFTER_OUTCOME: ${{ steps.after.outcome }}
+        run: |
+          bash .github/scripts/append-or-create-issue.sh "週次のリンク点検が、リンクを測り終える前に止まりました。リンクの状態は確認できていません。
+
+          - 依存のインストール: ${INSTALL_OUTCOME}
+          - 書き換え後の測り直し: ${AFTER_OUTCOME}
+          - 実行ログ: ${RUN_URL}
+
+          インストールがfailureのときは、mainのロックファイルが壊れている可能性があります（\`pnpm install --frozen-lockfile\`で再現します）。"
+
       # 書き換えが壊れた（再検査で切れが出た）ときは PR を出さず、人に知らせる
       - name: 書き換えが成立しなかったことを issue に伝える
-        if: steps.after.outputs.status != 'ok'
+        # 「切れたリンクが増えた」と報告するのは、測り直しで実際に増えたときだけ
+        if: always() && steps.after.outputs.status == 'broken-by-fix'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -112,7 +134,7 @@ jobs:
 
       # 元から切れているリンクがあった場合も知らせる（書き換えでは直らない）
       - name: 元から切れているリンクを issue に伝える
-        if: steps.before.outputs.broken != '0'
+        if: always() && steps.before.outputs.broken != '' && steps.before.outputs.broken != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -129,6 +151,10 @@ jobs:
           BROKEN: ${{ steps.before.outputs.broken }}
         run: |
           echo "書き換え後の状態: $AFTER_STATUS / 元から切れていたリンク: $BROKEN"
+          if [ -z "$AFTER_STATUS" ]; then
+            echo "点検が途中で止まった（リンクは測れていない）。issueを見る"
+            exit 1
+          fi
           if [ "$AFTER_STATUS" != "ok" ]; then
             echo "書き換えが成立しなかった。issue を見る"
             exit 1

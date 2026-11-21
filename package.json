@@ -31,7 +31,8 @@
     "fix:links": "node scripts/fix-redirected-links.mjs",
     "check:prerender": "node scripts/check-prerender.mjs",
     "check:freshness": "tsx scripts/check-source-freshness.mjs",
-    "check:prose": "node scripts/check-prose.mjs"
+    "check:prose": "node scripts/check-prose.mjs",
+    "check:p5": "tsx scripts/check-p5-sketches.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.3.1",
@@ -56,7 +57,7 @@
     "express": "^5.3.0",
     "fuse.js": "^7.5.0",
     "lucide-react": "^1.67.0",
-    "mermaid": "^11.17.2",
+    "mermaid": "^12.3.0",
     "openai": "^7.53.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.3.1",
@@ -77,7 +78,7 @@
     "@storybook/react-vite": "^10.6.6",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.5",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/express": "5.0.6",
     "@types/node": "^26.6.6",
@@ -100,7 +101,7 @@
     "tsx": "^4.23.15",
     "tw-animate-css": "^1.4.0",
     "typescript": "7.0.2",
-    "vite": "^7.3.7",
+    "vite": "^8.3.7",
     "vite-plugin-pwa": "^1.3.0",
     "vitest": "^4.1.12"
   },

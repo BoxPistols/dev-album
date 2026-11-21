@@ -47,8 +47,12 @@ const IGNORED_PATHS = [
   "pnpm-lock.yaml",
 ];
 
+/** セルフホストした外部ライブラリ。中身は配布元のもので、こちらの文章ではない */
+const IGNORED_PREFIXES = ["client/public/vendor/"];
+
 export function isTarget(file) {
   if (IGNORED_PATHS.includes(file)) return false;
+  if (IGNORED_PREFIXES.some((prefix) => file.startsWith(prefix))) return false;
   return TARGET_EXTENSIONS.includes(path.extname(file));
 }
 

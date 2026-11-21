@@ -317,6 +317,35 @@ const VueRenderingModes = lazy(() => import("./pages/vue/nuxt-server/RenderingMo
 const VueMiddlewarePlugins = lazy(() => import("./pages/vue/nuxt-server/MiddlewarePlugins"));
 const VueDeploy = lazy(() => import("./pages/vue/nuxt-server/Deploy"));
 const VueLatestFeatures = lazy(() => import("./pages/vue/advanced/LatestFeatures"));
+const P5Home = lazy(() => import("./pages/p5js/Home"));
+const P5FirstSketch = lazy(() => import("./pages/p5js/basics/FirstSketch"));
+const P5ShapesColor = lazy(() => import("./pages/p5js/basics/ShapesColor"));
+const P5MotionInteraction = lazy(() => import("./pages/p5js/basics/MotionInteraction"));
+const P5LoopsPatterns = lazy(() => import("./pages/p5js/basics/LoopsPatterns"));
+const P5Transform = lazy(() => import("./pages/p5js/basics/Transform"));
+const P5FunctionsEasing = lazy(() => import("./pages/p5js/math/FunctionsEasing"));
+const P5Trigonometry = lazy(() => import("./pages/p5js/math/Trigonometry"));
+const P5VectorsForces = lazy(() => import("./pages/p5js/math/VectorsForces"));
+const P5Randomness = lazy(() => import("./pages/p5js/random/Randomness"));
+const P5Noise = lazy(() => import("./pages/p5js/random/Noise"));
+const P5Particles = lazy(() => import("./pages/p5js/random/Particles"));
+const P5ImagePixels = lazy(() => import("./pages/p5js/media/ImagePixels"));
+const P5Typography = lazy(() => import("./pages/p5js/media/Typography"));
+const P5Camera = lazy(() => import("./pages/p5js/media/Camera"));
+const P5Sound = lazy(() => import("./pages/p5js/media/Sound"));
+const P5Fractals = lazy(() => import("./pages/p5js/systems/Fractals"));
+const P5LsystemAutomata = lazy(() => import("./pages/p5js/systems/LsystemAutomata"));
+const P5Composition = lazy(() => import("./pages/p5js/systems/Composition"));
+const P5WebglBasics = lazy(() => import("./pages/p5js/three-d/WebglBasics"));
+const P5Shaders = lazy(() => import("./pages/p5js/three-d/Shaders"));
+const P5GameLoop = lazy(() => import("./pages/p5js/game/GameLoop"));
+const P5GamePolish = lazy(() => import("./pages/p5js/game/GamePolish"));
+const P5FallingBodies = lazy(() => import("./pages/p5js/lab/FallingBodies"));
+const P5Fluids = lazy(() => import("./pages/p5js/lab/Fluids"));
+const P5Seismic = lazy(() => import("./pages/p5js/lab/Seismic"));
+const P5Acoustics = lazy(() => import("./pages/p5js/lab/Acoustics"));
+const P5Export = lazy(() => import("./pages/p5js/publish/Export"));
+const P5Share = lazy(() => import("./pages/p5js/publish/Share"));
 const GoHome = lazy(() => import("./pages/go/Home"));
 const GoSetup = lazy(() => import("./pages/go/basics/Setup"));
 const GoSyntax = lazy(() => import("./pages/go/basics/Syntax"));
@@ -841,6 +870,35 @@ function App() {
                 <Route path="/vue/nuxt-server/middleware-plugins" component={VueMiddlewarePlugins} />
                 <Route path="/vue/nuxt-server/deploy" component={VueDeploy} />
                 <Route path="/vue/advanced/latest-features" component={VueLatestFeatures} />
+                <Route path="/p5js" component={P5Home} />
+                <Route path="/p5js/basics/first-sketch" component={P5FirstSketch} />
+                <Route path="/p5js/basics/shapes-color" component={P5ShapesColor} />
+                <Route path="/p5js/basics/motion-interaction" component={P5MotionInteraction} />
+                <Route path="/p5js/basics/loops-patterns" component={P5LoopsPatterns} />
+                <Route path="/p5js/basics/transform" component={P5Transform} />
+                <Route path="/p5js/math/functions-easing" component={P5FunctionsEasing} />
+                <Route path="/p5js/math/trigonometry" component={P5Trigonometry} />
+                <Route path="/p5js/math/vectors-forces" component={P5VectorsForces} />
+                <Route path="/p5js/random/randomness" component={P5Randomness} />
+                <Route path="/p5js/random/noise" component={P5Noise} />
+                <Route path="/p5js/random/particles" component={P5Particles} />
+                <Route path="/p5js/media/image-pixels" component={P5ImagePixels} />
+                <Route path="/p5js/media/typography" component={P5Typography} />
+                <Route path="/p5js/media/camera" component={P5Camera} />
+                <Route path="/p5js/media/sound" component={P5Sound} />
+                <Route path="/p5js/systems/fractals" component={P5Fractals} />
+                <Route path="/p5js/systems/lsystem-automata" component={P5LsystemAutomata} />
+                <Route path="/p5js/systems/composition" component={P5Composition} />
+                <Route path="/p5js/three-d/webgl-basics" component={P5WebglBasics} />
+                <Route path="/p5js/three-d/shaders" component={P5Shaders} />
+                <Route path="/p5js/game/game-loop" component={P5GameLoop} />
+                <Route path="/p5js/game/game-polish" component={P5GamePolish} />
+                <Route path="/p5js/lab/falling-bodies" component={P5FallingBodies} />
+                <Route path="/p5js/lab/fluids" component={P5Fluids} />
+                <Route path="/p5js/lab/seismic" component={P5Seismic} />
+                <Route path="/p5js/lab/acoustics" component={P5Acoustics} />
+                <Route path="/p5js/publish/export" component={P5Export} />
+                <Route path="/p5js/publish/share" component={P5Share} />
                 <Route path="/go" component={GoHome} />
                 <Route path="/go/basics/setup" component={GoSetup} />
                 <Route path="/go/basics/syntax" component={GoSyntax} />
