@@ -33,7 +33,7 @@ export const ANNOUNCEMENTS: Announcement[] = [
     date: "2026-11-21",
     title: "Tailwind入門の参考リンクの重複を直した",
     description:
-      "公式ドキュメントへのリンクが導入手順のページを指していたので、ドキュメントのトップに直した。",
+      "公式ドキュメントへのリンクが導入手順のページを指していたので、ユーティリティクラスの使い方を説明するページに直した。",
     category: "fix",
     link: "/react/tailwind/intro",
   },

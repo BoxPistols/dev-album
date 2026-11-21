@@ -7,6 +7,7 @@ import {
   secondsUntilReset,
   sessionKey,
 } from "../../../api/lib/quota";
+import { readClientId } from "../../../api/lib/clientId";
 
 describe("normalizeClientIp", () => {
   it("IPv4はそのまま", () => {
@@ -15,6 +16,11 @@ describe("normalizeClientIp", () => {
 
   it("::ffff: 付きのIPv4はIPv4に直す", () => {
     expect(normalizeClientIp("::ffff:203.0.113.5")).toBe("203.0.113.5");
+  });
+
+  it("16進表記の ::ffff: もIPv4に直す（別々のIPv4が同じキーにまとまらない）", () => {
+    expect(normalizeClientIp("::ffff:cb00:7105")).toBe("203.0.113.5");
+    expect(normalizeClientIp("::ffff:c633:6407")).toBe("198.51.100.7");
   });
 
   it("IPv6は/64に丸める（末尾だけ変えても同じ人として数える）", () => {
@@ -72,8 +78,16 @@ describe("decideQuota", () => {
     expect(decideQuota(23, 4, LIMIT, FLOOR, HARD).allowed).toBe(false);
   });
 
-  it("IPの絶対上限を超えたら、最低保証の範囲でも止める（User-Agentを変え続ける使い方を防ぐ）", () => {
+  it("IPの絶対上限を超えたら、最低保証の範囲でも止める（IDを作り直し続ける使い方を防ぐ）", () => {
     expect(decideQuota(51, 1, LIMIT, FLOOR, HARD).allowed).toBe(false);
+  });
+
+  it("通常の枠を絶対上限より大きく設定しても、絶対上限は超えない", () => {
+    expect(decideQuota(50, 50, 100, FLOOR, HARD)).toEqual({
+      allowed: true,
+      remaining: 0,
+    });
+    expect(decideQuota(51, 51, 100, FLOOR, HARD).allowed).toBe(false);
   });
 });
 
@@ -86,12 +100,12 @@ describe("consumeQuota", () => {
     };
   }
 
-  it("User-Agentを変えても、IPごとの回数は共通で増える", async () => {
+  it("ブラウザのIDを変えても、IPごとの回数は共通で増える", async () => {
     const counts: Record<string, number> = {};
     const redis = fakeRedis(counts);
     for (let i = 0; i < 10; i++) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 必要なメソッドだけの偽物
-      await consumeQuota(redis as any, "anonymous", "203.0.113.5", `UA-${i}`, "2026-11-21", 1);
+      await consumeQuota(redis as any, "anonymous", "203.0.113.5", `client-${i}`, "2026-11-21", 1);
     }
     const ipCounter = Object.entries(counts).find(([k]) => k.includes(":ip:"));
     expect(ipCounter?.[1]).toBe(10);
@@ -115,8 +129,22 @@ describe("consumeQuota", () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 必要なメソッドだけの偽物
     const r = await consumeQuota(redis as any, "anonymous", "203.0.113.5", "UA", "2026-11-21", 1);
     expect(r.allowed).toBe(true);
+    expect(r.enforced).toBe(false);
     expect(error).toHaveBeenCalled();
     error.mockRestore();
+  });
+});
+
+describe("readClientId", () => {
+  it("randomUUIDの形だけを受け付ける", () => {
+    expect(readClientId("3F2504E0-4F89-41D3-9A0C-0305E82C3301")).toBe(
+      "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+    );
+    expect(readClientId("anything")).toBeNull();
+    expect(readClientId(undefined)).toBeNull();
+    expect(readClientId(["3f2504e0-4f89-41d3-9a0c-0305e82c3301"])).toBe(
+      "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+    );
   });
 });
 

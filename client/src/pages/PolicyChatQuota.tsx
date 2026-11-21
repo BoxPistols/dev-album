@@ -106,11 +106,12 @@ export default function PolicyChatQuota() {
             IPv6は/64単位でまとめて数えます。
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            社内や学校のように回線を共有していて、ほかの人がIPの枠を使い切っていても、ブラウザごと（
+            社内や学校のように回線を共有していて、ほかの人がIPの枠を使い切っていても、ブラウザごとに一定の回数までは使えます。
+            ブラウザの区別には、ブラウザに保存したランダムなID（
             <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">
-              SHA-256(IP + UserAgent)
+              quota-client-id
             </code>
-            ）に一定の回数までは使えます。この最低保証にも回線ごとの上限があり、
+            ）とIPアドレスを組み合わせたハッシュを使います。この最低保証にも回線ごとの上限があり、
             また全体の利用量が当日の上限に達した場合は、匿名での利用をいったん止めます。
           </p>
           <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-6">

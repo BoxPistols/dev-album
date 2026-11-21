@@ -5,6 +5,7 @@ import {
   type JevFailureCode,
   type JevTriageResult,
 } from "../../../api/lib/jevRequest";
+import { clientIdHeaders } from "../lib/clientId";
 
 /** サーバーの待ち時間の上限は5秒。関数の起動と枠の確認の分を足した、画面側の打ち切り */
 const CLIENT_TIMEOUT_MS = 15_000;
@@ -81,7 +82,7 @@ export function useJevTriage() {
     try {
       const res = await fetch("/api/jev", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...clientIdHeaders() },
         body: JSON.stringify({ message }),
         signal: controller.signal,
       });

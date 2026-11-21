@@ -95,6 +95,7 @@ beforeEach(() => {
     remaining: 9,
     limit: 10,
     globalKill: false,
+    enforced: true,
   });
 });
 
@@ -228,6 +229,7 @@ describe("POST /api/jev", () => {
       remaining: 0,
       limit: 10,
       globalKill: false,
+      enforced: true,
     });
     const { out, headers } = await call(post({ message: "至急" }));
     expect(out.status).toBe(429);
@@ -247,6 +249,7 @@ describe("POST /api/jev", () => {
       remaining: 5,
       limit: 10,
       globalKill: true,
+      enforced: true,
     });
     const { out, headers } = await call(post({ message: "至急" }));
     expect(out.status).toBe(503);

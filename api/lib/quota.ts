@@ -78,6 +78,12 @@ export function normalizeClientIp(raw: string): string {
     ...tail,
   ];
   if (!groups.every((g) => /^[0-9a-f]{1,4}$/i.test(g))) return ip;
+  // 16進表記のIPv4-mapped（::ffff:cb00:7105 = 203.0.113.5）もIPv4に直す。
+  // 直さないと、異なるIPv4が同じ/64のキーにまとまってしまう
+  const values = groups.map((g) => parseInt(g, 16));
+  if (values.slice(0, 5).every((v) => v === 0) && values[5] === 0xffff) {
+    return [values[6] >> 8, values[6] & 0xff, values[7] >> 8, values[7] & 0xff].join(".");
+  }
   return `${groups
     .slice(0, 4)
     .map((g) => parseInt(g, 16).toString(16))
@@ -95,9 +101,12 @@ export function ipKey(ip: string): string {
   return hash32(normalizeClientIp(ip));
 }
 
-/** ブラウザごとのID（IP + User-Agent）。最低保証とトークン量の集計に使う */
-export function sessionKey(ip: string, ua: string): string {
-  return hash32(normalizeClientIp(ip), ua);
+/**
+ * ブラウザごとのID。最低保証とトークン量の集計に使う。
+ * 引数clientはブラウザが送るランダムなID（api/lib/clientId.ts）。送られないときは呼び出し側がUser-Agentで代える
+ */
+export function sessionKey(ip: string, client: string): string {
+  return hash32(normalizeClientIp(ip), client);
 }
 
 export function todayUtc(): string {
@@ -128,6 +137,8 @@ export interface QuotaCheckResult {
   remaining: number;
   limit: number;
   globalKill: boolean;
+  /** 実際に数えられたか。Redisの障害で数えずに通したときはfalse */
+  enforced: boolean;
 }
 
 /**
@@ -142,14 +153,15 @@ export function decideQuota(
   floor: number,
   hardCap: number,
 ): { allowed: boolean; remaining: number } {
+  // 絶対上限はどの経路にもかける（通常の枠を絶対上限より大きく設定した場合も超えない）
+  const underHard = ipCount <= hardCap;
   const byIp = ipCount <= limit;
-  const byFloor = clientCount <= floor && ipCount <= hardCap;
+  const byFloor = clientCount <= floor;
   const remaining = Math.max(
     0,
-    limit - ipCount,
-    Math.min(floor - clientCount, hardCap - ipCount),
+    Math.min(Math.max(limit - ipCount, floor - clientCount), hardCap - ipCount),
   );
-  return { allowed: byIp || byFloor, remaining };
+  return { allowed: underHard && (byIp || byFloor), remaining };
 }
 
 /**
@@ -161,7 +173,7 @@ export async function consumeQuota(
   redis: Redis,
   tier: Tier,
   ip: string,
-  ua: string,
+  client: string,
   day: string,
   estimatedInputTokens: number,
 ): Promise<QuotaCheckResult> {
@@ -171,11 +183,12 @@ export async function consumeQuota(
       remaining: Number.POSITIVE_INFINITY,
       limit: Number.POSITIVE_INFINITY,
       globalKill: false,
+      enforced: true,
     };
   }
 
   const limit = TIER_CAPS[tier];
-  const sid = sessionKey(ip, ua);
+  const sid = sessionKey(ip, client);
   const ipReqKey = `chat:${tier}:ip:${ipKey(ip)}:${day}:requests`;
   const reqKey = `chat:${tier}:${sid}:${day}:requests`;
   const tokKey = `chat:${tier}:${sid}:${day}:tokens`;
@@ -208,6 +221,7 @@ export async function consumeQuota(
       remaining: decision.remaining,
       limit,
       globalKill,
+      enforced: true,
     };
   } catch (error) {
     // Redisの障害時は通す（サービスの継続を優先）。制限が外れていることはログに残す
@@ -215,7 +229,13 @@ export async function consumeQuota(
       "[quota] Redisのエラーのため、回数制限をかけずに受け付けました:",
       error instanceof Error ? error.message : String(error),
     );
-    return { allowed: true, remaining: limit, limit, globalKill: false };
+    return {
+      allowed: true,
+      remaining: limit,
+      limit,
+      globalKill: false,
+      enforced: false,
+    };
   }
 }
 

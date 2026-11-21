@@ -12,6 +12,7 @@ import {
   todayUtc,
   type Tier,
 } from "./lib/quota.js";
+import { CLIENT_ID_HEADER, readClientId } from "./lib/clientId.js";
 import {
   DEFAULT_MODELS,
   GEMINI_BASE_URL,
@@ -97,6 +98,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const redis = getRedis();
   const ip = extractClientIp(req.headers["x-forwarded-for"]);
   const ua = String(req.headers["user-agent"] ?? "unknown");
+  // 最低保証はブラウザのIDで数える。送られないときはUser-Agentで代える
+  const client = readClientId(req.headers[CLIENT_ID_HEADER]) ?? `ua:${ua}`;
 
   const tier: Tier = userApiKey ? "byok" : "anonymous";
   const day = todayUtc();
@@ -109,20 +112,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let limit: number | null = null;
   let globalKill = false;
   let allowed = true;
+  let enforced = false;
 
   if (redis) {
-    const result = await consumeQuota(redis, tier, ip, ua, day, estimatedInput);
+    const result = await consumeQuota(
+      redis,
+      tier,
+      ip,
+      client,
+      day,
+      estimatedInput,
+    );
     remaining = Number.isFinite(result.remaining) ? result.remaining : null;
     limit = Number.isFinite(result.limit) ? result.limit : null;
     globalKill = result.globalKill;
     allowed = result.allowed;
+    enforced = result.enforced;
   } else if (tier !== "byok") {
     // Redis 未設定: カウンタなしで運用、残量は tier cap をそのまま表示 (情報提供のみ)
     limit = Number.isFinite(TIER_CAPS[tier]) ? TIER_CAPS[tier] : null;
   }
 
   // ── ヘッダ設定 (エラー応答にも必須) ──
-  setCommonHeaders(res, tier, remaining, limit, redis !== null);
+  setCommonHeaders(res, tier, remaining, limit, enforced);
 
   // Global kill switch
   if (globalKill && tier !== "byok") {

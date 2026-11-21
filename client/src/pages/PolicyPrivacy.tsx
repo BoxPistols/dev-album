@@ -35,6 +35,11 @@ const LOCAL_STORAGE = [
   { key: "achievements", detail: "獲得した実績" },
   { key: "page-note:<パス>", detail: "ページごとに書いたメモ" },
   {
+    key: "quota-client-id",
+    detail:
+      "AIチャットとJevの利用枠で、ブラウザごとの最低保証を数えるためのランダムなID。送信時にサーバーへ送るが、サーバーではIPアドレスと組み合わせたハッシュにしてから数え、ID自体は保存しない",
+  },
+  {
     key: "sketch-draft:<パス>#<題名>",
     detail:
       "p5.jsマニュアルで書き換えたスケッチの下書き。書き換えたスケッチごとに1件。枠の「リセット」で元のコードに戻すと消える",

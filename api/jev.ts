@@ -11,6 +11,7 @@ import {
   todayUtc,
   type Tier,
 } from "./lib/quota.js";
+import { CLIENT_ID_HEADER, readClientId } from "./lib/clientId.js";
 import {
   jevFailure,
   readJevMessage,
@@ -76,15 +77,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let limit: number | null = null;
   let globalKill = false;
   let allowed = true;
+  let enforced = false;
 
   if (redis) {
     const ip = extractClientIp(req.headers["x-forwarded-for"]);
     const ua = String(req.headers["user-agent"] ?? "unknown");
+    const client = readClientId(req.headers[CLIENT_ID_HEADER]) ?? `ua:${ua}`;
     const result = await consumeQuota(
       redis,
       TIER,
       ip,
-      ua,
+      client,
       todayUtc(),
       estimateTokens(text + QUESTIONS_TEXT),
     );
@@ -92,12 +95,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     limit = Number.isFinite(result.limit) ? result.limit : null;
     globalKill = result.globalKill;
     allowed = result.allowed;
+    enforced = result.enforced;
   } else {
     // Redis未設定: カウンタなしで運用する。上限のヘッダは情報提供のみ
     limit = Number.isFinite(TIER_CAPS[TIER]) ? TIER_CAPS[TIER] : null;
   }
 
-  setCommonHeaders(res, remaining, limit, redis !== null);
+  setCommonHeaders(res, remaining, limit, enforced);
 
   if (globalKill) {
     res.setHeader("X-Chat-Kill-Switch", "true");
