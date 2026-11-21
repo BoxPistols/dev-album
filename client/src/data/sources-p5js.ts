@@ -1299,6 +1299,18 @@ export const P5JS_SOURCES: Source[] = [
     verifiedAt: "2026-11-21",
     quotes: [
       "Calculates the width of the given text string in pixels.",
+      "In p5.js 2.0+, leading and trailing spaces are ignored.",
+    ],
+    usedBy: ["/p5js/media/typography"],
+  },
+  {
+    id: "p5-ref-fontwidth",
+    title: "p5.js Reference: fontWidth()",
+    url: "https://p5js.org/reference/p5/fontWidth/",
+    kind: "official-docs",
+    verifiedAt: "2026-11-21",
+    quotes: [
+      "Returns the loose width of a text string based on the current font.",
     ],
     usedBy: ["/p5js/media/typography"],
   },
@@ -1862,7 +1874,7 @@ export const P5JS_SOURCES: Source[] = [
     kind: "measured",
     verifiedAt: "2026-11-21",
     reproduce: "node scripts/measure-p5-noise.mjs",
-    note: "既定の設定でnoise(i*0.37, i*0.11)を20万回取り出すことを4回くり返すと、最小は0.03〜0.05、最大は0.89〜0.93。0.2未満は約1%、0.8超は約0.1〜0.2%。noiseの種は実行ごとに変わるので値は毎回少し違う。noiseDetail(1, 0.5)では最大が約0.5になる。",
+    note: "既定の設定でnoise(i*0.37, i*0.11)を20万回取り出すことを30回以上くり返すと、最小はおよそ0.02〜0.08、最大はおよそ0.87〜0.93（実行ごとの範囲で、端の値はまれにしか出ない）。0.2未満は0.85〜1.46%、0.8超は0.09〜0.19%。noiseの種は実行ごとに変わるので値は毎回少し違う。既定の4つの波の強さは0.5・0.25・0.125・0.0625で、和の上限は0.9375。noiseDetail(1, 0.5)では最大が約0.5になる。",
     usedBy: ["/p5js/random/noise"],
   },
 ];

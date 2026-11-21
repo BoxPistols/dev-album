@@ -324,8 +324,10 @@ export function p5IframeAttributes(code: string): P5IframeAttributes {
 //   このiframeは学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
 // - connect-src data: blob:: loadImage()は内部でfetchを使う。データURLと、学習者が選んだ
 //   ファイル（blob:）だけを通し、外部ホストへの送信は引き続き遮断する
+// - img-src: データURLとblob:だけ。JSX用と違いhttps:を許さない。p5の教材は外部の画像を読まないので、
+//   画像の要求を使った外部への送信もここで止める
 // - media-src: カメラ映像（mediastream:）と録音・生成した音を <video> / <audio> で扱うため
-const P5_PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src data:; img-src data: blob: https:; media-src data: blob: mediastream:; connect-src data: blob:; base-uri 'none'`;
+const P5_PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src data:; img-src data: blob:; media-src data: blob: mediastream:; connect-src data: blob:; base-uri 'none'`;
 
 /**
  * p5.jsのスケッチをプレビュー用HTMLに変換する。
