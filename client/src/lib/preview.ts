@@ -374,6 +374,17 @@ function __showError(message) {
   // draw()の中のエラーは毎フレーム起きるので、1回出したら止める
   try { if (typeof noLoop === 'function') noLoop(); } catch (e) {}
 }
+// p5.jsは読み込まれた時点で、エラー文の翻訳ファイルを相対パスとCDNから取りにいく。
+// どちらもこの枠のCSPが遮断するので、コンソールに違反の記録が残るだけになる。
+// 翻訳はFriendly Error System用で、この枠では使わないので、取りにいく前に断る
+var __fetch = window.fetch;
+window.fetch = function (input) {
+  var url = typeof input === 'string' ? input : (input && input.url) || '';
+  if ((url.indexOf('./') === 0 && url.slice(-5) === '.json' && url.indexOf('/', 2) === -1) || url.indexOf('/translations/') !== -1) {
+    return Promise.reject(new Error('translation skipped'));
+  }
+  return __fetch.apply(this, arguments);
+};
 window.addEventListener('error', function (ev) { __showError(ev.message); });
 window.addEventListener('unhandledrejection', function (ev) {
   __showError(ev.reason && ev.reason.message ? ev.reason.message : ev.reason);

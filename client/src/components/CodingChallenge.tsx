@@ -425,6 +425,7 @@ export default function CodingChallenge({
                 style={{ minHeight: previewMinHeight }}
                 sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
                 allow={isP5 ? P5_IFRAME_ALLOW : undefined}
+                loading={isP5 ? 'lazy' : undefined}
                 title="プレビュー"
               />
             )}

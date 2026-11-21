@@ -79,6 +79,11 @@ describe("p5.jsマニュアルのスケッチ", () => {
           /\bload(Image|Font|JSON|Strings|Table|Sound|Model)\s*\(\s*['"]https?:/.test(code),
           `${where}: 外部URLの読み込み`,
         ).toBe(false);
+        // 空欄は空文字として宣言される。ループの増分に置くと値が進まず、タブが固まる
+        expect(
+          /for\s*\([^)]*[+\-*/]=\s*___/.test(code) || /while\s*\([^)]*___/.test(code),
+          `${where}: ループの増分・条件に空欄`,
+        ).toBe(false);
         // ブロックコメントは編集欄のハイライトと相性が悪いので、行コメントに統一する
         expect(code.includes("/*"), `${where}: ブロックコメント`).toBe(false);
       }
