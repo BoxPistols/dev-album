@@ -895,7 +895,7 @@ export default function Acoustics() {
             </h2>
             <CodingChallenge
               title="矩形波を作る"
-              description="___ を埋めて、奇数倍の正弦波だけを、倍率で割った強さで足してください。波が角ばった形になります。"
+              description="___ を埋めて、奇数倍の正弦波だけを、倍率で割った強さで足してください。波が角ばった形になります。1つ目は奇数を作るために足す数、2つ目は割る数です。"
               preview
               initialCode={`function setup() {
   createCanvas(400, 300);
@@ -910,9 +910,10 @@ function draw() {
   for (let px = 0; px <= width; px++) {
     let x = map(px, 0, width, 0, 2 * TWO_PI) + frameCount * 0.02;
     let y = 0;
-    // 1, 3, 5, ... 倍の周波数の正弦波を足していく
-    for (let k = 1; k <= 15; k += ___) {
-      y += sin(k * x) / ___;
+    // 1, 3, 5, ... 倍の周波数の正弦波を8本足す
+    for (let k = 0; k < 8; k++) {
+      let h = 2 * k + ___;
+      y += sin(h * x) / ___;
     }
     vertex(px, 150 - y * 80);
   }
@@ -931,18 +932,19 @@ function draw() {
   for (let px = 0; px <= width; px++) {
     let x = map(px, 0, width, 0, 2 * TWO_PI) + frameCount * 0.02;
     let y = 0;
-    // 1, 3, 5, ... 倍の周波数の正弦波を足していく
-    for (let k = 1; k <= 15; k += 2) {
-      y += sin(k * x) / k;
+    // 1, 3, 5, ... 倍の周波数の正弦波を8本足す
+    for (let k = 0; k < 8; k++) {
+      let h = 2 * k + 1;
+      y += sin(h * x) / h;
     }
     vertex(px, 150 - y * 80);
   }
   endShape();
 }`}
-              keywords={["k += 2", "/ k"]}
+              keywords={["k + 1", "/ h"]}
               hints={[
-                "1, 3, 5…と1つ飛ばしで進めるには、kを2ずつ増やします（k += 2）",
-                "k倍の周波数の波は、強さを1/kにします。sin(k * x)をkで割ります",
+                "kが0, 1, 2…のとき、2 * kに1を足すと1, 3, 5…（奇数）になります",
+                "h倍の周波数の波は、強さをhぶんの1にします。sin(h * x)をhで割ります",
               ]}
             />
             <CodingChallenge

@@ -864,7 +864,7 @@ function draw() {
                 { label: "6個", correct: true },
                 { label: "8個" },
               ]}
-              explanation="最初の3つの頂点で三角形が1つでき、以降は頂点を1つ足すたびに1つ増えます。8個なら 8 − 2 = 6個です。"
+              explanation="最初の3つの頂点で三角形が1つでき、以降は頂点を1つ足すたびに1つ増えます。8個なら、8から2を引いた6個です。"
             />
             <Quiz
               question="p5.strandsのworldInputsとfinalColorの違いとして正しいのは？"
@@ -939,11 +939,6 @@ function draw() {
                   title: "p5.js Reference: buildGeometry()",
                   url: "https://p5js.org/reference/p5/buildGeometry/",
                   description: "複数の立体を1つの形にまとめる関数の仕様",
-                },
-                {
-                  title: "p5.js Reference: beginShape()",
-                  url: "https://p5js.org/reference/p5/beginShape/",
-                  description: "TRIANGLE_STRIPなど、頂点のつなぎ方の一覧",
                 },
                 {
                   title: "MDN: GLSL Shaders",

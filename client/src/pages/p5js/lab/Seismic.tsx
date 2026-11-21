@@ -61,19 +61,21 @@ function draw() {
   let groundT = slider.value();
   let wg = TWO_PI / groundT;
   let dt = min(deltaTime / 1000, 0.05);
+  // 始めの3秒で、地面の揺れを0からだんだん大きくする
+  let ramp = min(1, millis() / 3000);
 
   // 1フレームを8回に分けて進める（半陰的オイラー法）
   for (let s = 0; s < 8; s++) {
     let h = dt / 8;
     phase += wg * h;
-    let ag = -AMP * wg * wg * sin(phase); // 地面の加速度
+    let ag = -AMP * ramp * wg * wg * sin(phase); // 地面の加速度
     for (let b of buildings) {
       let w = TWO_PI / b.period;
       b.v += (-2 * ZETA * w * b.v - w * w * b.x - ag) * h;
       b.x += b.v * h;
     }
   }
-  let ground = AMP * sin(phase);
+  let ground = AMP * ramp * sin(phase);
   record.push(ground);
   if (record.length > 380) record.shift();
 

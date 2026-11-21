@@ -185,17 +185,17 @@ function drawGraph() {
   noStroke();
   for (let i = 0; i < 14; i++) {
     fill(map(i, 0, 13, 185, 25), 60, 100);
-    rect(gx + 12 + i * 7, gy - gh + 7, 7, 7);
+    rect(gx + 12 + i * 7, gy - gh + 10, 7, 7);
   }
   fill(220, 10, 80);
-  textAlign(LEFT, TOP);
-  text('軽い → 重い', gx + 12, gy - gh + 21);
+  textAlign(LEFT, CENTER);
+  text('軽い → 重い', gx + 118, gy - gh + 14);
   stroke(0, 0, 100, 60);
   drawingContext.setLineDash([4, 5]);
-  line(gx + 12, gy - gh + 50, gx + 40, gy - gh + 50);
+  line(gx + 12, gy - gh + 34, gx + 40, gy - gh + 34);
   drawingContext.setLineDash([]);
   noStroke();
-  text('v = g t（真空）', gx + 46, gy - gh + 43);
+  text('v = g t（真空）', gx + 48, gy - gh + 34);
 }`;
 
 const EULER_SKETCH = `const G = 9.80665; // 標準重力加速度 (m/s^2)

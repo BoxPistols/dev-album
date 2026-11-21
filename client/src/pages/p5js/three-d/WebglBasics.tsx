@@ -238,7 +238,7 @@ function draw() {
   ambientLight(0, 0, 50);
   directionalLight(0, 0, 100, 0.4, 1, -0.3);
 
-  // 5 × 5 × 5 の格子に球を並べる
+  // 縦・横・奥行きに5個ずつ、格子状に球を並べる
   let gap = 70;
   for (let i = -2; i <= 2; i++) {
     for (let j = -2; j <= 2; j++) {
@@ -533,7 +533,7 @@ export default function WebglBasics() {
             </p>
             <SimpleTable head={["関数", "見え方"]} rows={MATERIAL_ROWS} />
             <CodePreview
-              title="4つのマテリアル（左から normal / ambient / specular / emissive）"
+              title="4つのマテリアル（左からnormal・ambient・specular・emissive）"
               language="js"
               code={MATERIALS_SKETCH}
             />
@@ -565,7 +565,7 @@ export default function WebglBasics() {
               でカメラの位置をコードから決め、格子のまわりを回らせています。引数は「カメラの位置」「見つめる点」「上の向き」の順に3つずつです。
             </p>
             <CodePreview
-              title="5 × 5 × 5 の球と、回るカメラ"
+              title="125個の球と、回るカメラ"
               language="js"
               code={CAMERA_SKETCH}
             />

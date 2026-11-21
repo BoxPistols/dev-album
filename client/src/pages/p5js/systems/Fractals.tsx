@@ -307,11 +307,11 @@ function render() {
   loadPixels();
   for (let py = 0; py < height; py++) {
     for (let px = 0; px < width; px++) {
-      // 画素1つを、複素数 c = a + bi に対応させる
+      // 画素1つを、複素数c（実部a、虚部b）に対応させる
       let a = cx + (px / width - 0.5) * span;
       let b = cy + (py / height - 0.5) * span * height / width;
 
-      // z = 0から始めて z = z² + c をくり返す
+      // zを0から始めて、zの2乗にcを足す計算をくり返す
       let zx = 0;
       let zy = 0;
       let n = 0;
@@ -797,7 +797,7 @@ function branch(len) {
               keywords={[">", "branch"]}
               hints={[
                 "終了条件は「枝の長さが6より大きいあいだだけ続ける」です。比較の記号 > を入れます",
-                "次の枝を描くのは、いま書いている関数そのものです。関数名branchを書いて自分自身を呼びます",
+                "次の枝を描くのも、いま書いている関数です。関数名branchを書いて自分自身を呼びます",
               ]}
             />
             <CodingChallenge
