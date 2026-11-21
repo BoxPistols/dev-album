@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   buildPreviewHtml,
   buildThreePreviewHtml,
+  buildP5PreviewHtml,
+  isP5Sketch,
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
@@ -744,5 +746,61 @@ describe("detectLanguage", () => {
 
   it("先頭に空白がある CSS (body) → css", () => {
     expect(detectLanguage("  body { color: red; }")).toBe("css");
+  });
+});
+
+// ============================================================
+// p5.js
+// ============================================================
+describe("isP5Sketch", () => {
+  it("setup()とcreateCanvas()の両方があるコードだけをp5のスケッチとみなす", () => {
+    expect(isP5Sketch("function setup() { createCanvas(400, 300); }")).toBe(true);
+    expect(isP5Sketch("async function setup() { createCanvas(400, 300); }")).toBe(true);
+    // ReactのコードにたまたまsetupやcreateCanvasの片方が出てきても巻き込まない
+    expect(isP5Sketch("function setup() { return 1; }")).toBe(false);
+    expect(isP5Sketch("const c = createCanvas(1, 1);")).toBe(false);
+  });
+});
+
+describe("buildP5PreviewHtml", () => {
+  const sketch = "function setup() { createCanvas(100, 100); }";
+
+  it("セルフホストのp5.jsを読み込み、外部ホストを参照しない", () => {
+    const html = buildP5PreviewHtml(sketch);
+    expect(html).toContain('src="/vendor/p5-2.4.0.min.js"');
+    expect(html).not.toMatch(/src="https?:/);
+  });
+
+  it("CSPで外部ホストへの通信を遮断する", () => {
+    const html = buildP5PreviewHtml(sketch);
+    const csp = html.match(/Content-Security-Policy" content="([^"]+)"/)?.[1] ?? "";
+    expect(csp).toContain("default-src 'none'");
+    expect(csp).toContain("connect-src data: blob:;");
+    expect(csp).not.toMatch(/connect-src[^;]*https?:/);
+  });
+
+  it("スケッチをグローバルに置く（関数で包むとp5がsetupを見つけられない）", () => {
+    const html = buildP5PreviewHtml(sketch);
+    expect(html).toContain(`<script>\n${sketch}\n</script>`);
+  });
+
+  it("スクリプトの終わりと誤認される並びを崩して埋め込む", () => {
+    const html = buildP5PreviewHtml(
+      "function setup() { createCanvas(1, 1); createDiv('</script><b>x</b>'); }",
+    );
+    expect(html).not.toContain("createDiv('</script>");
+    expect(html).toContain("createDiv('<\\/script>");
+  });
+
+  it("動き続ける表示を止める手段を持つ", () => {
+    const html = buildP5PreviewHtml(sketch);
+    expect(html).toContain('id="__toggle"');
+    expect(html).toContain("一時停止");
+  });
+
+  it("空欄が残っているあいだは、エラーではなく案内文を出す", () => {
+    const withBlank = buildP5PreviewHtml("function setup() { createCanvas(___, 100); }");
+    expect(withBlank).toContain("var __hasBlanks = true;");
+    expect(buildP5PreviewHtml(sketch)).toContain("var __hasBlanks = false;");
   });
 });

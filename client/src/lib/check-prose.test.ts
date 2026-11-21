@@ -105,6 +105,10 @@ describe("isTarget", () => {
     expect(isTarget("client/src/data/sources.ts")).toBe(true);
     expect(isTarget("client/public/logo.svg")).toBe(false);
   });
+
+  it("セルフホストした外部ライブラリは検査しない", () => {
+    expect(isTarget("client/public/vendor/p5-2.4.0.min.js")).toBe(false);
+  });
 });
 
 describe("textlintの設定", () => {

@@ -65,6 +65,7 @@ client/src/
     ├── api/        API 設計マニュアル
     ├── vue/        Vue / Nuxt マニュアル
     ├── go/         Goマニュアル
+    ├── p5js/       p5.js / ジェネラティブアートマニュアル
     ├── infra/      インフラマニュアル
     ├── devflow/    開発フローマニュアル
     ├── Training.tsx  UI トレーニング
@@ -133,6 +134,7 @@ client/src/
 | api | #047253 | #34D399 | #34D399 |
 | vue | #047253 | #42B883 | #50FA7B |
 | go | #006C84 | #00ADD8 | #8BE9FD |
+| p5js | #A21CAF | #E879F9 | #F0ABFC |
 
 `infra` / `devflow` は上書きを持たず既定の primary を使う。色は現在地の手がかりであり、情報伝達は番号・アイコン・テキストで行う（色だけに依存しない）。
 
@@ -159,6 +161,7 @@ client/src/
 | 色だけで情報を伝達 | 色覚多様性非対応 | アイコン + テキスト併用 |
 | `bg-primary/20` に `text-primary` | 自己色ティントで下地が文字色へ寄り AA を割る | `bg-primary/10` までに留める |
 | `/* コメント */` in CodingChallenge initialCode | Sucrase が正規表現と誤認 | `// コメント` を使用 |
+| p5.jsのスケッチで`preload()`・外部URLの`loadImage()`・p5.sound | 2.x系に`preload()`は無く、プレビューのCSPが外部通信を遮断する | `async setup()`と`await`、`createGraphics`・`createFileInput`・カメラ、Web Audio API |
 | プレビューに React 19 / Three.js 0.161+ を指定 | UMD ビルド未配布のためセルフホストできない | React 18.3.1 / Three.js 0.160.1 |
 | プレビュー iframe に `sandbox="allow-scripts"` のみ | 同一オリジンの `/vendor/` UMD を解決できない | `allow-scripts allow-same-origin` |
 | エモーショナルなコピー（「劇的に」「飛躍的に」） | 教材のトーンに合わない | フラットで実用的な表現 |
@@ -167,8 +170,9 @@ client/src/
 
 - JSX: Sucrase でトランスパイル → React 18.3.1 UMD（`/vendor/` にセルフホスト）で描画
 - Three.js: three@0.160.1 UMD（`/vendor/` にセルフホスト）で描画
+- p5.js: p5@2.4.0（`/vendor/`にセルフホスト）でスケッチをグローバルモードのまま実行。`setup()`と`createCanvas()`を含むコードを自動判定する（`isP5Sketch`）
 - Terminal/Config/Markdown: 専用レンダラー
-- `resolvePreviewType()` で自動判定: JSX / terminal / config / markdown / threejs
+- `resolvePreviewType()` で自動判定: JSX / terminal / config / markdown / threejs / p5
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 
 ## ライティング指針
@@ -207,6 +211,7 @@ client/src/
 - a11y のみ: `pnpm test:a11y`
 - Storybook の a11y: `pnpm test:storybook`（`vitest.storybook.config.ts`。story を 1 件ずつ chromium で描画し、`.storybook/preview.tsx` の `a11y.test: "error"` により違反があれば落ちる。初回は `pnpm exec playwright install chromium` が要る）
 - 全チャレンジコードのトランスパイル検証: `editor-validation.test.ts`
+- p5.jsのスケッチ: 構文と書き方は`p5-sketches.test.ts`、実ブラウザでの実行は`pnpm check:p5`（描画時のエラーは後者でしか分からない。既定のブラウザが無い環境では`CHROMIUM_PATH`で実行ファイルを指す）
 
 ## Git ワークフロー
 

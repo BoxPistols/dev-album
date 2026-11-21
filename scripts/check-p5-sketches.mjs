@@ -1,8 +1,8 @@
-// p5.js マニュアルのスケッチを実ブラウザで走らせて検査する。
+// p5.jsマニュアルのスケッチを実ブラウザで走らせて検査する。
 //
 // 型検査とビルドは「スケッチが文字列として正しい」ことしか見ない。描画時に落ちるスケッチは
 // ページ上で赤いエラー表示になるだけで、どのテストも気づかない。ここでは教材ページから
-// スケッチを取り出し、プレビューと同じ HTML で実際に数フレーム回して、エラーが出ないことを確かめる。
+//スケッチを取り出し、プレビューと同じHTMLで実際に数フレーム回して、エラーが出ないことを確かめる。
 //
 // 使い方:
 //   pnpm check:p5                      全スケッチを検査
@@ -35,7 +35,7 @@ function listFiles(dir) {
   return out.sort();
 }
 
-/** ファイル中のテンプレートリテラルから p5 のスケッチを取り出す */
+/**ファイル中のテンプレートリテラルからp5のスケッチを取り出す*/
 export function extractSketches(src) {
   const sketches = [];
   const pattern = /`((?:[^`\\]|\\[\s\S])*)`/g;
@@ -66,7 +66,7 @@ for (const file of files) {
 }
 
 if (targets.length === 0) {
-  console.error('検査対象のスケッチが 0 件です');
+  console.error('検査対象のスケッチが0件です');
   process.exit(1);
 }
 
@@ -94,7 +94,7 @@ const server = http.createServer((req, res) => {
 await new Promise((resolve) => server.listen(0, resolve));
 const origin = `http://localhost:${server.address().port}`;
 
-// 既定のブラウザが入っていない環境では CHROMIUM_PATH で実行ファイルを指す
+//既定のブラウザが入っていない環境ではCHROMIUM_PATHで実行ファイルを指す
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || undefined,
   args: [
@@ -123,7 +123,7 @@ for (const target of targets) {
   page.on('pageerror', (e) => consoleErrors.push(e.message));
   try {
     await page.goto(origin + id, { waitUntil: 'load' });
-    // 操作で始まるスケッチ（クリックで音を出す等）もあるので、中央を 1 回押して少し動かす
+    //操作で始まるスケッチ（クリックで音を出す等）もあるので、中央を1回押して少し動かす
     await page.waitForTimeout(700);
     await page.mouse.move(300, 200);
     await page.mouse.move(380, 260, { steps: 5 });
@@ -135,13 +135,13 @@ for (const target of targets) {
       error: document.getElementById('__error').style.display === 'block'
         ? document.getElementById('__error').textContent
         : '',
-      hasCanvas: !!document.querySelector('canvas'),
+      hasCanvas: document.querySelector("canvas") !== null,
       frames: typeof frameCount === 'number' ? frameCount : -1,
     }));
     const problems = [];
     if (!hasBlanks) {
       if (state.error) problems.push(state.error);
-      if (!state.hasCanvas) problems.push('canvas が作られていない');
+      if (!state.hasCanvas) problems.push('canvasが作られていない');
       for (const e of consoleErrors) if (!state.error.includes(e)) problems.push(e);
     }
     if (shotsDir) {

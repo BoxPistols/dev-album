@@ -67,7 +67,7 @@ export default function CodePreview({
   const prismLanguage = resolveLanguage(language);
   // 素のThree.jsはReactを経由しないので、JSX用の組み立てでは描画されない
   const isThree = /\bTHREE\b/.test(editableCode);
-  // p5.js のスケッチは素の JavaScript で書くので、language が js でもプレビューする
+  // p5.jsのスケッチは素のJavaScriptで書くので、languageがjsでもプレビューする
   const isP5 = isP5Sketch(editableCode);
   const canPreview = language === 'tsx' || language === 'jsx' || isP5;
   const isHorizontal = layout === 'horizontal';
@@ -80,7 +80,7 @@ export default function CodePreview({
     isDarkTheme(theme),
     libs,
   );
-  // p5 は入力のたびに iframe を作り直すと描画が始まらないので、打鍵が止まってから組み立てる
+  // p5は入力のたびにiframeを作り直すと描画が始まらないので、打鍵が止まってから組み立てる
   const isDark = isDarkTheme(theme);
   const [p5Html, setP5Html] = useState(() => (isP5 ? buildP5PreviewHtml(code, isDark) : ''));
   useEffect(() => {
@@ -251,7 +251,7 @@ export default function CodePreview({
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}
-            // p5 は PNG 保存（ダウンロード）とカメラ・マイクを使う教材があるので、その分だけ広げる
+            // p5はPNG保存（ダウンロード）とカメラ・マイクを使う教材があるので、その分だけ広げる
             sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
             allow={isP5 ? P5_IFRAME_ALLOW : undefined}
             loading={isP5 ? 'lazy' : undefined}

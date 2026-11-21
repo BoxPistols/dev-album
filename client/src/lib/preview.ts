@@ -11,7 +11,7 @@ export type PreviewLib = 'mui' | 'tailwind' | 'styled-components' | 'emotion';
 const REACT_UMD_URL = '/vendor/react-18.3.1.production.min.js';
 const REACT_DOM_UMD_URL = '/vendor/react-dom-18.3.1.production.min.js';
 const THREE_UMD_URL = '/vendor/three-0.160.1.min.js';
-// p5.js は 2.x 系の IIFE ビルド（グローバルに p5 を置き、setup / draw を見つけて自動で起動する）
+// p5.jsは2.x系のIIFEビルド（グローバルにp5を置き、setup / drawを見つけて自動で起動する）
 const P5_URL = '/vendor/p5-2.4.0.min.js';
 const MUI_UMD_URL = '/vendor/mui-material-5.18.0.umd.min.js';
 const ROBOTO_FONT_URL = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
@@ -287,33 +287,33 @@ export function buildThreePreviewHtml(code: string, isDark = true): string {
 }
 
 /**
- * p5.js のスケッチ（グローバルモード）かどうか。
- * setup() と createCanvas() の両方があるコードだけを対象にする。
+ * p5.jsのスケッチ（グローバルモード）かどうか。
+ * setup()とcreateCanvas()の両方があるコードだけを対象にする。
  */
 export function isP5Sketch(code: string): boolean {
   return /\bfunction\s+setup\s*\(/.test(code) && /\bcreateCanvas\s*\(/.test(code);
 }
 
-/** p5 プレビューの iframe 属性。PNG 保存のために allow-downloads を足す */
+/** p5プレビューのiframe属性。PNG保存のためにallow-downloadsを足す*/
 export const P5_IFRAME_SANDBOX = 'allow-scripts allow-same-origin allow-downloads';
 /** カメラとマイクを使うスケッチ用。許可はブラウザが利用者に確認する */
 export const P5_IFRAME_ALLOW = 'camera; microphone';
 
-// p5 プレビュー専用の CSP。JSX 用との差分:
-// - 'unsafe-eval': p5.strands（シェーダーを JavaScript で書く機能）が関数を組み立て直すために使う。
-//   この iframe は学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
-// - connect-src data: blob:: loadImage() は内部で fetch を使う。データ URL と、学習者が選んだ
+// p5プレビュー専用のCSP。JSX用との差分:
+// - 'unsafe-eval': p5.strands（シェーダーをJavaScriptで書く機能）が関数を組み立て直すために使う。
+//このiframeは学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
+// - connect-src data: blob:: loadImage()は内部でfetchを使う。データURLと、学習者が選んだ
 //   ファイル（blob:）だけを通し、外部ホストへの送信は引き続き遮断する
 // - media-src: カメラ映像（mediastream:）と録音・生成した音を <video> / <audio> で扱うため
 const P5_PREVIEW_CSP = `default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src data:; img-src data: blob: https:; media-src data: blob: mediastream:; connect-src data: blob:; base-uri 'none'`;
 
 /**
- * p5.js のスケッチをプレビュー用 HTML に変換する。
+ * p5.jsのスケッチをプレビュー用HTMLに変換する。
  *
- * - スケッチはグローバルモードのまま実行する（p5 Web Editor に貼っても同じに動く）
- * - キャンバスは枠に収まるよう縮小表示する（拡大はしない）。マウス座標は p5 が表示倍率を見て補正する
- * - 動き続ける表示には止める手段が要る（WCAG 2.2.2）。一時停止・最初から・PNG 保存を下部に置く
- * - 画面外に出たら自動で止める。1 ページに複数のスケッチを置いても CPU を使い続けない
+ * -スケッチはグローバルモードのまま実行する（p5 Web Editorに貼っても同じに動く）
+ * -キャンバスは枠に収まるよう縮小表示する（拡大はしない）。マウス座標はp5が表示倍率を見て補正する
+ * -動き続ける表示には止める手段が要る（WCAG 2.2.2）。一時停止・最初から・PNG保存を下部に置く
+ * -画面外に出たら自動で止める。1ページに複数のスケッチを置いてもCPUを使い続けない
  */
 export function buildP5PreviewHtml(code: string, isDark = true): string {
   const bg = isDark ? '#16161e' : '#ececf0';
@@ -322,7 +322,7 @@ export function buildP5PreviewHtml(code: string, isDark = true): string {
   const border = isDark ? '#45475a' : '#d4d4d8';
   const danger = isDark ? '#f38ba8' : '#b91c1c';
   const hasBlanks = /\b___\b/.test(code);
-  // インラインスクリプトに埋め込むので、HTML パーサーがスクリプトの終わりと誤認する並びを崩す
+  //インラインスクリプトに埋め込むので、HTMLパーサーがスクリプトの終わりと誤認する並びを崩す
   const safeCode = code.replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
 
   return `<!DOCTYPE html>
@@ -369,7 +369,7 @@ function __showError(message) {
     el.textContent = 'Error: ' + text;
   }
   el.style.display = 'block';
-  // draw() の中のエラーは毎フレーム起きるので、1 回出したら止める
+  // draw()の中のエラーは毎フレーム起きるので、1回出したら止める
   try { if (typeof noLoop === 'function') noLoop(); } catch (e) {}
 }
 window.addEventListener('error', function (ev) { __showError(ev.message); });
@@ -377,9 +377,9 @@ window.addEventListener('unhandledrejection', function (ev) {
   __showError(ev.reason && ev.reason.message ? ev.reason.message : ev.reason);
 });
 <\/script>
-<script src="${P5_URL}" onerror="__showError('p5.js の読み込みに失敗しました。ページを再読み込みしてください。')"><\/script>
+<script src="${P5_URL}" onerror="__showError('p5.jsの読み込みに失敗しました。ページを再読み込みしてください。')"><\/script>
 <script>
-// Friendly Error System はコンソールに出すだけで、この枠では読めない。検査の負荷だけ残るので切る
+// Friendly Error Systemはコンソールに出すだけで、この枠では読めない。検査の負荷だけ残るので切る
 if (typeof p5 !== 'undefined') p5.disableFriendlyErrors = true;
 ${BLANK_DECLARATION}
 <\/script>
@@ -418,7 +418,7 @@ ${safeCode}
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tag === 'BUTTON') return;
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].indexOf(ev.key) !== -1) ev.preventDefault();
   });
-  // キャンバスを枠に収める。p5 が style に書いた大きさ（= createCanvas の指定）を基準に縮小だけする
+  //キャンバスを枠に収める。p5がstyleに書いた大きさ（= createCanvasの指定）を基準に縮小だけする
   var baseW = 0, baseH = 0, lastW = '', lastH = '';
   function fit() {
     var c = canvasEl();
@@ -439,7 +439,7 @@ ${safeCode}
     if (c.style.width !== lastW) c.style.width = lastW;
     if (c.style.height !== lastH) c.style.height = lastH;
   }
-  // createSlider() などの部品は body の末尾に足される。操作バーの下に隠れないよう、キャンバスと同じ枠へ移す
+  // createSlider()などの部品はbodyの末尾に足される。操作バーの下に隠れないよう、キャンバスと同じ枠へ移す
   new MutationObserver(function (records) {
     var main = document.querySelector('main');
     records.forEach(function (r) {

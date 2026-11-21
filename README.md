@@ -1,6 +1,6 @@
 # Dev Album
 
-Web開発を「読んで、書いて、その場で動かして」学ぶ日本語の技術マニュアル。React・Claude Code・Three.jsなど12のマニュアルを、Web標準とアクセシビリティの観点で解説する。
+Web開発を「読んで、書いて、その場で動かして」学ぶ日本語の技術マニュアル。React・Claude Code・Three.jsなど13のマニュアルを、Web標準とアクセシビリティの観点で解説する。
 
 **デモ: https://dev-album.vercel.app**
 
@@ -71,6 +71,7 @@ pnpm dev
 | React / TypeScript / Next.js入門 | React 19、Next.js 16、CSS、Storybook、a11y、アーキテクチャ |
 | Claude Code & 開発環境 | CLI、MCP、AI コーディングエージェント、Hooks、CI/CD |
 | Three.js / React Three Fiber 入門 | シーン構築、R3F、飛行シミュレーション |
+| p5.js / ジェネラティブアート入門 | 図形と色、三角関数、乱数とノイズ、フラクタル、カメラと音、3D、ゲーム、物理シミュレーション、作品の公開 |
 | AI / Python / 機械学習 | Python・機械学習・LLM・LMOps の基礎 |
 | UX デザイン入門 | ユーザーリサーチからプロトタイピング・評価まで |
 | API 設計 / OpenAPI 入門 | REST API 設計、OpenAPI/Swagger、API 検証 |
@@ -94,15 +95,16 @@ client/src/
 ├── contexts/            ThemeContext, LayoutContext
 ├── data/                トレーニングチャレンジ、お知らせ
 ├── features/threejs/    Three.js 専用（CodeWithPreview, ThreePreview）
+├── features/p5/         p5.js専用（SketchFrame）
 ├── hooks/               useBookmarks, useProgress
 ├── lib/
 │   ├── navigation.ts      マニュアル・セクション・ページ定義（SSOT）
-│   ├── preview.ts         プレビュー HTML 生成（JSX / Three.js / Terminal / Config / Markdown）
+│   ├── preview.ts         プレビュー HTML 生成（JSX / Three.js / p5.js / Terminal / Config / Markdown）
 │   └── searchIndex.ts     全文検索インデックス
 └── pages/
     ├── git/ react/ claude-code/ threejs/     マニュアル別ページ
     ├── ai-ml/ ux-design/ api/ vue/          〃
-    ├── go/ infra/ devflow/                  〃
+    ├── go/ p5js/ infra/ devflow/            〃
     ├── Training.tsx     UI トレーニング
     ├── Landing.tsx      LP
     └── BugReport.tsx    バグ報告ページ
@@ -118,6 +120,7 @@ CodingChallenge / CodePreview のライブプレビューは以下の仕組み�
 resolvePreviewType() で自動判定
   ├── jsx      → Sucrase トランスパイル → React 18.3.1 UMD（セルフホスト）で描画
   ├── threejs  → Three.js 0.160.1 UMD（セルフホスト）で描画
+  ├── p5       → p5.js 2.4.0（セルフホスト）でスケッチをグローバルモードのまま実行
   ├── terminal → シンタックスハイライト付きターミナル表示
   ├── config   → JSON バリデーション + ハイライト
   └── markdown → Markdown パーサーで HTML 変換
@@ -125,10 +128,12 @@ resolvePreviewType() で自動判定
 srcDoc iframe（sandbox="allow-scripts allow-same-origin" + CSP）で表示
 ```
 
-- プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
+- プレビューが読む UMD（React / ReactDOM / Three / MUI / Tailwind / styled-components / Emotion の計 9 本と p5.js）は `client/public/vendor/` に**セルフホスト**する。CDN を単一障害点にせず、オフライン・社内網でも動かすため。
 - iframe 内の CSP は `default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'none'` を軸に組む（正本は `client/src/lib/preview.ts` の `PREVIEW_CSP`）。`'unsafe-inline'` はトランスパイル済みの学習者コードをインラインで実行するために要り、外部ホストのスクリプト読み込みと fetch / XHR / WebSocket による外部送信は `'self'` / `'none'` で構造的に封じる（`img-src https:` を許しているため画像リクエスト経由の外部 GET は残る）。
 - `sandbox`に`allow-scripts`と`allow-same-origin`を併せて付けているため、プレビュー内のコードは親ページと同じオリジンで動き、sandboxによる隔離は効かない（Chromeもコンソールでそう警告する）。プレビューが実行するのは教材のコードと学習者が自分で書いたコードに限られる。
 - `allow-same-origin`を外さないのは`localStorage`を使う教材のため。外すとiframeが不透明オリジンになり、`localStorage`が`SecurityError`を投げる。例: `/react/hooks-deep/custom-hooks`のuseLocalStorageデモは、外すとリロード後に値が残らない（Chromiumで確認）。`/vendor/`のUMD読み込みは外しても動く。
+- p5.jsのスケッチ（`setup()`と`createCanvas()`を含むコード）は`buildP5PreviewHtml`が組み立てる。iframeは`allow-downloads`（PNG保存）と`allow="camera; microphone"`（カメラ・マイクを使う教材）を足し、CSPは`P5_PREVIEW_CSP`を使う。外部ホストへの`fetch`は遮断したまま、データURLと利用者が選んだファイル（`blob:`）だけを通す。動き続ける表示は一時停止でき、画面外では自動で止まる
+- p5.jsのスケッチは`pnpm check:p5`で実ブラウザに通す（`scripts/check-p5-sketches.mjs`）。教材ページから全スケッチを取り出して数フレーム回し、描画時のエラーを検出する
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング
 - `detectLanguage()`: tsx / css / bash / markup を自動判定（ハイライト用）
 - Tab / Shift+Tab でインデント操作対応
@@ -202,6 +207,7 @@ CSS 変数ベース。Light / Dark（高コントラスト）/ Dracula（ソフ�
 | `api` | #047253 | #34D399 | #34D399 |
 | `vue` | #047253 | #42B883 | #50FA7B |
 | `go` | #006C84 | #00ADD8 | #8BE9FD |
+| `p5js` | #A21CAF | #E879F9 | #F0ABFC |
 
 `infra` / `devflow` は上書きを持たず、既定の `--primary` を使う。
 
