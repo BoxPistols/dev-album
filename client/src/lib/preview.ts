@@ -294,14 +294,34 @@ export function isP5Sketch(code: string): boolean {
   return /\bfunction\s+setup\s*\(/.test(code) && /\bcreateCanvas\s*\(/.test(code);
 }
 
-/** p5プレビューのiframe属性。PNG保存のためにallow-downloadsを足す*/
-export const P5_IFRAME_SANDBOX = 'allow-scripts allow-same-origin allow-downloads';
-/** カメラとマイクを使うスケッチ用。許可はブラウザが利用者に確認する */
-export const P5_IFRAME_ALLOW = 'camera; microphone';
+/** p5プレビューのiframeに付ける属性 */
+export interface P5IframeAttributes {
+  sandbox: string;
+  /** Permissions Policy。カメラ・マイクを使うスケッチにだけ付ける */
+  allow: string | undefined;
+  loading: 'lazy';
+}
+
+/**
+ * p5プレビューのiframe属性を、スケッチの内容から決める。
+ *
+ * - sandbox: JSX用の既定（allow-scripts allow-same-origin）に、PNG・GIF保存のためのallow-downloadsを足す
+ * - allow: カメラ・マイクの委譲は、createCapture()かgetUserMedia()を使うスケッチにだけ付ける。
+ *   使わないスケッチの枠にまで権限を渡さない（許可そのものはブラウザが利用者に確認する）
+ * - loading: 1ページに複数のスケッチがあるので、画面に近づくまで読み込まない
+ */
+export function p5IframeAttributes(code: string): P5IframeAttributes {
+  const usesMedia = /\bcreateCapture\s*\(|\bgetUserMedia\s*\(/.test(code);
+  return {
+    sandbox: 'allow-scripts allow-same-origin allow-downloads',
+    allow: usesMedia ? 'camera; microphone' : undefined,
+    loading: 'lazy',
+  };
+}
 
 // p5プレビュー専用のCSP。JSX用との差分:
 // - 'unsafe-eval': p5.strands（シェーダーをJavaScriptで書く機能）が関数を組み立て直すために使う。
-//このiframeは学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
+//   このiframeは学習者が書いたコードをそのままインライン実行する場所なので、許す範囲は実質変わらない
 // - connect-src data: blob:: loadImage()は内部でfetchを使う。データURLと、学習者が選んだ
 //   ファイル（blob:）だけを通し、外部ホストへの送信は引き続き遮断する
 // - media-src: カメラ映像（mediastream:）と録音・生成した音を <video> / <audio> で扱うため

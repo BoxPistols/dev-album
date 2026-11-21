@@ -2,47 +2,51 @@
  * p5.jsマニュアルのスケッチの静的検査。
  *
  * 実ブラウザでの実行はpnpm check:p5が見る（描画時のエラーはそちらでしか分からない）。
- * ここではブラウザを使わずに済むものだけを見る。構文エラーと、プレビューの前提を崩す書き方。
+ * ここではブラウザを使わずに済むものだけを見る。構文エラー、プレビューの前提を崩す書き方、
+ * チャレンジの答えとヒントの食い違い。
  */
 import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
-import { isP5Sketch } from "./preview";
+import { fuzzyCheck } from "@/components/CodingChallenge";
+import {
+  P5_PAGES_DIR,
+  extractChallenges,
+  extractPreviewTitles,
+  extractSketches,
+  listPageFiles,
+  // @ts-expect-error - .mjsに型定義は無い
+} from "../../../scripts/lib/p5-sketches.mjs";
 
-const PAGES_DIR = path.resolve(__dirname, "..", "pages", "p5js");
-
-function listFiles(dir: string): string[] {
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...listFiles(full));
-    else if (entry.name.endsWith(".tsx")) out.push(full);
-  }
-  return out.sort();
+interface Sketch {
+  code: string;
+  line: number;
 }
 
-/** scripts/check-p5-sketches.mjsのextractSketchesと同じ取り出し方 */
-function extractSketches(src: string): { code: string; line: number }[] {
-  const sketches: { code: string; line: number }[] = [];
-  const pattern = /`((?:[^`\\]|\\[\s\S])*)`/g;
-  let m: RegExpExecArray | null;
-  while ((m = pattern.exec(src)) !== null) {
-    const code = m[1]
-      .replace(/\\`/g, "`")
-      .replace(/\\\$/g, "$")
-      .replace(/\\\\/g, "\\");
-    if (isP5Sketch(code)) {
-      sketches.push({ code, line: src.slice(0, m.index).split("\n").length });
-    }
-  }
-  return sketches;
+interface Challenge {
+  line: number;
+  title: string;
+  initialCode: string;
+  answer: string;
+  keywords: string[];
+  hints: string[];
 }
 
-const files = listFiles(PAGES_DIR).map((file) => ({
-  name: path.relative(PAGES_DIR, file),
-  sketches: extractSketches(fs.readFileSync(file, "utf8")),
-}));
+interface PreviewTitle {
+  line: number;
+  title: string;
+}
+
+const files = (listPageFiles() as string[]).map((file) => {
+  const src = fs.readFileSync(file, "utf8");
+  return {
+    name: path.relative(P5_PAGES_DIR as string, file),
+    sketches: extractSketches(src) as Sketch[],
+    challenges: extractChallenges(src) as Challenge[],
+    previewTitles: extractPreviewTitles(src) as PreviewTitle[],
+  };
+});
 
 describe("p5.jsマニュアルのスケッチ", () => {
   it("検査対象のスケッチを拾えている（0件は走査の事故）", () => {
@@ -62,10 +66,7 @@ describe("p5.jsマニュアルのスケッチ", () => {
     it(`[${file.name}] のスケッチ（${file.sketches.length}個）が構文として正しい`, () => {
       for (const { code, line } of file.sketches) {
         // 空欄（___）は識別子として読めるので、埋める前のチャレンジもそのまま検査できる
-        expect(
-          () => new vm.Script(code),
-          `${file.name}:${line}`,
-        ).not.toThrow();
+        expect(() => new vm.Script(code), `${file.name}:${line}`).not.toThrow();
       }
     });
 
@@ -88,5 +89,65 @@ describe("p5.jsマニュアルのスケッチ", () => {
         expect(code.includes("/*"), `${where}: ブロックコメント`).toBe(false);
       }
     });
+  }
+});
+
+describe("p5.jsマニュアルのプレビューの題名", () => {
+  // 題名は下書きの保存先のキーになる（useSketchDraft）。無いと保存されず、
+  // 同じページで重なると別のスケッチの下書きが開く
+  for (const file of files) {
+    if (file.previewTitles.length === 0) continue;
+
+    it(`[${file.name}] のCodePreviewが、ページの中で一意な題名を持つ`, () => {
+      const untitled = file.previewTitles.filter((p) => p.title === "").map((p) => p.line);
+      expect(untitled, `${file.name}: 題名が無い行`).toEqual([]);
+      const titles = file.previewTitles.map((p) => p.title);
+      const duplicated = titles.filter((t, i) => titles.indexOf(t) !== i);
+      expect(duplicated, `${file.name}: 重複している題名`).toEqual([]);
+    });
+  }
+});
+
+describe("p5.jsマニュアルのチャレンジ", () => {
+  it("検査対象のチャレンジを拾えている（0件は走査の事故）", () => {
+    const total = files.reduce((n, f) => n + f.challenges.length, 0);
+    expect(total).toBeGreaterThan(0);
+  });
+
+  for (const file of files) {
+    for (const challenge of file.challenges) {
+      const where = `${file.name}:${challenge.line}「${challenge.title}」`;
+
+      it(`${where} の答え・キーワード・ヒントが食い違っていない`, () => {
+        const { initialCode, answer, keywords, hints } = challenge;
+        expect(initialCode, "initialCodeを取り出せない").not.toBe("");
+        expect(answer, "answerを取り出せない").not.toBe("");
+        expect(/\b___\b/.test(initialCode), "初期コードに空欄が無い").toBe(true);
+        expect(/\b___\b/.test(answer), "答えに空欄が残っている").toBe(false);
+
+        // キーワード対応ヒント（1 keyword = 1 hint。CLAUDE.md）
+        expect(keywords.length, "キーワードが無い").toBeGreaterThan(0);
+        expect(keywords.length, "キーワードが5個以上（問題を分ける合図）").toBeLessThan(5);
+        expect(hints.length, "ヒントの数がキーワードの数と違う").toBe(keywords.length);
+
+        // 答えは正解と判定され、手を付けていない初期コードは正解にならない
+        expect(fuzzyCheck(answer, answer, keywords, initialCode), "答えが正解にならない").toBe(true);
+        expect(fuzzyCheck(initialCode, answer, keywords, initialCode), "初期コードのまま正解になる").toBe(false);
+
+        // 答えと初期コードの差は、空欄を埋めた行だけ
+        const initialLines = initialCode.split("\n");
+        const answerLines = answer.split("\n");
+        expect(answerLines.length, "初期コードと答えの行数が違う").toBe(initialLines.length);
+        const strayLines = initialLines.filter(
+          (line, i) => line !== answerLines[i] && !/\b___\b/.test(line),
+        );
+        expect(strayLines, "空欄の無い行が、初期コードと答えで違う").toEqual([]);
+
+        // 各キーワードは、空欄を埋めた行に実際に現れる
+        const filled = answerLines.filter((line, i) => line !== initialLines[i]).join("\n");
+        const missing = keywords.filter((keyword) => !filled.includes(keyword));
+        expect(missing, "空欄を埋めた行に現れないキーワード").toEqual([]);
+      });
+    }
   }
 });

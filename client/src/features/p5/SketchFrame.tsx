@@ -1,9 +1,5 @@
 import { useMemo } from "react";
-import {
-  buildP5PreviewHtml,
-  P5_IFRAME_ALLOW,
-  P5_IFRAME_SANDBOX,
-} from "@/lib/preview";
+import { buildP5PreviewHtml, p5IframeAttributes } from "@/lib/preview";
 import { useTheme, isDarkTheme } from "@/contexts/ThemeContext";
 
 interface SketchFrameProps {
@@ -27,6 +23,7 @@ export default function SketchFrame({
   const { theme } = useTheme();
   const isDark = isDarkTheme(theme);
   const html = useMemo(() => buildP5PreviewHtml(code, isDark), [code, isDark]);
+  const frame = useMemo(() => p5IframeAttributes(code), [code]);
 
   return (
     <div
@@ -35,9 +32,7 @@ export default function SketchFrame({
     >
       <iframe
         srcDoc={html}
-        sandbox={P5_IFRAME_SANDBOX}
-        allow={P5_IFRAME_ALLOW}
-        loading="lazy"
+        {...frame}
         title={title}
         className="w-full h-full border-0"
       />

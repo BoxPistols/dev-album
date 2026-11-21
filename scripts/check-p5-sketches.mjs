@@ -9,51 +9,26 @@
 //   pnpm check:p5 basics/FirstSketch   パスに一致するファイルだけ検査
 //   pnpm check:p5 --shots=<dir>        各スケッチのスクリーンショットを <dir> に保存
 //   CHROMIUM_PATH=/path/to/chrome pnpm check:p5   既定のブラウザが無い環境
+//   pnpm check:p5 --jobs=1             並べて走らせる本数（既定は4）。重いスケッチの調査は1にする
 //   pnpm check:p5 --fake-media         カメラ・マイクを擬似デバイスで許可して走らせる
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { buildP5PreviewHtml, isP5Sketch } from '../client/src/lib/preview.ts';
+import { buildP5PreviewHtml } from '../client/src/lib/preview.ts';
+import { P5_PAGES_DIR, extractSketches, listPageFiles } from './lib/p5-sketches.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const PAGES_DIR = path.join(ROOT, 'client/src/pages/p5js');
+const PAGES_DIR = P5_PAGES_DIR;
 const VENDOR_DIR = path.join(ROOT, 'client/public/vendor');
 
 const args = process.argv.slice(2);
 const shotsDir = args.find((a) => a.startsWith('--shots='))?.slice('--shots='.length);
 const fakeMedia = args.includes('--fake-media');
+const jobs = Math.max(1, Number(args.find((a) => a.startsWith('--jobs='))?.slice('--jobs='.length)) || 4);
 const filters = args.filter((a) => !a.startsWith('--'));
 
-function listFiles(dir) {
-  const out = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...listFiles(full));
-    else if (entry.name.endsWith('.tsx')) out.push(full);
-  }
-  return out.sort();
-}
-
-/**ファイル中のテンプレートリテラルからp5のスケッチを取り出す*/
-export function extractSketches(src) {
-  const sketches = [];
-  const pattern = /`((?:[^`\\]|\\[\s\S])*)`/g;
-  let m;
-  while ((m = pattern.exec(src)) !== null) {
-    const code = m[1]
-      .replace(/\\`/g, '`')
-      .replace(/\\\$/g, '$')
-      .replace(/\\\\/g, '\\');
-    if (isP5Sketch(code)) {
-      const line = src.slice(0, m.index).split('\n').length;
-      sketches.push({ code, line });
-    }
-  }
-  return sketches;
-}
-
-const files = listFiles(PAGES_DIR).filter(
+const files = listPageFiles(PAGES_DIR).filter(
   (f) => filters.length === 0 || filters.some((x) => f.includes(x)),
 );
 
@@ -94,7 +69,7 @@ const server = http.createServer((req, res) => {
 await new Promise((resolve) => server.listen(0, resolve));
 const origin = `http://localhost:${server.address().port}`;
 
-//既定のブラウザが入っていない環境ではCHROMIUM_PATHで実行ファイルを指す
+// 既定のブラウザが入っていない環境ではCHROMIUM_PATHで実行ファイルを指す
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || undefined,
   args: [
@@ -111,9 +86,8 @@ const context = await browser.newContext({
 if (shotsDir) fs.mkdirSync(shotsDir, { recursive: true });
 
 const failures = [];
-let index = 0;
-for (const target of targets) {
-  index += 1;
+
+async function check(target, index) {
   const id = `/s${index}`;
   pagesByPath.set(id, buildP5PreviewHtml(target.code, true));
   const label = `${target.file}:${target.line}`;
@@ -123,19 +97,19 @@ for (const target of targets) {
   page.on('pageerror', (e) => consoleErrors.push(e.message));
   try {
     await page.goto(origin + id, { waitUntil: 'load' });
-    //操作で始まるスケッチ（クリックで音を出す等）もあるので、中央を1回押して少し動かす
+    // 操作で始まるスケッチ（クリックで音を出す等）もあるので、中央を1回押して少し動かす
     await page.waitForTimeout(700);
     await page.mouse.move(300, 200);
     await page.mouse.move(380, 260, { steps: 5 });
     await page.mouse.click(360, 240);
-    for (const b of await page.locator("main button").all()) await b.click().catch(() => {});
+    for (const b of await page.locator('main button').all()) await b.click().catch(() => {});
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(900);
     const state = await page.evaluate(() => ({
       error: document.getElementById('__error').style.display === 'block'
         ? document.getElementById('__error').textContent
         : '',
-      hasCanvas: document.querySelector("canvas") !== null,
+      hasCanvas: document.querySelector('canvas') !== null,
       frames: typeof frameCount === 'number' ? frameCount : -1,
     }));
     const problems = [];
@@ -159,8 +133,19 @@ for (const target of targets) {
     console.log(`NG  ${label}\n    ${e}`);
   } finally {
     await page.close();
+    pagesByPath.delete(id);
   }
 }
+
+// 数本ずつ並べて走らせる。1本ずつだと全件に数分かかる
+const queue = targets.map((target, i) => ({ target, index: i + 1 }));
+await Promise.all(
+  Array.from({ length: Math.min(jobs, queue.length) }, async () => {
+    for (let next = queue.shift(); next; next = queue.shift()) {
+      await check(next.target, next.index);
+    }
+  }),
+);
 
 await browser.close();
 server.close();

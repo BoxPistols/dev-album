@@ -171,6 +171,8 @@ client/src/
 - JSX: Sucrase でトランスパイル → React 18.3.1 UMD（`/vendor/` にセルフホスト）で描画
 - Three.js: three@0.160.1 UMD（`/vendor/` にセルフホスト）で描画
 - p5.js: p5@2.4.0（`/vendor/`にセルフホスト）でスケッチをグローバルモードのまま実行。`setup()`と`createCanvas()`を含むコードを自動判定する（`isP5Sketch`）
+  - `CodePreview`のp5スケッチは、書き換えた内容を`localStorage`に下書きとして残す（`useSketchDraft`。キーは`sketch-draft:<パス>#<題名>`）。そのため`title`を必ず付け、同じページの中で重ならないようにする（`p5-sketches.test.ts`が検査する）
+  - iframeの属性は`p5IframeAttributes(code)`で決める（`allow-downloads`と、カメラ・マイクを使うスケッチにだけ`allow`）。`sandbox`や`allow`を各所に直書きしない
 - Terminal/Config/Markdown: 専用レンダラー
 - `resolvePreviewType()` で自動判定: JSX / terminal / config / markdown / threejs / p5
 - `detectComponentName()`: `App` が定義されていれば優先的にレンダリング

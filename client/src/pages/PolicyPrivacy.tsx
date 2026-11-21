@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 // 最終更新日。内容を変えたらここも更新する。
-const UPDATED_AT = "2026-08-21";
+const UPDATED_AT = "2026-11-21";
 
 // Vercel Web Analytics が 1 データポイントごとに保存しうる項目。
 // 出典: https://vercel.com/docs/analytics/privacy-policy
@@ -34,6 +34,16 @@ const LOCAL_STORAGE = [
   { key: "streak-data", detail: "連続して学習した日数の記録" },
   { key: "achievements", detail: "獲得した実績" },
   { key: "page-note:<パス>", detail: "ページごとに書いたメモ" },
+  {
+    key: "sketch-draft:<パス>#<題名>",
+    detail:
+      "p5.jsマニュアルで書き換えたスケッチの下書き。書き換えたスケッチごとに1件。枠の「リセット」で元のコードに戻すと消える",
+  },
+  {
+    key: "hikariuke-best / click-best / hold-best",
+    detail:
+      "p5.jsマニュアルのゲームのページで遊んだときの最高点。p5.jsのstoreItem()が、値の型を覚えるために同じ名前にp5TypeIDを付けたキーも一緒に書く",
+  },
   {
     key: "chat-history / chat-settings / chat-panel-size",
     detail:
@@ -87,6 +97,9 @@ export default function PolicyPrivacy() {
             <li>
               AIチャットとJevの実行だけは例外で、送信した内容が処理のために
               サーバーを経由します。会話履歴そのものの保存先はブラウザです
+            </li>
+            <li>
+              p5.jsマニュアルの一部のスケッチは、ボタンを押したときにカメラ・マイク・手元の画像ファイルを使います。使ってよいかはブラウザがその都度確認します。教材のスケッチは映像・音・画像をブラウザの中で絵に変えるだけで、保存もサーバーへの送信もしません
             </li>
             <li>
               Jevセクションの実行ボタンを押すと、入力した文章は判定のためにサーバーを経由して外部のAPI（TypeSafe）へ送られます。このサイトは入力をサーバーに保存しません。送信後の扱いはTypeSafeの規約に従うので、氏名や連絡先などの個人情報は入れないでください

@@ -4,6 +4,7 @@ import {
   buildThreePreviewHtml,
   buildP5PreviewHtml,
   isP5Sketch,
+  p5IframeAttributes,
   buildMarkdownPreviewHtml,
   buildTerminalPreviewHtml,
   buildConfigPreviewHtml,
@@ -802,5 +803,23 @@ describe("buildP5PreviewHtml", () => {
     const withBlank = buildP5PreviewHtml("function setup() { createCanvas(___, 100); }");
     expect(withBlank).toContain("var __hasBlanks = true;");
     expect(buildP5PreviewHtml(sketch)).toContain("var __hasBlanks = false;");
+  });
+});
+
+describe("p5IframeAttributes", () => {
+  it("PNG・GIFを保存できるよう、ダウンロードを許可する", () => {
+    const attrs = p5IframeAttributes("function setup() { createCanvas(1, 1); }");
+    expect(attrs.sandbox).toBe("allow-scripts allow-same-origin allow-downloads");
+    expect(attrs.loading).toBe("lazy");
+  });
+
+  it("カメラ・マイクの委譲は、使うスケッチにだけ付ける", () => {
+    expect(p5IframeAttributes("function setup() { createCanvas(1, 1); }").allow).toBeUndefined();
+    expect(
+      p5IframeAttributes("function setup() { createCanvas(1, 1); createCapture(VIDEO); }").allow,
+    ).toBe("camera; microphone");
+    expect(
+      p5IframeAttributes("navigator.mediaDevices.getUserMedia({ audio: true });").allow,
+    ).toBe("camera; microphone");
   });
 });

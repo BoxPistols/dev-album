@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Copy, Check, Eye, Code2, Maximize2, Minimize2, RotateCcw, GripVertical } from 'lucide-react';
 import { Highlight, themes, type Language } from 'prism-react-renderer';
 import {
   buildThreePreviewHtml,
   buildP5PreviewHtml,
   isP5Sketch,
-  P5_IFRAME_ALLOW,
-  P5_IFRAME_SANDBOX,
+  p5IframeAttributes,
   useDebouncedPreview,
   type PreviewLib,
 } from '@/lib/preview';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useSketchDraft } from '@/hooks/useSketchDraft';
 
 interface CodePreviewProps {
   code: string;
@@ -31,6 +32,10 @@ interface CodePreviewProps {
 
 /** p5の結果枠の高さの上限（px）。これより長いコード欄の横では、枠がスクロールに追従する */
 const P5_STICKY_HEIGHT = 460;
+/** 狭い画面でp5の結果をコードの上に積むときの枠の高さ（px） */
+const P5_STACKED_HEIGHT = 360;
+/** これより狭い画面では、p5の結果とコードを横に並べない（キャンバスが小さくなりすぎる） */
+const P5_STACK_QUERY = '(max-width: 767px)';
 
 const languageMap: Record<string, Language> = {
   ts: 'typescript', tsx: 'tsx', js: 'javascript', jsx: 'jsx',
@@ -51,7 +56,18 @@ export default function CodePreview({
   previewOnly = false,
   libs,
 }: CodePreviewProps) {
-  const [editableCode, setEditableCode] = useState(code);
+  // p5のスケッチは作品づくりの素材なので、書き換えた内容を端末に下書きとして残す。
+  // それ以外のコードは、これまでどおりページを離れると元に戻る
+  const {
+    code: editableCode,
+    setCode: setEditableCode,
+    reset: handleReset,
+    status: draftStatus,
+  } = useSketchDraft({
+    original: code,
+    title,
+    enabled: !previewOnly && isP5Sketch(code),
+  });
   const [copied, setCopied] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
   const [viewMode, setViewMode] = useState<'both' | 'code' | 'preview'>(previewOnly ? 'preview' : 'both');
@@ -61,10 +77,6 @@ export default function CodePreview({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setEditableCode(code);
-  }, [code]);
-
   const { theme } = useTheme();
   const isModified = editableCode !== code;
   const prismLanguage = resolveLanguage(language);
@@ -73,7 +85,9 @@ export default function CodePreview({
   // p5.jsのスケッチは素のJavaScriptで書くので、languageがjsでもプレビューする
   const isP5 = isP5Sketch(editableCode);
   const canPreview = language === 'tsx' || language === 'jsx' || isP5;
-  const isHorizontal = layout === 'horizontal';
+  // 狭い画面で横に並べるとキャンバスが極端に小さくなる。p5は結果を上、コードを下に積む
+  const stackP5 = useMediaQuery(P5_STACK_QUERY) && isP5;
+  const isHorizontal = layout === 'horizontal' && !stackP5;
 
   const jsxPreviewHtml = useDebouncedPreview(
     editableCode,
@@ -83,21 +97,25 @@ export default function CodePreview({
     isDarkTheme(theme),
     libs,
   );
-  // p5は入力のたびにiframeを作り直すと描画が始まらないので、打鍵が止まってから組み立てる
+  // p5は入力のたびにiframeを作り直すと描画が始まらないので、打鍵が止まってから反映する。
+  // iframeの属性（カメラ・マイクの委譲）も、同じコードから決めてHTMLと揃える
   const isDark = isDarkTheme(theme);
-  const [p5Html, setP5Html] = useState(() => (isP5 ? buildP5PreviewHtml(code, isDark) : ''));
+  const [p5Code, setP5Code] = useState(editableCode);
   useEffect(() => {
     if (!isP5) return;
-    const timer = setTimeout(() => setP5Html(buildP5PreviewHtml(editableCode, isDark)), 400);
+    const timer = setTimeout(() => setP5Code(editableCode), 400);
     return () => clearTimeout(timer);
-  }, [editableCode, isDark, isP5]);
+  }, [editableCode, isP5]);
+  const p5Html = useMemo(
+    () => (isP5 ? buildP5PreviewHtml(p5Code, isDark) : ''),
+    [isP5, p5Code, isDark],
+  );
+  const p5Frame = useMemo(() => p5IframeAttributes(p5Code), [p5Code]);
   const previewHtml = isP5
     ? p5Html
     : canPreview && isThree
       ? buildThreePreviewHtml(editableCode, isDark)
       : jsxPreviewHtml;
-
-  const handleReset = () => setEditableCode(code);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(editableCode);
@@ -170,10 +188,19 @@ export default function CodePreview({
   // プレビューパネルの高さ（縮小時と拡大時で必ず差が出るようにする）
   const previewCollapsed = Math.max(200, previewHeight);
   const previewExpanded = Math.max(previewCollapsed + 300, 600);
+  const showSplit = showCode && showPreview && isHorizontal;
+  // p5の結果枠はコード欄の高さに合わせず、キャンバスが収まる高さで固定する。
+  // 横並びのときだけ、コード欄と同じ高さの領域の中で枠を上端に留めてスクロールに追従させる
+  const p5FrameHeight = !showCode
+    ? (isExpanded ? previewExpanded : previewCollapsed)
+    : stackP5
+      ? P5_STACKED_HEIGHT
+      : Math.min(editorHeight, P5_STICKY_HEIGHT);
   const previewPanelHeight = !showCode
     ? (isExpanded ? previewExpanded : previewCollapsed)
-    : editorHeight;
-  const showSplit = showCode && showPreview && isHorizontal;
+    : isP5 && !showSplit
+      ? p5FrameHeight
+      : editorHeight;
 
   // コードエディタパネル
   const codePanel = showCode ? (
@@ -242,7 +269,7 @@ export default function CodePreview({
   const previewPanel = showPreview ? (
     <div
       className={`flex flex-col min-w-0 ${
-        !showSplit ? (showCode ? 'border-t border-[#313244]' : '') : ''
+        !showSplit ? (showCode ? (stackP5 ? 'order-first border-b border-[#313244]' : 'border-t border-[#313244]') : '') : ''
       }`}
       style={showSplit ? { width: `${100 - splitRatio}%` } : undefined}
     >
@@ -258,15 +285,14 @@ export default function CodePreview({
         {previewHtml && (
           <iframe
             srcDoc={previewHtml}
+            sandbox="allow-scripts allow-same-origin"
             // p5はPNG保存（ダウンロード）とカメラ・マイクを使う教材があるので、その分だけ広げる
-            sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
-            allow={isP5 ? P5_IFRAME_ALLOW : undefined}
-            loading={isP5 ? 'lazy' : undefined}
+            {...(isP5 ? p5Frame : {})}
             title="プレビュー"
-            // p5のスケッチはコードが長くなりやすく、結果の枠もコード欄と同じ高さまで伸びる。
-            // キャンバスを枠の中央に置くと画面の外に出てしまうので、枠の上端に留めてスクロールに追従させる
+            // p5のスケッチはコードが長くなりやすい。結果の枠をコード欄と同じ高さまで伸ばすと
+            // キャンバスが画面の外に出るので、枠の高さを固定し、上端に留めてスクロールに追従させる
             className={isP5 ? 'w-full border-0 sticky top-3' : 'w-full h-full border-0'}
-            style={isP5 ? { height: Math.min(previewPanelHeight, P5_STICKY_HEIGHT) } : undefined}
+            style={isP5 ? { height: p5FrameHeight } : undefined}
           />
         )}
         {/* ドラッグ中は iframe がマウスイベントを奪うのを防止 */}
@@ -289,6 +315,11 @@ export default function CodePreview({
         {language && (
           <span className="text-[12px] font-mono text-[#cdd6f4]/65 uppercase">{language}</span>
         )}
+        {/* 常に置いておき、文言が変わったときに読み上げられるようにする */}
+        <span role="status" className="text-[12px] text-[#f9e2af] ml-1">
+          {draftStatus === 'saved' && '下書きを保存済み'}
+          {draftStatus === 'unsaved' && '下書きを保存できません'}
+        </span>
       </div>
       <div className="flex items-center gap-0.5">
         {canPreview && !previewOnly && (

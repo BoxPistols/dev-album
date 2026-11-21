@@ -9,8 +9,7 @@ import {
   buildConfigPreviewHtml,
   buildP5PreviewHtml,
   isP5Sketch,
-  P5_IFRAME_ALLOW,
-  P5_IFRAME_SANDBOX,
+  p5IframeAttributes,
   type PreviewLib,
 } from '@/lib/preview';
 import { useTheme, isDarkTheme } from '@/contexts/ThemeContext';
@@ -423,9 +422,8 @@ export default function CodingChallenge({
                 srcDoc={previewHtml}
                 className="w-full h-full border-0"
                 style={{ minHeight: previewMinHeight }}
-                sandbox={isP5 ? P5_IFRAME_SANDBOX : 'allow-scripts allow-same-origin'}
-                allow={isP5 ? P5_IFRAME_ALLOW : undefined}
-                loading={isP5 ? 'lazy' : undefined}
+                sandbox="allow-scripts allow-same-origin"
+                {...(isP5 ? p5IframeAttributes(code) : {})}
                 title="プレビュー"
               />
             )}
