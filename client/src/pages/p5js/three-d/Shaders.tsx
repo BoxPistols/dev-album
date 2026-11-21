@@ -12,9 +12,9 @@ const h2 = "text-3xl font-bold text-foreground mb-6";
 const para = "text-muted-foreground mb-4 leading-relaxed";
 
 // このページの完成形。noiseの地形の上を飛び続ける。ドラッグで視点を変えられる
-const HERO_SKETCH = `let cols = 40;
-let rows = 30;
-let cell = 26;
+const HERO_SKETCH = `let cols = 44;
+let rows = 32;
+let cell = 24;
 let fly = 0;
 
 function setup() {
@@ -30,7 +30,7 @@ function draw() {
 
   // 地形を奥へ寝かせて、見下ろす角度にする
   rotateX(1.15);
-  translate(-cols * cell / 2, -rows * cell / 2 - 110, -90);
+  translate(-cols * cell / 2, -rows * cell / 2 - 150, -120);
 
   strokeWeight(1);
   for (let y = 0; y < rows - 1; y++) {
@@ -148,13 +148,13 @@ function wave() {
 function draw() {
   background(14, 16, 30);
   orbitControl();
-  ambientLight(70);
-  directionalLight(255, 255, 255, 0.3, 1, -0.5);
-  pointLight(255, 120, 190, 0, -200, 100);
+  ambientLight(40);
+  directionalLight(160, 190, 255, 0.3, 1, -0.5);
+  pointLight(255, 120, 190, -120, -160, 60);
   rotateX(1.2);
   // これ以降に描く立体に、シェーダーを使う
   shader(waveShader);
-  fill(90, 160, 255);
+  fill(235);
   // 細かく分割した板。分割が粗いと、波がなめらかにならない
   plane(440, 320, 60, 40);
 }`;
@@ -175,8 +175,9 @@ function blob() {
   // objectInputs: 拡大や回転をかける前の頂点に対して実行される
   objectInputs.begin();
   let p = objectInputs.position;
-  bump = noise(p.x * 0.9 + t * 0.3, p.y * 0.9, p.z * 0.9 - t * 0.2);
-  // 面の向き（法線）の方向へ、noiseの分だけ押し出す
+  // 3方向のsin()を掛け合わせて、0〜1のうねりを作る
+  bump = 0.5 + 0.5 * sin(p.x * 3 + t) * sin(p.y * 4 - t * 0.7) * sin(p.z * 3.5 + t * 0.5);
+  // 面の向き（法線）の方向へ、うねりの分だけ押し出す
   objectInputs.position += objectInputs.normal * (bump - 0.5) * 0.7;
   objectInputs.end();
 
@@ -264,7 +265,7 @@ const GLSL_ROWS: [string, string][] = [
   ],
   [
     "varying vec2 vTexCoord;",
-    "いま処理している画素の位置。左上が(0, 0)、右下が(1, 1)",
+    "いま処理している画素の位置。横・縦とも0〜1の範囲",
   ],
   ["uniform sampler2D tex0;", "filter()をかける前の画面。p5.jsが渡してくれる"],
   ["uniform float time;", "スケッチからsetUniform()で渡す値"],
@@ -432,7 +433,7 @@ export default function Shaders() {
               <ul className="list-disc pl-5 space-y-1">
                 <li>
                   <code className={code}>i &lt; 500</code>
-                  を3000にする（draw()の負荷はほとんど変わらない）
+                  を3000にする（組み立ては最初の1回だけなので、draw()の中はmodel()の1回のまま）
                 </li>
                 <li>
                   <code className={code}>box(5, 5, len)</code>を
@@ -572,7 +573,7 @@ export default function Shaders() {
               </table>
             </div>
             <p className={para}>
-              下のスケッチは2つのフックを使います。objectInputsで球の頂点をnoise()の分だけ外へ押し出し、finalColorで画素の色を決めます。
+              下のスケッチは2つのフックを使います。objectInputsで球の頂点をsin()のうねりの分だけ外へ押し出し、finalColorで画素の色を決めます。
               押し出した量を色にも使いたいので、
               <code className={code}>sharedFloat()</code>
               で作った変数に入れて、頂点の段から画素の段へ受け渡しています。色は[赤,
@@ -592,8 +593,8 @@ export default function Shaders() {
                   の0.7を2にする（大きく崩れる）、0にする（形は球のまま、色だけ流れる）
                 </li>
                 <li>
-                  <code className={code}>p.x * 0.9</code>
-                  などの0.9を3にする（起伏が細かくなる）
+                  <code className={code}>p.x * 3</code>
+                  の3を9にする（起伏が細かくなる）
                 </li>
                 <li>
                   <code className={code}>cool</code>と

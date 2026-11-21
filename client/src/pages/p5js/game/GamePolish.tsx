@@ -264,15 +264,15 @@ function drawHud() {
     textSize(18);
     text('SCORE ' + round(shown), 16, 14);
     if (combo >= 2) {
-      textSize(13);
+      textSize(15);
       fill(46, 50, 100);
       text('れんぞく ' + combo, 16, 40);
     }
     // 残りは、数と印の両方で示す
     textAlign(RIGHT, TOP);
-    textSize(13);
-    fill(0, 0, 100, 75);
-    text('のこり ' + life, width - 16 - 3 * 22, 17);
+    textSize(15);
+    fill(0, 0, 100, 80);
+    text('のこり ' + life, width - 16 - 3 * 22, 16);
     for (let i = 0; i < 3; i++) {
       if (i < life) fill(44, 30, 100);
       else fill(0, 0, 100, 15);
@@ -288,15 +288,15 @@ function drawHud() {
     textSize(46);
     text('ひかりうけ', width / 2, 128);
     fill(0, 0, 100, 85);
-    textSize(15);
-    text('落ちてくる光を受けて、四角い岩をよける', width / 2, 176);
     textSize(17);
+    text('落ちてくる光を受けて、四角い岩をよける', width / 2, 178);
+    textSize(21);
     fill(0, 0, 100);
-    text('クリックかEnterキーで開始', width / 2, 232);
-    textSize(13);
-    fill(0, 0, 100, 70);
-    text('← → キーかマウスで移動   P: 一時停止   M: 音の入り切り', width / 2, 266);
-    if (best > 0) text('BEST ' + best, width / 2, 294);
+    text('クリックかEnterキーで開始', width / 2, 236);
+    textSize(15);
+    fill(0, 0, 100, 75);
+    text('← → キーかマウスで移動   P: 一時停止   M: 音の入り切り', width / 2, 274);
+    if (best > 0) text('BEST ' + best, width / 2, 304);
   }
   if (state === 'over') {
     fill(236, 50, 9, 72);
@@ -306,11 +306,11 @@ function drawHud() {
     text('おしまい', width / 2, 140);
     textSize(22);
     text('SCORE ' + round(shown), width / 2, 190);
-    textSize(14);
+    textSize(16);
     fill(46, 45, 100);
-    text(newBest ? '最高点を更新しました' : 'BEST ' + best, width / 2, 222);
-    fill(0, 0, 100, 75);
-    text('クリックかEnterキーでもう一度', width / 2, 262);
+    text(newBest ? '最高点を更新しました' : 'BEST ' + best, width / 2, 224);
+    fill(0, 0, 100, 80);
+    text('クリックかEnterキーでもう一度', width / 2, 266);
   }
   if (paused) {
     fill(236, 50, 9, 70);
@@ -318,13 +318,13 @@ function drawHud() {
     fill(0, 0, 100);
     textSize(22);
     text('一時停止中', width / 2, height / 2 - 12);
-    textSize(14);
-    text('Pキーで再開', width / 2, height / 2 + 20);
+    textSize(16);
+    text('Pキーで再開', width / 2, height / 2 + 22);
   }
   if (muted) {
     textAlign(LEFT, BOTTOM);
-    textSize(12);
-    fill(0, 0, 100, 70);
+    textSize(14);
+    fill(0, 0, 100, 75);
     text('音: 切', 12, height - 10);
   }
 }

@@ -381,6 +381,22 @@ window.addEventListener('unhandledrejection', function (ev) {
 <script>
 // Friendly Error Systemはコンソールに出すだけで、この枠では読めない。検査の負荷だけ残るので切る
 if (typeof p5 !== 'undefined') p5.disableFriendlyErrors = true;
+// スケッチ自身がnoLoop()で止めたのか、この枠が一時停止や画面外で止めたのかを区別する。
+// 区別しないと、画面に戻ったときにloop()を呼んで、静止画のスケッチまで回し続けてしまう
+var __wantLoop = true;
+var __internalCall = false;
+if (typeof p5 !== 'undefined') {
+  var __noLoop = p5.prototype.noLoop;
+  var __loop = p5.prototype.loop;
+  p5.prototype.noLoop = function () {
+    if (!__internalCall) __wantLoop = false;
+    return __noLoop.apply(this, arguments);
+  };
+  p5.prototype.loop = function () {
+    if (!__internalCall) __wantLoop = true;
+    return __loop.apply(this, arguments);
+  };
+}
 ${BLANK_DECLARATION}
 <\/script>
 <script>
@@ -394,7 +410,12 @@ ${safeCode}
   function canvasEl() { return document.querySelector('main canvas') || document.querySelector('canvas'); }
   function apply() {
     if (__failed || typeof loop !== 'function') return;
-    try { if (userPaused || !visible) noLoop(); else loop(); } catch (e) {}
+    __internalCall = true;
+    try {
+      if (userPaused || !visible) noLoop();
+      else if (__wantLoop) loop();
+    } catch (e) {}
+    __internalCall = false;
   }
   toggle.addEventListener('click', function () {
     userPaused = !userPaused;

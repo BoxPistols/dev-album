@@ -183,9 +183,9 @@ function drawHud() {
   text('のこり ' + life, width - 16, 14);
   textAlign(CENTER, CENTER);
   if (demo) {
-    textSize(15);
-    fill(0, 0, 100, 75);
-    text('マウスか ← → キーを動かすと始まります', width / 2, 62);
+    textSize(17);
+    fill(0, 0, 100, 80);
+    text('マウスを動かすか ← → キーを押すと始まります', width / 2, 64);
   }
   if (over) {
     fill(232, 45, 10, 78);
@@ -195,9 +195,9 @@ function drawHud() {
     text('おしまい', width / 2, height / 2 - 34);
     textSize(18);
     text('SCORE ' + score, width / 2, height / 2 + 6);
-    textSize(14);
-    fill(0, 0, 100, 75);
-    text('クリックかEnterキーでもう一度', width / 2, height / 2 + 42);
+    textSize(16);
+    fill(0, 0, 100, 80);
+    text('クリックかEnterキーでもう一度', width / 2, height / 2 + 44);
   }
 }
 
