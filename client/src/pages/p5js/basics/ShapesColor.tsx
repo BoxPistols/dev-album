@@ -24,9 +24,9 @@ function draw() {
   blendMode(ADD);
 
   // 輪の広がり。マウスが枠の中にあれば、横位置で決める
-  let spread = 92 + sin(frameCount * 0.012) * 34;
+  let spread = 78 + sin(frameCount * 0.012) * 26;
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-    spread = mouseX / 4;
+    spread = mouseX / 5;
   }
 
   let count = 12;
@@ -38,9 +38,13 @@ function draw() {
     // 色相を360度に均等に割り当てる
     let h = 360 * i / count;
 
-    // 大きい円から小さい円へ薄く重ねると、中心ほど明るい光になる
-    for (let d = 200; d > 20; d -= 30) {
-      fill(h, 85, 100, 5);
+    // 輪郭のはっきりした大きな円を1枚
+    fill(h, 80, 100, 11);
+    circle(x, y, 190);
+
+    // その中心に、小さくなるほど重なって明るくなる光の芯
+    for (let d = 110; d > 10; d -= 20) {
+      fill(h, 60, 100, 7);
       circle(x, y, d);
     }
   }
@@ -204,9 +208,9 @@ function draw() {
   // 半透明の円を3枚重ねた太陽
   noStroke();
   fill(45, 25, 100, 22);
-  circle(300, 280, 300);
-  circle(300, 280, 200);
-  circle(300, 280, 110);
+  circle(300, 240, 260);
+  circle(300, 240, 170);
+  circle(300, 240, 90);
 }`;
 
 const BLEND_SKETCH = `let additive = true;
@@ -599,8 +603,8 @@ export default function ShapesColor() {
                 lerpColor()が返す「あいだの色」は、1通りに決まっているわけではありません。公式リファレンスは「The
                 way that colors are interpolated depends on the current
                 colorMode() or on the passed options
-                object.」と書いています。HSBのときは色相の数値どうしを補間するので、
-                青と橙のあいだに紫や赤が現れます。RGBのときは赤・緑・青の強さをそれぞれ補間するので、
+                object.」と書いています。HSBのときは色相の輪に沿って補間するので、
+                青と橙のあいだに紫や赤が現れます。RGBのときは赤・緑・青の強さをそれぞれ補間するので、この2色では
                 あいだはくすんだ灰色寄りになります。思った色と違うときは、colorMode()を確認してください。
               </p>
             </InfoBox>
@@ -706,7 +710,7 @@ export default function ShapesColor() {
             <InfoBox type="warning" title="background()の前にBLENDへ戻す">
               <p>
                 blendMode()の設定は、次に変えるまで残ります。background()にも効くので、ADDのまま暗い色で塗り直すと、
-                前のフレームに暗い色が足されるだけで絵が消えず、数フレームで画面全体が白くなります。
+                前のフレームに暗い色が足されるだけで絵が消えず、少しずつ明るくなって、やがて画面全体が白く飛びます。
                 draw()の先頭で<code className={code}>blendMode(BLEND)</code>
                 に戻してからbackground()を呼ぶ、という順番を決まりにしておくと安全です。
               </p>
@@ -802,8 +806,8 @@ function draw() {
                 にする。青緑から紫までの範囲に絞った配色になる
               </li>
               <li>
-                <code className={code}>circle(x, y, d)</code>を
-                <code className={code}>square(x, y, d)</code>
+                2か所の<code className={code}>circle(</code>を
+                <code className={code}>square(</code>
                 に替え、setup()に<code className={code}>rectMode(CENTER)</code>
                 を足す。四角い光の重なりになる
               </li>

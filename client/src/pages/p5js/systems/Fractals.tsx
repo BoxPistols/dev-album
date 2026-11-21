@@ -298,10 +298,11 @@ let span = 3.3;
 function setup() {
   createCanvas(450, 300);
   pixelDensity(1);
-  noLoop();
+  render();
 }
 
-function draw() {
+// 動かない絵なのでdraw()は書かない。必要なときだけrender()を呼ぶ
+function render() {
   let maxIter = 90;
   loadPixels();
   for (let py = 0; py < height; py++) {
@@ -351,7 +352,7 @@ function mousePressed() {
     cy = 0;
     span = 3.3;
   }
-  redraw();
+  render();
 }`;
 
 const FERN_ROWS: [
@@ -740,7 +741,6 @@ y' = c * x + d * y + f`}</code>
               initialCode={`function setup() {
   createCanvas(400, 340);
   colorMode(HSB, 360, 100, 100, 100);
-  noLoop();
 }
 
 function draw() {
@@ -769,7 +769,6 @@ function branch(len) {
               answer={`function setup() {
   createCanvas(400, 340);
   colorMode(HSB, 360, 100, 100, 100);
-  noLoop();
 }
 
 function draw() {
