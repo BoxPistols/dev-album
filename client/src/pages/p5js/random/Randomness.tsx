@@ -22,10 +22,11 @@ function setup() {
 
 function draw() {
   // 同じseedなら、random()は毎回同じ並びの数を返す
-  randomSeed(seed);
+  // 1と2のように隣り合う番号は最初の1個がほぼ同じ値になるので、1000倍して離す
+  randomSeed(seed * 1000);
   background(42, 9, 95);
 
-  // このseedで使う色: 主役の色、その反対側の色、墨色
+  // このseedで使う色: 主役の色、そのほぼ反対側の色、墨色
   let base = random(360);
   let inks = [
     color(base, 62, 84),
@@ -42,7 +43,7 @@ function draw() {
       let turn = floor(random(4));
       let ink = random(inks);
 
-      // 1マスずつ順に現れる
+      // 1マスずつ順に現れる。continueは、残りを飛ばして次の繰り返しへ進む
       n += 1;
       if (n > shown) continue;
 
@@ -462,7 +463,7 @@ export default function Randomness() {
                 <li>30を10にする（山が左へ寄る）</li>
                 <li>
                   <code className={code}>i &lt; 10</code>
-                  を1にする（少ない回数ではでこぼこで、回数が増えるにつれて形が整っていく様子が見える）
+                  の10を1にする（少ない回数ではでこぼこで、回数が増えるにつれて形が整っていく様子が見える）
                 </li>
               </ul>
             </InfoBox>
@@ -568,7 +569,7 @@ export default function Randomness() {
                   />
                   <Row
                     name="色"
-                    desc="主役の色相だけ偶然に任せ、2色目は色相環の反対側、3色目は墨色に決めておく"
+                    desc="主役の色相だけ偶然に任せ、2色目は色相環のほぼ反対側（160度先）、3色目は墨色に決めておく"
                   />
                 </tbody>
               </table>
@@ -685,7 +686,11 @@ function draw() {
                 に替える。暗い地に明るい形の、夜の版になる
               </li>
               <li>
-                マス目を細かくする。2か所の6を12に、64を32に、形の数値（128・64・50など）を半分にする
+                マス目を細かくする。2か所の6を12に、
+                <code className={code}>translate()</code>
+                の中の64を32に、32を16にし、形の数値（128・64・50・-32など）をすべて半分にする。
+                <code className={code}>36 + 150</code>
+                の36も144にする
               </li>
             </ul>
             <InfoBox type="success" title="seed番号は作品の一部">

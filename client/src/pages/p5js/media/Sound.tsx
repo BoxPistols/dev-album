@@ -14,7 +14,7 @@ const HERO_SKETCH = `let audio;    // 音の出入り口（クリックするま
 let analyser; // 鳴っている音を数値として取り出す部品
 let wave = new Uint8Array(256);
 // ラ（440Hz）から半音いくつ離れているか。どれを重ねても濁りにくい5種類の音
-let scale = [-12, -10, -7, -5, -3, 0, 2, 5, 7, 9, 12];
+let tones = [-12, -10, -7, -5, -3, 0, 2, 5, 7, 9, 12];
 
 function setup() {
   createCanvas(600, 400);
@@ -30,7 +30,7 @@ function draw() {
   if (audio) {
     // 20フレームごとに1音鳴らす
     if (frameCount % 20 === 0) {
-      playNote(random(scale), 1.2);
+      playNote(random(tones), 1.2);
     }
     // いま鳴っている音の波形をwaveに受け取る（値は0〜255、無音は128）
     analyser.getByteTimeDomainData(wave);
@@ -229,7 +229,7 @@ let grid = [
   [1, 0, 0, 0, 1, 0, 0, 1],
   [1, 0, 0, 0, 1, 0, 0, 0]
 ];
-let step = -1;
+let beat = -1;
 let lastTime = 0;
 
 function setup() {
@@ -243,12 +243,13 @@ function setup() {
 function draw() {
   background(200, 40, 11);
 
+  // millis()は、スケッチが始まってからの時間（ミリ秒）
   // 0.25秒たつごとに、再生位置を1つ進めて、その列の音を鳴らす
   if (playing && millis() - lastTime > 250) {
     lastTime = millis();
-    step = (step + 1) % cols;
+    beat = (beat + 1) % cols;
     for (let r = 0; r < rows.length; r++) {
-      if (grid[r][step] === 1) playNote(rows[r]);
+      if (grid[r][beat] === 1) playNote(rows[r]);
     }
   }
 
@@ -258,7 +259,7 @@ function draw() {
   for (let r = 0; r < rows.length; r++) {
     for (let c = 0; c < cols; c++) {
       let on = grid[r][c] === 1;
-      let now = c === step;
+      let now = c === beat;
       // 入っているマスは色つき、再生位置の列は明るく
       fill(160 + r * 35, on ? 65 : 25, on ? (now ? 100 : 75) : (now ? 32 : 20));
       rect(c * w + 4, r * h + 4, w - 8, h - 8, 6);
@@ -354,6 +355,7 @@ function mousePressed() {
     gain = audio.createGain();
     analyser = audio.createAnalyser();
     analyser.fftSize = 2048;
+    // Uint8Arrayは、0〜255の整数だけを入れる配列。波形とスペクトルの受け取り先にする
     wave = new Uint8Array(analyser.fftSize);
     spectrum = new Uint8Array(analyser.frequencyBinCount);
     osc.frequency.value = 220;
@@ -815,7 +817,7 @@ function mousePressed() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">音と絵を結びつけた作品を作ります。</p>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed mb-4">
-              <li>冒頭の<code className={code}>scale</code>の配列を書き換えて、自分の音の組み合わせにする。<code className={code}>frameCount % 20</code>の20を変えると速さが変わる</li>
+              <li>冒頭の<code className={code}>tones</code>の配列を書き換えて、自分の音の組み合わせにする。<code className={code}>frameCount % 20</code>の20を変えると速さが変わる</li>
               <li>鍵盤の<code className={code}>play(i)</code>の中で、<Link href="/p5js/random/particles" className="text-primary underline">パーティクルと群れ</Link>の粒を出す。弾くたびに絵が増える楽器になる</li>
               <li>シーケンサーの表に自分のパターンを入れ、鳴ったマスから図形を広げる</li>
               <li>マイクのスケッチの円と線を、自分で決めた図形に替える。<code className={code}>level</code>を大きさ・色・回転のどれに使うかを選ぶ</li>

@@ -175,6 +175,7 @@ const LIFE_SKETCH = `let particles = [];
 class Particle {
   constructor(x, y) {
     this.pos = createVector(x, y);
+    // random2D()は、向きがランダムで長さ1のベクトルを作る
     this.vel = p5.Vector.random2D();
     this.vel.mult(random(0.2, 1.4));
     // 寿命。100から始まり、0になったら消える
@@ -339,6 +340,7 @@ function draw() {
 
     for (let other of boids) {
       let d = dist(b.pos.x, b.pos.y, other.pos.x, other.pos.y);
+      // 自分自身と、50より遠い相手は数えない（continueで次の相手へ進む）
       if (other == b || d > 50) continue;
       if (d < 22) {
         let away = p5.Vector.sub(b.pos, other.pos);
@@ -481,7 +483,7 @@ export default function Particles() {
               <ul className="list-disc pl-5 space-y-1">
                 <li>
                   <code className={code}>i &lt; 60</code>
-                  を300にする（設計図は1つのまま、泡だけが増える）
+                  の60を300にする（設計図は1つのまま、泡だけが増える）
                 </li>
                 <li>
                   <code className={code}>this.size = random(8, 46);</code>を

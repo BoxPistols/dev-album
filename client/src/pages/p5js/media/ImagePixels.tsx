@@ -659,7 +659,7 @@ export default function ImagePixels() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">画像は、色のついた小さな点（画素、ピクセル）が縦横に並んだものです。このページでは、画像から色を1点ずつ取り出し、線・円・マス目などの図形に置き換えて描き直します。下の枠は、夕焼けの絵を短い筆あとで描き直し続ける完成形です。枠の下のファイル選択ボタンで手元の写真を選ぶと、その写真が素材になります。</p>
 
         <CodePreview title={"筆あとで描き直す（このページの完成形）"} language="js" code={HERO_SKETCH} />
-        <p className="text-sm text-muted-foreground mt-3 mb-10 leading-relaxed">クリックすると白紙に戻って描き直します。選んだ写真はブラウザの中で読み込まれるだけで、端末の外へは送られません（スケッチに送信の処理は無く、プレビューの枠も外部への送信を遮断しています）。このページのスケッチはどれも、同じ方法で自分の写真に差し替えられます。</p>
+        <p className="text-sm text-muted-foreground mt-3 mb-10 leading-relaxed">クリックすると白紙に戻って描き直します。選んだ写真はブラウザの中で読み込まれるだけで、端末の外へは送られません（スケッチに送信の処理は無く、プレビューの枠もスケッチから外部への通信を制限しています）。このページのスケッチはどれも、同じ方法で自分の写真に差し替えられます。</p>
 
         <WhyNowBox title={"なぜ画素を読むのか"} tags={["image()", "get()", "loadPixels()", "pixels", "filter()"]}>
           <p>画像をそのまま表示するだけでなく、色の情報として読み取れるようになると、手元の1枚の写真が作品の素材になります。「色を拾って、別の図形で置き直す」という1つの考え方から、点描もハーフトーンもモザイクも作れます。次のカメラのページでも、ここで扱う画素の読み方をそのまま使います。</p>
@@ -1132,7 +1132,7 @@ function makePicture(w, h) {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">自分の写真を1枚選び、このページの技法で描き直した絵を作品にします。</p>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed mb-4">
-              <li>冒頭の筆あとの<code className={code}>line(...)</code>を<code className={code}>circle(x, y, len)</code>に替える。点描になる</li>
+              <li>冒頭の筆あとの<code className={code}>line(...)</code>を<code className={code}>point(x, y)</code>に、<code className={code}>strokeWeight(random(2, 6))</code>を<code className={code}>strokeWeight(random(6, 20))</code>に替える。点描になる</li>
               <li>冒頭の<code className={code}>random(10, 28)</code>を<code className={code}>random(40, 120)</code>にする。筆あとが長くなり、輪郭が溶ける</li>
               <li>ハーフトーンの紙の色とインクの色を、好きな2色の組み合わせにする</li>
               <li>ピクセルソートの内側と外側のfor文の役割を入れ替え、行ごとに横へ並べ替える</li>

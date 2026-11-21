@@ -154,7 +154,7 @@ function draw() {
   let word = field.value();
 
   // 全体の幅を先に測り、中央に来るよう書き出しの位置を決める
-  let x = (width - textWidth(word)) / 2;
+  let x = (width - fontWidth(word)) / 2;
 
   for (let i = 0; i < word.length; i++) {
     let ch = word[i];
@@ -162,8 +162,8 @@ function draw() {
     let y = height / 2 + sin(frameCount * 0.05 - i * 0.5) * 40;
     fill((190 + i * 14) % 360, 60, 100);
     text(ch, x, y);
-    // この文字の幅だけ右へ進む
-    x += textWidth(ch);
+    // この文字の幅（字の左右の余白を含む）だけ右へ進む
+    x += fontWidth(ch);
   }
 }`;
 
@@ -248,16 +248,18 @@ function setup() {
 function draw() {
   background(350, 70, 92);
   let word = field.value();
-  if (word.length === 0) return;
 
   let rows = 6;
   let rowHeight = height / rows;
   textSize(rowHeight * 0.9);
+  // 入力した文字1回ぶんの幅。前後の空白も数えるfontWidth()で測る
+  let unit = fontWidth(word);
+  // 幅が0（何も打っていない）のときは、繰り返しが終わらなくなるので描かない
+  if (unit === 0) return;
   // 入力した文字を、横幅が埋まるまで繰り返してつなぐ
-  let unit = textWidth(word);
-  let line = '';
+  let band = '';
   for (let i = 0; i < ceil(width / unit) + 2; i++) {
-    line += word;
+    band += word;
   }
 
   for (let r = 0; r < rows; r++) {
@@ -271,7 +273,7 @@ function draw() {
     translate(offset - unit, r * rowHeight + rowHeight / 2);
     scale(1, stretch);
     fill(r % 2 === 0 ? color(45, 15, 100) : color(260, 80, 25));
-    text(line, 0, 0);
+    text(band, 0, 0);
     pop();
   }
 }`;
@@ -342,7 +344,7 @@ export default function Typography() {
         <CodePreview title={"粒が集まって文字になる（このページの完成形）"} language="js" code={HERO_SKETCH} />
         <p className="text-sm text-muted-foreground mt-3 mb-10 leading-relaxed">粒は数秒ごとに散り、また文字に戻ります。マウスを近づけると粒が逃げます。ひらがな・漢字・英数字のどれでも打てます。</p>
 
-        <WhyNowBox title={"なぜ文字を素材にするのか"} tags={["text()", "textAlign()", "textWidth()", "createInput()"]}>
+        <WhyNowBox title={"なぜ文字を素材にするのか"} tags={["text()", "textAlign()", "fontWidth()", "createInput()"]}>
           <p>文字は読むための記号であり、同時に形でもあります。ここまでに学んだ座標変換・sin・ノイズ・パーティクルを文字に当てはめると、自分の名前や好きなことばが、そのまま作品の素材になります。</p>
         </WhyNowBox>
 
@@ -385,10 +387,14 @@ export default function Typography() {
 
           <section>
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              textWidth()で1文字ずつ置く
+              fontWidth()で1文字ずつ置く
             </h2>
-            <p className="text-muted-foreground mb-4 leading-relaxed">文字列をまとめて描くと、全体が1つの塊として動きます。1文字ずつ別々に動かすには、for文で1文字ずつ<code className={code}>text()</code>を呼び、<code className={code}>textWidth(文字)</code>で測った幅だけ右へ進みます。<code className={code}>word[i]</code>は、文字列のi番目の1文字です。入力欄の文字を打ち替えて試せます。</p>
+            <p className="text-muted-foreground mb-4 leading-relaxed">文字列をまとめて描くと、全体が1つの塊として動きます。1文字ずつ別々に動かすには、for文で1文字ずつ<code className={code}>text()</code>を呼び、<code className={code}>fontWidth(文字)</code>で測った幅だけ右へ進みます。<code className={code}>word[i]</code>は、文字列のi番目の1文字です。入力欄の文字を打ち替えて試せます。</p>
             <CodePreview title={"波打つ文字"} language="js" code={WAVE_SKETCH} />
+            <InfoBox type="warning" title={"textWidth()は、2.x系では字を並べる用途に向かない"}>
+              <p>幅を測る関数は2つあります。<code className={code}>fontWidth()</code>は、字の左右の余白を含めた、次の字までの幅を返します。<code className={code}>textWidth()</code>は、2.x系では字の見えている部分だけの幅を返します。公式リファレンスは「In p5.js 2.0+, leading and trailing spaces are ignored.」と書いています。このマニュアルで使っているp5.js 2.4.0で測ると、空白1つの幅は<code className={code}>fontWidth()</code>では0より大きく、<code className={code}>textWidth()</code>では0でした。</p>
+              <p>そのため、<code className={code}>textWidth()</code>で1文字ずつ進むと、字どうしが詰まり、空白が消えます。1.x系の<code className={code}>textWidth()</code>は余白を含めた幅を返していたので、外の記事には<code className={code}>textWidth()</code>で字を並べる書き方が多くあります。2.x系では<code className={code}>fontWidth()</code>に読み替えてください。</p>
+            </InfoBox>
             <InfoBox type="info" title={"数字を変えてみる"}>
               <ul className="list-disc pl-5 space-y-1">
                 <li><code className={code}>i * 0.5</code>を<code className={code}>i * 1.5</code>にする（隣の文字との遅れが大きくなり、波が細かくなる）</li>
@@ -503,13 +509,13 @@ function draw() {
     fill(190 + i * 30, 60, 100);
     text(ch, x, y);
     // この文字の幅だけ右へ進む
-    x += textWidth(ch);
+    x += fontWidth(ch);
   }
 }`}
-              keywords={["sin", "textWidth"]}
+              keywords={["sin", "fontWidth"]}
               hints={[
                 "上下に行き来する値を作る関数はsinです。sin(...)は-1から1のあいだを往復します",
-                "文字の幅を測る関数はtextWidthです。textWidth(ch)のぶんだけxを進めます",
+                "字の左右の余白を含めた幅を測る関数はfontWidthです。fontWidth(ch)のぶんだけxを進めます",
               ]}
             />
             <CodingChallenge
@@ -610,7 +616,7 @@ function draw() {
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed mb-4">
               <li>冒頭の粒の入力欄に自分の名前を打ち、<code className={code}>i &lt; 1800</code>の粒の数と<code className={code}>0.012</code>（引き寄せる強さ）を変えて、集まり方を好みに合わせる</li>
               <li>冒頭の<code className={code}>circle(p.x, p.y, 3.4)</code>を<code className={code}>text('*', p.x, p.y)</code>に替える。文字でできた文字になる</li>
-              <li>文字の輪に、自分で書いた短い文を入れる。<code className={code}>ring &lt; 3</code>を増やすと輪が増える</li>
+              <li>文字の輪に、自分で書いた短い文を入れる。<code className={code}>ring &lt; 3</code>の3を4に、<code className={code}>ring * 58</code>の58を44にすると、輪が4本になる</li>
               <li>流れる文字の配色と行数を決めて、ポスターにする</li>
               <li>文字のグリッドの<code className={code}>ramp</code>を、名前に含まれる字だけで作る</li>
             </ul>
@@ -627,11 +633,11 @@ function draw() {
               question={"1文字ずつtext()で描くとき、次の文字を置く位置はどう決める？"}
               options={[
                 { label: "毎回、同じ数だけ右へ進む" },
-                { label: "textWidth()でいまの文字の幅を測り、そのぶん右へ進む", correct: true },
+                { label: "fontWidth()でいまの文字の幅を測り、そのぶん右へ進む", correct: true },
                 { label: "textSize()の値をそのまま足す" },
                 { label: "textAlign(CENTER)にすれば自動で並ぶ" },
               ]}
-              explanation={"文字の幅は字によって違います（「i」と「W」、ひらがなと英数字など）。textWidth()で1文字ずつ幅を測って進むと、重ならずに並びます。"}
+              explanation={"文字の幅は字によって違います（「i」と「W」、ひらがなと英数字など）。fontWidth()で1文字ずつ、字の左右の余白を含めた幅を測って進むと、重ならずに並びます。"}
             />
             <Quiz
               question={"textFont('serif')と書いたスケッチを別の端末で開いたら、違う書体で表示された。理由は？"}
@@ -654,7 +660,7 @@ function draw() {
                 {[
                   "text(文字, x, y)で描く。fill()・textSize()・textFont()・textAlign()で見た目と基準点を決める",
                   "'serif'などの総称の名前は、端末によって違う書体になる",
-                  "for文とtextWidth()で1文字ずつ置くと、文字ごとに動き・色・向きを変えられる",
+                  "for文とfontWidth()で1文字ずつ置くと、文字ごとに動き・色・向きを変えられる",
                   "マス目に文字を置き、濃さで字を選ぶと、文字が画素の役目をする",
                   "文字を見えないキャンバスに描いて画素を調べると、文字の形を点の位置として取り出せる",
                 ].map((item) => (
@@ -683,9 +689,14 @@ function draw() {
                   description: "書体の指定。端末の書体名と、読み込んだフォントの両方を受け取る",
                 },
                 {
+                  title: "p5.js Reference: fontWidth()",
+                  url: "https://p5js.org/reference/p5/fontWidth/",
+                  description: "字の左右の余白を含めた幅を測る関数。1文字ずつ並べるときに使う",
+                },
+                {
                   title: "p5.js Reference: textWidth()",
                   url: "https://p5js.org/reference/p5/textWidth/",
-                  description: "文字列の幅を測る関数",
+                  description: "字の見えている部分の幅を測る関数。2.x系では前後の空白を数えない",
                 },
                 {
                   title: "p5.js Reference: textAlign()",

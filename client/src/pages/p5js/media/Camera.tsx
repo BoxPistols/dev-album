@@ -421,6 +421,7 @@ function draw() {
     fill(255, 120 + p.life * 2.7, 60 + p.life * 3.5, p.life * 5);
     circle(p.x, p.y, 2 + p.life * 0.12);
   }
+  // filter()は、条件に合う要素だけの新しい配列を返す。寿命の残っている粒だけを残す
   particles = particles.filter(function (p) {
     return p.life > 0;
   });
@@ -624,7 +625,7 @@ export default function Camera() {
             </div>
             <InfoBox type="warning" title={"カメラが使える条件と、使えないとき"}>
               <p>カメラを使うには、ページがHTTPSで配信されていること（または自分のパソコンのlocalhostで開いていること）と、利用者が許可することの両方が要ります。MDNは「This feature is available only in secure contexts (HTTPS)」「user permission is always required to access the user's audio and video inputs」と書いています。</p>
-              <p>許可されなかったときやカメラが無いとき、<code className={code}>createCapture()</code>は映像が届かないままになります。このページのスケッチは、映像が届くまで代わりの絵を使い続けるので、止まりません。HTTPSでないページでは<code className={code}>createCapture()</code>そのものがエラーになるため、<code className={code}>try</code>と<code className={code}>catch</code>で受けて案内文に切り替えています。</p>
+              <p>許可されなかったとき、カメラが無いとき、HTTPSでないページで開いたときは、<code className={code}>createCapture()</code>は映像が届かないままになります。このページのスケッチは、映像が届くまで代わりの絵を使い続けるので、止まりません。<code className={code}>try</code>と<code className={code}>catch</code>は、<code className={code}>createCapture()</code>そのものがエラーになる環境に備えたもので、そのときは案内文を切り替えます。</p>
             </InfoBox>
           </section>
 
@@ -682,7 +683,7 @@ export default function Camera() {
             <CodePreview title={"スリットスキャン"} language="js" code={SLIT_SKETCH} />
             <InfoBox type="info" title={"数字を変えてみる"}>
               <ul className="list-disc pl-5 space-y-1">
-                <li><code className={code}>scanX + 2</code>と、<code className={code}>copy(...)</code>の中の幅の<code className={code}>2</code>を、どちらも<code className={code}>6</code>にする（速く進み、時間が粗くなる）</li>
+                <li><code className={code}>scanX + 2</code>と、<code className={code}>copy(...)</code>の中の幅の<code className={code}>2</code>を、どちらも<code className={code}>6</code>にし、線を引く位置の<code className={code}>scanX + 3</code>（2か所）を<code className={code}>scanX + 7</code>にする（速く進み、時間が粗くなる）</li>
                 <li><code className={code}>floor(view.width / 2)</code>を<code className={code}>floor(view.width / 4)</code>にする（切り取る位置が左へ寄る）</li>
               </ul>
             </InfoBox>
