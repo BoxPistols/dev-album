@@ -91,6 +91,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     // 元の絵と同じ大きさに、はみ出す分を切り落として描き込む
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }`;
 
@@ -171,6 +173,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     // 元の絵と同じ大きさに、はみ出す分を切り落として描き込む
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }`;
 
@@ -264,6 +268,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     // 元の絵と同じ大きさに、はみ出す分を切り落として描き込む
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }`;
 
@@ -303,6 +309,8 @@ function handleFile(file) {
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
     // 絵が変わったので、pixels配列を読み直す
     src.loadPixels();
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }
 
@@ -403,6 +411,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
     measure();
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }
 
@@ -505,6 +515,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
     src.loadPixels();
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }
 
@@ -599,6 +611,8 @@ function handleFile(file) {
   loadImage(file.data).then(function (img) {
     src.image(img, 0, 0, src.width, src.height, 0, 0, img.width, img.height, COVER);
     makePanels();
+  }).catch(function () {
+    // 読めない画像のときは、いまの絵のまま続ける（別のファイルを選び直せる）
   });
 }
 
@@ -662,7 +676,7 @@ export default function ImagePixels() {
         <p className="text-sm text-muted-foreground mt-3 mb-10 leading-relaxed">クリックすると白紙に戻って描き直します。選んだ写真はブラウザの中で読み込まれるだけで、端末の外へは送られません（スケッチに送信の処理は無く、プレビューの枠もスケッチから外部への通信を制限しています）。このページのスケッチはどれも、同じ方法で自分の写真に差し替えられます。</p>
 
         <WhyNowBox title={"なぜ画素を読むのか"} tags={["image()", "get()", "loadPixels()", "pixels", "filter()"]}>
-          <p>画像をそのまま表示するだけでなく、色の情報として読み取れるようになると、手元の1枚の写真が作品の素材になります。「色を拾って、別の図形で置き直す」という1つの考え方から、点描もハーフトーンもモザイクも作れます。次のカメラのページでも、ここで扱う画素の読み方をそのまま使います。</p>
+          <p>画像をそのまま表示するだけでなく、色の情報として読み取れるようになると、手元の1枚の写真が作品の素材になります。「色を拾って、別の図形で置き直す」という1つの考え方から、点描もハーフトーンもモザイクも作れます。<Link href="/p5js/media/camera" className="text-primary underline">カメラ</Link>のページでも、ここで扱う画素の読み方をそのまま使います。</p>
         </WhyNowBox>
 
         <div className="space-y-12 mt-8">
@@ -707,7 +721,7 @@ export default function ImagePixels() {
             </div>
             <InfoBox type="warning" title={"2.x系では、画像が届くのを待つ"}>
               <p>p5.jsの1.x系では、画像を<code className={code}>preload()</code>という関数の中で読み込みました。このマニュアルが使う2.x系には<code className={code}>preload()</code>が無く、<code className={code}>loadImage()</code>は「あとで画像が届く約束」（Promise）を返します。公式リファレンスは「This function returns a Promise and should be used in an async setup with await」と書いています。</p>
-              <p>決まったファイルを最初に読むときは、<code className={code}>async function setup()</code>の中で<code className={code}>img = await loadImage('photo.jpg')</code>と書きます。このページではファイルが選ばれたあとに読むので、<code className={code}>loadImage(file.data).then(...)</code>の形で「届いたら実行する処理」を渡しています。外の記事の多くは1.x系の書き方なので、<code className={code}>preload()</code>が出てきたらこの形に読み替えてください。</p>
+              <p>決まったファイルを最初に読むときは、<code className={code}>async function setup()</code>の中で<code className={code}>img = await loadImage('photo.jpg')</code>と書きます。このページではファイルが選ばれたあとに読むので、<code className={code}>loadImage(file.data).then(...)</code>の形で「届いたら実行する処理」を渡しています。壊れたファイルなどで読み込めなかったときは<code className={code}>.catch(...)</code>に渡した関数が呼ばれるので、いまの絵のまま続けられます。外の記事の多くは1.x系の書き方なので、<code className={code}>preload()</code>が出てきたらこの形に読み替えてください。</p>
             </InfoBox>
           </section>
 

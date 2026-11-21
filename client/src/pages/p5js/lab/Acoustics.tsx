@@ -100,8 +100,13 @@ function draw() {
   text('m = ' + m, 500, 50);
   fill(220, 10, 70);
   textSize(12);
-  text('cos(nπx)cos(mπy)', 410, 80);
-  text('  − cos(mπx)cos(nπy) = 0', 410, 97);
+  // 節線の式。n = mのときはamplitude()と同じく1つの波の式を出す
+  if (n === m) {
+    text('cos(nπx)cos(nπy) = 0', 410, 80);
+  } else {
+    text('cos(nπx)cos(mπy)', 410, 80);
+    text('  − cos(mπx)cos(nπy) = 0', 410, 97);
+  }
 
   if (mapKey !== n + ',' + m) {
     mapKey = n + ',' + m;
@@ -210,7 +215,11 @@ function draw() {
   text('正弦波 ' + terms + '本', 30, 28);
 }`;
 
-const SPECTRUM_SKETCH = `let audio, osc, analyser, bins;
+const SPECTRUM_SKETCH = `// 鳴らす波形。'sine'・'square'・'sawtooth'・'triangle'から選ぶ
+const WAVE = 'square';
+const WAVE_NAMES = { sine: '正弦波', square: '矩形波', sawtooth: 'のこぎり波', triangle: '三角波' };
+
+let audio, osc, analyser, bins;
 let button, slider;
 let message = 'ボタンを押すと、小さな音量で音が出ます';
 
@@ -218,7 +227,8 @@ function setup() {
   createCanvas(600, 400);
   colorMode(HSB, 360, 100, 100, 100);
   button = createButton('音を出す');
-  button.mousePressed(toggleSound);
+  // mouseClicked()はclickを待つので、キーボードのEnter・Spaceでも押せる
+  button.mouseClicked(toggleSound);
   // 鳴らす音の周波数 (Hz)
   slider = createSlider(110, 880, 440, 10);
   slider.size(260);
@@ -235,7 +245,7 @@ function toggleSound() {
     }
     // オシレーター → アナライザー → 音量 → スピーカー
     osc = audio.createOscillator();
-    osc.type = 'square';
+    osc.type = WAVE;
     analyser = audio.createAnalyser();
     analyser.fftSize = 2048;
     // 縦軸に割り当てるデシベルの範囲を広げ、強い音が上端で頭打ちにならないようにする
@@ -302,11 +312,14 @@ function draw() {
     rect(gx + (hz / maxHz) * gw, gy - level * gh, 2, level * gh);
   }
 
-  // 矩形波に含まれるはずの周波数（1, 3, 5, ... 倍）に印をつける
+  // 波形に含まれるはずの周波数に印をつける
+  // 矩形波と三角波は1, 3, 5, ... 倍、のこぎり波は1, 2, 3, ... 倍、正弦波は1倍だけ
+  let step = WAVE === 'sawtooth' ? 1 : 2;
+  let lastH = WAVE === 'sine' ? 1 : Infinity;
   textAlign(CENTER, BASELINE);
   textSize(12);
   fill(0, 0, 100, 80);
-  for (let h = 1; h * freq <= maxHz; h += 2) {
+  for (let h = 1; h * freq <= maxHz && h <= lastH; h += step) {
     let x = gx + ((h * freq) / maxHz) * gw;
     triangle(x - 4, gy - gh - 8, x + 4, gy - gh - 8, x, gy - gh - 1);
     if (h <= 9) text(h + '倍', x, gy - gh - 12);
@@ -314,7 +327,7 @@ function draw() {
   textAlign(LEFT, BASELINE);
   fill(0, 0, 95);
   textSize(13);
-  text(freq + ' Hzの矩形波   ビン幅 = ' + audio.sampleRate + ' ÷ ' + analyser.fftSize + ' = ' + nf(binHz, 1, 1) + ' Hz', gx + 10, 24);
+  text(freq + ' Hzの' + WAVE_NAMES[WAVE] + '   ビン幅 = ' + audio.sampleRate + ' ÷ ' + analyser.fftSize + ' = ' + nf(binHz, 1, 1) + ' Hz', gx + 10, 24);
 }`;
 
 const SPECTROGRAM_SKETCH = `const GX = 55;   // グラフの左端
@@ -333,8 +346,8 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 100);
   background(225, 30, 9);
   sweepButton = createButton('スイープ音を出す');
-  sweepButton.mousePressed(toggleSweep);
-  createButton('マイクも使う（任意）').mousePressed(startMic);
+  sweepButton.mouseClicked(toggleSweep);
+  createButton('マイクも使う（任意）').mouseClicked(startMic);
   // 周波数の目盛り
   textSize(12);
   textAlign(RIGHT, CENTER);
@@ -606,6 +619,7 @@ export default function Acoustics() {
         <p className="text-sm text-muted-foreground mt-3 mb-10 leading-relaxed">
           上のスライダーがn、下のスライダーがmです。右の小さな図は板の各点の揺れの大きさで、暗い線が砂の集まる節線にあたります。
           節線の式は正方形の板を単純化した近似で、実物の板の模様と細部まで一致するものではありません。
+          nとmを同じ値にすると引き算の式は板全体で0になるので、そのときは1つの波cos(nπx)cos(nπy)が0になる線を節線として使い、右上の式もそれに切り替わります。
         </p>
 
         <WhyNowBox
@@ -660,6 +674,13 @@ export default function Acoustics() {
               <code className={code}>AnalyserNode</code>
               が計算してくれます。下のスケッチは、ボタンを押すと矩形波の音を小さな音量で鳴らし、その音をFFTにかけた結果を描きます。
               三角の印は、矩形波に含まれるはずの1倍、3倍、5倍…の周波数です。
+              ボタンの処理は
+              <code className={code}>mouseClicked()</code>
+              で付けています。要素の
+              <code className={code}>mousePressed()</code>
+              はポインターで押した瞬間だけを待つので、Tabで移動してEnterやSpaceで押しても動きません。
+              <code className={code}>mouseClicked()</code>
+              ならキーボードでも押せます。
             </p>
             <CodePreview
               title="矩形波のスペクトルを測る"
@@ -726,8 +747,8 @@ export default function Acoustics() {
             <InfoBox type="info" title="数字を変えてみる">
               <ul className="list-disc pl-5 space-y-1">
                 <li>
-                  <code className={code}>osc.type = 'square'</code>
-                  を'sine'にする（山が1つだけになる）。'sawtooth'にすると、偶数倍にも山が立つ
+                  <code className={code}>const WAVE = 'square'</code>
+                  を'sine'にする（山が1つだけになる）。'sawtooth'にすると、偶数倍にも山が立つ。三角の印と見出しも波形に合わせて変わる
                 </li>
                 <li>
                   <code className={code}>analyser.fftSize = 2048</code>

@@ -41,7 +41,8 @@ function setup() {
   createCanvas(600, 400);
   colorMode(HSB, 360, 100, 100, 100);
   button = createButton('真空に切り替える');
-  button.mousePressed(toggleAir);
+  // mouseClicked()はclickを待つので、キーボードのEnter・Spaceでも押せる
+  button.mouseClicked(toggleAir);
   release();
 }
 
@@ -206,7 +207,7 @@ let y = 0;      // 落ちた距離 (m)
 let v = 0;      // 速さ (m/s)
 let t = 0;      // 経過時間 (s)
 let rest = 0;
-let marks = []; // 0.2秒ごとの位置の記録
+let marks = [0]; // 0.2秒ごとの位置の記録（t = 0では0m）
 
 function setup() {
   createCanvas(600, 400);
@@ -219,16 +220,21 @@ function draw() {
   let dt = min(deltaTime / 1000, 0.05);
 
   if (y < 20) {
+    let y0 = y, t0 = t;
     // オイラー法: いまの速度で位置を、加速度で速度を、少しだけ進める
     y += v * dt;
     v += G * dt;
     t += dt;
-    if (marks.length < t / 0.2) marks.push(y);
+    // 0.2秒の区切りをまたいだら、その時刻の位置を前後の値から割り出して記録する
+    while (marks.length * 0.2 <= t) {
+      let tm = marks.length * 0.2;
+      marks.push(y0 + ((y - y0) * (tm - t0)) / dt);
+    }
   } else {
     // 着地して1.5秒たったら最初から
     rest += dt;
     if (rest > 1.5) {
-      y = 0; v = 0; t = 0; rest = 0; marks = [];
+      y = 0; v = 0; t = 0; rest = 0; marks = [0];
     }
   }
 
@@ -751,7 +757,7 @@ export default function FallingBodies() {
                       deltaTime / 1000
                     </th>
                     <td className="p-3">
-                      前のフレームからの経過時間（秒）。端末が遅くても、進む時間は実時間に合う
+                      前のフレームからの経過時間（秒）。下の上限に達しない範囲では、端末が遅くても進む時間は実時間に合う
                     </td>
                   </tr>
                   <tr className="border-t border-border">
@@ -762,7 +768,7 @@ export default function FallingBodies() {
                       min(..., 0.05)
                     </th>
                     <td className="p-3">
-                      タブを切り替えた直後などにdtが大きくなりすぎるのを防ぐ上限
+                      タブを切り替えた直後などにdtが大きくなりすぎるのを防ぐ上限。1フレームが50msより長い端末（20fps未満）では、スケッチの時間は実時間より遅れて進む
                     </td>
                   </tr>
                   <tr className="border-t border-border">
@@ -1213,7 +1219,7 @@ function draw() {
               <ul className="space-y-3 text-sm text-muted-foreground">
                 {[
                   "オイラー法は「加速度で速度を、速度で位置を、dtだけ進める」のくり返し",
-                  "dtにdeltaTimeを使うと、端末の速さによらず実時間で進む。計算はメートルと秒で行い、描くときだけピクセルに直す",
+                  "dtにdeltaTimeを使うと、上限（0.05秒）に達しない範囲では端末の速さによらず実時間で進む。計算はメートルと秒で行い、描くときだけピクセルに直す",
                   "数値計算には誤差があり、オイラー法では刻み幅に比例する",
                   "先に速度を進める半陰的オイラー法は、振動でエネルギーが増え続けない",
                   "抗力は速さの2乗に比例し、重力とつり合う速さが終端速度になる",

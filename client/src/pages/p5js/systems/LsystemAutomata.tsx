@@ -357,6 +357,7 @@ const LIFE_SKETCH = `let cols = 60;
 let rows = 40;
 let size = 10;
 let grid = [];
+let paused = false;
 
 function setup() {
   createCanvas(600, 400);
@@ -377,7 +378,7 @@ function draw() {
     let x = floor(mouseX / size);
     let y = floor(mouseY / size);
     if (x >= 0 && x < cols && y >= 0 && y < rows) grid[y][x] = 1;
-  } else if (frameCount % 6 === 0) {
+  } else if (!paused && frameCount % 6 === 0) {
     grid = nextGeneration(grid);
   }
 
@@ -422,6 +423,8 @@ function countNeighbors(now, x, y) {
 }
 
 function keyPressed() {
+  // スペースキーで時間を止める・動かす。止めているあいだに1マスずつ描き込める
+  if (key === ' ') paused = !paused;
   // cキーで全部消す
   if (key === 'c') {
     for (let y = 0; y < rows; y++) {
@@ -794,7 +797,7 @@ export default function LsystemAutomata() {
             </div>
             <p className={para}>
               この規則は、誕生（Birth）が3、生存（Survival）が2と3であることから「B3/S23」とも書きます。
-              下のスケッチは色を1つにした最小の形です。マウスを押しているあいだは時間が止まり、なぞった所にセルを描き込めます。cキーで全部消せます。
+              下のスケッチは色を1つにした最小の形です。マウスを押しているあいだは時間が止まり、なぞった所にセルを描き込めます。スペースキーで時間を止める・動かすを切り替え、cキーで全部消せます。
             </p>
             <CodePreview
               title="描き込めるライフゲーム"
@@ -810,7 +813,7 @@ export default function LsystemAutomata() {
             <InfoBox type="info" title="数字を変えてみる">
               <ul className="list-disc pl-5 space-y-1">
                 <li>
-                  cキーで消してから、斜めに進む5マスの形「グライダー」を描く（3×3の範囲で、1行目は中央、2行目は右端、3行目は3マス全部）
+                  cキーで消し、スペースキーで時間を止めてから、斜めに進む5マスの形「グライダー」を1マスずつ描く（3×3の範囲で、1行目は中央、2行目は右端、3行目は3マス全部）。描き終えたら、もう一度スペースキーで動かす
                 </li>
                 <li>
                   誕生の条件を

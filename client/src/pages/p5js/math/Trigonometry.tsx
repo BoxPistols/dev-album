@@ -420,9 +420,9 @@ export default function Trigonometry() {
                 </thead>
                 <tbody className="text-muted-foreground">
                   {[
-                    ["90度（4分の1周）", "約1.57", "HALF_PI / radians(90)"],
-                    ["180度（半周）", "約3.14", "PI / radians(180)"],
-                    ["360度（1周）", "約6.28", "TWO_PI / radians(360)"],
+                    ["90度（4分の1周）", "約1.57", "HALF_PI、radians(90)"],
+                    ["180度（半周）", "約3.14", "PI、radians(180)"],
+                    ["360度（1周）", "約6.28", "TWO_PI、radians(360)"],
                   ].map(([deg, rad, how]) => (
                     <tr key={deg} className="border-t border-border">
                       <th scope="row" className="text-left p-3 font-normal">

@@ -16,7 +16,8 @@ const HERO_SKETCH = `// 格子の数を増やすほど細かくなるが、線�
 let cols = 34;
 let rows = 25;
 let cell = 31;
-let fly = 0;
+// noise()は負の座標を正に折り返す（-1と1が同じ値）。減らし続けても負にならないよう、大きな値から始める
+let fly = 10000;
 let heights = [];
 
 function setup() {

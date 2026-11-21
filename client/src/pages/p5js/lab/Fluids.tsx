@@ -284,8 +284,9 @@ function draw() {
 }
 
 function mousePressed() {
-  // クリックした場所に粒子を足す
+  // クリックした場所に粒子を足す。200個を超えたら、いちばん古い粒子を消す
   particles.push({ x: mouseX, y: mouseY, trail: [] });
+  if (particles.length > 200) particles.shift();
 }`;
 
 const DIFFUSE_SKETCH = `const W = 60;
@@ -436,7 +437,7 @@ function draw() {
   img.updatePixels();
   image(img, 0, 0, width, height);
 
-  // マウスの下のマスについて、逆にたどる道すじを描く（見やすいよう30倍に伸ばす）
+  // マウスの下のマスについて、値を取ってくる場所（丸）と、たどる向き（線）を描く
   let cw = width / W;
   let inside = mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height;
   let mi = inside ? floor(mouseX / cw) + 1 : 40;
@@ -444,23 +445,26 @@ function draw() {
   let n = IX(mi, mj);
   let px = (mi - 0.5) * cw;
   let py = (mj - 0.5) * cw;
-  stroke(160, 255, 255);
+  // 線は向きと距離を見やすいよう30倍に伸ばした表示。丸は実際に値を取る位置
+  stroke(160, 255, 255, 140);
   strokeWeight(2);
   line(px, py, px - u[n] * dt0 * 30 * cw, py - v[n] * dt0 * 30 * cw);
+  stroke(160, 255, 255);
   noFill();
   rect(px - cw / 2, py - cw / 2, cw, cw);
   fill(160, 255, 255);
   noStroke();
-  circle(px - u[n] * dt0 * 30 * cw, py - v[n] * dt0 * 30 * cw, 6);
+  circle(px - u[n] * dt0 * cw, py - v[n] * dt0 * cw, 6);
   fill(255, 255, 255, 200);
   textSize(13);
-  text('四角: いま計算するマス  丸: 値を取ってくる場所', 10, 20);
+  text('四角: いま計算するマス  丸: 値を取ってくる場所  線: たどる向き（30倍に拡大）', 10, 20);
 }`;
 
 const PROJECT_SKETCH = `const W = 60;
 const H = 40;
 const SIZE = (W + 2) * (H + 2);
 let u, v, u0, v0, d, d0, p, div, img, box;
+let start = 0; // 噴き出しの向きを揺らす時計の起点 (ms)
 
 function IX(i, j) {
   return i + (W + 2) * j;
@@ -479,6 +483,15 @@ function setup() {
   div = new Float32Array(SIZE);
   img = createImage(W, H);
   box = createCheckbox(' 射影する（発散を0に近づける）', true);
+  // 切り替えたら、同じ初期状態（静止した流体）から計算し直す
+  box.changed(resetFlow);
+}
+
+function resetFlow() {
+  u.fill(0);
+  v.fill(0);
+  d.fill(0);
+  start = millis();
 }
 
 function setBound(b, x) {
@@ -551,7 +564,7 @@ function draw() {
   for (let k = -2; k <= 2; k++) {
     let n = IX(4, H / 2 + k);
     u[n] = 1.4;
-    v[n] = 0.25 * sin(millis() / 700);
+    v[n] = 0.25 * sin((millis() - start) / 700);
     d[n] = 1.5;
   }
 
@@ -733,8 +746,8 @@ export default function Fluids() {
               </table>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Stamの方法は、この式を一度に解かず、1フレームのあいだに「力を加える → 拡散 → 移流 →
-              射影」を順に行います。それぞれを、大きな時間刻みでも値が発散しない形で解くのが要点です。
+              Stamの方法は、この式を一度に解かず、1フレームのあいだに「力を加える → 拡散 → 射影 → 移流 →
+              射影」を順に行います。移流の前にも射影するのは、発散を0に近づけた速度で運ぶほうが結果が正確になるからです。それぞれを、大きな時間刻みでも値が発散しない形で解くのが要点です。
               ゲーム向けの解説論文は目的を「Our solvers on the other hand are
               geared towards visual quality. Our emphasis is on stability and
               speed, which means that our simulations can be advanced with
@@ -795,7 +808,7 @@ export default function Fluids() {
               code={ADVECT_SKETCH}
             />
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              横一本の帯が、中心に近いほど速く回る渦に巻き取られていきます。マウスを載せたマス（四角）について、値を取ってくる場所（丸）を線で結んでいます。
+              横一本の帯が、中心に近いほど速く回る渦に巻き取られていきます。マウスを載せたマス（四角）について、値を取ってくる場所を丸で示しています。線はたどる向きで、見やすいよう距離を30倍に伸ばしています。
               帯がだんだんぼやけるのは、4マスの値を混ぜる計算をくり返すからです。これは実際の拡散ではなく、計算方法が生む「数値的な拡散」です。
             </p>
           </section>
@@ -809,7 +822,7 @@ export default function Fluids() {
               射影は、各マスの発散（出る量−入る量）を打ち消す圧力を求め、その勾配を速度から引く処理です。
               Stamの論文はこの処理について「Visually it forces the flow to have many
               vortices which produce realistic swirly-like
-              flows.」と書いています。チェックを外すと、射影なしの流れと比べられます。
+              flows.」と書いています。チェックを外すと、射影なしの流れと比べられます。切り替えるたびに静止した状態から計算し直すので、同じ条件で比べられます。
             </p>
             <CodePreview
               title="射影あり・なしを比べる"
@@ -1169,7 +1182,7 @@ function draw() {
               <ul className="space-y-3 text-sm text-muted-foreground">
                 {[
                   "流れは、場所を固定して見る方法（格子）と、動く点を追う方法（粒子）で表せる",
-                  "Stamの方法は、1フレームで「力を加える → 拡散 → 移流 → 射影」を順に行う",
+                  "Stamの方法は、1フレームで「力を加える → 拡散 → 射影 → 移流 → 射影」を順に行う",
                   "拡散は、連立方程式をくり返し代入で解くと、速い拡散でも壊れない",
                   "移流は、流れを逆にたどった場所の値を持ってくる（セミラグランジュ法）",
                   "射影は発散を0に近づけ、渦のある流れを作る",

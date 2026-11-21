@@ -323,7 +323,8 @@ function render() {
       }
 
       let i = (px + py * width) * 4;
-      if (n === maxIter) {
+      // 回数ではなくzの大きさで見る。maxIter回目にちょうど飛び去った点も、外側の色にするため
+      if (zx * zx + zy * zy <= 4) {
         // 最後まで飛び去らなかった点が、マンデルブロ集合
         pixels[i] = 10;
         pixels[i + 1] = 10;
@@ -874,7 +875,9 @@ function draw() {
                 <code className={code}>random(0.9, 1.1)</code>
                 を掛ける。setup()で
                 <code className={code}>randomSeed()</code>
-                を決め、draw()の先頭でも同じ値を渡すと、毎フレーム同じ「ゆらいだ木」になる
+                を決め、draw()の先頭でも同じ値を渡す。あわせてbranch()の
+                <code className={code}>if (t &lt;= 0) return;</code>
+                の行を消すと、まだ伸びていない枝も長さ0でたどるので、乱数を引く順番が育つ途中でも変わらず、毎フレーム同じ「ゆらいだ木」になる
               </li>
               <li>
                 branch()の呼び出しを3つにする。枝ぶりが密になる（描く量は3倍ずつ増えるので、段数を7ほどに減らす）

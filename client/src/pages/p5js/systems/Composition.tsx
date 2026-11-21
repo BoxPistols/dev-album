@@ -22,6 +22,7 @@ let palettes = [
 let seed = 1;
 let pal;
 let circles = [];
+let tries = 0;
 let grain;
 
 function setup() {
@@ -35,6 +36,7 @@ function restart() {
   randomSeed(seed * 1000);
   pal = random(palettes);
   circles = [];
+  tries = 0;
   // 粒: 明るい点と暗い点を、別の画像に1回だけまいておく
   grain.clear();
   grain.noStroke();
@@ -47,9 +49,10 @@ function restart() {
 function draw() {
   background(pal.paper);
 
-  // 1フレームに40回、新しい円の置き場所を試す
-  if (circles.length < 700) {
+  // 1フレームに40回、新しい円の置き場所を試す。700個置けたか、24000回試したら止める
+  if (circles.length < 700 && tries < 24000) {
     for (let i = 0; i < 40; i++) tryAdd();
+    tries += 40;
   }
 
   for (let c of circles) {
@@ -342,9 +345,10 @@ function draw() {
   for (let i = 0; i < 20; i++) {
     if (circles.length >= 500) break;
     tried++;
-    let x = random(30, width - 30);
-    let y = random(46, height - 30);
+    // 半径を先に決め、円の外周まで枠（上は文字の帯）に収まる範囲から中心を選ぶ
     let r = random(4, 46);
+    let x = random(4 + r, width - 4 - r);
+    let y = random(40 + r, height - 4 - r);
 
     // ほかのどの円とも重ならないかを調べる
     let ok = true;
@@ -562,7 +566,9 @@ export default function Composition() {
                 端から一定の幅には何も置かない。
                 <code className={code}>random(0, width)</code>を
                 <code className={code}>random(margin, width - margin)</code>
-                に替えるだけでよい
+                に替えるだけでよい。これは中心の範囲なので、半径rの円を外周まで余白の内側に収めるなら
+                <code className={code}>random(margin + r, width - margin - r)</code>
+                にする
               </li>
               <li>
                 <strong className="text-foreground">大小の対比</strong>:
@@ -699,6 +705,9 @@ export default function Composition() {
               <li>
                 個数で止める: 冒頭のポスターの
                 <code className={code}>circles.length &lt; 700</code>
+                。置ける場所が先に尽きて700個に届かないこともあるので、試した回数の上限
+                <code className={code}>tries &lt; 24000</code>
+                も並べている
               </li>
               <li>
                 大きさで止める:
@@ -850,7 +859,7 @@ function draw() {
                 色を、地の色を含めて4〜5色のパレットに置き換える。差し色は全体の1割ほどにする
               </li>
               <li>
-                端から40px前後を余白にする。位置を決めるrandom()の範囲を狭めるだけでよい
+                端から40px前後を余白にする。位置を決めるrandom()の範囲を狭めるだけでよい（形の外周まで収めるなら、半径の分も狭める）
               </li>
               <li>
                 大きさに差をつける。大きいものを1つか2つ、小さいものをたくさん

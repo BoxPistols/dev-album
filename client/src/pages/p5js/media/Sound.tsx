@@ -237,7 +237,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   textSize(17);
   let button = createButton('再生 / 停止（音が出ます）');
-  button.mousePressed(toggle);
+  button.mouseClicked(toggle);
 }
 
 function draw() {
@@ -386,7 +386,7 @@ function setup() {
   textAlign(CENTER, CENTER);
   textSize(18);
   let button = createButton('マイクを使う');
-  button.mousePressed(startMic);
+  button.mouseClicked(startMic);
 }
 
 function draw() {
@@ -432,6 +432,7 @@ function draw() {
 }
 
 function startMic() {
+  // 許可を待っている間と、マイクが届いたあとは何もしない
   if (audio) return;
   if (!navigator.mediaDevices) {
     note = 'この環境ではマイクを使えません。このまま眺められます';
@@ -448,7 +449,10 @@ function startMic() {
     source.connect(a);
     analyser = a;
   }).catch(function () {
-    note = 'マイクを使えませんでした。このまま眺められます';
+    // 片付けて、もう一度押せる状態に戻す
+    audio.close();
+    audio = undefined;
+    note = 'マイクを使えませんでした。許可を変えると、もう一度押せます';
   });
 }`;
 
@@ -548,11 +552,11 @@ export default function Sound() {
             <h2 className="text-3xl font-bold text-foreground mb-6">
               シーケンサー: 時間を区切って鳴らす
             </h2>
-            <p className="text-muted-foreground mb-4 leading-relaxed">横に時間、縦に音の高さを取った表を用意し、再生位置を一定の間隔で右へ進めて、印のあるマスの音を鳴らします。枠の下のボタンで再生と停止を切り替え、マスをクリックして鳴らす場所を入れ替えられます。</p>
+            <p className="text-muted-foreground mb-4 leading-relaxed">横に時間、縦に音の高さを取った表を用意し、再生位置を一定の間隔で右へ進めて、印のあるマスの音を鳴らします。枠の下のボタンで再生と停止を切り替え、マスをクリックして鳴らす場所を入れ替えられます。ボタンの処理は<code className={code}>mousePressed()</code>ではなく<code className={code}>mouseClicked()</code>で付けているので、Tabキーで移動してEnterやSpaceでも押せます。</p>
             <CodePreview title={"8マスのシーケンサー"} language="js" code={SEQ_SKETCH} />
             <InfoBox type="warning" title={"仕様の0.25秒と、実際の間隔"}>
               <p>仕様では、0.25秒ごとに次の列へ進みます。実測では、間隔が毎回少しずつずれます。時間がたったかどうかをdraw()が呼ばれたときにしか確かめていないので、最大で1フレームぶん（1秒に60回なら約17ミリ秒）、描画が重いときはそれ以上の遅れが入るからです。</p>
-              <p>リズムの正確さが必要なときは、<code className={code}>osc.start(時刻)</code>に<code className={code}>audio.currentTime</code>を基準にした少し先の時刻を渡して、鳴らす時刻を予約します。このスケッチの<code className={code}>playNote()</code>の中の<code className={code}>now</code>がその時刻です。</p>
+              <p>リズムの正確さが必要なときは、<code className={code}>osc.start(時刻)</code>に<code className={code}>audio.currentTime</code>を基準にした少し先の時刻を渡して、鳴らす時刻を予約します。このスケッチの<code className={code}>playNote()</code>は、<code className={code}>now</code>にいまの<code className={code}>audio.currentTime</code>を入れているので、<code className={code}>draw()</code>が鳴らすと決めた瞬間にすぐ鳴らしています。予約にするには、次の拍の時刻を先に計算して<code className={code}>now</code>の代わりに渡します。</p>
             </InfoBox>
             <InfoBox type="info" title={"数字を変えてみる"}>
               <ul className="list-disc pl-5 space-y-1">
@@ -607,7 +611,7 @@ export default function Sound() {
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">入力を発振器からマイクに替えると、まわりの音や声で絵が動きます。<code className={code}>navigator.mediaDevices.getUserMedia({"{"} audio: true {"}"})</code>でマイクを使ってよいかを尋ね、届いた音を<code className={code}>AnalyserNode</code>につなぎます。尋ねるのは「マイクを使う」を押したときだけです。音はこのページの中で数値に変えられるだけで、録音も送信もされません。</p>
             <CodePreview title={"音で脈打つ"} language="js" code={MIC_SKETCH} />
-            <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">マイクの音はスピーカーにつないでいません。つなぐと、スピーカーから出た音をマイクがまた拾い、音が回り続けてしまうからです。マイクが無い場合や許可しなかった場合は、ノイズで作った値のまま動き続けます。</p>
+            <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">マイクの音はスピーカーにつないでいません。つなぐと、スピーカーから出た音をマイクがまた拾い、音が回り続けてしまうからです。マイクが無い場合や許可しなかった場合は、ノイズで作った値のまま動き続けます。そのときは作った<code className={code}>AudioContext</code>を<code className={code}>close()</code>で閉じて<code className={code}>audio</code>を空に戻すので、許可を変えたあとに「マイクを使う」をもう一度押せます。</p>
             <InfoBox type="info" title={"p5.soundというアドオン"}>
               <p>p5.jsには、音を扱う公式アドオンの<a href="https://p5js.org/reference/p5.sound/" target="_blank" rel="noopener noreferrer" className="text-primary underline">p5.sound</a>があります。公式リファレンスは「Extend p5.js with Web Audio functionality including audio input, playback, analysis and synthesis.」と紹介しています。音のファイルの再生や、マイク・発振器・解析を短く書ける関数が用意されています。p5.soundもWeb Audioの上に作られているので、このページで覚えた部品のつなぎ方はそのまま役に立ちます。</p>
             </InfoBox>

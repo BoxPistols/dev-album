@@ -148,8 +148,9 @@ function draw() {
   let lx = cos(frameCount * 0.02) * 220;
   let ly = sin(frameCount * 0.03) * 120;
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-    lx = mouseX - width / 2;
-    ly = mouseY - height / 2;
+    // 目印はz = 140にあり、カメラ（z = 800）に近いぶん大きく写る。660 / 800を掛けて、マウスの真下に重ねる
+    lx = (mouseX - width / 2) * 660 / 800;
+    ly = (mouseY - height / 2) * 660 / 800;
   }
   pointLight(255, 170, 90, lx, ly, 140);
 
@@ -228,7 +229,7 @@ const CAMERA_SKETCH = `function setup() {
 function draw() {
   background(235, 45, 8);
 
-  // 視野の広さ（上下の角度）。数を大きくすると広角になり、遠近が強くなる
+  // 視野の広さ（上下の角度）。数を大きくすると広角になり、広い範囲が写る
   perspective(PI / 3, width / height, 10, 5000);
 
   // カメラを原点のまわりで回す。camera(カメラの位置, 見る点, 上の向き)
@@ -571,7 +572,7 @@ export default function WebglBasics() {
             />
             <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">
               <code className={code}>perspective()</code>
-              は遠近感の設定です。1つ目の引数は上下の視野角で、大きいほど広角レンズのように手前が大きく、奥が小さく写ります。
+              は遠近感の設定です。1つ目の引数は上下の視野角で、大きいほど広い範囲が写り（広角）、小さいほど狭い範囲が拡大されて写ります（望遠）。手前と奥の大きさの比はカメラから物までの距離で決まるので、視野角だけを変えても比は変わりません。
               何も指定しないときの値は、公式リファレンスに「By default, the
               camera is placed at (0, 0,
               800).」とあり、視野角はキャンバスの高さがちょうど収まるように決まります。
@@ -581,9 +582,9 @@ export default function WebglBasics() {
                 <li>
                   <code className={code}>PI / 3</code>を
                   <code className={code}>PI / 1.5</code>
-                  にする（広角になり、遠近が強調される）、
+                  にする（広角になり、格子が小さく写る）、
                   <code className={code}>PI / 10</code>
-                  にする（望遠になり、平たく見える）
+                  にする（望遠になり、格子の中央が拡大される）。手前と奥の球の大きさの比は、どちらでも変わらない
                 </li>
                 <li>
                   <code className={code}>cos(t) * 470</code>と

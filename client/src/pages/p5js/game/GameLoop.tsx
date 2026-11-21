@@ -111,7 +111,8 @@ function updateItems(dt) {
     if (dist(it.x, it.y, player.x, player.y) < it.r + player.r) {
       it.hit = true;
       if (it.kind === 'light') score += 10;
-      else if (!demo) life -= 1;
+      // 最後のライフを失ったあとは減らさない（同じフレームで岩が2つ当たっても0で止まる）
+      else if (!demo && life > 0) life -= 1;
     }
   }
   items = items.filter((it) => !it.hit && it.y < height + 30);
@@ -508,7 +509,8 @@ function draw() {
       if (dist(it.x, it.y, player.x, player.y) < it.r + player.r) {
         it.hit = true;
         if (it.kind === 'light') score += 10;
-        else life -= 1;
+        // 最後のライフを失ったあとは減らさない
+        else if (life > 0) life -= 1;
       }
     }
     items = items.filter((it) => !it.hit && it.y < height + 30);
@@ -928,8 +930,8 @@ function setup() {
 }
 
 function draw() {
-  // 経過時間を秒に直す
-  const dt = ___ / 1000;
+  // 経過時間を秒に直す。長く止まった直後に光がすり抜けないよう50ミリ秒を上限にする
+  const dt = min(___, 50) / 1000;
   background(232, 45, 10);
   if (mouseX !== pmouseX) player.x = mouseX;
 
@@ -969,8 +971,8 @@ function setup() {
 }
 
 function draw() {
-  // 経過時間を秒に直す
-  const dt = deltaTime / 1000;
+  // 経過時間を秒に直す。長く止まった直後に光がすり抜けないよう50ミリ秒を上限にする
+  const dt = min(deltaTime, 50) / 1000;
   background(232, 45, 10);
   if (mouseX !== pmouseX) player.x = mouseX;
 
@@ -999,7 +1001,7 @@ function draw() {
 }`}
               keywords={["deltaTime", "dist"]}
               hints={[
-                "前のフレームからの経過時間（ミリ秒）が入っている変数deltaTimeを書きます",
+                "前のフレームからの経過時間（ミリ秒）が入っている変数deltaTimeを書きます。minで50ミリ秒を上限にしてあります",
                 "2点の間の距離を返す関数distを書きます。引数は2つの中心の座標です",
               ]}
             />

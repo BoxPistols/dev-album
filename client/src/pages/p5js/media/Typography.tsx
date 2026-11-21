@@ -24,6 +24,8 @@ function setup() {
   }
   // ここに打った文字が、粒の集まる形になる
   field = createInput('ことば');
+  // 読み上げソフトに、何を打つ欄かを伝える
+  field.attribute('aria-label', '粒が集まる形にする文字');
   field.input(makeTargets);
   makeTargets();
 }
@@ -147,6 +149,7 @@ function setup() {
   textSize(54);
   textAlign(LEFT, CENTER);
   field = createInput('なみうつ文字・wave');
+  field.attribute('aria-label', '波打たせる文字');
 }
 
 function draw() {
@@ -156,8 +159,12 @@ function draw() {
   // 全体の幅を先に測り、中央に来るよう書き出しの位置を決める
   let x = (width - fontWidth(word)) / 2;
 
-  for (let i = 0; i < word.length; i++) {
-    let ch = word[i];
+  // 見た目の1文字ずつに分ける（𠮷や絵文字も1文字として扱う）
+  let chars = Array.from(new Intl.Segmenter().segment(word), function (s) {
+    return s.segment;
+  });
+  for (let i = 0; i < chars.length; i++) {
+    let ch = chars[i];
     // 文字ごとに、少しずつ遅れたsinで上下させる
     let y = height / 2 + sin(frameCount * 0.05 - i * 0.5) * 40;
     fill((190 + i * 14) % 360, 60, 100);
@@ -176,11 +183,15 @@ function setup() {
   textFont('serif');
   textAlign(CENTER, BASELINE);
   field = createInput('めぐる文字はどこまでもつづく・');
+  field.attribute('aria-label', '輪に並べる文字');
 }
 
 function draw() {
   background(28, 12, 95);
-  let word = field.value();
+  // 見た目の1文字ずつに分ける（𠮷や絵文字も1文字として扱う）
+  let chars = Array.from(new Intl.Segmenter().segment(field.value()), function (s) {
+    return s.segment;
+  });
   translate(width / 2, height / 2);
 
   // 半径の違う輪を3本、向きと速さを変えて回す
@@ -190,14 +201,14 @@ function draw() {
     textSize(30 - ring * 6);
     fill(250 + ring * 50, 60, 45);
 
-    for (let i = 0; i < word.length; i++) {
+    for (let i = 0; i < chars.length; i++) {
       // 1周を文字数で等分した角度に、時間で進む角度を足す
-      let angle = TWO_PI * i / word.length + frameCount * 0.006 * direction;
+      let angle = TWO_PI * i / chars.length + frameCount * 0.006 * direction;
       push();
       rotate(angle);
       // 回した先で上へ半径ぶん進み、そこに1文字置く
       translate(0, -radius);
-      text(word[i], 0, 0);
+      text(chars[i], 0, 0);
       pop();
     }
   }
@@ -243,6 +254,7 @@ function setup() {
   textStyle(BOLD);
   textAlign(LEFT, CENTER);
   field = createInput('うごく ');
+  field.attribute('aria-label', '流す文字');
 }
 
 function draw() {
@@ -289,6 +301,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100, 100);
   pg = createGraphics(600, 300);
   field = createInput('点・dots');
+  field.attribute('aria-label', '点にする文字');
   field.input(scan);
   scan();
 }
@@ -389,7 +402,8 @@ export default function Typography() {
             <h2 className="text-3xl font-bold text-foreground mb-6">
               fontWidth()で1文字ずつ置く
             </h2>
-            <p className="text-muted-foreground mb-4 leading-relaxed">文字列をまとめて描くと、全体が1つの塊として動きます。1文字ずつ別々に動かすには、for文で1文字ずつ<code className={code}>text()</code>を呼び、<code className={code}>fontWidth(文字)</code>で測った幅だけ右へ進みます。<code className={code}>word[i]</code>は、文字列のi番目の1文字です。入力欄の文字を打ち替えて試せます。</p>
+            <p className="text-muted-foreground mb-4 leading-relaxed">文字列をまとめて描くと、全体が1つの塊として動きます。1文字ずつ別々に動かすには、for文で1文字ずつ<code className={code}>text()</code>を呼び、<code className={code}>fontWidth(文字)</code>で測った幅だけ右へ進みます。入力欄の文字を打ち替えて試せます。</p>
+            <p className="text-muted-foreground mb-4 leading-relaxed">文字列を1文字ずつに分けるのに、<code className={code}>word[i]</code>と<code className={code}>word.length</code>は使っていません。この2つは文字列をUTF-16という単位で数えるので、「𠮷」や絵文字のように2単位で表す字が2つに割れます。<code className={code}>Intl.Segmenter</code>は、見た目の1文字ごとに分けます。</p>
             <CodePreview title={"波打つ文字"} language="js" code={WAVE_SKETCH} />
             <InfoBox type="warning" title={"textWidth()は、2.x系では字を並べる用途に向かない"}>
               <p>幅を測る関数は2つあります。<code className={code}>fontWidth()</code>は、字の左右の余白を含めた、次の字までの幅を返します。<code className={code}>textWidth()</code>は、2.x系では字の見えている部分だけの幅を返します。公式リファレンスは「In p5.js 2.0+, leading and trailing spaces are ignored.」と書いています。このマニュアルで使っているp5.js 2.4.0で測ると、空白1つの幅は<code className={code}>fontWidth()</code>では0より大きく、<code className={code}>textWidth()</code>では0でした。</p>
@@ -423,7 +437,7 @@ export default function Typography() {
             <InfoBox type="info" title={"数字を変えてみる"}>
               <ul className="list-disc pl-5 space-y-1">
                 <li>1行目の<code className={code}>ramp</code>を、自分で選んだ字の並びに替える（薄い字から濃い字の順に並べる）</li>
-                <li><code className={code}>x * 0.13</code>と<code className={code}>y * 0.13</code>を<code className={code}>0.04</code>にする（模様が大きくなる）</li>
+                <li><code className={code}>x * 0.13</code>と<code className={code}>y * 0.13</code>の<code className={code}>0.13</code>を、どちらも<code className={code}>0.04</code>にする（模様が大きくなる）</li>
                 <li><code className={code}>frameCount * 0.008</code>を<code className={code}>frameCount * 0.03</code>にする（模様の変化が速くなる）</li>
               </ul>
             </InfoBox>

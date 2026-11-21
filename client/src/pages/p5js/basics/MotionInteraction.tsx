@@ -761,8 +761,9 @@ function draw() {
               </li>
               <li>
                 mousePressed()の中身を
+                <code className={code}>blendMode(BLEND);</code>と
                 <code className={code}>background(245, 50, 6);</code>
-                だけにする。クリックで描き直す、軌跡の絵になる
+                の2行だけにする。クリックで描き直す、軌跡の絵になる。直前のdraw()が加算合成（ADD）のままなので、先にBLENDへ戻さないと背景で塗りつぶせません
               </li>
             </ul>
           </section>

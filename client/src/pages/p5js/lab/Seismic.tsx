@@ -34,6 +34,7 @@ const GROUND_Y = 250;
 let buildings = [];
 let slider;
 let phase = 0;
+let time = 0;    // 計算上の経過時間 (s)
 let record = []; // 地面の揺れの記録
 
 function setup() {
@@ -61,21 +62,23 @@ function draw() {
   let groundT = slider.value();
   let wg = TWO_PI / groundT;
   let dt = min(deltaTime / 1000, 0.05);
-  // 始めの3秒で、地面の揺れを0からだんだん大きくする
-  let ramp = min(1, millis() / 3000);
 
   // 1フレームを8回に分けて進める（半陰的オイラー法）
   for (let s = 0; s < 8; s++) {
     let h = dt / 8;
     phase += wg * h;
-    let ag = -AMP * ramp * wg * wg * sin(phase); // 地面の加速度
+    time += h;
+    // 地面の変位（AMP × r × sin(phase)）を時間で2回微分した加速度
+    // rは揺れ幅の係数で、始めの3秒で0から1へなめらかに増える。r1, r2はその1回・2回微分
+    let [r, r1, r2] = rampAt(time);
+    let ag = AMP * ((r2 - r * wg * wg) * sin(phase) + 2 * r1 * wg * cos(phase));
     for (let b of buildings) {
       let w = TWO_PI / b.period;
       b.v += (-2 * ZETA * w * b.v - w * w * b.x - ag) * h;
       b.x += b.v * h;
     }
   }
-  let ground = AMP * ramp * sin(phase);
+  let ground = AMP * rampAt(time)[0] * sin(phase);
   record.push(ground);
   if (record.length > 380) record.shift();
 
@@ -135,6 +138,13 @@ function draw() {
   fill(220, 10, 70);
   textSize(12);
   text('× は地面の揺れ幅に対する倍率', 420, 384);
+}
+
+// 揺れ幅の係数rと、その1回・2回微分。0〜3秒は3q² − 2q³（q = t ÷ 3）で、3秒以降は1
+function rampAt(t) {
+  if (t >= 3) return [1, 0, 0];
+  let q = t / 3;
+  return [q * q * (3 - 2 * q), (2 * q * (1 - q)), (2 - 4 * q) / 3];
 }`;
 
 const FREE_SKETCH = `let massSlider, stiffSlider;
@@ -369,7 +379,8 @@ function draw() {
     let h = dt / 10;
     phase += wg * h;
     let ag = -AMP * wg * wg * sin(phase);
-    // 先に全部の階の速度を進め、そのあと位置を進める
+    // 先に全部の階の加速度を、更新前の位置と速度から求める。そのあと速度、位置の順に進める
+    let acc = [];
     for (let i = 0; i < N; i++) {
       let below = i === 0 ? 0 : x[i - 1];
       let belowV = i === 0 ? 0 : v[i - 1];
@@ -377,8 +388,9 @@ function draw() {
       let a = -K * (x[i] - below) - C * (v[i] - belowV);
       // 上に階があれば、その反作用も受ける
       if (i < N - 1) a += K * (x[i + 1] - x[i]) + C * (v[i + 1] - v[i]);
-      v[i] += (a - ag) * h;
+      acc.push(a - ag);
     }
+    for (let i = 0; i < N; i++) v[i] += acc[i] * h;
     for (let i = 0; i < N; i++) x[i] += v[i] * h;
   }
   let ground = AMP * sin(phase);
@@ -466,6 +478,8 @@ function setup() {
 
 function advance(m, ag, h) {
   let n = m.x.length;
+  // 全部の階の加速度を、更新前の位置と速度から求めてから、速度と位置を進める
+  let acc = [];
   for (let i = 0; i < n; i++) {
     let below = i === 0 ? 0 : m.x[i - 1];
     let belowV = i === 0 ? 0 : m.v[i - 1];
@@ -473,8 +487,9 @@ function advance(m, ag, h) {
     if (i < n - 1) {
       a += m.ks[i + 1] * (m.x[i + 1] - m.x[i]) + m.cs[i + 1] * (m.v[i + 1] - m.v[i]);
     }
-    m.v[i] += (a - ag) * h;
+    acc.push(a - ag);
   }
+  for (let i = 0; i < n; i++) m.v[i] += acc[i] * h;
   for (let i = 0; i < n; i++) m.x[i] += m.v[i] * h;
 }
 
@@ -770,8 +785,9 @@ export default function Seismic() {
               に書かれています。
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              冒頭のスケッチのように「固有周期の違うおもりを同じ揺れで揺らし、それぞれの最大の揺れを並べたもの」を応答スペクトルと呼びます。
+              固有周期の違うおもりに同じ地震動の波形を与え、同じ計測期間の中の最大の揺れをそれぞれ記録して、固有周期の順に並べたグラフを応答スペクトルと呼びます。
               ある地震動がどの周期の建物を強く揺らすかを、1枚のグラフで読み取るための道具です。
+              冒頭のスケッチはその考え方を共振で比べる例で、応答スペクトルそのものではありません。倍率は直近の最大値をゆっくり忘れる表示なので、周期を変えた直後は変更前の揺れも混ざります。
             </p>
           </section>
 

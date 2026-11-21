@@ -41,9 +41,25 @@ function setup() {
     stars.push({ x: random(width), y: random(height), s: random(1, 2.4) });
   }
   // 前に遊んだときの最高点を読む
-  const saved = getItem('hikariuke-best');
-  if (typeof saved === 'number') best = saved;
+  best = loadBest();
   resetGame();
+}
+
+// 保存した最高点を読む。まだ無いとき、ブラウザが保存を拒否したときは0
+function loadBest() {
+  try {
+    const saved = getItem('hikariuke-best');
+    return typeof saved === 'number' ? saved : 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+// 最高点をブラウザに保存する。保存できなくても、メモリ上のbestで続ける
+function saveBest(value) {
+  try {
+    storeItem('hikariuke-best', value);
+  } catch (e) {}
 }
 
 function resetGame() {
@@ -71,11 +87,12 @@ function startGame() {
 function endGame() {
   state = 'over';
   overTimer = 0;
+  // 別のタブで記録が更新されているかもしれないので、保存された値とも比べる
+  best = max(best, loadBest());
   if (score > best) {
     best = score;
     newBest = true;
-    // 最高点をブラウザに保存する
-    storeItem('hikariuke-best', best);
+    saveBest(best);
   }
   beep(196, 0.5, 'triangle');
 }
@@ -85,8 +102,9 @@ function draw() {
   if (!paused) update(dt);
 
   push();
-  // 画面の揺れ: 揺れの量だけ全体をずらして描く
-  translate(random(-shake, shake), random(-shake, shake));
+  // 画面の揺れ: 揺れの量だけ全体をずらして描く。一時停止中は揺らさない
+  const s = paused ? 0 : shake;
+  translate(random(-s, s), random(-s, s));
   drawScene();
   pop();
   drawHud();
@@ -148,6 +166,8 @@ function update(dt) {
           beep(440 * pow(1.06, min(combo, 12)), 0.12, 'triangle');
         }
       } else if (it.y > height + 20 && state === 'play') {
+        // 取り逃がした光はここで消し、同じ光でコンボを何度も0にしない
+        it.gone = true;
         combo = 0;
       }
     } else if (touching && state === 'play' && safe <= 0) {
@@ -439,9 +459,18 @@ let best = 0;
 function setup() {
   createCanvas(600, 240);
   colorMode(HSB, 360, 100, 100, 100);
-  // 保存された値を読む。まだ無いときはnullが返る
-  const saved = getItem('click-best');
-  if (typeof saved === 'number') best = saved;
+  best = loadBest();
+}
+
+// 保存された値を読む。まだ無いときはnullが返るので0にする
+// ブラウザが保存を拒否する設定ではエラーになるので、そのときも0で続ける
+function loadBest() {
+  try {
+    const saved = getItem('click-best');
+    return typeof saved === 'number' ? saved : 0;
+  } catch (e) {
+    return 0;
+  }
 }
 
 function draw() {
@@ -461,16 +490,22 @@ function draw() {
 
 function mousePressed() {
   count += 1;
+  // 別のタブで記録が更新されているかもしれないので、保存された値とも比べる
+  best = max(best, loadBest());
   if (count > best) {
     best = count;
-    // 名前を付けてブラウザに保存する
-    storeItem('click-best', best);
+    try {
+      // 名前を付けてブラウザに保存する
+      storeItem('click-best', best);
+    } catch (e) {} // 保存できなくても、画面の記録で続ける
   }
 }
 
 function keyPressed() {
   if (key === 'r' || key === 'R') {
-    removeItem('click-best');
+    try {
+      removeItem('click-best');
+    } catch (e) {}
     best = 0;
     count = 0;
   }
@@ -930,6 +965,10 @@ export default function GamePolish() {
                 <code className={code}>typeof saved === 'number'</code>
                 で確かめてから使い、無ければ0から始めています。p5.js Web
                 Editorなどに貼ったときも、記録はそのサイトの側に別に保存されます。
+                ブラウザの設定でサイトの保存を禁止していると、getItem()やstoreItem()はエラーを投げます。読み書きを
+                <code className={code}>try {"{ … }"} catch</code>
+                で囲み、失敗しても0や画面上の記録で続けられるようにしています。
+                同じページを2つのタブで開くと、それぞれが起動時に読んだ値を持つので、書く前に保存された値と比べて、低い点で上書きしないようにしています。
               </p>
             </InfoBox>
           </section>

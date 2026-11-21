@@ -12,6 +12,7 @@ const code = "bg-muted px-1 py-0.5 rounded text-xs";
 // このページの完成形。小さく取り込んだ映像の1画素を、1つの光る点に置き換える
 const HERO_SKETCH = `let cam;           // カメラ（ボタンを押すまでは空）
 let ready = false; // 映像が届いたらtrue
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;          // 入力になる小さな絵（64x48）
 let sizes = [];    // 各マスの、いまの点の大きさ
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
@@ -21,7 +22,7 @@ function setup() {
   pixelDensity(1);
   view = createGraphics(64, 48);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -50,16 +51,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -104,6 +118,7 @@ function drawNote() {
 // そのままの映像と、左右反転した映像を並べる
 const MIRROR_SKETCH = `let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view; // カメラの代わりに使う絵
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 
@@ -112,7 +127,7 @@ function setup() {
   pixelDensity(1);
   view = createGraphics(320, 240);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -164,14 +179,25 @@ function drawStandIn() {
 }
 
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      cam = createCapture(VIDEO, function () {
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      cam.hide();
+    }).catch(function () {
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }`;
@@ -179,6 +205,7 @@ function startCamera() {
 // 明るさを四角の大きさに変える
 const BLOCKS_SKETCH = `let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 
@@ -188,7 +215,7 @@ function setup() {
   // 取り込む解像度。40x30なら、調べる画素は1200個で済む
   view = createGraphics(40, 30);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -218,16 +245,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -272,6 +312,7 @@ function drawNote() {
 // 明るさで文字を選ぶ
 const ASCII_SKETCH = `let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 // 暗い所に使う字から、明るい所に使う字へ
@@ -283,7 +324,7 @@ function setup() {
   view = createGraphics(64, 48);
   textFont('monospace');
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -315,16 +356,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -369,6 +423,7 @@ function drawNote() {
 // 前のフレームとの差から粒を出す
 const MOTION_SKETCH = `let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 let before = [];    // 前のフレームの各画素の明るさ
@@ -379,7 +434,7 @@ function setup() {
   pixelDensity(1);
   view = createGraphics(64, 48);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -430,16 +485,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -484,6 +552,7 @@ function drawNote() {
 // 中央の縦1列を横へ並べていく
 const SLIT_SKETCH = `let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 let scanX = 0; // いま描き込んでいる横位置
@@ -494,7 +563,7 @@ function setup() {
   view = createGraphics(160, 100);
   background(8, 10, 30);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -516,16 +585,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -592,7 +674,7 @@ export default function Camera() {
             <h2 className="text-3xl font-bold text-foreground mb-6">
               カメラを始めて、鏡のように映す
             </h2>
-            <p className="text-muted-foreground mb-4 leading-relaxed"><code className={code}>createCapture(VIDEO)</code>を呼ぶと、ブラウザがカメラを使ってよいかを利用者に尋ねます。ページを開いた途端に尋ねられると驚くので、このページでは<code className={code}>createButton()</code>で作ったボタンが押されたときに初めて呼びます。届いた映像は、画像と同じように<code className={code}>image()</code>で置けます。</p>
+            <p className="text-muted-foreground mb-4 leading-relaxed"><code className={code}>createCapture(VIDEO)</code>を呼ぶと、ブラウザがカメラを使ってよいかを利用者に尋ねます。ページを開いた途端に尋ねられると驚くので、このページでは<code className={code}>createButton()</code>で作ったボタンが押されたときに初めて呼びます。ボタンの処理は<code className={code}>mouseClicked()</code>で付けます。<code className={code}>mousePressed()</code>はマウスやタッチで押したときにしか呼ばれませんが、<code className={code}>mouseClicked()</code>はキーボードのEnterやSpaceで押したときにも呼ばれます。届いた映像は、画像と同じように<code className={code}>image()</code>で置けます。</p>
             <CodePreview title={"そのままと鏡像"} language="js" code={MIRROR_SKETCH} />
             <p className="text-muted-foreground mt-4 mb-4 leading-relaxed">右側は左右を反転しています。<code className={code}>translate(640, 0)</code>で原点を右端へ移し、<code className={code}>scale(-1, 1)</code>で横方向を逆向きにしてから描くと、右から左へ描かれます。自分を映すときは、鏡と同じ向きになる右側の方が、動いた方向と映像の方向が合います。</p>
             <div className="overflow-x-auto my-6">
@@ -607,6 +689,10 @@ export default function Camera() {
                   <tr className="border-t border-border">
                     <th scope="row" className="text-left p-3 font-mono font-normal">createCapture(VIDEO, 関数)</th>
                     <td className="p-3">カメラを始める。映像が届くと、渡した関数が呼ばれる</td>
+                  </tr>
+                  <tr className="border-t border-border">
+                    <th scope="row" className="text-left p-3 font-mono font-normal">getUserMedia({"{ video: true }"})</th>
+                    <td className="p-3">カメラの許可を確かめる。許可されなかったときは.catch()に渡した関数が呼ばれる</td>
                   </tr>
                   <tr className="border-t border-border">
                     <th scope="row" className="text-left p-3 font-mono font-normal">cam.hide()</th>
@@ -625,7 +711,8 @@ export default function Camera() {
             </div>
             <InfoBox type="warning" title={"カメラが使える条件と、使えないとき"}>
               <p>カメラを使うには、ページがHTTPSで配信されていること（または自分のパソコンのlocalhostで開いていること）と、利用者が許可することの両方が要ります。MDNは「This feature is available only in secure contexts (HTTPS)」「user permission is always required to access the user's audio and video inputs」と書いています。</p>
-              <p>許可されなかったとき、カメラが無いとき、HTTPSでないページで開いたときは、<code className={code}>createCapture()</code>は映像が届かないままになります。このページのスケッチは、映像が届くまで代わりの絵を使い続けるので、止まりません。<code className={code}>try</code>と<code className={code}>catch</code>は、<code className={code}>createCapture()</code>そのものがエラーになる環境に備えたもので、そのときは案内文を切り替えます。</p>
+              <p>許可されなかったときやカメラが無いときは、映像が届きません。p5.js 2.4.0の<code className={code}>createCapture()</code>は、このとき開発者ツールのコンソールにエラーを出すだけで、スケッチには知らせません。そこでこのページのスケッチは、先に<code className={code}>navigator.mediaDevices.getUserMedia()</code>で許可を確かめ、許可されたときだけ<code className={code}>createCapture()</code>を呼びます。許可されなかったときは<code className={code}>.catch()</code>に渡した関数が呼ばれるので、案内文を切り替え、ボタンをもう一度押せる状態に戻します。</p>
+              <p>映像が届くまでは代わりの絵を使い続けるので、スケッチは止まりません。<code className={code}>try</code>と<code className={code}>catch</code>の組は、<code className={code}>navigator.mediaDevices</code>そのものが無い環境（HTTPSでないページなど）に備えたものです。</p>
             </InfoBox>
           </section>
 
@@ -699,13 +786,14 @@ export default function Camera() {
               preview
               initialCode={`let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 
 function setup() {
   createCanvas(480, 360);
   view = createGraphics(480, 360);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -726,25 +814,37 @@ function draw() {
 }
 
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   try {
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      cam = createCapture(VIDEO, function () {
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
     });
-    cam.hide();
   } catch (e) {
     // カメラを使えない環境では、代わりの絵のまま続ける
+    asking = false;
   }
 }`}
               answer={`let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 
 function setup() {
   createCanvas(480, 360);
   view = createGraphics(480, 360);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -765,14 +865,25 @@ function draw() {
 }
 
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   try {
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      cam = createCapture(VIDEO, function () {
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
     });
-    cam.hide();
   } catch (e) {
     // カメラを使えない環境では、代わりの絵のまま続ける
+    asking = false;
   }
 }`}
               keywords={["width", "-1"]}
@@ -787,6 +898,7 @@ function startCamera() {
               preview
               initialCode={`let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 let before = []; // 前のフレームの各画素の明るさ
@@ -796,7 +908,7 @@ function setup() {
   pixelDensity(1);
   view = createGraphics(64, 48);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -827,16 +939,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }
@@ -879,6 +1004,7 @@ function drawNote() {
 }`}
               answer={`let cam;
 let ready = false;
+let asking = false; // 許可を尋ねている間と、許可されたあとはtrue
 let view;
 let note = '「カメラを使う」を押すと、自分の映像に替わります';
 let before = []; // 前のフレームの各画素の明るさ
@@ -888,7 +1014,7 @@ function setup() {
   pixelDensity(1);
   view = createGraphics(64, 48);
   let button = createButton('カメラを使う');
-  button.mousePressed(startCamera);
+  button.mouseClicked(startCamera);
 }
 
 function draw() {
@@ -919,16 +1045,29 @@ function draw() {
 
 // ボタンを押したときに、はじめてカメラの許可を求める
 function startCamera() {
-  if (cam) return;
+  if (asking) return;
+  asking = true;
   note = '映像を待っています。許可しないときは、この絵のまま試せます';
   try {
-    // 映像が届くと、2つ目の引数の関数が呼ばれる
-    cam = createCapture(VIDEO, function () {
-      ready = true;
+    // createCapture()は拒否されても知らせないので、先に許可を確かめる
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+      // 映像が届くと、2つ目の引数の関数が呼ばれる
+      cam = createCapture(VIDEO, function () {
+        // 確かめるために開いた映像は、もう要らないので止める
+        stream.getTracks().forEach(function (t) {
+          t.stop();
+        });
+        ready = true;
+      });
+      // 映像そのものは画面に出さず、素材としてだけ使う
+      cam.hide();
+    }).catch(function () {
+      // 許可されなかったときは、もう一度押せるように戻す
+      asking = false;
+      note = 'カメラを使えませんでした。許可を変えると、もう一度押せます';
     });
-    // 映像そのものは画面に出さず、素材としてだけ使う
-    cam.hide();
   } catch (e) {
+    asking = false;
     note = 'この環境ではカメラを使えません。この絵のまま試せます';
   }
 }

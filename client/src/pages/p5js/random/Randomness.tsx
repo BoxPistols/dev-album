@@ -191,6 +191,8 @@ function draw() {
 function drawBars(counts, bottom, hue) {
   // 一番多い所の高さが140になるように縮める
   let most = max(counts);
+  // まだ1本も入っていなければ描かない（0で割らない）
+  if (most === 0) return;
   noStroke();
   fill(hue, 65, 100);
   for (let i = 0; i < bins; i++) {
@@ -656,9 +658,10 @@ function draw() {
   fill(320, 70, 100, 40);
   circle(x, y, 6);
 }`}
-              keywords={["randomGaussian"]}
+              keywords={["randomGaussian(200", "randomGaussian(150"]}
               hints={[
-                "平均と標準偏差を渡すと、平均の近くが出やすい数を返す関数randomGaussianを使います",
+                "xは、平均と標準偏差を渡すと平均の近くが出やすい数を返す関数randomGaussianで、平均200の近くに集めます",
+                "yも同じrandomGaussianで、平均150の近くに集めます。片方だけでは縦か横の一方にしか集まりません",
               ]}
             />
           </section>

@@ -310,9 +310,8 @@ function keyPressed() {
 }`;
 
 const VIDEO_SKETCH = `// rキーで3秒間録画し、動画ファイルとして保存する
-let recorder = null;
 let chunks = [];
-let remain = 0;
+let endAt = 0; // 録画を止める時刻 (ms)
 let message = 'rキーで3秒間の録画を始める';
 
 function setup() {
@@ -329,38 +328,41 @@ function draw() {
     circle(240 + cos(a) * (40 + i * 4), 150 + sin(a * 1.3) * (20 + i * 2), 10);
   }
 
-  if (remain > 0) {
-    remain -= deltaTime / 1000;
-    if (remain <= 0 && recorder !== null) recorder.stop();
-  }
+  const remain = (endAt - millis()) / 1000;
   fill(0, 0, 100, 85);
   textSize(13);
   text(remain > 0 ? '録画中 のこり' + ceil(remain) + '秒' : message, 14, 24);
 }
 
 function keyPressed() {
-  if (key !== 'r' || remain > 0) return;
+  if (key !== 'r' || millis() < endAt) return;
   if (typeof MediaRecorder === 'undefined') {
     message = 'このブラウザでは録画できません';
     return;
   }
   // キャンバスの映像を流れ（ストリーム）として取り出し、録画する
   const stream = drawingContext.canvas.captureStream(60);
-  recorder = new MediaRecorder(stream);
+  const rec = new MediaRecorder(stream);
   chunks = [];
-  recorder.ondataavailable = function (e) {
+  rec.ondataavailable = function (e) {
     chunks.push(e.data);
   };
-  recorder.onstop = function () {
-    const blob = new Blob(chunks, { type: recorder.mimeType });
+  rec.onstop = function () {
+    // 録画の形式はブラウザが選ぶ（WebMやMP4）。受け取ったデータの形式に合わせて拡張子を付ける
+    const type = chunks.length > 0 && chunks[0].type ? chunks[0].type : rec.mimeType;
+    const blob = new Blob(chunks, { type: type });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'sketch.webm';
+    link.download = 'sketch.' + (type.indexOf('mp4') >= 0 ? 'mp4' : 'webm');
     link.click();
     message = '保存しました。rキーでもう一度';
   };
-  recorder.start();
-  remain = 3;
+  rec.start();
+  endAt = millis() + 3000;
+  // 止めるのはdraw()ではなくタイマーで行う。一時停止などでdraw()が止まっても、3秒で保存される
+  setTimeout(function () {
+    rec.stop();
+  }, 3000);
 }`;
 
 const SAVE_FRAMES_CODE = `function keyPressed() {
