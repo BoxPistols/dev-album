@@ -428,11 +428,20 @@ var __onMediaChange = function () {};
 // 「止める」を押した回数。押す前に始まった取得が後から届いたら、その入力もすぐ止める
 // （許可の確認とcreateCapture()で2回取得するスケッチでは、2回目が押したあとに届くことがある）
 var __mediaGeneration = 0;
+// 許可を待っている取得の数。待っているあいだも止めるボタンを出し、許可のあとで点かないようにする
+var __mediaPending = 0;
 if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
   var __getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
   navigator.mediaDevices.getUserMedia = function (constraints) {
     var generation = __mediaGeneration;
+    __mediaPending += 1;
+    __onMediaChange();
+    var settle = function () {
+      __mediaPending -= 1;
+      __onMediaChange();
+    };
     return __getUserMedia(constraints).then(function (stream) {
+      settle();
       if (generation !== __mediaGeneration) {
         stream.getTracks().forEach(function (track) { track.stop(); });
         return stream;
@@ -441,6 +450,9 @@ if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'fu
       stream.getTracks().forEach(function (track) { track.addEventListener('ended', function () { __onMediaChange(); }); });
       __onMediaChange();
       return stream;
+    }, function (error) {
+      settle();
+      throw error;
     });
   };
 }
@@ -546,14 +558,15 @@ ${safeCode}
       if (ev.key === 'Enter' || ev.key === ' ') ev.stopPropagation();
     });
   });
-  // カメラ・マイクを使っているあいだだけ、止めるボタンを出す
+  // カメラ・マイクを使っているあいだと、許可を待っているあいだだけ、止めるボタンを出す
   var mediaButton = document.getElementById('__media');
   __onMediaChange = function () {
     var live = __mediaStreams.some(function (stream) {
       return stream.getTracks().some(function (track) { return track.readyState === 'live'; });
     });
-    mediaButton.hidden = !live;
+    mediaButton.hidden = !live && __mediaPending === 0;
   };
+  __onMediaChange();
   mediaButton.addEventListener('click', function () {
     __mediaGeneration += 1;
     __mediaStreams.forEach(function (stream) {
