@@ -395,20 +395,40 @@ function toggleSweep() {
   message = '時間 →  縦: 周波数  色: 強さ';
 }
 
+// 'idle'（未使用） / 'asking'（許可待ち） / 'on'（使用中）。
+// 押すたびに入力を取り直すと、同じマイクが何本もつながる
+let micState = 'idle';
+let micTrack, micSource;
+
 function startMic() {
+  if (micState !== 'idle') return;
   if (!ready()) return;
   if (!navigator.mediaDevices) {
     message = 'マイクを使えない環境です。スイープ音で試せます';
     return;
   }
+  micState = 'asking';
+  message = 'マイクの許可を待っています';
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then((stream) => {
+      let track = stream.getAudioTracks()[0];
+      // 許可を待つあいだに「カメラ・マイクを止める」で止められていたら、つながない
+      if (!track || track.readyState === 'ended') {
+        micState = 'idle';
+        message = 'マイクは止まっています。もう一度押すと使えます';
+        return;
+      }
       // マイクの音はアナライザーにだけつなぐ（スピーカーには出さない）
-      audio.createMediaStreamSource(stream).connect(analyser);
+      let source = audio.createMediaStreamSource(stream);
+      source.connect(analyser);
+      micState = 'on';
       message = 'マイクの音を表示中。声を出したり手をたたいたりしてみる';
+      micTrack = track;
+      micSource = source;
     })
     .catch(() => {
+      micState = 'idle';
       message = 'マイクを使えませんでした。スイープ音で試せます';
     });
 }
@@ -422,6 +442,13 @@ function draw() {
   textSize(14);
   textAlign(LEFT, BASELINE);
   text(message, GX, GY + GH + 30);
+  // stop()では'ended'イベントが出ないので、毎フレーム状態を見る。
+  // 止められていたら切り離し、もう一度押せるようにする
+  if (micState === 'on' && micTrack.readyState === 'ended') {
+    micSource.disconnect();
+    micState = 'idle';
+    message = 'マイクを止めました。もう一度押すと使えます';
+  }
   if (!analyser) {
     noFill();
     stroke(220, 20, 30);
