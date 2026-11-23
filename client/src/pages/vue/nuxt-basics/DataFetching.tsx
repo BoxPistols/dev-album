@@ -493,7 +493,7 @@ const { data: user } = await useAsyncData(
                 },
                 {
                   title: "Nuxt 公式 - $fetch（ofetch）",
-                  url: "https://nuxt.com/docs/4.x/api/utils/dollarfetch",
+                  url: "https://nuxt.com/docs/4.x/api/utils/$fetch",
                   description:
                     "命令的な $fetch（内部は ofetch）の使い方と注意点",
                 },

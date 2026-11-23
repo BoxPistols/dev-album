@@ -379,7 +379,7 @@ prism proxy openapi.yaml http://localhost:3000
                 },
                 {
                   title: "OpenAPI Initiative",
-                  url: "https://www.openapis.org/",
+                  url: "https://openapis.org/",
                   description:
                     "OpenAPI 仕様の公式サイト。契約駆動開発の起点となる仕様の全体像を把握できる",
                 },

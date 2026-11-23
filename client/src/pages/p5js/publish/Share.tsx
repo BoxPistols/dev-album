@@ -1152,7 +1152,7 @@ function draw() {
                 },
                 {
                   title: "Creative Commons: About CC Licenses",
-                  url: "https://creativecommons.org/share-your-work/cclicenses/",
+                  url: "https://creativecommons.org/cc-licenses/",
                   description: "6種類のCCライセンスと、4つの要素の意味",
                 },
                 {

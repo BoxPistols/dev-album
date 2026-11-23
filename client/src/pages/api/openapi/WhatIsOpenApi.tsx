@@ -451,7 +451,7 @@ paths:
                 },
                 {
                   title: "OpenAPI Initiative",
-                  url: "https://www.openapis.org/",
+                  url: "https://openapis.org/",
                   description:
                     "仕様を策定する団体の公式サイト。バージョンの歴史と関連情報がまとまっている",
                 },

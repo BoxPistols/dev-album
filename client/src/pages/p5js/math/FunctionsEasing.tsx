@@ -806,7 +806,7 @@ function draw() {
                 },
                 {
                   title: "MDN: easing-function",
-                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function",
+                  url: "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/easing-function",
                   description:
                     "CSSのイージング関数の解説。ease-inやease-outの曲線の形を図で確認できる",
                 },
